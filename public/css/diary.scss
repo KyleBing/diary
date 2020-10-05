@@ -1,0 +1,16 @@
+@import "reset";
+@import "variables";
+@import "mixin";
+
+
+.body-normal{background-color: $bg-light;}
+.body-white{background-color: white;}
+
+//FRAME
+body{
+  position: relative;
+}
+.container{
+  padding: 45px 0;
+  width: 100%;
+}

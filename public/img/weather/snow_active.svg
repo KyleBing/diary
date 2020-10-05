@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>weather / snow_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="weather-/-snow_active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M7.5,22 C4.46243388,22 2,19.5375661 2,16.5 C2,13.4624339 4.46243388,11 7.5,11 L10.2230164,11 C11.1324748,6.9920226 14.7168252,4 19,4 C23.9705627,4 28,8.02943725 28,13 C28,17.7640555 24.298422,21.6635612 19.6144268,21.9793561" id="Shape" stroke="#007AFF" fill="#5AC8FA" stroke-linecap="round" stroke-linejoin="round"></path>
+        <g id="Group-4" transform="translate(10.000000, 19.500000)"></g>
+        <path d="M11.824992,19 L15.6910033,24.6880039 M15.6910033,19 L11.824992,24.6880039 M10,21.8440019 L17.295777,21.8440019" id="Combined-Shape" stroke="#007AFF" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+</svg>

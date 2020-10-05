@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>weather / rain_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="weather-/-rain_active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.73655233,21.4474401 C4.0603314,21.0758042 2,18.7785102 2,16 C2,12.9624339 4.46243388,10.5 7.5,10.5 L10.2230164,10.5 C11.1324748,6.4920226 14.7168252,3.5 19,3.5 C23.9705627,3.5 28,7.52943725 28,12.5 C28,16.2813188 25.6680467,19.5179806 22.3638125,20.8503131" id="Path" stroke="#007AFF" fill="#5AC8FA"></path>
+        <path d="M9.25,20.25 L9.25,22.75 M12.75,20.25 L12.75,22.75 M11.25,24.5 L11.25,27 M14.75,24.5 L14.75,27 M18.25,24.5 L18.25,27 M16.25,20.25 L16.25,22.75 M19.75,20.25 L19.75,22.75" id="Combined-Shape" stroke="#007AFF"></path>
+    </g>
+</svg>

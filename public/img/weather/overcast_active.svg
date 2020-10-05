@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>weather / overcast_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="weather-/-overcast_active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <path d="M7.5,24 C4.46243388,24 2,21.5375661 2,18.5 C2,15.5365209 4.34378001,13.1204609 7.27879286,13.0043672 L7.5,13 L10.2229972,13.0000846 C11.1324243,8.99206472 14.7167951,6 19,6 C23.9705627,6 28,10.0294373 28,15 C28,19.9705627 23.9705627,24 19,24 L19,24 L7.5,24 Z" id="cloundy" stroke="#007AFF" fill="#5AC8FA"></path>
+    </g>
+</svg>

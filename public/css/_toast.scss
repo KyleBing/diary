@@ -1,0 +1,194 @@
+$toast-width: 240px;
+$toast-border-color: $bg-menu;
+
+#toast{
+  z-index: $z-mask;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+}
+
+.mask{}
+
+.toast{
+  overflow: hidden;
+  z-index: $z-toast;
+  position: fixed;
+  border: 1px solid $toast-border-color;
+  background-color: $bg-navbar;
+  @include border-radius(8px);
+  width: $toast-width;
+  left: 50%;
+  margin-left: -$toast-width/2;
+  margin-top: -50px;
+  top: 50%;
+  color: $orange;
+  &-header{
+    color: white;
+    font-weight: bold;
+    font-size: $fz-big;
+    padding-top: 20px;
+    text-align: center;
+  }
+  &-body{
+    color: white;
+    font-size: $fz-list-content;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  &-footer{
+    border-top: 1px solid $toast-border-color;
+    display: flex;
+    flex-flow: row nowrap;
+    div{
+      @include unselectable();
+      cursor: pointer;
+      text-align: center;
+      padding: 10px;
+      flex-grow: 1;
+      display: block;
+      &:active{
+        background-color: $toast-border-color;
+      }
+    }
+    .btn-cancel{
+    }
+    .btn-confirm{
+      border-left: 1px solid $toast-border-color;
+    }
+  }
+}
+
+
+/**
+弹窗和 toast
+ */
+
+.popMessage{
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 0 8px;
+  text-align: center;
+  background-color: $bg-navbar;
+
+  h3{
+    line-height: 25px;
+    font-size: $fz-note;
+  }
+  &-default { h3{color: white;} }
+  &-warning { h3{color: $orange;} }
+  &-success { h3{color: $green;} }
+  &-danger  { h3{color: $red;} }
+
+}
+
+.animated{
+  animation-duration: .51s;
+}
+
+.animated-fast{
+  animation-duration: .31s;
+}
+
+
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+@-webkit-keyframes slideInUp {
+  from {
+    @include transform(translate3d(0, 100%, 0));
+    visibility: visible;
+  }
+  to {
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    @include transform(translate3d(0, 100%, 0));
+    visibility: visible;
+  }
+  to {
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+.slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+}
+
+
+@-webkit-keyframes slideOutUp {
+  from {
+    @include transform(translate3d(0, 0, 0));
+  }
+  to {
+    visibility: hidden;
+    @include transform(translate3d(0, -100%, 0));
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes slideOutUp {
+  from {
+    @include transform(translate3d(0, 0, 0));
+  }
+  to {
+    visibility: hidden;
+    @include transform(translate3d(0, -100%, 0));
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.slideOutUp {
+  -webkit-animation-name: slideOutUp;
+  animation-name: slideOutUp;
+}
+
+
+@-webkit-keyframes slideInDown {
+  from {
+    @include transform(translate3d(0, -100%, 0));
+    visibility: visible;
+  }
+  to {
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    @include transform(translate3d(0, -100%, 0));
+    visibility: visible;
+  }
+  to {
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+.slideInDown {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+}

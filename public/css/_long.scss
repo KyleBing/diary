@@ -1,0 +1,74 @@
+$fz-article: 13px;
+$fz-md-article: 14px;
+
+.article{
+  font-size: $fz-article;
+  background-color: white;
+
+  &-header{
+    color: $bg-navbar;
+    @include unselectable();
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 15px;
+    &:active{
+      transform: translateY(2px);
+    }
+    .week{
+      font-weight: bold;
+    }
+    .date{
+
+    }
+    .category{
+      font-weight: bold;
+    }
+  }
+  &-body{
+    color: $bg-navbar;
+
+    padding: 0 15px;
+    .title{
+      font-weight: bold;
+      line-height: 1.3;
+      padding: 10px 0;
+    }
+    .content {
+      padding-bottom: 12px;
+      color: $bg-navbar;
+      line-height: 1.5;
+      p {
+      }
+    }
+  }
+}
+
+//on pc
+@media (min-width: $grid-separate-width) {
+  .article{
+    font-size: $fz-md-article;
+    &-header{
+      padding: 8px 15px;
+    }
+    &-body{
+      padding: 0 15px;
+      .title{
+      }
+      .content{
+        padding-bottom: 15px;
+      }
+    }
+  }
+
+}
+
+@each $name, $color in $categories {
+  .category-bg-#{$name} {
+    border-top: 0.5px solid $color;
+    background-color: rgba($color, 0.06);
+  }
+  .text-#{$name} {
+    color: $color;
+  }
+}

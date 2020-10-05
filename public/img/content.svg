@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>content</title>
+    <desc>Created with Sketch.</desc>
+    <g id="content" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#C7C7CC" x="5.5" y="4.5" width="19" height="21" rx="3"></rect>
+        <path d="M10,10.6 L20.2320651,10.6 M10,15 L20.2320651,15 M10,19.4 L20.2320651,19.4" id="Combined-Shape" stroke="#C7C7CC" stroke-linecap="square"></path>
+        <path d="M11,11 L19,11" id="Line-2" stroke="#C7C7CC" stroke-linecap="square"></path>
+        <path d="M11,15 L19,15" id="Line-2-Copy" stroke="#C7C7CC" stroke-linecap="square"></path>
+        <path d="M11,19 L19,19" id="Line-2-Copy-2" stroke="#C7C7CC" stroke-linecap="square"></path>
+    </g>
+</svg>

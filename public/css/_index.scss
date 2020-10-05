@@ -1,0 +1,158 @@
+@each $name, $color in $categories {
+  .bg-#{$name}{
+    background-color: $color;
+  }
+}
+
+.list-content{
+  background-color: #fff;
+}
+
+.diary-list-group{
+  .list-header{
+    border-top: 1px solid $color-border;
+    border-bottom: 1px solid $color-border;
+    font-size: $fz-list-header;
+    font-weight: bold;
+    text-align: left;
+    padding: 0 20px;
+    color: black;
+    background-color: $bg-light;
+    height: $height-header;
+    line-height: $height-header;
+  }
+  .list-item{
+    display: block;
+    flex-flow: row nowrap;
+    height: $height-list;
+    &:last-child{
+      .detail{
+        border: 0;
+      }
+    }
+    &:hover{
+      background-color: $bg-list-active;
+    }
+    .category{
+      float: left;
+      width: $width-category-sign;
+      height: $height-list;
+      display: block;
+    }
+    .date{
+      float: left;
+      width: $width-index-date;
+      padding: 0 5px;
+      flex-shrink: 0;
+      text-align: center;
+      line-height: $height-list;
+      font-size: $fz-list-content;
+      font-weight: bold;
+      color: $color-text-date;
+    }
+    .detail{
+      position: relative;
+      display: flex;
+      padding-right: 8px;
+      margin-left: 35px;
+      .title{
+        flex-grow: 1;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: $height-list;
+        display: block;
+        font-size: $fz-list-content;
+        color: $color-text-title;
+      }
+      .icon{
+        flex-shrink: 0;
+        padding: 4px 0;
+        height: $height-list;
+        width: $height-list - 4 * 2;
+        display: block;
+      }
+      &::after{
+        bottom: 0;
+        left: 0;
+        content: '';
+        display: block;
+        width: 100%;
+        position: absolute;
+        border-bottom: 1px solid $bg-light;
+        transform-origin: 0 100%;
+        -webkit-transform: scaleY(0.5);
+        -moz-transform: scaleY(0.5);
+        -ms-transform: scaleY(0.5);
+        -o-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+      }
+    }
+
+  }
+}
+
+.load-more {
+  @include unselectable;
+  background-color: white;
+  border: 1px solid lighten($gray, 10%);
+  display: block;
+  line-height: 30px;
+  font-size: $fz-list-content;
+  text-align: center;
+  width: 40%;
+  margin: 20px auto 30px;
+  @include border-radius(5px);
+
+  &:active{
+    color: $bg-navbar;
+    border-color: $bg-navbar;
+  }
+}
+
+
+
+
+.end-of-diary{
+  @include box-shadow(1px 2px 4px rgba(0,0,0,0.12));
+  background-color: white;
+  @include border-radius(0 0 15px 15px);
+  text-align: center;
+  padding: 20px 0 10px;
+  img{
+    height: 45px;
+  }
+}
+
+.search-bar{
+  background-color: $bg-searchbar;
+  position: relative;
+  padding: 8px 10px;
+  input{
+    width: 100%;
+    line-height: 25px;
+    @include border-radius();
+    padding: 5px 10px;
+    display: block;
+    border: 1px solid $color-border;
+    font-size: 1em;
+    &:focus{
+      border-color: $orange;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    }
+  }
+  .clear{
+    color: $gray;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    display: block;
+  }
+}

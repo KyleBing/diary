@@ -1,0 +1,83 @@
+// Register
+.body-regist{
+  position: relative;
+  background-color: $bg-menu;
+  width: 100%;
+  height: 100%;
+  padding: 25px;
+  .logo{
+    padding: 30px 0;
+    img{
+      height: 150px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .input-group{
+    margin-bottom: 15px;
+    label{
+      display: block;
+      line-height: 200%;
+      font-size: $fz-note;
+      color: $bg-light;
+    }
+    input{
+      background-color: $bg-navbar;
+      width: 100%;
+      @include border-radius();
+      display: block;
+      line-height: 1.5;
+      padding: 8px 15px;
+      font-size: $fz-big;
+      color: white;
+      font-weight: bold;
+      transition: all .5s;
+      &:focus{
+        transition: all .5s;
+        @include box-shadow(0 0 0 2px $orange);
+      }
+    }
+  }
+  .btn{
+    padding: 8px 15px;
+    margin-top: 40px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+    font-size: $fz-big;
+    color: $bg-light;
+    @include border-radius();
+    &:active{
+      transform: translateY(2px);
+    }
+  }
+  .btn-active{
+    background-color: $orange;
+    &:hover{
+      background-color: darken($orange,5%);
+    }
+  }
+  .btn-inactive{
+    color: $gray;
+    border: 1px solid $gray;
+    background-color: transparent;
+  }
+  .footer{
+    padding: 20px 0 0;
+    a{
+      cursor: pointer;
+      font-size: $fz-note;
+      color: $bg-light;
+      &:hover,&:active,&:visited{
+        color: white;
+      }
+    }
+    .left{
+      float: left;
+    }
+    .right{
+      float: right;
+    }
+  }
+}

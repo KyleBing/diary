@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>weather / cloudy_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="weather-/-cloudy_active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval-Copy" stroke="#FF9500" fill="#FFCC00" cx="10" cy="13" r="9"></circle>
+        <path d="M9,26 C5.96243388,26 3.5,23.5375661 3.5,20.5 C3.5,17.5365209 5.84378001,15.1204609 8.77879286,15.0043672 L9,15 L11.7229972,15.0000846 C12.6324243,10.9920647 16.2167951,8 20.5,8 C25.4705627,8 29.5,12.0294373 29.5,17 C29.5,21.9705627 25.4705627,26 20.5,26 L20.5,26 L9,26 Z" id="Combined-Shape-Copy-2" stroke="#007AFF" fill="#5AC8FA" stroke-linejoin="round"></path>
+    </g>
+</svg>

@@ -1,0 +1,159 @@
+//NEW
+$height-input: 40px;
+textarea{
+  &:focus{
+    @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.2))
+  }
+}
+
+.diary-editor-title{
+  display: block;
+  width: 100%;
+  resize: none;
+  height: 100px;
+  padding: 15px;
+  font-size: 1.1rem;
+  border-bottom: 1px solid $bg-light;
+}
+
+.diary-editor-content{
+  font-family: "Consolas", "Monaco", sans-serif;
+  display: block;
+  width: 100%;
+  resize: vertical;
+  height: 220px;
+  padding: 15px;
+  font-size: 1rem;
+  border-bottom: 1px solid $bg-light;
+}
+.diary-input-group{
+  display: flex;
+  font-size: 18px;
+  padding: 0 10px;
+  background-color: #fff;
+  height: $height-input;
+  border-bottom: 1px solid $bg-light;
+  label{
+    @include unselectable();
+    width: 50%;
+    color: $color-text-label;
+    line-height: $height-input;
+  }
+  input{
+    width: 50%;
+    text-align: right;
+    background-color: transparent;
+    font-size: 18px;
+    padding: 6px;
+    line-height: $height-input - 6*2;
+  }
+  .temperature{
+    padding: 5px 10px;
+  }
+}
+
+.category-selector{
+  @include border-radius(10px);
+  margin: 8px;
+  $gaps: 4%;
+  $cols: 5;
+  padding: 15px 15px 5px;
+  background-color: white;
+  border-bottom: 1px solid $bg-light;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+
+  input[id^=category-] + label{
+    flex-shrink: 0;
+    @include unselectable;
+    display: block;
+    font-weight: bold;
+    width: (100 - ($cols - 1) * $gaps) / $cols;
+    margin-bottom: 10px;
+    margin-right: $gaps;
+    cursor: pointer;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    @include border-radius(5px);
+    text-align: center;
+
+    &:nth-child(#{$cols}n+0){
+      margin-right: 0;
+    }
+  }
+
+  @media screen and (min-width: $grid-separate-width){
+    flex-flow: row nowrap;
+    justify-content: space-around;
+
+    label{
+      flex-grow: 1;
+      flex-shrink: 1 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+  @each $name, $color in $categories {
+    #category-#{$name} + label{
+      color: $color;
+    }
+    #category-#{$name}:checked + label {
+      background-color: $color;
+      color: white;
+    }
+  }
+}
+
+
+.weather-selector{
+  @include border-radius(10px);
+  margin: 8px;
+  display: flex;
+  $gaps: 5%;
+  $cols: 6;
+  padding: 15px;
+  background-color: white;
+  border-bottom: 1px solid $bg-light;
+  input[id^=weather-] + label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    background: center center no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    height: 30px;
+    @include unselectable;
+    display: block;
+    font-weight: bold;
+    width: (100 - ($cols - 1) * $gaps) / $cols;
+    cursor: pointer;
+    img{
+      margin: 0 auto;
+      height: 30px;
+      display: block;
+    }
+    &:nth-child(#{$cols}n+0) {
+      margin-right: 0;
+    }
+  }
+
+  @mixin weather-item-template($color) {
+    background-color: $color;
+    color: white;
+  }
+
+  @each $name in $weathers {
+    #weather-#{$name} + label {
+      background-image: url(../img/weather/#{$name}.svg)
+    }
+    #weather-#{$name}:checked + label {
+      background-image: url(../img/weather/#{$name}_active.svg)
+    }
+  }
+}
+
+// 隐藏所有 Input
+input[id^=category-], input[id^=weather-]{
+  display: none;
+}

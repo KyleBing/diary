@@ -1,0 +1,162 @@
+// MENU
+$height-menu-list: 50px;
+
+.menu-panel{
+  z-index: 10;
+  overflow: auto;
+  position: fixed;
+  top: $height-navbar;
+  left: 0;
+  width: 100%;
+  background-color: $bg-menu;
+}
+
+.menu-list-group{
+  display: block;
+  list-style-type: none;
+  padding: 30px 30px;
+}
+
+.menu-list-group-item{
+  @include unselectable;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  font-size: 20px;
+  height: $height-menu-list;
+  line-height: $height-menu-list;
+  padding: 0 15px;
+  color: #ffffff;
+  &::after{
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    content: '';
+    display: block;
+    background-color: $gray;
+    height: 1px;
+    position: absolute;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
+  }
+  &:active{
+    background-color: lighten($bg-menu,10%);
+  }
+}
+
+.user-info{
+  text-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+  margin-top: 100px;
+  text-align: center;
+  .username{
+    font-size: 20px;
+    line-height: 30px;
+    display: block;
+    font-weight: bold;
+    color: rgba(255,255,255,0.8);
+  }
+  .email{
+    font-size: 16px;
+    line-height: 20px;
+    display: block;
+    color: rgba(255,255,255,0.5);
+  }
+}
+
+// REFERENCE
+
+$reference-list-item-height: 40px;
+
+.reference {
+  padding: 30px;
+  &:after {
+    @include clearfix;
+  }
+
+  .list-group-item {
+    display: block;
+    text-align: center;
+    float: left;
+    input[type=checkbox] + label {
+      @include unselectable;
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #ffffff;
+      line-height: $reference-list-item-height;
+      @include border-radius(5px);
+      border: 1px dashed $gray;
+
+    }
+    @each $name, $color in $categories {
+      input[type=checkbox]:checked + label {
+        &.reference-#{$name} {
+          background-color: $color;
+          border-color: $color;
+        }
+      }
+    }
+  }
+}
+
+$cols-md: 5;
+$gaps-md: 5%;
+
+$cols-sm: 2;
+$gaps-sm: 20%;
+
+// PC
+@media screen and (min-width: $grid-separate-width){
+  .list-group-item{
+    margin-right: 30px;
+    width: 120px;
+  }
+}
+
+// Phone
+@media screen and (max-width: $grid-separate-width){
+  .list-group-item{
+    margin-right: $gaps-sm;
+    width: (100% - $gaps-sm * ($cols-sm - 1))/$cols-sm;
+    &:nth-child(#{$cols-sm}n+0) {
+      margin-right: 0;
+    }
+  }
+  .toggle-btn{
+    width: 100%;
+  }
+}
+
+.about{
+  position: relative;
+  height: 100%;
+  text-align: center;
+  color: $bg-light;
+  padding-top: 60px;
+  .title{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    color: white;
+  }
+  .subtitle{
+    font-weight: normal;
+    color: $gray;
+  }
+  .author{
+    width: 100%;
+    position: absolute;
+    bottom: 60px;
+    a{
+      display: block;
+      line-height: 20px;
+      font-size: $fz-note;
+      height: 20px;
+      &:link,&:hover,&:active,&:visited{
+        color: $gray;
+      }
+    }
+  }
+}
+

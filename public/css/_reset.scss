@@ -1,0 +1,78 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+input,
+textarea {
+    -webkit-appearance: none !important;
+}
+
+code,
+kbd,
+pre,
+samp,
+tt {
+    font-family: "Courier New", Courier, monospace;
+}
+
+:focus,
+:active {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: none;
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+::-webkit-scrollbar {
+    z-index: 50;
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #eee;
+    transition: all .2s;
+}
+
+:hover::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    transition: all .2s;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+::-webkit-scrollbar-corner {
+    display: none;
+}

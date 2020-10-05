@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="45px" viewBox="0 0 55 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>web / EOF</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFC700" offset="0%"></stop>
+            <stop stop-color="#FF9500" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFC700" offset="0%"></stop>
+            <stop stop-color="#FF9500" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="web-/-EOF" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9.87208307,6.39705385 C16.8372254,4.8882937 22.5740586,5.64796254 27.0825827,8.67606038 L27.0825827,29.1871192 C21.3457495,26.3776915 15.6089163,25.6180227 9.87208307,26.9081126 C9.87208307,21.9168603 9.87208307,10.3066569 9.87208307,6.39705385 Z" id="Rectangle-19" fill="url(#linearGradient-1)"></path>
+        <path d="M27.9091937,8.62932294 C32.8143851,5.71434337 38.5512183,4.95467453 45.1196933,6.35031641 C45.1196933,10.1409018 45.1196933,21.7699786 45.1196933,26.8613752 C38.6110443,25.5843399 32.8742111,26.3440087 27.9091937,29.1403817 L27.9091937,8.62932294 Z" id="Rectangle-19-Copy" fill="url(#linearGradient-2)"></path>
+        <text id="End-of-Diary" font-family="SFUIDisplay-Light, SF UI Display" font-size="7" font-weight="300" letter-spacing="0.00875" fill="#FF9500">
+            <tspan x="10.1826074" y="39">End of Diary</tspan>
+        </text>
+    </g>
+</svg>

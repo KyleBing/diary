@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="45px" viewBox="0 0 55 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>web / logo_close</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFC700" offset="0%"></stop>
+            <stop stop-color="#FFA82D" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFC700" offset="0%"></stop>
+            <stop stop-color="#FFA82D" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="web-/-logo_close" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M28.0961176,33.8394349 C30.2085098,30.5447344 34.1764706,27.768609 40,25.5110588 L40,25.5110588 L40.0000613,10.6919376 C41.6464413,10.7554741 43.3529853,10.9749337 45.1196933,11.3503164 L45.1196933,31.8613752 L45.1196933,31.8613752 C38.6110443,30.5843399 32.8742111,31.3440087 27.9091937,34.1403817 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+        <path d="M26.9091937,12.6293229 C29.6363979,9.54310765 33.6666667,6.66666667 39,4 C39,7.7905854 39,19.4196622 39,24.5110588 C33,26.8370196 28.9697312,29.7134606 26.9091937,33.1403817 L26.9091937,12.6293229 Z" id="Rectangle-19-Copy" fill="url(#linearGradient-2)"></path>
+    </g>
+</svg>
