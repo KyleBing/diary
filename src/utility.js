@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+const BASE_URL='/api'
+
 let URL = {
-    userOperation:  'http://192.168.31.31/diary/portal/userOperation.php',
-    diaryOperation: 'http://192.168.31.31/diary/portal/diaryOperation.php'
+    userOperation:  BASE_URL + '/userOperation.php',
+    diaryOperation: BASE_URL + '/diaryOperation.php'
 };
 
 let FrontURL = {
