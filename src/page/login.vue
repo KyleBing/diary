@@ -31,7 +31,6 @@
 </template>
 
 <script>
-    import utility from "../utility";
 
     export default {
         name: "Login",
@@ -66,16 +65,12 @@
                     "type":"login"
                 };
 
-                utility.axios.post(utility.URL.userOperation,queryData)
+                this.$axios.post(this.$URL.userOperation, queryData)
                     .then(res => {
                         if(res.success){ // 登录成功
-                            setAuthorization(res.email, res.token, res.username, res.uid);
-                            $.cookie(COOKIE.category,JSON.stringify(categories), COOKIE.options);
-                            popMessage(PopMessageType.success, res.info, ()=>{
-                                location = FrontURL.index
-                            })
+
                         } else { // 登录失败
-                            popMessage(PopMessageType.warning, res.info);
+
                         }
                     })
             },

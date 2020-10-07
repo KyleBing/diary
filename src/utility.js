@@ -1,4 +1,3 @@
-import axios from 'axios'
 
 const BASE_URL='/api'
 
@@ -193,6 +192,5 @@ function getSearchData(){
 }
 
 export default {
-    axios,
     URL
 }
