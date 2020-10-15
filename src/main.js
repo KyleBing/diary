@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueCookie from 'vue-cookie'
+
 
 import routes from './router';
 import App from './App.vue'
-
-
 
 Vue.config.productionTip = false
 
@@ -15,12 +15,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   next()
-
 })
 
 import utility from "./utility";
 
 Vue.use(Router);
+Vue.use(VueCookie);
 
 new Vue({
   router,
@@ -40,5 +40,7 @@ axios.defaults.transformRequest = [(data, header) => {
 
 Vue.prototype.$axios = axios
 Vue.prototype.$URL = utility.URL
+Vue.prototype.$utility = utility
+Vue.prototype.$postData = utility.postData
 
 

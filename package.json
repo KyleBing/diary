@@ -12,7 +12,9 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-router": "^3.4.5",
-    "qs": "^6.9.4"
+    "qs": "^6.9.4",
+    "vue-cookie": "^1.1.4",
+    "jquery": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",
