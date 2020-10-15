@@ -57,29 +57,25 @@
                "pageCount": this.PAGE_AMOUNT,
                "pageNo": this.pageNo,
                "type": "list",
-               // "category": menu.categories
+               "category": utility.CATEGORIES_ALL
             };
             this.getDiaries(queryData)
          },
          getDiaries(queryData) {
-            utility.postData(URL.diaryOperation, queryData).then(res => {
-               this.isLoading = false;
-               // 刷新 cookie 过期时间
-               utility.setAuthorization(
-                  utility.getAuthorization().email,
-                  utility.getAuthorization().token,
-                  utility.getAuthorization().username,
-                  utility.getAuthorization().uid);
-               this.$cookie.set(utility.COOKIE_NAME.category, this.$cookie.set(utility.COOKIE_NAME.category), utility.COOKIE_NAME.options);
+            utility.getData(utility.URL.diaryOperation, queryData)
+               .then(res => {
+                  // 刷新 cookie 过期时间
+                  utility.setAuthorization(utility.getAuthorization().email, utility.getAuthorization().token, utility.getAuthorization().username, utility.getAuthorization().uid);
+                  this.$cookie.set(utility.COOKIE_NAME.category, this.$cookie.set(utility.COOKIE_NAME.category), utility.COOKIE_NAME.options);
 
-               this.diaries = this.diaries.concat(res.data);
-               // 在后面判断获取的数据，小于1或小于每页的数量时，隐藏加载更多按钮
-               this.haveMore = !(res.data.length < this.PAGE_AMOUNT);
-               if (!this.haveMore) {
-                  window.onscroll = null; // 日记全部加载完毕后，去掉 scroll 事件
-               }
-               this.pageNo++;
-            })
+                  this.diaries = this.diaries.concat(res.data);
+                  // 在后面判断获取的数据，小于1或小于每页的数量时，隐藏加载更多按钮
+                  this.haveMore = !(res.data.length < this.PAGE_AMOUNT);
+                  if (!this.haveMore) {
+                     window.onscroll = null; // 日记全部加载完毕后，去掉 scroll 事件
+                  }
+                  this.pageNo++;
+               })
          },
          addScrollEvent() {
             window.onscroll = () => {

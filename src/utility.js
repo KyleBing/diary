@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import axios from 'axios'
 import VueCookie from 'vue-cookie'
+import qs from 'qs'
+import Vue from 'vue'
 
 const BASE_URL = '/api'
 
@@ -31,22 +33,15 @@ function setAuthorization(email, token, username, uid) {
 
 // 获取cookie
 function getAuthorization() {
-   let email = VueCookie.set(COOKIE_NAME.email);
-   let token = VueCookie.set(COOKIE_NAME.token);
-   let username = VueCookie.set(COOKIE_NAME.username);
-   let uid = VueCookie.set(COOKIE_NAME.uid);
-   if (email === undefined || token === undefined) {
-      if (location.pathname.indexOf('login.html') < 0) {
-         location = FrontURL.login;
-      }
-      return false;
-   } else {
-      return {
-         email: email,
-         token: token,
-         username: username,
-         uid: uid
-      }
+   let email = VueCookie.get(COOKIE_NAME.email);
+   let token = VueCookie.get(COOKIE_NAME.token);
+   let username = VueCookie.get(COOKIE_NAME.username);
+   let uid = VueCookie.get(COOKIE_NAME.uid);
+   return {
+      email: email,
+      token: token,
+      username: username,
+      uid: uid
    }
 }
 
@@ -95,12 +90,31 @@ function popMessage(type, title, callback = () => {
 
 function postData(url, queryData) {
    return new Promise(function (resolve, reject) {
-      axios.post(url, queryData)
+      axios.post(url, qs.stringify(queryData))
          .then(res => {
             if (res.data.success) {
                resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, res.data.info )
+               popMessage(POP_MSG_TYPE.danger, res.data.info );
+               if (!res.logined){
+               }
+            }
+         }).catch(() => {
+         reject()
+      })
+   })
+}
+
+function getData(url, queryData) {
+   return new Promise(function (resolve, reject) {
+      axios.get(url, {params: queryData})
+         .then(res => {
+            if (res.data.success) {
+               resolve(res.data)
+            } else {
+               popMessage(POP_MSG_TYPE.danger, res.data.info );
+               if (!res.logined){
+               }
             }
          }).catch(() => {
          reject()
@@ -157,5 +171,5 @@ function getSearchData() {
 
 export default {
    URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,
-   setAuthorization, popMessage, postData
+   getAuthorization, setAuthorization, popMessage, postData, getData
 }
