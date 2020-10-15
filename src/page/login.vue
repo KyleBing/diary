@@ -33,6 +33,7 @@
 
 <script>
 
+   import utility from "../utility";
 
    export default {
       name: "Login",
@@ -61,16 +62,16 @@
       },
       methods: {
          loginSubmit() {
-            this.$postData(this.$URL.userOperation,
+            utility.postData(utility.URL.userOperation,
                {
                   "email": this.email,
                   "password": this.password,
                   "type": "login"
                })
                .then(res => {
-                  this.$utility.setAuthorization(res.email, res.token, res.username, res.uid);
-                  this.$cookie.set(this.$utility.COOKIE.category, JSON.stringify(this.$utility.CATEGORIES_ALL), this.$utility.COOKIE.options);
-                  this.$utility.popMessage(this.$utility.POP_MSG_TYPE.success, res.info, () => {
+                  utility.setAuthorization(res.email, res.token, res.username, res.uid);
+                  this.$cookie.set(utility.COOKIE_NAME.category, JSON.stringify(utility.CATEGORIES_ALL), utility.COOKIE_NAME.options);
+                  utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                      this.$router.push('/')
                   })
                })

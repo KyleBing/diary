@@ -53,10 +53,10 @@ function getAuthorization() {
 
 // 删除cookie
 function deleteAuthorization() {
-   $.removeCookie(COOKIE_NAME.email, {path: '/'});
-   $.removeCookie(COOKIE_NAME.token, {path: '/'});
-   $.removeCookie(COOKIE_NAME.username, {path: '/'});
-   $.removeCookie(COOKIE_NAME.uid, {path: '/'});
+   VueCookie.remove(COOKIE_NAME.email, {path: '/'});
+   VueCookie.remove(COOKIE_NAME.token, {path: '/'});
+   VueCookie.remove(COOKIE_NAME.username, {path: '/'});
+   VueCookie.remove(COOKIE_NAME.uid, {path: '/'});
 }
 
 const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
@@ -156,6 +156,6 @@ function getSearchData() {
 }
 
 export default {
-   URL,COOKIE: COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,
+   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,
    setAuthorization, popMessage, postData
 }

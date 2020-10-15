@@ -39,10 +39,6 @@ axios.defaults.transformRequest = [(data, header) => {
   return qs.stringify(data);
 }]
 
-Vue.prototype.$axios = axios
-Vue.prototype.$URL = utility.URL
-Vue.prototype.$utility = utility
-Vue.prototype.$postData = utility.postData
 
 
 
