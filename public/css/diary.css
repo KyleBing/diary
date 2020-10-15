@@ -1100,7 +1100,7 @@ input[id^=category-], input[id^=weather-] {
 /**
 弹窗和 toast
  */
-.popMessage {
+.pop-msg {
   z-index: 1000;
   position: fixed;
   top: 0;
@@ -1110,20 +1110,20 @@ input[id^=category-], input[id^=weather-] {
   text-align: center;
   background-color: #373737;
 }
-.popMessage h3 {
+.pop-msg h3 {
   line-height: 25px;
   font-size: 14px;
 }
-.popMessage-default h3 {
+.pop-msg-default h3 {
   color: white;
 }
-.popMessage-warning h3 {
+.pop-msg-warning h3 {
   color: #FF9500;
 }
-.popMessage-success h3 {
+.pop-msg-success h3 {
   color: #4CD964;
 }
-.popMessage-danger h3 {
+.pop-msg-danger h3 {
   color: #FF3B30;
 }
 

@@ -22,6 +22,7 @@ import utility from "./utility";
 Vue.use(Router);
 Vue.use(VueCookie);
 
+
 new Vue({
   router,
   render: h => h(App),
@@ -42,5 +43,8 @@ Vue.prototype.$axios = axios
 Vue.prototype.$URL = utility.URL
 Vue.prototype.$utility = utility
 Vue.prototype.$postData = utility.postData
+
+
+
 
 

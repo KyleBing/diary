@@ -33,6 +33,7 @@
 
 <script>
 
+
    export default {
       name: "Login",
       data() {
@@ -48,18 +49,22 @@
          this.heightBg = window.innerHeight
       },
       computed: {
-         emailVerified: function () {
+         emailVerified() {
             return /(\w|\d)+@(\w|\d)+\.\w+/i.test(this.email)
          },
-         passwordVerified: function () {
+         passwordVerified() {
             return this.password.length > 0
          },
-         verified: function () {
+         verified() {
             return this.emailVerified && this.passwordVerified
          }
       },
       methods: {
-         loginSubmit: function () {
+         showMsgBox(){
+
+         },
+
+         loginSubmit() {
             this.$postData(this.$URL.userOperation,
                {
                   "email": this.email,
@@ -67,21 +72,20 @@
                   "type": "login"
                })
                .then(res => {
-                  console.log(res);
                   this.$utility.setAuthorization(res.email, res.token, res.username, res.uid);
-                  this.$cookie.set(this.$utility.COOKIE.category, JSON.stringify(this.$utility.categories), this.$utility.COOKIE.options);
+                  this.$cookie.set(this.$utility.COOKIE.category, JSON.stringify(this.$utility.CATEGORIES_ALL), this.$utility.COOKIE.options);
                   this.$utility.popMessage(this.$utility.POP_MSG_TYPE.success, res.info, () => {
                      this.$router.push('/')
                   })
                })
          },
-         useTestAccount: function () {
+         useTestAccount() {
             this.email = "test@163.com";
             this.password = "test";
          }
       },
       watch: {
-         email: function () {
+         email() {
             if (this.emailVerified) {
                this.labelEmail = "邮箱"
             } else {

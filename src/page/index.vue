@@ -1,0 +1,457 @@
+<template>
+   <div class="body-normal">
+
+      <nav class="navbar clearfix" id="navbar">
+         <div class="navbar-btn-group left">
+            <img v-show="btnMenu" @click="showMenu" src="img/tabicon/menu.svg" alt="菜单">
+            <img v-show="btnClose" @click="closeMenu" src="img/tabicon/close.svg" alt="关闭">
+         </div>
+         <div class="navbar-btn-group right">
+            <img v-show="btnAdd" @click="addClicked" src="img/tabicon/add.svg" alt="添加">
+            <img v-show="btnConfirm" @click="confirmClicked" src="img/tabicon/done.svg" alt="添加">
+         </div>
+         <div class="brand">
+            <a href="long.html"><img src="img/logo.svg" alt="日记"></a>
+         </div>
+      </nav>
+
+      <!--MENU-->
+      <div class="menu-panel" id="menu-panel" v-show="menuPanelShowed" style="display: none;">
+         <div class="menu-list-group" v-show="menuListShowed">
+            <a class="menu-list-group-item" @click="showSearchBar">搜索</a>
+            <a class="menu-list-group-item" @click="referenceClicked">类别</a>
+            <a class="menu-list-group-item" @click="aboutClicked">关于</a>
+            <a class="menu-list-group-item" href="change_password.html">修改密码</a>
+            <a class="menu-list-group-item" @click="logout">退出</a>
+            <div class="user-info">
+               <span class="username">{{userInfo.username}}</span>
+               <span class="email">{{userInfo.email}}</span>
+            </div>
+         </div>
+
+         <!--reference-->
+         <ul class="reference" v-show="referenceShowed" style="display: none;">
+
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-game" value="game"><label class="reference-game" for="category-game">游戏</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-study" value="study"><label class="reference-study" for="category-study">学习</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-work" value="work"><label class="reference-work" for="category-work">工作</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-sport" value="sport"><label class="reference-sport" for="category-sport">运动</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-week" value="week"><label class="reference-week" for="category-week">周报</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-life" value="life"><label class="reference-life" for="category-life">生活</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-film" value="film"><label class="reference-film" for="category-film">电影</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-bigevent" value="bigevent"><label class="reference-bigevent" for="category-bigevent">大事</label>
+            </li>
+            <li class="list-group-item">
+               <input v-model="categories" class="hidden" type="checkbox" id="category-article" value="article"><label class="reference-article" for="category-article">文章</label>
+            </li>
+
+            <li class="list-group-item toggle-btn">
+               <input :checked="showSelectAllBtn" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all"><label for="category-all" class="reference-all">{{ showSelectAllBtn? '全选': '全不选' }}</label>
+            </li>
+            <li class="list-group-item toggle-btn">
+               <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse"><label for="category-reverse" class="reference-all">反选</label>
+            </li>
+
+         </ul>
+
+
+         <!--about-->
+         <div class="about" v-show="aboutShowed" style="display: none;">
+            <h3 class="title">标题日记</h3>
+            <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
+            <div class="author">
+               <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
+               <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
+               <a href="mailto:kylebing@163.com">kylebing@163.com</a>
+               <a href="https://github.com/KyleBing/diary">version 5.9.2</a>
+            </div>
+         </div>
+         <!--search-->
+
+      </div>
+
+
+      <div class="container" id="diaryApp">
+         <div class="search-bar" v-show="searchBarShow">
+            <form @submit.prevent="searchConfirmed">
+               <input id="keyword" type="text" placeholder="搜索内容" v-model="keyword">
+               <span v-show="keyword.length > 0" @click="freshLoad" class="clear">✕</span>
+            </form>
+         </div>
+         <div class="diary-list-group">
+         </div>
+
+         <!--加载动画-->
+         <div v-show="isLoading" class="loading">
+            <div class="loading-1 loading-item"></div>
+            <div class="loading-2 loading-item"></div>
+            <div class="loading-3 loading-item"></div>
+         </div>
+
+         <div v-show="!isLoading&&!haveMore" class="end-of-diary">
+            <p><img src="img/EOF.svg" alt="EOF"></p>
+         </div>
+      </div>
+
+
+   </div>
+</template>
+
+<script>
+   export default {
+      data() {
+         return {}
+      },
+      created() {
+      },
+      methods: {},
+   }
+</script>
+
+<script>
+
+   let pageNo = 1;
+   let PAGE_AMOUNT = 50;
+
+   window.onload = () => {
+      // 滚动监听
+      addScrollEvent();
+   };
+
+   function addScrollEvent() {
+      window.onscroll = () => {
+         if (diaryApp.haveMore && needLoadContent()) {
+            diaryApp.loadMore();
+         }
+      };
+   }
+
+   // 判断是否加载内容
+   function needLoadContent() {
+      let lastOffsetTop = document.querySelector('.list-content:last-child .list-item:last-child').offsetTop;
+      let clientHeight = window.innerHeight;
+      let scrollTop = document.scrollingElement.scrollTop;
+      // console.clear();
+      // console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
+      return (lastOffsetTop < clientHeight + scrollTop);
+   }
+
+   function getDiaries(queryData) {
+      if (getAuthorization()) {
+         $.ajax({
+            data: queryData,
+            url: URL.diaryOperation,
+            dataType: 'json',
+            method: "GET",
+            success: onSuccess,
+            error: (xhr) => {
+               console.log(xhr);
+            }
+         });
+
+         function onSuccess(data) {
+            diaryApp.isLoading = false;
+            if (data.success) { // 成功获取数据
+               // 刷新 cookie 过期时间
+               setAuthorization(getAuthorization().email, getAuthorization().token, getAuthorization().username, getAuthorization().uid);
+               $.cookie(COOKIE.category, $.cookie(COOKIE.category), COOKIE.options);
+
+               diaryApp.diaries = diaryApp.diaries.concat(data.data);
+               // 在后面判断获取的数据，小于1或小于每页的数量时，隐藏加载更多按钮
+               diaryApp.haveMore = !(data.data.length < PAGE_AMOUNT);
+               if (!diaryApp.haveMore) {
+                  window.onscroll = null; // 日记全部加载完毕后，去掉 scroll 事件
+               }
+               pageNo++;
+            } else if (!data.logined) { // 未登录
+               popMessage(PopMessageType.warning, data.info, () => {
+                  location = FrontURL.login;
+               })
+            } else { // 其它情况
+               popMessage(PopMessageType.danger, data.info);
+               diaryApp.haveMore = true
+            }
+         }
+      }
+   }
+
+
+   // Diary
+   let diaryApp = new Vue({
+      el: "#diaryApp",
+      data: {
+         searchBarShow: false,
+         haveMore: true,
+         isLoading: true,
+         diaries: [],
+         keyword: '',
+      },
+      mounted: function () {
+         // init
+         this.keyword = $.cookie(COOKIE.keyword) ? $.cookie(COOKIE.keyword) : '';
+         this.loadMore();
+      },
+      watch: {
+         diaries: function () {
+            diaries = this.diaries;
+            if (diaries.length > 0) {
+               let lastItem = diaries[0];
+               let html = `<h3 onclick="toggleMonthContent(this)" class="list-header">${lastItem.date.substring(0, 7)}</h3>
+                                <div class="list-content">` + currentItemHtml(lastItem, Number(lastItem.date.slice(8, 10)));
+               if (diaries.length > 1) {
+                  for (let i = 1; i < diaries.length; i++) {
+                     let currentDiary = diaries[i];
+                     let lastItemMonth = lastItem.date.substring(0, 7);
+                     let lastItemDay = Number(lastItem.date.substring(8, 10));
+                     let currentItemMonth = currentDiary.date.substring(0, 7);
+                     let currentItemDay = Number(currentDiary.date.substring(8, 10));
+                     let template = '';
+
+                     if (lastItemMonth === currentItemMonth) {
+                        let date = (lastItemDay === currentItemDay) ? '' : currentItemDay;
+                        template = currentItemHtml(currentDiary, date);
+                     } else {
+                        template = `</div>
+                                        <h3 onclick="toggleMonthContent(this)" class="list-header">${currentDiary.date.substring(0, 7)}</h3>
+                                        <div class="list-content">` + currentItemHtml(currentDiary, currentItemDay);
+                     }
+                     html += template;
+                     lastItem = diaries[i];
+                  }
+               }
+               html += `</div>`;
+               document.querySelector('.diary-list-group').innerHTML = html;
+            } else {
+               document.querySelector('.diary-list-group').innerHTML = ''
+            }
+         }
+      },
+      methods: {
+         loadMore: function () {
+            this.searchBarShow = !!this.keyword;
+            this.haveMore = false;
+            this.isLoading = true;
+            let queryData = {
+               "keyword": this.keyword,
+               "pageCount": PAGE_AMOUNT,
+               "pageNo": pageNo,
+               "type": "list",
+               "category": menu.categories
+            };
+            getDiaries(queryData)
+         },
+         freshLoad: function () {
+            pageNo = 1;
+            diaryApp.diaries = [];
+            this.keyword = '';
+            $.cookie(COOKIE.keyword, this.keyword, COOKIE.options);
+            this.loadMore();
+         },
+         searchConfirmed: function () {
+            window.onscroll = null; // 去掉现有scroll
+            addScrollEvent();       // 添加 scroll 事件
+            // 初始化一些值
+            pageNo = 1;
+            diaryApp.diaries = [];
+            this.loadMore();
+            // 存储关键字
+            $.cookie(COOKIE.keyword, this.keyword, COOKIE.options)
+         },
+
+      }
+   });
+
+   // 列表模板
+   function currentItemHtml(item, date) {
+      let hascontentHtml = '';
+      let weatherHtml = item.weather ? `<img class="icon" src="img/weather/${item.weather}.svg" alt="${item.weather}">` : '';
+      let href = '';
+
+      if (item.content) {
+         hascontentHtml = `<img class="icon" src="img/content.svg" alt="hascontent">`;
+         href = `detail.html?diaryId=${item.id}`
+      } else {
+         hascontentHtml = '';
+         href = `detail.html?diaryId=${item.id}`
+      }
+
+      return `<a href="${href}" class="list-item">
+                    <i class="category bg-${item.category}"></i>
+                    <span class="date">${date}</span>
+                    <div class="detail">
+                        <p class="title">${item.title}</p>
+                        ${hascontentHtml}
+                        ${weatherHtml}
+                    </div>
+                </a>`;
+   }
+
+   // logo 点击切换图标
+   function toggleLogo(logo) {
+      const LOGO = {
+         open: 'img/logo.svg',
+         close: 'img/logo_close.svg'
+      };
+      let img = $(logo).children('img');
+      let currentSrc = img.attr('src');
+      if (currentSrc === LOGO.open) {
+         img.attr('src', LOGO.close);
+         $('.list-content').slideUp()
+      } else {
+         img.attr('src', LOGO.open);
+         $('.list-content').slideDown()
+      }
+   }
+
+   function toggleMonthContent(header) {
+      $(header).next().slideToggle();
+   }
+
+
+   // Navbar
+   let navbar = new Vue({
+      el: "#navbar",
+      data: {
+         btnClose: false,
+         btnMenu: true,
+         btnAdd: true,
+         btnConfirm: false
+      },
+      methods: {
+
+         showMenu: function () {
+            this.btnClose = true;
+            this.btnMenu = false;
+            // this.btnAdd = false;
+            menu.menuPanelShowed = true;
+         },
+         closeMenu: function () {
+            if (menu.secondMenuShowed) {
+               if (menu.referenceShowed) {  // 去掉这个条件恢复正常模式，现在是从 reference 直接进 index 列表
+                  menu.menuListShowed = true;
+                  menu.secondMenuShowed = false;
+                  menu.referenceShowed = false;
+                  this.btnClose = false;
+                  this.btnMenu = true;
+                  this.btnAdd = true;
+                  menu.menuPanelShowed = false;
+               }
+               menu.menuListShowed = true;
+               menu.secondMenuShowed = false;
+            } else {
+               this.btnClose = false;
+               this.btnMenu = true;
+               this.btnAdd = true;
+               menu.menuPanelShowed = false;
+            }
+
+         },
+         addClicked: function () {
+            location = FrontURL.edit;
+         },
+         confirmClicked: function () {
+         }
+      }
+   });
+
+   // MenuPanel
+   let menu = new Vue({
+      el: "#menu-panel",
+      data: {
+         menuPanelShowed: false,      // menu panel
+         secondMenuShowed: false,      // second menu
+         menuListShowed: true,       // menu list
+         referenceShowed: false,      // reference
+         aboutShowed: false,      // about
+         userInfo: getAuthorization(),
+         categories: []
+      },
+      watch: {
+         secondMenuShowed: function () { // false all second panel when secondMenuShowed is false.
+            if (!this.secondMenuShowed) {
+               this.referenceShowed = false;
+               this.aboutShowed = false;
+            }
+         },
+         menuPanelShowed: function () {
+            if (this.menuPanelShowed) {
+               navbar.btnAdd = false;
+            }
+         },
+         referenceShowed: function () {
+            // console.log(this.categories);
+            $.cookie(COOKIE.category, JSON.stringify(this.categories), COOKIE.options);
+            diaryApp.freshLoad(); // 关闭 reference 页面的时候初始化载入内容
+         }
+
+      },
+      methods: {
+         toggleCategorySelect: function () {
+            if (this.categories.length) {
+               this.categories = [];
+            } else {
+               this.categories = AllCategories
+            }
+         },
+         reverseCategorySelect: function () {
+            let tempCategories = [].concat(AllCategories);
+            this.categories.forEach(item => {
+               tempCategories.splice(tempCategories.indexOf(item), 1)
+            });
+            this.categories = tempCategories;
+         },
+         referenceClicked: function () {
+            this.menuListShowed = false;
+            this.menuPanelShowed = true;
+            this.secondMenuShowed = true;
+            this.referenceShowed = true;
+         },
+         aboutClicked: function () {
+            this.menuListShowed = false;
+            this.menuPanelShowed = true;
+            this.secondMenuShowed = true;
+            this.aboutShowed = true;
+         },
+         showSearchBar: function () {
+            diaryApp.searchBarShow = true;
+            navbar.closeMenu();
+            document.scrollingElement.scrollTo(0, 0); // 定位到最上方
+            $('#keyword').focus();
+         },
+         logout: function () {
+            deleteAuthorization();
+            $.removeCookie(COOKIE.category, {path: '/'});
+            location = FrontURL.login;
+         },
+         refreshContent: function () {
+            diaryApp.freshLoad();
+         }
+      },
+      computed: {
+         // 全选按钮随类别数组变化而变化
+         showSelectAllBtn: function () {
+            return !this.categories.length
+         }
+      },
+      created: function () {
+         this.categories = JSON.parse($.cookie(COOKIE.category));
+      }
+   });
+
+
+</script>

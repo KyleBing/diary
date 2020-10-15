@@ -10,8 +10,6 @@ let URL = {
    diaryOperation: BASE_URL + '/diaryOperation.php'
 };
 
-
-const CATEGORIES = ['life', 'study', 'work', 'sport', 'game', 'film', 'bigevent', 'other'];
 const COOKIE_NAME = {
    email: 'diaryEmail',
    token: 'diaryToken',
@@ -61,7 +59,7 @@ function deleteAuthorization() {
    $.removeCookie(COOKIE_NAME.uid, {path: '/'});
 }
 
-const AllCategories = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
+const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
 
 const POP_MSG_TYPE = {
    success: "success",
@@ -158,6 +156,6 @@ function getSearchData() {
 }
 
 export default {
-   URL,COOKIE: COOKIE_NAME,POP_MSG_TYPE,
+   URL,COOKIE: COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,
    setAuthorization, popMessage, postData
 }
