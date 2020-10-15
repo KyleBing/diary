@@ -71,18 +71,18 @@ const POP_MSG_TYPE = {
 // Prompt 提示
 function popMessage(type, title, callback = () => {
 }, timeout = 1.5) {
-   var popClass = 'popMessage-' + type;
-   let template = ` <div class="popMessage animated-fast slideInDown ${popClass}">
+   let popClass = 'pop-msg-' + type;
+   let template = ` <div class="pop-msg animated-fast slideInDown ${popClass}">
                         <h3>${title}</h3>
                     </div>`;
    $('body').append(template);
 
    setTimeout(() => {
-      $('.popMessage')
+      $('.pop-msg')
          .removeClass('slideInDown')
          .addClass('slideOutUp');
       setTimeout(() => {
-         $('.popMessage')
+         $('.pop-msg')
             .hide()
             .remove();
       }, 300); // 对应 css 中的动画时间
@@ -100,7 +100,7 @@ function postData(url, queryData) {
             if (res.data.success) {
                resolve(res.data)
             } else {
-               console.log(res.data.info);
+               popMessage(POP_MSG_TYPE.danger, res.data.info )
             }
          }).catch(() => {
          reject()

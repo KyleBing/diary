@@ -1,19 +1,7 @@
 <template>
    <div class="body-normal">
 
-      <nav class="navbar clearfix" id="navbar">
-         <div class="navbar-btn-group left">
-            <img v-show="btnMenu" @click="showMenu" src="img/tabicon/menu.svg" alt="菜单">
-            <img v-show="btnClose" @click="closeMenu" src="img/tabicon/close.svg" alt="关闭">
-         </div>
-         <div class="navbar-btn-group right">
-            <img v-show="btnAdd" @click="addClicked" src="img/tabicon/add.svg" alt="添加">
-            <img v-show="btnConfirm" @click="confirmClicked" src="img/tabicon/done.svg" alt="添加">
-         </div>
-         <div class="brand">
-            <a href="long.html"><img src="img/logo.svg" alt="日记"></a>
-         </div>
-      </nav>
+
 
       <!--MENU-->
       <div class="menu-panel" id="menu-panel" v-show="menuPanelShowed" style="display: none;">
@@ -115,15 +103,91 @@
 <script>
    export default {
       data() {
-         return {}
+         return {
+            searchBarShow: false,
+            haveMore: true,
+            isLoading: true,
+            diaries: [],
+            keyword: '',
+         }
+      },
+      mounted() {
+         // init
+         this.keyword = $.cookie(COOKIE.keyword) ? $.cookie(COOKIE.keyword) : '';
+         this.loadMore();
       },
       created() {
       },
-      methods: {},
-   }
-</script>
+      methods: {
+         loadMore: function () {
+            this.searchBarShow = !!this.keyword;
+            this.haveMore = false;
+            this.isLoading = true;
+            let queryData = {
+               "keyword": this.keyword,
+               "pageCount": PAGE_AMOUNT,
+               "pageNo": pageNo,
+               "type": "list",
+               "category": menu.categories
+            };
+            getDiaries(queryData)
+         },
+         freshLoad: function () {
+            pageNo = 1;
+            diaryApp.diaries = [];
+            this.keyword = '';
+            $.cookie(COOKIE.keyword, this.keyword, COOKIE.options);
+            this.loadMore();
+         },
+         searchConfirmed: function () {
+            window.onscroll = null; // 去掉现有scroll
+            addScrollEvent();       // 添加 scroll 事件
+            // 初始化一些值
+            pageNo = 1;
+            diaryApp.diaries = [];
+            this.loadMore();
+            // 存储关键字
+            $.cookie(COOKIE.keyword, this.keyword, COOKIE.options)
+         },
+      },
+      watch: {
+         diaries: function () {
+            diaries = this.diaries;
+            if (diaries.length > 0) {
+               let lastItem = diaries[0];
+               let html = `<h3 onclick="toggleMonthContent(this)" class="list-header">${lastItem.date.substring(0, 7)}</h3>
+                                <div class="list-content">` + currentItemHtml(lastItem, Number(lastItem.date.slice(8, 10)));
+               if (diaries.length > 1) {
+                  for (let i = 1; i < diaries.length; i++) {
+                     let currentDiary = diaries[i];
+                     let lastItemMonth = lastItem.date.substring(0, 7);
+                     let lastItemDay = Number(lastItem.date.substring(8, 10));
+                     let currentItemMonth = currentDiary.date.substring(0, 7);
+                     let currentItemDay = Number(currentDiary.date.substring(8, 10));
+                     let template = '';
 
-<script>
+                     if (lastItemMonth === currentItemMonth) {
+                        let date = (lastItemDay === currentItemDay) ? '' : currentItemDay;
+                        template = currentItemHtml(currentDiary, date);
+                     } else {
+                        template = `</div>
+                                        <h3 onclick="toggleMonthContent(this)" class="list-header">${currentDiary.date.substring(0, 7)}</h3>
+                                        <div class="list-content">` + currentItemHtml(currentDiary, currentItemDay);
+                     }
+                     html += template;
+                     lastItem = diaries[i];
+                  }
+               }
+               html += `</div>`;
+               document.querySelector('.diary-list-group').innerHTML = html;
+            } else {
+               document.querySelector('.diary-list-group').innerHTML = ''
+            }
+         }
+
+      }
+   }
+
 
    let pageNo = 1;
    let PAGE_AMOUNT = 50;
@@ -190,92 +254,6 @@
       }
    }
 
-
-   // Diary
-   let diaryApp = new Vue({
-      el: "#diaryApp",
-      data: {
-         searchBarShow: false,
-         haveMore: true,
-         isLoading: true,
-         diaries: [],
-         keyword: '',
-      },
-      mounted: function () {
-         // init
-         this.keyword = $.cookie(COOKIE.keyword) ? $.cookie(COOKIE.keyword) : '';
-         this.loadMore();
-      },
-      watch: {
-         diaries: function () {
-            diaries = this.diaries;
-            if (diaries.length > 0) {
-               let lastItem = diaries[0];
-               let html = `<h3 onclick="toggleMonthContent(this)" class="list-header">${lastItem.date.substring(0, 7)}</h3>
-                                <div class="list-content">` + currentItemHtml(lastItem, Number(lastItem.date.slice(8, 10)));
-               if (diaries.length > 1) {
-                  for (let i = 1; i < diaries.length; i++) {
-                     let currentDiary = diaries[i];
-                     let lastItemMonth = lastItem.date.substring(0, 7);
-                     let lastItemDay = Number(lastItem.date.substring(8, 10));
-                     let currentItemMonth = currentDiary.date.substring(0, 7);
-                     let currentItemDay = Number(currentDiary.date.substring(8, 10));
-                     let template = '';
-
-                     if (lastItemMonth === currentItemMonth) {
-                        let date = (lastItemDay === currentItemDay) ? '' : currentItemDay;
-                        template = currentItemHtml(currentDiary, date);
-                     } else {
-                        template = `</div>
-                                        <h3 onclick="toggleMonthContent(this)" class="list-header">${currentDiary.date.substring(0, 7)}</h3>
-                                        <div class="list-content">` + currentItemHtml(currentDiary, currentItemDay);
-                     }
-                     html += template;
-                     lastItem = diaries[i];
-                  }
-               }
-               html += `</div>`;
-               document.querySelector('.diary-list-group').innerHTML = html;
-            } else {
-               document.querySelector('.diary-list-group').innerHTML = ''
-            }
-         }
-      },
-      methods: {
-         loadMore: function () {
-            this.searchBarShow = !!this.keyword;
-            this.haveMore = false;
-            this.isLoading = true;
-            let queryData = {
-               "keyword": this.keyword,
-               "pageCount": PAGE_AMOUNT,
-               "pageNo": pageNo,
-               "type": "list",
-               "category": menu.categories
-            };
-            getDiaries(queryData)
-         },
-         freshLoad: function () {
-            pageNo = 1;
-            diaryApp.diaries = [];
-            this.keyword = '';
-            $.cookie(COOKIE.keyword, this.keyword, COOKIE.options);
-            this.loadMore();
-         },
-         searchConfirmed: function () {
-            window.onscroll = null; // 去掉现有scroll
-            addScrollEvent();       // 添加 scroll 事件
-            // 初始化一些值
-            pageNo = 1;
-            diaryApp.diaries = [];
-            this.loadMore();
-            // 存储关键字
-            $.cookie(COOKIE.keyword, this.keyword, COOKIE.options)
-         },
-
-      }
-   });
-
    // 列表模板
    function currentItemHtml(item, date) {
       let hascontentHtml = '';
@@ -323,135 +301,93 @@
    }
 
 
-   // Navbar
-   let navbar = new Vue({
-      el: "#navbar",
-      data: {
-         btnClose: false,
-         btnMenu: true,
-         btnAdd: true,
-         btnConfirm: false
-      },
-      methods: {
 
-         showMenu: function () {
-            this.btnClose = true;
-            this.btnMenu = false;
-            // this.btnAdd = false;
-            menu.menuPanelShowed = true;
+   /*
+
+      // MenuPanel
+      let menu = new Vue({
+         el: "#menu-panel",
+         data: {
+            menuPanelShowed: false,      // menu panel
+            secondMenuShowed: false,      // second menu
+            menuListShowed: true,       // menu list
+            referenceShowed: false,      // reference
+            aboutShowed: false,      // about
+            userInfo: getAuthorization(),
+            categories: []
          },
-         closeMenu: function () {
-            if (menu.secondMenuShowed) {
-               if (menu.referenceShowed) {  // 去掉这个条件恢复正常模式，现在是从 reference 直接进 index 列表
-                  menu.menuListShowed = true;
-                  menu.secondMenuShowed = false;
-                  menu.referenceShowed = false;
-                  this.btnClose = false;
-                  this.btnMenu = true;
-                  this.btnAdd = true;
-                  menu.menuPanelShowed = false;
+         watch: {
+            secondMenuShowed: function () { // false all second panel when secondMenuShowed is false.
+               if (!this.secondMenuShowed) {
+                  this.referenceShowed = false;
+                  this.aboutShowed = false;
                }
-               menu.menuListShowed = true;
-               menu.secondMenuShowed = false;
-            } else {
-               this.btnClose = false;
-               this.btnMenu = true;
-               this.btnAdd = true;
-               menu.menuPanelShowed = false;
+            },
+            menuPanelShowed: function () {
+               if (this.menuPanelShowed) {
+                  navbar.btnAdd = false;
+               }
+            },
+            referenceShowed: function () {
+               // console.log(this.categories);
+               $.cookie(COOKIE.category, JSON.stringify(this.categories), COOKIE.options);
+               diaryApp.freshLoad(); // 关闭 reference 页面的时候初始化载入内容
             }
 
          },
-         addClicked: function () {
-            location = FrontURL.edit;
-         },
-         confirmClicked: function () {
-         }
-      }
-   });
-
-   // MenuPanel
-   let menu = new Vue({
-      el: "#menu-panel",
-      data: {
-         menuPanelShowed: false,      // menu panel
-         secondMenuShowed: false,      // second menu
-         menuListShowed: true,       // menu list
-         referenceShowed: false,      // reference
-         aboutShowed: false,      // about
-         userInfo: getAuthorization(),
-         categories: []
-      },
-      watch: {
-         secondMenuShowed: function () { // false all second panel when secondMenuShowed is false.
-            if (!this.secondMenuShowed) {
-               this.referenceShowed = false;
-               this.aboutShowed = false;
+         methods: {
+            toggleCategorySelect: function () {
+               if (this.categories.length) {
+                  this.categories = [];
+               } else {
+                  this.categories = AllCategories
+               }
+            },
+            reverseCategorySelect: function () {
+               let tempCategories = [].concat(AllCategories);
+               this.categories.forEach(item => {
+                  tempCategories.splice(tempCategories.indexOf(item), 1)
+               });
+               this.categories = tempCategories;
+            },
+            referenceClicked: function () {
+               this.menuListShowed = false;
+               this.menuPanelShowed = true;
+               this.secondMenuShowed = true;
+               this.referenceShowed = true;
+            },
+            aboutClicked: function () {
+               this.menuListShowed = false;
+               this.menuPanelShowed = true;
+               this.secondMenuShowed = true;
+               this.aboutShowed = true;
+            },
+            showSearchBar: function () {
+               diaryApp.searchBarShow = true;
+               navbar.closeMenu();
+               document.scrollingElement.scrollTo(0, 0); // 定位到最上方
+               $('#keyword').focus();
+            },
+            logout: function () {
+               deleteAuthorization();
+               $.removeCookie(COOKIE.category, {path: '/'});
+               location = FrontURL.login;
+            },
+            refreshContent: function () {
+               diaryApp.freshLoad();
             }
          },
-         menuPanelShowed: function () {
-            if (this.menuPanelShowed) {
-               navbar.btnAdd = false;
+         computed: {
+            // 全选按钮随类别数组变化而变化
+            showSelectAllBtn: function () {
+               return !this.categories.length
             }
          },
-         referenceShowed: function () {
-            // console.log(this.categories);
-            $.cookie(COOKIE.category, JSON.stringify(this.categories), COOKIE.options);
-            diaryApp.freshLoad(); // 关闭 reference 页面的时候初始化载入内容
+         created: function () {
+            this.categories = JSON.parse($.cookie(COOKIE.category));
          }
-
-      },
-      methods: {
-         toggleCategorySelect: function () {
-            if (this.categories.length) {
-               this.categories = [];
-            } else {
-               this.categories = AllCategories
-            }
-         },
-         reverseCategorySelect: function () {
-            let tempCategories = [].concat(AllCategories);
-            this.categories.forEach(item => {
-               tempCategories.splice(tempCategories.indexOf(item), 1)
-            });
-            this.categories = tempCategories;
-         },
-         referenceClicked: function () {
-            this.menuListShowed = false;
-            this.menuPanelShowed = true;
-            this.secondMenuShowed = true;
-            this.referenceShowed = true;
-         },
-         aboutClicked: function () {
-            this.menuListShowed = false;
-            this.menuPanelShowed = true;
-            this.secondMenuShowed = true;
-            this.aboutShowed = true;
-         },
-         showSearchBar: function () {
-            diaryApp.searchBarShow = true;
-            navbar.closeMenu();
-            document.scrollingElement.scrollTo(0, 0); // 定位到最上方
-            $('#keyword').focus();
-         },
-         logout: function () {
-            deleteAuthorization();
-            $.removeCookie(COOKIE.category, {path: '/'});
-            location = FrontURL.login;
-         },
-         refreshContent: function () {
-            diaryApp.freshLoad();
-         }
-      },
-      computed: {
-         // 全选按钮随类别数组变化而变化
-         showSelectAllBtn: function () {
-            return !this.categories.length
-         }
-      },
-      created: function () {
-         this.categories = JSON.parse($.cookie(COOKIE.category));
-      }
-   });
+      });
+   */
 
 
 </script>

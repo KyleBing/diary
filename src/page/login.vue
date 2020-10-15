@@ -60,10 +60,6 @@
          }
       },
       methods: {
-         showMsgBox(){
-
-         },
-
          loginSubmit() {
             this.$postData(this.$URL.userOperation,
                {
