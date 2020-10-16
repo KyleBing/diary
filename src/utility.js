@@ -2,6 +2,7 @@ import $ from 'jquery'
 import axios from 'axios'
 import VueCookie from 'vue-cookie'
 import qs from 'qs'
+import Vue from 'vue'
 
 const BASE_URL = '/api'
 
@@ -78,6 +79,8 @@ function popMessage(type, title, callback = () => {
 }
 
 
+// request network
+
 function postData(url, queryData) {
    return new Promise(function (resolve, reject) {
       axios.post(url, qs.stringify(queryData))
@@ -86,8 +89,7 @@ function postData(url, queryData) {
                resolve(res.data)
             } else {
                popMessage(POP_MSG_TYPE.danger, res.data.info );
-               if (!res.logined){
-               }
+               if (!res.logined){}
             }
          }).catch(() => {
          reject()
@@ -103,8 +105,7 @@ function getData(url, queryData) {
                resolve(res.data)
             } else {
                popMessage(POP_MSG_TYPE.danger, res.data.info );
-               if (!res.logined){
-               }
+               if (!res.logined){}
             }
          }).catch(() => {
          reject()
@@ -115,6 +116,17 @@ function getData(url, queryData) {
 
 // CONST
 const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
+const CATEGORIES_ALL_NAME = [
+   {name: '生活', nameEn: 'life'},
+   {name: '学习', nameEn: 'study'},
+   {name: '工作', nameEn: 'work'},
+   {name: '运动', nameEn: 'sport'},
+   {name: '游戏', nameEn: 'game'},
+   {name: '电影', nameEn: 'film'},
+   {name: '大事', nameEn: 'bigevent'},
+   {name: '周报', nameEn: 'week'},
+   {name: '文章', nameEn: 'article'}
+];
 const POP_MSG_TYPE = {
    success: "success",
    warning: "warning",
@@ -177,6 +189,6 @@ function formateDate(dateString) {
 }
 
 export default {
-   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, WEEKDAY, WEATHER,
+   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, CATEGORIES_ALL_NAME, WEEKDAY, WEATHER,
    getAuthorization, setAuthorization, popMessage, postData, getData, formateDate, dateFormatter, deleteAuthorization
 }

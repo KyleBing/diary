@@ -1,16 +1,14 @@
 <template>
    <nav class="navbar clearfix" id="navbar">
       <div class="navbar-btn-group left">
-         <img v-show="btnMenu" @click="showMenu" src="img/tabicon/menu.svg" alt="菜单">
-         <img v-show="btnClose" @click="closeMenu" src="img/tabicon/close.svg" alt="关闭">
+         <img v-show= "btns.includes('menu')"  alt= "菜单" @click= "btnMenu"  src= "img/tabicon/menu.svg" >
+         <img v-show= "btns.includes('close')" alt= "关闭" @click= "btnClose" src= "img/tabicon/close.svg" >
       </div>
       <div class="navbar-btn-group right">
-         <img v-show="btnAdd" @click="addClicked" src="img/tabicon/add.svg" alt="添加">
-         <img v-show="btnConfirm" @click="confirmClicked" src="img/tabicon/done.svg" alt="添加">
-         <img @click="deleteClicked" src="img/tabicon/delete.svg" alt="删除">
-<!--         <img @click="editBtnClicked" v-show="confirmBtnShow" src="img/tabicon/edit.svg" alt="编辑">-->
-<!--         <img @click="createDiary" v-show="createNewBtnShow" src="img/tabicon/add.svg" alt="新建">-->
-<!--         <img @click="saveDiary" v-show="saveBtnShow" src="img/tabicon/done.svg" alt="保存">-->
+         <img v-show= "btns.includes('add')"    alt= "添加" @click= "btnAdd"    src= "img/tabicon/add.svg" >
+         <img v-show= "btns.includes('delete')" alt= "删除" @click= "btnDelete" src= "img/tabicon/delete.svg" >
+         <img v-show= "btns.includes('edit')"   alt= "编辑" @click= "btnEdit"   src= "img/tabicon/edit.svg" >
+         <img v-show= "btns.includes('save')"   alt= "保存" @click= "btnSave"   src= "img/tabicon/done.svg" >
       </div>
       <div class="brand">
          <a href="long.html"><img src="img/logo.svg" alt="日记"></a>
@@ -24,30 +22,29 @@
       name: 'nav-bar',
       data() {
          return {
-            btnClose: false,
-            btnMenu: true,
-            btnAdd: true,
-            btnConfirm: false
+            btns: ['menu','add'],
          }
       },
       methods: {
-         showMenu: function () {
+         showMenu() {
             this.btnClose = true;
             this.btnMenu = false;
             // this.btnAdd = false;
             // menu.menuPanelShowed = true;
          },
-
          goBack() {
             history.back(); // 返回主列表
          },
-         editBtnClicked() {
+         btnEdit() {
             location = "./edit.html?id=" + this.diary.id
          },
-         deleteClicked() {
+         btnDelete() {
             // toast.show();
          },
-         closeMenu: function () {
+         btnMenu() {
+
+         },
+         btnClose() {
             /*if (menu.secondMenuShowed) {
                if (menu.referenceShowed) {  // 去掉这个条件恢复正常模式，现在是从 reference 直接进 index 列表
                   menu.menuListShowed = true;
@@ -68,10 +65,10 @@
             }*/
 
          },
-         addClicked: function () {
+         btnAdd() {
             this.$router.push('/edit')
          },
-         confirmClicked: function () {
+         btnSave() {
          }
       }
    }

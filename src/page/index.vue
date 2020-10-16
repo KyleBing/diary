@@ -1,10 +1,7 @@
 <template>
    <div class="body-normal">
-
-      <nav-bar/>
-
-      <menu/>
-
+      <nav-bar />
+      <menu-panel :showed="false"/>
       <div class="container" id="diaryApp">
          <!--         <div class="search-bar" v-show="searchBarShow">
                      <form @submit.prevent="searchConfirmed">
@@ -32,6 +29,7 @@
 <script>
    import utility from "../utility";
    import navBar from "../components/navbar";
+   import menuPanel from "../components/menuPanel";
 
    export default {
       data() {
@@ -47,7 +45,7 @@
          }
       },
       components: {
-         navBar
+         navBar, menuPanel
       },
       mounted() {
          // init
