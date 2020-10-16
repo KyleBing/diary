@@ -46,7 +46,7 @@
             heightBg: 0
          }
       },
-      created() {
+      mounted() {
          this.heightBg = window.innerHeight
       },
       computed: {

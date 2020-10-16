@@ -4,10 +4,6 @@
   }
 }
 
-.list-content{
-  background-color: #fff;
-}
-
 .diary-list-group{
   .list-header{
     border-top: 1px solid $color-border;
@@ -22,6 +18,8 @@
     line-height: $height-header;
   }
   .list-item{
+    cursor: pointer;
+    background-color: #fff;
     display: block;
     flex-flow: row nowrap;
     height: $height-list;

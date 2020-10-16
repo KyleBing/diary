@@ -1,6 +1,6 @@
 <template>
-   <div class="body-normal">
-      <nav-bar/>
+   <div class="body-normal" :style="'min-height:' + heightBg + 'px'">
+      <nav-bar :btns="btns"/>
       <div class="container" id="this">
          <textarea id="diary-editor-title" class="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
          <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
@@ -38,6 +38,7 @@
    export default {
       data() {
          return {
+            btns: ['close','save'],
             isNew: true,
             contentEditorShowed: false,
             id: "",
@@ -48,13 +49,17 @@
             contentOrigin: "",
             category: "life",
             temperature: '',
-            weather: "sunny"
+            weather: "sunny",
+
+            heightBg: 0
          }
       },
       components: {
          navBar, categorySelector, weatherSelector, DatePicker
       },
       mounted() {
+         this.heightBg = window.innerHeight
+
          // this.date = new Date();
          // 标签关闭提醒
          window.onbeforeunload = () => {

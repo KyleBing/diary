@@ -1,6 +1,6 @@
 <template>
    <div class="body-normal">
-      <nav-bar />
+      <nav-bar :btns="btns"/>
       <menu-panel :showed="false"/>
       <div class="container" id="diaryApp">
          <!--         <div class="search-bar" v-show="searchBarShow">
@@ -10,7 +10,20 @@
                      </form>
                   </div>-->
          <div class="diary-list-group">
+            <div v-for="(item, index) in diariesShow"
+                 :key="index">
+               <div v-if="!item.title" class="list-header">{{item.date}}</div>
+               <diary-list-item v-else :category="item.category"
+                                :id="item.id"
+                                :title="item.title"
+                                :content="item.content"
+                                :dateString="item.date.toString()"
+                                :weather="item.weather">
+               </diary-list-item>
+            </div>
          </div>
+
+
 
          <!--加载动画-->
          <div v-show="isLoading" class="loading">
@@ -30,22 +43,27 @@
    import utility from "../utility";
    import navBar from "../components/navbar";
    import menuPanel from "../components/menuPanel";
+   import diaryListItem from "../components/diaryListItem";
 
    export default {
       data() {
          return {
+            btns: ['menu', 'add'],
+
             searchBarShow: false,
             haveMore: true,
             isLoading: true,
             diaries: [],
             keyword: '',
 
+            diariesShow: [],
+
             pageNo: 1,
             PAGE_AMOUNT: 50
          }
       },
       components: {
-         navBar, menuPanel
+         navBar, menuPanel, diaryListItem
       },
       mounted() {
          // init
@@ -53,6 +71,8 @@
          this.loadMore();
       },
       methods: {
+
+
          loadMore() {
             this.searchBarShow = !!this.keyword;
             this.haveMore = false;
@@ -69,17 +89,51 @@
          getDiaries(queryData) {
             utility.getData(utility.URL.diaryOperation, queryData)
                .then(res => {
-                  // 刷新 cookie 过期时间
-                  utility.setAuthorization(utility.getAuthorization().email, utility.getAuthorization().token, utility.getAuthorization().username, utility.getAuthorization().uid);
-                  this.$cookie.set(utility.COOKIE_NAME.category, this.$cookie.get(utility.COOKIE_NAME.category), utility.COOKIE_NAME.options);
+                  let tempShowArray = [];
+                  let tempFullArray = this.diaries.concat(res.data);
 
-                  this.diaries = this.diaries.concat(res.data);
-                  // 在后面判断获取的数据，小于1或小于每页的数量时，隐藏加载更多按钮
-                  this.haveMore = !(res.data.length < this.PAGE_AMOUNT);
-                  if (!this.haveMore) {
-                     window.onscroll = null; // 日记全部加载完毕后，去掉 scroll 事件
+                  if (tempFullArray.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
+                     let lastDiary = tempFullArray[0];
+                     tempShowArray.push({ // 添加年月
+                        date: lastDiary.date.substring(0, 7)
+                     })
+                     let currentDay = Number(lastDiary.date.slice(8, 10));
+                     tempShowArray.push({  // 添加当前日记内容
+                        id: lastDiary.id,
+                        date: currentDay,
+                        title: lastDiary.title,
+                        content: lastDiary.content,
+                        weather: lastDiary.weather,
+                        category: lastDiary.category
+                     })
+
+                     if (tempFullArray.length > 1) {  // 再判断第二个日记与第一个的关系
+                        for (let i = 1; i < tempFullArray.length; i++) {
+                           lastDiary = tempFullArray[i - 1]; // 更新上一条日记指向
+                           let currentDiary = tempFullArray[i];
+                           let lastDiaryMonth = lastDiary.date.substring(0, 7);
+                           let lastDiaryDay = Number(lastDiary.date.substring(8, 10));
+                           let currentDiaryMonth = currentDiary.date.substring(0, 7);
+                           let currentDiaryDay = Number(currentDiary.date.substring(8, 10));
+                           // console.log(lastDiaryMonth, currentDiaryMonth);
+                           if (lastDiaryMonth !== currentDiaryMonth) {
+                              tempShowArray.push({ // 添加年月
+                                 date: currentDiary.date.substring(0, 7)
+                              })
+                           }
+                           tempShowArray.push({  // 添加当前日记内容
+                              id: currentDiary.id,
+                              date: currentDiaryDay === lastDiaryDay ? '' : currentDiaryDay,
+                              title: currentDiary.title,
+                              content: currentDiary.content,
+                              weather: currentDiary.weather,
+                              category: currentDiary.category
+                           })
+                        }
+                     }
                   }
-                  this.pageNo++;
+                  this.diaries = tempFullArray;
+                  this.diariesShow = tempShowArray;
                })
          },
          addScrollEvent() {
@@ -140,43 +194,8 @@
                      // 存储关键字
                      $.cookie(COOKIE_NAME.keyword, this.keyword, COOKIE_NAME.options)
                   },*/
-      },
-      watch: {
-         diaries() {
-            let diaries = this.diaries;
-            if (diaries.length > 0) {
-               let lastItem = diaries[0];
-               let html = `<h3 onclick="toggleMonthContent(this)" class="list-header">${lastItem.date.substring(0, 7)}</h3>
-                                <div class="list-content">` + this.currentItemHtml(lastItem, Number(lastItem.date.slice(8, 10)));
-               if (diaries.length > 1) {
-                  for (let i = 1; i < diaries.length; i++) {
-                     let currentDiary = diaries[i];
-                     let lastItemMonth = lastItem.date.substring(0, 7);
-                     let lastItemDay = Number(lastItem.date.substring(8, 10));
-                     let currentItemMonth = currentDiary.date.substring(0, 7);
-                     let currentItemDay = Number(currentDiary.date.substring(8, 10));
-                     let template = '';
-
-                     if (lastItemMonth === currentItemMonth) {
-                        let date = (lastItemDay === currentItemDay) ? '' : currentItemDay;
-                        template = this.currentItemHtml(currentDiary, date);
-                     } else {
-                        template = `</div>
-                                        <h3 onclick="toggleMonthContent(this)" class="list-header">${currentDiary.date.substring(0, 7)}</h3>
-                                        <div class="list-content">` + this.currentItemHtml(currentDiary, currentItemDay);
-                     }
-                     html += template;
-                     lastItem = diaries[i];
-                  }
-               }
-               html += `</div>`;
-               document.querySelector('.diary-list-group').innerHTML = html;
-            } else {
-               document.querySelector('.diary-list-group').innerHTML = ''
-            }
-         }
-
       }
+      ,
    }
    /*
       // logo 点击切换图标

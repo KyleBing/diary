@@ -11,21 +11,50 @@
          <img v-show= "btns.includes('save')"   alt= "保存" @click= "btnSave"   src= "img/tabicon/done.svg" >
       </div>
       <div class="brand">
-         <a href="long.html"><img src="img/logo.svg" alt="日记"></a>
+         <a @click="btnLogo"><img :src="logo" alt="日记"></a>
       </div>
    </nav>
 </template>
 
 <script>
-
+   const LOGO_DICT = {
+      normal: 'img/logo.svg',
+         folded: 'img/logo_folded.svg',
+         content: 'img/logo_content.svg',
+         contentSaved: 'img/logo_content_saved.svg',
+         title: 'img/logo_title.svg',
+         titleSaved: 'img/logo_title_saved.svg',
+   }
    export default {
       name: 'nav-bar',
+      props: ['btns'],
       data() {
          return {
-            btns: ['menu','add'],
+            contentEditorShowed: false,
+            logo: LOGO_DICT.normal
+         }
+      },
+      mounted() {
+         switch (this.$route.name) {
+            case 'edit':
+               this.logo = LOGO_DICT.title;break;
+               default: break;
          }
       },
       methods: {
+         btnLogo(){
+            let router = this.$router;
+            let route = this.$route;
+            switch (this.$route.name){
+               case 'edit':
+
+                  break;
+               default: null
+            }
+
+            console.log(router, route)
+
+         },
          showMenu() {
             this.btnClose = true;
             this.btnMenu = false;

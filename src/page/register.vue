@@ -77,7 +77,7 @@
                password2Verified: false
            }
         },
-        created() {
+        mounted() {
             this.heightBg = window.innerHeight
         },
         computed:{

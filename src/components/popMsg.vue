@@ -13,7 +13,7 @@
       data(){
 
       },
-      created() {
+      mounted() {
          setTimeout(() => {
             $('.popMessage')
                .removeClass('slideInDown')

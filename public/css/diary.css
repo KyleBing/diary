@@ -505,10 +505,6 @@ input[id^=category-], input[id^=weather-] {
   background-color: #8bc34a;
 }
 
-.list-content {
-  background-color: #fff;
-}
-
 .diary-list-group .list-header {
   border-top: 1px solid #E5E5EA;
   border-bottom: 1px solid #E5E5EA;
@@ -522,6 +518,8 @@ input[id^=category-], input[id^=weather-] {
   line-height: 40px;
 }
 .diary-list-group .list-item {
+  cursor: pointer;
+  background-color: #fff;
   display: block;
   flex-flow: row nowrap;
   height: 28px;
