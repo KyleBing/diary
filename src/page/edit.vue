@@ -6,8 +6,14 @@
          <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
          <div class="diary-input-group">
             <label for="date">日期</label>
-            <input readonly placeholder="选择时间" class="date" type="text" :value="date" name="date" id="date">
+            <date-picker :editable="false"
+                         :confirm="true"
+                         :default-value="new Date()"
+                         placeholder="---- -- --"
+                         :input-class="date"
+                         :clearable="false" id="date" v-model="date" type="datetime"/>
          </div>
+
          <div class="diary-input-group">
             <label for="temperature">气温 ℃</label>
             <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
@@ -24,6 +30,10 @@
    import navBar from "../components/navbar";
    import categorySelector from "../components/categorySelector";
    import weatherSelector from "../components/weatherSelector";
+   import DatePicker from 'vue2-datepicker';
+   import 'vue2-datepicker/locale/zh-cn';
+   import 'vue2-datepicker/index.css';
+
 
    export default {
       data() {
@@ -31,7 +41,7 @@
             isNew: true,
             contentEditorShowed: false,
             id: "",
-            date: utility.dateFormatter(new Date(), 'yyyy-MM-dd hh:mm'),
+            date: '',
             title: "",
             titleOrigin: "",
             content: "",
@@ -42,8 +52,56 @@
          }
       },
       components: {
-         navBar, categorySelector, weatherSelector
+         navBar, categorySelector, weatherSelector, DatePicker
       },
+      mounted() {
+         // this.date = new Date();
+         // 标签关闭提醒
+         window.onbeforeunload = () => {
+            if (this.diaryHasChanged) {
+               return "日记内容已改变，显示提示框"
+            }
+         };
+         this.isNew = !Boolean(location.search);
+         if (this.isNew) {
+            // 新建日记
+            this.id = '';
+            this.date = utility.dateFormatter(new Date(), 'yyyy-MM-dd hh:mm');
+            this.title = '';
+            this.content = '';
+            this.category = 'life';
+            this.temperature = '';
+            this.weather = 'sunny'
+         } else {
+            // 编辑日记
+            $.ajax({
+               url: URL.diaryOperation,
+               dataType: 'json',
+               data: {
+                  type: 'query',
+                  diaryId: getSearchData().id
+               },
+               success: data => {
+                  if (data.success) {
+                     let diary = data.data[0];
+                     this.id = diary.id;
+                     this.title = diary.title;
+                     this.titleOrigin = diary.title;
+                     this.content = diary.content;
+                     this.contentOrigin = diary.content;
+                     this.date = diary.date.substring(0, 16);
+                     this.category = diary.category;
+                     this.temperature = diary.temperature === '-273' ? '' : diary.temperature;
+                     this.weather = diary.weather;
+                     if (diary.content) {
+                        this.contentEditorShowed = true;
+                     }
+                  }
+               }
+            });
+         }
+      },
+
       watch: {
          title: function () {
             this.updateDiaryIcon();
@@ -62,9 +120,6 @@
             } else {
                navbar.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
             }
-         },
-         closeEditor() {
-            history.back();
          },
          saveDiary() {
             let that = this;
@@ -127,61 +182,12 @@
             return this.title !== this.titleOrigin || this.content !== this.contentOrigin
          }
       },
-      mounted() {
-         $.datetimepicker.setLocale('ch');
-         $('#date').datetimepicker({
-            datepicker: true,       // 是否可选日期
-            timepicker: true,       // 是否可选时间
-            format: 'Y-m-d H:i',    // 定义输出时间格式 2019-06-28 16:00
-            onClose: date => {
-               this.date = dateFormatter(date, 'yyyy-MM-dd hh:mm');
-            }
-         });
-
-         // 标签关闭提醒
-         window.onbeforeunload = () => {
-            if (this.diaryHasChanged) {
-               return "日记内容已改变，显示提示框"
-            }
-         };
-         this.isNew = !Boolean(location.search);
-         if (this.isNew) {
-            // 新建日记
-            this.id = '';
-            this.date = dateFormatter(new Date(), 'yyyy-MM-dd hh:mm');
-            this.title = '';
-            this.content = '';
-            this.category = 'life';
-            this.temperature = '';
-            this.weather = 'sunny'
-         } else {
-            // 编辑日记
-            $.ajax({
-               url: URL.diaryOperation,
-               dataType: 'json',
-               data: {
-                  type: 'query',
-                  diaryId: getSearchData().id
-               },
-               success: data => {
-                  if (data.success) {
-                     let diary = data.data[0];
-                     this.id = diary.id;
-                     this.title = diary.title;
-                     this.titleOrigin = diary.title;
-                     this.content = diary.content;
-                     this.contentOrigin = diary.content;
-                     this.date = diary.date.substring(0, 16);
-                     this.category = diary.category;
-                     this.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-                     this.weather = diary.weather;
-                     if (diary.content) {
-                        this.contentEditorShowed = true;
-                     }
-                  }
-               }
-            });
-         }
-      },
    }
 </script>
+
+<style lang="scss">
+   // 重置 Vue2-datepicker 样式
+   .mx-icon-clear, .mx-icon-calendar{
+      display: none;
+   }
+</style>

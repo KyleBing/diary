@@ -233,6 +233,7 @@ textarea:focus {
 }
 
 .diary-input-group {
+  justify-content: space-between;
   display: flex;
   font-size: 18px;
   padding: 0 10px;
@@ -245,12 +246,11 @@ textarea:focus {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  width: 50%;
   color: #9B9B9B;
   line-height: 40px;
 }
 .diary-input-group input {
-  width: 50%;
+  min-width: 50%;
   text-align: right;
   background-color: transparent;
   font-size: 18px;

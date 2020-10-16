@@ -27,6 +27,7 @@ textarea{
   border-bottom: 1px solid $bg-light;
 }
 .diary-input-group{
+  justify-content: space-between;
   display: flex;
   font-size: 18px;
   padding: 0 10px;
@@ -35,12 +36,11 @@ textarea{
   border-bottom: 1px solid $bg-light;
   label{
     @include unselectable();
-    width: 50%;
     color: $color-text-label;
     line-height: $height-input;
   }
   input{
-    width: 50%;
+    min-width: 50%;
     text-align: right;
     background-color: transparent;
     font-size: 18px;
