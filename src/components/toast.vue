@@ -1,5 +1,15 @@
 <template>
-   
+   <div id="toast" class="fadeIn animated-fast" v-show="showToast">
+      <div class="toast">
+         <div class="toast-header">确定删除吗</div>
+         <div class="toast-body"></div>
+         <div class="toast-footer">
+            <div class="btn-cancel" @click="hide">取消</div>
+            <div class="btn-confirm" @click="deleteCurrentDiary">确定</div>
+         </div>
+      </div>
+      <div class="mask"></div>
+   </div>
 </template>
 
 <script>

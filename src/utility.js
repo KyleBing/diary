@@ -2,10 +2,8 @@ import $ from 'jquery'
 import axios from 'axios'
 import VueCookie from 'vue-cookie'
 import qs from 'qs'
-import Vue from 'vue'
 
 const BASE_URL = '/api'
-
 
 let URL = {
    userOperation: BASE_URL + '/userOperation.php',
@@ -45,7 +43,6 @@ function getAuthorization() {
    }
 }
 
-
 // 删除cookie
 function deleteAuthorization() {
    VueCookie.remove(COOKIE_NAME.email, {path: '/'});
@@ -54,14 +51,7 @@ function deleteAuthorization() {
    VueCookie.remove(COOKIE_NAME.uid, {path: '/'});
 }
 
-const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
 
-const POP_MSG_TYPE = {
-   success: "success",
-   warning: "warning",
-   danger: "danger",
-   default: "default"
-};
 
 // Prompt 提示
 function popMessage(type, title, callback = () => {
@@ -122,8 +112,37 @@ function getData(url, queryData) {
    })
 }
 
-const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',};
 
+// CONST
+const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
+const POP_MSG_TYPE = {
+   success: "success",
+   warning: "warning",
+   danger: "danger",
+   default: "default"
+};
+const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',};
+const WEATHER = {
+   sunny: {title: 'sunny', name: '晴'},
+   cloudy: {title: 'cloudy', name: '多云'},
+   overcast: {title: 'overcast', name: '阴'},
+   sprinkle: {title: 'sprinkle', name: '小雨'},
+   rain: {title: 'rain', name: '雨'},
+   thunderstorm: {title: 'thunderstorm', name: '暴雨'},
+   snow: {title: 'snow', name: '雪'},
+   fog: {title: 'fog', name: '雾'}
+};
+const CATEGORIES = {
+   life: '生活',
+   study: '学习',
+   film: '电影',
+   game: '游戏',
+   work: '工作',
+   sport: '运动',
+   bigevent: '大事',
+   week: '周报',
+   article: '文章',
+};
 
 // 格式化时间，输出字符串
 function dateFormatter(date, formatString) {
@@ -148,28 +167,16 @@ function dateFormatter(date, formatString) {
    return formatString;
 }
 
-/****************************
- * 获取地址栏get数据
- *
- * @return 有值的时候返回一个包含所有参数的对象
- * @return 无值的时候，返回 `false`
- ****************************/
-function getSearchData() {
-   let searchString = location.search;
-   if (searchString) {
-      let obj = {};
-      searchString = searchString.substring(1, searchString.length);
-      let tempArray = searchString.split('&');
-      tempArray.forEach(item => {
-         obj[item.split('=')[0]] = decodeURIComponent(item.split('=')[1]);
-      });
-      return obj;
-   } else {
-      return false;
-   }
+function formateDate(dateString) {
+   let year = Number(dateString.substring(0, 4));
+   let month = Number(dateString.substring(5, 7));
+   let day = Number(dateString.substring(8, 10));
+   let date = new Date(year, month - 1, day);
+   let week = date.getDay();
+   return `${year}年${month}月${day}日 ${WEEKDAY[week]}`
 }
 
 export default {
-   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,
-   getAuthorization, setAuthorization, popMessage, postData, getData
+   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, WEEKDAY, WEATHER,
+   getAuthorization, setAuthorization, popMessage, postData, getData, formateDate, dateFormatter
 }

@@ -115,7 +115,7 @@
                href = `detail.html?diaryId=${item.id}`
             }
 
-            return `<a href="${href}" class="list-item">
+            return `<router-link to="/detail" class="list-item">
                     <i class="category bg-${item.category}"></i>
                     <span class="date">${date}</span>
                     <div class="detail">
@@ -123,7 +123,7 @@
                         ${hascontentHtml}
                         ${weatherHtml}
                     </div>
-                </a>`;
+                </router-link>`;
          },
          /*         freshLoad() {
                      pageNo = 1;
