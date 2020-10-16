@@ -8,9 +8,9 @@
          <img v-show="btnAdd" @click="addClicked" src="img/tabicon/add.svg" alt="添加">
          <img v-show="btnConfirm" @click="confirmClicked" src="img/tabicon/done.svg" alt="添加">
          <img @click="deleteClicked" src="img/tabicon/delete.svg" alt="删除">
-         <img @click="editBtnClicked" v-show="confirmBtnShow" src="img/tabicon/edit.svg" alt="编辑">
-         <img @click="createDiary" v-show="createNewBtnShow" src="img/tabicon/add.svg" alt="新建">
-         <img @click="saveDiary" v-show="saveBtnShow" src="img/tabicon/done.svg" alt="保存">
+<!--         <img @click="editBtnClicked" v-show="confirmBtnShow" src="img/tabicon/edit.svg" alt="编辑">-->
+<!--         <img @click="createDiary" v-show="createNewBtnShow" src="img/tabicon/add.svg" alt="新建">-->
+<!--         <img @click="saveDiary" v-show="saveBtnShow" src="img/tabicon/done.svg" alt="保存">-->
       </div>
       <div class="brand">
          <a href="long.html"><img src="img/logo.svg" alt="日记"></a>
@@ -69,7 +69,7 @@
 
          },
          addClicked: function () {
-            location = FrontURL.edit;
+            this.$router.push('/edit')
          },
          confirmClicked: function () {
          }

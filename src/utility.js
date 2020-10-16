@@ -45,10 +45,10 @@ function getAuthorization() {
 
 // 删除cookie
 function deleteAuthorization() {
-   VueCookie.remove(COOKIE_NAME.email, {path: '/'});
-   VueCookie.remove(COOKIE_NAME.token, {path: '/'});
-   VueCookie.remove(COOKIE_NAME.username, {path: '/'});
-   VueCookie.remove(COOKIE_NAME.uid, {path: '/'});
+   VueCookie.delete(COOKIE_NAME.email, {path: '/'});
+   VueCookie.delete(COOKIE_NAME.token, {path: '/'});
+   VueCookie.delete(COOKIE_NAME.username, {path: '/'});
+   VueCookie.delete(COOKIE_NAME.uid, {path: '/'});
 }
 
 
@@ -178,5 +178,5 @@ function formateDate(dateString) {
 
 export default {
    URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, WEEKDAY, WEATHER,
-   getAuthorization, setAuthorization, popMessage, postData, getData, formateDate, dateFormatter
+   getAuthorization, setAuthorization, popMessage, postData, getData, formateDate, dateFormatter, deleteAuthorization
 }

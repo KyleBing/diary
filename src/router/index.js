@@ -1,7 +1,9 @@
 import Login from "../page/login";
 import Register from "../page/register";
 import Index from "../page/index";
-import detail from "../page/detail";
+import Detail from "../page/detail";
+import Edit from '../page/edit'
+import ChangePassword from '../page/changePassword'
 
 export default [
   {
@@ -10,7 +12,11 @@ export default [
   },
   {
     path: '/detail',
-    component: detail,
+    component: Detail,
+  },
+  {
+    path: '/edit',
+    component: Edit,
   },
   {
     path: '/login',
@@ -19,5 +25,9 @@ export default [
   {
     path: '/register',
     component: Register,
+  },
+  {
+    path: '/change-password',
+    component: ChangePassword,
   },
 ]
