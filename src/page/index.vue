@@ -1,6 +1,9 @@
 <template>
    <div class="body-normal">
-      <!--      <menu/>-->
+
+      <nav-bar/>
+
+      <menu/>
 
       <div class="container" id="diaryApp">
          <!--         <div class="search-bar" v-show="searchBarShow">
@@ -28,6 +31,7 @@
 
 <script>
    import utility from "../utility";
+   import navBar from "../components/navbar";
 
    export default {
       data() {
@@ -41,6 +45,9 @@
             pageNo: 1,
             PAGE_AMOUNT: 50
          }
+      },
+      components: {
+         navBar
       },
       mounted() {
          // init
@@ -66,7 +73,7 @@
                .then(res => {
                   // 刷新 cookie 过期时间
                   utility.setAuthorization(utility.getAuthorization().email, utility.getAuthorization().token, utility.getAuthorization().username, utility.getAuthorization().uid);
-                  this.$cookie.set(utility.COOKIE_NAME.category, this.$cookie.set(utility.COOKIE_NAME.category), utility.COOKIE_NAME.options);
+                  this.$cookie.set(utility.COOKIE_NAME.category, this.$cookie.get(utility.COOKIE_NAME.category), utility.COOKIE_NAME.options);
 
                   this.diaries = this.diaries.concat(res.data);
                   // 在后面判断获取的数据，小于1或小于每页的数量时，隐藏加载更多按钮

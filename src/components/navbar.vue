@@ -17,6 +17,7 @@
 <script>
 
    export default {
+      name: 'nav-bar',
       data() {
          return {
             btnClose: false,
@@ -30,10 +31,10 @@
             this.btnClose = true;
             this.btnMenu = false;
             // this.btnAdd = false;
-            menu.menuPanelShowed = true;
+            // menu.menuPanelShowed = true;
          },
          closeMenu: function () {
-            if (menu.secondMenuShowed) {
+            /*if (menu.secondMenuShowed) {
                if (menu.referenceShowed) {  // 去掉这个条件恢复正常模式，现在是从 reference 直接进 index 列表
                   menu.menuListShowed = true;
                   menu.secondMenuShowed = false;
@@ -50,7 +51,7 @@
                this.btnMenu = true;
                this.btnAdd = true;
                menu.menuPanelShowed = false;
-            }
+            }*/
 
          },
          addClicked: function () {
