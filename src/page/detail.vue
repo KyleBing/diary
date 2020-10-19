@@ -1,8 +1,22 @@
 <template>
 
    <div class="body-white">
-      <nav-bar/>
-      <div class="diary-detail" id="diaryDetail">
+      <!-- navbar -->
+      <nav class="navbar" id="navbar">
+         <div class="navbar-btn-group left">
+            <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
+         </div>
+         <div class="navbar-btn-group right">
+            <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
+            <router-link :to="'/edit?id=' + 'id'"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
+         </div>
+         <div class="brand">
+            <a @click=""><img src="img/logo.svg" alt="日记"></a>
+         </div>
+      </nav>
+
+      <!--content-->
+      <div class="diary-detail" id="diaryDetail" :style="'min-height: ' + heightBg + 'px'">
          <!--META-->
          <div class="diary-meta">
             <div class="date">{{diary.date}}</div>
@@ -22,39 +36,81 @@
       </div>
 
 
+      <div id="toast" class="fadeIn animated-fast" v-show="showToast">
+         <div class="toast">
+            <div class="toast-header">确定删除吗</div>
+            <div class="toast-body"></div>
+            <div class="toast-footer">
+               <div class="btn-cancel" @click="hide">取消</div>
+               <div class="btn-confirm" @click="deleteCurrentDiary">确定</div>
+            </div>
+         </div>
+         <div class="mask"></div>
+      </div>
+
    </div>
 </template>
 
 <script>
    import utility from "../utility";
-   import navBar from "../components/navbar";
 
    export default {
-      data(){
+      data() {
          return {
-            diary: null
+            showToast: false,
+            id: '',
+            diary: {},
+            heightBg: 0
          }
       },
-      components:{
-         navBar
-      },
       mounted() {
+         this.heightBg = window.innerHeight
+         this.id = this.$route.query.id;
          utility.getData(utility.URL.diaryOperation, {
             'type': 'query',
-            'diaryId': 1376
+            'diaryId': this.id
          }).then(res => {
-            let diary = res.data[0];
-            this.diary = diary;
-            this.diary.date = utility.formateDate(diary.date);
-            let contentArray = diary.content.split('\n');
-            let contentHtml = "";
-            contentArray.forEach(item => {
-               contentHtml += `<p>${item}</p>`
-            });
-            this.diary.content = contentHtml;
-            this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-            this.diary.categoryName = utility.CATEGORIES[diary.category];
+            if (res.data.length > 0) {
+               let diary = res.data[0];
+               this.diary = diary;
+               this.diary.date = utility.formateDate(diary.date);
+               let contentArray = diary.content.split('\n');
+               let contentHtml = "";
+               contentArray.forEach(item => {
+                  contentHtml += `<p>${item}</p>`
+               });
+               this.diary.content = contentHtml;
+               this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
+               this.diary.categoryName = utility.CATEGORIES[diary.category];
+            } else {
+               this.$router.back();
+            }
          })
+      },
+      methods: {
+         goBack() {
+            this.$router.back()
+         },
+         show: function () {
+            this.showToast = true
+         },
+         hide: function () {
+            this.showToast = false
+         },
+         deleteCurrentDiary: function () {
+            let that = this;
+            let queryData = {
+               diaryId: this.id,
+               type: 'delete'
+            };
+            utility.postData(utility.URL.diaryOperation, queryData)
+               .then(res => {
+                  that.hide();
+                  utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
+                     this.$router.push('/')
+                  }, 1) // 删除成功后等待时间不要太长
+               })
+         }
       }
    }
 
