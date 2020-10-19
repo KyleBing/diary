@@ -22,7 +22,7 @@
             <div class="date">{{diary.date}}</div>
             <div class="weather">
                <img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather"></div>
-            <div class="temperature"><span>{{diary.temperature}}</span>℃</div>
+            <div v-if="diary.temperature" class="temperature"><span>{{diary.temperature}}</span>℃</div>
             <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span>
             </div>
          </div>

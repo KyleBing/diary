@@ -40,7 +40,6 @@
 </template>
 
 <script>
-   import $ from 'jquery'
    import utility from "../utility";
    import categorySelector from "../components/categorySelector";
    import weatherSelector from "../components/weatherSelector";
@@ -98,13 +97,14 @@
             }).then(res => {
                if (res.data.length > 0) {
                   let diary = res.data[0];
+                  this.category = diary.category;
                   this.date = new Date(diary.date);
                   this.temperature = diary.temperature;
                   this.weather = diary.weather;
                   this.title = diary.title;
-                  this.titleOrigin = diary.titleOrigin;
+                  this.titleOrigin = diary.title;
                   this.content = diary.content;
-                  this.contentOrigin = diary.contentOrigin;
+                  this.contentOrigin = diary.content;
                   this.temperature = diary.temperature === '-273' ? '' : diary.temperature;
                   if (diary.content) {
                      this.contentEditorShowed = true;
@@ -175,7 +175,6 @@
                this.contentOrigin = this.content;
                this.updateDiaryIcon();
 
-               that.diaryHasSaved = true;
                utility.popMessage(utility.POP_MSG_TYPE.success, res.info); // 提示
                if (res.data) {
                   this.isNew = false;
