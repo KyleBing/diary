@@ -1,6 +1,7 @@
 <template>
    <div class="body-normal">
 
+      <!-- navbar -->
       <nav class="navbar clearfix" id="navbar">
          <div class="navbar-btn-group left">
             <img v-show= "!showMenu"  alt= "菜单" @click="menuShow"  src= "img/tabicon/menu.svg" >
@@ -14,6 +15,7 @@
          </div>
       </nav>
 
+      <!-- menu -->
       <div class="menu-panel" id="menu-panel" v-show="showMenu" :style="'min-height:' + heightBg + 'px'">
          <div class="menu-list-group" v-show="showMenuList">
             <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
@@ -30,7 +32,7 @@
          <!--reference-->
          <ul class="reference" v-show="showCategory" :style="'min-height:' + heightBg + 'px'">
             <li class="list-group-item" v-for="(item, index) in categoriesAll" :key="index">
-               <input v-model="queryData.category" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
+               <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
                <label :class="'reference-' + item.nameEn" :for="'category-' + item.nameEn">{{item.name}}</label>
             </li>
 
@@ -122,12 +124,12 @@
 
             // MENU
             showMenu: false,            // menu panel
-            showMenuSecond: false,      // second menu
             showMenuList: true,         // menu list
             showCategory: false,       // reference
             showAbout: false,           // about
 
             userInfo: utility.getAuthorization(),
+            categories: [],
             categoriesAll: utility.CATEGORIES_ALL_NAME,
 
             heightBg: 0
@@ -138,7 +140,7 @@
       },
       mounted() {
          // init
-         this.queryData.category = utility.getCategories()
+         this.categories = utility.getCategories()
          this.queryData.keyword = utility.keyword.get();
          this.loadMore();
          this.addScrollEvent();
@@ -147,19 +149,18 @@
       },
       computed: {
          selectAllBtnHighlight() {
-            return !this.queryData.category.length
+            return !this.categories.length
          }
       },
       watch: {
          categories(){
-            utility.saveCategories(this.queryData.category)
+            utility.saveCategories(this.categories)
          }
       },
       methods: {
          /* MENU 相关 */
          menuInit(){
             this.showMenu = false;            // menu panel
-            this.showMenuSecond = true;      // second menu
             this.showMenuList = true;         // menu list
             this.showCategory = false;       // reference
             this.showAbout = false;           // about
@@ -172,14 +173,12 @@
                   break;
                case 'category':
                   this.showMenu = true;            // menu panel
-                  this.showMenuSecond = false;      // second menu
                   this.showMenuList = false;         // menu list
                   this.showCategory = true;       // reference
                   this.showAbout = false;           // about
                   break;
                case 'about':
                   this.showMenu = true;            // menu panel
-                  this.showMenuSecond = false;      // second menu
                   this.showMenuList = false;         // menu list
                   this.showCategory = false;       // reference
                   this.showAbout = true;           // about
@@ -189,7 +188,6 @@
          },
          menuShow(){
             this.showMenu = true;            // menu panel
-            this.showMenuSecond = true;      // second menu
             this.showMenuList = true;         // menu list
             this.showCategory = false;       // reference
             this.showAbout = false;           // about
@@ -201,8 +199,13 @@
                this.diaries = [];
                this.diariesShow = [];
                this.loadMore();
-            }
-            if (this.showCategory || this.showAbout || this.showMenu){
+               this.menuInit();
+            } else if (this.showAbout){
+               this.showMenu = true;            // menu panel
+               this.showMenuList = true;         // menu list
+               this.showCategory = false;       // reference
+               this.showAbout = false;           // about
+            } else if (this.showMenu){
                this.menuInit();
             }
 
@@ -222,14 +225,14 @@
             this.$router.push('/login');
          },
          toggleCategorySelect() {
-            this.queryData.category = this.queryData.category.length? []: utility.CATEGORIES_ALL
+            this.categories = this.categories.length? []: utility.CATEGORIES_ALL
          },
          reverseCategorySelect() {
             let tempCategories = [].concat(utility.CATEGORIES_ALL);
-            this.queryData.category.forEach(item => {
+            this.categories.forEach(item => {
                tempCategories.splice(tempCategories.indexOf(item), 1)
             });
-            this.queryData.category = tempCategories;
+            this.categories = tempCategories;
          },
 
 
@@ -316,24 +319,6 @@
             // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
             return (lastOffsetTop < clientHeight + scrollTop);
          },
-
-         /*         freshLoad() {
-                     pageNo = 1;
-                     diaryApp.diaries = [];
-                     this.queryData.keyword = '';
-                     $.cookie(COOKIE_NAME.keyword, this.queryData.keyword, COOKIE_NAME.options);
-                     this.loadMore();
-                  },
-                  searchConfirmed() {
-                     window.onscroll = null; // 去掉现有scroll
-                     addScrollEvent();       // 添加 scroll 事件
-                     // 初始化一些值
-                     pageNo = 1;
-                     diaryApp.diaries = [];
-                     this.loadMore();
-                     // 存储关键字
-                     $.cookie(COOKIE_NAME.keyword, this.queryData.keyword, COOKIE_NAME.options)
-                  },*/
       }
       ,
    }
