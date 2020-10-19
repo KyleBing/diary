@@ -21,6 +21,23 @@ const COOKIE_NAME = {
    options: {expires: 7, path: '/'}
 };
 
+const keyword = {
+   set(content){
+      VueCookie.set(COOKIE_NAME.keyword, content, COOKIE_NAME.options);
+   },
+   get(){
+      return VueCookie.get(COOKIE_NAME.keyword);
+   }
+}
+function saveCategories(categories) {
+   VueCookie.set(COOKIE_NAME.category, JSON.stringify(categories), COOKIE_NAME.options);
+}
+
+function getCategories() {
+   let categories = VueCookie.get(COOKIE_NAME.category);
+   return JSON.parse(categories)
+}
+
 
 // 设置cookie
 function setAuthorization(email, token, username, uid) {
@@ -190,5 +207,15 @@ function formateDate(dateString) {
 
 export default {
    URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, CATEGORIES_ALL_NAME, WEEKDAY, WEATHER,
-   getAuthorization, setAuthorization, popMessage, postData, getData, formateDate, dateFormatter, deleteAuthorization
+   getAuthorization,
+   setAuthorization,
+   popMessage,
+   postData,
+   getData,
+   formateDate,
+   dateFormatter,
+   deleteAuthorization,
+   getCategories,
+   saveCategories,
+   keyword
 }

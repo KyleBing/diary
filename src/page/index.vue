@@ -1,14 +1,72 @@
 <template>
    <div class="body-normal">
-      <nav-bar :btns="btns"/>
-      <menu-panel :showed="false"/>
-      <div class="container" id="diaryApp">
-         <!--         <div class="search-bar" v-show="searchBarShow">
-                     <form @submit.prevent="searchConfirmed">
-                        <input id="keyword" type="text" placeholder="搜索内容" v-model="keyword">
-                        <span v-show="keyword.length > 0" @click="freshLoad" class="clear">✕</span>
-                     </form>
-                  </div>-->
+
+      <nav class="navbar clearfix" id="navbar">
+         <div class="navbar-btn-group left">
+            <img v-show= "!showMenu"  alt= "菜单" @click="menuShow"  src= "img/tabicon/menu.svg" >
+            <img v-show= "showMenu" alt= "关闭" @click="menuClose" src= "img/tabicon/close.svg" >
+         </div>
+         <div class="navbar-btn-group right" v-show="!showMenu">
+            <router-link to="/edit"><img alt= "添加" @click= ""    src= "img/tabicon/add.svg" ></router-link>
+         </div>
+         <div class="brand">
+            <a @click=""><img :src="logo" alt="日记"></a>
+         </div>
+      </nav>
+
+      <div class="menu-panel" id="menu-panel" v-show="showMenu" :style="'min-height:' + heightBg + 'px'">
+         <div class="menu-list-group" v-show="showMenuList">
+            <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
+            <a class="menu-list-group-item" @click="menuListClicked('category')">类别</a>
+            <a class="menu-list-group-item" @click="menuListClicked('about')">关于</a>
+            <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
+            <a class="menu-list-group-item" @click="logout">退出</a>
+            <div class="user-info">
+               <span class="username">{{userInfo.username}}</span>
+               <span class="email">{{userInfo.email}}</span>
+            </div>
+         </div>
+
+         <!--reference-->
+         <ul class="reference" v-show="showCategory" :style="'min-height:' + heightBg + 'px'">
+            <li class="list-group-item" v-for="(item, index) in categoriesAll" :key="index">
+               <input v-model="queryData.category" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
+               <label :class="'reference-' + item.nameEn" :for="'category-' + item.nameEn">{{item.name}}</label>
+            </li>
+
+            <li class="list-group-item toggle-btn">
+               <input :checked="selectAllBtnHighlight" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
+               <label for="category-all" class="reference-all">{{ selectAllBtnHighlight? '全选': '全不选' }}</label>
+            </li>
+            <li class="list-group-item toggle-btn">
+               <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse">
+               <label for="category-reverse" class="reference-all">反选</label>
+            </li>
+         </ul>
+
+         <!--about-->
+         <div class="about" v-show="showAbout" :style="'min-height:' + heightBg + 'px'">
+            <h3 class="title">标题日记</h3>
+            <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
+            <div class="author">
+               <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
+               <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
+               <a href="mailto:kylebing@163.com">kylebing@163.com</a>
+               <a href="https://github.com/KyleBing/diary">version 5.9.2</a>
+            </div>
+         </div>
+         <!--search-->
+      </div>
+
+      <div class="container" id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
+
+         <div class="search-bar" v-show="searchBarShow">
+            <form @submit.prevent="search">
+               <input id="keyword" type="text" placeholder="搜索内容" v-model="queryData.keyword">
+               <span v-show="queryData.keyword.length > 0" @click="clearSearchContent" class="clear">✕</span>
+            </form>
+         </div>
+
          <div class="diary-list-group">
             <div v-for="(item, index) in diariesShow"
                  :key="index">
@@ -32,7 +90,7 @@
             <div class="loading-3 loading-item"></div>
          </div>
 
-         <div v-show="!isLoading&&!haveMore" class="end-of-diary">
+         <div v-show="!isLoading && !haveMore" class="end-of-diary">
             <p><img src="img/EOF.svg" alt="EOF"></p>
          </div>
       </div>
@@ -41,49 +99,146 @@
 
 <script>
    import utility from "../utility";
-   import navBar from "../components/navbar";
-   import menuPanel from "../components/menuPanel";
    import diaryListItem from "../components/diaryListItem";
 
    export default {
       data() {
          return {
-            btns: ['menu', 'add'],
-
+            logo: 'img/logo.svg',
             searchBarShow: false,
+
             haveMore: true,
             isLoading: true,
+            
+            queryData: {
+               type: 'list',
+               keyword: '',
+               pageNo: 1,
+               pageCount: 50,
+               category: [],
+            },
             diaries: [],
-            keyword: '',
-
             diariesShow: [],
 
-            pageNo: 1,
-            PER_PAGE_AMOUNT: 50
+            // MENU
+            showMenu: false,            // menu panel
+            showMenuSecond: false,      // second menu
+            showMenuList: true,         // menu list
+            showCategory: false,       // reference
+            showAbout: false,           // about
+
+            userInfo: utility.getAuthorization(),
+            categoriesAll: utility.CATEGORIES_ALL_NAME,
+
+            heightBg: 0
          }
       },
       components: {
-         navBar, menuPanel, diaryListItem
+         diaryListItem
       },
       mounted() {
          // init
-         this.keyword = this.$cookie.get(utility.COOKIE_NAME.keyword) ? this.$cookie.get(utility.COOKIE_NAME.keyword) : '';
+         this.queryData.category = utility.getCategories()
+         this.queryData.keyword = utility.keyword.get();
          this.loadMore();
          this.addScrollEvent();
+         this.searchBarShow = !!this.queryData.keyword;
+         this.heightBg = window.innerHeight
+      },
+      computed: {
+         selectAllBtnHighlight() {
+            return !this.queryData.category.length
+         }
+      },
+      watch: {
+         categories(){
+            utility.saveCategories(this.queryData.category)
+         }
       },
       methods: {
+         /* MENU 相关 */
+         menuInit(){
+            this.showMenu = false;            // menu panel
+            this.showMenuSecond = true;      // second menu
+            this.showMenuList = true;         // menu list
+            this.showCategory = false;       // reference
+            this.showAbout = false;           // about
+         },
+         menuListClicked(menuName){
+            switch (menuName){
+               case 'search':
+                  this.searchBarShow = true;
+                  this.menuInit();
+                  break;
+               case 'category':
+                  this.showMenu = true;            // menu panel
+                  this.showMenuSecond = false;      // second menu
+                  this.showMenuList = false;         // menu list
+                  this.showCategory = true;       // reference
+                  this.showAbout = false;           // about
+                  break;
+               case 'about':
+                  this.showMenu = true;            // menu panel
+                  this.showMenuSecond = false;      // second menu
+                  this.showMenuList = false;         // menu list
+                  this.showCategory = false;       // reference
+                  this.showAbout = true;           // about
+                  break;
+               default: break;
+            }
+         },
+         menuShow(){
+            this.showMenu = true;            // menu panel
+            this.showMenuSecond = true;      // second menu
+            this.showMenuList = true;         // menu list
+            this.showCategory = false;       // reference
+            this.showAbout = false;           // about
+         },
+         menuClose(){
+            if (this.showCategory){
+               this.queryData.pageNo = 1;
+               this.haveMore = true;
+               this.diaries = [];
+               this.diariesShow = [];
+               this.loadMore();
+            }
+            if (this.showCategory || this.showAbout || this.showMenu){
+               this.menuInit();
+            }
+
+         },
+         search(){
+            this.queryData.pageNo = 1;
+            this.diaries = [];
+            this.diariesShow = [];
+            this.loadMore();
+         },
+         clearSearchContent(){
+            this.queryData.keyword = '';
+         },
+
+         logout(){
+            utility.deleteAuthorization();
+            this.$router.push('/login');
+         },
+         toggleCategorySelect() {
+            this.queryData.category = this.queryData.category.length? []: utility.CATEGORIES_ALL
+         },
+         reverseCategorySelect() {
+            let tempCategories = [].concat(utility.CATEGORIES_ALL);
+            this.queryData.category.forEach(item => {
+               tempCategories.splice(tempCategories.indexOf(item), 1)
+            });
+            this.queryData.category = tempCategories;
+         },
+
+
+         /* DIARY 相关 */
          loadMore() {
-            this.searchBarShow = !!this.keyword;
             this.haveMore = false;
             this.isLoading = true;
-            let queryData = {
-               "keyword": this.keyword,
-               "pageCount": this.PER_PAGE_AMOUNT,
-               "pageNo": this.pageNo,
-               "type": "list",
-               "category": utility.CATEGORIES_ALL
-            };
-            this.getDiaries(queryData)
+            utility.keyword.set(this.queryData.keyword);
+            this.getDiaries(this.queryData)
          },
          getDiaries(queryData) {
             utility.getData(utility.URL.diaryOperation, queryData)
@@ -92,9 +247,9 @@
                   let tempFullArray = this.diaries.concat(res.data);
 
                   // page operation
-                  if (res.data.length === this.PER_PAGE_AMOUNT){
+                  if (res.data.length === this.queryData.pageCount){
                      this.haveMore = true;
-                     this.pageNo++
+                     this.queryData.pageNo++
                   } else {
                      this.haveMore = false;
                   }
@@ -141,7 +296,9 @@
                   }
                   this.diaries = tempFullArray;
                   this.diariesShow = tempShowArray;
-               })
+               }).finally(()=>{
+                  this.isLoading = false
+            })
          },
          addScrollEvent() {
             window.onscroll = () => {
@@ -150,7 +307,6 @@
                }
             };
          },
-
          // 判断是否加载内容
          needLoadContent() {
             let lastOffsetTop = document.querySelector('.diary-list-group > div:last-child').offsetTop;
@@ -160,35 +316,12 @@
             // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
             return (lastOffsetTop < clientHeight + scrollTop);
          },
-         // 列表模板
-         currentItemHtml(item, date) {
-            let hascontentHtml = '';
-            let weatherHtml = item.weather ? `<img class="icon" src="img/weather/${item.weather}.svg" alt="${item.weather}">` : '';
-            let href = '';
 
-            if (item.content) {
-               hascontentHtml = `<img class="icon" src="img/content.svg" alt="hascontent">`;
-               href = `detail.html?diaryId=${item.id}`
-            } else {
-               hascontentHtml = '';
-               href = `detail.html?diaryId=${item.id}`
-            }
-
-            return `<router-link to="/detail" class="list-item">
-                    <i class="category bg-${item.category}"></i>
-                    <span class="date">${date}</span>
-                    <div class="detail">
-                        <p class="title">${item.title}</p>
-                        ${hascontentHtml}
-                        ${weatherHtml}
-                    </div>
-                </router-link>`;
-         },
          /*         freshLoad() {
                      pageNo = 1;
                      diaryApp.diaries = [];
-                     this.keyword = '';
-                     $.cookie(COOKIE_NAME.keyword, this.keyword, COOKIE_NAME.options);
+                     this.queryData.keyword = '';
+                     $.cookie(COOKIE_NAME.keyword, this.queryData.keyword, COOKIE_NAME.options);
                      this.loadMore();
                   },
                   searchConfirmed() {
@@ -199,7 +332,7 @@
                      diaryApp.diaries = [];
                      this.loadMore();
                      // 存储关键字
-                     $.cookie(COOKIE_NAME.keyword, this.keyword, COOKIE_NAME.options)
+                     $.cookie(COOKIE_NAME.keyword, this.queryData.keyword, COOKIE_NAME.options)
                   },*/
       }
       ,
