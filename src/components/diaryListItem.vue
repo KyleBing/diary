@@ -1,29 +1,20 @@
 <template>
-   <a class="list-item">
-      <i :class="['category', 'bg-' + category]"></i>
-      <span class="date">{{dateString}}</span>
+   <router-link :to="'/detail?id=' + diary.id" class="list-item">
+      <i :class="['category', 'bg-' + diary.category]"></i>
+      <span class="date">{{diary.date}}</span>
       <div class="detail">
-         <p class="title">{{title}}</p>
-         <img :alt="content" v-if="content" class="icon" src="/img/content.svg"/>
-         <img :alt="weather" v-if="weather" class="icon" :src="'/img/weather/' + weather + '.svg'"/>
+         <p class="title">{{diary.title}}</p>
+         <img :alt="diary.content" v-if="diary.content" class="icon" src="/img/content.svg"/>
+         <img :alt="diary.weather" v-if="diary.weather" class="icon" :src="'/img/weather/' + diary.weather + '.svg'"/>
       </div>
-   </a>
+   </router-link>
 </template>
 
 <script>
    export default {
       name: "diaryListItem",
       props: {
-         title: String,
-         weather: String,
-         content: String,
-         dateString: String,
-         category: String
-      },
-      data() {
-         return {
-
-         }
+         diary: Object
       }
    }
 </script>

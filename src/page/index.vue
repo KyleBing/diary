@@ -2,13 +2,13 @@
    <div class="body-normal">
 
       <!-- navbar -->
-      <nav class="navbar clearfix" id="navbar">
+      <nav class="navbar" id="navbar">
          <div class="navbar-btn-group left">
-            <img v-show= "!showMenu"  alt= "菜单" @click="menuShow"  src= "img/tabicon/menu.svg" >
-            <img v-show= "showMenu" alt= "关闭" @click="menuClose" src= "img/tabicon/close.svg" >
+            <img v-show= "!showMenu"  alt= "菜单" @click="menuShow"  src="img/tabicon/menu.svg" >
+            <img v-show= "showMenu" alt= "关闭" @click="menuClose" src="img/tabicon/close.svg" >
          </div>
          <div class="navbar-btn-group right" v-show="!showMenu">
-            <router-link to="/edit"><img alt= "添加" @click= ""    src= "img/tabicon/add.svg" ></router-link>
+            <router-link to="/edit"><img alt= "添加" @click= ""    src="img/tabicon/add.svg" ></router-link>
          </div>
          <div class="brand">
             <a @click=""><img :src="logo" alt="日记"></a>
@@ -60,6 +60,7 @@
          <!--search-->
       </div>
 
+      <!--content-->
       <div class="container" id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
 
          <div class="search-bar" v-show="searchBarShow">
@@ -74,16 +75,10 @@
                  :key="index">
                <div v-if="!item.title" class="list-header">{{item.date}}</div>
                <diary-list-item v-else :category="item.category"
-                                :id="item.id"
-                                :title="item.title"
-                                :content="item.content"
-                                :dateString="item.date.toString()"
-                                :weather="item.weather">
+                                :diary="item">
                </diary-list-item>
             </div>
          </div>
-
-
 
          <!--加载动画-->
          <div v-show="isLoading" class="loading">
@@ -160,10 +155,10 @@
       methods: {
          /* MENU 相关 */
          menuInit(){
-            this.showMenu = false;            // menu panel
-            this.showMenuList = true;         // menu list
-            this.showCategory = false;       // reference
-            this.showAbout = false;           // about
+            this.showMenu            = false;            // menu panel
+            this.showMenuList        = true;             // menu list
+            this.showCategory        = false;            // reference
+            this.showAbout           = false;            // about
          },
          menuListClicked(menuName){
             switch (menuName){
@@ -172,25 +167,27 @@
                   this.menuInit();
                   break;
                case 'category':
-                  this.showMenu = true;            // menu panel
-                  this.showMenuList = false;         // menu list
-                  this.showCategory = true;       // reference
-                  this.showAbout = false;           // about
+                  this.showMenu      = true;             // menu panel
+                  this.showMenuList  = false;            // menu list
+                  this.showCategory  = true;             // reference
+                  this.showAbout     = false;            // about
                   break;
                case 'about':
-                  this.showMenu = true;            // menu panel
-                  this.showMenuList = false;         // menu list
-                  this.showCategory = false;       // reference
-                  this.showAbout = true;           // about
+                  this.showMenu      = true;             // menu panel
+                  this.showMenuList  = false;            // menu list
+                  this.showCategory  = false;            // reference
+                  this.showAbout     = true;             // about
+
                   break;
                default: break;
             }
          },
          menuShow(){
-            this.showMenu = true;            // menu panel
-            this.showMenuList = true;         // menu list
-            this.showCategory = false;       // reference
-            this.showAbout = false;           // about
+            this.showMenu     = true;            // menu panel
+            this.showMenuList = true;            // menu list
+            this.showCategory = false;           // reference
+            this.showAbout    = false;           // about
+
          },
          menuClose(){
             if (this.showCategory){
@@ -201,10 +198,11 @@
                this.loadMore();
                this.menuInit();
             } else if (this.showAbout){
-               this.showMenu = true;            // menu panel
-               this.showMenuList = true;         // menu list
-               this.showCategory = false;       // reference
-               this.showAbout = false;           // about
+               this.showMenu     = true;            // menu panel
+               this.showMenuList = true;            // menu list
+               this.showCategory = false;           // reference
+               this.showAbout    = false;           // about
+
             } else if (this.showMenu){
                this.menuInit();
             }

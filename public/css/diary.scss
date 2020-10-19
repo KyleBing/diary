@@ -9,6 +9,7 @@
 //FRAME
 body{
   position: relative;
+  @extend .body-normal;
 }
 .container{
   padding: 45px 0;

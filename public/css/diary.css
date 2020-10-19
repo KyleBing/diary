@@ -1415,7 +1415,7 @@ input[id^=category-], input[id^=weather-] {
   color: #8bc34a;
 }
 
-.body-normal {
+.body-normal, body {
   background-color: #EFEFF4;
 }
 
