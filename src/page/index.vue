@@ -71,12 +71,9 @@
          </div>
 
          <div class="diary-list-group">
-            <div v-for="(item, index) in diariesShow"
-                 :key="index">
+            <div v-for="(item, index) in diariesShow" :key="index">
                <div v-if="!item.title" class="list-header">{{item.date}}</div>
-               <diary-list-item v-else :category="item.category"
-                                :diary="item">
-               </diary-list-item>
+               <diary-list-item v-else :category="item.category" :diary="item"/>
             </div>
          </div>
 
@@ -164,6 +161,7 @@
             switch (menuName){
                case 'search':
                   this.searchBarShow = true;
+                  document.querySelector('#keyword').focus();
                   this.menuInit();
                   break;
                case 'category':

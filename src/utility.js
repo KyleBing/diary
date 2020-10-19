@@ -26,7 +26,8 @@ const keyword = {
       VueCookie.set(COOKIE_NAME.keyword, content, COOKIE_NAME.options);
    },
    get(){
-      return VueCookie.get(COOKIE_NAME.keyword);
+      let keyword = VueCookie.get(COOKIE_NAME.keyword)
+      return keyword? keyword: '';
    }
 }
 function saveCategories(categories) {
@@ -106,7 +107,9 @@ function postData(url, queryData) {
                resolve(res.data)
             } else {
                popMessage(POP_MSG_TYPE.danger, res.data.info );
-               if (!res.logined){}
+               if (!res.logined){
+                  Vue.$router.push('/login')
+               }
             }
          }).catch(() => {
          reject()
@@ -122,7 +125,7 @@ function getData(url, queryData) {
                resolve(res.data)
             } else {
                popMessage(POP_MSG_TYPE.danger, res.data.info );
-               if (!res.logined){}
+               // if (!res.logined){}
             }
          }).catch(() => {
          reject()
