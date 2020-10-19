@@ -6,30 +6,31 @@
             <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
          </div>
          <div class="navbar-btn-group right">
-            <img alt="添加" src="img/tabicon/edit.svg">
+            <img @click="saveDiary" alt="保存" src="img/tabicon/done.svg">
          </div>
          <div class="brand">
-            <a><img src="img/logo.svg" alt="日记"></a>
+            <a @click="switchContentPanel"><img :src="logoImageUrl" alt="日记"></a>
          </div>
       </nav>
 
       <!--content-->
       <div class="container" id="this">
-         <textarea id="diary-editor-title" class="diary-editor-title" placeholder="一句话，概括你的一天" v-model="diary.title"></textarea>
-         <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"></textarea>
+         <textarea id="diary-editor-title" class="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
+         <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
          <div class="diary-input-group">
             <label for="date">日期</label>
             <date-picker :editable="false"
+                         v-model="date"
                          :confirm="true"
-                         :default-value="diary.date? diary.date : new Date()"
+                         :default-value="new Date()"
                          placeholder="---- -- --"
-                         :input-class="date"
-                         :clearable="false" id="date" v-model="date" type="datetime"/>
+                         input-class="date"
+                         :clearable="false" id="date" type="datetime"/>
          </div>
 
          <div class="diary-input-group">
             <label for="temperature">气温 ℃</label>
-            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="diary.temperature">
+            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
          </div>
 
          <category-selector @change="setCategory" />
@@ -50,38 +51,26 @@
    export default {
       data() {
          return {
-            diary: {},
-            btns: ['close','save'],
             isNew: true,
             contentEditorShowed: false,
+
             id: "",
-            date: '',
             title: "",
             titleOrigin: "",
             content: "",
             contentOrigin: "",
-            category: "life",
-            temperature: '',
-            weather: "sunny",
+            date: '',
+            weather: '',
+            temperature: '-273',
+            heightBg: 0,
 
-            heightBg: 0
+            logoImageUrl: 'img/logo.svg'
          }
       },
       components: {categorySelector, weatherSelector, DatePicker},
       mounted() {
          this.heightBg = window.innerHeight;
          this.id = this.$route.query.id;
-
-         utility.getData(utility.URL.diaryOperation, {
-            'type': 'query',
-            'diaryId': this.id
-         }).then(res => {
-            if (res.data.length > 0) {
-               this.diary = res.data[0];
-            } else {
-               this.$router.back();
-            }
-         })
 
          // this.date = new Date();
          // 标签关闭提醒
@@ -90,43 +79,42 @@
                return "日记内容已改变，显示提示框"
             }
          };
-         this.isNew = !Boolean(location.search);
+         this.isNew = !(this.$route.query.id);
          if (this.isNew) {
             // 新建日记
             this.id = '';
-            this.date = utility.dateFormatter(new Date(), 'yyyy-MM-dd hh:mm');
+            this.date = new Date();
             this.title = '';
             this.content = '';
             this.category = 'life';
             this.temperature = '';
             this.weather = 'sunny'
+            this.updateDiaryIcon();
          } else {
             // 编辑日记
-            $.ajax({
-               url: URL.diaryOperation,
-               dataType: 'json',
-               data: {
-                  type: 'query',
-                  diaryId: getSearchData().id
-               },
-               success: data => {
-                  if (data.success) {
-                     let diary = data.data[0];
-                     this.id = diary.id;
-                     this.title = diary.title;
-                     this.titleOrigin = diary.title;
-                     this.content = diary.content;
-                     this.contentOrigin = diary.content;
-                     this.date = diary.date.substring(0, 16);
-                     this.category = diary.category;
-                     this.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-                     this.weather = diary.weather;
-                     if (diary.content) {
-                        this.contentEditorShowed = true;
-                     }
+            utility.getData(utility.URL.diaryOperation, {
+               'type': 'query',
+               'diaryId': this.id
+            }).then(res => {
+               if (res.data.length > 0) {
+                  let diary = res.data[0];
+                  this.date = new Date(diary.date);
+                  this.temperature = diary.temperature;
+                  this.weather = diary.weather;
+                  this.title = diary.title;
+                  this.titleOrigin = diary.titleOrigin;
+                  this.content = diary.content;
+                  this.contentOrigin = diary.contentOrigin;
+                  this.temperature = diary.temperature === '-273' ? '' : diary.temperature;
+                  if (diary.content) {
+                     this.contentEditorShowed = true;
                   }
+               } else {
+                  this.$router.back();
                }
-            });
+            })
+
+
          }
       },
 
@@ -153,9 +141,9 @@
          },
          updateDiaryIcon() {
             if (this.diaryHasChanged) {
-               navbar.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
+               this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
             } else {
-               navbar.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
+               this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
             }
          },
          saveDiary() {
@@ -163,10 +151,6 @@
             if (this.title.trim().length === 0) {
                this.title = ''; // clear content
                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
-               return;
-            }
-            if (this.date.trim().length === 0) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '日期未填写', null);
                return;
             }
 
@@ -181,7 +165,7 @@
                diaryCategory: this.category,
                diaryTemperature: this.temperature === '' ? -273 : this.temperature,
                diaryWeather: this.weather,
-               diaryDate: this.date,
+               diaryDate: utility.dateFormatter(this.date),
                type: this.isNew ? 'add' : 'modify'
             };
 
@@ -199,6 +183,10 @@
                }
             })
          },
+
+         switchContentPanel(){
+            this.contentEditorShowed = !this.contentEditorShowed
+         },
          createDiary() {
             this.isNew = true;
             this.title = '';
@@ -210,9 +198,6 @@
             this.temperature = '';
             this.weather = "sunny";
          },
-         showContentEditor() {
-            this.contentEditorShowed = !this.contentEditorShowed;
-         }
       },
       computed: {
          diaryHasChanged() {

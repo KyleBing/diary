@@ -12,16 +12,22 @@
 
    export default {
       name: "categorySelector",
-      props: ['weather'],
+      props: {
+         weather: {
+            type: String,
+            default: 'sunny'
+         }
+      },
       data(){
          return {
             weathers: utility.WEATHER,
             weatherNew: this.weather,
          }
+      },
+      watch:{
+         weatherNew(){
+            this.$emit('change', this.weatherNew)
+         }
       }
    }
 </script>
-
-<style scoped>
-
-</style>

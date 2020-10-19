@@ -214,6 +214,7 @@
          },
          clearSearchContent(){
             this.queryData.keyword = '';
+            this.search();
          },
 
          logout(){

@@ -120,25 +120,27 @@ textarea{
   padding: 15px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
-  input[id^=weather-] + label {
+  > div{
     flex-grow: 1;
     flex-shrink: 0;
+    width: (100 - ($cols - 1) * $gaps) / $cols;
+    &:nth-child(#{$cols}n+0) {
+      margin-right: 0;
+    }
+  }
+  input[id^=weather-] + label {
+    height: 30px;
     background: center center no-repeat;
     -webkit-background-size: contain;
     background-size: contain;
-    height: 30px;
     @include unselectable;
     display: block;
     font-weight: bold;
-    width: (100 - ($cols - 1) * $gaps) / $cols;
     cursor: pointer;
     img{
       margin: 0 auto;
       height: 30px;
       display: block;
-    }
-    &:nth-child(#{$cols}n+0) {
-      margin-right: 0;
     }
   }
 

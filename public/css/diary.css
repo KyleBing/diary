@@ -390,29 +390,31 @@ textarea:focus {
   background-color: white;
   border-bottom: 1px solid #EFEFF4;
 }
-.weather-selector input[id^=weather-] + label {
+.weather-selector > div {
   flex-grow: 1;
   flex-shrink: 0;
+  width: 12.5%;
+}
+.weather-selector > div:nth-child(6n+0) {
+  margin-right: 0;
+}
+.weather-selector input[id^=weather-] + label {
+  height: 30px;
   background: center center no-repeat;
   -webkit-background-size: contain;
   background-size: contain;
-  height: 30px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   display: block;
   font-weight: bold;
-  width: 12.5%;
   cursor: pointer;
 }
 .weather-selector input[id^=weather-] + label img {
   margin: 0 auto;
   height: 30px;
   display: block;
-}
-.weather-selector input[id^=weather-] + label:nth-child(6n+0) {
-  margin-right: 0;
 }
 .weather-selector #weather-sunny + label {
   background-image: url(../img/weather/sunny.svg);
