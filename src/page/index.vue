@@ -59,7 +59,7 @@
             diariesShow: [],
 
             pageNo: 1,
-            PAGE_AMOUNT: 50
+            PER_PAGE_AMOUNT: 50
          }
       },
       components: {
@@ -69,17 +69,16 @@
          // init
          this.keyword = this.$cookie.get(utility.COOKIE_NAME.keyword) ? this.$cookie.get(utility.COOKIE_NAME.keyword) : '';
          this.loadMore();
+         this.addScrollEvent();
       },
       methods: {
-
-
          loadMore() {
             this.searchBarShow = !!this.keyword;
             this.haveMore = false;
             this.isLoading = true;
             let queryData = {
                "keyword": this.keyword,
-               "pageCount": this.PAGE_AMOUNT,
+               "pageCount": this.PER_PAGE_AMOUNT,
                "pageNo": this.pageNo,
                "type": "list",
                "category": utility.CATEGORIES_ALL
@@ -91,6 +90,14 @@
                .then(res => {
                   let tempShowArray = [];
                   let tempFullArray = this.diaries.concat(res.data);
+
+                  // page operation
+                  if (res.data.length === this.PER_PAGE_AMOUNT){
+                     this.haveMore = true;
+                     this.pageNo++
+                  } else {
+                     this.haveMore = false;
+                  }
 
                   if (tempFullArray.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
                      let lastDiary = tempFullArray[0];
@@ -146,11 +153,11 @@
 
          // 判断是否加载内容
          needLoadContent() {
-            let lastOffsetTop = document.querySelector('.list-content:last-child .list-item:last-child').offsetTop;
+            let lastOffsetTop = document.querySelector('.diary-list-group > div:last-child').offsetTop;
             let clientHeight = window.innerHeight;
             let scrollTop = document.scrollingElement.scrollTop;
             // console.clear();
-            // console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
+            // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
             return (lastOffsetTop < clientHeight + scrollTop);
          },
          // 列表模板
