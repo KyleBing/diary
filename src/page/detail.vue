@@ -8,10 +8,10 @@
          </div>
          <div class="navbar-btn-group right">
             <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
-            <router-link :to="'/edit?id=' + 'id'"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
+            <router-link :to="'/edit?id=' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
          </div>
          <div class="brand">
-            <a @click=""><img src="img/logo.svg" alt="日记"></a>
+            <a><img src="img/logo.svg" alt="日记"></a>
          </div>
       </nav>
 

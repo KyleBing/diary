@@ -273,28 +273,30 @@ textarea:focus {
   flex-flow: row wrap;
   justify-content: flex-start;
 }
-.category-selector input[id^=category-] + label {
+.category-selector > div {
   flex-shrink: 0;
+  width: 16.8%;
+  margin-bottom: 10px;
+  margin-right: 4%;
+  height: 30px;
+}
+.category-selector > div:nth-child(5n+0) {
+  margin-right: 0;
+}
+.category-selector input[id^=category-] + label {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   display: block;
   font-weight: bold;
-  width: 16.8%;
-  margin-bottom: 10px;
-  margin-right: 4%;
   cursor: pointer;
   font-size: 16px;
-  height: 30px;
   line-height: 30px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   text-align: center;
-}
-.category-selector input[id^=category-] + label:nth-child(5n+0) {
-  margin-right: 0;
 }
 @media screen and (min-width: 765px) {
   .category-selector {

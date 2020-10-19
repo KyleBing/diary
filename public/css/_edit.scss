@@ -64,24 +64,28 @@ textarea{
   flex-flow: row wrap;
   justify-content: flex-start;
 
-  input[id^=category-] + label{
+  > div{
     flex-shrink: 0;
-    @include unselectable;
-    display: block;
-    font-weight: bold;
     width: (100 - ($cols - 1) * $gaps) / $cols;
     margin-bottom: 10px;
     margin-right: $gaps;
+    height: 30px;
+    &:nth-child(#{$cols}n+0){
+      margin-right: 0;
+    }
+  }
+
+  input[id^=category-] + label{
+    @include unselectable;
+    display: block;
+    font-weight: bold;
     cursor: pointer;
     font-size: 16px;
-    height: 30px;
     line-height: 30px;
     @include border-radius(5px);
     text-align: center;
 
-    &:nth-child(#{$cols}n+0){
-      margin-right: 0;
-    }
+
   }
 
   @media screen and (min-width: $grid-separate-width){

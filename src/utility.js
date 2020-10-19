@@ -154,16 +154,16 @@ const POP_MSG_TYPE = {
    default: "default"
 };
 const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',};
-const WEATHER = {
-   sunny: {title: 'sunny', name: '晴'},
-   cloudy: {title: 'cloudy', name: '多云'},
-   overcast: {title: 'overcast', name: '阴'},
-   sprinkle: {title: 'sprinkle', name: '小雨'},
-   rain: {title: 'rain', name: '雨'},
-   thunderstorm: {title: 'thunderstorm', name: '暴雨'},
-   snow: {title: 'snow', name: '雪'},
-   fog: {title: 'fog', name: '雾'}
-};
+const WEATHER = [
+    {title: 'sunny', name: '晴'},
+    {title: 'cloudy', name: '多云'},
+    {title: 'overcast', name: '阴'},
+    {title: 'sprinkle', name: '小雨'},
+    {title: 'rain', name: '雨'},
+    {title: 'thunderstorm', name: '暴雨'},
+    {title: 'snow', name: '雪'},
+    {title: 'fog', name: '雾'}
+];
 const CATEGORIES = {
    life: '生活',
    study: '学习',

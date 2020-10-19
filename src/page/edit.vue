@@ -1,14 +1,27 @@
 <template>
    <div class="body-normal" :style="'min-height:' + heightBg + 'px'">
-      <nav-bar :btns="btns"/>
+      <!-- navbar -->
+      <nav class="navbar" id="navbar">
+         <div class="navbar-btn-group left">
+            <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
+         </div>
+         <div class="navbar-btn-group right">
+            <img alt="添加" src="img/tabicon/edit.svg">
+         </div>
+         <div class="brand">
+            <a><img src="img/logo.svg" alt="日记"></a>
+         </div>
+      </nav>
+
+      <!--content-->
       <div class="container" id="this">
-         <textarea id="diary-editor-title" class="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
-         <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
+         <textarea id="diary-editor-title" class="diary-editor-title" placeholder="一句话，概括你的一天" v-model="diary.title"></textarea>
+         <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"></textarea>
          <div class="diary-input-group">
             <label for="date">日期</label>
             <date-picker :editable="false"
                          :confirm="true"
-                         :default-value="new Date()"
+                         :default-value="diary.date? diary.date : new Date()"
                          placeholder="---- -- --"
                          :input-class="date"
                          :clearable="false" id="date" v-model="date" type="datetime"/>
@@ -16,10 +29,11 @@
 
          <div class="diary-input-group">
             <label for="temperature">气温 ℃</label>
-            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
+            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="diary.temperature">
          </div>
-         <category-selector/>
-         <weather-selector/>
+
+         <category-selector @change="setCategory" />
+         <weather-selector @change="setWeather"/>
       </div>
    </div>
 </template>
@@ -27,17 +41,16 @@
 <script>
    import $ from 'jquery'
    import utility from "../utility";
-   import navBar from "../components/navbar";
    import categorySelector from "../components/categorySelector";
    import weatherSelector from "../components/weatherSelector";
    import DatePicker from 'vue2-datepicker';
    import 'vue2-datepicker/locale/zh-cn';
    import 'vue2-datepicker/index.css';
 
-
    export default {
       data() {
          return {
+            diary: {},
             btns: ['close','save'],
             isNew: true,
             contentEditorShowed: false,
@@ -54,11 +67,21 @@
             heightBg: 0
          }
       },
-      components: {
-         navBar, categorySelector, weatherSelector, DatePicker
-      },
+      components: {categorySelector, weatherSelector, DatePicker},
       mounted() {
-         this.heightBg = window.innerHeight
+         this.heightBg = window.innerHeight;
+         this.id = this.$route.query.id;
+
+         utility.getData(utility.URL.diaryOperation, {
+            'type': 'query',
+            'diaryId': this.id
+         }).then(res => {
+            if (res.data.length > 0) {
+               this.diary = res.data[0];
+            } else {
+               this.$router.back();
+            }
+         })
 
          // this.date = new Date();
          // 标签关闭提醒
@@ -119,6 +142,15 @@
          },
       },
       methods: {
+         goBack() {
+            this.$router.back()
+         },
+         setCategory(data){
+            this.category = data
+         },
+         setWeather(data){
+            this.weather = data
+         },
          updateDiaryIcon() {
             if (this.diaryHasChanged) {
                navbar.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
