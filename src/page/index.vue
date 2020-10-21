@@ -8,10 +8,13 @@
             <img v-show= "showMenu" alt= "关闭" @click="menuClose" src="img/tabicon/close.svg" >
          </div>
          <div class="navbar-btn-group right" v-show="!showMenu">
-            <router-link to="/edit"><img alt= "添加" @click= ""    src="img/tabicon/add.svg" ></router-link>
+            <router-link to="/edit"><img alt= "添加" src="img/tabicon/add.svg" ></router-link>
          </div>
          <div class="brand">
-            <a @click=""><img :src="logo" alt="日记"></a>
+            <a @click="toggleDiaryList">
+               <img src="img/logo.svg" alt="日记" v-if="showDiaryList">
+               <img src="img/logo_content.svg" alt="日记" v-else>
+            </a>
          </div>
       </nav>
 
@@ -54,7 +57,7 @@
                <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
                <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
                <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-               <a href="https://github.com/KyleBing/diary">version 5.9.2</a>
+               <a href="https://github.com/KyleBing/diary">version 6.0.0</a>
             </div>
          </div>
          <!--search-->
@@ -70,10 +73,17 @@
             </form>
          </div>
 
-         <div class="diary-list-group">
+         <div class="diary-list-group" v-if="showDiaryList">
             <div v-for="(item, index) in diariesShow" :key="index">
                <div v-if="!item.title" class="list-header">{{item.date}}</div>
                <diary-list-item v-else :category="item.category" :diary="item"/>
+            </div>
+         </div>
+
+         <div class="diary-list-group" v-else>
+            <div v-for="(item, index) in diaries" :key="index">
+               <div v-if="!item.title" class="list-header">{{item.date}}</div>
+               <diary-list-item-long v-else :category="item.category" :diary="item"/>
             </div>
          </div>
 
@@ -94,11 +104,12 @@
 <script>
    import utility from "../utility";
    import diaryListItem from "../components/diaryListItem";
+   import diaryListItemLong from "../components/diaryListItemLong";
 
    export default {
       data() {
          return {
-            logo: 'img/logo.svg',
+            showDiaryList: true,
             searchBarShow: false,
 
             haveMore: true,
@@ -128,7 +139,7 @@
          }
       },
       components: {
-         diaryListItem
+         diaryListItem, diaryListItemLong
       },
       mounted() {
          // init
@@ -150,7 +161,11 @@
          }
       },
       methods: {
+
          /* MENU 相关 */
+         toggleDiaryList(){
+            this.showDiaryList = !this.showDiaryList
+         },
          menuInit(){
             this.showMenu            = false;            // menu panel
             this.showMenuList        = true;             // menu list
@@ -244,7 +259,15 @@
             utility.getData(utility.URL.diaryOperation, queryData)
                .then(res => {
                   let tempShowArray = [];
-                  let tempFullArray = this.diaries.concat(res.data);
+                  let newDiariesList = res.data.map(diary => {
+                     diary.content = diary.content.replace(/\n/g, '<br/>');
+                     diary.weekday = utility.formateDate(diary.date).weekday;
+                     diary.dateString = utility.formateDate(diary.date).date;
+                     let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category);
+                     diary.categoryString = category[0].name;
+                     return diary;
+                  })
+                  let tempFullArray = this.diaries.concat(newDiariesList);
 
                   // page operation
                   if (res.data.length === this.queryData.pageCount){
@@ -317,30 +340,7 @@
             return (lastOffsetTop < clientHeight + scrollTop);
          },
       }
-      ,
    }
-   /*
-      // logo 点击切换图标
-      function toggleLogo(logo) {
-         const LOGO = {
-            open: 'img/logo.svg',
-            close: 'img/logo_close.svg'
-         };
-         let img = $(logo).children('img');
-         let currentSrc = img.attr('src');
-         if (currentSrc === LOGO.open) {
-            img.attr('src', LOGO.close);
-            $('.list-content').slideUp()
-         } else {
-            img.attr('src', LOGO.open);
-            $('.list-content').slideDown()
-         }
-      }
-
-      function toggleMonthContent(header) {
-         $(header).next().slideToggle();
-      }
-   */
 
 
 </script>

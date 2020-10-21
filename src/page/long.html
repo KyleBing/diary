@@ -359,17 +359,7 @@
                                                 ${item.content.replace(/\n/g, '<br/>')}
                                             </div>`
                         }
-                        let template = `<div  class="article">
-                                            <a href="detail.html?diaryId=${item.id}" class="article-header category-bg-${item.category}">
-                                                <div class="week">${formateDate(item.date).weekday}</div>
-                                                <div class="date">${formateDate(item.date).date}</div>
-                                                <div class="category text-${item.category}">${CATEGORIES[item.category]}</div>
-                                            </a>
-                                            <div class="article-body">
-                                                <div class="title">${item.title}</div>
-                                                ${contentHtml}
-                                            </div>
-                                        </div>`;
+                        let template = ``;
                         html += template;
                     });
                     html+=`</div>`;

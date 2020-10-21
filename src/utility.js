@@ -200,12 +200,15 @@ function dateFormatter(date, formatString) {
 }
 
 function formateDate(dateString) {
-   let year = Number(dateString.substring(0, 4));
-   let month = Number(dateString.substring(5, 7));
-   let day = Number(dateString.substring(8, 10));
+   let year = Number(dateString.substring(0,4));
+   let month = Number(dateString.substring(5,7));
+   let day = Number(dateString.substring(8,10));
    let date = new Date(year, month - 1, day);
    let week = date.getDay();
-   return `${year}年${month}月${day}日 ${WEEKDAY[week]}`
+   return {
+      weekday: WEEKDAY[week],
+      date:`${year}年${month}月${day}日`
+   }
 }
 
 export default {
