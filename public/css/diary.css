@@ -300,13 +300,19 @@ textarea:focus {
 }
 @media screen and (min-width: 765px) {
   .category-selector {
-    flex-flow: row nowrap;
-    justify-content: space-around;
+    padding: 10px;
   }
   .category-selector label {
     flex-grow: 1;
     flex-shrink: 1 !important;
     margin-right: 0 !important;
+  }
+  .category-selector > div {
+    margin-right: 20px;
+    width: auto;
+  }
+  .category-selector > div label {
+    padding: 5px 20px;
   }
 }
 .category-selector #category-life + label {
@@ -467,6 +473,10 @@ textarea:focus {
 
 input[id^=category-], input[id^=weather-] {
   display: none;
+}
+
+.mx-datepicker {
+  width: auto;
 }
 
 .bg-life {

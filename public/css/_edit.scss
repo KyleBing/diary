@@ -84,18 +84,22 @@ textarea{
     line-height: 30px;
     @include border-radius(5px);
     text-align: center;
-
-
   }
 
   @media screen and (min-width: $grid-separate-width){
-    flex-flow: row nowrap;
-    justify-content: space-around;
-
+    padding: 10px;
     label{
       flex-grow: 1;
       flex-shrink: 1 !important;
       margin-right: 0 !important;
+    }
+
+    > div{
+      margin-right: 20px;
+      width: auto;
+      label{
+        padding: 5px 20px;
+      }
     }
   }
 
