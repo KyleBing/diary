@@ -1,14 +1,12 @@
-# 前端
+# 标题日记 vue 版
 
+使用插件
+- Vue
+- VueRouter
+- Axios
+- qs
+- vue-cookie
+- jquery
+- vue2-datepicker
 
-```bash
-├── README.md               # 说明文档
-├── css
-├── img
-├── js
-├── change_password.html    # 修改密码
-├── edit.html               # 新建 / 编辑 日记页
-├── index.html              # 列表页 / 搜索显示页
-├── login.html              # 登录
-└── regist.html             # 注册
-```
+项目中的样式为独立模块，未跟 vue 文件混在一起。
