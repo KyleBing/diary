@@ -42,6 +42,11 @@ $height-menu-list: 50px;
   &:active{
     background-color: lighten($bg-menu,10%);
   }
+  &:last-child{
+    &::after{
+      content: none;
+    }
+  }
 }
 
 .user-info{

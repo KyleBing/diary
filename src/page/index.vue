@@ -20,12 +20,14 @@
 
       <!-- menu -->
       <div class="menu-panel" id="menu-panel" v-show="showMenu" :style="'min-height:' + heightBg + 'px'">
-         <div class="menu-list-group" v-show="showMenuList">
-            <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
-            <a class="menu-list-group-item" @click="menuListClicked('category')">类别</a>
-            <a class="menu-list-group-item" @click="menuListClicked('about')">关于</a>
-            <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
-            <a class="menu-list-group-item" @click="logout">退出</a>
+         <div class="menu-list" v-show="showMenuList">
+            <div class="menu-list-group" >
+               <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
+               <a class="menu-list-group-item" @click="menuListClicked('category')">类别</a>
+               <a class="menu-list-group-item" @click="menuListClicked('about')">关于</a>
+               <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
+               <a class="menu-list-group-item" @click="logout">退出</a>
+            </div>
             <div class="user-info">
                <span class="username">{{userInfo.username}}</span>
                <span class="email">{{userInfo.email}}</span>
@@ -57,7 +59,7 @@
                <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
                <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
                <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-               <a href="https://github.com/KyleBing/diary">version 6.0.0</a>
+               <a href="https://github.com/KyleBing/diary">v 6.0.0</a>
             </div>
          </div>
          <!--search-->

@@ -73,7 +73,8 @@
             if (res.data.length > 0) {
                let diary = res.data[0];
                this.diary = diary;
-               this.diary.date = utility.formateDate(diary.date);
+               let dateOjb = utility.formateDate(diary.date);
+               this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday;
                let contentArray = diary.content.split('\n');
                let contentHtml = "";
                contentArray.forEach(item => {
