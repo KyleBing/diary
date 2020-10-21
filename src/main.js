@@ -3,8 +3,10 @@ import Router from 'vue-router'
 import VueCookie from 'vue-cookie'
 
 
+
 import routes from './router';
 import App from './App.vue'
+import utility from "./utility";
 
 Vue.config.productionTip = false
 
@@ -14,7 +16,17 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  next()
+  if (to.name !== 'login' && to.name !== 'register'){
+    if (utility.getAuthorization().email){
+      next()
+    } else {
+      utility.popMessage(utility.POP_MSG_TYPE.warning, '未登录，请先登录...', () => {
+        next('/login')
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 Vue.use(Router);
