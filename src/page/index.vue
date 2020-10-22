@@ -264,7 +264,9 @@
                .then(res => {
                   let tempShowArray = [];
                   let newDiariesList = res.data.map(diary => {
-                     diary.content = diary.content.replace(/\n/g, '<br/>');
+                     if(diary.content){
+                        diary.content = diary.content.replace(/\n/g, '<br/>');
+                     }
                      diary.weekday = utility.formateDate(diary.date).weekday;
                      diary.dateString = utility.formateDate(diary.date).date;
                      let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category);
