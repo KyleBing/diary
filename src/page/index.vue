@@ -178,8 +178,10 @@
             switch (menuName){
                case 'search':
                   this.searchBarShow = true;
-                  document.querySelector('#keyword').focus();
                   this.menuInit();
+                  this.$nextTick(()=>{
+                     document.querySelector('#keyword').focus();
+                  });
                   break;
                case 'category':
                   this.showMenu      = true;             // menu panel
