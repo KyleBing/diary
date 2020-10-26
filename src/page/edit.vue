@@ -6,6 +6,7 @@
             <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
          </div>
          <div class="navbar-btn-group right">
+            <img @click="createDiary" alt="新建" src="img/tabicon/add.svg">
             <img @click="saveDiary" alt="保存" src="img/tabicon/done.svg">
          </div>
          <div class="brand">
@@ -147,7 +148,6 @@
             }
          },
          saveDiary() {
-            let that = this;
             if (this.title.trim().length === 0) {
                this.title = ''; // clear content
                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
