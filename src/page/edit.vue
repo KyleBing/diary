@@ -99,7 +99,7 @@
                if (res.data.length > 0) {
                   let diary = res.data[0];
                   this.category = diary.category;
-                  this.date = new Date(diary.date);
+                  this.date = new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
                   this.temperature = diary.temperature;
                   this.weather = diary.weather;
                   this.title = diary.title;
