@@ -85,7 +85,7 @@
          <div class="diary-list-group" v-else>
             <div v-for="(item, index) in diaries" :key="index">
                <div v-if="!item.title" class="list-header">{{ item.date }}</div>
-               <diary-list-item-long v-else :category="item.category" :diary="item"/>
+               <diary-list-item-long v-else :diary="item"/>
             </div>
          </div>
 
@@ -139,7 +139,7 @@ export default {
 
          heightBg: 0,
 
-         version: 'v 6.0.2'
+         version: 'v 6.0.4'
       }
    },
    components: {
