@@ -1,0 +1,70 @@
+.category-selector{
+  @include border-radius(10px);
+  margin: 8px;
+  $gaps: 4%;
+  $cols: 5;
+  padding: 15px 15px 5px;
+  background-color: white;
+  border-bottom: 1px solid $bg-light;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+
+  > div{
+    flex-shrink: 0;
+    width: (100 - ($cols - 1) * $gaps) / $cols;
+    margin-bottom: 10px;
+    margin-right: $gaps;
+    height: 30px;
+    &:nth-child(#{$cols}n+0){
+      margin-right: 0;
+    }
+  }
+
+  input[id^=category-] + label{
+    @include unselectable;
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 30px;
+    @include border-radius(5px);
+    text-align: center;
+  }
+
+  @media screen and (min-width: $grid-separate-width){
+    padding: 10px;
+    label{
+      flex-grow: 1;
+      flex-shrink: 1 !important;
+      margin-right: 0 !important;
+    }
+
+    > div{
+      &:nth-child(#{$cols}n+0){
+        margin-right: 20px;
+      }
+      margin-right: 20px;
+      width: auto;
+      label{
+        padding: 5px 20px;
+      }
+    }
+  }
+
+  @each $name, $color in $categories {
+    #category-#{$name} + label{
+      color: $color;
+    }
+    #category-#{$name}:checked + label {
+      background-color: $color;
+      color: white;
+    }
+  }
+}
+
+
+// 隐藏所有 Input
+input[id^=category-]{
+  display: none;
+}

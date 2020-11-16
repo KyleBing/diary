@@ -1,0 +1,53 @@
+
+.weather-selector{
+  @include border-radius(10px);
+  margin: 8px;
+  display: flex;
+  $gaps: 5%;
+  $cols: 6;
+  padding: 15px;
+  background-color: white;
+  border-bottom: 1px solid $bg-light;
+  > div{
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: (100 - ($cols - 1) * $gaps) / $cols;
+    &:nth-child(#{$cols}n+0) {
+      margin-right: 0;
+    }
+  }
+  input[id^=weather-] + label {
+    height: 30px;
+    background: center center no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    @include unselectable;
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
+    img{
+      margin: 0 auto;
+      height: 30px;
+      display: block;
+    }
+  }
+
+  @mixin weather-item-template($color) {
+    background-color: $color;
+    color: white;
+  }
+
+  @each $name in $weathers {
+    #weather-#{$name} + label {
+      background-image: url(../img/weather/#{$name}.svg)
+    }
+    #weather-#{$name}:checked + label {
+      background-image: url(../img/weather/#{$name}_active.svg)
+    }
+  }
+}
+
+// 隐藏所有 Input
+input[id^=weather-]{
+  display: none;
+}

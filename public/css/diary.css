@@ -261,220 +261,6 @@ textarea:focus {
   padding: 5px 10px;
 }
 
-.category-selector {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  margin: 8px;
-  padding: 15px 15px 5px;
-  background-color: white;
-  border-bottom: 1px solid #EFEFF4;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-}
-.category-selector > div {
-  flex-shrink: 0;
-  width: 16.8%;
-  margin-bottom: 10px;
-  margin-right: 4%;
-  height: 30px;
-}
-.category-selector > div:nth-child(5n+0) {
-  margin-right: 0;
-}
-.category-selector input[id^=category-] + label {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: block;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 30px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  text-align: center;
-}
-@media screen and (min-width: 765px) {
-  .category-selector {
-    padding: 10px;
-  }
-  .category-selector label {
-    flex-grow: 1;
-    flex-shrink: 1 !important;
-    margin-right: 0 !important;
-  }
-  .category-selector > div {
-    margin-right: 20px;
-    width: auto;
-  }
-  .category-selector > div label {
-    padding: 5px 20px;
-  }
-}
-.category-selector #category-life + label {
-  color: #FF9500;
-}
-.category-selector #category-life:checked + label {
-  background-color: #FF9500;
-  color: white;
-}
-.category-selector #category-study + label {
-  color: #4CD964;
-}
-.category-selector #category-study:checked + label {
-  background-color: #4CD964;
-  color: white;
-}
-.category-selector #category-bigevent + label {
-  color: #FF3B30;
-}
-.category-selector #category-bigevent:checked + label {
-  background-color: #FF3B30;
-  color: white;
-}
-.category-selector #category-sport + label {
-  color: #FFCC00;
-}
-.category-selector #category-sport:checked + label {
-  background-color: #FFCC00;
-  color: white;
-}
-.category-selector #category-week + label {
-  color: #5856D6;
-}
-.category-selector #category-week:checked + label {
-  background-color: #5856D6;
-  color: white;
-}
-.category-selector #category-work + label {
-  color: #007AFF;
-}
-.category-selector #category-work:checked + label {
-  background-color: #007AFF;
-  color: white;
-}
-.category-selector #category-game + label {
-  color: #5AC8FA;
-}
-.category-selector #category-game:checked + label {
-  background-color: #5AC8FA;
-  color: white;
-}
-.category-selector #category-film + label {
-  color: #FF2D70;
-}
-.category-selector #category-film:checked + label {
-  background-color: #FF2D70;
-  color: white;
-}
-.category-selector #category-article + label {
-  color: #CC73E1;
-}
-.category-selector #category-article:checked + label {
-  background-color: #CC73E1;
-  color: white;
-}
-.category-selector #category-all + label {
-  color: #8bc34a;
-}
-.category-selector #category-all:checked + label {
-  background-color: #8bc34a;
-  color: white;
-}
-
-.weather-selector {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  margin: 8px;
-  display: flex;
-  padding: 15px;
-  background-color: white;
-  border-bottom: 1px solid #EFEFF4;
-}
-.weather-selector > div {
-  flex-grow: 1;
-  flex-shrink: 0;
-  width: 12.5%;
-}
-.weather-selector > div:nth-child(6n+0) {
-  margin-right: 0;
-}
-.weather-selector input[id^=weather-] + label {
-  height: 30px;
-  background: center center no-repeat;
-  -webkit-background-size: contain;
-  background-size: contain;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: block;
-  font-weight: bold;
-  cursor: pointer;
-}
-.weather-selector input[id^=weather-] + label img {
-  margin: 0 auto;
-  height: 30px;
-  display: block;
-}
-.weather-selector #weather-sunny + label {
-  background-image: url(../img/weather/sunny.svg);
-}
-.weather-selector #weather-sunny:checked + label {
-  background-image: url(../img/weather/sunny_active.svg);
-}
-.weather-selector #weather-cloudy + label {
-  background-image: url(../img/weather/cloudy.svg);
-}
-.weather-selector #weather-cloudy:checked + label {
-  background-image: url(../img/weather/cloudy_active.svg);
-}
-.weather-selector #weather-overcast + label {
-  background-image: url(../img/weather/overcast.svg);
-}
-.weather-selector #weather-overcast:checked + label {
-  background-image: url(../img/weather/overcast_active.svg);
-}
-.weather-selector #weather-fog + label {
-  background-image: url(../img/weather/fog.svg);
-}
-.weather-selector #weather-fog:checked + label {
-  background-image: url(../img/weather/fog_active.svg);
-}
-.weather-selector #weather-sprinkle + label {
-  background-image: url(../img/weather/sprinkle.svg);
-}
-.weather-selector #weather-sprinkle:checked + label {
-  background-image: url(../img/weather/sprinkle_active.svg);
-}
-.weather-selector #weather-rain + label {
-  background-image: url(../img/weather/rain.svg);
-}
-.weather-selector #weather-rain:checked + label {
-  background-image: url(../img/weather/rain_active.svg);
-}
-.weather-selector #weather-thunderstorm + label {
-  background-image: url(../img/weather/thunderstorm.svg);
-}
-.weather-selector #weather-thunderstorm:checked + label {
-  background-image: url(../img/weather/thunderstorm_active.svg);
-}
-.weather-selector #weather-snow + label {
-  background-image: url(../img/weather/snow.svg);
-}
-.weather-selector #weather-snow:checked + label {
-  background-image: url(../img/weather/snow_active.svg);
-}
-
-input[id^=category-], input[id^=weather-] {
-  display: none;
-}
-
 .mx-datepicker {
   width: auto;
 }
@@ -1427,6 +1213,227 @@ input[id^=category-], input[id^=weather-] {
 
 .text-all {
   color: #8bc34a;
+}
+
+.category-selector {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin: 8px;
+  padding: 15px 15px 5px;
+  background-color: white;
+  border-bottom: 1px solid #EFEFF4;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+.category-selector > div {
+  flex-shrink: 0;
+  width: 16.8%;
+  margin-bottom: 10px;
+  margin-right: 4%;
+  height: 30px;
+}
+.category-selector > div:nth-child(5n+0) {
+  margin-right: 0;
+}
+.category-selector input[id^=category-] + label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 30px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+@media screen and (min-width: 765px) {
+  .category-selector {
+    padding: 10px;
+  }
+  .category-selector label {
+    flex-grow: 1;
+    flex-shrink: 1 !important;
+    margin-right: 0 !important;
+  }
+  .category-selector > div {
+    margin-right: 20px;
+    width: auto;
+  }
+  .category-selector > div:nth-child(5n+0) {
+    margin-right: 20px;
+  }
+  .category-selector > div label {
+    padding: 5px 20px;
+  }
+}
+.category-selector #category-life + label {
+  color: #FF9500;
+}
+.category-selector #category-life:checked + label {
+  background-color: #FF9500;
+  color: white;
+}
+.category-selector #category-study + label {
+  color: #4CD964;
+}
+.category-selector #category-study:checked + label {
+  background-color: #4CD964;
+  color: white;
+}
+.category-selector #category-bigevent + label {
+  color: #FF3B30;
+}
+.category-selector #category-bigevent:checked + label {
+  background-color: #FF3B30;
+  color: white;
+}
+.category-selector #category-sport + label {
+  color: #FFCC00;
+}
+.category-selector #category-sport:checked + label {
+  background-color: #FFCC00;
+  color: white;
+}
+.category-selector #category-week + label {
+  color: #5856D6;
+}
+.category-selector #category-week:checked + label {
+  background-color: #5856D6;
+  color: white;
+}
+.category-selector #category-work + label {
+  color: #007AFF;
+}
+.category-selector #category-work:checked + label {
+  background-color: #007AFF;
+  color: white;
+}
+.category-selector #category-game + label {
+  color: #5AC8FA;
+}
+.category-selector #category-game:checked + label {
+  background-color: #5AC8FA;
+  color: white;
+}
+.category-selector #category-film + label {
+  color: #FF2D70;
+}
+.category-selector #category-film:checked + label {
+  background-color: #FF2D70;
+  color: white;
+}
+.category-selector #category-article + label {
+  color: #CC73E1;
+}
+.category-selector #category-article:checked + label {
+  background-color: #CC73E1;
+  color: white;
+}
+.category-selector #category-all + label {
+  color: #8bc34a;
+}
+.category-selector #category-all:checked + label {
+  background-color: #8bc34a;
+  color: white;
+}
+
+input[id^=category-] {
+  display: none;
+}
+
+.weather-selector {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin: 8px;
+  display: flex;
+  padding: 15px;
+  background-color: white;
+  border-bottom: 1px solid #EFEFF4;
+}
+.weather-selector > div {
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 12.5%;
+}
+.weather-selector > div:nth-child(6n+0) {
+  margin-right: 0;
+}
+.weather-selector input[id^=weather-] + label {
+  height: 30px;
+  background: center center no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+}
+.weather-selector input[id^=weather-] + label img {
+  margin: 0 auto;
+  height: 30px;
+  display: block;
+}
+.weather-selector #weather-sunny + label {
+  background-image: url(../img/weather/sunny.svg);
+}
+.weather-selector #weather-sunny:checked + label {
+  background-image: url(../img/weather/sunny_active.svg);
+}
+.weather-selector #weather-cloudy + label {
+  background-image: url(../img/weather/cloudy.svg);
+}
+.weather-selector #weather-cloudy:checked + label {
+  background-image: url(../img/weather/cloudy_active.svg);
+}
+.weather-selector #weather-overcast + label {
+  background-image: url(../img/weather/overcast.svg);
+}
+.weather-selector #weather-overcast:checked + label {
+  background-image: url(../img/weather/overcast_active.svg);
+}
+.weather-selector #weather-fog + label {
+  background-image: url(../img/weather/fog.svg);
+}
+.weather-selector #weather-fog:checked + label {
+  background-image: url(../img/weather/fog_active.svg);
+}
+.weather-selector #weather-sprinkle + label {
+  background-image: url(../img/weather/sprinkle.svg);
+}
+.weather-selector #weather-sprinkle:checked + label {
+  background-image: url(../img/weather/sprinkle_active.svg);
+}
+.weather-selector #weather-rain + label {
+  background-image: url(../img/weather/rain.svg);
+}
+.weather-selector #weather-rain:checked + label {
+  background-image: url(../img/weather/rain_active.svg);
+}
+.weather-selector #weather-thunderstorm + label {
+  background-image: url(../img/weather/thunderstorm.svg);
+}
+.weather-selector #weather-thunderstorm:checked + label {
+  background-image: url(../img/weather/thunderstorm_active.svg);
+}
+.weather-selector #weather-snow + label {
+  background-image: url(../img/weather/snow.svg);
+}
+.weather-selector #weather-snow:checked + label {
+  background-image: url(../img/weather/snow_active.svg);
+}
+
+input[id^=weather-] {
+  display: none;
 }
 
 .body-normal, body {
