@@ -48,6 +48,17 @@ function setAuthorization(email, token, username, uid) {
    VueCookie.set(COOKIE_NAME.uid, uid, COOKIE_NAME.options);
 }
 
+// 刷新 cookie 过期时间
+function renewAuthorization() {
+   let authentication = getAuthorization();
+   if (authentication.token) {
+      VueCookie.set(COOKIE_NAME.email, authentication.email, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.token, authentication.token, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.username, authentication.username, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.uid, authentication.uid, COOKIE_NAME.options);
+   }
+}
+
 // 获取cookie
 function getAuthorization() {
    let email = VueCookie.get(COOKIE_NAME.email);
@@ -104,6 +115,7 @@ function postData(url, queryData) {
       axios.post(url, qs.stringify(queryData))
          .then(res => {
             if (res.data.success) {
+               renewAuthorization();
                resolve(res.data)
             } else {
                popMessage(POP_MSG_TYPE.danger, res.data.info );
@@ -122,6 +134,7 @@ function getData(url, queryData) {
       axios.get(url, {params: queryData})
          .then(res => {
             if (res.data.success) {
+               renewAuthorization();
                resolve(res.data)
             } else {
                popMessage(POP_MSG_TYPE.danger, res.data.info );
