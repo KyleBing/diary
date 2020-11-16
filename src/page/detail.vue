@@ -36,6 +36,7 @@
       </div>
 
 
+     <!--TOAST-->
       <div id="toast" class="fadeIn animated-fast" v-show="showToast">
          <div class="toast">
             <div class="toast-header">确定删除吗</div>
@@ -74,7 +75,7 @@
                let diary = res.data[0];
                this.diary = diary;
                let dateOjb = utility.formateDate(diary.date);
-               this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday;
+               this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
                let contentArray = diary.content.split('\n');
                let contentHtml = "";
                contentArray.forEach(item => {

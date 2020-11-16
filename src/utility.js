@@ -216,11 +216,30 @@ function formateDate(dateString) {
    let year = Number(dateString.substring(0,4));
    let month = Number(dateString.substring(5,7));
    let day = Number(dateString.substring(8,10));
+   let hour = Number(dateString.substring(11,13));
+   let time = dateString.substring(11,16);
    let date = new Date(year, month - 1, day);
    let week = date.getDay();
+   let timeArea = '';
+   if (hour >= 23 && hour < 24 || hour <= 3 && hour >= 0) {
+      timeArea = '深夜';
+   } else if (hour >= 19 && hour < 23) {
+      timeArea = '晚上';
+   } else if (hour >= 14 && hour < 18) {
+      timeArea = '傍晚';
+   } else if (hour >= 11 && hour < 14) {
+      timeArea = '中午';
+   } else if (hour >= 6 && hour < 11) {
+      timeArea = '早上';
+   } else if (hour >= 3 && hour < 6) {
+      timeArea = '凌晨';
+   }
+
    return {
       weekday: WEEKDAY[week],
-      date:`${year}年${month}月${day}日`
+      date:`${month}月${day}日`,
+      timeName: timeArea,
+      time: time
    }
 }
 
