@@ -1262,6 +1262,7 @@ textarea:focus {
     margin-right: 0 !important;
   }
   .category-selector > div {
+    margin-bottom: 0;
     margin-right: 20px;
     width: auto;
   }
@@ -1269,7 +1270,8 @@ textarea:focus {
     margin-right: 20px;
   }
   .category-selector > div label {
-    padding: 5px 20px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 .category-selector #category-life + label {

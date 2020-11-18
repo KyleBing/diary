@@ -41,13 +41,15 @@
     }
 
     > div{
+      margin-bottom: 0;
       &:nth-child(#{$cols}n+0){
         margin-right: 20px;
       }
       margin-right: 20px;
       width: auto;
       label{
-        padding: 5px 20px;
+        padding-right: 15px;
+        padding-left: 15px;
       }
     }
   }

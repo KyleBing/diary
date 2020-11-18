@@ -225,7 +225,7 @@ function formateDate(dateString) {
       timeArea = '深夜';
    } else if (hour >= 19 && hour < 23) {
       timeArea = '晚上';
-   } else if (hour >= 14 && hour < 18) {
+   } else if (hour >= 14 && hour < 19) {
       timeArea = '傍晚';
    } else if (hour >= 11 && hour < 14) {
       timeArea = '中午';
