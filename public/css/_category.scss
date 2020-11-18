@@ -32,7 +32,8 @@
     text-align: center;
   }
 
-  @media screen and (min-width: $grid-separate-width){
+  @media (min-width: $grid-separate-width){
+    justify-content: flex-end;
     padding: 10px;
     label{
       flex-grow: 1;

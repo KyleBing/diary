@@ -718,17 +718,19 @@ textarea:focus {
 .navbar .navbar-btn-group img {
   padding: 3px;
   display: block;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0);
   cursor: pointer;
   width: 45px;
   height: 45px;
+  transition: all 0.5s;
 }
 .navbar .navbar-btn-group img:active {
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   opacity: 0.8;
+  transition: all 0s;
 }
 .navbar .brand {
   cursor: pointer;
@@ -1252,8 +1254,9 @@ textarea:focus {
   border-radius: 5px;
   text-align: center;
 }
-@media screen and (min-width: 765px) {
+@media (min-width: 765px) {
   .category-selector {
+    justify-content: flex-end;
     padding: 10px;
   }
   .category-selector label {
@@ -1384,6 +1387,15 @@ input[id^=category-] {
   margin: 0 auto;
   height: 30px;
   display: block;
+}
+@media (min-width: 765px) {
+  .weather-selector {
+    justify-content: flex-end;
+  }
+  .weather-selector > div {
+    flex-grow: 0;
+    width: 80px;
+  }
 }
 .weather-selector #weather-sunny + label {
   background-image: url(../img/weather/sunny.svg);
