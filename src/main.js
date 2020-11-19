@@ -11,7 +11,7 @@ import utility from "./utility";
 Vue.config.productionTip = false
 
 const router = new Router({
-   mode: 'history',
+   // mode: 'history', // 由于该项目是二级目录，使用 history 会导致开发与布署的地址不一
    routes
 })
 
