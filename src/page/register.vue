@@ -74,7 +74,8 @@
                usernameVerified: false,
                emailVerified: false,
                password1Verified: false,
-               password2Verified: false
+               password2Verified: false,
+               heightBg: 0
            }
         },
         mounted() {

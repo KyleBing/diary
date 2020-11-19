@@ -1,9 +1,9 @@
-import Login from "../page/login";
-import Register from "../page/register";
-import Index from "../page/index";
-import Detail from "../page/detail";
-import Edit from '../page/edit'
-import ChangePassword from '../page/changePassword'
+import Login from "./page/login";
+import Register from "./page/register";
+import Index from "./page/index";
+import Detail from "./page/detail";
+import Edit from './page/edit'
+import ChangePassword from './page/changePassword'
 
 export default [
   {
