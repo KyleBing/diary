@@ -1,13 +1,11 @@
-
-@import "utility";
-@import "detail";
-@import "edit";
-@import "index";
-@import "loading";
-@import "menu";
-@import "navbar";
-@import "regist";
-@import "toast";
-@import "long";
-@import "category";
-@import "weather";
+@import "./mixins/detail";
+@import "./mixins/edit";
+@import "./mixins/index";
+@import "./mixins/loading";
+@import "./mixins/menu";
+@import "./mixins/navbar";
+@import "./mixins/regist";
+@import "./mixins/toast";
+@import "./mixins/long";
+@import "./mixins/category";
+@import "./mixins/weather";
