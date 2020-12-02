@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueCookie from 'vue-cookie'
-
-
-
 import routes from './route';
 import App from './App.vue'
 import utility from "./utility";
@@ -40,7 +37,7 @@ new Vue({
 
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持
 
-
+document.addEventListener("touchstart", function() {},false);
 
 
 
