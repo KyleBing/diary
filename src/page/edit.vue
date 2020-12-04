@@ -161,7 +161,7 @@
             let queryData = {
                diaryId: this.id,
                diaryTitle: this.title,
-               diaryContent: this.content ? this.content : null,
+               diaryContent: this.content || null,
                diaryCategory: this.category,
                diaryTemperature: this.temperature === '' ? -273 : this.temperature,
                diaryWeather: this.weather,
