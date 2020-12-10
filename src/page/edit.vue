@@ -16,8 +16,12 @@
 
       <!--content-->
       <div class="container" id="this">
-         <textarea id="diary-editor-title" class="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
-         <textarea v-show="contentEditorShowed" id="diary-editor-content" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
+         <div class="editor-title">
+            <textarea id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
+         </div>
+         <div class="editor-content">
+            <textarea v-show="contentEditorShowed" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
+         </div>
          <div class="diary-input-group">
             <label for="date">日期</label>
             <date-picker :editable="false"

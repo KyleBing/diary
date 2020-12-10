@@ -6,25 +6,29 @@ textarea{
   }
 }
 
-.diary-editor-title{
-  display: block;
-  width: 100%;
-  resize: none;
-  height: 100px;
-  padding: 15px;
-  font-size: 1.1rem;
-  border-bottom: 1px solid $bg-light;
+.editor-title{
+  textarea{
+    display: block;
+    width: 100%;
+    resize: none;
+    height: 100px;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid $bg-light;
+  }
 }
 
-.diary-editor-content{
-  font-family: "Consolas", "Monaco", sans-serif;
-  display: block;
-  width: 100%;
-  resize: vertical;
-  height: 220px;
-  padding: 15px;
-  font-size: 1rem;
-  border-bottom: 1px solid $bg-light;
+.editor-content{
+  textarea{
+    font-family: "Consolas", "Monaco", sans-serif;
+    display: block;
+    width: 100%;
+    resize: vertical;
+    height: 220px;
+    padding: 15px;
+    font-size: 1rem;
+    border-bottom: 1px solid $bg-light;
+  }
 }
 .diary-input-group{
   justify-content: space-between;
@@ -54,4 +58,8 @@ textarea{
 
 .mx-datepicker{
   width: auto;
+}
+
+@media (min-width: $grid-separate-width){
+
 }
