@@ -1,71 +1,72 @@
 // Colors
-$green:         #4CD964;
-$cyan:          #5AC8FA;
-$blue:          #007AFF;
-$purple:        #5856D6;
-$magenta:       #FF2D70;
-$red:           #FF3B30;
-$orange:        #FF9500;
-$yellow:        #FFCC00;
-$gray:          #8E8E93;
-$grass:         #8bc34a;
-$sky-blue:      #1BADF8;
-$light-purple:  #CC73E1;
-$brown:         #A2845E;
+$green        : #4CD964;
+$cyan         : #5AC8FA;
+$blue         : #007AFF;
+$purple       : #5856D6;
+$magenta      : #FF2D70;
+$red          : #FF3B30;
+$orange       : #FF9500;
+$yellow       : #FFCC00;
+$gray         : #8E8E93;
+$grass        : #8bc34a;
+$sky-blue     : #1BADF8;
+$light-purple : #CC73E1;
+$brown        : #A2845E;
 
 //background-color
-$bg-list-active:      #FFF0D1;
-$bg-light:            #EFEFF4;
-$bg-navbar:           #373737;
-$bg-menu:             #4A4A4A;
-$bg-searchbar:        #E5E5EA;
+$bg-list-active : #FFF0D1;
+$bg-light       : #EFEFF4;
+$bg-navbar      : #373737;
+$bg-menu        : #4A4A4A;
+$bg-searchbar   : #E5E5EA;
 
 //border
-$color-border:        #E5E5EA;
+$color-border           : #E5E5EA;
+$color-border-highlight : darken($color-border, 15%);
 
 // font size
-$fz-list-header:      20px;
-$fz-list-content:     14px;
-$fz-note:             14px;
-$fz-big:              18px;
+$fz-list-header  : 20px;
+$fz-list-content : 14px;
+$fz-note         : 14px;
+$fz-big          : 18px;
 
 // color text
-$color-text-label:      #9B9B9B;
-$color-text-content:    #373737;
-$color-text-title:      #232323;
-$color-text-date:       #232323;
+$color-text-label   : #9B9B9B;
+$color-text-content : #373737;
+$color-text-title   : #232323;
+$color-text-date    : #232323;
 
 // height
-$height-header:       40px;
-$height-list:         28px;
-$height-loading:      30px;
-$height-navbar:       45px;
+$height-header       : 40px;
+$height-list         : 28px;
+$height-loading      : 30px;
+$height-navbar       : 45px;
 
 // width
-$width-category-sign:   3px;
-$width-index-date:      25px;
+$width-category-sign : 3px;
+$width-index-date    : 25px;
 
 // Grid
-$grid-separate-width: 765px;
+$grid-separate-width : 765px;
 
 // z-index
-$z-toast:     500;
-$z-mask:      300;
-$z-navbar:    200;
-$z-header:    100;
+$z-toast  : 500;
+$z-mask   : 300;
+$z-navbar : 200;
+$z-header : 100;
 
 
 $categories: (
-        "life":     $orange,
-        "study":    $green,
-        "bigevent": $red,
-        "sport":    $yellow,
-        "week":     $purple,
-        "work":     $blue,
-        "game":     $cyan,
-        "film":     $magenta,
-        "article":  $light-purple,
-        "all":      $grass,
+      "life"     : $orange,
+      "study"    : $green,
+      "bigevent" : $red,
+      "sport"    : $yellow,
+      "week"     : $purple,
+      "work"     : $blue,
+      "game"     : $cyan,
+      "film"     : $magenta,
+      "article"  : $light-purple,
+      "all"      : $grass,
 );
 
 $weathers: ("sunny", "cloudy", "overcast", "fog", "sprinkle", "rain", "thunderstorm", "snow",);

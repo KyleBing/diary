@@ -1,6 +1,10 @@
 //NEW
 $height-input: 40px;
 textarea{
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid $bg-light;
+  padding: 15px;
   &:focus{
     @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.2))
   }
@@ -8,34 +12,26 @@ textarea{
 
 .editor-title{
   textarea{
-    display: block;
-    width: 100%;
     resize: none;
     height: 100px;
-    padding: 15px;
     font-size: 1.1rem;
-    border-bottom: 1px solid $bg-light;
   }
 }
 
 .editor-content{
   textarea{
     font-family: "Consolas", "Monaco", sans-serif;
-    display: block;
-    width: 100%;
     resize: vertical;
     height: 220px;
-    padding: 15px;
     font-size: 1rem;
-    border-bottom: 1px solid $bg-light;
   }
 }
-.diary-input-group{
+.input-group{
   justify-content: space-between;
   display: flex;
   font-size: 18px;
   padding: 0 10px;
-  background-color: #fff;
+  background-color: white;
   height: $height-input;
   border-bottom: 1px solid $bg-light;
   label{
@@ -61,5 +57,28 @@ textarea{
 }
 
 @media (min-width: $grid-separate-width){
-
+  $border-radius: 5px;
+  textarea{
+    padding: 10px 15px;
+    border: 1px solid $color-border;
+    @include border-radius($border-radius);
+    @include transition(all 0.5s);
+    &:focus{
+      border-color: $color-border-highlight;
+      @include box-shadow(none);
+      @include transition(all 0.5s);
+    }
+  }
+  .editor-title{
+    padding: 8px;
+  }
+  .editor-content{
+    padding: 0 8px 8px 8px;
+  }
+  .input-group{
+    height: auto;
+    padding: 5px 10px;
+    @include border-radius($border-radius);
+    margin: 8px;
+  }
 }
