@@ -4,7 +4,6 @@ $fz-md-article: 14px;
 .article{
   font-size: $fz-article;
   background-color: white;
-
   &-header{
     color: $bg-navbar;
     @include unselectable();
@@ -18,16 +17,13 @@ $fz-md-article: 14px;
     .week{
       font-weight: bold;
     }
-    .date{
-
-    }
+    .date{}
     .category{
       font-weight: bold;
     }
   }
   &-body{
     color: $bg-navbar;
-
     padding: 0 15px;
     .title{
       font-weight: bold;
@@ -49,7 +45,11 @@ $fz-md-article: 14px;
   .article{
     font-size: $fz-md-article;
     &-header{
+      justify-content: flex-end;
       padding: 8px 15px;
+      & > *{
+        padding-left: 30px;
+      }
     }
     &-body{
       padding: 0 15px;
@@ -65,7 +65,7 @@ $fz-md-article: 14px;
 
 @each $name, $color in $categories {
   .category-bg-#{$name} {
-    border-top: 0.5px solid $color;
+    border-top: 0.5px solid rgba($color, 0.3);
     background-color: rgba($color, 0.06);
   }
   .text-#{$name} {
