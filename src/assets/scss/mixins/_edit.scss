@@ -26,7 +26,7 @@ textarea{
     font-size: 1rem;
   }
 }
-.input-group{
+.editor-input-group{
   justify-content: space-between;
   display: flex;
   font-size: 18px;
@@ -75,7 +75,7 @@ textarea{
   .editor-content{
     padding: 0 8px 8px 8px;
   }
-  .input-group{
+  .editor-input-group{
     height: auto;
     padding: 5px 10px;
     @include border-radius($border-radius);

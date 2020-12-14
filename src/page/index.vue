@@ -139,7 +139,7 @@ export default {
 
          heightBg: 0,
 
-         version: 'v6.0.6'
+         version: 'v6.0.7'
       }
    },
    components: {

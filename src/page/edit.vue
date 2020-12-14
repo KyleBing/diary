@@ -22,7 +22,7 @@
          <div class="editor-content">
             <textarea v-show="contentEditorShowed" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
          </div>
-         <div class="input-group">
+         <div class="editor-input-group">
             <label for="date">日期</label>
             <date-picker :editable="false"
                          v-model="date"
@@ -32,7 +32,7 @@
                          input-class="date"
                          :clearable="false" id="date" type="datetime"/>
          </div>
-         <div class="input-group">
+         <div class="editor-input-group">
             <label for="temperature">气温 ℃</label>
             <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
          </div>
