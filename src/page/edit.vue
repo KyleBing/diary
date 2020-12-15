@@ -33,8 +33,12 @@
                          :clearable="false" id="date" type="datetime"/>
          </div>
          <div class="editor-input-group">
-            <label for="temperature">气温 ℃</label>
+            <label for="temperature">身处温度 ℃</label>
             <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
+         </div>
+         <div class="editor-input-group">
+            <label for="temperature">室外气温 ℃</label>
+            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
          </div>
          <category-selector @change="setCategory" />
          <weather-selector @change="setWeather"/>
@@ -64,6 +68,7 @@
             date: '',
             weather: '',
             temperature: '-273',
+            temperatureOutside: '-273',
             heightBg: 0,
 
             logoImageUrl: 'img/logo.svg'
@@ -90,6 +95,7 @@
             this.content = '';
             this.category = 'life';
             this.temperature = '';
+            this.temperatureOutside = '';
             this.weather = 'sunny'
             this.updateDiaryIcon();
          } else {
@@ -99,16 +105,17 @@
                'diaryId': this.id
             }).then(res => {
                if (res.data.length > 0) {
-                  let diary           =  res.data[0];
-                  this.category       =  diary.category;
-                  this.date           =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-                  this.temperature    =  diary.temperature;
-                  this.weather        =  diary.weather;
-                  this.title          =  diary.title;
-                  this.titleOrigin    =  diary.title;
-                  this.content        =  diary.content;
-                  this.contentOrigin  =  diary.content;
-                  this.temperature    =  diary.temperature === '-273' ? '' : diary.temperature;
+                  let diary                =  res.data[0];
+                  this.category            =  diary.category;
+                  this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
+                  this.temperature         =  diary.temperature;
+                  this.weather             =  diary.weather;
+                  this.title               =  diary.title;
+                  this.titleOrigin         =  diary.title;
+                  this.content             =  diary.content;
+                  this.contentOrigin       =  diary.content;
+                  this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
+                  this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
                   if (diary.content) {
                      this.contentEditorShowed = true;
                   }
@@ -116,8 +123,6 @@
                   this.$router.back();
                }
             })
-
-
          }
       },
 
@@ -155,20 +160,24 @@
                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
                return;
             }
-
+            if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
+               return
+            }
             if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
                utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
                return
             }
             let queryData = {
-               diaryId          : this.id,
-               diaryTitle       : this.title,
-               diaryContent     : this.content || null,
-               diaryCategory    : this.category,
-               diaryTemperature : this.temperature === '' ? -273 : this.temperature,
-               diaryWeather     : this.weather,
-               diaryDate        : utility.dateFormatter(this.date),
-               type             : this.isNew ? 'add' : 'modify'
+               diaryId                 : this.id,
+               diaryTitle              : this.title,
+               diaryContent            : this.content || null,
+               diaryCategory           : this.category,
+               diaryTemperature        : this.temperature === '' ? -273 : this.temperature,
+               diaryTemperatureOutside : this.temperatureOutside === '' ? -273 : this.temperatureOutside,
+               diaryWeather            : this.weather,
+               diaryDate               : utility.dateFormatter(this.date),
+               type                    : this.isNew ? 'add' : 'modify'
             };
 
             utility.postData(utility.URL.diaryOperation, queryData).then(res => {
@@ -189,15 +198,16 @@
             this.contentEditorShowed = !this.contentEditorShowed
          },
          createDiary() {
-            this.isNew          =  true;
-            this.title          =  '';
-            this.titleOrigin    =  '';
-            this.content        =  '';
-            this.contentOrigin  =  '';
-            this.id             =  '';
-            this.category       =  "life";
-            this.temperature    =  '';
-            this.weather        =  "sunny";
+            this.isNew               =  true;
+            this.title               =  '';
+            this.titleOrigin         =  '';
+            this.content             =  '';
+            this.contentOrigin       =  '';
+            this.id                  =  '';
+            this.category            =  'life';
+            this.temperature         =  '';
+            this.temperatureOutside  =  '';
+            this.weather             =  'sunny';
          },
       },
       computed: {
