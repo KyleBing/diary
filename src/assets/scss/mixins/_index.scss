@@ -3,7 +3,6 @@
     background-color: $color;
   }
 }
-
 .diary-list-group{
   .list-header{
     border-top: 1px solid $color-border;
@@ -17,6 +16,8 @@
     height: $height-header;
     line-height: $height-header;
     font-family: 'Impact', sans-serif;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+
   }
   .list-item{
     cursor: pointer;

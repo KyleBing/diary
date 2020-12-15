@@ -77,7 +77,7 @@
 
          <div class="diary-list-group" v-if="showDiaryList">
             <div v-for="(item, index) in diariesShow" :key="index">
-               <div v-if="!item.title" class="list-header">{{ item.date }}</div>
+               <div v-if="!item.title" class="list-header">{{ item.date.split('-').join(' - ') }}</div>
                <diary-list-item v-else :category="item.category" :diary="item"/>
             </div>
          </div>
