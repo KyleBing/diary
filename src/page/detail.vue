@@ -10,20 +10,17 @@
             <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
             <router-link :to="'/edit?id=' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
          </div>
-         <div class="brand">
-            <a><img src="img/logo.svg" alt="日记"></a>
-         </div>
       </nav>
 
       <!--content-->
       <div class="diary-detail" id="diaryDetail" :style="'min-height: ' + heightBg + 'px'">
          <!--META-->
          <div class="diary-meta">
+            <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span></div>
             <div class="date">{{diary.date}}</div>
-            <div class="weather">
-               <img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather"></div>
-            <div v-if="diary.temperature" class="temperature"><span>{{diary.temperature}}</span>℃</div>
-            <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span>
+            <div class="weather"><img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather"></div>
+            <div class="temperature">
+               <span v-if="diary.temperature">{{diary.temperature}}</span><span v-if="diary.temperature && diary.temperatureOutside"> / </span><span v-if="diary.temperatureOutside">{{diary.temperatureOutside}}</span>
             </div>
          </div>
          <!--TITLE-->
@@ -83,6 +80,7 @@
                });
                this.diary.content = contentHtml;
                this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
+               this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
                this.diary.categoryName = utility.CATEGORIES[diary.category];
             } else {
                this.$router.back();

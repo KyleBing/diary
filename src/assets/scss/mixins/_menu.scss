@@ -26,7 +26,7 @@ $height-menu-list: 50px;
   height: $height-menu-list;
   line-height: $height-menu-list;
   padding: 0 15px;
-  color: #ffffff;
+  color: white;
   &::after{
     width: 100%;
     bottom: 0;
@@ -84,7 +84,7 @@ $reference-list-item-height: 40px;
       display: block;
       margin-bottom: 20px;
       font-size: 20px;
-      color: #ffffff;
+      color: white;
       line-height: $reference-list-item-height;
       @include border-radius(5px);
       border: 1px dashed $gray;

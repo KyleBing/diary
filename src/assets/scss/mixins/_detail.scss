@@ -13,14 +13,14 @@ $height-meta: 30px;
   display: flex;
   justify-content: space-around;
   .weather{
+    padding: 3px;
     img{
-      height: $height-meta;
+      height: $height-meta - 3*2;
       display: block;
     }
   }
   .temperature{
     line-height: $height-meta;
-    font-size: 1.1rem;
   }
   .date{
     line-height: $height-meta;
@@ -30,8 +30,7 @@ $height-meta: 30px;
 
 .diary-title{
   border-bottom: 1px solid $color-border;
-  padding: 20px 0;
-  margin: 0 20px;
+  padding: 20px;
   h2{
     font-weight: normal;
     font-size: 1.1rem;

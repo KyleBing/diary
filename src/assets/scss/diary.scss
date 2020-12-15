@@ -7,10 +7,10 @@
 .body-normal{background-color: $bg-light;}
 .body-white{background-color: white;}
 
-//FRAME
+// FRAME
 body{
   position: relative;
-  @extend .body-normal;
+  @extend .body-white;
 }
 .container{
   padding: 45px 0;

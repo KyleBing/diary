@@ -12,14 +12,15 @@
     font-weight: bold;
     text-align: left;
     padding: 0 20px;
-    color: black;
+    color: $color-text-date;
     background-color: $bg-light;
     height: $height-header;
     line-height: $height-header;
+    font-family: 'Impact', sans-serif;
   }
   .list-item{
     cursor: pointer;
-    background-color: #fff;
+    background-color: white;
     display: block;
     flex-flow: row nowrap;
     height: $height-list;
@@ -38,6 +39,7 @@
       display: block;
     }
     .date{
+      font-family: 'Impact', sans-serif;
       float: left;
       width: $width-index-date;
       padding: 0 5px;
@@ -71,7 +73,7 @@
         width: $height-list - 4 * 2;
         display: block;
       }
-      &::after{
+      &:after{
         bottom: 0;
         left: 0;
         content: '';
@@ -87,7 +89,6 @@
         transform: scaleY(0.5);
       }
     }
-
   }
 }
 

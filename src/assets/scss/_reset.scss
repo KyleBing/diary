@@ -2,13 +2,14 @@
     padding: 0;
     margin: 0;
     border: 0;
-    font-family: "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;;
+    font-family: inherit;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 body {
+    font-family: "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;;
     width: 100%;
     margin: 0 auto;
 }

@@ -9,8 +9,11 @@ $fz-md-article: 14px;
     @include unselectable();
     text-align: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 6px 15px;
+    & > *{
+      padding-left: 30px;
+    }
     &:active{
       transform: translateY(2px);
     }
