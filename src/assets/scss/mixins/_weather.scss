@@ -46,10 +46,10 @@
 
   @each $name in $weathers {
     #weather-#{$name} + label {
-      background-image: url(~/img/weather/#{$name}.svg)
+      background-image: url(~/diary/img/weather/#{$name}.svg)
     }
     #weather-#{$name}:checked + label {
-      background-image: url(~/img/weather/#{$name}_active.svg)
+      background-image: url(~/diary/img/weather/#{$name}_active.svg)
     }
   }
 }
