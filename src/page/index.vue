@@ -59,7 +59,7 @@
                <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
                <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
                <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-               <a href="https://github.com/KyleBing/diary">{{ version }}</a>
+               <a href="https://github.com/KyleBing/diary">{{ $version }}</a>
             </div>
          </div>
          <!--search-->
@@ -138,8 +138,6 @@ export default {
          categoriesAll: utility.CATEGORIES_ALL_NAME,
 
          heightBg: 0,
-
-         version: 'v6.0.9'
       }
    },
    components: {
