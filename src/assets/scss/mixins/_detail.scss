@@ -30,7 +30,8 @@ $height-meta: 30px;
 
 .diary-title{
   border-bottom: 1px solid $color-border;
-  padding: 20px;
+  margin: 0 20px;
+  padding: 20px 0;
   h2{
     font-weight: normal;
     font-size: 1.1rem;
@@ -57,7 +58,8 @@ $height-meta: 30px;
   color: $bg-navbar;
   line-height: 1.6;
   font-size: 1rem;
-  padding: 20px;
+  margin: 0 20px;
+  padding: 20px 0;
   p{
     font-family: "Consolas", "Monaco", sans-serif;
     margin-bottom: 15px;
