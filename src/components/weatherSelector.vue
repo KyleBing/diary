@@ -1,8 +1,10 @@
 <template>
    <div class="weather-selector">
-      <div v-for="(item, index) in weathers" :key="index">
-         <input type="radio" name="weather" :value="item.title" :id="'weather-' + item.title" v-model="weatherNew">
-         <label :for="'weather-' + item.title"></label>
+      <div class="weather" @click="chooseWeather(item.title)" v-for="item in weathers" :key="item.title">
+         <img
+            :src="`img/weather/${weatherSelected === item.title? item.title + '_active' : item.title}.svg`"
+            :alt="item.name"
+            :title="item.name">
       </div>
    </div>
 </template>
@@ -20,13 +22,21 @@
       },
       data(){
          return {
+            weatherSelected: this.weather,
             weathers: utility.WEATHER,
-            weatherNew: this.weather,
          }
       },
       watch:{
-         weatherNew(){
-            this.$emit('change', this.weatherNew)
+         weather(){
+            this.weatherSelected = this.weather
+         },
+         weatherSelected(){
+            this.$emit('change', this.weatherSelected)
+         }
+      },
+      methods: {
+         chooseWeather(weatherName){
+            this.weatherSelected = weatherName;
          }
       }
    }

@@ -33,15 +33,15 @@
                          :clearable="false" id="date" type="datetime"/>
          </div>
          <div class="editor-input-group">
-            <label for="temperature">身处温度 ℃</label>
+            <label for="temperature">身处 ℃</label>
             <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
          </div>
          <div class="editor-input-group">
-            <label for="temperature">室外气温 ℃</label>
+            <label for="temperatureOutside">室外 ℃</label>
             <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
          </div>
          <category-selector @change="setCategory" />
-         <weather-selector @change="setWeather"/>
+         <weather-selector :weather="weather" @change="setWeather"/>
       </div>
    </div>
 </template>
