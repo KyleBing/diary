@@ -36,6 +36,7 @@ new Vue({
 }).$mount('#app')
 
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持
+Vue.prototype.$version = 'v6.1.0'
 
 document.addEventListener("touchstart", function() {},false);
 
