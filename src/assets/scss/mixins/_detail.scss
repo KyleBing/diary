@@ -2,16 +2,13 @@ $height-meta: 30px;
 
 .diary-detail{
   padding: $height-navbar 0;
-  @media screen and (min-width: $grid-separate-width){
-    margin: 0 auto;
-  }
 }
 
 .diary-meta{
   background-color: #eeeeee;
-  padding: 10px;
+  padding: 10px 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   .weather{
     padding: 3px;
     img{
@@ -64,5 +61,14 @@ $height-meta: 30px;
     font-family: "Consolas", "Monaco", sans-serif;
     margin-bottom: 15px;
     line-height: 1.5;
+  }
+}
+
+@media screen and (min-width: $grid-separate-width){
+  .diary-detail{
+    margin: 0 auto;
+  }
+  .diary-meta{
+    justify-content: space-around;
   }
 }

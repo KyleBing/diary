@@ -16,12 +16,12 @@
       <div class="diary-detail" id="diaryDetail" :style="'min-height: ' + heightBg + 'px'">
          <!--META-->
          <div class="diary-meta">
-            <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span></div>
             <div class="date">{{diary.date}}</div>
             <div class="weather"><img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather"></div>
             <div class="temperature">
                <span v-if="diary.temperature">{{diary.temperature}}</span><span v-if="diary.temperature && diary.temperatureOutside"> / </span><span v-if="diary.temperatureOutside">{{diary.temperatureOutside}}</span>
             </div>
+            <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span></div>
          </div>
          <!--TITLE-->
          <div class="diary-title">
