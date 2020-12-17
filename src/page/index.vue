@@ -355,5 +355,15 @@ export default {
    }
 }
 
+setTimeout(() => {
+   if (!/^http:\/\/(a\.kylebing\.cn|localhost|192\.168\.\d{1,3}\.\d{1,3})/i.test(location.href)) {
+      let hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?31039acba0a804e8facb7ff1d6649e0b";
+      let s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+   }
+}, 1000)
+
 
 </script>
+
