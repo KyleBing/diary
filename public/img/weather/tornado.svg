@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>weather / tornado</title>
+    <g id="weather-/-tornado" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <line x1="9.25" y1="6.5" x2="22.75" y2="6.5" id="Line" stroke="#C7C7CC"></line>
+        <line x1="7.25" y1="8.875" x2="23.75" y2="8.875" id="Line-Copy" stroke="#C7C7CC"></line>
+        <line x1="6.25" y1="11.25" x2="22.75" y2="11.25" id="Line-Copy-2" stroke="#C7C7CC"></line>
+        <line x1="4.5" y1="13.5" x2="20.5" y2="13.5" id="Line-Copy-3" stroke="#C7C7CC"></line>
+        <line x1="6.25" y1="16" x2="19.75" y2="16" id="Line-Copy-4" stroke="#C7C7CC"></line>
+        <line x1="8.25" y1="18.375" x2="19.75" y2="18.375" id="Line-Copy-5" stroke="#C7C7CC"></line>
+        <line x1="11.25" y1="20.75" x2="19.75" y2="20.75" id="Line-Copy-6" stroke="#C7C7CC"></line>
+        <line x1="16.25" y1="23" x2="22.75" y2="23" id="Line-Copy-7" stroke="#C7C7CC"></line>
+        <line x1="20.25" y1="25.5" x2="23.75" y2="25.5" id="Line-Copy-8" stroke="#C7C7CC"></line>
+    </g>
+</svg>

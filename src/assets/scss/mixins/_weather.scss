@@ -2,8 +2,8 @@
   @include border-radius(10px);
   margin: 8px;
   display: flex;
-  $gaps: 5%;
-  $cols: 6;
+  justify-content: flex-start;
+  flex-flow: row wrap;
   padding: 15px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
@@ -13,15 +13,10 @@
     display: block;
     font-weight: bold;
     cursor: pointer;
-    flex-grow: 1;
     flex-shrink: 0;
-    width: (100 - ($cols - 1) * $gaps) / $cols;
     &:hover{
       background-color: $bg-light;
       @include border-radius(20px)
-    }
-    &:nth-child(#{$cols}n+0) {
-      margin-right: 0;
     }
     img{
       @include unselectable;

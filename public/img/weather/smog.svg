@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>weather / smog</title>
+    <g id="weather-/-smog" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#C7C7CC" x="11" y="7" width="8" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-17" fill="#C7C7CC" x="3" y="7" width="6" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-23" fill="#C7C7CC" x="3" y="22" width="6" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-24" fill="#C7C7CC" x="21" y="22" width="6" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-19" fill="#C7C7CC" x="3" y="10" width="4" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-25" fill="#C7C7CC" x="23" y="10" width="4" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-22" fill="#C7C7CC" x="3" y="19" width="4" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-26" fill="#C7C7CC" x="23" y="19" width="4" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-20" fill="#C7C7CC" x="3" y="13" width="3" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-27" fill="#C7C7CC" x="24" y="13" width="3" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-21" fill="#C7C7CC" x="3" y="16" width="3" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-28" fill="#C7C7CC" x="24" y="16" width="3" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-18" fill="#C7C7CC" x="21" y="7" width="6" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-16" fill="#C7C7CC" x="11" y="22" width="8" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-12" fill="#C7C7CC" x="9" y="10" width="12" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-15" fill="#C7C7CC" x="9" y="19" width="12" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-13" fill="#C7C7CC" x="8" y="13" width="14" height="1" rx="0.5"></rect>
+        <rect id="Rectangle-Copy-14" fill="#C7C7CC" x="8" y="16" width="14" height="1" rx="0.5"></rect>
+    </g>
+</svg>

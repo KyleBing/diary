@@ -12,13 +12,14 @@ let URL = {
 };
 
 const COOKIE_NAME = {
-   email: 'diaryEmail',
-   token: 'diaryToken',
-   username: 'diaryUsername',
-   uid: 'diaryUid',
-   category: 'diaryCategories',
-   keyword: 'keyword',
-   options: {expires: 7, path: '/'}
+   email    : 'diaryEmail',
+   token    : 'diaryToken',
+   username : 'diaryUsername',
+   uid      : 'diaryUid',
+   category : 'diaryCategories',
+   keyword  : 'keyword',
+   options  : {expires: 7, path: '/'}
+
 };
 
 const keyword = {
@@ -168,14 +169,18 @@ const POP_MSG_TYPE = {
 };
 const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',};
 const WEATHER = [
-    {title: 'sunny', name: '晴'},
-    {title: 'cloudy', name: '多云'},
-    {title: 'overcast', name: '阴'},
-    {title: 'sprinkle', name: '小雨'},
-    {title: 'rain', name: '雨'},
-    {title: 'thunderstorm', name: '暴雨'},
-    {title: 'snow', name: '雪'},
-    {title: 'fog', name: '雾'}
+    {title : 'sunny' ,        name : '晴'} ,
+    {title : 'cloudy' ,       name : '多云'} ,
+    {title : 'overcast' ,     name : '阴'} ,
+    {title : 'sprinkle' ,     name : '小雨'} ,
+    {title : 'rain' ,         name : '雨'} ,
+    {title : 'thunderstorm' , name : '暴雨'} ,
+    {title : 'snow' ,         name : '雪'} ,
+    {title : 'fog' ,          name : '雾'} ,
+    {title : 'tornado' ,      name : '龙卷风'} ,
+    {title : 'smog' ,         name : '雾霾'} ,
+    {title : 'sandstorm' ,    name : '沙尘暴'} ,
+
 ];
 const CATEGORIES = {
    life: '生活',
