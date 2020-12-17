@@ -28,6 +28,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(Router);
 Vue.use(VueCookie);
+Vue.prototype.$version = 'v6.11'
 
 
 new Vue({
@@ -36,7 +37,6 @@ new Vue({
 }).$mount('#app')
 
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持
-Vue.prototype.$version = 'v6.11'
 
 document.addEventListener("touchstart", function() {},false);
 

@@ -59,7 +59,7 @@
                <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
                <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
                <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-               <a href="https://github.com/KyleBing/diary">{{ version }}</a>
+               <a href="https://github.com/KyleBing/diary">{{ $version }}</a>
             </div>
          </div>
          <!--search-->
@@ -138,14 +138,12 @@ export default {
          categoriesAll: utility.CATEGORIES_ALL_NAME,
 
          heightBg: 0,
-         version: ''
       }
    },
    components: {
       diaryListItem, diaryListItemLong
    },
    mounted() {
-      this.version = this.$version;
       // init
       this.categories = utility.getCategories()
       this.queryData.keyword = utility.keyword.get();
@@ -354,16 +352,6 @@ export default {
       },
    }
 }
-
-setTimeout(() => {
-   if (!/^http:\/\/(a\.kylebing\.cn|localhost|192\.168\.\d{1,3}\.\d{1,3})/i.test(location.href)) {
-      let hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?31039acba0a804e8facb7ff1d6649e0b";
-      let s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-   }
-}, 1000)
-
 
 </script>
 
