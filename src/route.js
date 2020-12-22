@@ -4,6 +4,7 @@ import Index from "./page/index";
 import Detail from "./page/detail";
 import Edit from './page/edit'
 import ChangePassword from './page/changePassword'
+import Share from './page/share'
 
 export default [
   {
@@ -15,6 +16,11 @@ export default [
     name: 'detail',
     path: '/detail',
     component: Detail,
+  },
+  {
+    name: 'share',
+    path: '/share',
+    component: Share,
   },
   {
     name: 'edit',

@@ -1,0 +1,84 @@
+$height-share-header: 60px;
+$weather-height: 40px;
+
+.share{
+  padding: 40px;
+  width: 768px;
+  margin: 40px auto;
+  border: 1px solid $color-border;
+  @include border-radius(3px);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAAAAAA77wXdAAADy0lEQVQYGQXBAYIkIQgDQP//2dtWCElA56oWmbGBFLKvZWBG16g2QeEL/+45fg+5dH1AqKDivfCP86uw6Jlmgc35SezWao+apMeFDGTG2YdknSjXx8eTPfkX3auS05Ya6dtyfK5Qs5s4NSQyDmjH316Fnitd7QT6jarYkkrjck+f/vGgR32X7C6NIkFGqB0RERsK30GkWQZUsldFIGcKLXQBKhRoJygTMxcfQKH2t9qVlQDm1h+U1ff+3r1GnhPp1y2pTszE0jT5fWyqUizSeQqpgtrcO2VPnTjsdf7ED+6xan5j7c0IguNkj5KM76v7GLXI7oK77BmhOC2pO7IiyW4lRUWJWtOsEjJOFAKURVSp+w5JVfX4Tm12L8tuZQkJoKSI7jqboi9PZYAtPROxrPvrIjW33ZkBJUmciLNxdTJLcYLBWbkPqfkpChlUT3wc2upGZLAvdgJJ5krkmQEYSSo5z2Z63DMPx21pZt4g99J0leMP9pju8/F3g45TMzMSU031jLVsMg5d7lHAzkLahaQPjQQSeQ6sXt/Jqur7VCUr6/cCVfNGGVWFvBNJxgEX3FGvC2B7riqTbbnOV4oZzRi+xZpenmECYIHgWPFXuj5sV+ZJ48s6esP0EksZ/Wbybwfa4DARMMEWUXDn0Qz+LRf7XWVcaxDJvoO/FEL3ztzqW775d/jzMjOrKko9MsNXSd93MwUXSl1+U8jqFRxH8ndPDZJzDXTnV12oE3vbxUbOIBZFFLMCNU/ugyoJ2AGMo6TI+FBRjTWufhaCylIW40v4vbaYasau+2rHobQEtVhRwgmBb4rKLHIkmSzYbl0ercz4vkSCBbAiNSpmZiJRJ/i6Sm5X3TXXAiXDtwEiZc3cZmTA7XbRM+yp1WPPr2LocWR5LJZ1b/m9S5byYyvZuSqDk6iyEXMzSpHt/PI66bHoBskuL2h0/vZJM6Lfu4QKSaAQu+5kVHf3Zfa6N/fOVFOZCbHkxH2/S09l5C5bZOBxwbJrZoT5dez9oewe+lpKFgBmnIi914eZ3+s2wVH2z0nhO3qvagTliVNWt7xKhiqND9hp9/v9xiYryp768o5/F6nxGiP/IiOAOvrVX4pk8/zbQHrKrYpEZtS6RPVT1NxSARXfzkJmgYLm3QISFDLWTrdRrP5ZLgLvx13tNsvTb1p6E0fvLnvv3DvvJauu0UqI5Tdtni8BUOruOOsCtnAKmRGBVmZpmqoIkKpEZQ131NqnWm+aqEzLzX4tVp1Txfm1JJVcOXeJCqi6PXMte0bjL1BuZZyTSJwjX+E/evxTlQQ6zFEAAAAASUVORK5CYII=);
+}
+.share-head{
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+  display: flex;
+}
+
+.share-title{
+  line-height: $height-share-header / 2;
+  flex-grow: 1;
+}
+.share-date{
+  margin-right: 20px;
+  .above{
+    > * {
+      font-size: 1rem;
+      line-height: $weather-height;
+    }
+
+    display: flex;
+    justify-content: space-between;
+  }
+  .bottom{
+    line-height: $height-share-header - $weather-height;
+  }
+}
+
+
+.share-meta{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  flex-shrink: 0;
+  .weather{
+    img{
+      display: block;
+      width: $weather-height;
+      height: $weather-height;
+    }
+  }
+  .temperature{
+    line-height: $height-share-header - $weather-height;
+    text-align: center;
+  }
+}
+
+.share-content{
+  p{
+    line-height: 1.6;
+    text-indent: 2rem;
+    margin-bottom: 10px;
+  }
+}
+
+@each $name, $color in $categories {
+  .share-category-#{$name}{
+    color: $color;
+    font-weight: bold;
+  }
+}
+
+
+@media (max-width: 768px){
+  .share{
+    border: none;
+    padding: 20px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .share-head{
+    flex-flow: column nowrap;
+  }
+}
