@@ -30,6 +30,7 @@
 
       <!--CONTENT-->
       <div class="share-content" v-html="diary.content"></div>
+      <!--TODO: 来自谁的日记-->
    </div>
 </template>
 
@@ -49,27 +50,22 @@ export default {
    mounted() {
       this.heightBg = window.innerHeight - 40 * 2; // 去除上下的 margin
       this.id = this.$route.query.id;
-      utility.getData(utility.URL.diaryOperation, {
+      utility.getData(utility.URL.shareContent, {
          'type': 'query',
          'diaryId': this.id
       }).then(res => {
-         if (res.data.length > 0) {
-            let diary = res.data[0];
-            this.diary = diary;
-            this.dateObj = utility.formateDate(diary.date);
-            let contentArray = diary.content.split('\n');
-            let contentHtml = "";
-            contentArray.forEach(item => {
-               contentHtml += `<p>${item}</p>`
-            });
-            this.diary.content = contentHtml;
-            this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-            this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-            this.diary.categoryName = utility.CATEGORIES[diary.category];
-         } else {
-            console.log(res);
-            // this.$router.back();
-         }
+         let diary = res.data;
+         this.diary = diary;
+         this.dateObj = utility.formateDate(diary.date);
+         let contentArray = diary.content.split('\n');
+         let contentHtml = "";
+         contentArray.forEach(item => {
+            contentHtml += `<p>${item}</p>`
+         });
+         this.diary.content = contentHtml;
+         this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
+         this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
+         this.diary.categoryName = utility.CATEGORIES[diary.category];
       })
    },
 }

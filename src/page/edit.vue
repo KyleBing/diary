@@ -40,6 +40,13 @@
             <label for="temperatureOutside">室外 ℃</label>
             <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
          </div>
+         <div class="editor-input-group">
+            <label for="shareState">共享</label>
+            <div class="input">
+               <input class="share" type="checkbox" name="share" id="shareState" v-model="isPublic">
+               <label class="switch" for="shareState"></label>
+            </div>
+         </div>
          <category-selector @change="setCategory" />
          <weather-selector :weather="weather" @change="setWeather"/>
       </div>
@@ -65,12 +72,12 @@
             titleOrigin: "",
             content: "",
             contentOrigin: "",
+            isPublic: false,
             date: '',
             weather: '',
             temperature: '-273',
             temperatureOutside: '-273',
             heightBg: 0,
-
             logoImageUrl: 'img/logo.svg'
          }
       },
@@ -114,6 +121,7 @@
                   this.titleOrigin         =  diary.title;
                   this.content             =  diary.content;
                   this.contentOrigin       =  diary.content;
+                  this.isPublic            =  diary.public === '1';
                   this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
                   this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
                   if (diary.content) {
@@ -176,6 +184,7 @@
                diaryTemperature        : this.temperature === '' ? -273 : this.temperature,
                diaryTemperatureOutside : this.temperatureOutside === '' ? -273 : this.temperatureOutside,
                diaryWeather            : this.weather,
+               diaryPublic             : this.isPublic ? '1' : '0',
                diaryDate               : utility.dateFormatter(this.date),
                type                    : this.isNew ? 'add' : 'modify'
             };
@@ -204,6 +213,7 @@
             this.content             =  '';
             this.contentOrigin       =  '';
             this.id                  =  '';
+            this.isPublic              =  false;
             this.category            =  'life';
             this.temperature         =  '';
             this.temperatureOutside  =  '';

@@ -8,7 +8,8 @@ const BASE_URL = process.env.VUE_APP_BASE_URL;
 
 let URL = {
    userOperation: BASE_URL + '/userOperation.php',
-   diaryOperation: BASE_URL + '/diaryOperation.php'
+   diaryOperation: BASE_URL + '/diaryOperation.php',
+   shareContent: BASE_URL + '/getShareContent.php'
 };
 
 const COOKIE_NAME = {

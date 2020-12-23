@@ -44,11 +44,10 @@ textarea{
     text-align: right;
     background-color: transparent;
     font-size: 18px;
-    padding: 6px;
     line-height: $height-input - 6*2;
   }
-  .temperature{
-    padding: 5px 10px;
+  .input{
+    padding: 5px 0;
   }
 }
 
