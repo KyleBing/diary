@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(Router);
 Vue.use(VueCookie);
-Vue.prototype.$version = 'v6.11'
+Vue.prototype.$version = 'v6.13'
 
 
 new Vue({

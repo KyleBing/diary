@@ -1,6 +1,5 @@
 <template>
    <div class="body-normal">
-
       <!-- navbar -->
       <nav class="navbar" id="navbar">
          <div class="navbar-btn-group left">
