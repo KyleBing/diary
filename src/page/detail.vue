@@ -1,5 +1,4 @@
 <template>
-
    <div class="body-white">
       <!-- navbar -->
       <nav class="navbar" id="navbar">
@@ -11,7 +10,7 @@
                  id="shareBtn"
                  alt="分享链接"
                  @click="copySharePath"
-                 src="img/tabicon/done.svg"
+                 src="img/tabicon/share.svg"
                  :data-clipboard-text="`${location.origin}/diary/#/share?id=${diary.id}`">
             <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
             <router-link :to="'/edit?id=' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
@@ -43,8 +42,6 @@
          <div class="diary-content" v-html="diary.content"></div>
       </div>
 
-      <!-- TODO: 复制分享链接 -->
-
      <!--TOAST-->
       <div id="toast" class="fadeIn animated-fast" v-show="showToast">
          <div class="toast">
@@ -64,7 +61,6 @@
 <script>
    import utility from "../utility";
    import Clipboard from "clipboard/dist/clipboard";
-
 
    export default {
       data() {

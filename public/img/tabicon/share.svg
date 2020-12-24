@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>web / tabicon /  share</title>
+    <g id="web-/-tabicon-/--share" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <path d="M31,28.7391304 L31,27.173913 L31,32.6521739 C31,33.9488425 29.9488425,35 28.6521739,35 L15.3478261,35 C14.0511575,35 13,33.9488425 13,32.6521739 L13,18.3478261 C13,17.0511575 14.0511575,16 15.3478261,16 L20.826087,16" id="Path" stroke="#E5E5EA" stroke-width="1.6" stroke-linejoin="round"></path>
+        <line x1="33.6071429" y1="14.3928571" x2="23.3928571" y2="24.6071429" id="Line" stroke="#E5E5EA" stroke-width="1.8"></line>
+        <path d="M35,21 C34.0518519,21 32.1851852,21 29.4,21 L27,21 L27,18.6 C27,15.8148148 27,13.9481481 27,13" id="Path" stroke="#E5E5EA" stroke-width="1.8" stroke-linejoin="round" transform="translate(31.000000, 17.000000) scale(-1, -1) translate(-31.000000, -17.000000) "></path>
+    </g>
+</svg>
