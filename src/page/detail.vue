@@ -7,6 +7,12 @@
             <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
          </div>
          <div class="navbar-btn-group right">
+            <img v-if="diary.public === '1'"
+                 id="shareBtn"
+                 alt="分享链接"
+                 @click="copySharePath"
+                 src="img/tabicon/done.svg"
+                 :data-clipboard-text="`${location.origin}/diary/#/share?id=${diary.id}`">
             <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
             <router-link :to="'/edit?id=' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
          </div>
@@ -57,6 +63,8 @@
 
 <script>
    import utility from "../utility";
+   import Clipboard from "clipboard/dist/clipboard";
+
 
    export default {
       data() {
@@ -64,10 +72,12 @@
             showToast: false,
             id: '',
             diary: {},
-            heightBg: 0
+            heightBg: 0,
+            location: {}
          }
       },
       mounted() {
+         this.location = window.location;
          this.heightBg = window.innerHeight
          this.id = this.$route.query.id;
          utility.getData(utility.URL.diaryOperation, {
@@ -94,16 +104,29 @@
          })
       },
       methods: {
-         goBack() {
+         goBack () {
             this.$router.back()
          },
-         show: function () {
+         show () {
             this.showToast = true
          },
-         hide: function () {
+         hide () {
             this.showToast = false
          },
-         deleteCurrentDiary: function () {
+         copySharePath () {
+            let that = this;
+            let clipboard = new Clipboard('#shareBtn');
+            clipboard.on('success', function(e) {
+               utility.popMessage(utility.POP_MSG_TYPE.success, '分享链接 已复制到 剪贴板', null, 2)
+               e.clearSelection();
+            });
+
+            clipboard.on('error', function(e) {
+               console.error('Action:', e.action);
+               console.error('Trigger:', e.trigger);
+            });
+         },
+         deleteCurrentDiary () {
             let that = this;
             let queryData = {
                diaryId: this.id,
