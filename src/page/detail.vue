@@ -6,7 +6,7 @@
             <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
          </div>
          <div class="navbar-btn-group right">
-            <img v-if="diary.public === '1'"
+            <img v-if="diary.is_public === '1'"
                  id="shareBtn"
                  alt="分享链接"
                  @click="copySharePath"
@@ -110,17 +110,12 @@
             this.showToast = false
          },
          copySharePath () {
-            let that = this;
             let clipboard = new Clipboard('#shareBtn');
             clipboard.on('success', function(e) {
                utility.popMessage(utility.POP_MSG_TYPE.success, '分享链接 已复制到 剪贴板', null, 2)
                e.clearSelection();
             });
-
-            clipboard.on('error', function(e) {
-               console.error('Action:', e.action);
-               console.error('Trigger:', e.trigger);
-            });
+            clipboard.on('error', function() {});
          },
          deleteCurrentDiary () {
             let that = this;

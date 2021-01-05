@@ -121,7 +121,7 @@
                   this.titleOrigin         =  diary.title;
                   this.content             =  diary.content;
                   this.contentOrigin       =  diary.content;
-                  this.isPublic            =  diary.public === '1';
+                  this.isPublic            =  diary.is_public === '1';
                   this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
                   this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
                   if (diary.content) {
