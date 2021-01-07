@@ -27,7 +27,7 @@ $height-menu-list: 50px;
   line-height: $height-menu-list;
   padding: 0 15px;
   color: white;
-  &::after{
+  &:after{
     width: 100%;
     bottom: 0;
     left: 0;
@@ -64,42 +64,8 @@ $height-menu-list: 50px;
   }
 }
 
-// REFERENCE
-
-$reference-list-item-height: 40px;
-
-.reference {
-  padding: 30px;
-  &:after {
-    @include clearfix;
-  }
-
-  .list-group-item {
-    display: block;
-    text-align: center;
-    float: left;
-    input[type=checkbox] + label {
-      @include unselectable;
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-      font-size: 20px;
-      color: white;
-      line-height: $reference-list-item-height;
-      @include border-radius(5px);
-      border: 1px dashed $gray;
-
-    }
-    @each $name, $color in $categories {
-      input[type=checkbox]:checked + label {
-        &.reference-#{$name} {
-          background-color: $color;
-          border-color: $color;
-        }
-      }
-    }
-  }
-}
+// MENU CATEGORY
+$menu-category-list-item-height: 40px;
 
 $cols-md: 5;
 $gaps-md: 5%;
@@ -107,27 +73,46 @@ $gaps-md: 5%;
 $cols-sm: 2;
 $gaps-sm: 20%;
 
-// PC
-@media (min-width: $grid-separate-width){
-  .list-group-item{
-    margin-right: 30px;
-    width: 120px;
+.menu-category {
+  padding: 30px;
+  &:after {
+    @include clearfix;
   }
-}
-
-// Phone
-@media (max-width: $grid-separate-width){
-  .list-group-item{
+  .menu-category-item {
+    display: block;
+    text-align: center;
+    float: left;
     margin-right: $gaps-sm;
     width: (100% - $gaps-sm * ($cols-sm - 1))/$cols-sm;
     &:nth-child(#{$cols-sm}n+0) {
       margin-right: 0;
+    }
+    input[type=checkbox] + label {
+      @include unselectable;
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: white;
+      line-height: $menu-category-list-item-height;
+      @include border-radius(5px);
+      border: 1px dashed $gray;
+
+    }
+    @each $name, $color in $categories {
+      input[type=checkbox]:checked + label {
+        &.menu-category-#{$name} {
+          background-color: $color;
+          border-color: $color;
+        }
+      }
     }
   }
   .toggle-btn{
     width: 100%;
   }
 }
+
 
 .about{
   position: relative;
@@ -161,3 +146,8 @@ $gaps-sm: 20%;
   }
 }
 
+@media (min-width: $grid-separate-width) {
+  .menu-panel{
+    width: 500px;
+  }
+}

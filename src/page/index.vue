@@ -34,19 +34,18 @@
          </div>
 
          <!--reference-->
-         <ul class="reference" v-show="showCategory" :style="'min-height:' + heightBg + 'px'">
-            <li class="list-group-item" v-for="(item, index) in categoriesAll" :key="index">
+         <ul class="menu-category" v-show="showCategory" :style="'min-height:' + heightBg + 'px'">
+            <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
                <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
-               <label :class="'reference-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
+               <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
             </li>
-
-            <li class="list-group-item toggle-btn">
+            <li class="menu-category-item toggle-btn">
                <input :checked="selectAllBtnHighlight" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
-               <label for="category-all" class="reference-all">{{ selectAllBtnHighlight ? '全选' : '全不选' }}</label>
+               <label for="category-all" class="menu-category-all">{{ selectAllBtnHighlight ? '全选' : '全不选' }}</label>
             </li>
-            <li class="list-group-item toggle-btn">
+            <li class="menu-category-item toggle-btn">
                <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse">
-               <label for="category-reverse" class="reference-all">反选</label>
+               <label for="category-reverse" class="menu-category-all">反选</label>
             </li>
          </ul>
 
