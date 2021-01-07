@@ -1,55 +1,56 @@
 <template>
-    <div class="body-login" :style="'min-height:' + heightBg + 'px'">
-        <div class="logo">
+   <div class="body-login-bg">
+      <div class="body-login" :style="'min-height:' + heightBg + 'px'">
+         <div class="logo">
             <img src="img/logo.svg" alt="Diary Logo">
-        </div>
-        <form id="regForm">
+         </div>
+         <form id="regForm">
             <div class="input-group">
-                <label for="invitation" :class="{red: !invitationVerified}">{{ labelInvitation }}</label>
-                <input v-model="invitation"
-                       type="text"
-                       name="invitation"
-                       id="invitation" >
+               <label for="invitation" :class="{red: !invitationVerified}">{{ labelInvitation }}</label>
+               <input v-model="invitation"
+                      type="text"
+                      name="invitation"
+                      id="invitation" >
             </div>
             <div class="input-group">
-                <label for="email" :class="{red: !usernameVerified}">{{ labelUsername }}</label>
-                <input v-model="username"
-                       type="text"
-                       name="username"
-                       id="username" >
+               <label for="email" :class="{red: !usernameVerified}">{{ labelUsername }}</label>
+               <input v-model="username"
+                      type="text"
+                      name="username"
+                      id="username" >
             </div>
             <div class="input-group">
-                <label for="email" :class="{red: !emailVerified}">{{ labelEmail }}</label>
-                <input v-model.lazy="email"
-                       type="text"
-                       name="email"
-                       id="email" >
+               <label for="email" :class="{red: !emailVerified}">{{ labelEmail }}</label>
+               <input v-model.lazy="email"
+                      type="text"
+                      name="email"
+                      id="email" >
             </div>
             <div class="input-group">
-                <label for="password1" :class="{red: !password1Verified}">{{ labelPassword1 }}</label>
-                <input  v-model.lzay="password1"
-                        name="password1"
-                        type="password"
-                        id="password1">
-            </div>
-            <div class="input-group">
-                <label for="password2" :class="{red: !password2Verified}">{{ labelPassword2 }}</label>
-                <input v-model="password2"
+               <label for="password1" :class="{red: !password1Verified}">{{ labelPassword1 }}</label>
+               <input  v-model.lzay="password1"
+                       name="password1"
                        type="password"
-                       name="password2"
-                       id="password2">
+                       id="password1">
+            </div>
+            <div class="input-group">
+               <label for="password2" :class="{red: !password2Verified}">{{ labelPassword2 }}</label>
+               <input v-model="password2"
+                      type="password"
+                      name="password2"
+                      id="password2">
             </div>
 
             <button class="btn"
                     :class="verified ? 'btn-active' : 'btn-inactive'"
                     type="button"
                     @click.prevent="regSubmit" >注册</button>
-        </form>
-        <div class="footer clearfix">
+         </form>
+         <div class="footer clearfix">
             <router-link to="/login" class="left">登录</router-link>
-        </div>
-    </div>
-
+         </div>
+      </div>
+   </div>
 </template>
 
 

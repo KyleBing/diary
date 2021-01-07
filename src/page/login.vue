@@ -1,32 +1,34 @@
 <template>
-   <div class="body-login" :style="'min-height:' + heightBg + 'px'">
-      <div class="logo">
-         <img src="img/logo.svg" alt="Diary Logo">
-      </div>
-      <form method="post" id="regForm" @submit.prevent="loginSubmit">
-         <div class="input-group">
-            <label for="email" :class="[(emailVerified || email.length<1)? '' : 'red']">{{ labelEmail }}</label>
-            <input v-model.lazy="email"
-                   type="text"
-                   name="email"
-                   id="email">
+   <div class="body-login-bg">
+      <div class="body-login" :style="'min-height:' + heightBg + 'px'">
+         <div class="logo">
+            <img src="img/logo.svg" alt="Diary Logo">
          </div>
-         <div class="input-group">
-            <label for="password">密码</label>
-            <input v-model.lzay="password"
-                   name="password"
-                   type="password"
-                   id="password">
-         </div>
+         <form method="post" id="regForm" @submit.prevent="loginSubmit">
+            <div class="input-group">
+               <label for="email" :class="[(emailVerified || email.length<1)? '' : 'red']">{{ labelEmail }}</label>
+               <input v-model.lazy="email"
+                      type="text"
+                      name="email"
+                      id="email">
+            </div>
+            <div class="input-group">
+               <label for="password">密码</label>
+               <input v-model.lzay="password"
+                      name="password"
+                      type="password"
+                      id="password">
+            </div>
 
-         <button class="btn"
-                 :class="verified ? 'btn-active' : 'btn-inactive'"
-                 type="submit">登录
-         </button>
-      </form>
-      <div class="footer clearfix">
-         <router-link to="/register" class="left">注册</router-link>
-         <a @click="useTestAccount" class="right">使用体验账户</a>
+            <button class="btn"
+                    :class="verified ? 'btn-active' : 'btn-inactive'"
+                    type="submit">登录
+            </button>
+         </form>
+         <div class="footer clearfix">
+            <router-link to="/register" class="left">注册</router-link>
+            <a @click="useTestAccount" class="right">使用体验账户</a>
+         </div>
       </div>
    </div>
 </template>

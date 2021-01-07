@@ -1,7 +1,9 @@
 // Register
+.body-login-bg{
+  background-color: $bg-menu;
+}
 .body-login{
   position: relative;
-  background-color: $bg-menu;
   width: 100%;
   height: 100%;
   padding: 25px;
@@ -79,5 +81,14 @@
     .right{
       float: right;
     }
+  }
+}
+
+
+@media (min-width: $grid-separate-width) {
+  .body-login{
+    width: $width-login-panel;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
