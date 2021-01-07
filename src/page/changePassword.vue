@@ -1,5 +1,5 @@
 <template>
-   <div class="body-regist" :style="'min-height:' + heightBg + 'px'">
+   <div class="body-login" :style="'min-height:' + heightBg + 'px'">
       <!--APP-->
       <div id="reg">
          <div class="logo">

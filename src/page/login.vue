@@ -1,5 +1,5 @@
 <template>
-   <div class="body-regist" :style="'min-height:' + heightBg + 'px'">
+   <div class="body-login" :style="'min-height:' + heightBg + 'px'">
       <div class="logo">
          <img src="img/logo.svg" alt="Diary Logo">
       </div>
