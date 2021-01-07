@@ -64,7 +64,7 @@ $height-meta: 30px;
   }
 }
 
-@media screen and (min-width: $grid-separate-width){
+@media (min-width: $grid-separate-width){
   .diary-detail{
     margin: 0 auto;
   }

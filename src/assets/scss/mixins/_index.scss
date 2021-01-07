@@ -82,11 +82,7 @@
         position: absolute;
         border-bottom: 1px solid $bg-light;
         transform-origin: 0 100%;
-        -webkit-transform: scaleY(0.5);
-        -moz-transform: scaleY(0.5);
-        -ms-transform: scaleY(0.5);
-        -o-transform: scaleY(0.5);
-        transform: scaleY(0.5);
+        @include transform(scaleY(0.5));
       }
     }
   }

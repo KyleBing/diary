@@ -108,7 +108,7 @@ $cols-sm: 2;
 $gaps-sm: 20%;
 
 // PC
-@media screen and (min-width: $grid-separate-width){
+@media (min-width: $grid-separate-width){
   .list-group-item{
     margin-right: 30px;
     width: 120px;
@@ -116,7 +116,7 @@ $gaps-sm: 20%;
 }
 
 // Phone
-@media screen and (max-width: $grid-separate-width){
+@media (max-width: $grid-separate-width){
   .list-group-item{
     margin-right: $gaps-sm;
     width: (100% - $gaps-sm * ($cols-sm - 1))/$cols-sm;

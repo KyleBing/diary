@@ -13,7 +13,7 @@
                       id="invitation" >
             </div>
             <div class="input-group">
-               <label for="email" :class="{red: !usernameVerified}">{{ labelUsername }}</label>
+               <label for="username" :class="{red: !usernameVerified}">{{ labelUsername }}</label>
                <input v-model="username"
                       type="text"
                       name="username"
