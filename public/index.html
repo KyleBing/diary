@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="shortcut icon" href="<%= BASE_URL %>img/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="<%= BASE_URL %>img/appicon-apple.png">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+   <!-- web app-->
+   <meta name="apple-mobile-web-app-capable" content="no">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <title>日记</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>请开启JavaScript支持：未开启 JavaScript 支持的情况下，《标题日记》将无法正常工作</strong>
-    </noscript>
-    <div id="app"></div>
-    <script>
-       setTimeout(() => {
-          if (!/^http:\/\/(a\.kylebing\.cn|localhost|192\.168\.\d{1,3}\.\d{1,3})/i.test(location.href)) {
-             let hm = document.createElement("script");
-             hm.src = "https://hm.baidu.com/hm.js?31039acba0a804e8facb7ff1d6649e0b";
-             let s = document.getElementsByTagName("script")[0];
-             s.parentNode.insertBefore(hm, s);
-          }
-       }, 1000)
-    </script>
-  </body>
+   <link rel="shortcut icon" href="<%= BASE_URL %>img/favicon.png" type="image/png">
+   <link rel="apple-touch-icon" href="<%= BASE_URL %>img/appicon-apple.png">
+
+   <title>日记</title>
+</head>
+<body>
+<noscript>
+   <strong>请开启JavaScript支持：未开启 JavaScript 支持的情况下，《标题日记》将无法正常工作</strong>
+</noscript>
+<div id="app"></div>
+<script>
+   setTimeout(() => {
+      if (!/^http:\/\/(a\.kylebing\.cn|localhost|192\.168\.\d{1,3}\.\d{1,3})/i.test(location.href)) {
+         let hm = document.createElement("script");
+         hm.src = "https://hm.baidu.com/hm.js?31039acba0a804e8facb7ff1d6649e0b";
+         let s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+      }
+   }, 1000)
+</script>
+</body>
 </html>
