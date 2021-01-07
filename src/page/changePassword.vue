@@ -1,33 +1,35 @@
 <template>
-   <div class="body-login" :style="'min-height:' + heightBg + 'px'">
-      <!--APP-->
-      <div id="reg">
-         <div class="logo">
-            <img src="img/logo.svg" alt="Diary Logo">
-         </div>
-         <form id="regForm">
-            <div class="input-group">
-               <label for="oldPassword">原密码</label>
-               <input v-model.lzay="oldPassword" name="oldPassword" type="password" id="oldPassword">
+   <div class="body-login-bg">
+      <div class="body-login" :style="'min-height:' + heightBg + 'px'">
+         <!--APP-->
+         <div id="reg">
+            <div class="logo">
+               <img src="img/logo.svg" alt="Diary Logo">
             </div>
-            <div class="input-group">
-               <label for="password1">新密码</label>
-               <input v-model.lzay="password1" name="password1" type="password" id="password1">
-            </div>
-            <div class="input-group">
-               <label for="password2" :class="[(passwordVerified || password2<1)? '' : 'red']">{{ labelCheckPassword }}</label>
-               <input v-model="password2" type="password" name="password2" id="password2" class="focused">
-            </div>
+            <form id="regForm">
+               <div class="input-group">
+                  <label for="oldPassword">原密码</label>
+                  <input v-model.lzay="oldPassword" name="oldPassword" type="password" id="oldPassword">
+               </div>
+               <div class="input-group">
+                  <label for="password1">新密码</label>
+                  <input v-model.lzay="password1" name="password1" type="password" id="password1">
+               </div>
+               <div class="input-group">
+                  <label for="password2" :class="[(passwordVerified || password2<1)? '' : 'red']">{{ labelCheckPassword }}</label>
+                  <input v-model="password2" type="password" name="password2" id="password2" class="focused">
+               </div>
 
-            <button class="btn"
-                    :class="passwordVerified ? 'btn-active' : 'btn-inactive'"
-                    type="button"
-                    @click.prevent="changePasswordSubmit">确定修改
-            </button>
-         </form>
-         <div class="footer">
-            <router-link to="/" class="left">返回</router-link>
-            <router-link to="/login" class="right">登录</router-link>
+               <button class="btn"
+                       :class="passwordVerified ? 'btn-active' : 'btn-inactive'"
+                       type="button"
+                       @click.prevent="changePasswordSubmit">确定修改
+               </button>
+            </form>
+            <div class="footer">
+               <router-link to="/" class="left">返回</router-link>
+               <router-link to="/login" class="right">登录</router-link>
+            </div>
          </div>
       </div>
    </div>
