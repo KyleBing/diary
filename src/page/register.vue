@@ -46,7 +46,7 @@
                     type="button"
                     @click.prevent="regSubmit" >注册</button>
          </form>
-         <div class="footer clearfix">
+         <div class="footer left">
             <router-link to="/login" class="left">登录</router-link>
          </div>
       </div>

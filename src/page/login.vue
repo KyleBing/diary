@@ -25,7 +25,7 @@
                     type="submit">登录
             </button>
          </form>
-         <div class="footer clearfix">
+         <div class="footer">
             <router-link to="/register" class="left">注册</router-link>
             <a @click="useTestAccount" class="right">使用体验账户</a>
          </div>
