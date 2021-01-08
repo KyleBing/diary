@@ -79,7 +79,7 @@
          this.showDiary(this.id);
       },
       watch: {
-         $route(to, from){
+         $route(to){
             this.showDiary(to.params.id);
          }
       },

@@ -84,7 +84,6 @@
       components: {categorySelector, weatherSelector, DatePicker},
       mounted() {
          this.heightBg = window.innerHeight;
-         this.id = this.$route.query.id;
 
          // this.date = new Date();
          // 标签关闭提醒
@@ -93,7 +92,7 @@
                return "日记内容已改变，显示提示框"
             }
          };
-         this.isNew = !(this.$route.query.id);
+         this.isNew = !(this.$route.params.id);
          if (this.isNew) {
             // 新建日记
             this.id = '';
@@ -106,35 +105,14 @@
             this.weather = 'sunny'
             this.updateDiaryIcon();
          } else {
-            // 编辑日记
-            utility.getData(utility.URL.diaryOperation, {
-               'type': 'query',
-               'diaryId': this.id
-            }).then(res => {
-               if (res.data.length > 0) {
-                  let diary                =  res.data[0];
-                  this.category            =  diary.category;
-                  this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-                  this.temperature         =  diary.temperature;
-                  this.weather             =  diary.weather;
-                  this.title               =  diary.title;
-                  this.titleOrigin         =  diary.title;
-                  this.content             =  diary.content;
-                  this.contentOrigin       =  diary.content;
-                  this.isPublic            =  diary.is_public === '1';
-                  this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
-                  this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-                  if (diary.content) {
-                     this.contentEditorShowed = true;
-                  }
-               } else {
-                  this.$router.back();
-               }
-            })
+            this.getDiary(this.$route.params.id)
          }
       },
 
       watch: {
+         $route(to){
+            this.getDiary(to.params.id);
+         },
          title: function () {
             this.updateDiaryIcon();
          },
@@ -161,6 +139,35 @@
             } else {
                this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
             }
+         },
+
+         getDiary(id){
+            this.id = id;
+            // 编辑日记
+            utility.getData(utility.URL.diaryOperation, {
+               'type': 'query',
+               'diaryId': id
+            }).then(res => {
+               if (res.data.length > 0) {
+                  let diary                =  res.data[0];
+                  this.category            =  diary.category;
+                  this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
+                  this.temperature         =  diary.temperature;
+                  this.weather             =  diary.weather;
+                  this.title               =  diary.title;
+                  this.titleOrigin         =  diary.title;
+                  this.content             =  diary.content;
+                  this.contentOrigin       =  diary.content;
+                  this.isPublic            =  diary.is_public === '1';
+                  this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
+                  this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
+                  if (diary.content) {
+                     this.contentEditorShowed = true;
+                  }
+               } else {
+                  this.$router.back();
+               }
+            })
          },
          saveDiary() {
             if (this.title.trim().length === 0) {
