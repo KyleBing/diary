@@ -13,7 +13,7 @@
                  src="img/tabicon/share.svg"
                  :data-clipboard-text="`${location.origin}/diary/#/share?id=${diary.id}`">
             <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
-            <router-link :to="'/edit?id=' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
+            <router-link :to="'/edit/' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
          </div>
       </nav>
 
@@ -75,29 +75,13 @@
       mounted() {
          this.location = window.location;
          this.heightBg = window.innerHeight
-         this.id = this.$route.query.id;
-         utility.getData(utility.URL.diaryOperation, {
-            'type': 'query',
-            'diaryId': this.id
-         }).then(res => {
-            if (res.data.length > 0) {
-               let diary = res.data[0];
-               this.diary = diary;
-               let dateOjb = utility.formateDate(diary.date);
-               this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
-               let contentArray = diary.content.split('\n');
-               let contentHtml = "";
-               contentArray.forEach(item => {
-                  contentHtml += `<p>${item}</p>`
-               });
-               this.diary.content = contentHtml;
-               this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-               this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-               this.diary.categoryName = utility.CATEGORIES[diary.category];
-            } else {
-               this.$router.back();
-            }
-         })
+         this.id = this.$route.params.id;
+         this.showDiary(this.id);
+      },
+      watch: {
+         $route(to, from){
+            this.showDiary(to.params.id);
+         }
       },
       methods: {
          goBack () {
@@ -108,6 +92,30 @@
          },
          hide () {
             this.showToast = false
+         },
+         showDiary(id){
+            utility.getData(utility.URL.diaryOperation, {
+               'type': 'query',
+               'diaryId': id
+            }).then(res => {
+               if (res.data.length > 0) {
+                  let diary = res.data[0];
+                  this.diary = diary;
+                  let dateOjb = utility.formateDate(diary.date);
+                  this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
+                  let contentArray = diary.content.split('\n');
+                  let contentHtml = "";
+                  contentArray.forEach(item => {
+                     contentHtml += `<p>${item}</p>`
+                  });
+                  this.diary.content = contentHtml;
+                  this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
+                  this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
+                  this.diary.categoryName = utility.CATEGORIES[diary.category];
+               } else {
+                  this.$router.back();
+               }
+            })
          },
          copySharePath () {
             let clipboard = new Clipboard('#shareBtn');

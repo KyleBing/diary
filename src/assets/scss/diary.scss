@@ -12,11 +12,35 @@ body{
   position: relative;
   @extend .body-white;
 }
-.container{
+
+.diary{
+  display: flex;
+  .diary-list{
+    overflow-y: auto;
+    width: 500px;
+    flex-shrink: 0;
+  }
+  .diary-container{
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+}
+
+.list-container{
   padding: 45px 0;
   width: 100%;
 }
 
 *{
   font-size: inherit;
+}
+
+
+@media (min-width: $grid-separate-width) {
+  .diary-list{
+    border-right: 1px solid $color-border;
+  }
+  .dairy-content{
+
+  }
 }
