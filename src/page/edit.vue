@@ -1,19 +1,5 @@
 <template>
-   <div class="body-normal" :style="'min-height:' + heightBg + 'px'">
-      <!-- navbar -->
-      <nav class="navbar" id="navbar">
-         <div class="navbar-btn-group left">
-            <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
-         </div>
-         <div class="navbar-btn-group right">
-            <img @click="createDiary" alt="新建" src="img/tabicon/add.svg">
-            <img @click="saveDiary"   alt="保存" src="img/tabicon/done.svg">
-         </div>
-         <div class="brand">
-            <a @click="switchContentPanel"><img :src="logoImageUrl" alt="日记"></a>
-         </div>
-      </nav>
-
+   <div class="diary-edit body-normal" :style="'min-height:' + heightBg + 'px'">
       <!--content-->
       <div class="container" id="this">
          <div class="editor-title">
@@ -152,7 +138,6 @@
                   let diary                =  res.data[0];
                   this.category            =  diary.category;
                   this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-                  this.temperature         =  diary.temperature;
                   this.weather             =  diary.weather;
                   this.title               =  diary.title;
                   this.titleOrigin         =  diary.title;

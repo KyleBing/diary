@@ -1,22 +1,5 @@
 <template>
    <div class="body-white">
-      <!-- navbar -->
-      <nav class="navbar" id="navbar">
-         <div class="navbar-btn-group left">
-            <img alt="返回" @click="goBack" src="img/tabicon/back.svg">
-         </div>
-         <div class="navbar-btn-group right">
-            <img v-if="diary.is_public === '1'"
-                 id="shareBtn"
-                 alt="分享链接"
-                 @click="copySharePath"
-                 src="img/tabicon/share.svg"
-                 :data-clipboard-text="`${location.origin}/diary/#/share?id=${diary.id}`">
-            <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
-            <router-link :to="'/edit/' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
-         </div>
-      </nav>
-
       <!--content-->
       <div class="diary-detail" id="diaryDetail" :style="'min-height: ' + heightBg + 'px'">
          <!--META-->
@@ -69,11 +52,9 @@
             id: '',
             diary: {},
             heightBg: 0,
-            location: {}
          }
       },
       mounted() {
-         this.location = window.location;
          this.heightBg = window.innerHeight
          this.id = this.$route.params.id;
          this.showDiary(this.id);
@@ -117,14 +98,7 @@
                }
             })
          },
-         copySharePath () {
-            let clipboard = new Clipboard('#shareBtn');
-            clipboard.on('success', function(e) {
-               utility.popMessage(utility.POP_MSG_TYPE.success, '分享链接 已复制到 剪贴板', null, 2)
-               e.clearSelection();
-            });
-            clipboard.on('error', function() {});
-         },
+
          deleteCurrentDiary () {
             let that = this;
             let queryData = {

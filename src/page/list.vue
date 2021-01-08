@@ -1,21 +1,6 @@
 <template>
    <div class="body-normal">
-      <!-- NAVBAR -->
-      <nav class="navbar" id="navbar">
-         <div class="navbar-btn-group left">
-            <img v-show="!showMenu" alt="菜单" @click="menuShow" src="img/tabicon/menu.svg">
-            <img v-show="showMenu" alt="关闭" @click="menuClose" src="img/tabicon/close.svg">
-         </div>
-         <div class="navbar-btn-group right" v-show="!showMenu">
-            <router-link to="/edit"><img alt="添加" src="img/tabicon/add.svg"></router-link>
-         </div>
-         <div class="brand">
-            <a @click="toggleDiaryList">
-               <img src="img/logo.svg" alt="日记" v-if="showDiaryList">
-               <img src="img/logo_content.svg" alt="日记" v-else>
-            </a>
-         </div>
-      </nav>
+      <navbar/>
 
       <!-- MENU -->
       <div class="menu-panel" id="menu-panel" v-show="showMenu" :style="'min-height:' + heightBg + 'px'">
@@ -105,6 +90,7 @@
 import utility from "../utility";
 import diaryListItem from "../components/diaryListItem";
 import diaryListItemLong from "../components/diaryListItemLong";
+import navbar from "@/components/navbar";
 
 export default {
    data() {
@@ -139,7 +125,7 @@ export default {
       }
    },
    components: {
-      diaryListItem, diaryListItemLong
+      diaryListItem, diaryListItemLong, navbar
    },
    mounted() {
       // init
@@ -161,7 +147,6 @@ export default {
       }
    },
    methods: {
-
       /* MENU 相关 */
       toggleDiaryList() {
          this.showDiaryList = !this.showDiaryList
@@ -203,7 +188,6 @@ export default {
          this.showMenuList = true;            // menu list
          this.showCategory = false;           // reference
          this.showAbout = false;           // about
-
       },
       menuClose() {
          if (this.showCategory) {
