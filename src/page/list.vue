@@ -103,8 +103,6 @@ export default {
          this.search();
       },
 
-
-
       /* DIARY 相关 */
       loadMore() {
          this.haveMore = false;

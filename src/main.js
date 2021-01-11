@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import Router from 'vue-router'
 import VueCookie from 'vue-cookie'
 import routes from './route';
@@ -30,10 +31,26 @@ Vue.use(Router);
 Vue.use(VueCookie);
 Vue.prototype.$version = 'v6.20'
 
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+   state: {
+      searchBarShowed: false,
+      categoriesChecked: utility.getCategories()
+   },
+   mutations: {
+      changeCategoriesChecked (state, payload){
+         state.categoriesChecked = payload
+         utility.saveCategories(payload) // categories 变化时保存
+      }
+   }
+})
+
 
 new Vue({
    router,
    render: h => h(App),
+   store
 }).$mount('#app')
 
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持

@@ -95,6 +95,7 @@
 <script>
 import utility from "@/utility";
 import Clipboard from "clipboard";
+import {mapState} from 'vuex'
 
 export default {
    name: "navbar",
@@ -105,7 +106,6 @@ export default {
          showLongList: false,
 
          heightBg: 0,
-
 
          // menu
          menuShowed: false,            // menu panel
@@ -121,12 +121,16 @@ export default {
    },
    mounted() {
       this.location = window.location;
-      this.heightBg = window.innerHeight
+      this.heightBg = window.innerHeight;
+      this.categories = this.categoriesChecked
    },
    computed: {
       selectAllBtnHighlight() {
          return !this.categories.length
-      }
+      },
+      ...mapState([
+         'categoriesChecked'
+      ])
    },
    methods: {
       menuShow() {
@@ -143,6 +147,8 @@ export default {
             this.diariesShow = [];
             this.loadMore();*/
             // TODO: operate List.vue
+            // 关闭菜单时，更新 categories
+            this.$store.commit('changeCategoriesChecked', this.categories)
             this.menuInit();
          } else if (this.aboutShowed) {
             this.menuShowed      =  true;            // menu panel

@@ -16,7 +16,8 @@
     "vue-cookie": "^1.1.4",
     "jquery": "^3.5.1",
     "vue2-datepicker": "^3.6.2",
-    "clipboard": "^2.0.6"
+    "clipboard": "^2.0.6",
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",
