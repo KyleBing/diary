@@ -25,6 +25,9 @@
     display: block;
     flex-flow: row nowrap;
     height: $height-list;
+    &.active{
+      background-color: $bg-list-active;
+    }
     &:last-child{
       .detail{
         border: 0;
