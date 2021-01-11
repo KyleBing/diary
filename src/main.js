@@ -35,13 +35,21 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
    state: {
-      searchBarShowed: false,
-      categoriesChecked: utility.getCategories()
+      keyword: utility.keyword.get(),
+      searchBarShowed: !!utility.keyword.get(),
+      categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL
    },
    mutations: {
       changeCategoriesChecked (state, payload){
          state.categoriesChecked = payload
          utility.saveCategories(payload) // categories 变化时保存
+      },
+      changeKeyword (state, payload){
+         state.keyword = payload
+         utility.keyword.set(payload)
+      },
+      changeSearchBarState (state, payload){
+         state.searchBarShowed = payload
       }
    }
 })

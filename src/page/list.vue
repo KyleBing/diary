@@ -5,10 +5,10 @@
       <!--CONTENT-->
       <div class="list-container" id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
 
-         <div class="search-bar" v-show="searchBarShow">
+         <div class="search-bar" v-show="searchBarShowed">
             <form @submit.prevent="search">
                <input id="keyword" type="text" placeholder="搜索内容" v-model="queryData.keyword">
-               <span v-show="queryData.keyword.length > 0" @click="clearSearchContent" class="clear">✕</span>
+               <span v-show="queryData.keyword.length > 0" @click="clearKeyword" class="clear">✕</span>
             </form>
          </div>
 
@@ -45,6 +45,7 @@ import utility from "../utility";
 import diaryListItem from "../components/diaryListItem";
 import diaryListItemLong from "../components/diaryListItemLong";
 import navbar from "@/components/navbar";
+import { mapState } from 'vuex'
 
 export default {
    data() {
@@ -73,14 +74,17 @@ export default {
    },
    mounted() {
       // init
-      this.categories = utility.getCategories()
-      this.queryData.keyword = utility.keyword.get();
+      this.categories = utility.getCategories();
+      this.queryData.keyword = this.keyword;
       this.loadMore();
       this.addScrollEvent();
       this.searchBarShow = !!this.queryData.keyword;
       this.heightBg = window.innerHeight
    },
 
+   computed: {
+       ...mapState(['searchBarShowed', 'keyword'])
+   },
    watch: {
       categories() {
          utility.saveCategories(this.categories)
@@ -91,14 +95,14 @@ export default {
       toggleDiaryList() {
          this.showDiaryList = !this.showDiaryList
       },
-
       search() {
-         this.queryData.pageNo = 1;
+         this.$store.commit('changeKeyword', this.queryData.keyword)
+/*         this.queryData.pageNo = 1;
          this.diaries = [];
          this.diariesShow = [];
-         this.loadMore();
+         this.loadMore();*/
       },
-      clearSearchContent() {
+      clearKeyword() {
          this.queryData.keyword = '';
          this.search();
       },
@@ -107,7 +111,6 @@ export default {
       loadMore() {
          this.haveMore = false;
          this.isLoading = true;
-         utility.keyword.set(this.queryData.keyword);
          this.getDiaries(this.queryData)
       },
       getDiaries(queryData) {

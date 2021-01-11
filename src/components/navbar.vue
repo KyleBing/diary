@@ -169,7 +169,7 @@ export default {
       menuListClicked(menuName) {
          switch (menuName) {
             case 'search':
-               this.searchBarShow = true;
+               this.$store.commit('changeSearchBarState', true);
                this.menuInit();
                this.$nextTick(() => {
                   document.querySelector('#keyword').focus();

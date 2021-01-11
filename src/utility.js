@@ -20,7 +20,6 @@ const COOKIE_NAME = {
    category : 'diaryCategories',
    keyword  : 'keyword',
    options  : {expires: 7, path: '/'}
-
 };
 
 const keyword = {
@@ -40,7 +39,6 @@ function getCategories() {
    let categories = VueCookie.get(COOKIE_NAME.category);
    return JSON.parse(categories)
 }
-
 
 // 设置cookie
 function setAuthorization(email, token, username, uid) {
