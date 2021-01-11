@@ -1,41 +1,35 @@
 <template>
-   <div class="body-normal">
-      <navbar/>
+   <div id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
+      <div class="search-bar" v-show="searchBarShowed">
+         <form @submit.prevent="search">
+            <input id="keyword" type="text" placeholder="搜索内容" v-model="queryData.keyword">
+            <span v-show="queryData.keyword.length > 0" @click="clearKeyword" class="clear">✕</span>
+         </form>
+      </div>
 
-      <!--CONTENT-->
-      <div class="list-container" id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
-
-         <div class="search-bar" v-show="searchBarShowed">
-            <form @submit.prevent="search">
-               <input id="keyword" type="text" placeholder="搜索内容" v-model="queryData.keyword">
-               <span v-show="queryData.keyword.length > 0" @click="clearKeyword" class="clear">✕</span>
-            </form>
+      <div class="diary-list-group" v-if="showDiaryList">
+         <div v-for="(item, index) in diariesShow" :key="index">
+            <div v-if="!item.title" class="list-header">{{ item.date.split('-').join(' - ') }}</div>
+            <diary-list-item v-else :category="item.category" :diary="item"/>
          </div>
+      </div>
 
-         <div class="diary-list-group" v-if="showDiaryList">
-            <div v-for="(item, index) in diariesShow" :key="index">
-               <div v-if="!item.title" class="list-header">{{ item.date.split('-').join(' - ') }}</div>
-               <diary-list-item v-else :category="item.category" :diary="item"/>
-            </div>
+      <div class="diary-list-group" v-else>
+         <div v-for="(item, index) in diaries" :key="index">
+            <div v-if="!item.title" class="list-header">{{ item.date }}</div>
+            <diary-list-item-long v-else :diary="item"/>
          </div>
+      </div>
 
-         <div class="diary-list-group" v-else>
-            <div v-for="(item, index) in diaries" :key="index">
-               <div v-if="!item.title" class="list-header">{{ item.date }}</div>
-               <diary-list-item-long v-else :diary="item"/>
-            </div>
-         </div>
+      <!--加载动画-->
+      <div v-show="isLoading" class="loading">
+         <div class="loading-1 loading-item"></div>
+         <div class="loading-2 loading-item"></div>
+         <div class="loading-3 loading-item"></div>
+      </div>
 
-         <!--加载动画-->
-         <div v-show="isLoading" class="loading">
-            <div class="loading-1 loading-item"></div>
-            <div class="loading-2 loading-item"></div>
-            <div class="loading-3 loading-item"></div>
-         </div>
-
-         <div v-show="!isLoading && !haveMore" class="end-of-diary">
-            <p><img src="img/EOF.svg" alt="EOF"></p>
-         </div>
+      <div v-show="!isLoading && !haveMore" class="end-of-diary">
+         <p><img src="img/EOF.svg" alt="EOF"></p>
       </div>
    </div>
 </template>
@@ -44,7 +38,6 @@
 import utility from "../utility";
 import diaryListItem from "../components/diaryListItem";
 import diaryListItemLong from "../components/diaryListItemLong";
-import navbar from "@/components/navbar";
 import {mapState} from 'vuex'
 
 export default {
@@ -70,7 +63,7 @@ export default {
       }
    },
    components: {
-      diaryListItem, diaryListItemLong, navbar
+      diaryListItem, diaryListItemLong
    },
    mounted() {
       // init
@@ -195,12 +188,13 @@ export default {
                }
                let lastOffsetTop = lastNode.offsetTop;
                let clientHeight = window.innerHeight;
-               let listEl =  document.querySelector('.diary-list');
+               let listEl = document.querySelector('.diary-list');
                let scrollTop = listEl.scrollTop;
                // console.clear();
                // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
                return (lastOffsetTop < clientHeight + scrollTop);
             }
+
             console.log('scrolling', needLoadContent())
             if (this.haveMore && needLoadContent()) {
                this.loadMore();

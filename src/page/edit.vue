@@ -1,5 +1,5 @@
 <template>
-   <div class="diary-edit body-normal" :style="'min-height:' + heightBg + 'px'">
+   <div class="diary-edit" :style="'min-height:' + heightBg + 'px'">
       <!--content-->
       <div class="container" id="this">
          <div class="editor-title">

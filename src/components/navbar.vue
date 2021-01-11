@@ -1,5 +1,4 @@
 <template>
-
    <div class="navbar-container">
       <!-- NAVBAR -->
       <nav class="navbar" id="navbar">

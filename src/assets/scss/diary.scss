@@ -3,7 +3,6 @@
 @import "variables";
 @import "mixin";
 
-
 .body-normal{background-color: $bg-light;}
 .body-white{background-color: white;}
 
@@ -13,34 +12,28 @@ body{
   @extend .body-white;
 }
 
-.diary{
+.diary {
+  padding-top: $height-navbar;
   display: flex;
-  .diary-list{
+  .diary-list {
     overflow-y: auto;
     width: 500px;
     flex-shrink: 0;
+    @extend .body-normal;
   }
-  .diary-container{
+  .diary-container {
     overflow-y: auto;
     flex-grow: 1;
   }
 }
 
-.list-container{
-  padding: 45px 0;
+.diary-list{
+  padding-bottom: 45px;
   width: 100%;
 }
-
-*{
-  font-size: inherit;
-}
-
 
 @media (min-width: $grid-separate-width) {
   .diary-list{
     border-right: 1px solid $color-border;
-  }
-  .dairy-content{
-
   }
 }
