@@ -45,7 +45,7 @@ import utility from "../utility";
 import diaryListItem from "../components/diaryListItem";
 import diaryListItemLong from "../components/diaryListItemLong";
 import navbar from "@/components/navbar";
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
    data() {
@@ -83,7 +83,8 @@ export default {
    },
 
    computed: {
-       ...mapState(['searchBarShowed', 'keyword'])
+
+      ...mapState(['searchBarShowed', 'keyword'])
    },
    watch: {
       categories() {
@@ -97,10 +98,10 @@ export default {
       },
       search() {
          this.$store.commit('changeKeyword', this.queryData.keyword)
-/*         this.queryData.pageNo = 1;
-         this.diaries = [];
-         this.diariesShow = [];
-         this.loadMore();*/
+         /*         this.queryData.pageNo = 1;
+                  this.diaries = [];
+                  this.diariesShow = [];
+                  this.loadMore();*/
       },
       clearKeyword() {
          this.queryData.keyword = '';
@@ -109,6 +110,7 @@ export default {
 
       /* DIARY 相关 */
       loadMore() {
+         console.log('loadMore')
          this.haveMore = false;
          this.isLoading = true;
          this.getDiaries(this.queryData)
@@ -184,24 +186,26 @@ export default {
          })
       },
       addScrollEvent() {
-         window.onscroll = () => {
-            if (this.haveMore && this.needLoadContent()) {
+         document.querySelector('.diary-list').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
+            /* 判断是否加载内容*/
+            function needLoadContent() {
+               let lastNode = document.querySelector('.diary-list-group > div:last-child');
+               if (!lastNode) {
+                  return false;
+               }
+               let lastOffsetTop = lastNode.offsetTop;
+               let clientHeight = window.innerHeight;
+               let listEl =  document.querySelector('.diary-list');
+               let scrollTop = listEl.scrollTop;
+               // console.clear();
+               // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
+               return (lastOffsetTop < clientHeight + scrollTop);
+            }
+            console.log('scrolling', needLoadContent())
+            if (this.haveMore && needLoadContent()) {
                this.loadMore();
             }
-         };
-      },
-      // 判断是否加载内容
-      needLoadContent() {
-         let lastNode = document.querySelector('.diary-list-group > div:last-child');
-         if (!lastNode) {
-            return false;
-         }
-         let lastOffsetTop = lastNode.offsetTop;
-         let clientHeight = window.innerHeight;
-         let scrollTop = document.scrollingElement.scrollTop;
-         // console.clear();
-         // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
-         return (lastOffsetTop < clientHeight + scrollTop);
+         })
       },
    }
 }
