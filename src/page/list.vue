@@ -194,8 +194,6 @@ export default {
                // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
                return (lastOffsetTop < clientHeight + scrollTop);
             }
-
-            console.log('scrolling', needLoadContent())
             if (this.haveMore && needLoadContent()) {
                this.loadMore();
             }

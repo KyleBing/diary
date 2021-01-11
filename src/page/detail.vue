@@ -1,7 +1,7 @@
 <template>
    <div class="body-white">
       <!--content-->
-      <div class="diary-detail" id="diaryDetail" :style="'min-height: ' + heightBg + 'px'">
+      <div class="diary-detail" id="diaryDetail">
          <!--META-->
          <div class="diary-meta">
             <div class="date">{{diary.date}}</div>
@@ -51,11 +51,9 @@
             showToast: false,
             id: '',
             diary: {},
-            heightBg: 0,
          }
       },
       mounted() {
-         this.heightBg = window.innerHeight
          this.id = this.$route.params.id;
          this.showDiary(this.id);
       },
@@ -84,12 +82,15 @@
                   this.diary = diary;
                   let dateOjb = utility.formateDate(diary.date);
                   this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
-                  let contentArray = diary.content.split('\n');
-                  let contentHtml = "";
-                  contentArray.forEach(item => {
-                     contentHtml += `<p>${item}</p>`
-                  });
-                  this.diary.content = contentHtml;
+                  if (diary.content){
+                     let contentArray = diary.content.split('\n');
+                     let contentHtml = "";
+                     contentArray.forEach(item => {
+                        contentHtml += `<p>${item}</p>`
+                     });
+                     this.diary.content = contentHtml;
+                  }
+
                   this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
                   this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
                   this.diary.categoryName = utility.CATEGORIES[diary.category];
