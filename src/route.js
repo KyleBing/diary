@@ -33,22 +33,22 @@ export default [
         path: 'edit/:id',
         component: Edit,
       },
-      {
-        name: 'login',
-        path: 'login',
-        component: Login,
-      },
-      {
-        name: 'register',
-        path: 'register',
-        component: Register,
-      },
-      {
-        name: 'changePassword',
-        path: 'change-password',
-        component: ChangePassword,
-      },
     ]
+  },
+  {
+    name: 'register',
+    path: '/register',
+    component: Register,
+  },
+  {
+    name: 'changePassword',
+    path: '/change-password',
+    component: ChangePassword,
+  },
+  {
+    name: 'login',
+    path: '/login',
+    component: Login,
   },
   {
     path: '*',
