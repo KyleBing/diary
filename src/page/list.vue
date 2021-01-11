@@ -38,7 +38,7 @@
 import utility from "../utility";
 import diaryListItem from "../components/diaryListItem";
 import diaryListItemLong from "../components/diaryListItemLong";
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
    data() {
@@ -76,13 +76,12 @@ export default {
    },
 
    computed: {
-
       ...mapState(['searchBarShowed', 'keyword'])
    },
    watch: {
       categories() {
          utility.saveCategories(this.categories)
-      }
+      },
    },
    methods: {
       /* MENU 相关 */
@@ -91,10 +90,10 @@ export default {
       },
       search() {
          this.$store.commit('changeKeyword', this.queryData.keyword)
-         /*         this.queryData.pageNo = 1;
-                  this.diaries = [];
-                  this.diariesShow = [];
-                  this.loadMore();*/
+            this.queryData.pageNo = 1;
+            this.diaries = [];
+            this.diariesShow = [];
+            this.loadMore();
       },
       clearKeyword() {
          this.queryData.keyword = '';
