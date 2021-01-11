@@ -1,11 +1,12 @@
-
-.navbar{
-  padding: 0 5px 0 0;
+.navbar-container{
   z-index: $z-navbar;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+}
+.navbar{
+  padding: 0 5px 0 0;
   background-color: $bg-navbar;
   .navbar-btn-group{
     display: flex;
@@ -25,7 +26,6 @@
       }
     }
   }
-
   .brand{
     cursor: pointer;
     margin: 0 auto;

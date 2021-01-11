@@ -2,52 +2,6 @@
    <div class="body-normal">
       <navbar/>
 
-      <!-- MENU -->
-      <div class="menu-panel" id="menu-panel" v-show="showMenu" :style="'min-height:' + heightBg + 'px'">
-         <div class="menu-list" v-show="showMenuList">
-            <div class="menu-list-group">
-               <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
-               <a class="menu-list-group-item" @click="menuListClicked('category')">类别</a>
-               <a class="menu-list-group-item" @click="menuListClicked('about')">关于</a>
-               <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
-               <a class="menu-list-group-item" @click="logout">退出</a>
-            </div>
-            <div class="user-info">
-               <span class="username">{{ userInfo.username }}</span>
-               <span class="email">{{ userInfo.email }}</span>
-            </div>
-         </div>
-
-         <!--reference-->
-         <ul class="menu-category" v-show="showCategory" :style="'min-height:' + heightBg + 'px'">
-            <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
-               <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
-               <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
-            </li>
-            <li class="menu-category-item toggle-btn">
-               <input :checked="selectAllBtnHighlight" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
-               <label for="category-all" class="menu-category-all">{{ selectAllBtnHighlight ? '全选' : '全不选' }}</label>
-            </li>
-            <li class="menu-category-item toggle-btn">
-               <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse">
-               <label for="category-reverse" class="menu-category-all">反选</label>
-            </li>
-         </ul>
-
-         <!--about-->
-         <div class="about" v-show="showAbout" :style="'min-height:' + heightBg + 'px'">
-            <h3 class="title">标题日记</h3>
-            <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
-            <div class="author">
-               <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
-               <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
-               <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-               <a href="https://github.com/KyleBing/diary">{{ $version }}</a>
-            </div>
-         </div>
-         <!--search-->
-      </div>
-
       <!--CONTENT-->
       <div class="list-container" id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
 
@@ -111,16 +65,6 @@ export default {
          diaries: [],
          diariesShow: [],
 
-         // MENU
-         showMenu: false,            // menu panel
-         showMenuList: true,         // menu list
-         showCategory: false,       // reference
-         showAbout: false,           // about
-
-         userInfo: utility.getAuthorization(),
-         categories: [],
-         categoriesAll: utility.CATEGORIES_ALL_NAME,
-
          heightBg: 0,
       }
    },
@@ -136,11 +80,7 @@ export default {
       this.searchBarShow = !!this.queryData.keyword;
       this.heightBg = window.innerHeight
    },
-   computed: {
-      selectAllBtnHighlight() {
-         return !this.categories.length
-      }
-   },
+
    watch: {
       categories() {
          utility.saveCategories(this.categories)
@@ -151,63 +91,7 @@ export default {
       toggleDiaryList() {
          this.showDiaryList = !this.showDiaryList
       },
-      menuInit() {
-         this.showMenu = false;            // menu panel
-         this.showMenuList = true;             // menu list
-         this.showCategory = false;            // reference
-         this.showAbout = false;            // about
-      },
-      menuListClicked(menuName) {
-         switch (menuName) {
-            case 'search':
-               this.searchBarShow = true;
-               this.menuInit();
-               this.$nextTick(() => {
-                  document.querySelector('#keyword').focus();
-               });
-               break;
-            case 'category':
-               this.showMenu = true;             // menu panel
-               this.showMenuList = false;            // menu list
-               this.showCategory = true;             // reference
-               this.showAbout = false;            // about
-               break;
-            case 'about':
-               this.showMenu = true;             // menu panel
-               this.showMenuList = false;            // menu list
-               this.showCategory = false;            // reference
-               this.showAbout = true;             // about
 
-               break;
-            default:
-               break;
-         }
-      },
-      menuShow() {
-         this.showMenu = true;            // menu panel
-         this.showMenuList = true;            // menu list
-         this.showCategory = false;           // reference
-         this.showAbout = false;           // about
-      },
-      menuClose() {
-         if (this.showCategory) {
-            this.queryData.pageNo = 1;
-            this.haveMore = true;
-            this.diaries = [];
-            this.diariesShow = [];
-            this.loadMore();
-            this.menuInit();
-         } else if (this.showAbout) {
-            this.showMenu = true;            // menu panel
-            this.showMenuList = true;            // menu list
-            this.showCategory = false;           // reference
-            this.showAbout = false;           // about
-
-         } else if (this.showMenu) {
-            this.menuInit();
-         }
-
-      },
       search() {
          this.queryData.pageNo = 1;
          this.diaries = [];
@@ -219,20 +103,6 @@ export default {
          this.search();
       },
 
-      logout() {
-         utility.deleteAuthorization();
-         this.$router.push('/login');
-      },
-      toggleCategorySelect() {
-         this.categories = this.categories.length ? [] : utility.CATEGORIES_ALL
-      },
-      reverseCategorySelect() {
-         let tempCategories = [].concat(utility.CATEGORIES_ALL);
-         this.categories.forEach(item => {
-            tempCategories.splice(tempCategories.indexOf(item), 1)
-         });
-         this.categories = tempCategories;
-      },
 
 
       /* DIARY 相关 */
