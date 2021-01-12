@@ -33,10 +33,11 @@
 
 
          <div class="brand">
-            <a @click="toggleListStyle">
+            <a @click="toggleListStyle" v-if="$route.name !== 'edit'">
                <img v-if="!diaryListShowedInFullStyle" src="img/logo.svg" alt="日记">
                <img v-else src="img/logo_content.svg" alt="日记">
             </a>
+            <img v-else :src="editLogoImg" alt="LOGO">
          </div>
 
 
@@ -127,7 +128,11 @@ export default {
          categoriesAll: utility.CATEGORIES_ALL_NAME,
 
          // toast
-         toastIsShowed: false
+         toastIsShowed: false,
+
+         // edit
+         logoImageUrl: 'img/logo.svg'
+
       }
    },
    mounted() {
@@ -139,13 +144,18 @@ export default {
          return !this.categories.length
       },
       ...mapState([
-         'categoriesChecked', 'currentDiary', 'diaryListShowedInFullStyle', 'heightPanel'
+         'categoriesChecked',
+         'currentDiary',
+         'diaryListShowedInFullStyle',
+         'heightPanel',
+         'editLogoImg'
       ])
    },
    methods: {
       toggleListStyle(){
          this.$store.commit('setDiaryListShowedInFullStyle', !this.diaryListShowedInFullStyle)
       },
+      /* MENU */
       menuShow() {
          this.menuShowed      =  true;            // menu panel
          this.menuListShowed  =  true;            // menu list
@@ -165,7 +175,6 @@ export default {
             this.menuInit();
          }
       },
-
       menuInit() {
          this.menuShowed      =  false;            // menu panel
          this.menuListShowed  =  true;             // menu list
@@ -207,8 +216,14 @@ export default {
          });
          this.categories = tempCategories;
       },
-      diaryCreate() {
 
+      /* EDIT */
+      updateDiaryIcon() {
+         if (this.diaryHasChanged) {
+            this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
+         } else {
+            this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
+         }
       },
       diarySave() {
          this.$store.commit('setDiaryNeedToBeSaved', true)

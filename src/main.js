@@ -43,6 +43,7 @@ const store = new Vuex.Store({
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
       heightPanel: window.innerHeight - 45, // window height
       listNeedBeReload: false, // 是否刷新列表
+      editLogoImg: false, // 编辑页是否已经保存
    },
    mutations: {
       setCategoriesChecked (state, payload){
@@ -70,6 +71,9 @@ const store = new Vuex.Store({
       },
       setListNeedBeReload(state, payload){
          state.listNeedBeReload = payload
+      },
+      setEditLogoImg(state, payload){
+         state.editLogoImg = payload
       },
    }
 })

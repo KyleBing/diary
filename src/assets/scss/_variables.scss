@@ -13,40 +13,40 @@ $sky-blue     : #1BADF8;
 $light-purple : #CC73E1;
 $brown        : #A2845E;
 
-//background-color
+// Background Color
 $bg-list-active : #fff3df;
 $bg-light       : #f5f5f5;
 $bg-navbar      : #373737;
 $bg-menu        : #4A4A4A;
 $bg-searchbar   : #E5E5EA;
 
-//border
+// Border
 $color-border           : #E5E5EA;
 $color-border-highlight : darken($color-border, 15%);
 
-// radius
+// Radius
 $radius-mobile: 5px;
 $radius-pc: 10px;
 
-// font size
+// Font size
 $fz-list-header  : 20px;
 $fz-list-content : 14px;
 $fz-note         : 14px;
 $fz-big          : 18px;
 
-// color text
+// Color text
 $color-text-label   : #9B9B9B;
 $color-text-content : #373737;
 $color-text-title   : #232323;
 $color-text-date    : #2d2d2d;
 
-// height
+// Height
 $height-header       : 40px;
 $height-list         : 28px;
 $height-loading      : 30px;
 $height-navbar       : 45px;
 
-// width
+// Width
 $width-category-sign : 3px;
 $width-index-date    : 25px;
 
@@ -55,7 +55,7 @@ $grid-separate-width : 765px;
 $grid-separate-width-big : 1000px;
 $width-login-panel: 500px;
 
-// z-index
+// Z-index
 $z-toast  : 500;
 $z-mask   : 300;
 $z-navbar : 200;
@@ -63,16 +63,16 @@ $z-header : 100;
 
 
 $categories: (
-      "life"     : $orange,
-      "study"    : $green,
-      "bigevent" : $red,
-      "sport"    : $yellow,
-      "week"     : $purple,
-      "work"     : $blue,
-      "game"     : $cyan,
-      "film"     : $magenta,
-      "article"  : $light-purple,
-      "all"      : $grass,
+    "life"     : $orange,
+    "study"    : $green,
+    "bigevent" : $red,
+    "sport"    : $yellow,
+    "week"     : $purple,
+    "work"     : $blue,
+    "game"     : $cyan,
+    "film"     : $magenta,
+    "article"  : $light-purple,
+    "all"      : $grass,
 );
 
 $weathers: ("sunny", "cloudy", "overcast", "fog", "sprinkle", "rain", "thunderstorm", "snow",);

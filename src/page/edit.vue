@@ -97,13 +97,15 @@
          diaryHasChanged() {
             return this.title !== this.titleOrigin || this.content !== this.contentOrigin
          },
-         ...mapState(['currentDiary', 'diaryNeedToBeSaved', 'heightPanel'])
+         ...mapState(['currentDiary', 'diaryNeedToBeSaved', 'heightPanel', 'editLogoImg'])
       },
 
       watch: {
          $route(to){
             if (to.params.id){
                this.getDiary(to.params.id);
+            } else {
+               this.createDiary()
             }
          },
          title: function () {
@@ -130,9 +132,9 @@
          },
          updateDiaryIcon() {
             if (this.diaryHasChanged) {
-               this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
+               this.$store.commit('setEditLogoImg', this.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
             } else {
-               this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
+               this.$store.commit('setEditLogoImg', this.content ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg')
             }
          },
          getDiary(id){
@@ -153,9 +155,6 @@
                   this.isPublic            =  diary.is_public === '1';
                   this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
                   this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-                  if (diary.content) {
-                     this.contentEditorShowed = true;
-                  }
                } else {
                   this.$router.back();
                }
