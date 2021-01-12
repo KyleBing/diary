@@ -35,10 +35,12 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
    state: {
-      keyword: utility.keyword.get(),
-      searchBarShowed: !!utility.keyword.get(),
-      categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL,
-      currentDiary: null
+      keyword: utility.keyword.get(), // 搜索关键字
+      searchBarShowed: !!utility.keyword.get(), // 搜索栏显示
+      categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL, // 已选的日记筛选类别
+      currentDiary: null, // 当前日记
+      diaryNeedToBeSaved: false, // 日记需要被存储
+      diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
    },
    mutations: {
       setCategoriesChecked (state, payload){
@@ -54,7 +56,13 @@ const store = new Vuex.Store({
       },
       setCurrentDiary (state, payload){
          state.currentDiary = payload
-      }
+      },
+      setDiaryNeedToBeSaved (state, payload){
+         state.diaryNeedToBeSaved = payload
+      },
+      setDiaryListShowedInFullStyle (state, payload){
+         state.diaryListShowedInFullStyle = payload
+      },
    }
 })
 

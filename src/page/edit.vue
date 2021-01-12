@@ -1,41 +1,39 @@
 <template>
    <div class="diary-edit" :style="'min-height:' + heightBg + 'px'">
       <!--content-->
-      <div class="container" id="this">
-         <div class="editor-title">
-            <textarea id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
-         </div>
-         <div class="editor-content">
-            <textarea v-show="contentEditorShowed" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
-         </div>
-         <div class="editor-input-group">
-            <label for="date">日期</label>
-            <date-picker :editable="false"
-                         v-model="date"
-                         :confirm="true"
-                         :default-value="new Date()"
-                         placeholder="---- -- --"
-                         input-class="date"
-                         :clearable="false" id="date" type="datetime"/>
-         </div>
-         <div class="editor-input-group">
-            <label for="temperature">身处 ℃</label>
-            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
-         </div>
-         <div class="editor-input-group">
-            <label for="temperatureOutside">室外 ℃</label>
-            <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
-         </div>
-         <div class="editor-input-group">
-            <label for="shareState">共享</label>
-            <div class="input">
-               <input class="share" type="checkbox" name="share" id="shareState" v-model="isPublic">
-               <label class="switch" for="shareState"></label>
-            </div>
-         </div>
-         <category-selector @change="setCategory" />
-         <weather-selector :weather="weather" @change="setWeather"/>
+      <div class="editor-title">
+         <textarea id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
       </div>
+      <div class="editor-content">
+         <textarea v-show="contentEditorShowed" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
+      </div>
+      <div class="editor-input-group">
+         <label for="date">日期</label>
+         <date-picker :editable="false"
+                      v-model="date"
+                      :confirm="true"
+                      :default-value="new Date()"
+                      placeholder="---- -- --"
+                      input-class="date"
+                      :clearable="false" id="date" type="datetime"/>
+      </div>
+      <div class="editor-input-group">
+         <label for="temperature">身处 ℃</label>
+         <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
+      </div>
+      <div class="editor-input-group">
+         <label for="temperatureOutside">室外 ℃</label>
+         <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
+      </div>
+      <div class="editor-input-group">
+         <label for="shareState">共享</label>
+         <div class="input">
+            <input class="share" type="checkbox" name="share" id="shareState" v-model="isPublic">
+            <label class="switch" for="shareState"></label>
+         </div>
+      </div>
+      <category-selector @change="setCategory"/>
+      <weather-selector :weather="weather" @change="setWeather"/>
    </div>
 </template>
 
@@ -46,13 +44,13 @@
    import DatePicker from 'vue2-datepicker';
    import 'vue2-datepicker/locale/zh-cn';
    import 'vue2-datepicker/index.css';
+   import {mapState} from 'vuex'
 
    export default {
       data() {
          return {
             isNew: true,
             contentEditorShowed: false,
-
             id: "",
             title: "",
             titleOrigin: "",
@@ -67,7 +65,7 @@
             logoImageUrl: 'img/logo.svg'
          }
       },
-      components: {categorySelector, weatherSelector, DatePicker},
+      components: { categorySelector, weatherSelector, DatePicker },
       mounted() {
          this.heightBg = window.innerHeight;
 
@@ -91,8 +89,15 @@
             this.weather = 'sunny'
             this.updateDiaryIcon();
          } else {
+            this.id = this.$route.params.id;
             this.getDiary(this.$route.params.id)
          }
+      },
+      computed: {
+         diaryHasChanged() {
+            return this.title !== this.titleOrigin || this.content !== this.contentOrigin
+         },
+         ...mapState(['currentDiary', 'diaryNeedToBeSaved'])
       },
 
       watch: {
@@ -108,6 +113,11 @@
          contentEditorShowed: function () {
             this.updateDiaryIcon();
          },
+         diaryNeedToBeSaved(){
+            if (this.diaryNeedToBeSaved) {
+               this.saveDiary()
+            }
+         }
       },
       methods: {
          goBack() {
@@ -126,9 +136,7 @@
                this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
             }
          },
-
          getDiary(id){
-            this.id = id;
             // 编辑日记
             utility.getData(utility.URL.diaryOperation, {
                'type': 'query',
@@ -192,6 +200,7 @@
                   this.isNew = false;
                   this.id = res.data[0].id
                }
+               this.$store.commit('setDiaryNeedToBeSaved', false);
             })
          },
 
@@ -212,11 +221,7 @@
             this.weather             =  'sunny';
          },
       },
-      computed: {
-         diaryHasChanged() {
-            return this.title !== this.titleOrigin || this.content !== this.contentOrigin
-         }
-      },
+
    }
 </script>
 

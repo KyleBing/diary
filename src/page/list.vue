@@ -7,7 +7,7 @@
          </form>
       </div>
 
-      <div class="diary-list-group" v-if="showDiaryList">
+      <div class="diary-list-group" v-if="!diaryListShowedInFullStyle">
          <div v-for="(item, index) in diariesShow" :key="index">
             <div v-if="!item.title" class="list-header">{{ item.date.split('-').join(' - ') }}</div>
             <diary-list-item v-else :category="item.category" :diary="item"/>
@@ -76,7 +76,7 @@ export default {
    },
 
    computed: {
-      ...mapState(['searchBarShowed', 'keyword', 'categoriesChecked'])
+      ...mapState(['searchBarShowed', 'keyword', 'categoriesChecked', 'diaryListShowedInFullStyle'])
    },
    watch: {
       // route 载入 `/` 路径时，重载日记列表：比如删除日记后
@@ -94,9 +94,6 @@ export default {
    },
    methods: {
       /* MENU 相关 */
-      toggleDiaryList() {
-         this.showDiaryList = !this.showDiaryList
-      },
       search() {
          this.$store.commit('setKeyword', this.queryData.keyword)
          this.reload()

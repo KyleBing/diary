@@ -19,7 +19,7 @@
          </div>
 
          <!--DETAIL-->
-         <div class="navbar-btn-group right" v-if="$route.name === 'detail'">
+         <div class="navbar-btn-group right" v-if="$route.name === 'detail' && currentDiary">
             <img
                v-if="currentDiary && currentDiary.is_public === '1'"
                id="shareBtn"
@@ -28,13 +28,13 @@
                src="img/tabicon/share.svg"
                :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
             <img alt="删除" @click="toastShow" src="img/tabicon/delete.svg"/>
-            <router-link :to="`/edit/${diaryId}`"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
+            <router-link :to="`/edit/${currentDiary.id}`"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
          </div>
 
 
          <div class="brand">
-            <a @click="">
-               <img v-if="!showLongList" src="img/logo.svg" alt="日记">
+            <a @click="toggleListStyle">
+               <img v-if="!diaryListShowedInFullStyle" src="img/logo.svg" alt="日记">
                <img v-else src="img/logo_content.svg" alt="日记">
             </a>
          </div>
@@ -143,10 +143,13 @@ export default {
          return !this.categories.length
       },
       ...mapState([
-         'categoriesChecked', 'currentDiary'
+         'categoriesChecked', 'currentDiary', 'diaryListShowedInFullStyle'
       ])
    },
    methods: {
+      toggleListStyle(){
+         this.$store.commit('setDiaryListShowedInFullStyle', !this.diaryListShowedInFullStyle)
+      },
       menuShow() {
          this.menuShowed      =  true;            // menu panel
          this.menuListShowed  =  true;            // menu list
@@ -212,7 +215,7 @@ export default {
 
       },
       diarySave() {
-
+         this.$store.commit('setDiaryNeedToBeSaved', true)
       },
       copySharePath() {
          let clipboard = new Clipboard('#shareBtn');

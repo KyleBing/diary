@@ -1,5 +1,10 @@
 //NEW
 $height-input: 40px;
+
+.diary-edit{
+  background-color: $bg-light;
+  padding: 10px;
+}
 textarea{
   width: 100%;
   display: block;
@@ -67,9 +72,6 @@ textarea{
       @include transition(all 0.5s);
     }
   }
-  .editor-title{
-    padding: 8px;
-  }
   .editor-content{
     padding: 0 8px 8px 8px;
   }
@@ -77,7 +79,6 @@ textarea{
     height: auto;
     padding: 5px 10px;
     @include border-radius($border-radius);
-    margin: 8px;
   }
 }
 
