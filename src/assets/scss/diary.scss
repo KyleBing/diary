@@ -13,17 +13,11 @@ body{
 }
 
 .diary {
-  padding-top: $height-navbar;
-  display: flex;
   .diary-list {
-    overflow-y: auto;
-    width: 500px;
-    flex-shrink: 0;
-    @extend .body-normal;
+    width: 100%;
   }
   .diary-container {
-    overflow-y: auto;
-    flex-grow: 1;
+    display: none;
   }
 }
 
@@ -33,7 +27,20 @@ body{
 }
 
 @media (min-width: $grid-separate-width) {
-  .diary-list{
-    border-right: 1px solid $color-border;
+  .diary {
+    padding-top: $height-navbar;
+    display: flex;
+    .diary-list {
+      border-right: 1px solid $color-border;
+      overflow-y: auto;
+      width: 500px;
+      flex-shrink: 0;
+      background-color: $bg-light;
+    }
+    .diary-container {
+      display: block;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
   }
 }

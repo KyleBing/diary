@@ -29,6 +29,11 @@ export default {
    },
    mounted() {
       this.contentHeight = window.innerHeight - heightNavbar
+      // onresize 计算高度
+      window.onresize = () => {
+         this.contentHeight = window.innerHeight - heightNavbar
+      }
    }
 }
+
 </script>
