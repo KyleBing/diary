@@ -25,7 +25,7 @@
          }
       },
       watch: {
-         weather(){
+         category(){
             this.categorySelected = this.category
          },
          categorySelected(){

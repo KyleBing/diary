@@ -1,4 +1,3 @@
-
 .diary-list-group{
   .list-header{
     border-top: 1px solid $color-border;
@@ -81,7 +80,7 @@
       }
     }
     &.active{
-      background-color: $bg-menu;
+      //background-color: $bg-menu;
       .date{
         color: white;
       }
@@ -109,9 +108,6 @@
     border-color: $bg-navbar;
   }
 }
-
-
-
 
 .end-of-diary{
   @include box-shadow(1px 2px 4px rgba(0,0,0,0.12));
@@ -161,8 +157,11 @@
     .bg-#{$name}{
       background-color: $color;
     }
-/*    &.active{
-      background: lighten($color, 30%);
-    }*/
+    &.active{
+      background: linear-gradient(0deg, darken($color, 2%), $color,  lighten($color, 10%));
+      .title, .date{
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+      }
+    }
   }
 }

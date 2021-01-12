@@ -35,7 +35,7 @@
                </div>
             </div>
          </div>
-         <category-selector @change="setCategory"/>
+         <category-selector :category="category" @change="setCategory"/>
          <weather-selector :weather="weather" @change="setWeather"/>
       </div>
    </div>
@@ -62,6 +62,7 @@
             isPublic: false,
             date: '',
             weather: '',
+            category: '',
             temperature: '-273',
             temperatureOutside: '-273',
             logoImageUrl: 'img/logo.svg'
@@ -86,7 +87,7 @@
             this.category = 'life';
             this.temperature = '';
             this.temperatureOutside = '';
-            this.weather = 'sunny'
+            this.weather = 'sunny';
             this.updateDiaryIcon();
          } else {
             this.id = this.$route.params.id;
