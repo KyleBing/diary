@@ -26,7 +26,7 @@
                alt="分享链接"
                @click="copySharePath"
                src="img/tabicon/share.svg"
-               :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
+               :data-clipboard-text="`${location.origin}/${diaryPath}/#/share/${currentDiary.id}`">
             <img alt="删除" @click="toastShow" src="img/tabicon/delete.svg"/>
             <router-link :to="`/edit/${currentDiary.id}`"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
          </div>
@@ -131,7 +131,10 @@ export default {
          toastIsShowed: false,
 
          // edit
-         logoImageUrl: 'img/logo.svg'
+         logoImageUrl: 'img/logo.svg',
+
+         // path
+         diaryPath: utility.global.diaryPath
 
       }
    },

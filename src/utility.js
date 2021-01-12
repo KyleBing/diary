@@ -7,7 +7,8 @@ import Vue from 'vue'
 const BASE_URL = process.env.VUE_APP_BASE_URL;
 
 const global = {
-   heightNavbar: 45
+   heightNavbar: 45,
+   diaryPath: 'diary-pc'
 }
 
 let URL = {
