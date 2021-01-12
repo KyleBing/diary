@@ -19,11 +19,6 @@ export default [
         component: Detail,
       },
       {
-        name: 'share',
-        path: 'share/:id',
-        component: Share,
-      },
-      {
         name: 'edit',
         path: 'edit',
         component: Edit,
@@ -39,6 +34,11 @@ export default [
     name: 'register',
     path: '/register',
     component: Register,
+  },
+  {
+    name: 'share',
+    path: '/share/:id',
+    component: Share,
   },
   {
     name: 'changePassword',

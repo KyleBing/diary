@@ -37,19 +37,23 @@ const store = new Vuex.Store({
    state: {
       keyword: utility.keyword.get(),
       searchBarShowed: !!utility.keyword.get(),
-      categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL
+      categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL,
+      currentDiary: null
    },
    mutations: {
-      changeCategoriesChecked (state, payload){
+      setCategoriesChecked (state, payload){
          state.categoriesChecked = payload
          utility.saveCategories(payload) // categories 变化时保存
       },
-      changeKeyword (state, payload){
+      setKeyword (state, payload){
          state.keyword = payload
          utility.keyword.set(payload)
       },
-      changeSearchBarState (state, payload){
+      setSearchBarState (state, payload){
          state.searchBarShowed = payload
+      },
+      setCurrentDiary (state, payload){
+         state.currentDiary = payload
       }
    }
 })

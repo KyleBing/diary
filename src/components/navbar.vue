@@ -18,17 +18,17 @@
             <img @click="diarySave" alt="保存" src="img/tabicon/done.svg">
          </div>
 
-
          <!--DETAIL-->
          <div class="navbar-btn-group right" v-if="$route.name === 'detail'">
             <img
+               v-if="currentDiary && currentDiary.is_public === '1'"
                id="shareBtn"
                alt="分享链接"
                @click="copySharePath"
                src="img/tabicon/share.svg"
-               :data-clipboard-text="`${location.origin}/diary/#/share/id=${diaryId}`">
+               :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
             <img alt="删除" @click="" src="img/tabicon/delete.svg"/>
-            <router-link :to="'/edit/' + diaryId"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
+            <router-link :to="`/edit/${diaryId}`"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
          </div>
 
 
@@ -63,8 +63,8 @@
                   <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
                </li>
                <li class="menu-category-item toggle-btn">
-                  <input :checked="selectAllBtnHighlight" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
-                  <label for="category-all" class="menu-category-all">{{ selectAllBtnHighlight ? '全选' : '全不选' }}</label>
+                  <input :checked="isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
+                  <label for="category-all" class="menu-category-all">{{ isNotAllSelected ? '全选' : '全不选' }}</label>
                </li>
                <li class="menu-category-item toggle-btn">
                   <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse">
@@ -87,7 +87,6 @@
          </div>
       </nav>
    </div>
-
 
 </template>
 
@@ -124,11 +123,11 @@ export default {
       this.categories = this.categoriesChecked
    },
    computed: {
-      selectAllBtnHighlight() {
+      isNotAllSelected() {
          return !this.categories.length
       },
       ...mapState([
-         'categoriesChecked'
+         'categoriesChecked', 'currentDiary'
       ])
    },
    methods: {
@@ -140,14 +139,7 @@ export default {
       },
       menuClose() {
          if (this.categoryShowed) {
-/*            this.queryData.pageNo = 1;
-            this.haveMore = true;
-            this.diaries = [];
-            this.diariesShow = [];
-            this.loadMore();*/
-            // TODO: operate List.vue
-            // 关闭菜单时，更新 categories
-            this.$store.commit('changeCategoriesChecked', this.categories)
+            this.$store.commit('setCategoriesChecked', this.categories)
             this.menuInit();
          } else if (this.aboutShowed) {
             this.menuShowed      =  true;            // menu panel
@@ -168,7 +160,7 @@ export default {
       menuListClicked(menuName) {
          switch (menuName) {
             case 'search':
-               this.$store.commit('changeSearchBarState', true);
+               this.$store.commit('setSearchBarState', true);
                this.menuInit();
                this.$nextTick(() => {
                   document.querySelector('#keyword').focus();

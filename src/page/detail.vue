@@ -80,6 +80,7 @@
                if (res.data.length > 0) {
                   let diary = res.data[0];
                   this.diary = diary;
+                  this.$store.commit('setCurrentDiary', diary); // 设置 store: currentDiary
                   let dateOjb = utility.formateDate(diary.date);
                   this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
                   if (diary.content){

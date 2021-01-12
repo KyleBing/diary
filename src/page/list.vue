@@ -95,7 +95,7 @@ export default {
          this.showDiaryList = !this.showDiaryList
       },
       search() {
-         this.$store.commit('changeKeyword', this.queryData.keyword)
+         this.$store.commit('setKeyword', this.queryData.keyword)
          this.queryData.pageNo = 1;
          this.diaries = [];
          this.diariesShow = [];
