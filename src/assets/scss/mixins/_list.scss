@@ -1,8 +1,4 @@
-@each $name, $color in $categories {
-  .bg-#{$name}{
-    background-color: $color;
-  }
-}
+
 .diary-list-group{
   .list-header{
     border-top: 1px solid $color-border;
@@ -17,7 +13,6 @@
     line-height: $height-header;
     font-family: 'Impact', sans-serif;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
-
   }
   .list-item{
     cursor: pointer;
@@ -25,9 +20,6 @@
     display: block;
     flex-flow: row nowrap;
     height: $height-list;
-    &.active{
-      background-color: $bg-list-active;
-    }
     &:last-child{
       .detail{
         border: 0;
@@ -152,5 +144,16 @@
     top: 17px;
     right: 20px;
     display: block;
+  }
+}
+
+@each $name, $color in $categories {
+  .diary-list-item-#{$name}{
+    .bg-#{$name}{
+      background-color: $color;
+    }
+    &.active{
+      background: lighten($color, 30%);
+    }
   }
 }

@@ -33,7 +33,7 @@ body{
     .diary-list {
       border-right: 1px solid $color-border;
       overflow-y: auto;
-      width: 500px;
+      width: $width-login-panel;
       flex-shrink: 0;
       background-color: $bg-light;
     }
