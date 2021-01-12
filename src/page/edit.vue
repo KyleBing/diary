@@ -1,5 +1,5 @@
 <template>
-   <div class="diary-edit" :style="'min-height:' + heightBg + 'px'">
+   <div class="diary-edit" :style="`min-height: ${windowHeight}px`">
       <!--content-->
       <div class="editor-title">
          <textarea id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
@@ -44,7 +44,7 @@
    import DatePicker from 'vue2-datepicker';
    import 'vue2-datepicker/locale/zh-cn';
    import 'vue2-datepicker/index.css';
-   import {mapState} from 'vuex'
+   import { mapState } from 'vuex'
 
    export default {
       data() {
@@ -61,14 +61,11 @@
             weather: '',
             temperature: '-273',
             temperatureOutside: '-273',
-            heightBg: 0,
             logoImageUrl: 'img/logo.svg'
          }
       },
       components: { categorySelector, weatherSelector, DatePicker },
       mounted() {
-         this.heightBg = window.innerHeight;
-
          // this.date = new Date();
          // 标签关闭提醒
          window.onbeforeunload = () => {
@@ -97,7 +94,7 @@
          diaryHasChanged() {
             return this.title !== this.titleOrigin || this.content !== this.contentOrigin
          },
-         ...mapState(['currentDiary', 'diaryNeedToBeSaved'])
+         ...mapState(['currentDiary', 'diaryNeedToBeSaved', 'windowHeight'])
       },
 
       watch: {

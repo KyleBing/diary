@@ -41,7 +41,7 @@
 
 
          <!-- MENU -->
-         <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'min-height:' + heightBg + 'px'">
+         <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'min-height:' + windowHeight + 'px'">
             <div class="menu-list" v-show="menuListShowed">
                <div class="menu-list-group">
                   <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
@@ -57,7 +57,7 @@
             </div>
 
             <!--category-->
-            <ul class="menu-category" v-show="categoryShowed" :style="'min-height:' + heightBg + 'px'">
+            <ul class="menu-category" v-show="categoryShowed" :style="'min-height:' + windowHeight + 'px'">
                <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
                   <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
                   <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
@@ -73,7 +73,7 @@
             </ul>
 
             <!--about-->
-            <div class="about" v-show="aboutShowed" :style="'min-height:' + heightBg + 'px'">
+            <div class="about" v-show="aboutShowed" :style="'min-height:' + windowHeight + 'px'">
                <h3 class="title">标题日记</h3>
                <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
                <div class="author">
@@ -115,9 +115,6 @@ export default {
          location: {},
          diaryId: null,
          showLongList: false,
-
-         heightBg: 0,
-
          // menu
          menuShowed: false,            // menu panel
          menuListShowed: true,         // menu list
@@ -135,7 +132,6 @@ export default {
    },
    mounted() {
       this.location = window.location;
-      this.heightBg = window.innerHeight;
       this.categories = this.categoriesChecked
    },
    computed: {
@@ -143,7 +139,7 @@ export default {
          return !this.categories.length
       },
       ...mapState([
-         'categoriesChecked', 'currentDiary', 'diaryListShowedInFullStyle'
+         'categoriesChecked', 'currentDiary', 'diaryListShowedInFullStyle', 'windowHeight'
       ])
    },
    methods: {

@@ -1,5 +1,5 @@
 <template>
-   <div id="diaryApp" :style="'min-height: ' + heightBg + 'px'">
+   <div id="diaryApp" :style="`min-height: ${windowHeight}px`">
       <div class="search-bar" v-show="searchBarShowed">
          <form @submit.prevent="search">
             <input id="keyword" type="text" placeholder="搜索内容" v-model="queryData.keyword">
@@ -58,8 +58,6 @@ export default {
          },
          diaries: [],
          diariesShow: [],
-
-         heightBg: 0,
       }
    },
    components: {
@@ -72,11 +70,10 @@ export default {
       this.loadMore();
       this.addScrollEvent();
       this.searchBarShow = !!this.queryData.keyword;
-      this.heightBg = window.innerHeight
    },
 
    computed: {
-      ...mapState(['searchBarShowed', 'keyword', 'categoriesChecked', 'diaryListShowedInFullStyle'])
+      ...mapState(['searchBarShowed', 'keyword', 'categoriesChecked', 'diaryListShowedInFullStyle', 'windowHeight'])
    },
    watch: {
       // route 载入 `/` 路径时，重载日记列表：比如删除日记后

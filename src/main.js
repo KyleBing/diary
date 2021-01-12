@@ -41,6 +41,7 @@ const store = new Vuex.Store({
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
+      windowHeight: window.innerHeight, // window height
    },
    mutations: {
       setCategoriesChecked (state, payload){
@@ -63,6 +64,9 @@ const store = new Vuex.Store({
       setDiaryListShowedInFullStyle (state, payload){
          state.diaryListShowedInFullStyle = payload
       },
+      setWindowHeight(state, payload){
+         state.windowHeight = payload
+      }
    }
 })
 
@@ -76,8 +80,3 @@ new Vue({
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持
 
 document.addEventListener("touchstart", function() {},false);
-
-
-
-
-

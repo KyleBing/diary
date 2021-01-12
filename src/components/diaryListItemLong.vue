@@ -1,6 +1,6 @@
 <template>
    <div  class="article">
-      <router-link :to="'/detail?id=' + diary.id" :class="`article-header category-bg-${diary.category}`">
+      <router-link :to="`/detail/${diary.id}`" :class="`article-header category-bg-${diary.category}`">
          <div class="week">{{diary.weekday}}</div>
          <div class="date">{{diary.dateString}}</div>
          <div :class="`category text-${diary.category}`">{{categoryString}}</div>

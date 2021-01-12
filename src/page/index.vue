@@ -2,10 +2,10 @@
    <div>
       <navbar/>
       <div class="diary">
-         <div class="diary-list" :style="`height:${contentHeight}px`">
+         <div class="diary-list" :style="`height:${windowHeight - heightNavbar}px`">
             <list/>
          </div>
-         <div class="diary-container" :style="`height:${contentHeight}px`">
+         <div class="diary-container" :style="`height:${windowHeight - heightNavbar}px`">
             <router-view/>
          </div>
       </div>
@@ -15,7 +15,8 @@
 <script>
 import list from "@/page/list"
 import Navbar from "@/components/navbar";
-let heightNavbar = 45;
+import utility from "@/utility";
+import { mapState } from 'vuex'
 
 export default {
    components: {
@@ -24,15 +25,18 @@ export default {
    },
    data(){
       return {
-         contentHeight:0
+         heightNavbar: utility.global.heightNavbar
       }
    },
    mounted() {
-      this.contentHeight = window.innerHeight - heightNavbar
-      // onresize 计算高度
       window.onresize = () => {
-         this.contentHeight = window.innerHeight - heightNavbar
+         this.$store.commit('setWindowHeight', window.innerHeight)
       }
+   },
+   computed: {
+      ...mapState([
+         'windowHeight'
+      ])
    }
 }
 

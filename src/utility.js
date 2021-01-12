@@ -6,6 +6,10 @@ import Vue from 'vue'
 
 const BASE_URL = process.env.VUE_APP_BASE_URL;
 
+const global = {
+   heightNavbar: 45
+}
+
 let URL = {
    userOperation: BASE_URL + '/userOperation.php',
    diaryOperation: BASE_URL + '/diaryOperation.php',
@@ -259,5 +263,6 @@ export default {
    deleteAuthorization,
    getCategories,
    saveCategories,
-   keyword
+   keyword,
+   global
 }
