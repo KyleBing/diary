@@ -1,9 +1,10 @@
-//NEW
+// NEW
 $height-input: 40px;
 
 .diary-edit{
   background-color: $bg-light;
 }
+
 textarea{
   width: 100%;
   display: block;
@@ -31,6 +32,7 @@ textarea{
   }
 }
 .editor-input-group{
+  @include border-radius($radius-mobile);
   justify-content: space-between;
   display: flex;
   font-size: 18px;
@@ -59,9 +61,8 @@ textarea{
 }
 
 @media (min-width: $grid-separate-width){
-  $border-radius: 5px;
   .diary-edit{
-    padding: 10px;
+    padding: 10px 10px 30px;
   }
   textarea{
     padding: 10px 15px;
@@ -73,11 +74,11 @@ textarea{
       @include transition(all 0.5s);
     }
     &.title{
-      @include border-radius($border-radius $border-radius 0 0);
+      @include border-radius($radius-pc $radius-pc 0 0);
     }
     &.content{
       margin-top: -1px;
-      @include border-radius(0 0 $border-radius $border-radius);
+      @include border-radius(0 0 $radius-pc $radius-pc);
     }
   }
   .editor-content{
@@ -86,9 +87,13 @@ textarea{
   .editor-input-group{
     height: auto;
     padding: 5px 10px;
-    @include border-radius($border-radius);
+    @include border-radius($radius-pc);
   }
 }
+
+
+
+
 
 
 input[type=checkbox],

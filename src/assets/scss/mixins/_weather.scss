@@ -1,5 +1,5 @@
 .weather-selector{
-  @include border-radius(10px);
+  @include border-radius($radius-mobile);
   display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
@@ -25,7 +25,12 @@
       display: block;
     }
   }
-  @media (min-width: $grid-separate-width){
+}
+
+
+@media (min-width: $grid-separate-width){
+  .weather-selector {
+    @include border-radius($radius-pc);
     justify-content: flex-end;
     .weather{
       flex-grow: 0;

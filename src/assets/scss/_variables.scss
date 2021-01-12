@@ -24,6 +24,10 @@ $bg-searchbar   : #E5E5EA;
 $color-border           : #E5E5EA;
 $color-border-highlight : darken($color-border, 15%);
 
+// radius
+$radius-mobile: 5px;
+$radius-pc: 10px;
+
 // font size
 $fz-list-header  : 20px;
 $fz-list-content : 14px;
