@@ -8,17 +8,17 @@
          </div>
 
          <!--RIGHT part-->
-         <!--EMPTY-->
+            <!--NEW-->
          <div class="navbar-btn-group right">
             <router-link to="/edit"><img alt="添加" src="img/tabicon/add.svg"></router-link>
          </div>
 
-         <!--EDIT-->
+            <!--EDIT-->
          <div class="navbar-btn-group right" v-if="$route.name === 'edit'">
             <img @click="diarySave" alt="保存" src="img/tabicon/done.svg">
          </div>
 
-         <!--DETAIL-->
+            <!--DETAIL-->
          <div class="navbar-btn-group right" v-if="$route.name === 'detail' && currentDiary">
             <img
                v-if="currentDiary && currentDiary.is_public === '1'"

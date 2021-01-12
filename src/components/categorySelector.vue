@@ -1,9 +1,9 @@
 <template>
    <div class="category-selector">
-      <div v-for="(item, index) in categories" :key="index">
-         <input type="radio" name="category" :value="item.nameEn" :id="'category-' + item.nameEn" v-model="categoryNew">
-         <label :for="'category-' + item.nameEn">{{item.name}}</label>
-      </div>
+      <div :class="['category', 'category-' + item.nameEn, {active: categorySelected === item.nameEn}]"
+           @click="chooseCategory(item.nameEn)"
+           v-for="item in categories"
+           :key="item.nameEn">{{item.name}}</div>
    </div>
 </template>
 
@@ -21,12 +21,20 @@
       data(){
          return {
             categories: utility.CATEGORIES_ALL_NAME,
-            categoryNew: this.category
+            categorySelected: this.category
          }
       },
       watch: {
-         categoryNew(){
-            this.$emit('change', this.categoryNew)
+         weather(){
+            this.categorySelected = this.category
+         },
+         categorySelected(){
+            this.$emit('change', this.categorySelected)
+         }
+      },
+      methods: {
+         chooseCategory(categoryName){
+            this.categorySelected = categoryName;
          }
       }
    }

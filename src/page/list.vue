@@ -73,7 +73,13 @@ export default {
    },
 
    computed: {
-      ...mapState(['searchBarShowed', 'keyword', 'categoriesChecked', 'diaryListShowedInFullStyle', 'heightPanel'])
+      ...mapState([
+         'searchBarShowed',
+         'keyword',
+         'categoriesChecked',
+         'diaryListShowedInFullStyle',
+         'listNeedBeReload',
+         'heightPanel'])
    },
    watch: {
       // route 载入 `/` 路径时，重载日记列表：比如删除日记后
@@ -86,6 +92,10 @@ export default {
          utility.saveCategories(this.categories)
       },
       categoriesChecked(){
+         this.reload()
+      },
+      listNeedBeReload(){
+         this.$store.commit('setListNeedBeReload', false)
          this.reload()
       }
    },
@@ -108,7 +118,6 @@ export default {
 
       /* DIARY 相关 */
       loadMore() {
-         console.log('loadMore')
          this.haveMore = false;
          this.isLoading = true;
          this.getDiaries(this.queryData)

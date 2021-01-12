@@ -30,11 +30,11 @@
 
 @media (min-width: $grid-separate-width){
   .weather-selector {
+    padding: 20px;
     @include border-radius($radius-pc);
-    justify-content: flex-end;
     .weather{
       flex-grow: 0;
-      width: 80px;
+      width: 12.5%;
     }
   }
 }

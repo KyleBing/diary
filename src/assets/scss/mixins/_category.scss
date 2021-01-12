@@ -7,20 +7,16 @@
   border-bottom: 1px solid $bg-light;
   display: flex;
   flex-flow: row wrap;
+  align-items: flex-start;
   justify-content: flex-start;
-
-  > div{
+  .category{
     flex-shrink: 0;
     width: (100 - ($cols - 1) * $gaps) / $cols;
-    margin-bottom: 10px;
     margin-right: $gaps;
     height: 30px;
     &:nth-child(#{$cols}n+0){
       margin-right: 0;
     }
-  }
-
-  input[id^=category-] + label{
     @include unselectable;
     display: block;
     font-weight: bold;
@@ -31,34 +27,11 @@
     text-align: center;
   }
 
-  @media (min-width: $grid-separate-width){
-    justify-content: flex-end;
-    padding: 10px;
-    label{
-      flex-grow: 1;
-      flex-shrink: 1 !important;
-      margin-right: 0 !important;
-    }
-
-    > div{
-      margin-bottom: 0;
-      &:nth-child(#{$cols}n+0){
-        margin-right: 20px;
-      }
-      margin-right: 20px;
-      width: auto;
-      label{
-        padding-right: 15px;
-        padding-left: 15px;
-      }
-    }
-  }
-
   @each $name, $color in $categories {
-    #category-#{$name} + label{
+    .category-#{$name}{
       color: $color;
     }
-    #category-#{$name}:checked + label {
+    .category-#{$name}.active{
       background-color: $color;
       color: white;
     }
@@ -67,12 +40,15 @@
 
 @media (min-width: $grid-separate-width){
   .category-selector {
+    padding: 20px;
     @include border-radius($radius-pc);
+    justify-content: flex-start;
+    .category{
+      margin-bottom: 10px;
+      margin-right: 0;
+      flex-grow: 0;
+      height: auto;
+      width: 20%;
+    }
   }
-}
-
-
-// 隐藏所有 Input
-input[id^=category-]{
-  display: none;
 }

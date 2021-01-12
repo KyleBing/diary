@@ -7,33 +7,37 @@
       <div class="editor-content">
          <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
       </div>
-      <div class="editor-input-group">
-         <label for="date">日期</label>
-         <date-picker :editable="false"
-                      v-model="date"
-                      :confirm="true"
-                      :default-value="new Date()"
-                      placeholder="---- -- --"
-                      input-class="date"
-                      :clearable="false" id="date" type="datetime"/>
-      </div>
-      <div class="editor-input-group">
-         <label for="temperature">身处 ℃</label>
-         <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
-      </div>
-      <div class="editor-input-group">
-         <label for="temperatureOutside">室外 ℃</label>
-         <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
-      </div>
-      <div class="editor-input-group">
-         <label for="shareState">共享</label>
-         <div class="input">
-            <input class="share" type="checkbox" name="share" id="shareState" v-model="isPublic">
-            <label class="switch" for="shareState"></label>
+      <div class="editor-form-group">
+         <div class="editor-form">
+            <div class="editor-input-group">
+               <label for="date">日期</label>
+               <date-picker :editable="false"
+                            v-model="date"
+                            :confirm="true"
+                            :default-value="new Date()"
+                            placeholder="---- -- --"
+                            input-class="date"
+                            :clearable="false" id="date" type="datetime"/>
+            </div>
+            <div class="editor-input-group">
+               <label for="temperature">身处 ℃</label>
+               <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
+            </div>
+            <div class="editor-input-group">
+               <label for="temperatureOutside">室外 ℃</label>
+               <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
+            </div>
+            <div class="editor-input-group">
+               <label for="shareState">共享</label>
+               <div class="input">
+                  <input class="share" type="checkbox" name="share" id="shareState" v-model="isPublic">
+                  <label class="switch" for="shareState"></label>
+               </div>
+            </div>
          </div>
+         <category-selector @change="setCategory"/>
+         <weather-selector :weather="weather" @change="setWeather"/>
       </div>
-      <category-selector @change="setCategory"/>
-      <weather-selector :weather="weather" @change="setWeather"/>
    </div>
 </template>
 
@@ -98,7 +102,9 @@
 
       watch: {
          $route(to){
-            this.getDiary(to.params.id);
+            if (to.params.id){
+               this.getDiary(to.params.id);
+            }
          },
          title: function () {
             this.updateDiaryIcon();
@@ -188,17 +194,17 @@
                this.contentOrigin = this.content;
                this.updateDiaryIcon();
 
-               utility.popMessage(utility.POP_MSG_TYPE.success, res.info); // 提示
-               if (res.data) {
-                  this.isNew = false;
-                  this.id = res.data[0].id
-               }
-               this.$store.commit('setDiaryNeedToBeSaved', false);
-            })
-         },
+               utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
+                  if (res.data) {
+                     this.isNew = false;
+                     this.id = res.data[0].id
+                  }
+                  this.$store.commit('setDiaryNeedToBeSaved', false);
+                  this.$store.commit('setListNeedBeReload', true)
+               });
 
-         switchContentPanel(){
-            this.contentEditorShowed = !this.contentEditorShowed
+
+            })
          },
          createDiary() {
             this.isNew               =  true;
@@ -207,7 +213,7 @@
             this.content             =  '';
             this.contentOrigin       =  '';
             this.id                  =  '';
-            this.isPublic              =  false;
+            this.isPublic            =  false;
             this.category            =  'life';
             this.temperature         =  '';
             this.temperatureOutside  =  '';

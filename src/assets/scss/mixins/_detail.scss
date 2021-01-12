@@ -33,6 +33,20 @@ $height-meta: 30px;
   }
 }
 
+.diary-content{
+  color: $bg-navbar;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0 20px;
+  padding: 20px 0;
+  p{
+    font-family: "Consolas", "Monaco", sans-serif;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+}
+
+
 .detail-category{
   font-size: .8rem;
   text-align: center;
@@ -49,24 +63,22 @@ $height-meta: 30px;
   }
 }
 
-.diary-content{
-  color: $bg-navbar;
-  line-height: 1.6;
-  font-size: 1rem;
-  margin: 0 20px;
-  padding: 20px 0;
-  p{
-    font-family: "Consolas", "Monaco", sans-serif;
-    margin-bottom: 15px;
-    line-height: 1.5;
-  }
-}
-
 @media (min-width: $grid-separate-width){
   .diary-detail{
+    padding: 40px 20%;
     margin: 0 auto;
   }
   .diary-meta{
+    margin: 0 0 30px;
+    padding: 10px 0;
+    @include border-radius($radius-pc);
     justify-content: space-around;
+  }
+  .diary-title{
+  }
+  .diary-content{
+    p{
+      text-indent: 2rem;
+    }
   }
 }
