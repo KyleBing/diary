@@ -41,7 +41,7 @@ const store = new Vuex.Store({
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
-      windowHeight: window.innerHeight, // window height
+      heightPanel: window.innerHeight - 45, // window height
    },
    mutations: {
       setCategoriesChecked (state, payload){
@@ -65,7 +65,7 @@ const store = new Vuex.Store({
          state.diaryListShowedInFullStyle = payload
       },
       setWindowHeight(state, payload){
-         state.windowHeight = payload
+         state.heightPanel = payload
       }
    }
 })

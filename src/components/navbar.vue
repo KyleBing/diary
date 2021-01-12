@@ -41,7 +41,7 @@
 
 
          <!-- MENU -->
-         <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'min-height:' + windowHeight + 'px'">
+         <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'min-height:' + heightPanel + 'px'">
             <div class="menu-list" v-show="menuListShowed">
                <div class="menu-list-group">
                   <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
@@ -57,7 +57,7 @@
             </div>
 
             <!--category-->
-            <ul class="menu-category" v-show="categoryShowed" :style="'min-height:' + windowHeight + 'px'">
+            <ul class="menu-category" v-show="categoryShowed" :style="'min-height:' + heightPanel + 'px'">
                <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
                   <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
                   <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
@@ -73,7 +73,7 @@
             </ul>
 
             <!--about-->
-            <div class="about" v-show="aboutShowed" :style="'min-height:' + windowHeight + 'px'">
+            <div class="about" v-show="aboutShowed" :style="'min-height:' + heightPanel + 'px'">
                <h3 class="title">标题日记</h3>
                <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
                <div class="author">
@@ -139,7 +139,7 @@ export default {
          return !this.categories.length
       },
       ...mapState([
-         'categoriesChecked', 'currentDiary', 'diaryListShowedInFullStyle', 'windowHeight'
+         'categoriesChecked', 'currentDiary', 'diaryListShowedInFullStyle', 'heightPanel'
       ])
    },
    methods: {

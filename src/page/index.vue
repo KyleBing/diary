@@ -2,10 +2,10 @@
    <div>
       <navbar/>
       <div class="diary">
-         <div class="diary-list" :style="`height:${windowHeight - heightNavbar}px`">
+         <div class="diary-list" :style="`height:${heightPanel}px`">
             <list/>
          </div>
-         <div class="diary-container" :style="`height:${windowHeight - heightNavbar}px`">
+         <div class="diary-container" :style="`height:${heightPanel}px`">
             <router-view/>
          </div>
       </div>
@@ -23,19 +23,14 @@ export default {
       Navbar,
       list
    },
-   data(){
-      return {
-         heightNavbar: utility.global.heightNavbar
-      }
-   },
    mounted() {
       window.onresize = () => {
-         this.$store.commit('setWindowHeight', window.innerHeight)
+         this.$store.commit('setWindowHeight', window.innerHeight - 45)
       }
    },
    computed: {
       ...mapState([
-         'windowHeight'
+         'heightPanel'
       ])
    }
 }

@@ -3,7 +3,7 @@ $height-meta: 30px;
   background-color: white;
 }
 .diary-meta{
-  background-color: #eeeeee;
+  background-color: $bg-light;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;

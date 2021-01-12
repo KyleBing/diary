@@ -3,7 +3,6 @@ $height-input: 40px;
 
 .diary-edit{
   background-color: $bg-light;
-  padding: 10px;
 }
 textarea{
   width: 100%;
@@ -61,19 +60,28 @@ textarea{
 
 @media (min-width: $grid-separate-width){
   $border-radius: 5px;
+  .diary-edit{
+    padding: 10px;
+  }
   textarea{
     padding: 10px 15px;
     border: 1px solid $color-border;
-    @include border-radius($border-radius);
     @include transition(all 0.5s);
     &:focus{
       border-color: $color-border-highlight;
       @include box-shadow(none);
       @include transition(all 0.5s);
     }
+    &.title{
+      @include border-radius($border-radius $border-radius 0 0);
+    }
+    &.content{
+      margin-top: -1px;
+      @include border-radius(0 0 $border-radius $border-radius);
+    }
   }
   .editor-content{
-    padding: 0 8px 8px 8px;
+    margin-bottom: 20px;
   }
   .editor-input-group{
     height: auto;
@@ -91,7 +99,7 @@ input[type=radio]
 
 $height-radio: 22px;
 $radio-gap: 2px;
-$radio-length-timer: 1.8;
+$radio-length-timer: 2;
 
 input[type=checkbox] + label.switch
 {
