@@ -27,7 +27,7 @@
                @click="copySharePath"
                src="img/tabicon/share.svg"
                :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
-            <img alt="删除" @click="" src="img/tabicon/delete.svg"/>
+            <img alt="删除" @click="toastShow" src="img/tabicon/delete.svg"/>
             <router-link :to="`/edit/${diaryId}`"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
          </div>
 
@@ -86,6 +86,19 @@
             <!--search-->
          </div>
       </nav>
+
+      <!--TOAST-->
+      <div id="toast" class="fadeIn animated-fast" v-show="toastIsShowed">
+         <div class="toast">
+            <div class="toast-header">确定删除吗</div>
+            <div class="toast-body"></div>
+            <div class="toast-footer">
+               <div class="btn-cancel" @click="toastHide">取消</div>
+               <div class="btn-confirm" @click="diaryDelete">确定</div>
+            </div>
+         </div>
+         <div class="mask"></div>
+      </div>
    </div>
 
 </template>
@@ -115,6 +128,9 @@ export default {
          userInfo: utility.getAuthorization(),
          categories: [],
          categoriesAll: utility.CATEGORIES_ALL_NAME,
+
+         // toast
+         toastIsShowed: false
       }
    },
    mounted() {
@@ -192,7 +208,6 @@ export default {
          });
          this.categories = tempCategories;
       },
-
       diaryCreate() {
 
       },
@@ -207,6 +222,26 @@ export default {
          });
          clipboard.on('error', function () {
          });
+      },
+      diaryDelete () {
+         let that = this;
+         let queryData = {
+            diaryId: this.currentDiary.id,
+            type: 'delete'
+         };
+         utility.postData(utility.URL.diaryOperation, queryData)
+            .then(res => {
+               that.toastHide();
+               utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
+                  this.$router.push('/')
+               }, 1) // 删除成功后等待时间不要太长
+            })
+      },
+      toastHide(){
+         this.toastIsShowed = false
+      },
+      toastShow(){
+         this.toastIsShowed = true
       },
       logout() {
          utility.deleteAuthorization();

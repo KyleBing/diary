@@ -1,49 +1,32 @@
 <template>
-   <div class="body-white">
-      <!--content-->
-      <div class="diary-detail" id="diaryDetail">
-         <!--META-->
-         <div class="diary-meta">
-            <div class="date">{{diary.date}}</div>
-            <div class="weather"><img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather"></div>
-            <div class="temperature" v-if="diary.temperature && diary.temperatureOutside">
-               <span v-if="diary.temperature">{{diary.temperature}}</span>
-               <span v-if="diary.temperature && diary.temperatureOutside"> / </span>
-               <span v-if="diary.temperatureOutside">{{diary.temperatureOutside}}</span>
-            </div>
-            <div class="temperature" v-else>
-               <span v-if="diary.temperature">{{diary.temperature}} ℃</span>
-            </div>
-            <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span></div>
+   <!--content-->
+   <div class="diary-detail" id="diaryDetail">
+      <!--META-->
+      <div class="diary-meta">
+         <div class="date">{{diary.date}}</div>
+         <div class="weather"><img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather"></div>
+         <div class="temperature" v-if="diary.temperature && diary.temperatureOutside">
+            <span v-if="diary.temperature">{{diary.temperature}}</span>
+            <span v-if="diary.temperature && diary.temperatureOutside"> / </span>
+            <span v-if="diary.temperatureOutside">{{diary.temperatureOutside}}</span>
          </div>
-         <!--TITLE-->
-         <div class="diary-title">
-            <h2>{{diary.title}}</h2>
+         <div class="temperature" v-else>
+            <span v-if="diary.temperature">{{diary.temperature}} ℃</span>
          </div>
-
-         <!--CONTENT-->
-         <div class="diary-content" v-html="diary.content"></div>
+         <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{diary.categoryName}}</span></div>
+      </div>
+      <!--TITLE-->
+      <div class="diary-title">
+         <h2>{{diary.title}}</h2>
       </div>
 
-     <!--TOAST-->
-      <div id="toast" class="fadeIn animated-fast" v-show="showToast">
-         <div class="toast">
-            <div class="toast-header">确定删除吗</div>
-            <div class="toast-body"></div>
-            <div class="toast-footer">
-               <div class="btn-cancel" @click="hide">取消</div>
-               <div class="btn-confirm" @click="deleteCurrentDiary">确定</div>
-            </div>
-         </div>
-         <div class="mask"></div>
-      </div>
-
+      <!--CONTENT-->
+      <div class="diary-content" v-html="diary.content"></div>
    </div>
 </template>
 
 <script>
    import utility from "../utility";
-   import Clipboard from "clipboard/dist/clipboard";
 
    export default {
       data() {
@@ -100,21 +83,6 @@
                }
             })
          },
-
-         deleteCurrentDiary () {
-            let that = this;
-            let queryData = {
-               diaryId: this.id,
-               type: 'delete'
-            };
-            utility.postData(utility.URL.diaryOperation, queryData)
-               .then(res => {
-                  that.hide();
-                  utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
-                     this.$router.push('/')
-                  }, 1) // 删除成功后等待时间不要太长
-               })
-         }
       }
    }
 

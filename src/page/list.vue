@@ -79,14 +79,17 @@ export default {
       ...mapState(['searchBarShowed', 'keyword', 'categoriesChecked'])
    },
    watch: {
+      // route 载入 `/` 路径时，重载日记列表：比如删除日记后
+      $route(to){
+         if (to.path === '/'){
+            this.reload()
+         }
+      },
       categories() {
          utility.saveCategories(this.categories)
       },
       categoriesChecked(){
-         this.queryData.pageNo = 1;
-         this.diaries = [];
-         this.diariesShow = [];
-         this.loadMore();
+         this.reload()
       }
    },
    methods: {
@@ -96,14 +99,17 @@ export default {
       },
       search() {
          this.$store.commit('setKeyword', this.queryData.keyword)
-         this.queryData.pageNo = 1;
-         this.diaries = [];
-         this.diariesShow = [];
-         this.loadMore();
+         this.reload()
       },
       clearKeyword() {
          this.queryData.keyword = '';
          this.search();
+      },
+      reload(){
+         this.queryData.pageNo = 1;
+         this.diaries = [];
+         this.diariesShow = [];
+         this.loadMore();
       },
 
       /* DIARY 相关 */
