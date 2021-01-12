@@ -158,7 +158,19 @@
       background-color: $color;
     }
     &.active{
-      background: linear-gradient(0deg, darken($color, 2%), $color,  lighten($color, 10%));
+      //background: linear-gradient(0deg, darken($color, 2%), $color,  lighten($color, 10%));
+      @if $name == life{
+        background-color: lighten($color, 5%);
+      } @else{
+        background-color: $color;
+      }
+      &:hover{
+        @if $name == life{
+          background-color: lighten($color, 5%);
+        } @else{
+          background-color: $color;
+        }
+      }
       .title, .date{
         text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
       }
