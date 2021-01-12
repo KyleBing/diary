@@ -29,7 +29,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(Router);
 Vue.use(VueCookie);
-Vue.prototype.$version = 'v6.20'
+Vue.prototype.$version = 'v7.00'
 
 Vue.use(Vuex)
 
@@ -43,7 +43,7 @@ const store = new Vuex.Store({
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
       heightPanel: window.innerHeight - 45, // window height
       listNeedBeReload: false, // 是否刷新列表
-      editLogoImg: false, // 编辑页是否已经保存
+      editLogoImg: false, // 编辑页LOGO
    },
    mutations: {
       setCategoriesChecked (state, payload){
