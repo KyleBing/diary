@@ -165,14 +165,17 @@
             if (this.title.trim().length === 0) {
                this.title = ''; // clear content
                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
+               this.$store.commit('setDiaryNeedToBeSaved', false); // 未能成功保存时，复位 diaryNeedToBeSaved 标识
                return;
             }
             if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
                utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
+               this.$store.commit('setDiaryNeedToBeSaved', false);
                return
             }
             if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
                utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
+               this.$store.commit('setDiaryNeedToBeSaved', false);
                return
             }
             let queryData = {
@@ -201,7 +204,9 @@
                   }
                   this.$store.commit('setDiaryNeedToBeSaved', false);
                   this.$store.commit('setListNeedBeReload', true)
-               });
+               })
+            }).catch(()=> {
+               this.$store.commit('setDiaryNeedToBeSaved', false);
             })
          },
          createDiary() {
