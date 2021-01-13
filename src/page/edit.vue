@@ -202,8 +202,6 @@
                   this.$store.commit('setDiaryNeedToBeSaved', false);
                   this.$store.commit('setListNeedBeReload', true)
                });
-
-
             })
          },
          createDiary() {

@@ -9,6 +9,7 @@
 
          <!--RIGHT part-->
             <!--NEW-->
+         <!--TODO: 新建时询问是否保存当前日记-->
          <div class="navbar-btn-group right">
             <router-link to="/edit"><img alt="添加" src="img/tabicon/add.svg"></router-link>
          </div>

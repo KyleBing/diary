@@ -95,8 +95,9 @@ export default {
          this.reload()
       },
       listNeedBeReload(){
-         this.$store.commit('setListNeedBeReload', false)
-         this.reload()
+         if (this.listNeedBeReload){
+            this.reload()
+         }
       }
    },
    methods: {
@@ -188,9 +189,12 @@ export default {
                }
                this.diaries = tempFullArray;
                this.diariesShow = tempShowArray;
-            }).finally(() => {
-            this.isLoading = false
-         })
+            })
+            .finally(() => {
+               // 列表加载完成后设置列表重载： false
+               this.$store.commit('setListNeedBeReload', false)
+               this.isLoading = false
+            })
       },
       addScrollEvent() {
          document.querySelector('.diary-list').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
