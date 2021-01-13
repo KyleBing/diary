@@ -1,7 +1,7 @@
 <template>
    <div class="share-container">
       <div class="share" :style="`min-height:${heightShare}px`">
-         <div class="share-head">
+         <div class="share-head" v-if="diary.title">
             <!--head-->
             <div class="share-title">
                <h2>{{ diary.title}}</h2>
@@ -35,10 +35,16 @@
             <!--end of head-->
          </div>
 
+         <!-- NO DIARY -->
+         <div v-else class="no-diary">
+            <p>无此日记</p>
+            <router-link to="../">点此返回《标题日记》主页</router-link>
+         </div>
+
          <div class="divider" v-if="diary.content"></div>
 
          <!--CONTENT-->
-         <div class="share-content" v-html="diary.content"></div>
+         <div class="share-content" v-html="diary.contentHtml"></div>
          <!--TODO: 来自谁的日记-->
       </div>
    </div>
@@ -85,10 +91,13 @@ export default {
             contentArray.forEach(item => {
                contentHtml += `<p>${item}</p>`
             });
-            this.diary.content = contentHtml;
+            this.diary.contentHtml = contentHtml;
             this.diary.temperature = utility.processTemperature(diary.temperature);
             this.diary.temperatureOutside = utility.processTemperature(diary.temperature_outside);
             this.diary.categoryName = utility.CATEGORIES[diary.category];
+         })
+         .catch(() => {
+            this.diary = {}
          })
       }
    }
