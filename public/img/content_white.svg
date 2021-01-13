@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>content_white</title>
+    <g id="content_white" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#FFFFFF" x="5.5" y="4.5" width="19" height="21" rx="3"></rect>
+        <path d="M10,10.6 L20.2320651,10.6 M10,15 L20.2320651,15 M10,19.4 L20.2320651,19.4" id="Combined-Shape" stroke="#FFFFFF" stroke-linecap="square"></path>
+    </g>
+</svg>

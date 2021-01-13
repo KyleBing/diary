@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>weather / fog_white</title>
+    <g id="weather-/-fog_white" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <path d="M23.9099449,14 C25.9810127,14 27.6599449,12.3210678 27.6599449,10.25 C27.6599449,8.17893219 25.9810127,6.5 23.9099449,6.5" id="Path" stroke="#FFFFFF"></path>
+        <line x1="2" y1="16.3570096" x2="23.7846792" y2="16.3570096" id="Path-2" stroke="#FFFFFF"></line>
+        <line x1="9.47152548" y1="14" x2="23.9099449" y2="14" id="Path-3" stroke="#FFFFFF"></line>
+        <path d="M24.9099449,23.5 L24.9099449,23.5 C26.1525855,23.5 27.1599449,22.4926407 27.1599449,21.25 C27.1599449,20.0073593 26.1525855,19 24.9099449,19" id="Path" stroke="#FFFFFF"></path>
+        <line x1="5.94531516" y1="19" x2="24.9099449" y2="19" id="Path-4" stroke="#FFFFFF"></line>
+    </g>
+</svg>

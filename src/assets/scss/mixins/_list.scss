@@ -80,12 +80,9 @@
       }
     }
     &.active{
-      //background-color: $bg-menu;
-      .date{
+      .title, .date{
         color: white;
-      }
-      .title{
-        color: white;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
       }
     }
   }
@@ -170,9 +167,6 @@
         } @else{
           background-color: $color;
         }
-      }
-      .title, .date{
-        text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
       }
     }
   }

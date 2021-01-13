@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>weather / thunderstorm_white</title>
+    <g id="weather-/-thunderstorm_white" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.1399061,20.5 C9.46626214,20.5 8.58629342,20.5 7.5,20.5 C4.46243388,20.5 2,18.0375661 2,15 C2,11.9624339 4.46243388,9.5 7.5,9.5 L10.2230164,9.5 C11.1324748,5.4920226 14.7168252,2.5 19,2.5 C23.9705627,2.5 28,6.52943725 28,11.5 C28,16.3393983 24.1804165,20.286685 19.3914707,20.4916392" id="Path" stroke="#FFFFFF"></path>
+        <polyline id="Path-5" stroke="#FFFFFF" points="14.5824318 17.5 12.5 20.9152683 17.1361484 20.9152683 12.5 27.2408335"></polyline>
+    </g>
+</svg>

@@ -42,7 +42,6 @@ $height-menu-list: 50px;
   &:active{
     background-color: lighten($bg-menu,10%);
   }
-
 }
 
 .user-info{
@@ -54,13 +53,14 @@ $height-menu-list: 50px;
     line-height: 30px;
     display: block;
     font-weight: bold;
-    color: rgba(255,255,255,0.8);
+    color: white;
   }
   .email{
     font-size: 16px;
     line-height: 20px;
     display: block;
-    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    color: $about-subtitle;
   }
 }
 
@@ -127,8 +127,8 @@ $gaps-sm: 20%;
     color: white;
   }
   .subtitle{
-    font-weight: normal;
-    color: $gray;
+    color: $about-subtitle;
+    font-weight: 300;
   }
   .author{
     width: 100%;
@@ -140,7 +140,8 @@ $gaps-sm: 20%;
       font-size: $fz-note;
       height: 20px;
       &:link,&:hover,&:active,&:visited{
-        color: $gray;
+        color: $about-subtitle;
+        font-weight: 300;
       }
     }
   }
