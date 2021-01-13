@@ -1,9 +1,15 @@
 <template>
-   <div  class="article">
-      <router-link :to="`/detail/${diary.id}`" :class="`article-header category-bg-${diary.category}`">
+   <div :class="['article', {active: active}, `article-${diary.category}`]">
+      <router-link :to="`/detail/${diary.id}`"
+                   class="article-header" >
          <div class="week">{{diary.weekday}}</div>
          <div class="date">{{diary.dateString}}</div>
-         <div :class="`category text-${diary.category}`">{{categoryString}}</div>
+         <div class="weather">
+            <img v-if="diary.weather"
+                 :src="`img/weather/${diary.weather + suffix}.svg`"
+                 :alt="diary.weather">
+         </div>
+         <div class="category">{{categoryString}}</div>
       </router-link>
       <div class="article-body">
          <div class="title">{{diary.title}}</div>
@@ -23,6 +29,14 @@
       data(){
          return {
             categoryString: utility.CATEGORIES[this.diary.category]
+         }
+      },
+      computed:{
+         active(){
+            return this.$route.params.id === this.diary.id
+         },
+         suffix(){
+            return this.active? '_white': '_active'
          }
       }
    }

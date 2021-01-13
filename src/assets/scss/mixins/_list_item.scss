@@ -1,0 +1,96 @@
+.list-item{
+  cursor: pointer;
+  background-color: white;
+  display: block;
+  flex-flow: row nowrap;
+  height: $height-list;
+  &:last-child{
+    .detail{
+      border: 0;
+    }
+  }
+  &:hover{
+    background-color: $bg-list-active;
+  }
+  .category{
+    float: left;
+    width: $width-category-sign;
+    height: $height-list;
+    display: block;
+  }
+  .date{
+    float: left;
+    width: $width-index-date;
+    padding: 0 5px;
+    flex-shrink: 0;
+    text-align: center;
+    line-height: $height-list;
+    font-size: $fz-list-content;
+    font-weight: bold;
+    color: $color-text-date;
+  }
+  .detail{
+    position: relative;
+    display: flex;
+    padding-right: 8px;
+    margin-left: 35px;
+    .title{
+      flex-grow: 1;
+      flex-shrink: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: $height-list;
+      display: block;
+      font-size: $fz-list-content;
+      color: $color-text-title;
+    }
+    .icon{
+      flex-shrink: 0;
+      padding: 4px 0;
+      height: $height-list;
+      width: $height-list - 4 * 2;
+      display: block;
+    }
+    &:after{
+      bottom: 0;
+      left: 0;
+      content: '';
+      display: block;
+      width: 100%;
+      position: absolute;
+      border-bottom: 1px solid $bg-light;
+      transform-origin: 0 100%;
+      @include transform(scaleY(0.5));
+    }
+  }
+  &.active{
+    .title, .date{
+      color: white;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    }
+  }
+}
+
+@each $name, $color in $categories {
+  .diary-list-item-#{$name}{
+    .bg-#{$name}{
+      background-color: $color;
+    }
+    &.active{
+      //background: linear-gradient(0deg, darken($color, 2%), $color,  lighten($color, 10%));
+      @if $name == life{
+        background-color: lighten($color, 5%);
+      } @else{
+        background-color: $color;
+      }
+      &:hover{
+        @if $name == life{
+          background-color: lighten($color, 5%);
+        } @else{
+          background-color: $color;
+        }
+      }
+    }
+  }
+}

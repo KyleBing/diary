@@ -4,7 +4,7 @@ $fz-md-article: 14px;
 .article{
   font-size: $fz-article;
   background-color: white;
-  &-header{
+  .article-header{
     color: $bg-navbar;
     @include unselectable();
     text-align: center;
@@ -20,12 +20,18 @@ $fz-md-article: 14px;
     .week{
       font-weight: bold;
     }
+    .weather{
+      img{
+        display: block;
+        width: 20px;
+      }
+    }
     .date{}
     .category{
       font-weight: bold;
     }
   }
-  &-body{
+  .article-body{
     color: $bg-navbar;
     padding: 0 15px;
     .title{
@@ -39,6 +45,11 @@ $fz-md-article: 14px;
       line-height: 1.5;
       p {
       }
+    }
+  }
+  &.active{
+    .article-header{
+      color: white;
     }
   }
 }
@@ -63,15 +74,26 @@ $fz-md-article: 14px;
       }
     }
   }
-
 }
 
+
 @each $name, $color in $categories {
-  .category-bg-#{$name} {
-    border-top: 0.5px solid rgba($color, 0.3);
-    background-color: rgba($color, 0.06);
-  }
-  .text-#{$name} {
-    color: $color;
+  .article-#{$name}{
+    .article-header{
+      border-top: 0.5px solid rgba($color, 0.3);
+      background-color: rgba($color, 0.06);
+    }
+    .category{
+      color: $color;
+    }
+    // 选中时的样式
+    &.active{
+      .article-header{
+        background-color: $color;
+      }
+      .category{
+        color: white;
+      }
+    }
   }
 }
