@@ -15,18 +15,12 @@
 <script>
 import list from "@/page/list"
 import Navbar from "@/components/navbar";
-import utility from "@/utility";
 import { mapState } from 'vuex'
 
 export default {
    components: {
       Navbar,
       list
-   },
-   mounted() {
-      window.onresize = () => {
-         this.$store.commit('setWindowHeight', window.innerHeight - 45)
-      }
    },
    computed: {
       ...mapState([

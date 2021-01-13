@@ -247,9 +247,14 @@ function formateDate(dateString) {
    return {
       weekday: WEEKDAY[week],
       date:`${month}月${day}日`,
+      dateFull: `${year}年${month}月${day}日`,
       timeName: timeArea,
       time: time
    }
+}
+
+function processTemperature(temperature){
+   return temperature === '-273' ? '' : temperature
 }
 
 export default {
@@ -265,5 +270,6 @@ export default {
    getCategories,
    saveCategories,
    keyword,
-   global
+   global,
+   processTemperature
 }

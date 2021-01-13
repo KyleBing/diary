@@ -41,6 +41,7 @@ const store = new Vuex.Store({
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
+      heightWindow: window.innerHeight,
       heightPanel: window.innerHeight - 45, // window height
       listNeedBeReload: false, // 是否刷新列表
       editLogoImg: false, // 编辑页LOGO
@@ -66,7 +67,7 @@ const store = new Vuex.Store({
       setDiaryListShowedInFullStyle (state, payload){
          state.diaryListShowedInFullStyle = payload
       },
-      setWindowHeight(state, payload){
+      setHeightPanel(state, payload){
          state.heightPanel = payload
       },
       setListNeedBeReload(state, payload){
@@ -75,6 +76,9 @@ const store = new Vuex.Store({
       setEditLogoImg(state, payload){
          state.editLogoImg = payload
       },
+      setHeightWindow(state, payload){
+         state.heightWindow = payload
+      }
    }
 })
 

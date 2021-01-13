@@ -1,42 +1,53 @@
-$height-share-header: 60px;
-$weather-height: 40px;
+$height-share-header: 70px;
+$height-weather: 35px; // category line height
+$meta-padding: 5px;
+$height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
+
+.share-container{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAAAAAA77wXdAAADy0lEQVQYGQXBAYIkIQgDQP//2dtWCElA56oWmbGBFLKvZWBG16g2QeEL/+45fg+5dH1AqKDivfCP86uw6Jlmgc35SezWao+apMeFDGTG2YdknSjXx8eTPfkX3auS05Ya6dtyfK5Qs5s4NSQyDmjH316Fnitd7QT6jarYkkrjck+f/vGgR32X7C6NIkFGqB0RERsK30GkWQZUsldFIGcKLXQBKhRoJygTMxcfQKH2t9qVlQDm1h+U1ff+3r1GnhPp1y2pTszE0jT5fWyqUizSeQqpgtrcO2VPnTjsdf7ED+6xan5j7c0IguNkj5KM76v7GLXI7oK77BmhOC2pO7IiyW4lRUWJWtOsEjJOFAKURVSp+w5JVfX4Tm12L8tuZQkJoKSI7jqboi9PZYAtPROxrPvrIjW33ZkBJUmciLNxdTJLcYLBWbkPqfkpChlUT3wc2upGZLAvdgJJ5krkmQEYSSo5z2Z63DMPx21pZt4g99J0leMP9pju8/F3g45TMzMSU031jLVsMg5d7lHAzkLahaQPjQQSeQ6sXt/Jqur7VCUr6/cCVfNGGVWFvBNJxgEX3FGvC2B7riqTbbnOV4oZzRi+xZpenmECYIHgWPFXuj5sV+ZJ48s6esP0EksZ/Wbybwfa4DARMMEWUXDn0Qz+LRf7XWVcaxDJvoO/FEL3ztzqW775d/jzMjOrKko9MsNXSd93MwUXSl1+U8jqFRxH8ndPDZJzDXTnV12oE3vbxUbOIBZFFLMCNU/ugyoJ2AGMo6TI+FBRjTWufhaCylIW40v4vbaYasau+2rHobQEtVhRwgmBb4rKLHIkmSzYbl0ercz4vkSCBbAiNSpmZiJRJ/i6Sm5X3TXXAiXDtwEiZc3cZmTA7XbRM+yp1WPPr2LocWR5LJZ1b/m9S5byYyvZuSqDk6iyEXMzSpHt/PI66bHoBskuL2h0/vZJM6Lfu4QKSaAQu+5kVHf3Zfa6N/fOVFOZCbHkxH2/S09l5C5bZOBxwbJrZoT5dez9oewe+lpKFgBmnIi914eZ3+s2wVH2z0nhO3qvagTliVNWt7xKhiqND9hp9/v9xiYryp768o5/F6nxGiP/IiOAOvrVX4pk8/zbQHrKrYpEZtS6RPVT1NxSARXfzkJmgYLm3QISFDLWTrdRrP5ZLgLvx13tNsvTb1p6E0fvLnvv3DvvJauu0UqI5Tdtni8BUOruOOsCtnAKmRGBVmZpmqoIkKpEZQ131NqnWm+aqEzLzX4tVp1Txfm1JJVcOXeJCqi6PXMte0bjL1BuZZyTSJwjX+E/evxTlQQ6zFEAAAAASUVORK5CYII=);
+  padding: 60px 0 100px;
+}
 
 .share{
   padding: 40px;
-  width: 768px;
-  margin: 40px auto;
-  border: 1px solid $color-border;
+  width: $grid-separate-width;
+  margin: 0 auto;
+  border-top: 1px solid lighten($color-border, 2%);
+  border-left: 1px solid lighten($color-border, 2%);
   @include border-radius(3px);
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAAAAAA77wXdAAADy0lEQVQYGQXBAYIkIQgDQP//2dtWCElA56oWmbGBFLKvZWBG16g2QeEL/+45fg+5dH1AqKDivfCP86uw6Jlmgc35SezWao+apMeFDGTG2YdknSjXx8eTPfkX3auS05Ya6dtyfK5Qs5s4NSQyDmjH316Fnitd7QT6jarYkkrjck+f/vGgR32X7C6NIkFGqB0RERsK30GkWQZUsldFIGcKLXQBKhRoJygTMxcfQKH2t9qVlQDm1h+U1ff+3r1GnhPp1y2pTszE0jT5fWyqUizSeQqpgtrcO2VPnTjsdf7ED+6xan5j7c0IguNkj5KM76v7GLXI7oK77BmhOC2pO7IiyW4lRUWJWtOsEjJOFAKURVSp+w5JVfX4Tm12L8tuZQkJoKSI7jqboi9PZYAtPROxrPvrIjW33ZkBJUmciLNxdTJLcYLBWbkPqfkpChlUT3wc2upGZLAvdgJJ5krkmQEYSSo5z2Z63DMPx21pZt4g99J0leMP9pju8/F3g45TMzMSU031jLVsMg5d7lHAzkLahaQPjQQSeQ6sXt/Jqur7VCUr6/cCVfNGGVWFvBNJxgEX3FGvC2B7riqTbbnOV4oZzRi+xZpenmECYIHgWPFXuj5sV+ZJ48s6esP0EksZ/Wbybwfa4DARMMEWUXDn0Qz+LRf7XWVcaxDJvoO/FEL3ztzqW775d/jzMjOrKko9MsNXSd93MwUXSl1+U8jqFRxH8ndPDZJzDXTnV12oE3vbxUbOIBZFFLMCNU/ugyoJ2AGMo6TI+FBRjTWufhaCylIW40v4vbaYasau+2rHobQEtVhRwgmBb4rKLHIkmSzYbl0ercz4vkSCBbAiNSpmZiJRJ/i6Sm5X3TXXAiXDtwEiZc3cZmTA7XbRM+yp1WPPr2LocWR5LJZ1b/m9S5byYyvZuSqDk6iyEXMzSpHt/PI66bHoBskuL2h0/vZJM6Lfu4QKSaAQu+5kVHf3Zfa6N/fOVFOZCbHkxH2/S09l5C5bZOBxwbJrZoT5dez9oewe+lpKFgBmnIi914eZ3+s2wVH2z0nhO3qvagTliVNWt7xKhiqND9hp9/v9xiYryp768o5/F6nxGiP/IiOAOvrVX4pk8/zbQHrKrYpEZtS6RPVT1NxSARXfzkJmgYLm3QISFDLWTrdRrP5ZLgLvx13tNsvTb1p6E0fvLnvv3DvvJauu0UqI5Tdtni8BUOruOOsCtnAKmRGBVmZpmqoIkKpEZQ131NqnWm+aqEzLzX4tVp1Txfm1JJVcOXeJCqi6PXMte0bjL1BuZZyTSJwjX+E/evxTlQQ6zFEAAAAASUVORK5CYII=);
+  background-color: $bg-share;
+  @include box-shadow(3px 4px 5px rgba(0,0,0,0.1))
 }
+
 .share-head{
-  margin-bottom: 30px;
   font-size: 0.9rem;
   display: flex;
 }
 
-.share-title{
-  line-height: $height-share-header / 2;
-  flex-grow: 1;
-  margin-right: 20px;
+.divider{
+  margin: 30px 0;
+  width: 100%;
+  height: 1px;
+  background-color: $color-border-share;
 }
-.share-date{
-  flex-shrink: 0;
-  margin-right: 20px;
-  .above{
-    > * {
-      font-size: 1rem;
-      line-height: $weather-height;
-    }
 
+.share-date{
+  border: 1px solid $color-border-share;
+  padding: $meta-padding 15px;
+  background-color: white;
+  flex-shrink: 0;
+  margin-right: 30px;
+  .above{
+    h3{
+      line-height: $height-weather
+    }
     display: flex;
     justify-content: space-between;
   }
   .bottom{
-    line-height: $height-share-header - $weather-height;
+    line-height: $height-temperature;
   }
 }
-
 
 .share-meta{
   display: flex;
@@ -44,30 +55,46 @@ $weather-height: 40px;
   justify-content: center;
   flex-shrink: 0;
   .weather{
+    width: $height-weather;
     img{
+      width: 100%;
       display: block;
-      width: $weather-height;
-      height: $weather-height;
     }
   }
   .temperature{
-    line-height: $height-share-header - $weather-height;
+    line-height: $height-temperature;
     text-align: center;
   }
+}
+.share-title{
+  font-size: 1.2rem;
+  line-height: $height-share-header / 2;
+  flex-grow: 1;
+  margin-right: 20px;
 }
 
 .share-content{
   p{
+    font-size: 0.9rem;
     line-height: 1.6;
     text-indent: 2rem;
     margin-bottom: 10px;
   }
 }
 
+.share-category{
+  $margin: 5px;
+  color: white;
+  font-weight: bold;
+  @include border-radius(3px);
+  margin: $margin 0;
+  line-height: $height-weather - $margin * 2 - 3 * 2;
+  padding: 3px 8px;
+}
+
 @each $name, $color in $categories {
   .share-category-#{$name}{
-    color: $color;
-    font-weight: bold;
+    background-color: $color;
   }
 }
 
