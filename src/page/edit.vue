@@ -154,8 +154,8 @@
                   this.content             =  diary.content;
                   this.contentOrigin       =  diary.content;
                   this.isPublic            =  diary.is_public === '1';
-                  this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
-                  this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
+                  this.temperature         =  utility.temperatureProcessSTC(diary.temperature);
+                  this.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
                } else {
                   this.$router.back();
                }
@@ -180,8 +180,8 @@
                diaryTitle              : this.title,
                diaryContent            : this.content || null,
                diaryCategory           : this.category,
-               diaryTemperature        : this.temperature === '' ? -273 : this.temperature,
-               diaryTemperatureOutside : this.temperatureOutside === '' ? -273 : this.temperatureOutside,
+               diaryTemperature        : utility.temperatureProcessCTS(this.temperature),
+               diaryTemperatureOutside : utility.temperatureProcessCTS(this.temperatureOutside),
                diaryWeather            : this.weather,
                diaryPublic             : this.isPublic ? '1' : '0',
                diaryDate               : utility.dateFormatter(this.date),

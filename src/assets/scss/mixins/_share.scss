@@ -25,6 +25,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 .share-head{
   font-size: 0.9rem;
   display: flex;
+  align-items: center;
 }
 
 .divider{
@@ -81,7 +82,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     font-size: 1rem;
     line-height: 1.6;
     text-indent: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 1.3rem;
   }
 }
 

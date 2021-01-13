@@ -86,14 +86,16 @@ export default {
             let diary = res.data;
             this.diary = diary;
             this.dateObj = utility.formateDate(diary.date);
-            let contentArray = diary.content.split('\n');
-            let contentHtml = "";
-            contentArray.forEach(item => {
-               contentHtml += `<p>${item}</p>`
-            });
-            this.diary.contentHtml = contentHtml;
-            this.diary.temperature = utility.processTemperature(diary.temperature);
-            this.diary.temperatureOutside = utility.processTemperature(diary.temperature_outside);
+            if (this.diary.content){
+               let contentArray = diary.content.split('\n');
+               let contentHtml = "";
+               contentArray.forEach(item => {
+                  contentHtml += `<p>${item}</p>`
+               });
+               this.diary.contentHtml = contentHtml;
+            }
+            this.diary.temperature = utility.temperatureProcessSTC(diary.temperature);
+            this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside);
             this.diary.categoryName = utility.CATEGORIES[diary.category];
          })
          .catch(() => {

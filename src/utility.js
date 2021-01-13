@@ -253,8 +253,12 @@ function formateDate(dateString) {
    }
 }
 
-function processTemperature(temperature){
+function temperatureProcessSTC(temperature){
    return temperature === '-273' ? '' : temperature
+}
+
+function temperatureProcessCTS(temperature){
+   return temperature === '' ? '-273' : temperature
 }
 
 export default {
@@ -271,5 +275,6 @@ export default {
    saveCategories,
    keyword,
    global,
-   processTemperature
+   temperatureProcessSTC,
+   temperatureProcessCTS
 }
