@@ -24,7 +24,7 @@ const COOKIE_NAME = {
    uid      : 'diaryUid',
    category : 'diaryCategories',
    keyword  : 'keyword',
-   options  : {expires: 7, path: '/'}
+   options  : {expires: 7, path: '/', SameSite: 'Strict'}
 };
 
 const keyword = {
