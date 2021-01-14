@@ -49,7 +49,7 @@ export default {
    },
    mounted() {
       this.heightBg = window.innerHeight - 40 * 2; // 去除上下的 margin
-      this.id = this.$route.query.id;
+      this.id = this.$route.params.id;
       utility.getData(utility.URL.shareContent, {
          'type': 'query',
          'diaryId': this.id

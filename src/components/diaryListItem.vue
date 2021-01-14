@@ -1,5 +1,5 @@
 <template>
-   <router-link :to="'/detail?id=' + diary.id" class="list-item">
+   <router-link :to="'/detail/' + diary.id" class="list-item">
       <i :class="['category', 'bg-' + diary.category]"></i>
       <span class="date">{{diary.date}}</span>
       <div class="detail">

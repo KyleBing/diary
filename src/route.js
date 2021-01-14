@@ -14,17 +14,17 @@ export default [
   },
   {
     name: 'detail',
-    path: '/detail',
+    path: '/detail/:id',
     component: Detail,
   },
   {
     name: 'share',
-    path: '/share',
+    path: '/share/:id',
     component: Share,
   },
   {
     name: 'edit',
-    path: '/edit',
+    path: '/edit/:id',
     component: Edit,
   },
   {

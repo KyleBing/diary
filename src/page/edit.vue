@@ -84,7 +84,7 @@
       components: {categorySelector, weatherSelector, DatePicker},
       mounted() {
          this.heightBg = window.innerHeight;
-         this.id = this.$route.query.id;
+         this.id = this.$route.params.id;
 
          // this.date = new Date();
          // 标签关闭提醒
@@ -93,7 +93,7 @@
                return "日记内容已改变，显示提示框"
             }
          };
-         this.isNew = !(this.$route.query.id);
+         this.isNew = !(this.$route.params.id);
          if (this.isNew) {
             // 新建日记
             this.id = '';

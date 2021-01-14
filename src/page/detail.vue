@@ -11,9 +11,9 @@
                  alt="分享链接"
                  @click="copySharePath"
                  src="img/tabicon/share.svg"
-                 :data-clipboard-text="`${location.origin}/diary/#/share?id=${diary.id}`">
+                 :data-clipboard-text="`${location.origin}/diary/#/share/${diary.id}`">
             <img alt="删除" @click="show" src="img/tabicon/delete.svg"/>
-            <router-link :to="'/edit?id=' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
+            <router-link :to="'/edit/' + id"><img alt="添加" src="img/tabicon/edit.svg"></router-link>
          </div>
       </nav>
 
@@ -75,7 +75,7 @@
       mounted() {
          this.location = window.location;
          this.heightBg = window.innerHeight
-         this.id = this.$route.query.id;
+         this.id = this.$route.params.id;
          utility.getData(utility.URL.diaryOperation, {
             'type': 'query',
             'diaryId': this.id
