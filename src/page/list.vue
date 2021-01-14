@@ -70,6 +70,7 @@ export default {
       this.loadMore();
       this.addScrollEvent();
       this.searchBarShow = !!this.queryData.keyword;
+      this.getStatistic();
    },
 
    computed: {
@@ -118,6 +119,12 @@ export default {
       },
 
       /* DIARY 相关 */
+      getStatistic(){
+         utility.getData(utility.URL.diaryOperation, {type: 'statistic'})
+            .then(res => {
+               console.log(res)
+            })
+      },
       loadMore() {
          this.haveMore = false;
          this.isLoading = true;
@@ -159,7 +166,8 @@ export default {
                      title: lastDiary.title,
                      content: lastDiary.content,
                      weather: lastDiary.weather,
-                     category: lastDiary.category
+                     category: lastDiary.category,
+                     isPublic: lastDiary.is_public === '1'
                   })
 
                   if (tempFullArray.length > 1) {  // 再判断第二个日记与第一个的关系
@@ -182,7 +190,8 @@ export default {
                            title: currentDiary.title,
                            content: currentDiary.content,
                            weather: currentDiary.weather,
-                           category: currentDiary.category
+                           category: currentDiary.category,
+                           isPublic: currentDiary.is_public === '1'
                         })
                      }
                   }

@@ -6,9 +6,9 @@
       <div class="detail">
          <p class="title">{{diary.title}}</p>
          <img alt="Content" v-if="diary.content" class="icon"
-              :src="`img/content${suffix}.svg`"/>
+              :src="`img/content${active? '_white': ''}.svg`"/>
          <img :alt="diary.weather" v-if="diary.weather"
-              class="icon" :src="`img/weather/${diary.weather + suffix}.svg`"/>
+              class="icon" :src="weatherIcon"/>
       </div>
    </router-link>
 </template>
@@ -23,9 +23,17 @@
          active(){
             return this.$route.params.id === this.diary.id
          },
-         suffix(){
-            return this.active? '_white': ''
-         }
+         weatherIcon(){
+            if (this.active){
+               return `img/weather/${this.diary.weather}_white.svg`
+            } else {
+               if (this.diary.isPublic){
+                  return `img/weather/${this.diary.weather}_active.svg`
+               } else {
+                  return `img/weather/${this.diary.weather}.svg`
+               }
+            }
+         },
       }
    }
 </script>
