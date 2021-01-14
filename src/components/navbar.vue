@@ -53,9 +53,12 @@
                   <a class="menu-list-group-item" @click="logout">退出</a>
                </div>
                <div class="user-info">
-                  <span class="username">{{ userInfo.username }}</span>
-                  <span class="email">{{ userInfo.email }}</span>
-<!--                  <span v-if="statistics.shared > 0" class="email">共享{{statistics.shared}}篇</span>-->
+                  <p class="username">{{ userInfo.username }}</p>
+                  <p class="email">{{ userInfo.email }}</p>
+                  <p class="email">•</p>
+                  <p v-if="statistics.shared > 0" class="statistics">
+                     <span>共有日记 {{statistics.amount}} 篇，</span><span>共享 {{statistics.shared}} 篇</span>
+                  </p>
                </div>
             </div>
 
