@@ -111,24 +111,20 @@
                'type': 'query',
                'diaryId': this.id
             }).then(res => {
-               if (res.data.length > 0) {
-                  let diary                =  res.data[0];
-                  this.category            =  diary.category;
-                  this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-                  this.temperature         =  diary.temperature;
-                  this.weather             =  diary.weather;
-                  this.title               =  diary.title;
-                  this.titleOrigin         =  diary.title;
-                  this.content             =  diary.content;
-                  this.contentOrigin       =  diary.content;
-                  this.isPublic            =  diary.is_public === '1';
-                  this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
-                  this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-                  if (diary.content) {
-                     this.contentEditorShowed = true;
-                  }
-               } else {
-                  this.$router.back();
+               let diary                =  res.data;
+               this.category            =  diary.category;
+               this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
+               this.temperature         =  diary.temperature;
+               this.weather             =  diary.weather;
+               this.title               =  diary.title;
+               this.titleOrigin         =  diary.title;
+               this.content             =  diary.content;
+               this.contentOrigin       =  diary.content;
+               this.isPublic            =  diary.is_public === '1';
+               this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
+               this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
+               if (diary.content) {
+                  this.contentEditorShowed = true;
                }
             })
          }

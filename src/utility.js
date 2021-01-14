@@ -139,8 +139,7 @@ function getData(url, queryData) {
                renewAuthorization();
                resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, res.data.info );
-               // if (!res.logined){}
+               popMessage(POP_MSG_TYPE.danger, res.data.info, reject);
             }
          }).catch(() => {
          reject()
