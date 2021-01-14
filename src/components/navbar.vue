@@ -55,6 +55,7 @@
                <div class="user-info">
                   <span class="username">{{ userInfo.username }}</span>
                   <span class="email">{{ userInfo.email }}</span>
+<!--                  <span v-if="statistics.shared > 0" class="email">共享{{statistics.shared}}篇</span>-->
                </div>
             </div>
 
@@ -62,11 +63,16 @@
             <ul class="menu-category" v-show="categoryShowed" :style="'min-height:' + heightPanel + 'px'">
                <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
                   <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
-                  <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">{{ item.name }}</label>
+                  <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">
+                     {{ item.name }}
+                     <span class="count">{{statistics[item.nameEn]}}</span>
+                  </label>
                </li>
                <li class="menu-category-item toggle-btn">
                   <input :checked="isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
-                  <label for="category-all" class="menu-category-all">{{ isNotAllSelected ? '全选' : '全不选' }}</label>
+                  <label for="category-all" class="menu-category-all">
+                     {{ isNotAllSelected ? '全选' : '全不选' }}
+                  </label>
                </li>
                <li class="menu-category-item toggle-btn">
                   <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse">
@@ -114,7 +120,7 @@ export default {
    name: "navbar",
    data() {
       return {
-         location: {},
+         location: {}, // clipboard 使用
          diaryId: null,
          showLongList: false,
          // menu
@@ -152,7 +158,8 @@ export default {
          'currentDiary',
          'diaryListShowedInFullStyle',
          'heightPanel',
-         'editLogoImg'
+         'editLogoImg',
+         'statistics'
       ])
    },
    methods: {

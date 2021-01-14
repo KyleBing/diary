@@ -79,6 +79,7 @@ $gaps-sm: 20%;
     @include clearfix;
   }
   .menu-category-item {
+    position: relative;
     display: block;
     text-align: center;
     float: left;
@@ -86,6 +87,13 @@ $gaps-sm: 20%;
     width: (100% - $gaps-sm * ($cols-sm - 1))/$cols-sm;
     &:nth-child(#{$cols-sm}n+0) {
       margin-right: 0;
+    }
+    .count{
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      font-size: 10px;
+      line-height: 1;
     }
     input[type=checkbox] + label {
       @include unselectable;

@@ -35,6 +35,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
    state: {
+      statistics: {}, // 统计信息
       keyword: utility.keyword.get(), // 搜索关键字
       searchBarShowed: !!utility.keyword.get(), // 搜索栏显示
       categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL, // 已选的日记筛选类别
@@ -47,6 +48,9 @@ const store = new Vuex.Store({
       editLogoImg: false, // 编辑页LOGO
    },
    mutations: {
+      setStatistics(state, payload){
+         state.statistics = payload
+      },
       setCategoriesChecked (state, payload){
          state.categoriesChecked = payload
          utility.saveCategories(payload) // categories 变化时保存
@@ -78,7 +82,7 @@ const store = new Vuex.Store({
       },
       setHeightWindow(state, payload){
          state.heightWindow = payload
-      }
+      },
    }
 })
 

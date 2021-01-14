@@ -67,10 +67,9 @@ export default {
       // init
       this.categories = utility.getCategories();
       this.queryData.keyword = this.keyword;
-      this.loadMore();
+      this.reload();
       this.addScrollEvent();
       this.searchBarShow = !!this.queryData.keyword;
-      this.getStatistic();
    },
 
    computed: {
@@ -115,6 +114,7 @@ export default {
          this.queryData.pageNo = 1;
          this.diaries = [];
          this.diariesShow = [];
+         this.getStatistic();
          this.loadMore();
       },
 
@@ -123,6 +123,7 @@ export default {
          utility.getData(utility.URL.diaryOperation, {type: 'statistic'})
             .then(res => {
                console.log(res)
+               this.$store.commit('setStatistics', res.data)
             })
       },
       loadMore() {
