@@ -28,7 +28,8 @@
 }
 
 
-@media (min-width: $grid-separate-width){
+// big
+@media (min-width: $grid-separate-width-big){
   .weather-selector {
     padding: 20px;
     @include border-radius($radius-pc);
@@ -37,4 +38,21 @@
       width: 12.5%;
     }
   }
+}
+
+// md
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .weather-selector {
+    padding: 20px;
+    @include border-radius($radius-pc);
+    .weather{
+      flex-grow: 0;
+      width: 20%;
+    }
+  }
+}
+
+// sm
+@media (max-width: $grid-separate-width-md) {
+
 }

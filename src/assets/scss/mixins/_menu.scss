@@ -159,8 +159,16 @@ $gaps-sm: 20%;
   }
 }
 
-@media (min-width: $grid-separate-width) {
+// PC
+@media (min-width: $grid-separate-width-big) {
   .menu-panel{
-    width: 500px;
+    width: $menu-panel-big;
+  }
+}
+
+// PC & IPAD
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .menu-panel{
+    width: $menu-panel-sm;
   }
 }

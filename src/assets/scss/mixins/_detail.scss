@@ -63,7 +63,7 @@ $height-meta: 30px;
   }
 }
 
-@media (min-width: $grid-separate-width){
+@media (min-width: $grid-separate-width-md){
   .diary-detail{
     padding: 40px 10%;
     margin: 0 auto;

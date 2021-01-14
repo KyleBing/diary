@@ -8,7 +8,7 @@
          <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
       </div>
       <div class="editor-form-group">
-         <div class="editor-form">
+         <div class="editor-form-input">
             <div class="editor-input-group">
                <label for="date">日期</label>
                <date-picker :editable="false"
@@ -35,8 +35,8 @@
                </div>
             </div>
          </div>
-         <category-selector :category="category" @change="setCategory"/>
-         <weather-selector :weather="weather" @change="setWeather"/>
+         <category-selector class="editor-form-category" :category="category" @change="setCategory"/>
+         <weather-selector class="editor-form-weather" :weather="weather" @change="setWeather"/>
       </div>
    </div>
 </template>

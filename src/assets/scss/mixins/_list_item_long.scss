@@ -55,7 +55,7 @@ $fz-md-article: 14px;
 }
 
 //on pc
-@media (min-width: $grid-separate-width) {
+@media (min-width: $grid-separate-width-md) {
   .article{
     font-size: $fz-md-article;
     &-header{

@@ -12,7 +12,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 
 .share{
   padding: 60px;
-  width: $grid-separate-width;
+  width: $grid-separate-width-sm;
   margin: 0 auto;
   border-top: 1px solid lighten($color-border, 2%);
   border-left: 1px solid lighten($color-border, 2%);
@@ -115,16 +115,46 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   }
 }
 
-@media (max-width: 768px){
+
+@media (min-width: $grid-separate-width-big) {
+  .share{}
+}
+
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .share{}
+}
+
+@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
+  .share {}
+}
+
+@media (max-width: $grid-separate-width-sm){
+  .share-container{
+    padding: 60px 20px 100px;
+  }
   .share{
     border: none;
     padding: 20px;
     width: 100%;
-    margin: 0;
   }
-
   .share-head{
     flex-flow: column nowrap;
+    .share-title{
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+    .share-meta{
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    .share-date{
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+  .divider{
+    margin: 15px 0 30px;
+    background-color: $color-border;
   }
   .share-meta{
     align-items: center;
@@ -133,6 +163,15 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     .temperature{
       text-align: left;
     }
+  }
+}
+
+@media (max-width: $grid-separate-width-xs) {
+  .share-container{
+    padding: 0;
+  }
+  .share{
+    @include border-radius(0);
   }
 }
 

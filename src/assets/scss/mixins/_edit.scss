@@ -31,12 +31,20 @@ textarea{
     font-size: 1rem;
   }
 }
-.editor-form{
+.editor-form-input{
+  order: 1;
   justify-content: space-between;
   display: flex;
   flex-flow: row wrap;
 }
+.editor-form-category{
+  order: 2;
+}
+.editor-form-weather{
+  order: 3;
+}
 .editor-input-group{
+  width: 100%;
   @include border-radius($radius-mobile);
   justify-content: space-between;
   display: flex;
@@ -45,13 +53,14 @@ textarea{
   background-color: white;
   border-bottom: 1px solid $bg-light;
   label{
+    white-space: nowrap;
     @include unselectable();
     color: $color-text-label;
     line-height: $height-input;
   }
   input{
+    flex-grow: 1;
     padding: 6px 0;
-    min-width: 50%;
     text-align: right;
     background-color: transparent;
     line-height: $height-input - 6*2;
@@ -65,7 +74,9 @@ textarea{
   width: auto;
 }
 
-@media (min-width: $grid-separate-width){
+
+// PC & IPAD
+@media (min-width: $grid-separate-width-md){
   .diary-edit{
     padding: 20px 20px 30px;
   }
@@ -97,6 +108,7 @@ textarea{
     align-items: flex-start;
     justify-content: space-between;
     > * {
+      margin-bottom: 10px;
       width: 32%;
     }
   }
@@ -110,11 +122,23 @@ textarea{
     }
   }
   .editor-input-group{
+    margin-bottom: 5px;
     height: auto;
     padding: 5px 20px;
     @include border-radius($radius-pc);
   }
 }
+
+// IPAD
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .editor-form-group{
+    > * {
+      width: 49%;
+    }
+  }
+}
+
+
 
 
 input[type=checkbox],

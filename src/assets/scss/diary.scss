@@ -13,12 +13,11 @@ body{
 }
 
 .diary {
+  padding-top: $height-navbar;
   .diary-list {
     width: 100%;
   }
-  .diary-container {
-    display: none;
-  }
+  .diary-container {}
 }
 
 .diary-list{
@@ -26,14 +25,14 @@ body{
   width: 100%;
 }
 
-@media (min-width: $grid-separate-width) {
+// PC & IPAD
+@media (min-width: $grid-separate-width-md) {
   .diary {
-    padding-top: $height-navbar;
     display: flex;
     .diary-list {
       border-right: 1px solid $color-border;
       overflow-y: auto;
-      width: $width-login-panel;
+      width: $menu-panel-big;
       flex-shrink: 0;
       background-color: $bg-light;
     }
@@ -44,3 +43,31 @@ body{
     }
   }
 }
+
+// IPAD
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .diary {
+    padding-top: $height-navbar;
+    display: flex;
+    .diary-list {
+      border-right: 1px solid $color-border;
+      width: 400px;
+    }
+    .diary-container {
+      display: block;
+    }
+  }
+}
+
+// MOBILE
+@media (max-width: $grid-separate-width-md) {
+  .diary {
+    .diary-list {
+      width: 100%;
+    }
+    .diary-container {
+      display: none;
+    }
+  }
+}
+

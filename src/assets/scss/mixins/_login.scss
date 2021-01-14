@@ -88,10 +88,22 @@
 }
 
 
-@media (min-width: $grid-separate-width) {
+
+// PC
+@media (min-width: $grid-separate-width-big) {
   .body-login{
     padding: 80px 25px;
-    width: $width-login-panel;
+    width: $menu-panel-big;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// PC & IPAD
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .body-login{
+    padding: 80px 25px;
+    width: $menu-panel-sm;
     margin-left: auto;
     margin-right: auto;
   }

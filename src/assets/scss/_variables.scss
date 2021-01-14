@@ -55,9 +55,13 @@ $width-category-sign : 3px;
 $width-index-date    : 25px;
 
 // Grid
-$grid-separate-width : 765px;
-$grid-separate-width-big : 1000px;
-$width-login-panel: 500px;
+$grid-separate-width-xs: 375px;
+$grid-separate-width-sm: 768px;
+$grid-separate-width-md: 1024px;
+$grid-separate-width-big : 1366px;
+
+$menu-panel-sm: 400px;
+$menu-panel-big: 500px;
 
 // Z-index
 $z-toast  : 500;

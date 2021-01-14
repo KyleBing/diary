@@ -67,9 +67,9 @@ export default {
       if (this.$route.params.id) {
          this.id = this.$route.params.id;
       }
-      this.heightShare = window.innerHeight - 60 - 100
+      this.heightShare = window.innerWidth > 375 ? window.innerHeight - 60 - 100 : window.innerHeight
       window.onresize = () => {
-         this.heightShare = window.innerHeight - 60 - 100
+         this.heightShare = window.innerWidth > 375 ? window.innerHeight - 60 - 100 : window.innerHeight
       }
    },
    watch:{

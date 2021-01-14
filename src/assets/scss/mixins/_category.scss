@@ -38,7 +38,7 @@
   }
 }
 
-@media (min-width: $grid-separate-width){
+@media (min-width: $grid-separate-width-md){
   .category-selector {
     padding: 20px;
     @include border-radius($radius-pc);
