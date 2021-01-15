@@ -148,12 +148,23 @@ export default {
       },
       listOperation({type, diary, id}){
          switch (type){
-            case 'add': break;
+            case 'add':
+               let posInsert = 0;
+               for (let i=0; i<this.diaries.length;i++){
+                  let currentDiary = this.diaries[i];
+                  if (diary.date > currentDiary.date){
+                     posInsert = i
+                     break
+                  } else {
+                     continue
+                  }
+               }
+               this.diaries.splice(posInsert,0, diary);
+               break;
             case 'delete':
                this.diaries.map((item, index) => {
                   if (item.id === id){
                      this.diaries.splice(index,1);
-                     console.log(this.diaries[index+1])
                      if (this.diaries[index]){
                         // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
                         this.$router.push('/detail/' + this.diaries[index].id)
@@ -165,6 +176,7 @@ export default {
                })
                break;
             case 'change':
+               // TODO: 修改日记的日期时排序调整位置
                this.diaries.map((item, index) => {
                   if (item.id === diary.id){
                      this.diaries.splice(index,1,diary);

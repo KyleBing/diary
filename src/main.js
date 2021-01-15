@@ -29,7 +29,7 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(Router);
 Vue.use(VueCookie);
-Vue.prototype.$version = 'v7.03 beta'
+Vue.prototype.$version = 'v7.04 beta'
 
 Vue.use(Vuex)
 

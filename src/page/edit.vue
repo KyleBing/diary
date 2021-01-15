@@ -221,9 +221,11 @@
                      this.updateDiaryIcon(); // 更新 navbar icon
                      this.setDiaryNeedToBeSaved(false);
                      // this.setListNeedBeReload(true);
-                     this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送动作
-                     if (res.data){ // 如果是新建日记，跳转到对应路由
-                        this.$router.push('/edit/' + res.data.id)
+                     this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
+                     if (this.isNew){ // 如果是新建日记，跳转到对应路由
+                        this.isNew = false;
+                        this.$router.push('/edit/' + res.data.id);
+                        this.setListOperation({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
                      }
                   })
                })
