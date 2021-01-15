@@ -91,9 +91,11 @@
             this.diary.temperature = '';
             this.diary.temperatureOutside = '';
             this.diary.weather = 'sunny';
+            // 新建日记时也记录原始数据
+            Object.assign(this.diaryOrigin, this.diary)
             this.updateDiaryIcon();
          } else {
-            this.id = this.$route.params.id;
+            this.diary.id = this.$route.params.id;
             this.getDiary(this.$route.params.id)
          }
       },
@@ -107,7 +109,6 @@
       },
       computed: {
          diaryHasChanged() {
-            console.log(this.diary.title, this.diaryOrigin.title)
             return this.diary.title !== this.diaryOrigin.title ||
             this.diary.content !== this.diaryOrigin.content ||
             this.diary.category !== this.diaryOrigin.category ||
@@ -129,7 +130,6 @@
          },
          diary: {
             handler(){
-               console.log('diary has changed')
                this.updateDiaryIcon()
             },
             deep: true
@@ -156,7 +156,6 @@
             this.diary.weather = data
          },
          updateDiaryIcon() {
-            console.log(this.diaryHasChanged);
             if (this.diaryHasChanged) {
                this.setEditLogoImg(this.diary.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
             } else {
@@ -226,10 +225,11 @@
                this.diaryOrigin.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
                // update icon
                this.updateDiaryIcon();
+               console.log(this.diary)
                utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                   if (res.data) {
                      this.isNew = false;
-                     this.id = res.data[0].id
+                     this.dairy.id = res.data.id
                   }
                   this.setDiaryNeedToBeSaved(false);
                   this.setListNeedBeReload(true)

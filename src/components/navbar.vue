@@ -117,7 +117,7 @@
 <script>
 import utility from "@/utility";
 import Clipboard from "clipboard";
-import {mapState} from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
    name: "navbar",
@@ -166,8 +166,14 @@ export default {
       ])
    },
    methods: {
+      ...mapMutations([
+         'setDiaryListShowedInFullStyle',
+         'setCategoriesChecked',
+         'setSearchBarState',
+         'setDiaryNeedToBeSaved'
+      ]),
       toggleListStyle(){
-         this.$store.commit('setDiaryListShowedInFullStyle', !this.diaryListShowedInFullStyle)
+         this.setDiaryListShowedInFullStyle(!this.diaryListShowedInFullStyle)
       },
       /* MENU */
       menuShow() {
@@ -178,7 +184,7 @@ export default {
       },
       menuClose() {
          if (this.categoryShowed) {
-            this.$store.commit('setCategoriesChecked', this.categories)
+            this.setCategoriesChecked(this.categories)
             this.menuInit();
          } else if (this.aboutShowed) {
             this.menuShowed      =  true;            // menu panel
@@ -198,7 +204,7 @@ export default {
       menuListClicked(menuName) {
          switch (menuName) {
             case 'search':
-               this.$store.commit('setSearchBarState', true);
+               this.setSearchBarState(true);
                this.menuInit();
                this.$nextTick(() => {
                   document.querySelector('#keyword').focus();
@@ -240,7 +246,7 @@ export default {
          }
       },
       diarySave() {
-         this.$store.commit('setDiaryNeedToBeSaved', true)
+         this.setDiaryNeedToBeSaved(true)
       },
       copySharePath() {
          let clipboard = new Clipboard('#shareBtn');
