@@ -124,7 +124,6 @@ export default {
    data() {
       return {
          location: {}, // clipboard 使用
-         diaryId: null,
          showLongList: false,
          // menu
          menuShowed: false,            // menu panel
@@ -170,7 +169,8 @@ export default {
          'setDiaryListShowedInFullStyle',
          'setCategoriesChecked',
          'setSearchBarState',
-         'setDiaryNeedToBeSaved'
+         'setDiaryNeedToBeSaved',
+         'setListOperation'
       ]),
       toggleListStyle(){
          this.setDiaryListShowedInFullStyle(!this.diaryListShowedInFullStyle)
@@ -248,6 +248,8 @@ export default {
       diarySave() {
          this.setDiaryNeedToBeSaved(true)
       },
+
+      /* SHARE */
       copySharePath() {
          let clipboard = new Clipboard('#shareBtn');
          clipboard.on('success', function (e) {
@@ -257,6 +259,8 @@ export default {
          clipboard.on('error', function () {
          });
       },
+
+      /* DELETE */
       diaryDelete () {
          let that = this;
          let queryData = {
@@ -267,7 +271,7 @@ export default {
             .then(res => {
                that.toastHide();
                utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
-                  this.$router.push('/')
+                  this.setListOperation({type: 'delete', dairy: null, id: this.currentDiary.id})
                }, 1) // 删除成功后等待时间不要太长
             })
       },

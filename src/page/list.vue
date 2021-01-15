@@ -149,7 +149,21 @@ export default {
       listOperation({type, diary, id}){
          switch (type){
             case 'add': break;
-            case 'delete': break;
+            case 'delete':
+               this.diaries.map((item, index) => {
+                  if (item.id === id){
+                     this.diaries.splice(index,1);
+                     console.log(this.diaries[index+1])
+                     if (this.diaries[index]){
+                        // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
+                        this.$router.push('/detail/' + this.diaries[index].id)
+                     } else {
+                        // 如果没有，就跳转到主页
+                        this.$router.push('/')
+                     }
+                  }
+               })
+               break;
             case 'change':
                this.diaries.map((item, index) => {
                   if (item.id === diary.id){
