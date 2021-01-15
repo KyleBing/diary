@@ -46,6 +46,7 @@ const store = new Vuex.Store({
       heightPanel: window.innerHeight - 45, // window height
       listNeedBeReload: false, // 是否刷新列表
       editLogoImg: false, // 编辑页LOGO
+      listOperation:{}, // 列表页的操作，增删改操作，一般不再重新加载列表
    },
    mutations: {
       setStatistics(state, payload){
@@ -82,6 +83,9 @@ const store = new Vuex.Store({
       },
       setHeightWindow(state, payload){
          state.heightWindow = payload
+      },
+      setListOperation(state, payload){
+         state.listOperation = payload
       },
    }
 })

@@ -79,6 +79,7 @@ export default {
          'categoriesChecked',
          'diaryListShowedInFullStyle',
          'listNeedBeReload',
+         'listOperation',
          'heightPanel'])
    },
    watch: {
@@ -87,6 +88,52 @@ export default {
          if (to.path === '/'){
             this.reload()
          }
+      },
+      diaries(){
+         let tempShowArray = [];
+         if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
+            let lastDiary = this.diaries[0];
+            tempShowArray.push({ // 添加年月
+               date: lastDiary.date.substring(0, 7)
+            })
+            let currentDay = Number(lastDiary.date.slice(8, 10));
+            tempShowArray.push({  // 添加当前日记内容
+               id: lastDiary.id,
+               date: currentDay,
+               title: lastDiary.title,
+               content: lastDiary.content,
+               weather: lastDiary.weather,
+               category: lastDiary.category,
+               isPublic: lastDiary.is_public === '1'
+            })
+
+            if (this.diaries.length > 1) {  // 再判断第二个日记与第一个的关系
+               for (let i = 1; i < this.diaries.length; i++) {
+                  lastDiary = this.diaries[i - 1]; // 更新上一条日记指向
+                  let currentDiary = this.diaries[i];
+                  let lastDiaryMonth = lastDiary.date.substring(0, 7);
+                  let lastDiaryDay = Number(lastDiary.date.substring(8, 10));
+                  let currentDiaryMonth = currentDiary.date.substring(0, 7);
+                  let currentDiaryDay = Number(currentDiary.date.substring(8, 10));
+                  // console.log(lastDiaryMonth, currentDiaryMonth);
+                  if (lastDiaryMonth !== currentDiaryMonth) {
+                     tempShowArray.push({ // 添加年月
+                        date: currentDiary.date.substring(0, 7)
+                     })
+                  }
+                  tempShowArray.push({  // 添加当前日记内容
+                     id: currentDiary.id,
+                     date: currentDiaryDay === lastDiaryDay ? '' : currentDiaryDay,
+                     title: currentDiary.title,
+                     content: currentDiary.content,
+                     weather: currentDiary.weather,
+                     category: currentDiary.category,
+                     isPublic: currentDiary.is_public === '1'
+                  })
+               }
+            }
+         }
+         this.diariesShow = tempShowArray;
       },
       categories() {
          utility.saveCategories(this.categories)
@@ -97,6 +144,19 @@ export default {
       listNeedBeReload(){
          if (this.listNeedBeReload){
             this.reload()
+         }
+      },
+      listOperation({type, diary, id}){
+         switch (type){
+            case 'add': break;
+            case 'delete': break;
+            case 'change':
+               this.diaries.map((item, index) => {
+                  if (item.id === diary.id){
+                     this.diaries.splice(index,1,diary);
+                  }
+               });
+               break;
          }
       }
    },
@@ -133,7 +193,6 @@ export default {
       getDiaries(queryData) {
          utility.getData(utility.URL.diaryOperation, queryData)
             .then(res => {
-               let tempShowArray = [];
                let newDiariesList = res.data.map(diary => {
                   if (diary.content) {
                      diary.content = diary.content.replace(/\n/g, '<br/>');
@@ -144,7 +203,6 @@ export default {
                   diary.categoryString = category[0].name;
                   return diary;
                })
-               let tempFullArray = this.diaries.concat(newDiariesList);
 
                // page operation
                if (res.data.length === this.queryData.pageCount) {
@@ -154,50 +212,8 @@ export default {
                   this.haveMore = false;
                }
 
-               if (tempFullArray.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
-                  let lastDiary = tempFullArray[0];
-                  tempShowArray.push({ // 添加年月
-                     date: lastDiary.date.substring(0, 7)
-                  })
-                  let currentDay = Number(lastDiary.date.slice(8, 10));
-                  tempShowArray.push({  // 添加当前日记内容
-                     id: lastDiary.id,
-                     date: currentDay,
-                     title: lastDiary.title,
-                     content: lastDiary.content,
-                     weather: lastDiary.weather,
-                     category: lastDiary.category,
-                     isPublic: lastDiary.is_public === '1'
-                  })
-
-                  if (tempFullArray.length > 1) {  // 再判断第二个日记与第一个的关系
-                     for (let i = 1; i < tempFullArray.length; i++) {
-                        lastDiary = tempFullArray[i - 1]; // 更新上一条日记指向
-                        let currentDiary = tempFullArray[i];
-                        let lastDiaryMonth = lastDiary.date.substring(0, 7);
-                        let lastDiaryDay = Number(lastDiary.date.substring(8, 10));
-                        let currentDiaryMonth = currentDiary.date.substring(0, 7);
-                        let currentDiaryDay = Number(currentDiary.date.substring(8, 10));
-                        // console.log(lastDiaryMonth, currentDiaryMonth);
-                        if (lastDiaryMonth !== currentDiaryMonth) {
-                           tempShowArray.push({ // 添加年月
-                              date: currentDiary.date.substring(0, 7)
-                           })
-                        }
-                        tempShowArray.push({  // 添加当前日记内容
-                           id: currentDiary.id,
-                           date: currentDiaryDay === lastDiaryDay ? '' : currentDiaryDay,
-                           title: currentDiary.title,
-                           content: currentDiary.content,
-                           weather: currentDiary.weather,
-                           category: currentDiary.category,
-                           isPublic: currentDiary.is_public === '1'
-                        })
-                     }
-                  }
-               }
-               this.diaries = tempFullArray;
-               this.diariesShow = tempShowArray;
+               // diary operation
+               this.diaries = this.diaries.concat(newDiariesList);
             })
             .finally(() => {
                // 列表加载完成后设置列表重载： false

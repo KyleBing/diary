@@ -144,7 +144,8 @@
          ...mapMutations([
             'setEditLogoImg',
             'setDiaryNeedToBeSaved',
-            'setListNeedBeReload'
+            'setListNeedBeReload',
+            'setListOperation'
          ]),
          goBack() {
             this.$router.back()
@@ -217,8 +218,10 @@
                   utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                      // 成功后更新 origin 字符串
                      Object.assign(this.diaryOrigin, this.diary)
+                     this.updateDiaryIcon(); // 更新 navbar icon
                      this.setDiaryNeedToBeSaved(false);
-                     this.setListNeedBeReload(true);
+                     // this.setListNeedBeReload(true);
+                     this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送动作
                      if (res.data){ // 如果是新建日记，跳转到对应路由
                         this.$router.push('/edit/' + res.data.id)
                      }
@@ -244,8 +247,23 @@
             // 新建日记时也记录原始数据
             Object.assign(this.diaryOrigin, this.diary)
          },
+         convertToServerVersion(){ // 转换为数据库格式的日记
+            let date = utility.dateFormatter(this.diary.date);
+            return {
+               id: this.diary.id,
+               date: date,
+               title: this.diary.title,
+               content: this.diary.content,
+               temperature: utility.temperatureProcessCTS(this.diary.temperature),
+               temperature_outside: utility.temperatureProcessCTS(this.diary.temperatureOutside),
+               weather: this.diary.weather,
+               category: this.diary.category,
+               date_create: date,
+               date_modify: "",
+               is_public: this.diary.isPublic ? '1': '0'
+            }
+         }
       },
-
    }
 </script>
 
