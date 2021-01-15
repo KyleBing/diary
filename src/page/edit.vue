@@ -2,17 +2,17 @@
    <div class="diary-edit" :style="`min-height: ${heightPanel}px`">
       <!--content-->
       <div class="editor-title">
-         <textarea class="title" id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
+         <textarea class="title" id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="diary.title"></textarea>
       </div>
       <div class="editor-content">
-         <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
+         <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"></textarea>
       </div>
       <div class="editor-form-group">
          <div class="editor-form-input">
             <div class="editor-input-group">
                <label for="date">日期</label>
                <date-picker :editable="false"
-                            v-model="date"
+                            v-model="diary.date"
                             :confirm="true"
                             :default-value="new Date()"
                             placeholder="---- -- --"
@@ -21,22 +21,22 @@
             </div>
             <div class="editor-input-group">
                <label for="temperature">身处 ℃</label>
-               <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="temperature">
+               <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="diary.temperature">
             </div>
             <div class="editor-input-group">
                <label for="temperatureOutside">室外 ℃</label>
-               <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="temperatureOutside">
+               <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="diary.temperatureOutside">
             </div>
             <div class="editor-input-group">
                <label for="shareState">共享</label>
                <div class="input">
-                  <input class="share" type="checkbox" name="share" id="shareState" v-model="isPublic">
+                  <input class="share" type="checkbox" name="share" id="shareState" v-model="diary.isPublic">
                   <label class="switch" for="shareState"></label>
                </div>
             </div>
          </div>
-         <category-selector class="editor-form-category" :category="category" @change="setCategory"/>
-         <weather-selector class="editor-form-weather" :weather="weather" @change="setWeather"/>
+         <category-selector class="editor-form-category" :category="diary.category" @change="setCategory"/>
+         <weather-selector class="editor-form-weather" :weather="diary.weather" @change="setWeather"/>
       </div>
    </div>
 </template>
@@ -48,30 +48,33 @@
    import DatePicker from 'vue2-datepicker';
    import 'vue2-datepicker/locale/zh-cn';
    import 'vue2-datepicker/index.css';
-   import { mapState } from 'vuex'
+   import { mapState, mapMutations } from 'vuex'
 
    export default {
+      name: 'Edit',
       data() {
          return {
             isNew: true,
-            id: "",
-            title: "",
-            titleOrigin: "",
-            content: "",
-            contentOrigin: "",
-            isPublic: false,
-            date: '',
-            weather: '',
-            category: '',
-            temperature: '-273',
-            temperatureOutside: '-273',
+            diary: {
+               id: "",
+               title: "",
+               titleOrigin: "",
+               content: "",
+               contentOrigin: "",
+               isPublic: false,
+               date: '',
+               weather: '',
+               category: '',
+               temperature: '-273',
+               temperatureOutside: '-273',
+            },
+            diaryOrigin: {},
             logoImageUrl: 'img/logo.svg'
          }
       },
       components: { categorySelector, weatherSelector, DatePicker },
       mounted() {
-         // this.date = new Date();
-         // 标签关闭提醒
+         // 网页标签关闭前提醒
          window.onbeforeunload = () => {
             if (this.diaryHasChanged) {
                return "日记内容已改变，显示提示框"
@@ -80,23 +83,38 @@
          this.isNew = !(this.$route.params.id);
          if (this.isNew) {
             // 新建日记
-            this.id = '';
-            this.date = new Date();
-            this.title = '';
-            this.content = '';
-            this.category = 'life';
-            this.temperature = '';
-            this.temperatureOutside = '';
-            this.weather = 'sunny';
+            this.diary.id = '';
+            this.diary.date = new Date();
+            this.diary.title = '';
+            this.diary.content = '';
+            this.diary.category = 'life';
+            this.diary.temperature = '';
+            this.diary.temperatureOutside = '';
+            this.diary.weather = 'sunny';
             this.updateDiaryIcon();
          } else {
             this.id = this.$route.params.id;
             this.getDiary(this.$route.params.id)
          }
       },
+      beforeRouteLeave(to, from, next){
+         // 在跳转到其它页面之前判断日记是否已保存
+         if (this.diaryHasChanged){
+            utility.popMessage(utility.POP_MSG_TYPE.warning, '有未保存的修改内容', next(false))
+         } else {
+            next()
+         }
+      },
       computed: {
          diaryHasChanged() {
-            return this.title !== this.titleOrigin || this.content !== this.contentOrigin
+            console.log(this.diary.title, this.diaryOrigin.title)
+            return this.diary.title !== this.diaryOrigin.title ||
+            this.diary.content !== this.diaryOrigin.content ||
+            this.diary.category !== this.diaryOrigin.category ||
+            this.diary.temperature !== this.diaryOrigin.temperature ||
+            this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
+            this.diary.weather !== this.diaryOrigin.weather ||
+            this.diary.isPublic !== this.diaryOrigin.isPublic
          },
          ...mapState(['currentDiary', 'diaryNeedToBeSaved', 'heightPanel', 'editLogoImg'])
       },
@@ -109,11 +127,12 @@
                this.createDiary()
             }
          },
-         title: function () {
-            this.updateDiaryIcon();
-         },
-         content: function () {
-            this.updateDiaryIcon();
+         diary: {
+            handler(){
+               console.log('diary has changed')
+               this.updateDiaryIcon()
+            },
+            deep: true
          },
          diaryNeedToBeSaved(){
             if (this.diaryNeedToBeSaved) {
@@ -122,20 +141,26 @@
          }
       },
       methods: {
+         ...mapMutations([
+            'setEditLogoImg',
+            'setDiaryNeedToBeSaved',
+            'setListNeedBeReload'
+         ]),
          goBack() {
             this.$router.back()
          },
          setCategory(data){
-            this.category = data
+            this.diary.category = data
          },
          setWeather(data){
-            this.weather = data
+            this.diary.weather = data
          },
          updateDiaryIcon() {
+            console.log(this.diaryHasChanged);
             if (this.diaryHasChanged) {
-               this.$store.commit('setEditLogoImg', this.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
+               this.setEditLogoImg(this.diary.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
             } else {
-               this.$store.commit('setEditLogoImg', this.content ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg')
+               this.setEditLogoImg(this.diary.content ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg')
             }
          },
          getDiary(id){
@@ -144,81 +169,87 @@
                'type': 'query',
                'diaryId': id
             }).then(res => {
-               let diary                =  res.data;
-               this.category            =  diary.category;
-               this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-               this.weather             =  diary.weather;
-               this.title               =  diary.title;
-               this.titleOrigin         =  diary.title;
-               this.content             =  diary.content;
-               this.contentOrigin       =  diary.content;
-               this.isPublic            =  diary.is_public === '1';
-               this.temperature         =  utility.temperatureProcessSTC(diary.temperature);
-               this.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
+               let diary                      =  res.data;
+               this.diary.category            =  diary.category;
+               this.diary.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
+               this.diary.weather             =  diary.weather;
+               this.diary.title               =  diary.title;
+               this.diary.content             =  diary.content;
+               this.diary.isPublic            =  diary.is_public === '1';
+               this.diary.temperature         =  utility.temperatureProcessSTC(diary.temperature);
+               this.diary.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
+               Object.assign(this.diaryOrigin, this.diary); // 不能直接赋值，赋值的是它的引用
             }).catch(()=>{
                this.$router.back();
             })
          },
          saveDiary() {
-            if (this.title.trim().length === 0) {
-               this.title = ''; // clear content
+            if (this.diary.title.trim().length === 0) {
+               this.diary.title = ''; // clear content
                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
-               this.$store.commit('setDiaryNeedToBeSaved', false); // 未能成功保存时，复位 diaryNeedToBeSaved 标识
+               this.setDiaryNeedToBeSaved(false); // 未能成功保存时，复位 diaryNeedToBeSaved 标识
                return;
             }
-            if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
-               this.$store.commit('setDiaryNeedToBeSaved', false);
+            if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '室内温度格式不正确', null);
+               this.setDiaryNeedToBeSaved(false);
                return
             }
-            if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
-               this.$store.commit('setDiaryNeedToBeSaved', false);
+            if (this.diary.temperatureOutside !== '' && !/^-?\d{1,2}$/.test(this.diary.temperatureOutside)) {
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '室外温度格式不正确', null);
+               this.setDiaryNeedToBeSaved(false);
                return
             }
             let queryData = {
-               diaryId                 : this.id,
-               diaryTitle              : this.title,
-               diaryContent            : this.content || null,
-               diaryCategory           : this.category,
-               diaryTemperature        : utility.temperatureProcessCTS(this.temperature),
-               diaryTemperatureOutside : utility.temperatureProcessCTS(this.temperatureOutside),
-               diaryWeather            : this.weather,
-               diaryPublic             : this.isPublic ? '1' : '0',
-               diaryDate               : utility.dateFormatter(this.date),
+               diaryId                 : this.diary.id,
+               diaryTitle              : this.diary.title,
+               diaryContent            : this.diary.content || null,
+               diaryCategory           : this.diary.category,
+               diaryTemperature        : utility.temperatureProcessCTS(this.diary.temperature),
+               diaryTemperatureOutside : utility.temperatureProcessCTS(this.diary.temperatureOutside),
+               diaryWeather            : this.diary.weather,
+               diaryPublic             : this.diary.isPublic ? '1' : '0',
+               diaryDate               : utility.dateFormatter(this.diary.date),
                type                    : this.isNew ? 'add' : 'modify'
             };
 
             utility.postData(utility.URL.diaryOperation, queryData).then(res => {
                // 成功后更新 origin 字符串
-               this.titleOrigin = this.title;
-               this.contentOrigin = this.content;
+               let diary = res.data;
+               this.diaryOrigin.category            =  diary.category;
+               this.diaryOrigin.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
+               this.diaryOrigin.weather             =  diary.weather;
+               this.diaryOrigin.title               =  diary.title;
+               this.diaryOrigin.content             =  diary.content;
+               this.diaryOrigin.isPublic            =  diary.is_public === '1';
+               this.diaryOrigin.temperature         =  utility.temperatureProcessSTC(diary.temperature);
+               this.diaryOrigin.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
+               // update icon
                this.updateDiaryIcon();
-
                utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                   if (res.data) {
                      this.isNew = false;
                      this.id = res.data[0].id
                   }
-                  this.$store.commit('setDiaryNeedToBeSaved', false);
-                  this.$store.commit('setListNeedBeReload', true)
+                  this.setDiaryNeedToBeSaved(false);
+                  this.setListNeedBeReload(true)
                })
             }).catch(()=> {
-               this.$store.commit('setDiaryNeedToBeSaved', false);
+               this.setDiaryNeedToBeSaved(false);
             })
          },
          createDiary() {
-            this.isNew               =  true;
-            this.title               =  '';
-            this.titleOrigin         =  '';
-            this.content             =  '';
-            this.contentOrigin       =  '';
-            this.id                  =  '';
-            this.isPublic            =  false;
-            this.category            =  'life';
-            this.temperature         =  '';
-            this.temperatureOutside  =  '';
-            this.weather             =  'sunny';
+            this.isNew                     =  true;
+            this.diary.title               =  '';
+            this.diary.titleOrigin         =  '';
+            this.diary.content             =  '';
+            this.diary.contentOrigin       =  '';
+            this.diary.id                  =  '';
+            this.diary.isPublic            =  false;
+            this.diary.category            =  'life';
+            this.diary.temperature         =  '';
+            this.diary.temperatureOutside  =  '';
+            this.diary.weather             =  'sunny';
          },
       },
 

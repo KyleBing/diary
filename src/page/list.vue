@@ -122,7 +122,6 @@ export default {
       getStatistic(){
          utility.getData(utility.URL.diaryOperation, {type: 'statistic'})
             .then(res => {
-               console.log(res)
                this.$store.commit('setStatistics', res.data)
             })
       },
