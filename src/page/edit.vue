@@ -58,17 +58,25 @@
             diary: {
                id: "",
                title: "",
-               titleOrigin: "",
                content: "",
-               contentOrigin: "",
                isPublic: false,
-               date: '',
-               weather: '',
-               category: '',
-               temperature: '-273',
-               temperatureOutside: '-273',
+               date: new Date(),
+               weather: 'sunny',
+               category: 'life',
+               temperature: '',
+               temperatureOutside: '',
             },
-            diaryOrigin: {},
+            diaryOrigin: { // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
+               id: "",
+               title: "",
+               content: "",
+               isPublic: false,
+               date: new Date(),
+               weather: 'sunny',
+               category: 'life',
+               temperature: '',
+               temperatureOutside: '',
+            },
             logoImageUrl: 'img/logo.svg'
          }
       },
@@ -83,16 +91,8 @@
          this.isNew = !(this.$route.params.id);
          if (this.isNew) {
             // 新建日记
-            this.diary.id = '';
-            this.diary.date = new Date();
-            this.diary.title = '';
-            this.diary.content = '';
-            this.diary.category = 'life';
-            this.diary.temperature = '';
-            this.diary.temperatureOutside = '';
-            this.diary.weather = 'sunny';
-            // 新建日记时也记录原始数据
-            Object.assign(this.diaryOrigin, this.diary)
+            this.createDiary()
+
             this.updateDiaryIcon();
          } else {
             this.diary.id = this.$route.params.id;
@@ -109,13 +109,13 @@
       },
       computed: {
          diaryHasChanged() {
-            return this.diary.title !== this.diaryOrigin.title ||
-            this.diary.content !== this.diaryOrigin.content ||
-            this.diary.category !== this.diaryOrigin.category ||
-            this.diary.temperature !== this.diaryOrigin.temperature ||
+            return (this.diary.title       !== this.diaryOrigin.title ||
+            this.diary.content            !== this.diaryOrigin.content ||
+            this.diary.category           !== this.diaryOrigin.category ||
+            this.diary.temperature        !== this.diaryOrigin.temperature ||
             this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
-            this.diary.weather !== this.diaryOrigin.weather ||
-            this.diary.isPublic !== this.diaryOrigin.isPublic
+            this.diary.weather            !== this.diaryOrigin.weather ||
+            this.diary.isPublic           !== this.diaryOrigin.isPublic)
          },
          ...mapState(['currentDiary', 'diaryNeedToBeSaved', 'heightPanel', 'editLogoImg'])
       },
@@ -212,44 +212,37 @@
                type                    : this.isNew ? 'add' : 'modify'
             };
 
-            utility.postData(utility.URL.diaryOperation, queryData).then(res => {
-               // 成功后更新 origin 字符串
-               let diary = res.data;
-               this.diaryOrigin.category            =  diary.category;
-               this.diaryOrigin.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-               this.diaryOrigin.weather             =  diary.weather;
-               this.diaryOrigin.title               =  diary.title;
-               this.diaryOrigin.content             =  diary.content;
-               this.diaryOrigin.isPublic            =  diary.is_public === '1';
-               this.diaryOrigin.temperature         =  utility.temperatureProcessSTC(diary.temperature);
-               this.diaryOrigin.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
-               // update icon
-               this.updateDiaryIcon();
-               console.log(this.diary)
-               utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
-                  if (res.data) {
-                     this.isNew = false;
-                     this.dairy.id = res.data.id
-                  }
-                  this.setDiaryNeedToBeSaved(false);
-                  this.setListNeedBeReload(true)
+            utility.postData(utility.URL.diaryOperation, queryData)
+               .then(res => {
+                  utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
+                     // 成功后更新 origin 字符串
+                     Object.assign(this.diaryOrigin, this.diary)
+                     this.setDiaryNeedToBeSaved(false);
+                     this.setListNeedBeReload(true);
+                     if (res.data){ // 如果是新建日记，跳转到对应路由
+                        this.$router.push('/edit/' + res.data.id)
+                     }
+                  })
                })
-            }).catch(()=> {
-               this.setDiaryNeedToBeSaved(false);
-            })
+               .catch(() => {
+                  this.setDiaryNeedToBeSaved(false);
+               })
          },
          createDiary() {
-            this.isNew                     =  true;
-            this.diary.title               =  '';
-            this.diary.titleOrigin         =  '';
-            this.diary.content             =  '';
-            this.diary.contentOrigin       =  '';
-            this.diary.id                  =  '';
-            this.diary.isPublic            =  false;
-            this.diary.category            =  'life';
-            this.diary.temperature         =  '';
-            this.diary.temperatureOutside  =  '';
-            this.diary.weather             =  'sunny';
+            this.isNew =  true;
+            this.diary = {
+               id: "",
+               title: "",
+               content: "",
+               isPublic: false,
+               date: this.diary.date || new Date(), // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
+               weather: 'sunny',
+               category: 'life',
+               temperature: '',
+               temperatureOutside: '',
+            }
+            // 新建日记时也记录原始数据
+            Object.assign(this.diaryOrigin, this.diary)
          },
       },
 
