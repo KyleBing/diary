@@ -24,6 +24,11 @@ export default [
   },
   {
     name: 'edit',
+    path: '/edit',
+    component: Edit,
+  },
+  {
+    name: 'edit',
     path: '/edit/:id',
     component: Edit,
   },

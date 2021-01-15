@@ -10,7 +10,7 @@
             <img @click="saveDiary"   alt="保存" src="img/tabicon/done.svg">
          </div>
          <div class="brand">
-            <a @click="switchContentPanel"><img :src="logoImageUrl" alt="日记"></a>
+            <a><img :src="logoImageUrl" alt="日记"></a>
          </div>
       </nav>
 
@@ -20,7 +20,7 @@
             <textarea id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="title"></textarea>
          </div>
          <div class="editor-content">
-            <textarea v-show="contentEditorShowed" class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
+            <textarea class="diary-editor-content" placeholder="日记详细内容，如果你有很多要写的" v-model="content"></textarea>
          </div>
          <div class="editor-input-group">
             <label for="date">日期</label>
@@ -65,7 +65,6 @@
       data() {
          return {
             isNew: true,
-            contentEditorShowed: false,
 
             id: "",
             title: "",
@@ -123,9 +122,6 @@
                this.isPublic            =  diary.is_public === '1';
                this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
                this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-               if (diary.content) {
-                  this.contentEditorShowed = true;
-               }
             })
          }
       },
@@ -135,9 +131,6 @@
             this.updateDiaryIcon();
          },
          content: function () {
-            this.updateDiaryIcon();
-         },
-         contentEditorShowed: function () {
             this.updateDiaryIcon();
          },
       },
@@ -153,9 +146,9 @@
          },
          updateDiaryIcon() {
             if (this.diaryHasChanged) {
-               this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
+               this.logoImageUrl = this.content ? 'img/logo_content.svg' : 'img/logo_title.svg'
             } else {
-               this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
+               this.logoImageUrl = this.content ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
             }
          },
          saveDiary() {
@@ -194,13 +187,9 @@
                utility.popMessage(utility.POP_MSG_TYPE.success, res.info); // 提示
                if (res.data) {
                   this.isNew = false;
-                  this.id = res.data[0].id
+                  this.id = res.data.id
                }
             })
-         },
-
-         switchContentPanel(){
-            this.contentEditorShowed = !this.contentEditorShowed
          },
          createDiary() {
             this.isNew               =  true;
