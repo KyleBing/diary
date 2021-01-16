@@ -261,7 +261,7 @@ export default {
                let scrollTop = listEl.scrollTop;
                // console.clear();
                // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
-               return (lastOffsetTop < clientHeight + scrollTop);
+               return (lastOffsetTop < clientHeight + scrollTop + clientHeight / 3); // 添加 1/3 触发高度
             }
             if (this.haveMore && needLoadContent()) {
                this.loadMore();

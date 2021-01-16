@@ -29,9 +29,9 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(Router);
 Vue.use(VueCookie);
-Vue.prototype.$version = 'v7.04 beta'
-
 Vue.use(Vuex)
+
+Vue.prototype.$version = 'v7.04 beta'
 
 const store = new Vuex.Store({
    state: {
@@ -98,5 +98,4 @@ new Vue({
 }).$mount('#app')
 
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持
-
-document.addEventListener("touchstart", function() {},false);
+document.addEventListener("touchstart", function() {},false); // 使移动端支持 :hover 样式
