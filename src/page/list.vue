@@ -78,6 +78,7 @@ export default {
          'keyword',
          'categoriesChecked',
          'diaryListShowedInFullStyle',
+         'diaryListFilterShared',
          'listNeedBeReload',
          'listOperation',
          'heightPanel'])
@@ -139,6 +140,9 @@ export default {
          utility.saveCategories(this.categories)
       },
       categoriesChecked(){
+         this.reload()
+      },
+      diaryListFilterShared(){
          this.reload()
       },
       listNeedBeReload(){
@@ -217,6 +221,7 @@ export default {
          this.getDiaries(this.queryData)
       },
       getDiaries(queryData) {
+         this.queryData.filterShare = this.diaryListFilterShared? 1: 0; // 是否筛选已共享的日记
          utility.getData(utility.URL.diaryOperation, queryData)
             .then(res => {
                let newDiariesList = res.data.map(diary => {

@@ -71,27 +71,22 @@ $height-menu-list: 50px;
 // MENU CATEGORY
 $menu-category-list-item-height: 40px;
 
-$cols-md: 5;
-$gaps-md: 5%;
-
-$cols-sm: 2;
-$gaps-sm: 20%;
-
 .menu-category {
   padding: 30px;
-  &:after {
-    @include clearfix;
+  .menu-category-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-flow: row wrap;
   }
+
   .menu-category-item {
+    flex-shrink: 0;
     position: relative;
     display: block;
     text-align: center;
-    float: left;
-    margin-right: $gaps-sm;
-    width: (100% - $gaps-sm * ($cols-sm - 1))/$cols-sm;
-    &:nth-child(#{$cols-sm}n+0) {
-      margin-right: 0;
-    }
+    //margin-right: $gaps-sm;
+    width: 30%;
     .count{
       position: absolute;
       top: 5px;
@@ -120,8 +115,12 @@ $gaps-sm: 20%;
       }
     }
   }
-  .toggle-btn{
-    width: 100%;
+  .menu-category-operations{
+    margin-top: 30px;
+    .toggle-btn{
+      @extend .menu-category-item;
+      width: 100%;
+    }
   }
 }
 

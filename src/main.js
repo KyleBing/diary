@@ -36,14 +36,15 @@ Vue.prototype.$version = 'v7.05 beta'
 const store = new Vuex.Store({
    state: {
       statistics: {}, // 统计信息
-      keyword: utility.keyword.get(), // 搜索关键字
-      searchBarShowed: !!utility.keyword.get(), // 搜索栏显示
+      keyword: utility.queryData.keyword, // 搜索关键字
+      searchBarShowed: !!utility.queryData.keyword, // 搜索栏显示
       categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL, // 已选的日记筛选类别
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryNeedToBeRecovered: false, // 取消当前编辑的日记
       diaryEditorContentHasChanged: false, // 日记内容已经变化
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
+      diaryListFilterShared: false, // 日记列表是否筛选已共享的日记
       heightWindow: window.innerHeight,
       heightPanel: window.innerHeight - 45, // window height
       listNeedBeReload: false, // 是否刷新列表
@@ -60,7 +61,7 @@ const store = new Vuex.Store({
       },
       setKeyword (state, payload){
          state.keyword = payload
-         utility.keyword.set(payload)
+         utility.queryData.keyword = payload
       },
       setSearchBarState (state, payload){
          state.searchBarShowed = payload
@@ -94,6 +95,9 @@ const store = new Vuex.Store({
       },
       setDiaryEditorContentHasChanged(state, payload){
          state.diaryEditorContentHasChanged = payload
+      },
+      setDiaryListFilterShared(state, payload){
+         state.diaryListFilterShared = payload
       },
    }
 })

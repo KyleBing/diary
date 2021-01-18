@@ -18,24 +18,36 @@ let URL = {
 };
 
 const COOKIE_NAME = {
-   email    : 'diaryEmail',
-   token    : 'diaryToken',
-   username : 'diaryUsername',
-   uid      : 'diaryUid',
-   category : 'diaryCategories',
-   keyword  : 'keyword',
-   options  : {expires: 7, path: '/', SameSite: 'Strict'}
+   email        : 'diaryEmail',
+   token        : 'diaryToken',
+   username     : 'diaryUsername',
+   uid          : 'diaryUid',
+   category     : 'diaryCategories',
+   keyword      : 'keyword',
+   filterShared : 'filterShared',
+   options      : {expires           : 7, path : '/', SameSite : 'Strict'}
 };
 
-const keyword = {
-   set(content){
+
+let queryData = {
+   set isFilterShared(content){
+      VueCookie.set(COOKIE_NAME.filterShared, content, COOKIE_NAME.options);
+   },
+   get isFilterShared(){
+      let keyword = VueCookie.get(COOKIE_NAME.filterShared)
+      return keyword? keyword: '';
+   },
+
+   set keyword(content){
       VueCookie.set(COOKIE_NAME.keyword, content, COOKIE_NAME.options);
    },
-   get(){
+   get keyword(){
       let keyword = VueCookie.get(COOKIE_NAME.keyword)
       return keyword? keyword: '';
    }
 }
+
+
 function saveCategories(categories) {
    VueCookie.set(COOKIE_NAME.category, JSON.stringify(categories), COOKIE_NAME.options);
 }
@@ -271,7 +283,7 @@ export default {
    deleteAuthorization,
    getCategories,
    saveCategories,
-   keyword,
+   queryData,
    global,
    temperatureProcessSTC,
    temperatureProcessCTS

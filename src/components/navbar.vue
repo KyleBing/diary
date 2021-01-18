@@ -63,25 +63,34 @@
             </div>
 
             <!--category-->
-            <ul class="menu-category" v-show="categoryShowed" :style="'min-height:' + heightPanel + 'px'">
-               <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
-                  <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
-                  <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">
-                     {{ item.name }}
-                     <span class="count">{{statistics[item.nameEn]}}</span>
-                  </label>
-               </li>
-               <li class="menu-category-item toggle-btn">
-                  <input :checked="isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="category-all">
-                  <label for="category-all" class="menu-category-all">
-                     {{ isNotAllSelected ? '全选' : '全不选' }}
-                  </label>
-               </li>
-               <li class="menu-category-item toggle-btn">
-                  <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="category-reverse">
-                  <label for="category-reverse" class="menu-category-all">反选</label>
-               </li>
-            </ul>
+            <div class="menu-category" v-show="categoryShowed">
+               <ul class="menu-category-list">
+                  <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
+                     <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
+                     <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">
+                        {{ item.name }}
+                        <span class="count">{{statistics[item.nameEn]}}</span>
+                     </label>
+                  </li>
+               </ul>
+
+               <div class="menu-category-operations">
+                  <div class="toggle-btn">
+                     <input :checked="isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="categoryAll">
+                     <label for="categoryAll" class="menu-category-gray">
+                        {{ isNotAllSelected ? '全选' : '取消全选' }}
+                     </label>
+                  </div>
+                  <div class="toggle-btn">
+                     <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="categoryReverse">
+                     <label for="categoryReverse" class="menu-category-gray">反选</label>
+                  </div>
+                  <div class="toggle-btn">
+                     <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
+                     <label for="share" class="menu-category-grass">只显示共享日记</label>
+                  </div>
+               </div>
+            </div>
 
             <!--about-->
             <div class="about" v-show="aboutShowed" :style="'min-height:' + heightPanel + 'px'">
@@ -135,6 +144,7 @@ export default {
          userInfo: utility.getAuthorization(),
          categories: [],
          categoriesAll: utility.CATEGORIES_ALL_NAME,
+         filterShared: false, // 是否筛选已共享的日记
 
          // toast
          toastIsShowed: false,
@@ -160,6 +170,7 @@ export default {
          'diaryEditorContentHasChanged',
          'currentDiary',
          'diaryListShowedInFullStyle',
+         'diaryListFilterShared',
          'heightPanel',
          'editLogoImg',
          'statistics'
@@ -172,6 +183,7 @@ export default {
          'setSearchBarState',
          'setDiaryNeedToBeSaved',
          'setDiaryNeedToBeRecovered',
+         'setDiaryListFilterShared',
          'setListOperation'
       ]),
       toggleListStyle(){
@@ -187,6 +199,7 @@ export default {
       menuClose() {
          if (this.categoryShowed) {
             this.setCategoriesChecked(this.categories)
+            this.setDiaryListFilterShared(this.filterShared)
             this.menuInit();
          } else if (this.aboutShowed) {
             this.menuShowed      =  true;            // menu panel
