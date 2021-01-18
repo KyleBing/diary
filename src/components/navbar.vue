@@ -15,7 +15,7 @@
          </div>
 
             <!--EDIT-->
-         <div class="navbar-btn-group right" v-if="$route.name === 'edit'">
+         <div class="navbar-btn-group right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
             <img @click="diarySave" alt="保存" src="img/tabicon/done.svg">
          </div>
 

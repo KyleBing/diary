@@ -19,7 +19,7 @@ export default [
         component: Detail,
       },
       {
-        name: 'edit',
+        name: 'editNew',
         path: 'edit',
         component: Edit,
       },

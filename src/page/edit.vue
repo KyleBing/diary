@@ -102,7 +102,7 @@
       beforeRouteLeave(to, from, next){
          // 在跳转到其它页面之前判断日记是否已保存
          if (this.diaryHasChanged){
-            utility.popMessage(utility.POP_MSG_TYPE.warning, '有未保存的修改内容', next(false))
+            utility.popMessage(utility.POP_MSG_TYPE.warning, '当前日记未保存', next(false))
          } else {
             next()
          }
