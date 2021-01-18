@@ -23,17 +23,17 @@ const COOKIE_NAME = {
    username     : 'diaryUsername',
    uid          : 'diaryUid',
    category     : 'diaryCategories',
-   keyword      : 'keyword',
-   filterShared : 'filterShared',
+   keyword      : 'diaryKeyword',
+   filterShared : 'diaryFilterShared',
    options      : {expires           : 7, path : '/', SameSite : 'Strict'}
 };
 
 
 let queryData = {
-   set isFilterShared(content){
+   set filterShared(content){
       VueCookie.set(COOKIE_NAME.filterShared, content, COOKIE_NAME.options);
    },
-   get isFilterShared(){
+   get filterShared(){
       let filterShared = VueCookie.get(COOKIE_NAME.filterShared)
       return filterShared === 'true';
    },

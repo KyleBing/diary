@@ -143,8 +143,10 @@ export default {
          // menu - category
          userInfo: utility.getAuthorization(),
          categories: [],
+         originCategories: [],
          categoriesAll: utility.CATEGORIES_ALL_NAME,
          filterShared: false, // 是否筛选已共享的日记
+         originFilterShared: false,
 
          // toast
          toastIsShowed: false,
@@ -154,23 +156,22 @@ export default {
 
          // path
          diaryPath: utility.global.diaryPath
-
       }
    },
    mounted() {
       this.location = window.location;
-      this.categories = this.categoriesChecked
+      this.categories = this.categoriesFilterInfo.categories
+      this.filterShared = this.categoriesFilterInfo.filterShared
    },
    computed: {
       isNotAllSelected() {
          return !this.categories.length
       },
       ...mapState([
-         'categoriesChecked',
+         'categoriesFilterInfo',
          'diaryEditorContentHasChanged',
          'currentDiary',
          'diaryListShowedInFullStyle',
-         'diaryListFilterShared',
          'heightPanel',
          'editLogoImg',
          'statistics'
@@ -179,11 +180,10 @@ export default {
    methods: {
       ...mapMutations([
          'setDiaryListShowedInFullStyle',
-         'setCategoriesChecked',
+         'setCategoriesFilterInfo',
          'setSearchBarState',
          'setDiaryNeedToBeSaved',
          'setDiaryNeedToBeRecovered',
-         'setDiaryListFilterShared',
          'setListOperation'
       ]),
       toggleListStyle(){
@@ -198,8 +198,10 @@ export default {
       },
       menuClose() {
          if (this.categoryShowed) {
-            this.setCategoriesChecked(this.categories)
-            this.setDiaryListFilterShared(this.filterShared)
+            this.setCategoriesFilterInfo({
+               categories: this.categories,
+               filterShared: this.filterShared
+            })
             this.menuInit();
          } else if (this.aboutShowed) {
             this.menuShowed      =  true;            // menu panel
@@ -230,6 +232,8 @@ export default {
                this.menuListShowed  =  false;            // menu list
                this.categoryShowed  =  true;             // category
                this.aboutShowed     =  false;            // about
+               Object.assign(this.originCategories, this.categories)
+               this.originFilterShared = this.filterShared
                break;
             case 'about':
                this.menuShowed      =  true;             // menu panel

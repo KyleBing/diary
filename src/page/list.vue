@@ -55,6 +55,7 @@ export default {
             pageNo: 1,
             pageCount: 50,
             category: [],
+            filterShared: 0 // 1 是筛选，0 是不筛选
          },
          diaries: [],
          diariesShow: [],
@@ -67,6 +68,7 @@ export default {
       // init
       this.categories = utility.queryData.categories;
       this.queryData.keyword = this.keyword;
+      this.queryData.filterShared = this.categoriesFilterInfo.filterShared ? 1 : 0;
       this.reload();
       this.addScrollEvent();
       this.searchBarShow = !!this.queryData.keyword;
@@ -76,9 +78,8 @@ export default {
       ...mapState([
          'searchBarShowed',
          'keyword',
-         'categoriesChecked',
+         'categoriesFilterInfo',
          'diaryListShowedInFullStyle',
-         'diaryListFilterShared',
          'listNeedBeReload',
          'listOperation',
          'heightPanel'])
@@ -136,13 +137,8 @@ export default {
          }
          this.diariesShow = tempShowArray;
       },
-      categories() {
-         utility.queryData.categories = this.categories
-      },
-      categoriesChecked(){
-         this.reload()
-      },
-      diaryListFilterShared(){
+      categoriesFilterInfo(){
+         this.queryData.filterShared = this.categoriesFilterInfo.filterShared? 1: 0; // 是否筛选已共享的日记
          this.reload()
       },
       listNeedBeReload(){
@@ -159,8 +155,6 @@ export default {
                   if (diary.date > currentDiary.date){
                      posInsert = i
                      break
-                  } else {
-                     continue
                   }
                }
                this.diaries.splice(posInsert,0, diary);
@@ -221,7 +215,6 @@ export default {
          this.getDiaries(this.queryData)
       },
       getDiaries(queryData) {
-         this.queryData.filterShare = this.diaryListFilterShared? 1: 0; // 是否筛选已共享的日记
          utility.getData(utility.URL.diaryOperation, queryData)
             .then(res => {
                let newDiariesList = res.data.map(diary => {

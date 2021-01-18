@@ -38,13 +38,15 @@ const store = new Vuex.Store({
       statistics: {}, // 统计信息
       keyword: utility.queryData.keyword, // 搜索关键字
       searchBarShowed: !!utility.queryData.keyword, // 搜索栏显示
-      categoriesChecked: utility.queryData.categories || utility.CATEGORIES_ALL, // 已选的日记筛选类别
+      categoriesFilterInfo: {
+         categories: utility.queryData.categories || utility.CATEGORIES_ALL,
+         filterShared: utility.queryData.filterShared
+      }, // 已选的日记筛选类别
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryNeedToBeRecovered: false, // 取消当前编辑的日记
       diaryEditorContentHasChanged: false, // 日记内容已经变化
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
-      diaryListFilterShared: false, // 日记列表是否筛选已共享的日记
       heightWindow: window.innerHeight,
       heightPanel: window.innerHeight - 45, // window height
       listNeedBeReload: false, // 是否刷新列表
@@ -55,9 +57,10 @@ const store = new Vuex.Store({
       setStatistics(state, payload){
          state.statistics = payload
       },
-      setCategoriesChecked (state, payload){
-         state.categoriesChecked = payload
-         utility.queryData.categories = payload // categories 变化时保存
+      setCategoriesFilterInfo (state, payload){
+         state.categoriesFilterInfo = payload
+         utility.queryData.categories = payload.categories // categories 变化时保存
+         utility.queryData.filterShared = payload.filterShared // categories 变化时保存
       },
       setKeyword (state, payload){
          state.keyword = payload
@@ -95,9 +98,6 @@ const store = new Vuex.Store({
       },
       setDiaryEditorContentHasChanged(state, payload){
          state.diaryEditorContentHasChanged = payload
-      },
-      setDiaryListFilterShared(state, payload){
-         state.diaryListFilterShared = payload
       },
    }
 })
