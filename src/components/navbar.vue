@@ -3,20 +3,19 @@
       <!-- NAVBAR -->
       <nav class="navbar" id="navbar">
          <div class="navbar-btn-group left">
-            <img alt="菜单" @click="menuShow" src="img/tabicon/menu.svg" v-if="!menuShowed">
-            <img alt="关闭" @click="menuClose" src="img/tabicon/close.svg" v-else>
+            <img alt="菜单" title="菜单" @click="menuShow" src="img/tabicon/menu.svg" v-if="!menuShowed">
+            <img alt="关闭" title="关闭" @click="menuClose" src="img/tabicon/close.svg" v-else>
          </div>
 
          <!--RIGHT part-->
             <!--NEW-->
-         <!--TODO: 新建时询问是否保存当前日记-->
          <div class="navbar-btn-group right">
-            <router-link to="/edit"><img alt="添加" src="img/tabicon/add.svg"></router-link>
+            <router-link to="/edit"><img alt="添加" title="添加" src="img/tabicon/add.svg"></router-link>
          </div>
 
             <!--EDIT-->
          <div class="navbar-btn-group right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
-            <img @click="diarySave" alt="保存" src="img/tabicon/done.svg">
+            <img @click="diarySave" alt="保存" title="保存" src="img/tabicon/done.svg">
          </div>
 
             <!--DETAIL-->
@@ -24,12 +23,12 @@
             <img
                v-if="currentDiary && currentDiary.is_public === '1'"
                id="shareBtn"
-               alt="分享链接"
+               alt="分享链接" title="分享链接"
                @click="copySharePath"
                src="img/tabicon/share.svg"
                :data-clipboard-text="`${location.origin}/${diaryPath}/#/share/${currentDiary.id}`">
-            <img alt="删除" @click="toastShow" src="img/tabicon/delete.svg"/>
-            <router-link :to="`/edit/${currentDiary.id}`"><img alt="编辑" src="img/tabicon/edit.svg"></router-link>
+            <img alt="删除" title="删除" @click="toastShow" src="img/tabicon/delete.svg"/>
+            <router-link :to="`/edit/${currentDiary.id}`"><img alt="编辑" title="编辑" src="img/tabicon/edit.svg"></router-link>
          </div>
 
 
