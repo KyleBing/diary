@@ -34,8 +34,8 @@ let queryData = {
       VueCookie.set(COOKIE_NAME.filterShared, content, COOKIE_NAME.options);
    },
    get isFilterShared(){
-      let keyword = VueCookie.get(COOKIE_NAME.filterShared)
-      return keyword? keyword: '';
+      let filterShared = VueCookie.get(COOKIE_NAME.filterShared)
+      return filterShared === 'true';
    },
 
    set keyword(content){
@@ -44,18 +44,17 @@ let queryData = {
    get keyword(){
       let keyword = VueCookie.get(COOKIE_NAME.keyword)
       return keyword? keyword: '';
-   }
+   },
+
+   set categories(content){
+      VueCookie.set(COOKIE_NAME.category, JSON.stringify(content), COOKIE_NAME.options);
+   },
+   get categories(){
+      let categories = VueCookie.get(COOKIE_NAME.category);
+      return JSON.parse(categories)
+   },
 }
 
-
-function saveCategories(categories) {
-   VueCookie.set(COOKIE_NAME.category, JSON.stringify(categories), COOKIE_NAME.options);
-}
-
-function getCategories() {
-   let categories = VueCookie.get(COOKIE_NAME.category);
-   return JSON.parse(categories)
-}
 
 // 设置cookie
 function setAuthorization(email, token, username, uid) {
@@ -281,8 +280,6 @@ export default {
    formateDate,
    dateFormatter,
    deleteAuthorization,
-   getCategories,
-   saveCategories,
    queryData,
    global,
    temperatureProcessSTC,

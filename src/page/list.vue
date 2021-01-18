@@ -65,7 +65,7 @@ export default {
    },
    mounted() {
       // init
-      this.categories = utility.getCategories();
+      this.categories = utility.queryData.categories;
       this.queryData.keyword = this.keyword;
       this.reload();
       this.addScrollEvent();
@@ -137,7 +137,7 @@ export default {
          this.diariesShow = tempShowArray;
       },
       categories() {
-         utility.saveCategories(this.categories)
+         utility.queryData.categories = this.categories
       },
       categoriesChecked(){
          this.reload()

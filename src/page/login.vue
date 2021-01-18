@@ -72,7 +72,7 @@
                })
                .then(res => {
                   utility.setAuthorization(res.email, res.token, res.username, res.uid);
-                  utility.saveCategories(utility.CATEGORIES_ALL)
+                  utility.queryData.categories = utility.CATEGORIES_ALL
                   utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                      this.$router.push('/')
                   })

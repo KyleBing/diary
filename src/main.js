@@ -38,7 +38,7 @@ const store = new Vuex.Store({
       statistics: {}, // 统计信息
       keyword: utility.queryData.keyword, // 搜索关键字
       searchBarShowed: !!utility.queryData.keyword, // 搜索栏显示
-      categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL, // 已选的日记筛选类别
+      categoriesChecked: utility.queryData.categories || utility.CATEGORIES_ALL, // 已选的日记筛选类别
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryNeedToBeRecovered: false, // 取消当前编辑的日记
@@ -57,7 +57,7 @@ const store = new Vuex.Store({
       },
       setCategoriesChecked (state, payload){
          state.categoriesChecked = payload
-         utility.saveCategories(payload) // categories 变化时保存
+         utility.queryData.categories = payload // categories 变化时保存
       },
       setKeyword (state, payload){
          state.keyword = payload
