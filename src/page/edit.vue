@@ -92,8 +92,6 @@
          if (this.isNew) {
             // 新建日记
             this.createDiary()
-
-            this.updateDiaryIcon();
          } else {
             this.diary.id = this.$route.params.id;
             this.getDiary(this.$route.params.id)
@@ -108,16 +106,23 @@
          }
       },
       computed: {
-         diaryHasChanged() {
-            return (this.diary.title       !== this.diaryOrigin.title ||
-            this.diary.content            !== this.diaryOrigin.content ||
-            this.diary.category           !== this.diaryOrigin.category ||
-            this.diary.temperature        !== this.diaryOrigin.temperature ||
-            this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
-            this.diary.weather            !== this.diaryOrigin.weather ||
-            this.diary.isPublic           !== this.diaryOrigin.isPublic)
+         diaryHasChanged(){
+            return  (this.diary.title        !== this.diaryOrigin.title ||
+               this.diary.content            !== this.diaryOrigin.content ||
+               this.diary.category           !== this.diaryOrigin.category ||
+               this.diary.temperature        !== this.diaryOrigin.temperature ||
+               this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
+               this.diary.weather            !== this.diaryOrigin.weather ||
+               this.diary.isPublic           !== this.diaryOrigin.isPublic)
          },
-         ...mapState(['currentDiary', 'diaryNeedToBeSaved', 'heightPanel', 'editLogoImg'])
+         ...mapState([
+            'currentDiary',
+            'diaryNeedToBeSaved',
+            'diaryNeedToBeRecovered',
+            'heightPanel',
+            'editLogoImg',
+            'diaryEditorContentHasChanged'
+         ])
       },
 
       watch: {
@@ -130,7 +135,7 @@
          },
          diary: {
             handler(){
-               this.updateDiaryIcon()
+               this.updateDiaryIcon();
             },
             deep: true
          },
@@ -138,14 +143,21 @@
             if (this.diaryNeedToBeSaved) {
                this.saveDiary()
             }
+         },
+         diaryNeedToBeRecovered(){
+            if (this.diaryNeedToBeRecovered) {
+               this.recoverDiary()
+            }
          }
       },
       methods: {
          ...mapMutations([
             'setEditLogoImg',
             'setDiaryNeedToBeSaved',
+            'setDiaryNeedToBeRecovered',
             'setListNeedBeReload',
-            'setListOperation'
+            'setListOperation',
+            'setDiaryEditorContentHasChanged'
          ]),
          goBack() {
             this.$router.back()
@@ -157,6 +169,7 @@
             this.diary.weather = data
          },
          updateDiaryIcon() {
+            this.setDiaryEditorContentHasChanged(this.diaryHasChanged)
             if (this.diaryHasChanged) {
                this.setEditLogoImg(this.diary.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
             } else {
@@ -220,7 +233,6 @@
                      Object.assign(this.diaryOrigin, this.diary)
                      this.updateDiaryIcon(); // 更新 navbar icon
                      this.setDiaryNeedToBeSaved(false);
-                     // this.setListNeedBeReload(true);
                      this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
                      if (this.isNew){ // 如果是新建日记，跳转到对应路由
                         this.isNew = false;
@@ -248,6 +260,11 @@
             }
             // 新建日记时也记录原始数据
             Object.assign(this.diaryOrigin, this.diary)
+            this.updateDiaryIcon(); // TODO: 新建日记时日记图标并没有更新
+         },
+         recoverDiary() {
+            Object.assign(this.diary, this.diaryOrigin);
+            this.setDiaryNeedToBeRecovered(false)
          },
          convertToServerVersion(){ // 转换为数据库格式的日记
             let date = utility.dateFormatter(this.diary.date);

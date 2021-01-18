@@ -41,6 +41,8 @@ const store = new Vuex.Store({
       categoriesChecked: utility.getCategories() || utility.CATEGORIES_ALL, // 已选的日记筛选类别
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
+      diaryNeedToBeRecovered: false, // 取消当前编辑的日记
+      diaryEditorContentHasChanged: false, // 日记内容已经变化
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
       heightWindow: window.innerHeight,
       heightPanel: window.innerHeight - 45, // window height
@@ -86,6 +88,12 @@ const store = new Vuex.Store({
       },
       setListOperation(state, payload){
          state.listOperation = payload
+      },
+      setDiaryNeedToBeRecovered(state, payload){
+         state.diaryNeedToBeRecovered = payload
+      },
+      setDiaryEditorContentHasChanged(state, payload){
+         state.diaryEditorContentHasChanged = payload
       },
    }
 })

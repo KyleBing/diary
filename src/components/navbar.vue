@@ -15,6 +15,7 @@
 
             <!--EDIT-->
          <div class="navbar-btn-group right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
+            <img @click="diaryRecover" v-if="diaryEditorContentHasChanged" alt="取消编辑" title="取消编辑" src="img/tabicon/recover.svg">
             <img @click="diarySave" alt="保存" title="保存" src="img/tabicon/done.svg">
          </div>
 
@@ -156,6 +157,7 @@ export default {
       },
       ...mapState([
          'categoriesChecked',
+         'diaryEditorContentHasChanged',
          'currentDiary',
          'diaryListShowedInFullStyle',
          'heightPanel',
@@ -169,6 +171,7 @@ export default {
          'setCategoriesChecked',
          'setSearchBarState',
          'setDiaryNeedToBeSaved',
+         'setDiaryNeedToBeRecovered',
          'setListOperation'
       ]),
       toggleListStyle(){
@@ -246,6 +249,9 @@ export default {
       },
       diarySave() {
          this.setDiaryNeedToBeSaved(true)
+      },
+      diaryRecover(){
+         this.setDiaryNeedToBeRecovered(true)
       },
 
       /* SHARE */
