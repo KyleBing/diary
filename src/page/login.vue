@@ -1,6 +1,6 @@
 <template>
-   <div class="body-login-bg">
-      <div class="body-login" :style="'min-height:' + heightBg + 'px'">
+   <div class="body-login-bg" :style="'min-height:' + heightBg + 'px'">
+      <div class="body-login">
          <div class="logo">
             <img src="img/logo.svg" alt="Diary Logo">
          </div>

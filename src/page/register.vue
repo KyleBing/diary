@@ -1,6 +1,6 @@
 <template>
-   <div class="body-login-bg">
-      <div class="body-login" :style="'min-height:' + heightBg + 'px'">
+   <div class="body-login-bg" :style="'min-height:' + heightBg + 'px'">
+      <div class="body-login">
          <div class="logo">
             <img src="img/logo.svg" alt="Diary Logo">
          </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="input-group">
                <label for="password1" :class="{red: !password1Verified}">{{ labelPassword1 }}</label>
-               <input  v-model.lzay="password1"
+               <input  v-model.lazy="password1"
                        name="password1"
                        type="password"
                        id="password1">
