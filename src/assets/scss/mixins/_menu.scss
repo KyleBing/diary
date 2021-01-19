@@ -46,26 +46,25 @@ $height-menu-list: 50px;
 
 .user-info{
   text-shadow: 1px 2px 3px rgba(0,0,0,0.2);
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 60px;
+  margin-bottom: 60px;
   text-align: center;
   .username{
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 1.5;
     display: block;
     font-weight: bold;
     color: white;
   }
   .email{
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 13px;
+    line-height: 1.2;
     display: block;
     font-weight: 300;
     color: $about-subtitle;
   }
   .statistics{
-    font-size: 0.8rem;
-    color: $about-subtitle;
+    @extend .email;
   }
 }
 
