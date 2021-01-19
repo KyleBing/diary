@@ -35,7 +35,8 @@ Vue.prototype.$version = 'v7.05 beta'
 
 const store = new Vuex.Store({
    state: {
-      statistics: {}, // 统计信息
+      statisticsCategory: {}, // 统计信息
+      statisticsYear: {}, // 统计信息
       keyword: utility.queryData.keyword, // 搜索关键字
       searchBarShowed: !!utility.queryData.keyword, // 搜索栏显示
       categoriesFilterInfo: {
@@ -55,7 +56,8 @@ const store = new Vuex.Store({
    },
    mutations: {
       setStatistics(state, payload){
-         state.statistics = payload
+         state.statisticsCategory = payload.category
+         state.statisticsYear = payload.year
       },
       setCategoriesFilterInfo (state, payload){
          state.categoriesFilterInfo = payload

@@ -56,8 +56,8 @@
                   <p class="username">{{ userInfo.username }}</p>
                   <p class="email">{{ userInfo.email }}</p>
                   <p class="email">•</p>
-                  <p v-if="statistics.shared > 0" class="statistics">
-                     <span>共有日记 {{statistics.amount}} 篇，</span><span>共享 {{statistics.shared}} 篇</span>
+                  <p v-if="statisticsCategory.shared > 0" class="statistics">
+                     <span>共有日记 {{statisticsCategory.amount}} 篇，</span><span>共享 {{statisticsCategory.shared}} 篇</span>
                   </p>
                </div>
             </div>
@@ -69,7 +69,7 @@
                      <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
                      <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">
                         {{ item.name }}
-                        <span class="count">{{statistics[item.nameEn]}}</span>
+                        <span class="count">{{statisticsCategory[item.nameEn]}}</span>
                      </label>
                   </li>
                </ul>
@@ -174,7 +174,8 @@ export default {
          'diaryListShowedInFullStyle',
          'heightPanel',
          'editLogoImg',
-         'statistics'
+         'statisticsCategory',
+         'statisticsYear',
       ])
    },
    methods: {
