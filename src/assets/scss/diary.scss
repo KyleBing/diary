@@ -3,13 +3,10 @@
 @import "variables";
 @import "mixin";
 
-.body-normal{background-color: $bg-light;}
-.body-white{background-color: white;}
-
 // FRAME
 body{
   position: relative;
-  @extend .body-white;
+  background-color: white;
 }
 
 .diary {
@@ -21,6 +18,7 @@ body{
 }
 
 .diary-list{
+  background-color: $bg-light;
   padding-bottom: 45px;
   width: 100%;
 }

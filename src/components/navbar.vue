@@ -88,7 +88,7 @@
                   </div>
                   <div class="toggle-btn">
                      <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
-                     <label for="share" class="menu-category-grass">只显示共享日记</label>
+                     <label for="share" class="menu-category-grass">共享日记</label>
                   </div>
                </div>
             </div>
@@ -198,7 +198,9 @@ export default {
          'setListNeedBeReload'
       ]),
       toggleListStyle(){
-         this.setDiaryListShowedInFullStyle(!this.diaryListShowedInFullStyle)
+         if (!this.menuShowed){
+            this.setDiaryListShowedInFullStyle(!this.diaryListShowedInFullStyle)
+         }
       },
       /* MENU */
       menuShow() {

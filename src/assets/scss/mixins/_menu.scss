@@ -73,28 +73,58 @@ $height-menu-list: 50px;
 $menu-category-list-item-height: 40px;
 
 .menu-category {
-  padding: 30px;
-  .menu-category-list{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-flow: row wrap;
-  }
+  padding: 20px;
+}
 
-  .menu-category-item {
-    flex-shrink: 0;
-    position: relative;
+.menu-category-list{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-flow: row wrap;
+}
+.menu-category-item {
+  flex-shrink: 0;
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 45%;
+  .count{
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    font-size: 10px;
+    line-height: 1;
+  }
+  input[type=checkbox] + label {
+    @include unselectable;
+    width: 100%;
     display: block;
-    text-align: center;
-    //margin-right: $gaps-sm;
-    width: 30%;
-    .count{
-      position: absolute;
-      top: 5px;
-      right: 7px;
-      font-size: 10px;
-      line-height: 1;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: white;
+    line-height: $menu-category-list-item-height;
+    @include border-radius(5px);
+    border: 1px dashed $gray;
+  }
+  @each $name, $color in $categories {
+    input[type=checkbox]:checked + label {
+      &.menu-category-#{$name} {
+        background-color: $color;
+        border-color: $color;
+      }
     }
+  }
+}
+
+.menu-category-operations{
+  border-top: 1px dashed $bg-navbar;
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  .toggle-btn{
+    text-align: center;
+    width: 30%;
     input[type=checkbox] + label {
       @include unselectable;
       width: 100%;
@@ -105,7 +135,6 @@ $menu-category-list-item-height: 40px;
       line-height: $menu-category-list-item-height;
       @include border-radius(5px);
       border: 1px dashed $gray;
-
     }
     @each $name, $color in $categories {
       input[type=checkbox]:checked + label {
@@ -116,15 +145,7 @@ $menu-category-list-item-height: 40px;
       }
     }
   }
-  .menu-category-operations{
-    margin-top: 30px;
-    .toggle-btn{
-      @extend .menu-category-item;
-      width: 100%;
-    }
-  }
 }
-
 
 .about{
   position: relative;
@@ -161,8 +182,24 @@ $menu-category-list-item-height: 40px;
 
 // PC
 @media (min-width: $grid-separate-width-big) {
-  .menu-panel{
+  .menu-panel {
     width: $menu-panel-big;
+  }
+  .menu-category {
+    padding: 30px;
+    .menu-category-item {
+      width: 40%;
+    }
+  }
+  .menu-category-operations{
+    border-top: 1px dashed $bg-navbar;
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    .toggle-btn{
+      width: 30%;
+    }
   }
 }
 
@@ -170,5 +207,21 @@ $menu-category-list-item-height: 40px;
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .menu-panel{
     width: $menu-panel-sm;
+  }
+  .menu-category {
+    padding: 30px;
+    .menu-category-item {
+      width: 40%;
+    }
+  }
+  .menu-category-operations{
+    border-top: 1px dashed $bg-navbar;
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    .toggle-btn{
+      width: 30%;
+    }
   }
 }
