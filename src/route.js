@@ -6,6 +6,7 @@ import Edit from '@/page/edit'
 import ChangePassword from '@/page/changePassword'
 import Share from '@/page/share'
 import notFound_404 from "@/fundation/notFound_404";
+import yearSelector from "@/components/yearSelector";
 
 export default [
   {
@@ -49,6 +50,11 @@ export default [
     name: 'login',
     path: '/login',
     component: Login,
+  },
+  {
+    name: 'test',
+    path: '/test',
+    component: yearSelector,
   },
   {
     path: '*',

@@ -1,0 +1,73 @@
+.year-container{
+  background-color: $bg-menu;
+  padding: 20px;
+  overflow-y: auto;
+}
+.year{
+  padding: 20px 0;
+  border-bottom: 1px dashed $bg-navbar;
+}
+.year-header{
+  text-align: right;
+  padding: 0 20px 20px 0;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+.year-list{
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+.year-month-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @include unselectable;
+  @include border-radius($radius-mobile);
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 22%;
+  background-color: rgba(white, 0.3);
+  padding: 10px 20px;
+  position: relative;
+  @include transition(all 0.5s);
+  .month{
+    color: darken($bg-menu, 10%);
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .month-count{
+    display: none;
+    color: $bg-menu;
+    top: 5px;
+    right: 5px;
+    position: absolute;
+    font-size: 10px;
+  }
+  &.active{
+    background-color: $orange;
+    @include transition(all 0);
+    .month{
+      color: white;
+      @include transition(all 0);
+    }
+    .month-count {
+      display: block;
+      color: white;
+      @include transition(all 0);
+    }
+  }
+}
+
+// 》 IPAD
+@media (min-width: $grid-separate-width-big){
+  .year-month-item {
+    @include border-radius($radius-pc);
+    padding: 20px;
+  }
+}
+
