@@ -25,7 +25,8 @@ const COOKIE_NAME = {
    category     : 'diaryCategories',
    keyword      : 'diaryKeyword',
    filterShared : 'diaryFilterShared',
-   options      : {expires           : 7, path : '/', SameSite : 'Strict'}
+   dateRange    : 'diaryDateRange',
+   options      : {expires : 7, path : '/', SameSite : 'Strict'}
 };
 
 
@@ -52,6 +53,14 @@ let queryData = {
    get categories(){
       let categories = VueCookie.get(COOKIE_NAME.category);
       return JSON.parse(categories)
+   },
+
+   set dateRange(content){
+      VueCookie.set(COOKIE_NAME.dateRange, JSON.stringify(content), COOKIE_NAME.options);
+   },
+   get dateRange(){
+      let dateRange = VueCookie.get(COOKIE_NAME.dateRange);
+      return JSON.parse(dateRange)
    },
 }
 

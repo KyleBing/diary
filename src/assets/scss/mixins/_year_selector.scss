@@ -67,7 +67,6 @@
 @media (min-width: $grid-separate-width-big){
   .year-month-item {
     @include border-radius($radius-pc);
-    padding: 20px;
   }
 }
 

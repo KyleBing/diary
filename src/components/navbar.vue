@@ -43,11 +43,12 @@
 
 
          <!-- MENU -->
-         <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'min-height:' + heightPanel + 'px'">
+         <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + heightPanel + 'px'">
             <div class="menu-list" v-show="menuListShowed">
                <div class="menu-list-group">
                   <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
                   <a class="menu-list-group-item" @click="menuListClicked('category')">类别</a>
+                  <a class="menu-list-group-item" @click="menuListClicked('year')">年份</a>
                   <a class="menu-list-group-item" @click="menuListClicked('about')">关于</a>
                   <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
                   <a class="menu-list-group-item" @click="logout">退出</a>
@@ -92,8 +93,14 @@
                </div>
             </div>
 
+            <!-- year selector -->
+            <year-selector
+               :style="`height: ${heightPanel}px`"
+               current-month=""
+               v-show="yearShowed"></year-selector>
+
             <!--about-->
-            <div class="about" v-show="aboutShowed" :style="'min-height:' + heightPanel + 'px'">
+            <div class="about" v-show="aboutShowed" :style="'height:' + heightPanel + 'px'">
                <h3 class="title">标题日记</h3>
                <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
                <div class="author">
@@ -127,9 +134,11 @@
 import utility from "@/utility";
 import Clipboard from "clipboard";
 import { mapState, mapMutations } from 'vuex'
+import YearSelector from "@/components/yearSelector";
 
 export default {
    name: "navbar",
+   components: {YearSelector},
    data() {
       return {
          location: {}, // clipboard 使用
@@ -138,6 +147,7 @@ export default {
          menuShowed: false,            // menu panel
          menuListShowed: true,         // menu list
          categoryShowed: false,        // category
+         yearShowed: false,            // year chooser
          aboutShowed: false,           // about
 
          // menu - category
@@ -195,6 +205,7 @@ export default {
          this.menuShowed      =  true;            // menu panel
          this.menuListShowed  =  true;            // menu list
          this.categoryShowed  =  false;           // category
+         this.yearShowed      =  false;           // year
          this.aboutShowed     =  false;           // about
       },
       menuClose() {
@@ -208,6 +219,7 @@ export default {
             this.menuShowed      =  true;            // menu panel
             this.menuListShowed  =  true;            // menu list
             this.categoryShowed  =  false;           // category
+            this.yearShowed      =  false;           // year
             this.aboutShowed     =  false;           // about
          } else if (this.menuShowed) {
             this.menuInit();
@@ -217,6 +229,7 @@ export default {
          this.menuShowed      =  false;            // menu panel
          this.menuListShowed  =  true;             // menu list
          this.categoryShowed  =  false;            // category
+         this.yearShowed      =  false;           // year
          this.aboutShowed     =  false;            // about
       },
       menuListClicked(menuName) {
@@ -232,14 +245,23 @@ export default {
                this.menuShowed      =  true;             // menu panel
                this.menuListShowed  =  false;            // menu list
                this.categoryShowed  =  true;             // category
+               this.yearShowed      =  false;            // year
                this.aboutShowed     =  false;            // about
                Object.assign(this.originCategories, this.categories)
                this.originFilterShared = this.filterShared
+               break;
+            case 'year':
+               this.menuShowed      =  true;             // menu panel
+               this.menuListShowed  =  false;            // menu list
+               this.categoryShowed  =  false;            // category
+               this.yearShowed      =  true;             // year
+               this.aboutShowed     =  false;            // about
                break;
             case 'about':
                this.menuShowed      =  true;             // menu panel
                this.menuListShowed  =  false;            // menu list
                this.categoryShowed  =  false;            // category
+               this.yearShowed      =  false;            // year
                this.aboutShowed     =  true;             // about
                break;
             default:

@@ -18,6 +18,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import utility from "@/utility";
 
 export default {
    name: "yearSelector",
@@ -37,7 +38,8 @@ export default {
    },
    watch: {
       monthChosen(){
-         this.$emit('change', this.monthChosen)
+         this.$emit('change', this.monthChosen);
+         utility.queryData.dateRange = this.monthChosen
       }
    },
    computed: {
