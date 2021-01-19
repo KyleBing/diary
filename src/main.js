@@ -31,7 +31,7 @@ Vue.use(Router);
 Vue.use(VueCookie);
 Vue.use(Vuex)
 
-Vue.prototype.$version = 'v7.05 beta'
+Vue.prototype.$version = 'v7.06 beta'
 
 const store = new Vuex.Store({
    state: {

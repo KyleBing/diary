@@ -43,7 +43,11 @@ export default {
    },
    methods: {
       monthClicked(id){
-         this.monthChosen = id;
+         if (id === this.monthChosen){
+            this.monthChosen = ''
+         } else {
+            this.monthChosen = id;
+         }
       }
    }
 }

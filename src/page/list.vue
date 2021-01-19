@@ -55,7 +55,8 @@ export default {
             pageNo: 1,
             pageCount: 50,
             category: [],
-            filterShared: 0 // 1 是筛选，0 是不筛选
+            filterShared: 0, // 1 是筛选，0 是不筛选
+            dateRange: '' // 日记年月筛选
          },
          diaries: [],
          diariesShow: [],
@@ -212,6 +213,7 @@ export default {
       loadMore() {
          this.haveMore = false;
          this.isLoading = true;
+         this.queryData.dateRange = utility.queryData.dateRange
          this.getDiaries(this.queryData)
       },
       getDiaries(queryData) {
