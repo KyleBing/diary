@@ -96,7 +96,6 @@
             <!-- year selector -->
             <year-selector
                :style="`height: ${heightPanel}px`"
-               current-month=""
                v-show="yearShowed"></year-selector>
 
             <!--about-->
@@ -195,7 +194,8 @@ export default {
          'setSearchBarState',
          'setDiaryNeedToBeSaved',
          'setDiaryNeedToBeRecovered',
-         'setListOperation'
+         'setListOperation',
+         'setListNeedBeReload'
       ]),
       toggleListStyle(){
          this.setDiaryListShowedInFullStyle(!this.diaryListShowedInFullStyle)
@@ -221,6 +221,9 @@ export default {
             this.categoryShowed  =  false;           // category
             this.yearShowed      =  false;           // year
             this.aboutShowed     =  false;           // about
+         } else if(this.yearShowed){
+            this.setListNeedBeReload(true)
+            this.menuInit();
          } else if (this.menuShowed) {
             this.menuInit();
          }

@@ -22,23 +22,17 @@ import utility from "@/utility";
 
 export default {
    name: "yearSelector",
-   props:{
-      currentMonth:{
-         type: String,
-         default: ''
-      }
-   },
    data() {
       return {
          monthChosen: ''
       }
    },
    mounted() {
-      this.monthChosen = this.currentMonth
+      this.monthChosen = utility.queryData.dateRange || ''
    },
    watch: {
       monthChosen(){
-         this.$emit('change', this.monthChosen);
+         // this.$emit('change', this.monthChosen);
          utility.queryData.dateRange = this.monthChosen
       }
    },
