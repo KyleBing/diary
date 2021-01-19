@@ -11,7 +11,7 @@
   text-align: right;
   padding-bottom: 20px;
   color: white;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
@@ -64,12 +64,15 @@
 
 // 》 IPAD
 @media (min-width: $grid-separate-width-big){
+  .year-container{
+    padding: 30px;
+  }
   .year-month-item {
     @include border-radius($radius-pc);
   }
 }
 
-
+// Mobile
 @media (max-width: $grid-separate-width-sm){
   .year-header{
     padding-bottom: 10px;
