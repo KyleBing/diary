@@ -88,6 +88,7 @@ $menu-category-list-item-height: 40px;
   text-align: center;
   width: 45%;
   .count{
+    display: block;
     position: absolute;
     top: 5px;
     right: 7px;
@@ -110,6 +111,9 @@ $menu-category-list-item-height: 40px;
       &.menu-category-#{$name} {
         background-color: $color;
         border-color: $color;
+        .count{
+          display: none;
+        }
       }
     }
   }
