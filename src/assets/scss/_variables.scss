@@ -27,6 +27,7 @@ $bg-share       : #FFFDF8;
 $color-border           : #E5E5EA;
 $color-border-highlight : darken($color-border, 15%);
 $color-border-share     : #F0E8DB;
+$color-border-menu      : #757575;
 
 // Radius
 $radius-mobile: 5px;
@@ -39,10 +40,11 @@ $fz-note         : 14px;
 $fz-big          : 18px;
 
 // Color text
-$color-text-label   : #9B9B9B;
-$color-text-content : #373737;
-$color-text-title   : #232323;
-$color-text-date    : #2d2d2d;
+$color-text-label         : #9B9B9B;
+$color-text-content       : #373737;
+$color-text-title         : #232323;
+$color-text-date          : #2d2d2d;
+$color-text-menu-second   : $about-subtitle;
 
 // Height
 $height-header       : 40px;

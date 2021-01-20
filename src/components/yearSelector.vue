@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import utility from "@/utility";
 
 export default {
@@ -35,8 +35,8 @@ export default {
    },
    watch: {
       monthChosen(){
-         // this.$emit('change', this.monthChosen);
-         utility.queryData.dateRange = this.monthChosen
+         utility.queryData.dateRange = this.monthChosen;
+         this.setDateFilter(this.monthChosen);
       }
    },
    computed: {
@@ -45,6 +45,7 @@ export default {
       })
    },
    methods: {
+      ...mapMutations(['setDateFilter']),
       monthClicked(id){
          if (id === this.monthChosen){
             this.monthChosen = ''

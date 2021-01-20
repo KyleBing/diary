@@ -46,12 +46,23 @@
          <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + heightPanel + 'px'">
             <div class="menu-list" v-show="menuListShowed">
                <div class="menu-list-group">
-                  <a class="menu-list-group-item" @click="menuListClicked('search')">搜索</a>
-                  <a class="menu-list-group-item" @click="menuListClicked('category')">类别</a>
-                  <a class="menu-list-group-item" @click="menuListClicked('year')">年份</a>
-                  <a class="menu-list-group-item" @click="menuListClicked('about')">关于</a>
+                  <div class="menu-list-group-item" @click="menuListClicked('search')">搜索</div>
+                  <div class="menu-list-group-item" @click="menuListClicked('category')">
+                     <div>类别</div>
+                     <div class="category-indicator">
+                        <div :class="['item', 'category-' + item.nameEn ,{active: categoriesSet.has(item.nameEn)}]"
+                              v-for="(item, index) in categoriesAll"
+                              :title="item.nameEn"
+                              :key="index"></div>
+                     </div>
+                  </div>
+                  <div class="menu-list-group-item" @click="menuListClicked('year')">
+                     <div>年份</div>
+                     <div class="addon">{{dateFilter}}</div>
+                  </div>
+                  <div class="menu-list-group-item" @click="menuListClicked('about')">关于</div>
                   <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
-                  <a class="menu-list-group-item" @click="logout">退出</a>
+                  <div class="menu-list-group-item" @click="logout">退出</div>
                </div>
                <div class="user-info">
                   <p class="username">{{ userInfo.username }}</p>
@@ -153,6 +164,7 @@ export default {
          // menu - category
          userInfo: utility.getAuthorization(),
          categories: [],
+         categoriesSet: new Set(),
          originCategories: [],
          categoriesAll: utility.CATEGORIES_ALL_NAME,
          filterShared: false, // 是否筛选已共享的日记
@@ -171,6 +183,7 @@ export default {
    mounted() {
       this.location = window.location;
       this.categories = this.categoriesFilterInfo.categories
+      this.categoriesSet = new Set(this.categoriesFilterInfo.categories)
       this.filterShared = this.categoriesFilterInfo.filterShared
    },
    computed: {
@@ -186,7 +199,13 @@ export default {
          'editLogoImg',
          'statisticsCategory',
          'statisticsYear',
+         'dateFilter'
       ])
+   },
+   watch: {
+      categories(){
+         this.categoriesSet = new Set(this.categories)
+      }
    },
    methods: {
       ...mapMutations([
@@ -196,7 +215,7 @@ export default {
          'setDiaryNeedToBeSaved',
          'setDiaryNeedToBeRecovered',
          'setListOperation',
-         'setListNeedBeReload'
+         'setListNeedBeReload',
       ]),
       toggleListStyle(){
          if (!this.menuShowed){

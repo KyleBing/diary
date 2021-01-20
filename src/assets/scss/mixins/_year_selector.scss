@@ -71,9 +71,7 @@
   .year-container{
     padding: 30px;
   }
-  .year-month-item {
-    @include border-radius($radius-pc);
-  }
+  .year-month-item {}
 }
 
 // Mobile
@@ -81,7 +79,5 @@
   .year-header{
     padding-bottom: 10px;
   }
-  .year-list{
-
-  }
+  .year-list{}
 }

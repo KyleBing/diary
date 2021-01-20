@@ -31,12 +31,13 @@ Vue.use(Router);
 Vue.use(VueCookie);
 Vue.use(Vuex)
 
-Vue.prototype.$version = 'v7.06 beta'
+Vue.prototype.$version = 'v7.07 beta'
 
 const store = new Vuex.Store({
    state: {
       statisticsCategory: {}, // 统计信息
       statisticsYear: {}, // 统计信息
+      dateFilter: '', // 日期筛选
       keyword: utility.queryData.keyword, // 搜索关键字
       searchBarShowed: !!utility.queryData.keyword, // 搜索栏显示
       categoriesFilterInfo: {
@@ -100,6 +101,9 @@ const store = new Vuex.Store({
       },
       setDiaryEditorContentHasChanged(state, payload){
          state.diaryEditorContentHasChanged = payload
+      },
+      setDateFilter(state, payload){
+         state.dateFilter = payload
       },
    }
 })
