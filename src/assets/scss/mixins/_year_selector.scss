@@ -21,7 +21,7 @@
 }
 .year-list{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: row wrap;
 }
 .year-month-item{
@@ -33,10 +33,14 @@
   @include border-radius($radius-mobile);
   margin-bottom: 10px;
   width: 22%;
+  margin-right: (100% - 22 * 4)/3;
   background-color: rgba(white, 0.3);
   padding: 10px 20px;
   position: relative;
   @include transition(all 0.5s);
+  &:nth-child(4n){
+    margin-right: 0;
+  }
   .month{
     color: darken($bg-menu, 10%);
     text-align: center;
