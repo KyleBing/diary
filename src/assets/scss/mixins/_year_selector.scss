@@ -8,12 +8,16 @@
   border-bottom: 1px dashed $bg-navbar;
 }
 .year-header{
-  text-align: right;
   padding-bottom: 20px;
   color: white;
   font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  .count{
+    margin: 0 10px;
+    font-size: 1rem;
+    font-weight: 300;
+  }
 }
 .year-list{
   display: flex;

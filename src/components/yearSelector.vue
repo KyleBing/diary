@@ -1,7 +1,10 @@
 <template>
    <div class="year-container">
       <div class="year" v-for="(year,indexYear) in years" :key="indexYear">
-         <div class="year-header">{{year.year}}</div>
+         <div class="year-header">
+            <span>{{year.year}}</span>
+            <sup class="count">{{year.count}}</sup>
+         </div>
          <div class="year-list">
             <div :class="['year-month-item', {active: monthChosen === month.id}]"
                  v-for="(month, indexMonth) in year.months"
