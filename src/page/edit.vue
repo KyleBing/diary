@@ -2,10 +2,12 @@
    <div class="diary-edit" :style="`min-height: ${heightPanel}px`">
       <!--content-->
       <div class="editor-title">
+         <label for="diary-editor-title" class="hidden"></label>
          <textarea class="title" id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="diary.title"></textarea>
       </div>
       <div class="editor-content">
-         <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"></textarea>
+         <label for="diary-content" class="hidden"></label>
+         <textarea id="diary-content" class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"></textarea>
       </div>
       <div class="editor-form-group">
          <div class="editor-form-input">
@@ -237,6 +239,7 @@
                      this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
                      if (this.isNew){ // 如果是新建日记，跳转到对应路由
                         this.isNew = false;
+                        this.diary.id = res.data.id; // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
                         this.$router.push('/edit/' + res.data.id);
                         this.setListOperation({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
                      }
