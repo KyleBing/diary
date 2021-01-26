@@ -169,6 +169,7 @@
             this.diary.weather = data
          },
          updateDiaryIcon() {
+            document.title = this.diaryHasChanged? '日记 - 编辑中...': '日记'; // 变更标题
             this.setDiaryEditorContentHasChanged(this.diaryHasChanged)
             if (this.diaryHasChanged) {
                this.setEditLogoImg(this.diary.content ? 'img/logo_content.svg' : 'img/logo_title.svg')

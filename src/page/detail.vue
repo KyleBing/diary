@@ -64,6 +64,7 @@
                this.diary = diary;
                this.$store.commit('setCurrentDiary', diary); // 设置 store: currentDiary
                let dateOjb = utility.formateDate(diary.date);
+               document.title = '日记 - ' + dateOjb.dateFull; // 变更当前标签的 Title
                this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
                if (diary.content){
                   let contentArray = diary.content.split('\n');

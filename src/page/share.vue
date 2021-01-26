@@ -86,6 +86,7 @@ export default {
             let diary = res.data;
             this.diary = diary;
             this.dateObj = utility.formateDate(diary.date);
+            document.title = '日记 - ' + this.dateObj.dateFull; // 变更标题
             if (this.diary.content){
                let contentArray = diary.content.split('\n');
                let contentHtml = "";

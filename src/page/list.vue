@@ -66,6 +66,7 @@ export default {
       diaryListItem, diaryListItemLong
    },
    mounted() {
+      document.title = '日记'; // 变更标题
       // init
       this.categories = utility.queryData.categories;
       this.queryData.keyword = this.keyword;
