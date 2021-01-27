@@ -6,7 +6,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/api': {
-        target: 'http://localhost/diary-portal/portal',
+        target: 'http://localhost/diary-portal',
         ws: true,
         changeOrigin: true,
         pathRewrite: {

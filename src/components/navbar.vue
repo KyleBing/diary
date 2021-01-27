@@ -5,6 +5,8 @@
          <div class="navbar-btn-group left">
             <img alt="菜单" title="菜单" @click="menuShow" src="img/tabicon/menu.svg" v-if="!menuShowed">
             <img alt="关闭" title="关闭" @click="menuClose" src="img/tabicon/close.svg" v-else>
+
+<!--            <img alt="搜索" title="搜索" @click="search" src="img/tabicon/search.svg" v-show="!menuShowed">-->
          </div>
 
          <!--RIGHT part-->
@@ -303,6 +305,9 @@ export default {
          });
          this.categories = tempCategories;
       },
+
+      /* SEARCH */
+      search(){},
 
       /* EDIT */
       updateDiaryIcon() {
