@@ -2,8 +2,8 @@
    <div id="diaryApp" :style="`min-height: ${heightPanel}px`">
       <div class="search-bar" v-show="searchBarShowed">
          <form @submit.prevent="search">
-            <input id="keyword" type="text" placeholder="搜索内容" v-model="queryData.keyword">
-            <span v-show="queryData.keyword.length > 0" @click="clearKeyword" class="clear">✕</span>
+            <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
+            <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
          </form>
       </div>
 
@@ -38,7 +38,7 @@
 import utility from "../utility";
 import diaryListItem from "../components/diaryListItem";
 import diaryListItemLong from "../components/diaryListItemLong";
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
    data() {
@@ -48,6 +48,8 @@ export default {
 
          haveMore: true,
          isLoading: true,
+
+         keywordShow: '', // 关键词
 
          queryData: {
             type: 'list',
@@ -69,7 +71,7 @@ export default {
       document.title = '日记'; // 变更标题
       // init
       this.categories = utility.queryData.categories;
-      this.queryData.keyword = this.keyword;
+      this.keywordShow = utility.queryData.keyword;
       this.queryData.filterShared = this.categoriesFilterInfo.filterShared ? 1 : 0;
       this.reload();
       this.addScrollEvent();
@@ -187,17 +189,19 @@ export default {
       }
    },
    methods: {
+      ...mapMutations(['setKeyword']),
       /* MENU 相关 */
       search() {
-         this.$store.commit('setKeyword', this.queryData.keyword)
+         this.setKeyword(this.keywordShow)
          this.reload()
       },
       clearKeyword() {
-         this.queryData.keyword = '';
+         this.keywordShow = '';
          this.search();
       },
       reload(){
          this.queryData.pageNo = 1;
+         this.queryData.keyword = this.keywordShow.split(' ').join(',')
          this.diaries = [];
          this.diariesShow = [];
          this.getStatistic();
