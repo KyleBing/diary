@@ -103,11 +103,11 @@ export default {
             utility.postData(utility.URL.userOperation, queryData)
                .then(res => {
                   if (res.success) { // 注册成功
-                     popMessage(PopMessageType.success, `${res.info}，正在前往登录`, () => {
-                        location = FrontURL.login
+                     utility.popMessage(utility.POP_MSG_TYPE.success, `${res.info}，正在前往登录`, () => {
+                        this.$router.push('/login')
                      })
                   } else { // 注册失败
-                     popMessage(PopMessageType.warning, res.info);
+                     utility.popMessage(utility.POP_MSG_TYPE.warning, res.info);
                   }
                })
          }
