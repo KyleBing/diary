@@ -99,7 +99,7 @@
                         "type": "insert"
                     };
 
-                    utility.axios.post(utility.URL.userOperation,queryData)
+                    utility.postData(utility.URL.userOperation,queryData)
                         .then(res => {
                             if(res.success){ // 注册成功
                                 popMessage(PopMessageType.success, `${res.info}，正在前往登录`,()=>{
