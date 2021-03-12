@@ -15,7 +15,7 @@
                <img src="img/logo_content.svg" alt="日记" v-else>
             </a>
          </div>
-      </nav>a
+      </nav>
 
       <!-- menu -->
       <div class="menu-panel" id="menu-panel" v-show="showMenu" :style="'min-height:' + heightBg + 'px'">
