@@ -5,7 +5,7 @@
 export default {
    mounted() {
       if (innerWidth < 1024){
-         location = '/diary-m/'
+         location = '/diary/'
       }
       window.onresize = () => {
          this.$store.commit('setHeightPanel', window.innerHeight - 45)
