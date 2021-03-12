@@ -14,7 +14,7 @@
             </div>
             <div class="input-group">
                <label for="password">密码</label>
-               <input v-model.lzay="password"
+               <input v-model.lazy="password"
                       name="password"
                       type="password"
                       id="password">

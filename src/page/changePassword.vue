@@ -9,11 +9,11 @@
             <form id="regForm">
                <div class="input-group">
                   <label for="oldPassword">原密码</label>
-                  <input v-model.lzay="oldPassword" name="oldPassword" type="password" id="oldPassword">
+                  <input v-model.lazy="oldPassword" name="oldPassword" type="password" id="oldPassword">
                </div>
                <div class="input-group">
                   <label for="password1">新密码</label>
-                  <input v-model.lzay="password1" name="password1" type="password" id="password1">
+                  <input v-model.lazy="password1" name="password1" type="password" id="password1">
                </div>
                <div class="input-group">
                   <label for="password2" :class="[(passwordVerified || password2<1)? '' : 'red']">{{ labelCheckPassword }}</label>

@@ -28,7 +28,7 @@
             </div>
             <div class="input-group">
                <label for="password1" :class="{red: !password1Verified}">{{ labelPassword1 }}</label>
-               <input  v-model.lzay="password1"
+               <input  v-model.lazy="password1"
                        name="password1"
                        type="password"
                        id="password1">
