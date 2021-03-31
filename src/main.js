@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import Router from 'vue-router'
 import VueCookie from 'vue-cookie'
 import routes from './route';
@@ -29,17 +28,16 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(Router);
 Vue.use(VueCookie);
-Vue.use(Vuex)
 
 Vue.prototype.$version = 'v7.10'
 
-import store from "@/store";
+import store from "@/store"
 
 
 new Vue({
    router,
-   render: h => h(App),
-   store
+   store,
+   render: h => h(App)
 }).$mount('#app')
 
 Vue.config.devtools = true; // Vue Devtools Chrome 插件支持
