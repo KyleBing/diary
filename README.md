@@ -1,8 +1,16 @@
 ![intro](https://user-images.githubusercontent.com/12215982/96687778-ed396480-13b2-11eb-9636-245153815ac0.png)
-![intro-content](https://user-images.githubusercontent.com/12215982/96687762-e9a5dd80-13b2-11eb-9464-22f2a3c99f7e.png)
-![intro-menu](https://user-images.githubusercontent.com/12215982/96687774-ec083780-13b2-11eb-8eaf-1404697df82d.png)
 
-# 标题日记 vue Mobile 版
+<img width="1562" alt="index" src="https://user-images.githubusercontent.com/12215982/114489321-8439f780-9c45-11eb-8a73-f27c4135ebe0.png">
+<img width="1607" alt="new" src="https://user-images.githubusercontent.com/12215982/114489294-7be1bc80-9c45-11eb-8cc6-9ef85f1a9758.png">
+<img width="1562" alt="category" src="https://user-images.githubusercontent.com/12215982/114489304-80a67080-9c45-11eb-905e-06a5f1ef94c4.png">
+<img width="1562" alt="register" src="https://user-images.githubusercontent.com/12215982/114489305-813f0700-9c45-11eb-8f61-ae7be2e058fa.png">
+<img width="1562" alt="login" src="https://user-images.githubusercontent.com/12215982/114489306-81d79d80-9c45-11eb-8197-51f5bf216043.png">
+<img width="1562" alt="search" src="https://user-images.githubusercontent.com/12215982/114489309-82703400-9c45-11eb-9f5e-280fb0539e8d.png">
+<img width="1562" alt="years" src="https://user-images.githubusercontent.com/12215982/114489313-8308ca80-9c45-11eb-931b-216020400c18.png">
+<img width="1562" alt="menu" src="https://user-images.githubusercontent.com/12215982/114489317-83a16100-9c45-11eb-979e-bf14506bf6d9.png">
+
+
+# 标题日记
 
 > “ 用一句话记录你最珍贵的时刻 ”
 
