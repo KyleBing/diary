@@ -13,7 +13,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-   if (to.name !== 'login' && to.name !== 'register' && to.name !== 'share'){
+   if (to.name !== 'login' && to.name !== 'register' && to.name !== 'share' && to.name !== 'reset'){
       if (utility.getAuthorization().email){
          next()
       } else {

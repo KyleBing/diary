@@ -5,6 +5,7 @@ import Detail from "./page/detail";
 import Edit from './page/edit'
 import ChangePassword from './page/changePassword'
 import Share from './page/share'
+import Reset from "@/page/reset";
 
 export default [
   {
@@ -46,5 +47,10 @@ export default [
     name: 'changePassword',
     path: '/change-password',
     component: ChangePassword,
+  },
+  {
+    name: 'reset',
+    path: '/reset',
+    component: Reset,
   },
 ]
