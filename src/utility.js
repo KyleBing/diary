@@ -136,13 +136,13 @@ function popMessage(type, title, callback = () => {
 function postData(url, queryData) {
    return new Promise(function (resolve, reject) {
       axios.post(url, qs.stringify(queryData))
-         .then(({ data } = res) => {
-            if (data.success) {
+         .then(res => {
+            if (res.data.success) {
                renewAuthorization();
-               resolve(data)
+               resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, data.info );
-               if (!data.logined){
+               popMessage(POP_MSG_TYPE.danger, res.data.info );
+               if (!res.data.logined){
                   Vue.$router.push('/login')
                }
             }
@@ -155,12 +155,12 @@ function postData(url, queryData) {
 function getData(url, queryData) {
    return new Promise(function (resolve, reject) {
       axios.get(url, {params: queryData})
-         .then(({ data } = res) => {
-            if (data.success) {
+         .then(res => {
+            if (res.data.success) {
                renewAuthorization();
-               resolve(data)
+               resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, data.info, reject);
+               popMessage(POP_MSG_TYPE.danger, res.data.info, reject);
             }
          }).catch(() => {
          reject()
