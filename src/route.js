@@ -29,7 +29,7 @@ export default [
     component: Edit,
   },
   {
-    name: 'edit',
+    name: 'editDetail',
     path: '/edit/:id',
     component: Edit,
   },
