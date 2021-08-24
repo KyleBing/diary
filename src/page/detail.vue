@@ -59,8 +59,8 @@
 </template>
 
 <script>
-   import utility from "../utility";
-   import Clipboard from "clipboard/dist/clipboard";
+   import utility from "../utility"
+   import Clipboard from "clipboard/dist/clipboard"
 
    export default {
       data() {
@@ -73,26 +73,26 @@
          }
       },
       mounted() {
-         this.location = window.location;
+         this.location = window.location
          this.heightBg = window.innerHeight
-         this.id = this.$route.params.id;
+         this.id = this.$route.params.id
          utility.getData(utility.URL.diaryOperation, {
             'type': 'query',
             'diaryId': this.id
          }).then(res => {
-            let diary = res.data;
-            this.diary = diary;
-            let dateOjb = utility.formateDate(diary.date);
-            this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
-            let contentArray = diary.content.split('\n');
-            let contentHtml = "";
+            let diary = res.data
+            this.diary = diary
+            let dateOjb = utility.formateDate(diary.date)
+            this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+            let contentArray = diary.content.split('\n')
+            let contentHtml = ""
             contentArray.forEach(item => {
                contentHtml += `<p>${item}</p>`
-            });
-            this.diary.content = contentHtml;
-            this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-            this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-            this.diary.categoryName = utility.CATEGORIES[diary.category];
+            })
+            this.diary.content = contentHtml
+            this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
+            this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
+            this.diary.categoryName = utility.CATEGORIES[diary.category]
          })
       },
       methods: {
@@ -106,22 +106,22 @@
             this.showToast = false
          },
          copySharePath () {
-            let clipboard = new Clipboard('#shareBtn');
+            let clipboard = new Clipboard('#shareBtn')
             clipboard.on('success', function(e) {
                utility.popMessage(utility.POP_MSG_TYPE.success, '分享链接 已复制到 剪贴板', null, 2)
-               e.clearSelection();
-            });
-            clipboard.on('error', function() {});
+               e.clearSelection()
+            })
+            clipboard.on('error', function() {})
          },
          deleteCurrentDiary () {
-            let that = this;
+            let that = this
             let queryData = {
                diaryId: this.id,
                type: 'delete'
-            };
+            }
             utility.postData(utility.URL.diaryOperation, queryData)
                .then(res => {
-                  that.hide();
+                  that.hide()
                   utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                      this.$router.push('/')
                   }, 1) // 删除成功后等待时间不要太长

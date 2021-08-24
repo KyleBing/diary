@@ -54,12 +54,12 @@
 </template>
 
 <script>
-   import utility from "../utility";
-   import categorySelector from "../components/categorySelector";
-   import weatherSelector from "../components/weatherSelector";
-   import DatePicker from 'vue2-datepicker';
-   import 'vue2-datepicker/locale/zh-cn';
-   import 'vue2-datepicker/index.css';
+   import utility from "../utility"
+   import categorySelector from "../components/categorySelector"
+   import weatherSelector from "../components/weatherSelector"
+   import DatePicker from 'vue2-datepicker'
+   import 'vue2-datepicker/locale/zh-cn'
+   import 'vue2-datepicker/index.css'
 
    export default {
       data() {
@@ -82,56 +82,56 @@
       },
       components: {categorySelector, weatherSelector, DatePicker},
       mounted() {
-         this.heightBg = window.innerHeight;
-         this.id = this.$route.params.id;
+         this.heightBg = window.innerHeight
+         this.id = this.$route.params.id
 
-         // this.date = new Date();
+         // this.date = new Date()
          // 标签关闭提醒
          window.onbeforeunload = () => {
             if (this.diaryHasChanged) {
                return "日记内容已改变，显示提示框"
             }
-         };
-         this.isNew = !(this.$route.params.id);
+         }
+         this.isNew = !(this.$route.params.id)
          if (this.isNew) {
             // 新建日记
-            this.id = '';
-            this.date = new Date();
-            this.title = '';
-            this.content = '';
-            this.category = 'life';
-            this.temperature = '';
-            this.temperatureOutside = '';
+            this.id = ''
+            this.date = new Date()
+            this.title = ''
+            this.content = ''
+            this.category = 'life'
+            this.temperature = ''
+            this.temperatureOutside = ''
             this.weather = 'sunny'
-            this.updateDiaryIcon();
+            this.updateDiaryIcon()
          } else {
             // 编辑日记
             utility.getData(utility.URL.diaryOperation, {
                'type': 'query',
                'diaryId': this.id
             }).then(res => {
-               let diary                =  res.data;
-               this.category            =  diary.category;
+               let diary                =  res.data
+               this.category            =  diary.category
                this.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-               this.temperature         =  diary.temperature;
-               this.weather             =  diary.weather;
-               this.title               =  diary.title;
-               this.titleOrigin         =  diary.title;
-               this.content             =  diary.content;
-               this.contentOrigin       =  diary.content;
-               this.isPublic            =  diary.is_public === '1';
-               this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature;
-               this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
+               this.temperature         =  diary.temperature
+               this.weather             =  diary.weather
+               this.title               =  diary.title
+               this.titleOrigin         =  diary.title
+               this.content             =  diary.content
+               this.contentOrigin       =  diary.content
+               this.isPublic            =  diary.is_public === '1'
+               this.temperature         =  diary.temperature === '-273' ? '' : diary.temperature
+               this.temperatureOutside  =  diary.temperature_outside === '-273' ? '' : diary.temperature_outside
             })
          }
       },
 
       watch: {
          title: function () {
-            this.updateDiaryIcon();
+            this.updateDiaryIcon()
          },
          content: function () {
-            this.updateDiaryIcon();
+            this.updateDiaryIcon()
          },
       },
       methods: {
@@ -154,15 +154,15 @@
          saveDiary() {
             if (this.title.trim().length === 0) {
                this.title = ''; // clear content
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
-               return;
-            }
-            if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null)
                return
             }
             if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null);
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null)
+               return
+            }
+            if (this.temperature !== '' && !/^-?\d{1,2}$/.test(this.temperature)) {
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '温度格式不正确', null)
                return
             }
             let queryData = {
@@ -176,33 +176,33 @@
                diaryPublic             : this.isPublic ? '1' : '0',
                diaryDate               : utility.dateFormatter(this.date),
                type                    : this.isNew ? 'add' : 'modify'
-            };
+            }
 
             utility.postData(utility.URL.diaryOperation, queryData).then(res => {
                // 成功后更新 origin 字符串
-               this.titleOrigin = this.title;
-               this.contentOrigin = this.content;
-               this.updateDiaryIcon();
+               this.titleOrigin = this.title
+               this.contentOrigin = this.content
+               this.updateDiaryIcon()
 
                utility.popMessage(utility.POP_MSG_TYPE.success, res.info); // 提示
                if (res.data) {
-                  this.isNew = false;
+                  this.isNew = false
                   this.id = res.data.id
                }
             })
          },
          createDiary() {
-            this.isNew               =  true;
-            this.title               =  '';
-            this.titleOrigin         =  '';
-            this.content             =  '';
-            this.contentOrigin       =  '';
-            this.id                  =  '';
-            this.isPublic              =  false;
-            this.category            =  'life';
-            this.temperature         =  '';
-            this.temperatureOutside  =  '';
-            this.weather             =  'sunny';
+            this.isNew               =  true
+            this.title               =  ''
+            this.titleOrigin         =  ''
+            this.content             =  ''
+            this.contentOrigin       =  ''
+            this.id                  =  ''
+            this.isPublic              =  false
+            this.category            =  'life'
+            this.temperature         =  ''
+            this.temperatureOutside  =  ''
+            this.weather             =  'sunny'
          },
       },
       computed: {
@@ -216,6 +216,6 @@
 <style lang="scss">
    // 重置 Vue2-datepicker 样式
    .mx-icon-clear, .mx-icon-calendar{
-      display: none;
+      display: none
    }
 </style>

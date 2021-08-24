@@ -102,9 +102,9 @@
 </template>
 
 <script>
-import utility from "../utility";
-import diaryListItem from "../components/diaryListItem";
-import diaryListItemLong from "../components/diaryListItemLong";
+import utility from "../utility"
+import diaryListItem from "../components/diaryListItem"
+import diaryListItemLong from "../components/diaryListItemLong"
 
 export default {
    data() {
@@ -144,10 +144,10 @@ export default {
    mounted() {
       // init
       this.categories = utility.getCategories()
-      this.queryData.keyword = utility.keyword.get();
-      this.loadMore();
-      this.addScrollEvent();
-      this.searchBarShow = !!this.queryData.keyword;
+      this.queryData.keyword = utility.keyword.get()
+      this.loadMore()
+      this.addScrollEvent()
+      this.searchBarShow = !!this.queryData.keyword
       this.heightBg = window.innerHeight
    },
    computed: {
@@ -175,27 +175,27 @@ export default {
       menuListClicked(menuName) {
          switch (menuName) {
             case 'search':
-               this.searchBarShow = true;
-               this.menuInit();
+               this.searchBarShow = true
+               this.menuInit()
                this.$nextTick(() => {
-                  document.querySelector('#keyword').focus();
-               });
-               break;
+                  document.querySelector('#keyword').focus()
+               })
+               break
             case 'category':
                this.showMenu = true;             // menu panel
                this.showMenuList = false;            // menu list
                this.showCategory = true;             // reference
                this.showAbout = false;            // about
-               break;
+               break
             case 'about':
                this.showMenu = true;             // menu panel
                this.showMenuList = false;            // menu list
                this.showCategory = false;            // reference
                this.showAbout = true;             // about
 
-               break;
+               break
             default:
-               break;
+               break
          }
       },
       menuShow() {
@@ -207,12 +207,12 @@ export default {
       },
       menuClose() {
          if (this.showCategory) {
-            this.queryData.pageNo = 1;
-            this.haveMore = true;
-            this.diaries = [];
-            this.diariesShow = [];
-            this.loadMore();
-            this.menuInit();
+            this.queryData.pageNo = 1
+            this.haveMore = true
+            this.diaries = []
+            this.diariesShow = []
+            this.loadMore()
+            this.menuInit()
          } else if (this.showAbout) {
             this.showMenu = true;            // menu panel
             this.showMenuList = true;            // menu list
@@ -220,74 +220,74 @@ export default {
             this.showAbout = false;           // about
 
          } else if (this.showMenu) {
-            this.menuInit();
+            this.menuInit()
          }
 
       },
       search() {
-         this.queryData.pageNo = 1;
-         this.diaries = [];
-         this.diariesShow = [];
-         this.loadMore();
+         this.queryData.pageNo = 1
+         this.diaries = []
+         this.diariesShow = []
+         this.loadMore()
       },
       clearSearchContent() {
-         this.queryData.keyword = '';
-         this.search();
+         this.queryData.keyword = ''
+         this.search()
       },
 
       logout() {
-         utility.deleteAuthorization();
-         this.$router.push('/login');
+         utility.deleteAuthorization()
+         this.$router.push('/login')
       },
       toggleCategorySelect() {
          this.categories = this.categories.length ? [] : utility.CATEGORIES_ALL
       },
       reverseCategorySelect() {
-         let tempCategories = [].concat(utility.CATEGORIES_ALL);
+         let tempCategories = [].concat(utility.CATEGORIES_ALL)
          this.categories.forEach(item => {
             tempCategories.splice(tempCategories.indexOf(item), 1)
-         });
-         this.categories = tempCategories;
+         })
+         this.categories = tempCategories
       },
 
 
       /* DIARY 相关 */
       loadMore() {
-         this.haveMore = false;
-         this.isLoading = true;
-         utility.keyword.set(this.queryData.keyword);
+         this.haveMore = false
+         this.isLoading = true
+         utility.keyword.set(this.queryData.keyword)
          this.getDiaries(this.queryData)
       },
       getDiaries(queryData) {
          utility.getData(utility.URL.diaryOperation, queryData)
              .then(res => {
-                let tempShowArray = [];
+                let tempShowArray = []
                 let newDiariesList = res.data.map(diary => {
                    if (diary.content) {
-                      diary.content = diary.content.replace(/\n/g, '<br/>');
+                      diary.content = diary.content.replace(/\n/g, '<br/>')
                    }
-                   diary.weekday = utility.formateDate(diary.date).weekday;
-                   diary.dateString = utility.formateDate(diary.date).date;
-                   let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category);
-                   diary.categoryString = category[0].name;
-                   return diary;
+                   diary.weekday = utility.formateDate(diary.date).weekday
+                   diary.dateString = utility.formateDate(diary.date).date
+                   let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category)
+                   diary.categoryString = category[0].name
+                   return diary
                 })
-                let tempFullArray = this.diaries.concat(newDiariesList);
+                let tempFullArray = this.diaries.concat(newDiariesList)
 
                 // page operation
                 if (res.data.length === this.queryData.pageCount) {
-                   this.haveMore = true;
+                   this.haveMore = true
                    this.queryData.pageNo++
                 } else {
-                   this.haveMore = false;
+                   this.haveMore = false
                 }
 
                 if (tempFullArray.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
-                   let lastDiary = tempFullArray[0];
+                   let lastDiary = tempFullArray[0]
                    tempShowArray.push({ // 添加年月
                       date: lastDiary.date.substring(0, 7)
                    })
-                   let currentDay = Number(lastDiary.date.slice(8, 10));
+                   let currentDay = Number(lastDiary.date.slice(8, 10))
                    tempShowArray.push({  // 添加当前日记内容
                       id: lastDiary.id,
                       date: currentDay,
@@ -300,12 +300,12 @@ export default {
                    if (tempFullArray.length > 1) {  // 再判断第二个日记与第一个的关系
                       for (let i = 1; i < tempFullArray.length; i++) {
                          lastDiary = tempFullArray[i - 1]; // 更新上一条日记指向
-                         let currentDiary = tempFullArray[i];
-                         let lastDiaryMonth = lastDiary.date.substring(0, 7);
-                         let lastDiaryDay = Number(lastDiary.date.substring(8, 10));
-                         let currentDiaryMonth = currentDiary.date.substring(0, 7);
-                         let currentDiaryDay = Number(currentDiary.date.substring(8, 10));
-                         // console.log(lastDiaryMonth, currentDiaryMonth);
+                         let currentDiary = tempFullArray[i]
+                         let lastDiaryMonth = lastDiary.date.substring(0, 7)
+                         let lastDiaryDay = Number(lastDiary.date.substring(8, 10))
+                         let currentDiaryMonth = currentDiary.date.substring(0, 7)
+                         let currentDiaryDay = Number(currentDiary.date.substring(8, 10))
+                         // console.log(lastDiaryMonth, currentDiaryMonth)
                          if (lastDiaryMonth !== currentDiaryMonth) {
                             tempShowArray.push({ // 添加年月
                                date: currentDiary.date.substring(0, 7)
@@ -322,8 +322,8 @@ export default {
                       }
                    }
                 }
-                this.diaries = tempFullArray;
-                this.diariesShow = tempShowArray;
+                this.diaries = tempFullArray
+                this.diariesShow = tempShowArray
              }).finally(() => {
             this.isLoading = false
          })
@@ -331,22 +331,22 @@ export default {
       addScrollEvent() {
          window.onscroll = () => {
             if (this.haveMore && this.needLoadContent()) {
-               this.loadMore();
+               this.loadMore()
             }
-         };
+         }
       },
       // 判断是否加载内容
       needLoadContent() {
-         let lastNode = document.querySelector('.diary-list-group > div:last-child');
+         let lastNode = document.querySelector('.diary-list-group > div:last-child')
          if (!lastNode) {
-            return false;
+            return false
          }
-         let lastOffsetTop = lastNode.offsetTop;
-         let clientHeight = window.innerHeight;
-         let scrollTop = document.scrollingElement.scrollTop;
-         // console.clear();
-         // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
-         return (lastOffsetTop < clientHeight + scrollTop);
+         let lastOffsetTop = lastNode.offsetTop
+         let clientHeight = window.innerHeight
+         let scrollTop = document.scrollingElement.scrollTop
+         // console.clear()
+         // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
+         return (lastOffsetTop < clientHeight + scrollTop)
       },
    }
 }

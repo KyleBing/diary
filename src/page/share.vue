@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import utility from "../utility";
+import utility from "../utility"
 
 export default {
    data() {
@@ -49,23 +49,23 @@ export default {
    },
    mounted() {
       this.heightBg = window.innerHeight - 40 * 2; // 去除上下的 margin
-      this.id = this.$route.params.id;
+      this.id = this.$route.params.id
       utility.getData(utility.URL.shareContent, {
          'type': 'query',
          'diaryId': this.id
       }).then(res => {
-         let diary = res.data;
-         this.diary = diary;
-         this.dateObj = utility.formateDate(diary.date);
-         let contentArray = diary.content.split('\n');
-         let contentHtml = "";
+         let diary = res.data
+         this.diary = diary
+         this.dateObj = utility.formateDate(diary.date)
+         let contentArray = diary.content.split('\n')
+         let contentHtml = ""
          contentArray.forEach(item => {
             contentHtml += `<p>${item}</p>`
-         });
-         this.diary.content = contentHtml;
-         this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-         this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-         this.diary.categoryName = utility.CATEGORIES[diary.category];
+         })
+         this.diary.content = contentHtml
+         this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
+         this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
+         this.diary.categoryName = utility.CATEGORIES[diary.category]
       })
    },
 }

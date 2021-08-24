@@ -35,7 +35,7 @@
 
 <script>
 
-   import utility from "../utility";
+   import utility from "../utility"
 
    export default {
       name: "Login",
@@ -71,7 +71,7 @@
                   "type": "login"
                })
                .then(res => {
-                  utility.setAuthorization(res.email, res.token, res.username, res.uid);
+                  utility.setAuthorization(res.email, res.token, res.username, res.uid)
                   utility.saveCategories(utility.CATEGORIES_ALL)
                   utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                      this.$router.push('/')
@@ -79,8 +79,8 @@
                })
          },
          useTestAccount() {
-            this.email = "test@163.com";
-            this.password = "test";
+            this.email = "test@163.com"
+            this.password = "test"
          }
       },
       watch: {
@@ -99,7 +99,7 @@
    /*    window.onload = () => {
            if (getAuthorization()) {
                popMessage(PopMessageType.default, '您已经登录，正在跳转...',()=>{
-                   location = FrontURL.index;
+                   location = FrontURL.index
                })
            }
        };*/
