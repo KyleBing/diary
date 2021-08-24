@@ -1,3 +1,4 @@
+@use "sass:math";
 .category-selector{
   @include border-radius(10px);
   margin: 8px;
@@ -12,7 +13,7 @@
 
   > div{
     flex-shrink: 0;
-    width: (100 - ($cols - 1) * $gaps) / $cols;
+    width: math.div(100 - $cols - 1 * $gaps, $cols);
     margin-bottom: 10px;
     margin-right: $gaps;
     height: 30px;

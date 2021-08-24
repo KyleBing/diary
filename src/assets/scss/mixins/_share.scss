@@ -1,3 +1,4 @@
+@use "sass:math";
 $height-share-header: 60px;
 $weather-height: 40px;
 
@@ -16,7 +17,7 @@ $weather-height: 40px;
 }
 
 .share-title{
-  line-height: $height-share-header / 2;
+  line-height: math.div($height-share-header, 2);
   flex-grow: 1;
   margin-right: 20px;
 }

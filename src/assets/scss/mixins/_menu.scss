@@ -1,3 +1,4 @@
+@use "sass:math";
 // MENU
 $height-menu-list: 50px;
 
@@ -83,7 +84,7 @@ $gaps-sm: 20%;
     text-align: center;
     float: left;
     margin-right: $gaps-sm;
-    width: (100% - $gaps-sm * ($cols-sm - 1))/$cols-sm;
+    width: math.div(100% - $gaps-sm * ($cols-sm - 1), $cols-sm);
     &:nth-child(#{$cols-sm}n+0) {
       margin-right: 0;
     }
