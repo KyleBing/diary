@@ -4,7 +4,7 @@ import VueCookie from 'vue-cookie'
 import qs from 'qs'
 import Vue from 'vue'
 
-const BASE_URL = process.env.VUE_APP_BASE_URL;
+const BASE_URL = process.env.VUE_APP_BASE_URL
 
 let URL = {
    userOperation: BASE_URL + '/userOperation.php',
