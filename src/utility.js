@@ -4,7 +4,7 @@ import VueCookie from 'vue-cookie'
 import qs from 'qs'
 import Vue from 'vue'
 
-const BASE_URL = process.env.VUE_APP_BASE_URL;
+const BASE_URL = process.env.NODE_ENV === 'development' ? '/api/': '../diary-portal/'
 
 const global = {
    heightNavbar: 45,
@@ -12,9 +12,9 @@ const global = {
 }
 
 let URL = {
-   userOperation: BASE_URL + '/userOperation.php',
-   diaryOperation: BASE_URL + '/diaryOperation.php',
-   shareContent: BASE_URL + '/getShareContent.php'
+   userOperation: BASE_URL + 'userOperation.php',
+   diaryOperation: BASE_URL + 'diaryOperation.php',
+   shareContent: BASE_URL + 'getShareContent.php'
 };
 
 const COOKIE_NAME = {
