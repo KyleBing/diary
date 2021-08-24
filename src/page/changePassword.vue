@@ -36,7 +36,7 @@
 </template>
 
 <script>
-   import utility from "../utility";
+   import utility from "../utility"
 
    export default {
       data() {
@@ -49,7 +49,7 @@
          }
       },
       mounted() {
-         this.heightBg = window.innerHeight;
+         this.heightBg = window.innerHeight
          document.title = '日记 - 修改密码'; // 变更标题
       },
       computed: {
@@ -67,11 +67,11 @@
                   "oldPassword": this.oldPassword,
                   "newPassword": this.password1,
                   "type": "update"
-               };
+               }
 
                utility.postData(utility.URL.userOperation, queryData).then(res => {
                   utility.popMessage(utility.POP_MSG_TYPE.success, `${res.info}，正在前往登录`, () => {
-                     utility.deleteAuthorization();
+                     utility.deleteAuthorization()
                      this.$router.go(-1)
                   }, 2)
                })

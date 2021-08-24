@@ -44,12 +44,12 @@
 </template>
 
 <script>
-   import utility from "../utility";
-   import categorySelector from "../components/categorySelector";
-   import weatherSelector from "../components/weatherSelector";
-   import DatePicker from 'vue2-datepicker';
-   import 'vue2-datepicker/locale/zh-cn';
-   import 'vue2-datepicker/index.css';
+   import utility from "../utility"
+   import categorySelector from "../components/categorySelector"
+   import weatherSelector from "../components/weatherSelector"
+   import DatePicker from 'vue2-datepicker'
+   import 'vue2-datepicker/locale/zh-cn'
+   import 'vue2-datepicker/index.css'
    import { mapState, mapMutations } from 'vuex'
 
    export default {
@@ -89,13 +89,13 @@
             if (this.diaryHasChanged) {
                return "日记内容已改变，显示提示框"
             }
-         };
-         this.isNew = !(this.$route.params.id);
+         }
+         this.isNew = !(this.$route.params.id)
          if (this.isNew) {
             // 新建日记
             this.createDiary()
          } else {
-            this.diary.id = this.$route.params.id;
+            this.diary.id = this.$route.params.id
             this.getDiary(this.$route.params.id)
          }
       },
@@ -130,14 +130,14 @@
       watch: {
          $route(to){
             if (to.params.id){
-               this.getDiary(to.params.id);
+               this.getDiary(to.params.id)
             } else {
                this.createDiary()
             }
          },
          diary: {
             handler(){
-               this.updateDiaryIcon();
+               this.updateDiaryIcon()
             },
             deep: true
          },
@@ -185,35 +185,35 @@
                'type': 'query',
                'diaryId': id
             }).then(res => {
-               let diary                      =  res.data;
-               this.diary.category            =  diary.category;
+               let diary                      =  res.data
+               this.diary.category            =  diary.category
                this.diary.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
-               this.diary.weather             =  diary.weather;
-               this.diary.title               =  diary.title;
-               this.diary.content             =  diary.content;
-               this.diary.isPublic            =  diary.is_public === '1';
-               this.diary.temperature         =  utility.temperatureProcessSTC(diary.temperature);
-               this.diary.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside);
+               this.diary.weather             =  diary.weather
+               this.diary.title               =  diary.title
+               this.diary.content             =  diary.content
+               this.diary.isPublic            =  diary.is_public === '1'
+               this.diary.temperature         =  utility.temperatureProcessSTC(diary.temperature)
+               this.diary.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside)
                Object.assign(this.diaryOrigin, this.diary); // 不能直接赋值，赋值的是它的引用
             }).catch(()=>{
-               this.$router.back();
+               this.$router.back()
             })
          },
          saveDiary() {
             if (this.diary.title.trim().length === 0) {
                this.diary.title = ''; // clear content
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null);
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null)
                this.setDiaryNeedToBeSaved(false); // 未能成功保存时，复位 diaryNeedToBeSaved 标识
-               return;
+               return
             }
             if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '室内温度格式不正确', null);
-               this.setDiaryNeedToBeSaved(false);
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '室内温度格式不正确', null)
+               this.setDiaryNeedToBeSaved(false)
                return
             }
             if (this.diary.temperatureOutside !== '' && !/^-?\d{1,2}$/.test(this.diary.temperatureOutside)) {
-               utility.popMessage(utility.POP_MSG_TYPE.warning, '室外温度格式不正确', null);
-               this.setDiaryNeedToBeSaved(false);
+               utility.popMessage(utility.POP_MSG_TYPE.warning, '室外温度格式不正确', null)
+               this.setDiaryNeedToBeSaved(false)
                return
             }
             let queryData = {
@@ -227,7 +227,7 @@
                diaryPublic             : this.diary.isPublic ? '1' : '0',
                diaryDate               : utility.dateFormatter(this.diary.date),
                type                    : this.isNew ? 'add' : 'modify'
-            };
+            }
 
             utility.postData(utility.URL.diaryOperation, queryData)
                .then(res => {
@@ -235,22 +235,22 @@
                      // 成功后更新 origin 字符串
                      Object.assign(this.diaryOrigin, this.diary)
                      this.updateDiaryIcon(); // 更新 navbar icon
-                     this.setDiaryNeedToBeSaved(false);
+                     this.setDiaryNeedToBeSaved(false)
                      this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
                      if (this.isNew){ // 如果是新建日记，跳转到对应路由
-                        this.isNew = false;
+                        this.isNew = false
                         this.diary.id = res.data.id; // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
-                        this.$router.push('/edit/' + res.data.id);
+                        this.$router.push('/edit/' + res.data.id)
                         this.setListOperation({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
                      }
                   })
                })
                .catch(() => {
-                  this.setDiaryNeedToBeSaved(false);
+                  this.setDiaryNeedToBeSaved(false)
                })
          },
          createDiary() {
-            this.isNew =  true;
+            this.isNew =  true
             this.diary = {
                id: "",
                title: "",
@@ -267,11 +267,11 @@
             this.updateDiaryIcon(); // TODO: 新建日记时日记图标并没有更新
          },
          recoverDiary() {
-            Object.assign(this.diary, this.diaryOrigin);
+            Object.assign(this.diary, this.diaryOrigin)
             this.setDiaryNeedToBeRecovered(false)
          },
          convertToServerVersion(){ // 转换为数据库格式的日记
-            let date = utility.dateFormatter(this.diary.date);
+            let date = utility.dateFormatter(this.diary.date)
             return {
                id: this.diary.id,
                date: date,
@@ -293,6 +293,6 @@
 <style lang="scss">
    // 重置 Vue2-datepicker 样式
    .mx-icon-clear, .mx-icon-calendar{
-      display: none;
+      display: none
    }
 </style>

@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import utility from "../utility";
-import diaryListItem from "../components/diaryListItem";
-import diaryListItemLong from "../components/diaryListItemLong";
+import utility from "../utility"
+import diaryListItem from "../components/diaryListItem"
+import diaryListItemLong from "../components/diaryListItemLong"
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -70,12 +70,12 @@ export default {
    mounted() {
       document.title = '日记 PC'; // 变更标题
       // init
-      this.categories = utility.queryData.categories;
-      this.keywordShow = utility.queryData.keyword;
-      this.queryData.filterShared = this.categoriesFilterInfo.filterShared ? 1 : 0;
-      this.reload();
-      this.addScrollEvent();
-      this.searchBarShow = !!this.queryData.keyword;
+      this.categories = utility.queryData.categories
+      this.keywordShow = utility.queryData.keyword
+      this.queryData.filterShared = this.categoriesFilterInfo.filterShared ? 1 : 0
+      this.reload()
+      this.addScrollEvent()
+      this.searchBarShow = !!this.queryData.keyword
    },
 
    computed: {
@@ -96,13 +96,13 @@ export default {
          }
       },
       diaries(){
-         let tempShowArray = [];
+         let tempShowArray = []
          if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
-            let lastDiary = this.diaries[0];
+            let lastDiary = this.diaries[0]
             tempShowArray.push({ // 添加年月
                date: lastDiary.date.substring(0, 7)
             })
-            let currentDay = Number(lastDiary.date.slice(8, 10));
+            let currentDay = Number(lastDiary.date.slice(8, 10))
             tempShowArray.push({  // 添加当前日记内容
                id: lastDiary.id,
                date: currentDay,
@@ -116,12 +116,12 @@ export default {
             if (this.diaries.length > 1) {  // 再判断第二个日记与第一个的关系
                for (let i = 1; i < this.diaries.length; i++) {
                   lastDiary = this.diaries[i - 1]; // 更新上一条日记指向
-                  let currentDiary = this.diaries[i];
-                  let lastDiaryMonth = lastDiary.date.substring(0, 7);
-                  let lastDiaryDay = Number(lastDiary.date.substring(8, 10));
-                  let currentDiaryMonth = currentDiary.date.substring(0, 7);
-                  let currentDiaryDay = Number(currentDiary.date.substring(8, 10));
-                  // console.log(lastDiaryMonth, currentDiaryMonth);
+                  let currentDiary = this.diaries[i]
+                  let lastDiaryMonth = lastDiary.date.substring(0, 7)
+                  let lastDiaryDay = Number(lastDiary.date.substring(8, 10))
+                  let currentDiaryMonth = currentDiary.date.substring(0, 7)
+                  let currentDiaryDay = Number(currentDiary.date.substring(8, 10))
+                  // console.log(lastDiaryMonth, currentDiaryMonth)
                   if (lastDiaryMonth !== currentDiaryMonth) {
                      tempShowArray.push({ // 添加年月
                         date: currentDiary.date.substring(0, 7)
@@ -139,7 +139,7 @@ export default {
                }
             }
          }
-         this.diariesShow = tempShowArray;
+         this.diariesShow = tempShowArray
       },
       categoriesFilterInfo(){
          this.queryData.filterShared = this.categoriesFilterInfo.filterShared? 1: 0; // 是否筛选已共享的日记
@@ -153,20 +153,20 @@ export default {
       listOperation({type, diary, id}){
          switch (type){
             case 'add':
-               let posInsert = 0;
+               let posInsert = 0
                for (let i=0; i<this.diaries.length;i++){
-                  let currentDiary = this.diaries[i];
+                  let currentDiary = this.diaries[i]
                   if (diary.date > currentDiary.date){
                      posInsert = i
                      break
                   }
                }
-               this.diaries.splice(posInsert,0, diary);
-               break;
+               this.diaries.splice(posInsert,0, diary)
+               break
             case 'delete':
                this.diaries.map((item, index) => {
                   if (item.id === id){
-                     this.diaries.splice(index,1);
+                     this.diaries.splice(index,1)
                      if (this.diaries[index]){
                         // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
                         this.$router.push('/detail/' + this.diaries[index].id)
@@ -176,15 +176,15 @@ export default {
                      }
                   }
                })
-               break;
+               break
             case 'change':
                // TODO: 修改日记的日期时排序调整位置
                this.diaries.map((item, index) => {
                   if (item.id === diary.id){
-                     this.diaries.splice(index,1,diary);
+                     this.diaries.splice(index,1,diary)
                   }
-               });
-               break;
+               })
+               break
          }
       }
    },
@@ -196,16 +196,16 @@ export default {
          this.reload()
       },
       clearKeyword() {
-         this.keywordShow = '';
-         this.search();
+         this.keywordShow = ''
+         this.search()
       },
       reload(){
-         this.queryData.pageNo = 1;
+         this.queryData.pageNo = 1
          this.queryData.keyword = this.keywordShow.split(' ').join(',')
-         this.diaries = [];
-         this.diariesShow = [];
-         this.getStatistic();
-         this.loadMore();
+         this.diaries = []
+         this.diariesShow = []
+         this.getStatistic()
+         this.loadMore()
       },
 
       /* DIARY 相关 */
@@ -216,8 +216,8 @@ export default {
             })
       },
       loadMore() {
-         this.haveMore = false;
-         this.isLoading = true;
+         this.haveMore = false
+         this.isLoading = true
          this.queryData.dateRange = utility.queryData.dateRange
          this.getDiaries(this.queryData)
       },
@@ -226,25 +226,25 @@ export default {
             .then(res => {
                let newDiariesList = res.data.map(diary => {
                   if (diary.content) {
-                     diary.content = diary.content.replace(/\n/g, '<br/>');
+                     diary.content = diary.content.replace(/\n/g, '<br/>')
                   }
-                  diary.weekday = utility.formateDate(diary.date).weekday;
-                  diary.dateString = utility.formateDate(diary.date).date;
-                  let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category);
-                  diary.categoryString = category[0].name;
-                  return diary;
+                  diary.weekday = utility.formateDate(diary.date).weekday
+                  diary.dateString = utility.formateDate(diary.date).date
+                  let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category)
+                  diary.categoryString = category[0].name
+                  return diary
                })
 
                // page operation
                if (res.data.length === this.queryData.pageCount) {
-                  this.haveMore = true;
+                  this.haveMore = true
                   this.queryData.pageNo++
                } else {
-                  this.haveMore = false;
+                  this.haveMore = false
                }
 
                // diary operation
-               this.diaries = this.diaries.concat(newDiariesList);
+               this.diaries = this.diaries.concat(newDiariesList)
             })
             .finally(() => {
                // 列表加载完成后设置列表重载： false
@@ -256,20 +256,20 @@ export default {
          document.querySelector('.diary-list').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
             /* 判断是否加载内容*/
             function needLoadContent() {
-               let lastNode = document.querySelector('.diary-list-group > div:last-child');
+               let lastNode = document.querySelector('.diary-list-group > div:last-child')
                if (!lastNode) {
-                  return false;
+                  return false
                }
-               let lastOffsetTop = lastNode.offsetTop;
-               let clientHeight = window.innerHeight;
-               let listEl = document.querySelector('.diary-list');
-               let scrollTop = listEl.scrollTop;
-               // console.clear();
-               // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`);
+               let lastOffsetTop = lastNode.offsetTop
+               let clientHeight = window.innerHeight
+               let listEl = document.querySelector('.diary-list')
+               let scrollTop = listEl.scrollTop
+               // console.clear()
+               // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
                return (lastOffsetTop < clientHeight + scrollTop + clientHeight / 2); // 添加 1/2 触发高度
             }
             if (this.haveMore && needLoadContent()) {
-               this.loadMore();
+               this.loadMore()
             }
          })
       },

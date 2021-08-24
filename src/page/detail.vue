@@ -26,7 +26,7 @@
 </template>
 
 <script>
-   import utility from "../utility";
+   import utility from "../utility"
 
    export default {
       data() {
@@ -37,12 +37,12 @@
          }
       },
       mounted() {
-         this.id = this.$route.params.id;
-         this.showDiary(this.id);
+         this.id = this.$route.params.id
+         this.showDiary(this.id)
       },
       watch: {
          $route(to){
-            this.showDiary(to.params.id);
+            this.showDiary(to.params.id)
          }
       },
       methods: {
@@ -60,26 +60,26 @@
                'type': 'query',
                'diaryId': id
             }).then(res => {
-               let diary = res.data;
-               this.diary = diary;
+               let diary = res.data
+               this.diary = diary
                this.$store.commit('setCurrentDiary', diary); // 设置 store: currentDiary
-               let dateOjb = utility.formateDate(diary.date);
+               let dateOjb = utility.formateDate(diary.date)
                document.title = '日记 - ' + dateOjb.dateFull; // 变更当前标签的 Title
-               this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time;
+               this.diary.date = dateOjb.date + ' ' +  dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
                if (diary.content){
-                  let contentArray = diary.content.split('\n');
-                  let contentHtml = "";
+                  let contentArray = diary.content.split('\n')
+                  let contentHtml = ""
                   contentArray.forEach(item => {
                      contentHtml += `<p>${item}</p>`
-                  });
-                  this.diary.content = contentHtml;
+                  })
+                  this.diary.content = contentHtml
                }
-               this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature;
-               this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside;
-               this.diary.categoryName = utility.CATEGORIES[diary.category];
+               this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
+               this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
+               this.diary.categoryName = utility.CATEGORIES[diary.category]
             })
             .catch(()=>{
-               this.$router.back();
+               this.$router.back()
             })
          },
       }

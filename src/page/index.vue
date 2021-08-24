@@ -14,7 +14,7 @@
 
 <script>
 import list from "@/page/list"
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar"
 import { mapState } from 'vuex'
 
 export default {

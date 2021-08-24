@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import utility from "../utility";
+import utility from "../utility"
 
 export default {
    data() {
@@ -65,7 +65,7 @@ export default {
    },
    mounted() {
       if (this.$route.params.id) {
-         this.id = this.$route.params.id;
+         this.id = this.$route.params.id
       }
       this.heightShare = window.innerWidth > 375 ? window.innerHeight - 60 - 100 : window.innerHeight
       window.onresize = () => {
@@ -83,21 +83,21 @@ export default {
             'type': 'query',
             'diaryId': this.id
          }).then(res => {
-            let diary = res.data;
-            this.diary = diary;
-            this.dateObj = utility.formateDate(diary.date);
+            let diary = res.data
+            this.diary = diary
+            this.dateObj = utility.formateDate(diary.date)
             document.title = '日记 - ' + this.dateObj.dateFull; // 变更标题
             if (this.diary.content){
-               let contentArray = diary.content.split('\n');
-               let contentHtml = "";
+               let contentArray = diary.content.split('\n')
+               let contentHtml = ""
                contentArray.forEach(item => {
                   contentHtml += `<p>${item}</p>`
-               });
-               this.diary.contentHtml = contentHtml;
+               })
+               this.diary.contentHtml = contentHtml
             }
-            this.diary.temperature = utility.temperatureProcessSTC(diary.temperature);
-            this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside);
-            this.diary.categoryName = utility.CATEGORIES[diary.category];
+            this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
+            this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
+            this.diary.categoryName = utility.CATEGORIES[diary.category]
          })
          .catch(() => {
             this.diary = {}

@@ -56,7 +56,7 @@
 
 
 <script>
-import utility from "../utility";
+import utility from "../utility"
 
 export default {
    data() {
@@ -80,13 +80,13 @@ export default {
       }
    },
    mounted() {
-      this.heightBg = window.innerHeight;
+      this.heightBg = window.innerHeight
       document.title = '日记 - 注册'; // 变更标题
    },
    computed: {
       verified: function () {
-         // return this.emailVerified && this.invitationVerified && this.usernameVerified && this.password1Verified && this.password2Verified;
-         return this.emailVerified && this.usernameVerified && this.password1Verified && this.password2Verified;
+         // return this.emailVerified && this.invitationVerified && this.usernameVerified && this.password1Verified && this.password2Verified
+         return this.emailVerified && this.usernameVerified && this.password1Verified && this.password2Verified
       },
    },
    methods: {
@@ -98,7 +98,7 @@ export default {
                "email": this.email,
                "password": this.password1,
                "type": "insert"
-            };
+            }
 
             utility.postData(utility.URL.userOperation, queryData)
                .then(res => {
@@ -107,7 +107,7 @@ export default {
                         this.$router.push('/login')
                      })
                   } else { // 注册失败
-                     utility.popMessage(utility.POP_MSG_TYPE.warning, res.info);
+                     utility.popMessage(utility.POP_MSG_TYPE.warning, res.info)
                   }
                })
          }
@@ -116,46 +116,46 @@ export default {
    watch: {
       invitation: function () {
          if (this.invitation.length > 0) {
-            this.labelInvitation = "邀请码";
+            this.labelInvitation = "邀请码"
             this.invitationVerified = true
          } else {
-            this.labelInvitation = "邀请码不能为空";
+            this.labelInvitation = "邀请码不能为空"
             this.invitationVerified = false
          }
       },
       username: function () {
          if (this.username.length > 0) {
-            this.labelUsername = "昵称";
-            this.usernameVerified = true;
+            this.labelUsername = "昵称"
+            this.usernameVerified = true
          } else {
-            this.labelUsername = "昵称不能为空";
+            this.labelUsername = "昵称不能为空"
             this.usernameVerified = false
          }
       },
       email: function () {
          if (/(\w|\d)+@(\w|\d)+\.\w+/i.test(this.email)) {
-            this.labelEmail = "邮箱";
+            this.labelEmail = "邮箱"
             this.emailVerified = true
          } else {
-            this.labelEmail = "输入的邮箱不正确，请重新输入";
+            this.labelEmail = "输入的邮箱不正确，请重新输入"
             this.emailVerified = false
          }
       },
       password1: function () {
          if (this.password1.length > 0) {
-            this.labelPassword1 = "密码";
-            this.password1Verified = true;
+            this.labelPassword1 = "密码"
+            this.password1Verified = true
          } else {
-            this.labelPassword1 = "密码不能为空";
+            this.labelPassword1 = "密码不能为空"
             this.password1Verified = false
          }
       },
       password2: function () {
          if (this.password1 === this.password2 && this.password1Verified) {
-            this.labelPassword2 = "再次确认密码";
-            this.password2Verified = true;
+            this.labelPassword2 = "再次确认密码"
+            this.password2Verified = true
          } else {
-            this.labelPassword2 = "两次密码不一致";
+            this.labelPassword2 = "两次密码不一致"
             this.password2Verified = false
          }
       }
