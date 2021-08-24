@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $height-share-header: 70px;
 $height-weather: 35px; // category line height
 $meta-padding: 5px;
@@ -71,7 +73,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 }
 .share-title{
   font-size: 1.2rem;
-  line-height: $height-share-header / 2;
+  line-height: math.div($height-share-header, 2);
   flex-grow: 1;
   margin-right: 20px;
 }

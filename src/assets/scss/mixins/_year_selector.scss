@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .year-container{
   background-color: $bg-menu;
   padding: 20px;
@@ -33,7 +35,7 @@
   @include border-radius($radius-mobile);
   margin-bottom: 10px;
   width: 22%;
-  margin-right: (100% - 22 * 4)/3;
+  margin-right: math.div(100% - 22 * 4, 3);
   background-color: rgba(white, 0.3);
   padding: 10px 20px;
   position: relative;

@@ -1,3 +1,4 @@
+@use "sass:math";
 $toast-width: 240px;
 $toast-border-color: $bg-menu;
 
@@ -23,7 +24,7 @@ $toast-border-color: $bg-menu;
   @include border-radius(8px);
   width: $toast-width;
   left: 50%;
-  margin-left: -$toast-width/2;
+  margin-left: math.div(-$toast-width, 2);
   margin-top: -50px;
   top: 50%;
   color: $orange;

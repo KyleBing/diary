@@ -1,3 +1,4 @@
+@use "sass:math";
 .category-selector{
   @include border-radius($radius-mobile);
   $gaps: 4%;
@@ -11,7 +12,7 @@
   justify-content: flex-start;
   .category{
     flex-shrink: 0;
-    width: (100 - ($cols - 1) * $gaps) / $cols;
+    width: math.div(100 - $cols - 1 * $gaps, $cols);
     margin-right: $gaps;
     height: 30px;
     &:nth-child(#{$cols}n+0){
