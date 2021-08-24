@@ -47,7 +47,6 @@
             <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + heightPanel + 'px'">
                 <div class="menu-list" v-show="menuListShowed">
                     <div class="menu-list-group">
-                        <div class="menu-list-group-item" @click="menuListClicked('search')">搜索</div>
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
                             <div>类别</div>
                             <div class="category-indicator">
@@ -209,6 +208,13 @@ export default {
     watch: {
         categories() {
             this.categoriesSet = new Set(this.categories)
+        },
+        searchBarShowed(newValue){
+            if(newValue){
+                this.$nextTick(() => {
+                    document.querySelector('#keyword').focus();
+                })
+            }
         }
     },
     methods: {
@@ -263,13 +269,6 @@ export default {
         },
         menuListClicked(menuName) {
             switch (menuName) {
-                case 'search':
-                    this.setSearchBarState(true);
-                    this.menuInit();
-                    this.$nextTick(() => {
-                        document.querySelector('#keyword').focus();
-                    });
-                    break;
                 case 'category':
                     this.menuShowed = true;             // menu panel
                     this.menuListShowed = false;            // menu list
