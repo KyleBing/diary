@@ -29,7 +29,7 @@ router.beforeEach((to, from, next) => {
 Vue.use(Router);
 Vue.use(VueCookie);
 
-Vue.prototype.$version = 'v7.10'
+Vue.prototype.$version = 'v7.11'
 
 import store from "@/store"
 
