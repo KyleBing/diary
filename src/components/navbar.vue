@@ -5,7 +5,7 @@
             <div class="navbar-btn-group left">
                 <div @click="menuShow" v-if="!menuShowed"><tab-icon alt="菜单"></tab-icon></div>
                 <div @click="menuClose" v-else><tab-icon alt="关闭"></tab-icon></div>
-                <div><tab-icon alt="搜索" @click=""></tab-icon></div>
+                <div v-show="!searchBarShowed" @click="showSearchbar"><tab-icon alt="搜索" @click=""></tab-icon></div>
             </div>
 
             <!--RIGHT part-->
@@ -202,7 +202,8 @@ export default {
             'editLogoImg',
             'statisticsCategory',
             'statisticsYear',
-            'dateFilter'
+            'dateFilter',
+            'searchBarShowed'
         ])
     },
     watch: {
@@ -308,7 +309,8 @@ export default {
         },
 
         /* SEARCH */
-        search() {
+        showSearchbar() {
+            this.setSearchBarState(true)
         },
 
         /* EDIT */
