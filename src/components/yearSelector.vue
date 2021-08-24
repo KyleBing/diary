@@ -21,7 +21,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import utility from "@/utility";
+import utility from "@/utility"
 
 export default {
    name: "yearSelector",
@@ -35,8 +35,8 @@ export default {
    },
    watch: {
       monthChosen(){
-         utility.queryData.dateRange = this.monthChosen;
-         this.setDateFilter(this.monthChosen);
+         utility.queryData.dateRange = this.monthChosen
+         this.setDateFilter(this.monthChosen)
       }
    },
    computed: {
@@ -50,7 +50,7 @@ export default {
          if (id === this.monthChosen){
             this.monthChosen = ''
          } else {
-            this.monthChosen = id;
+            this.monthChosen = id
          }
       }
    }

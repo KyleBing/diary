@@ -68,7 +68,7 @@ export default {
       diaryListItem, diaryListItemLong
    },
    mounted() {
-      document.title = '日记 PC'; // 变更标题
+      document.title = '日记 PC' // 变更标题
       // init
       this.categories = utility.queryData.categories
       this.keywordShow = utility.queryData.keyword
@@ -115,7 +115,7 @@ export default {
 
             if (this.diaries.length > 1) {  // 再判断第二个日记与第一个的关系
                for (let i = 1; i < this.diaries.length; i++) {
-                  lastDiary = this.diaries[i - 1]; // 更新上一条日记指向
+                  lastDiary = this.diaries[i - 1] // 更新上一条日记指向
                   let currentDiary = this.diaries[i]
                   let lastDiaryMonth = lastDiary.date.substring(0, 7)
                   let lastDiaryDay = Number(lastDiary.date.substring(8, 10))
@@ -142,7 +142,7 @@ export default {
          this.diariesShow = tempShowArray
       },
       categoriesFilterInfo(){
-         this.queryData.filterShared = this.categoriesFilterInfo.filterShared? 1: 0; // 是否筛选已共享的日记
+         this.queryData.filterShared = this.categoriesFilterInfo.filterShared? 1: 0 // 是否筛选已共享的日记
          this.reload()
       },
       listNeedBeReload(){
@@ -266,7 +266,7 @@ export default {
                let scrollTop = listEl.scrollTop
                // console.clear()
                // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
-               return (lastOffsetTop < clientHeight + scrollTop + clientHeight / 2); // 添加 1/2 触发高度
+               return (lastOffsetTop < clientHeight + scrollTop + clientHeight / 2) // 添加 1/2 触发高度
             }
             if (this.haveMore && needLoadContent()) {
                this.loadMore()

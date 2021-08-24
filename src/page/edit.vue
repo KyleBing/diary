@@ -171,7 +171,7 @@
             this.diary.weather = data
          },
          updateDiaryIcon() {
-            document.title = this.diaryHasChanged? '日记 - 编辑中...': '日记'; // 变更标题
+            document.title = this.diaryHasChanged? '日记 - 编辑中...': '日记' // 变更标题
             this.setDiaryEditorContentHasChanged(this.diaryHasChanged)
             if (this.diaryHasChanged) {
                this.setEditLogoImg(this.diary.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
@@ -187,23 +187,23 @@
             }).then(res => {
                let diary                      =  res.data
                this.diary.category            =  diary.category
-               this.diary.date                =  new Date(diary.date.replace(' ', 'T')); // safari 只识别 2020-10-27T14:35:33 格式的日期
+               this.diary.date                =  new Date(diary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
                this.diary.weather             =  diary.weather
                this.diary.title               =  diary.title
                this.diary.content             =  diary.content
                this.diary.isPublic            =  diary.is_public === '1'
                this.diary.temperature         =  utility.temperatureProcessSTC(diary.temperature)
                this.diary.temperatureOutside  =  utility.temperatureProcessSTC(diary.temperature_outside)
-               Object.assign(this.diaryOrigin, this.diary); // 不能直接赋值，赋值的是它的引用
+               Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
             }).catch(()=>{
                this.$router.back()
             })
          },
          saveDiary() {
             if (this.diary.title.trim().length === 0) {
-               this.diary.title = ''; // clear content
+               this.diary.title = '' // clear content
                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null)
-               this.setDiaryNeedToBeSaved(false); // 未能成功保存时，复位 diaryNeedToBeSaved 标识
+               this.setDiaryNeedToBeSaved(false) // 未能成功保存时，复位 diaryNeedToBeSaved 标识
                return
             }
             if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
@@ -234,12 +234,12 @@
                   utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                      // 成功后更新 origin 字符串
                      Object.assign(this.diaryOrigin, this.diary)
-                     this.updateDiaryIcon(); // 更新 navbar icon
+                     this.updateDiaryIcon() // 更新 navbar icon
                      this.setDiaryNeedToBeSaved(false)
                      this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
                      if (this.isNew){ // 如果是新建日记，跳转到对应路由
                         this.isNew = false
-                        this.diary.id = res.data.id; // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
+                        this.diary.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
                         this.$router.push('/edit/' + res.data.id)
                         this.setListOperation({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
                      }
@@ -264,7 +264,7 @@
             }
             // 新建日记时也记录原始数据
             Object.assign(this.diaryOrigin, this.diary)
-            this.updateDiaryIcon(); // TODO: 新建日记时日记图标并没有更新
+            this.updateDiaryIcon() // TODO: 新建日记时日记图标并没有更新
          },
          recoverDiary() {
             Object.assign(this.diary, this.diaryOrigin)

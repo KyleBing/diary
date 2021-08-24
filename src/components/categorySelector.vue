@@ -8,7 +8,7 @@
 </template>
 
 <script>
-   import utility from "../utility";
+   import utility from "../utility"
 
    export default {
       name: "categorySelector",
@@ -34,7 +34,7 @@
       },
       methods: {
          chooseCategory(categoryName){
-            this.categorySelected = categoryName;
+            this.categorySelected = categoryName
          }
       }
    }

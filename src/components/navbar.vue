@@ -143,11 +143,11 @@
 </template>
 
 <script>
-import utility from "@/utility";
-import Clipboard from "clipboard";
+import utility from "@/utility"
+import Clipboard from "clipboard"
 import {mapState, mapMutations} from 'vuex'
-import YearSelector from "@/components/yearSelector";
-import TabIcon from "@/components/TabIcon";
+import YearSelector from "@/components/yearSelector"
+import TabIcon from "@/components/TabIcon"
 
 export default {
     name: "navbar",
@@ -183,7 +183,7 @@ export default {
         }
     },
     mounted() {
-        this.location = window.location;
+        this.location = window.location
         this.categories = this.categoriesFilterInfo.categories
         this.categoriesSet = new Set(this.categoriesFilterInfo.categories)
         this.filterShared = this.categoriesFilterInfo.filterShared
@@ -212,7 +212,7 @@ export default {
         searchBarShowed(newValue){
             if(newValue){
                 this.$nextTick(() => {
-                    document.querySelector('#keyword').focus();
+                    document.querySelector('#keyword').focus()
                 })
             }
         }
@@ -234,11 +234,11 @@ export default {
         },
         /* MENU */
         menuShow() {
-            this.menuShowed = true;            // menu panel
-            this.menuListShowed = true;            // menu list
-            this.categoryShowed = false;           // category
-            this.yearShowed = false;           // year
-            this.aboutShowed = false;           // about
+            this.menuShowed = true            // menu panel
+            this.menuListShowed = true            // menu list
+            this.categoryShowed = false           // category
+            this.yearShowed = false           // year
+            this.aboutShowed = false           // about
         },
         menuClose() {
             if (this.categoryShowed) {
@@ -246,65 +246,65 @@ export default {
                     categories: this.categories,
                     filterShared: this.filterShared
                 })
-                this.menuInit();
+                this.menuInit()
             } else if (this.aboutShowed) {
-                this.menuShowed = true;            // menu panel
-                this.menuListShowed = true;            // menu list
-                this.categoryShowed = false;           // category
-                this.yearShowed = false;           // year
-                this.aboutShowed = false;           // about
+                this.menuShowed = true            // menu panel
+                this.menuListShowed = true            // menu list
+                this.categoryShowed = false           // category
+                this.yearShowed = false           // year
+                this.aboutShowed = false           // about
             } else if (this.yearShowed) {
                 this.setListNeedBeReload(true)
-                this.menuInit();
+                this.menuInit()
             } else if (this.menuShowed) {
-                this.menuInit();
+                this.menuInit()
             }
         },
         menuInit() {
-            this.menuShowed = false;            // menu panel
-            this.menuListShowed = true;             // menu list
-            this.categoryShowed = false;            // category
-            this.yearShowed = false;           // year
-            this.aboutShowed = false;            // about
+            this.menuShowed = false            // menu panel
+            this.menuListShowed = true             // menu list
+            this.categoryShowed = false            // category
+            this.yearShowed = false           // year
+            this.aboutShowed = false            // about
         },
         menuListClicked(menuName) {
             switch (menuName) {
                 case 'category':
-                    this.menuShowed = true;             // menu panel
-                    this.menuListShowed = false;            // menu list
-                    this.categoryShowed = true;             // category
-                    this.yearShowed = false;            // year
-                    this.aboutShowed = false;            // about
+                    this.menuShowed = true             // menu panel
+                    this.menuListShowed = false            // menu list
+                    this.categoryShowed = true             // category
+                    this.yearShowed = false            // year
+                    this.aboutShowed = false            // about
                     Object.assign(this.originCategories, this.categories)
                     this.originFilterShared = this.filterShared
-                    break;
+                    break
                 case 'year':
-                    this.menuShowed = true;             // menu panel
-                    this.menuListShowed = false;            // menu list
-                    this.categoryShowed = false;            // category
-                    this.yearShowed = true;             // year
-                    this.aboutShowed = false;            // about
-                    break;
+                    this.menuShowed = true             // menu panel
+                    this.menuListShowed = false            // menu list
+                    this.categoryShowed = false            // category
+                    this.yearShowed = true             // year
+                    this.aboutShowed = false            // about
+                    break
                 case 'about':
-                    this.menuShowed = true;             // menu panel
-                    this.menuListShowed = false;            // menu list
-                    this.categoryShowed = false;            // category
-                    this.yearShowed = false;            // year
-                    this.aboutShowed = true;             // about
-                    break;
+                    this.menuShowed = true             // menu panel
+                    this.menuListShowed = false            // menu list
+                    this.categoryShowed = false            // category
+                    this.yearShowed = false            // year
+                    this.aboutShowed = true             // about
+                    break
                 default:
-                    break;
+                    break
             }
         },
         toggleCategorySelect() {
             this.categories = this.categories.length ? [] : utility.CATEGORIES_ALL
         },
         reverseCategorySelect() {
-            let tempCategories = [].concat(utility.CATEGORIES_ALL);
+            let tempCategories = [].concat(utility.CATEGORIES_ALL)
             this.categories.forEach(item => {
                 tempCategories.splice(tempCategories.indexOf(item), 1)
-            });
-            this.categories = tempCategories;
+            })
+            this.categories = tempCategories
         },
 
         /* SEARCH */
@@ -329,25 +329,25 @@ export default {
 
         /* SHARE */
         copySharePath() {
-            let clipboard = new Clipboard('#shareBtn');
+            let clipboard = new Clipboard('#shareBtn')
             clipboard.on('success', function (e) {
                 utility.popMessage(utility.POP_MSG_TYPE.success, '分享链接 已复制到 剪贴板', null, 2)
-                e.clearSelection();
-            });
+                e.clearSelection()
+            })
             clipboard.on('error', function () {
-            });
+            })
         },
 
         /* DELETE */
         diaryDelete() {
-            let that = this;
+            let that = this
             let queryData = {
                 diaryId: this.currentDiary.id,
                 type: 'delete'
-            };
+            }
             utility.postData(utility.URL.diaryOperation, queryData)
                 .then(res => {
-                    that.toastHide();
+                    that.toastHide()
                     utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                         this.setListOperation({type: 'delete', dairy: null, id: this.currentDiary.id})
                     }, 1) // 删除成功后等待时间不要太长
@@ -360,8 +360,8 @@ export default {
             this.toastIsShowed = true
         },
         logout() {
-            utility.deleteAuthorization();
-            this.$router.push('/login');
+            utility.deleteAuthorization()
+            this.$router.push('/login')
         },
     }
 }

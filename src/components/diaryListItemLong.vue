@@ -19,7 +19,7 @@
 </template>
 
 <script>
-   import utility from "@/utility";
+   import utility from "@/utility"
 
    export default {
       name: "diaryListItemLong",

@@ -49,7 +49,7 @@
       },
       mounted() {
          this.heightBg = window.innerHeight
-         document.title = '日记 - 登录'; // 变更标题
+         document.title = '日记 - 登录' // 变更标题
       },
       computed: {
          emailVerified() {
