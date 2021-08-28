@@ -50,12 +50,19 @@
     font-weight: bold;
   }
   .month-count{
-    display: none;
     color: $bg-menu;
     top: 5px;
     right: 5px;
     position: absolute;
     font-size: 10px;
+  }
+  &:hover{
+    .month{
+      color: white;
+    }
+    .month-count{
+      color: white;
+    }
   }
   &.active{
     background-color: $orange;
@@ -65,7 +72,6 @@
       @include transition(all 0);
     }
     .month-count {
-      display: block;
       color: white;
       @include transition(all 0);
     }
