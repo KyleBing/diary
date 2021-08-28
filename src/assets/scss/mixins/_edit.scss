@@ -9,6 +9,7 @@ textarea{
   width: 100%;
   display: block;
   border-bottom: 1px solid $bg-light;
+  line-height: 1.5;
   padding: 15px;
   &:focus{
     @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.2))
