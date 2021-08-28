@@ -11,13 +11,13 @@
   align-items: flex-start;
   justify-content: flex-start;
   .category{
-    flex-shrink: 0;
-    width: math.div(100 - $cols - 1 * $gaps, $cols);
-    margin-right: $gaps;
-    height: 30px;
     &:nth-child(#{$cols}n+0){
       margin-right: 0;
     }
+    flex-shrink: 0;
+    width: math.div(100-($cols - 1)*$gaps, $cols);
+    margin-right: $gaps;
+    height: 30px;
     @include unselectable;
     display: block;
     font-weight: bold;
@@ -26,6 +26,9 @@
     line-height: 30px;
     @include border-radius(5px);
     text-align: center;
+    &:hover{
+      background-color: $bg-light;
+    }
   }
 
   @each $name, $color in $categories {
@@ -40,16 +43,18 @@
 }
 
 @media (min-width: $grid-separate-width-max){
+  $gaps: 4%;
+  $cols: 5;
   .category-selector {
     padding: 20px;
     @include border-radius($radius-pc);
     justify-content: flex-start;
     .category{
       margin-bottom: 10px;
-      margin-right: 0;
       flex-grow: 0;
       height: auto;
-      width: 20%;
+      width: math.div(100-($cols - 1)*$gaps, $cols);
+      margin-right: $gaps;
     }
   }
 }
@@ -60,10 +65,8 @@
   .category-selector{
     .category{
       margin-bottom: 10px;
-      margin-right: 0;
       flex-grow: 0;
       height: auto;
-      width: 25%;
     }
   }
 }
@@ -73,10 +76,8 @@
   .category-selector{
     .category{
       margin-bottom: 10px;
-      margin-right: 0;
       flex-grow: 0;
       height: auto;
-      width: 25%;
     }
   }
 }
