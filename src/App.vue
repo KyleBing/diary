@@ -18,6 +18,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/scss/diary";
+@import "./scss/diary";
 </style>
 

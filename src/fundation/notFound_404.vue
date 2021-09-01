@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/scss/variables";
+@import "../scss/variables";
 .bg{
     display: flex;
     flex-flow: column nowrap;
