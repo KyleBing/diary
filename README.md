@@ -1,6 +1,3 @@
-![intro](https://user-images.githubusercontent.com/12215982/96687778-ed396480-13b2-11eb-9636-245153815ac0.png)
-![intro-content](https://user-images.githubusercontent.com/12215982/96687762-e9a5dd80-13b2-11eb-9464-22f2a3c99f7e.png)
-![intro-menu](https://user-images.githubusercontent.com/12215982/96687774-ec083780-13b2-11eb-8eaf-1404697df82d.png)
 
 # 标题日记 vue PC 版
 
@@ -9,8 +6,9 @@
 标题日记的设计初忠：能通过日记浏览过去的时间，让时间一目了然。
 
 
+![2021-09-01 17 26 25](https://user-images.githubusercontent.com/12215982/131647475-149d1c2a-bfad-4c9a-baf2-24ad48bfca32.png)
 
-## 测试账号
+
 
 线上访问地址： [https://kylebing.cn/diary](https://kylebing.cn/diary)
 
