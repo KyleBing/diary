@@ -17,9 +17,7 @@ router.beforeEach((to, from, next) => {
       if (utility.getAuthorization().email){
          next()
       } else {
-         utility.popMessage(utility.POP_MSG_TYPE.warning, '未登录，请先登录...', () => {
-            next('/login')
-         })
+         next('/login')
       }
    } else {
       next()
