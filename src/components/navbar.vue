@@ -50,6 +50,7 @@
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
                             <div>类别</div>
                             <div class="category-indicator">
+                                <div class="item category-life" v-if="filterShared"></div> <!-- 共享小图标标识 -->
                                 <div :class="['item', 'category-' + item.nameEn ,{active: categoriesSet.has(item.nameEn)}]"
                                      v-for="(item, index) in categoriesAll"
                                      :title="item.nameEn"
