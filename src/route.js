@@ -13,6 +13,7 @@ export default [
     name: 'index',
     path: '/',
     component: Index,
+    redirect: '/edit',
     children: [
       {
         name: 'detail',
@@ -60,5 +61,4 @@ export default [
     path: '*',
     component: notFound_404
   }
-
 ]
