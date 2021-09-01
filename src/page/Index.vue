@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import list from "@/page/list"
-import Navbar from "@/components/navbar"
+import list from "@/page/List"
+import Navbar from "@/components/Navbar"
 import { mapState } from 'vuex'
 
 export default {

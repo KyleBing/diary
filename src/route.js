@@ -1,12 +1,12 @@
-import Login from "@/page/login";
-import Register from "@/page/register";
-import Index from "@/page/index";
-import Detail from "@/page/detail";
-import Edit from '@/page/edit'
-import ChangePassword from '@/page/changePassword'
-import Share from '@/page/share'
-import notFound_404 from "@/fundation/notFound_404";
-import yearSelector from "@/components/yearSelector";
+import Login from "@/page/Login";
+import Register from "@/page/Register";
+import Index from "@/page/Index";
+import Detail from "@/page/Detail";
+import Edit from '@/page/Edit'
+import ChangePassword from '@/page/ChangePassword'
+import Share from '@/page/Share'
+import notFound_404 from "@/fundation/NotFound_404";
+import YearSelector from "@/components/YearSelector";
 
 export default [
   {
@@ -55,7 +55,7 @@ export default [
   {
     name: 'test',
     path: '/test',
-    component: yearSelector,
+    component: YearSelector,
   },
   {
     path: '*',

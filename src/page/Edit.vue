@@ -45,8 +45,8 @@
 
 <script>
 import utility from "../utility"
-import categorySelector from "../components/categorySelector"
-import weatherSelector from "../components/weatherSelector"
+import categorySelector from "../components/CategorySelector"
+import weatherSelector from "../components/WeatherSelector"
 import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/locale/zh-cn'
 import 'vue2-datepicker/index.css'

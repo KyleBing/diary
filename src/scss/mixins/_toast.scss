@@ -27,7 +27,7 @@ $toast-border-color: $bg-menu;
   margin-left: math.div(-$toast-width, 2);
   margin-top: -50px;
   top: 50%;
-  color: $orange;
+  color: $color-main;
   &-header{
     color: white;
     font-weight: bold;
@@ -84,7 +84,7 @@ $toast-border-color: $bg-menu;
     font-size: $fz-note;
   }
   &-default { h3{color: white;} }
-  &-warning { h3{color: $orange;} }
+  &-warning { h3{color: $color-main;} }
   &-success { h3{color: $green;} }
   &-danger  { h3{color: $red;} }
 

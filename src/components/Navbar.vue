@@ -147,7 +147,7 @@
 import utility from "@/utility"
 import Clipboard from "clipboard"
 import {mapState, mapMutations} from 'vuex'
-import YearSelector from "@/components/yearSelector"
+import YearSelector from "@/components/YearSelector"
 import TabIcon from "@/components/TabIcon"
 
 export default {

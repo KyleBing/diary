@@ -93,14 +93,4 @@
          }
       }
    }
-
-   // bak
-   // 如果已经登录，跳到主页
-   /*    window.onload = () => {
-           if (getAuthorization()) {
-               popMessage(PopMessageType.default, '您已经登录，正在跳转...',()=>{
-                   location = FrontURL.index
-               })
-           }
-       };*/
 </script>

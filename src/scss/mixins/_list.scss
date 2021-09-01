@@ -57,7 +57,7 @@
     border: 1px solid $color-border;
     font-size: 1em;
     &:focus{
-      border-color: $orange;
+      border-color: $color-main;
       box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
     }
   }

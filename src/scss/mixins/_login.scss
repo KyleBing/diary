@@ -39,7 +39,7 @@
       transition: all .5s;
       &:focus{
         transition: all .5s;
-        @include box-shadow(0 0 0 2px $orange);
+        @include box-shadow(0 0 0 2px $color-main);
       }
     }
   }
@@ -79,9 +79,9 @@
   }
 }
 .btn-active{
-  background-color: $orange;
+  background-color: $color-main;
   &:hover{
-    background-color: darken($orange,5%);
+    background-color: darken($color-main,5%);
   }
 }
 .btn-inactive{

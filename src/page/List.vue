@@ -36,8 +36,8 @@
 
 <script>
 import utility from "../utility"
-import diaryListItem from "../components/diaryListItem"
-import diaryListItemLong from "../components/diaryListItemLong"
+import diaryListItem from "../components/DiaryListItem"
+import diaryListItemLong from "../components/DiaryListItemLong"
 import { mapState, mapMutations } from 'vuex'
 
 export default {

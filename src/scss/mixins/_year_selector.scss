@@ -65,7 +65,7 @@
     }
   }
   &.active{
-    background-color: $orange;
+    background-color: $color-main;
     @include transition(all 0);
     .month{
       color: white;
