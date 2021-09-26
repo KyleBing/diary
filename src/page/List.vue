@@ -21,13 +21,7 @@
          </div>
       </div>
 
-      <!--加载动画-->
-      <div v-show="isLoading" class="loading">
-         <div class="loading-1 loading-item"></div>
-         <div class="loading-2 loading-item"></div>
-         <div class="loading-3 loading-item"></div>
-      </div>
-
+       <loading :loading="isLoading"></loading>
       <div v-show="!isLoading && !haveMore" class="end-of-diary">
          <p><img src="img/EOF.svg" alt="EOF"></p>
       </div>
@@ -39,6 +33,7 @@ import utility from "../utility"
 import diaryListItem from "../components/DiaryListItem"
 import diaryListItemLong from "../components/DiaryListItemLong"
 import { mapState, mapMutations } from 'vuex'
+import Loading from "@/components/Loading";
 
 export default {
    data() {
@@ -65,6 +60,7 @@ export default {
       }
    },
    components: {
+       Loading,
       diaryListItem, diaryListItemLong
    },
    mounted() {

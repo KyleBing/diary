@@ -88,18 +88,20 @@
                         </li>
                     </ul>
 
-                    <div class="menu-category-operations">
-                        <div class="toggle-btn">
+                    <div class="menu-category-list category-operations">
+                        <div class="menu-category-item">
                             <input :checked="isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="categoryAll">
-                            <label for="categoryAll" class="menu-category-gray">
-                                {{ isNotAllSelected ? '全选' : '取消全选' }}
-                            </label>
+                            <label for="categoryAll" class="menu-category-study">全选</label>
                         </div>
-                        <div class="toggle-btn">
+                        <div class="menu-category-item">
+                            <input :checked="!isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="categoryNone">
+                            <label for="categoryAll" class="menu-category-life">取消全选</label>
+                        </div>
+                        <div class="menu-category-item">
                             <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="categoryReverse">
-                            <label for="categoryReverse" class="menu-category-gray">反选</label>
+                            <label for="categoryReverse" class="menu-category-week">反选</label>
                         </div>
-                        <div class="toggle-btn">
+                        <div class="menu-category-item">
                             <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
                             <label for="share" class="menu-category-grass">共享日记</label>
                         </div>

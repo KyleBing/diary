@@ -150,35 +150,10 @@ $menu-category-list-item-height: 40px;
   }
 }
 
-.menu-category-operations{
-  border-top: 1px dashed $bg-navbar;
-  padding: 30px 0;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-  .toggle-btn{
-    text-align: center;
-    width: 30%;
-    input[type=checkbox] + label {
-      @include unselectable;
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-      font-size: 20px;
-      color: white;
-      line-height: $menu-category-list-item-height;
-      @include border-radius(5px);
-      border: 1px dashed $gray;
-    }
-    @each $name, $color in $categories {
-      input[type=checkbox]:checked + label {
-        &.menu-category-#{$name} {
-          background-color: $color;
-          border-color: $color;
-        }
-      }
-    }
-  }
+.category-operations{
+  padding-top: 20px;
+  margin-top: 10px;
+  border-top: 1px solid $bg-navbar;
 }
 
 .about{
@@ -225,16 +200,6 @@ $menu-category-list-item-height: 40px;
       width: 40%;
     }
   }
-  .menu-category-operations{
-    border-top: 1px dashed $bg-navbar;
-    padding: 30px 0;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    .toggle-btn{
-      width: 30%;
-    }
-  }
 }
 
 // PC & IPAD
@@ -246,16 +211,6 @@ $menu-category-list-item-height: 40px;
     padding: 30px;
     .menu-category-item {
       width: 40%;
-    }
-  }
-  .menu-category-operations{
-    border-top: 1px dashed $bg-navbar;
-    padding: 30px 0;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    .toggle-btn{
-      width: 30%;
     }
   }
 }
