@@ -15,7 +15,7 @@ let URL = {
    userOperation: BASE_URL + 'userOperation.php',
    diaryOperation: BASE_URL + 'diaryOperation.php',
    shareContent: BASE_URL + 'getShareContent.php'
-};
+}
 
 const COOKIE_NAME = {
    email        : 'diaryEmail',
@@ -27,68 +27,68 @@ const COOKIE_NAME = {
    filterShared : 'diaryFilterShared',
    dateRange    : 'diaryDateRange',
    options      : {expires : 7, path : '/', SameSite : 'Strict'}
-};
+}
 
 
 let queryData = {
    set filterShared(content){
-      VueCookie.set(COOKIE_NAME.filterShared, content, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.filterShared, content, COOKIE_NAME.options)
    },
    get filterShared(){
       let filterShared = VueCookie.get(COOKIE_NAME.filterShared)
-      return filterShared === 'true';
+      return filterShared === 'true'
    },
 
    set keyword(content){
-      VueCookie.set(COOKIE_NAME.keyword, content, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.keyword, content, COOKIE_NAME.options)
    },
    get keyword(){
       let keyword = VueCookie.get(COOKIE_NAME.keyword)
-      return keyword? keyword: '';
+      return keyword? keyword: ''
    },
 
    set categories(content){
-      VueCookie.set(COOKIE_NAME.category, JSON.stringify(content), COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.category, JSON.stringify(content), COOKIE_NAME.options)
    },
    get categories(){
-      let categories = VueCookie.get(COOKIE_NAME.category);
+      let categories = VueCookie.get(COOKIE_NAME.category)
       return JSON.parse(categories)
    },
 
    set dateRange(content){
-      VueCookie.set(COOKIE_NAME.dateRange, content, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.dateRange, content, COOKIE_NAME.options)
    },
    get dateRange(){
-      return VueCookie.get(COOKIE_NAME.dateRange);
+      return VueCookie.get(COOKIE_NAME.dateRange)
    },
 }
 
 
 // 设置cookie
 function setAuthorization(email, token, username, uid) {
-   VueCookie.set(COOKIE_NAME.email, email, COOKIE_NAME.options);
-   VueCookie.set(COOKIE_NAME.token, token, COOKIE_NAME.options);
-   VueCookie.set(COOKIE_NAME.username, username, COOKIE_NAME.options);
-   VueCookie.set(COOKIE_NAME.uid, uid, COOKIE_NAME.options);
+   VueCookie.set(COOKIE_NAME.email, email, COOKIE_NAME.options)
+   VueCookie.set(COOKIE_NAME.token, token, COOKIE_NAME.options)
+   VueCookie.set(COOKIE_NAME.username, username, COOKIE_NAME.options)
+   VueCookie.set(COOKIE_NAME.uid, uid, COOKIE_NAME.options)
 }
 
 // 刷新 cookie 过期时间
 function renewAuthorization() {
-   let authentication = getAuthorization();
+   let authentication = getAuthorization()
    if (authentication.token) {
-      VueCookie.set(COOKIE_NAME.email, authentication.email, COOKIE_NAME.options);
-      VueCookie.set(COOKIE_NAME.token, authentication.token, COOKIE_NAME.options);
-      VueCookie.set(COOKIE_NAME.username, authentication.username, COOKIE_NAME.options);
-      VueCookie.set(COOKIE_NAME.uid, authentication.uid, COOKIE_NAME.options);
+      VueCookie.set(COOKIE_NAME.email, authentication.email, COOKIE_NAME.options)
+      VueCookie.set(COOKIE_NAME.token, authentication.token, COOKIE_NAME.options)
+      VueCookie.set(COOKIE_NAME.username, authentication.username, COOKIE_NAME.options)
+      VueCookie.set(COOKIE_NAME.uid, authentication.uid, COOKIE_NAME.options)
    }
 }
 
 // 获取cookie
 function getAuthorization() {
-   let email = VueCookie.get(COOKIE_NAME.email);
-   let token = VueCookie.get(COOKIE_NAME.token);
-   let username = VueCookie.get(COOKIE_NAME.username);
-   let uid = VueCookie.get(COOKIE_NAME.uid);
+   let email = VueCookie.get(COOKIE_NAME.email)
+   let token = VueCookie.get(COOKIE_NAME.token)
+   let username = VueCookie.get(COOKIE_NAME.username)
+   let uid = VueCookie.get(COOKIE_NAME.uid)
    return {
       email: email,
       token: token,
@@ -99,10 +99,10 @@ function getAuthorization() {
 
 // 删除cookie
 function deleteAuthorization() {
-   VueCookie.delete(COOKIE_NAME.email, {path: '/'});
-   VueCookie.delete(COOKIE_NAME.token, {path: '/'});
-   VueCookie.delete(COOKIE_NAME.username, {path: '/'});
-   VueCookie.delete(COOKIE_NAME.uid, {path: '/'});
+   VueCookie.delete(COOKIE_NAME.email, {path: '/'})
+   VueCookie.delete(COOKIE_NAME.token, {path: '/'})
+   VueCookie.delete(COOKIE_NAME.username, {path: '/'})
+   VueCookie.delete(COOKIE_NAME.uid, {path: '/'})
 }
 
 
@@ -110,25 +110,25 @@ function deleteAuthorization() {
 // Prompt 提示
 function popMessage(type, title, callback = () => {
 }, timeout = 1.5) {
-   let popClass = 'pop-msg-' + type;
+   let popClass = 'pop-msg-' + type
    let template = ` <div class="pop-msg animated-fast slideInDown ${popClass}">
                         <h3>${title}</h3>
-                    </div>`;
-   $('body').append(template);
+                    </div>`
+   $('body').append(template)
 
    setTimeout(() => {
       $('.pop-msg')
          .removeClass('slideInDown')
-         .addClass('slideOutUp');
+         .addClass('slideOutUp')
       setTimeout(() => {
          $('.pop-msg')
             .hide()
-            .remove();
+            .remove()
       }, 300); // 对应 css 中的动画时间
       if (callback) {
          callback()
       }
-   }, 1000 * timeout);
+   }, 1000 * timeout)
 }
 
 
@@ -138,10 +138,10 @@ function postData(url, queryData) {
       axios.post(url, qs.stringify(queryData))
          .then(res => {
             if (res.data.success) {
-               renewAuthorization();
+               renewAuthorization()
                resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, res.data.info );
+               popMessage(POP_MSG_TYPE.danger, res.data.info )
                if (!res.data.logined){
                   Vue.$router.push('/login')
                }
@@ -157,10 +157,10 @@ function getData(url, queryData) {
       axios.get(url, {params: queryData})
          .then(res => {
             if (res.data.success) {
-               renewAuthorization();
+               renewAuthorization()
                resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, res.data.info, reject);
+               popMessage(POP_MSG_TYPE.danger, res.data.info, reject)
             }
          }).catch(() => {
          reject()
@@ -170,7 +170,7 @@ function getData(url, queryData) {
 
 
 // CONST
-const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"];
+const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"]
 const CATEGORIES_ALL_NAME = [
    {name: '生活', nameEn: 'life'},
    {name: '学习', nameEn: 'study'},
@@ -181,14 +181,14 @@ const CATEGORIES_ALL_NAME = [
    {name: '大事', nameEn: 'bigevent'},
    {name: '周报', nameEn: 'week'},
    {name: '文章', nameEn: 'article'}
-];
+]
 const POP_MSG_TYPE = {
    success: "success",
    warning: "warning",
    danger: "danger",
    default: "default"
-};
-const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',};
+}
+const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',}
 const WEATHER = [
     {title : 'sunny' ,        name : '晴'} ,
     {title : 'cloudy' ,       name : '多云'} ,
@@ -202,7 +202,7 @@ const WEATHER = [
     {title : 'smog' ,         name : '雾霾'} ,
     {title : 'sandstorm' ,    name : '沙尘暴'} ,
 
-];
+]
 const CATEGORIES = {
    life: '生活',
    study: '学习',
@@ -213,11 +213,11 @@ const CATEGORIES = {
    bigevent: '大事',
    week: '周报',
    article: '文章',
-};
+}
 
 // 格式化时间，输出字符串
 function dateFormatter(date, formatString) {
-   formatString = formatString || 'yyyy-MM-dd hh:mm:ss';
+   formatString = formatString || 'yyyy-MM-dd hh:mm:ss'
    let dateRegArray = {
       "M+": date.getMonth() + 1,                      // 月份
       "d+": date.getDate(),                           // 日
@@ -226,39 +226,39 @@ function dateFormatter(date, formatString) {
       "s+": date.getSeconds(),                        // 秒
       "q+": Math.floor((date.getMonth() + 3) / 3),    // 季度
       "S": date.getMilliseconds()                     // 毫秒
-   };
+   }
    if (/(y+)/.test(formatString)) {
-      formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+      formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length))
    }
    for (let section in dateRegArray) {
       if (new RegExp("(" + section + ")").test(formatString)) {
-         formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substr(("" + dateRegArray[section]).length)));
+         formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substr(("" + dateRegArray[section]).length)))
       }
    }
-   return formatString;
+   return formatString
 }
 
-function formateDate(dateString) {
-   let year = Number(dateString.substring(0,4));
-   let month = Number(dateString.substring(5,7));
-   let day = Number(dateString.substring(8,10));
-   let hour = Number(dateString.substring(11,13));
-   let time = dateString.substring(11,16);
-   let date = new Date(year, month - 1, day);
-   let week = date.getDay();
-   let timeArea = '';
+function formatDate(dateString) {
+   let year = Number(dateString.substring(0,4))
+   let month = Number(dateString.substring(5,7))
+   let day = Number(dateString.substring(8,10))
+   let hour = Number(dateString.substring(11,13))
+   let time = dateString.substring(11,16)
+   let date = new Date(year, month - 1, day)
+   let week = date.getDay()
+   let timeArea = ''
    if (hour >= 23 && hour < 24 || hour <= 3 && hour >= 0) {
-      timeArea = '深夜';
+      timeArea = '深夜'
    } else if (hour >= 19 && hour < 23) {
-      timeArea = '晚上';
+      timeArea = '晚上'
    } else if (hour >= 14 && hour < 19) {
-      timeArea = '傍晚';
+      timeArea = '傍晚'
    } else if (hour >= 11 && hour < 14) {
-      timeArea = '中午';
+      timeArea = '中午'
    } else if (hour >= 6 && hour < 11) {
-      timeArea = '早上';
+      timeArea = '早上'
    } else if (hour >= 3 && hour < 6) {
-      timeArea = '凌晨';
+      timeArea = '凌晨'
    }
 
    return {
@@ -285,7 +285,7 @@ export default {
    popMessage,
    postData,
    getData,
-   formateDate,
+   formatDate,
    dateFormatter,
    deleteAuthorization,
    queryData,

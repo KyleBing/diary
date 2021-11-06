@@ -59,10 +59,7 @@ export default {
          diariesShow: [],
       }
    },
-   components: {
-       Loading,
-      diaryListItem, diaryListItemLong
-   },
+   components: {Loading, diaryListItem, diaryListItemLong},
    mounted() {
       document.title = '日记 PC' // 变更标题
       // init
@@ -224,8 +221,8 @@ export default {
                   if (diary.content) {
                      diary.content = diary.content.replace(/\n/g, '<br/>')
                   }
-                  diary.weekday = utility.formateDate(diary.date).weekday
-                  diary.dateString = utility.formateDate(diary.date).date
+                  diary.weekday = utility.formatDate(diary.date).weekday
+                  diary.dateString = utility.formatDate(diary.date).date
                   let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category)
                   diary.categoryString = category[0].name
                   return diary

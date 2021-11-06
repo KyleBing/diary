@@ -67,7 +67,7 @@ export default {
                 let diary = res.data
                 this.diary = diary
                 this.setCurrentDiary(diary) // 设置 store: currentDiary
-                let dateOjb = utility.formateDate(diary.date)
+                let dateOjb = utility.formatDate(diary.date)
                 document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
                 this.diary.date = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
                 if (diary.content) {

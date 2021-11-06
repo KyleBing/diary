@@ -23,9 +23,7 @@ export default {
       list
    },
    computed: {
-      ...mapState([
-         'heightPanel'
-      ])
+      ...mapState(['heightPanel'])
    }
 }
 
