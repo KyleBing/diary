@@ -28,7 +28,6 @@ router.beforeEach((to, from, next) => {
 // cookie
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
-Vue.prototype.$version = 'v7.11'
 
 
 // store

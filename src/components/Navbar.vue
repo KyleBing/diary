@@ -114,18 +114,7 @@
                     v-show="yearShowed"></year-selector>
 
                 <!--about-->
-                <div class="about" v-show="aboutShowed" :style="'height:' + heightPanel + 'px'">
-                    <h3 class="title">标题日记</h3>
-                    <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
-                    <h4 class="subtitle">电脑版</h4>
-                    <div class="author">
-                        <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
-                        <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
-                        <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-                        <a href="https://github.com/KyleBing/diary">{{ $version }}</a>
-                    </div>
-                </div>
-                <!--search-->
+                <about v-show="aboutShowed"/>
             </div>
         </nav>
 
@@ -151,10 +140,11 @@ import Clipboard from "clipboard"
 import {mapState, mapMutations} from 'vuex'
 import YearSelector from "@/components/YearSelector"
 import TabIcon from "@/components/TabIcon"
+import About from "@/page/About";
 
 export default {
     name: "navbar",
-    components: {TabIcon, YearSelector},
+    components: {About, TabIcon, YearSelector},
     data() {
         return {
             location: {}, // clipboard 使用
