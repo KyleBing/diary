@@ -16,8 +16,8 @@
                 <button class="btn" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">登录</button>
             </form>
             <div class="footer">
-                <router-link to="/register" class="left">注册</router-link>
-                <a @click="useTestAccount" class="right">使用体验账户</a>
+                <router-link to="/register">注册</router-link>
+                <a @click="useTestAccount">使用体验账户</a>
             </div>
         </div>
     </div>

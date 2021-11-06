@@ -19,7 +19,7 @@ $height-meta: 30px;
   }
   .date{
     line-height: $height-meta;
-    color: $bg-navbar;
+    color: $bg-main;
   }
 }
 
@@ -34,7 +34,7 @@ $height-meta: 30px;
 }
 
 .diary-content{
-  color: $bg-navbar;
+  color: $bg-main;
   line-height: 1.6;
   font-size: 1rem;
   margin: 0 20px;

@@ -28,8 +28,8 @@
   @include border-radius(5px);
 
   &:active{
-    color: $bg-navbar;
-    border-color: $bg-navbar;
+    color: $bg-main;
+    border-color: $bg-main;
   }
 }
 

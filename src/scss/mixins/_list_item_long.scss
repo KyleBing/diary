@@ -5,7 +5,7 @@ $fz-md-article: 14px;
   font-size: $fz-article;
   background-color: white;
   .article-header{
-    color: $bg-navbar;
+    color: $bg-main;
     @include unselectable();
     text-align: center;
     display: flex;
@@ -32,7 +32,7 @@ $fz-md-article: 14px;
     }
   }
   .article-body{
-    color: $bg-navbar;
+    color: $bg-main;
     padding: 0 15px;
     .title{
       font-weight: bold;
@@ -41,7 +41,7 @@ $fz-md-article: 14px;
     }
     .content {
       padding-bottom: 12px;
-      color: $bg-navbar;
+      color: $bg-main;
       line-height: 1.5;
       p {
       }

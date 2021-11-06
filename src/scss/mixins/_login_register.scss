@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: $bg-menu;
+  background-color: $bg-main;
 }
 .body-login{
   position: relative;
@@ -27,7 +27,7 @@
       color: $bg-light;
     }
     input{
-      background-color: $bg-navbar;
+      background-color: $bg-menu;
       width: 100%;
       @include border-radius();
       display: block;
@@ -38,6 +38,7 @@
       font-weight: bold;
       transition: all .5s;
       &:focus{
+        background-color: $bg-menu;
         transition: all .5s;
         @include box-shadow(0 0 0 2px $color-main);
       }
@@ -47,11 +48,11 @@
     padding: 20px 0 0;
     display: flex;
     justify-content: space-between;
-    a{
+    > * {
       cursor: pointer;
       font-size: $fz-note;
-      color: $bg-light;
-      &:hover,&:active,&:visited{
+      color: $color-text-label;
+      &:hover,&:active{
         color: white;
       }
     }
@@ -73,6 +74,7 @@
   font-weight: bold;
   font-size: $fz-big;
   color: $bg-light;
+  cursor: pointer;
   @include border-radius();
   &:active{
     transform: translateY(2px);

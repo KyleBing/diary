@@ -20,7 +20,7 @@ $toast-border-color: $bg-menu;
   z-index: $z-toast;
   position: fixed;
   border: 1px solid $toast-border-color;
-  background-color: $bg-navbar;
+  background-color: $bg-main;
   @include border-radius(8px);
   width: $toast-width;
   left: 50%;
@@ -77,7 +77,7 @@ $toast-border-color: $bg-menu;
   width: 100%;
   padding: 12px 0 8px;
   text-align: center;
-  background-color: $bg-navbar;
+  background-color: $bg-menu;
 
   h3{
     line-height: 25px;
