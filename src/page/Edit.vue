@@ -2,12 +2,12 @@
     <div class="diary-edit" :style="`min-height: ${heightPanel}px`">
         <!--content-->
         <div class="editor-title">
-            <label for="diary-editor-title" class="hidden"></label>
-            <textarea class="title" id="diary-editor-title" placeholder="一句话，概括你的一天" v-model="diary.title"></textarea>
+            <label  class="hidden"></label>
+            <textarea class="title" placeholder="一句话，概括你的一天" v-model="diary.title"/>
         </div>
         <div class="editor-content">
-            <label for="diary-content" class="hidden"></label>
-            <textarea id="diary-content" class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"></textarea>
+            <label class="hidden"></label>
+            <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
         </div>
         <div class="editor-form-group">
             <div class="editor-form-input">

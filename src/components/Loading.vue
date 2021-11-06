@@ -1,6 +1,6 @@
 <template>
     <!--加载动画-->
-    <div :v-show="loading" class="loading">
+    <div v-if="loading" class="loading">
         <div class="loading-1 loading-item"></div>
         <div class="loading-2 loading-item"></div>
         <div class="loading-3 loading-item"></div>
