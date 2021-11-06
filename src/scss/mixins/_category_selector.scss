@@ -2,30 +2,24 @@
 
 .category-selector{
   @include border-radius($radius-mobile);
-  $gaps: 4%;
-  $cols: 5;
   padding: 15px 15px 5px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
   display: flex;
   flex-flow: row wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
   .category{
-    &:nth-child(#{$cols}n+0){
-      margin-right: 0;
-    }
-    flex-shrink: 0;
-    width: math.div(100-($cols - 1)*$gaps, $cols);
-    margin-right: $gaps;
-    height: 30px;
     @include unselectable;
+    @include border-radius(5px);
+    padding: 5px 8px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    flex-shrink: 0;
     display: block;
     font-weight: bold;
     cursor: pointer;
     font-size: 16px;
-    line-height: 30px;
-    @include border-radius(5px);
     text-align: center;
     &:hover{
       background-color: $bg-light;
@@ -51,11 +45,6 @@
     @include border-radius($radius-pc);
     justify-content: flex-start;
     .category{
-      margin-bottom: 10px;
-      flex-grow: 0;
-      height: auto;
-      width: math.div(100-($cols - 1)*$gaps, $cols);
-      margin-right: $gaps;
     }
   }
 }
@@ -65,9 +54,6 @@
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
   .category-selector{
     .category{
-      margin-bottom: 10px;
-      flex-grow: 0;
-      height: auto;
     }
   }
 }
@@ -76,9 +62,6 @@
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .category-selector{
     .category{
-      margin-bottom: 10px;
-      flex-grow: 0;
-      height: auto;
     }
   }
 }

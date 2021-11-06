@@ -7,15 +7,15 @@
   background-color: white;
   border-bottom: 1px solid $bg-light;
   .weather{
-    padding: 5px;
+    @include border-radius(50px);
     @include unselectable;
+    padding: 8px;
     display: block;
     font-weight: bold;
     cursor: pointer;
     flex-shrink: 0;
     &:hover{
       background-color: $bg-light;
-      @include border-radius(20px)
     }
     img{
       @include unselectable;
@@ -31,11 +31,8 @@
 // big
 @media (min-width: $grid-separate-width-max){
   .weather-selector {
-    padding: 20px;
     @include border-radius($radius-pc);
     .weather{
-      flex-grow: 0;
-      width: 12.5%;
     }
   }
 }
@@ -43,11 +40,8 @@
 // max
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
   .weather-selector {
-    padding: 20px;
     @include border-radius($radius-pc);
     .weather{
-      flex-grow: 0;
-      width: 20%;
     }
   }
 }
@@ -55,11 +49,8 @@
 // md
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .weather-selector {
-    padding: 20px;
     @include border-radius($radius-pc);
     .weather{
-      flex-grow: 0;
-      width: 20%;
     }
   }
 }
