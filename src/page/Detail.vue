@@ -29,6 +29,7 @@
 
 <script>
 import utility from "../utility"
+import {mapMutations} from "vuex";
 
 export default {
     data() {
@@ -48,6 +49,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(['setCurrentDiary']),
         goBack() {
             this.$router.back()
         },
@@ -64,7 +66,7 @@ export default {
             }).then(res => {
                 let diary = res.data
                 this.diary = diary
-                this.$store.commit('setCurrentDiary', diary) // 设置 store: currentDiary
+                this.setCurrentDiary(diary) // 设置 store: currentDiary
                 let dateOjb = utility.formateDate(diary.date)
                 document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
                 this.diary.date = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time

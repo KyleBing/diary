@@ -12,14 +12,14 @@
         <div class="editor-form-group">
             <div class="editor-form-input">
                 <div class="editor-input-group">
-                    <label for="date">日期</label>
+                    <label>日期</label>
                     <date-picker :editable="false"
                                  v-model="diary.date"
                                  :confirm="true"
                                  :default-value="new Date()"
                                  placeholder="---- -- --"
                                  input-class="date"
-                                 :clearable="false" id="date" type="datetime"/>
+                                 :clearable="false" type="datetime"/>
                 </div>
                 <div class="editor-input-group">
                     <label for="temperature">身处 ℃</label>

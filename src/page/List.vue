@@ -185,7 +185,7 @@ export default {
       }
    },
    methods: {
-      ...mapMutations(['setKeyword']),
+      ...mapMutations(['setKeyword', "setStatistics", 'setListNeedBeReload']),
       /* MENU 相关 */
       search() {
          this.setKeyword(this.keywordShow)
@@ -208,7 +208,7 @@ export default {
       getStatistic(){
          utility.getData(utility.URL.diaryOperation, {type: 'statistic'})
             .then(res => {
-               this.$store.commit('setStatistics', res.data)
+               this.setStatistics(res.data)
             })
       },
       loadMore() {
@@ -244,7 +244,7 @@ export default {
             })
             .finally(() => {
                // 列表加载完成后设置列表重载： false
-               this.$store.commit('setListNeedBeReload', false)
+               this.setListNeedBeReload(false)
                this.isLoading = false
             })
       },
