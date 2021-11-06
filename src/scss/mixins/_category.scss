@@ -1,4 +1,5 @@
 @use "sass:math";
+
 .category-selector{
   @include border-radius($radius-mobile);
   $gaps: 4%;

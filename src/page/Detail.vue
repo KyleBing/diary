@@ -60,28 +60,31 @@ export default {
             this.showToast = false
         },
         showDiary(id) {
-            utility.getData(utility.URL.diaryOperation, {
-                'type': 'query',
-                'diaryId': id
-            }).then(res => {
-                let diary = res.data
-                this.diary = diary
-                this.setCurrentDiary(diary) // 设置 store: currentDiary
-                let dateOjb = utility.formatDate(diary.date)
-                document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
-                this.diary.date = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
-                if (diary.content) {
-                    let contentArray = diary.content.split('\n')
-                    let contentHtml = ""
-                    contentArray.forEach(item => {
-                        contentHtml += `<p>${item}</p>`
-                    })
-                    this.diary.content = contentHtml
-                }
-                this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
-                this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
-                this.diary.categoryName = utility.CATEGORIES[diary.category]
-            })
+            utility.getData(
+                utility.URL.diaryOperation,
+                {
+                    type: 'query',
+                    diaryId: id
+                })
+                .then(res => {
+                    let diary = res.data
+                    this.diary = diary
+                    this.setCurrentDiary(diary) // 设置 store: currentDiary
+                    let dateOjb = utility.formatDate(diary.date)
+                    document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
+                    this.diary.date = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+                    if (diary.content) {
+                        let contentArray = diary.content.split('\n')
+                        let contentHtml = ""
+                        contentArray.forEach(item => {
+                            contentHtml += `<p>${item}</p>`
+                        })
+                        this.diary.content = contentHtml
+                    }
+                    this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
+                    this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
+                    this.diary.categoryName = utility.CATEGORIES[diary.category]
+                })
                 .catch(() => {
                     this.$router.back()
                 })

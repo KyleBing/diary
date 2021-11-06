@@ -202,8 +202,8 @@ export default {
         getDiary(id) {
             // 编辑日记
             utility.getData(utility.URL.diaryOperation, {
-                'type': 'query',
-                'diaryId': id
+                type: 'query',
+                diaryId: id
             }).then(res => {
                 let diary = res.data
                 this.diary.category = diary.category
@@ -314,16 +314,17 @@ export default {
 // 和风天气 API 天气图标对应： https://dev.qweather.com/docs/start/icons/
 function getWeatherNameFromCode(code){
     let weatherDict = new Map([
-        ['100', 'sunny'],  //晴
-        ['101', 'cloudy'],  //多云
-        ['104', 'overcast'],  //阴
-        ['305', 'sprinkle'],  //小雨
-        ['306', 'rain'],  //中雨
-        ['310', 'thunderstorm'],  //暴雨
-        ['499', 'snow'],  //雪
-        ['501', 'fog'],  //雾
-        ['507', 'sandstorm'],  //沙尘暴
-        ['502', 'smog'],  //霾
+        ['100', 'sunny'],        // 晴
+        ['101', 'cloudy'],       // 多云
+        ['104', 'overcast'],     // 阴
+        ['305', 'sprinkle'],     // 小雨
+        ['306', 'rain'],         // 中雨
+        ['310', 'thunderstorm'], // 暴雨
+        ['499', 'snow'],         // 雪
+        ['501', 'fog'],          // 雾
+        ['507', 'sandstorm'],    // 沙尘暴
+        ['502', 'smog'],         // 霾
+
     ])
     return weatherDict.get(code) || 'sunny'
 }
