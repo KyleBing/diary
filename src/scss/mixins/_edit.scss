@@ -84,12 +84,12 @@ textarea{
   textarea{
     padding: 15px 20px;
     border: 1px solid $color-border;
-    @include transition(all 0.5s);
+    @include transition(box-shaow 0.5s);
     @include border-radius($radius-pc);
     &:focus{
       border-color: $color-border-highlight;
       @include box-shadow(0 0 0 2px rgba(black, 0.1));
-      @include transition(all 0.5s);
+      @include transition(box-shaow 0.5s);
     }
     &.title{
       margin-bottom: 10px;
