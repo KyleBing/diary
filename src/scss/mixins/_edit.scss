@@ -96,8 +96,7 @@ textarea{
       //@include border-radius($radius-pc $radius-pc 0 0);
     }
     &.content{
-      //margin-top: -1px;
-      //@include border-radius(0 0 $radius-pc $radius-pc);
+      @include border-radius($radius-pc $radius-pc 0 $radius-pc);
     }
   }
   .editor-content{
