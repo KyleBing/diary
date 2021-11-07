@@ -70,7 +70,7 @@ export default {
          email: '',
          password1: '',
          password2: '',
-         invitation: 'kylebingooOO',
+         invitation: '',
          invitationVerified: false,
          usernameVerified: false,
          emailVerified: false,
