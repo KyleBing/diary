@@ -2,7 +2,7 @@
    <div class="body-login-bg">
       <div class="body-login">
          <div class="logo">
-            <img src="~@/assets/img/logo.svg" alt="Diary Logo">
+            <img :src="$icons.logo" alt="Diary Logo">
          </div>
          <form id="regForm">
             <div class="input-group">

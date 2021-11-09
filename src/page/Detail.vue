@@ -5,7 +5,7 @@
         <div class="diary-meta">
             <div class="date">{{ diary.date }}</div>
             <div class="weather">
-                <img v-if="diary.weather" :src="`img/weather/${diary.weather}_active.svg`" :alt="diary.weather">
+                <img v-if="diary.weather" :src="$icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
             </div>
 
             <div class="temperature" v-if="diary.temperature">

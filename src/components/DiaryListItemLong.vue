@@ -6,7 +6,7 @@
          <div class="date">{{diary.dateString}}</div>
          <div class="weather">
             <img v-if="diary.weather"
-                 :src="`img/weather/${diary.weather + suffix}.svg`"
+                 :src="$icons.weather[diary.weather + suffix]"
                  :alt="diary.weather">
          </div>
          <div class="category">{{categoryString}}</div>

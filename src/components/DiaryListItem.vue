@@ -6,7 +6,7 @@
       <div class="detail">
          <p class="title">{{diary.title}}</p>
          <img alt="Content" v-if="diary.content" class="icon"
-              :src="`~@/assets/img/content${active? '_white': ''}.svg`"/>
+              :src="active? $icons.content_white: $icons.content"/>
          <img :alt="diary.weather" v-if="diary.weather"
               class="icon" :src="weatherIcon"/>
       </div>

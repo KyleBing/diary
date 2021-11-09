@@ -2,7 +2,7 @@
     <div class="bg" :style="`height: ${heightWindow}px`">
         <div class="not-found">
             <div class="logo">
-                <img src="img/logo.svg" alt="LOGO">
+                <img :src="$icons.logo" alt="LOGO">
             </div>
             <h1>访问的页面不存在</h1>
             <h1><router-link to="/">返回主页</router-link></h1>

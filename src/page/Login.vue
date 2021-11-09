@@ -2,7 +2,7 @@
     <div class="body-login-bg" :style="'min-height:' + heightBg + 'px'">
         <div class="body-login">
             <div class="logo">
-                <img src="~@/assets/img/logo.svg" alt="Diary Logo">
+                <img :src="$icons.logo" alt="Diary Logo">
             </div>
             <form method="post" id="regForm" @submit.prevent="loginSubmit">
                 <div class="input-group">

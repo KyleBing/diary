@@ -36,8 +36,8 @@
 
             <div class="brand">
                 <a @click="toggleListStyle" v-if="$route.name !== 'edit'">
-                    <img v-if="!diaryListShowedInFullStyle" src="~@/assets/img/logo.svg" alt="日记">
-                    <img v-else src="~@/assets/img/logo_content.svg" alt="日记">
+                    <img v-if="!diaryListShowedInFullStyle" :src="$icons.logo" alt="日记">
+                    <img v-else :src="$icons.logo_content" alt="日记">
                 </a>
                 <img v-else :src="editLogoImg" alt="LOGO">
             </div>
@@ -169,7 +169,7 @@ export default {
             toastIsShowed: false,
 
             // edit
-            logoImageUrl: 'img/logo.svg',
+            logoImageUrl:  this.$icons.logo,
 
             // path
             diaryPath: utility.global.diaryPath
@@ -308,9 +308,9 @@ export default {
         /* EDIT */
         updateDiaryIcon() {
             if (this.diaryHasChanged) {
-                this.logoImageUrl = this.contentEditorShowed ?  icons.logo: 'img/logo_title.svg'
+                this.logoImageUrl = this.contentEditorShowed ?  this.$icons.logo_content: this.$icons.logo_title
             } else {
-                this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
+                this.logoImageUrl = this.contentEditorShowed ? this.$icons.logo_content_saved: this.$icons.logo_title_saved
             }
         },
         diarySave() {

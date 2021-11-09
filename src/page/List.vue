@@ -23,7 +23,7 @@
 
        <loading :loading="isLoading"></loading>
       <div v-show="!isLoading && !haveMore" class="end-of-diary">
-         <p><img src="img/EOF.svg" alt="EOF"></p>
+         <p><img :src="$icons.EOF" alt="EOF"></p>
       </div>
    </div>
 </template>

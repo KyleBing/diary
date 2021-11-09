@@ -80,7 +80,7 @@ export default {
                 temperature: '',
                 temperatureOutside: '',
             },
-            logoImageUrl: 'img/logo.svg'
+            logoImageUrl: this.$icons.logo
         }
     },
     components: {categorySelector, weatherSelector, DatePicker},
@@ -194,9 +194,9 @@ export default {
             document.title = this.diaryHasChanged ? '日记 - 编辑中...' : '日记' // 变更标题
             this.setDiaryEditorContentHasChanged(this.diaryHasChanged)
             if (this.diaryHasChanged) {
-                this.setEditLogoImg(this.diary.content ? 'img/logo_content.svg' : 'img/logo_title.svg')
+                this.setEditLogoImg(this.diary.content ? this.$icons.logo_content: this.$icons.logo_title)
             } else {
-                this.setEditLogoImg(this.diary.content ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg')
+                this.setEditLogoImg(this.diary.content ? this.$icons.logo_content_saved: this.$icons.logo_title_saved)
             }
         },
         getDiary(id) {
