@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="'min-height:' + heightBg + 'px'">
+    <div class="body-login-bg" :style="`min-height: ${heightBg}px`">
         <div class="body-login">
             <div class="logo">
                 <img :src="$icons.logo" alt="Diary Logo">
@@ -13,7 +13,7 @@
                     <label for="password">密码</label>
                     <input v-model.lazy="password" name="password" type="password" id="password">
                 </div>
-                <button class="btn" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">登录</button>
+                <button class="btn" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{loginLabel}}</button>
             </form>
             <div class="footer">
                 <router-link to="/register">注册</router-link>
@@ -34,7 +34,8 @@ export default {
             labelCheckPassword: "再次确认密码",
             email: "",
             password: "",
-            heightBg: 0
+            heightBg: 0,
+            loginLabel: '登录'
         }
     },
     mounted() {
@@ -54,6 +55,7 @@ export default {
     },
     methods: {
         loginSubmit() {
+            this.loginLabel = '登录中...'
             utility.postData(utility.URL.userOperation,
                 {
                     email: this.email,
@@ -66,6 +68,10 @@ export default {
                     utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
                         this.$router.push('/')
                     })
+                    this.loginLabel = '登录成功'
+                })
+                .catch(err => {
+                    this.loginLabel = '登录'
                 })
         },
         useTestAccount() {

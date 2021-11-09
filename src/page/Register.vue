@@ -1,5 +1,5 @@
 <template>
-   <div class="body-login-bg">
+   <div class="body-login-bg" :style="`min-height: ${heightBg}px`">
       <div class="body-login">
          <div class="logo">
             <img :src="$icons.logo" alt="Diary Logo">
