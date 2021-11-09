@@ -18,18 +18,18 @@ export default {
     },
     computed:{
         icons(){
-            let icons = new Map()
-            icons.set('保存','img/tabicon/done.svg')
-            icons.set('添加','img/tabicon/add.svg')
-            icons.set('关闭','img/tabicon/close.svg')
-            icons.set('返回','img/tabicon/back.svg')
-            icons.set('删除','img/tabicon/delete.svg')
-            icons.set('编辑','img/tabicon/edit.svg')
-            icons.set('菜单','img/tabicon/menu.svg')
-            icons.set('恢复','img/tabicon/recover.svg')
-            icons.set('搜索','img/tabicon/search.svg')
-            icons.set('分享','img/tabicon/share.svg')
-            return icons
+            let iconMap = new Map()
+            iconMap.set('保存', this.$icons.tab.done)
+            iconMap.set('添加', this.$icons.tab.add)
+            iconMap.set('关闭', this.$icons.tab.close)
+            iconMap.set('返回', this.$icons.tab.back)
+            iconMap.set('删除', this.$icons.tab.delete)
+            iconMap.set('编辑', this.$icons.tab.edit)
+            iconMap.set('菜单', this.$icons.tab.menu)
+            iconMap.set('恢复', this.$icons.tab.recover)
+            iconMap.set('搜索', this.$icons.tab.search)
+            iconMap.set('分享', this.$icons.tab.share)
+            return iconMap
         }
     },
 }

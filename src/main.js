@@ -33,6 +33,10 @@ Vue.use(VueCookie)
 // store
 import store from "@/store"
 
+// icons
+import icons from "@/assets/img/SvgIcons"
+Vue.prototype.$icons = icons
+
 
 new Vue({
    router,

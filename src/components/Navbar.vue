@@ -36,8 +36,8 @@
 
             <div class="brand">
                 <a @click="toggleListStyle" v-if="$route.name !== 'edit'">
-                    <img v-if="!diaryListShowedInFullStyle" src="img/logo.svg" alt="日记">
-                    <img v-else src="img/logo_content.svg" alt="日记">
+                    <img v-if="!diaryListShowedInFullStyle" src="~@/assets/img/logo.svg" alt="日记">
+                    <img v-else src="~@/assets/img/logo_content.svg" alt="日记">
                 </a>
                 <img v-else :src="editLogoImg" alt="LOGO">
             </div>
@@ -140,7 +140,7 @@ import Clipboard from "clipboard"
 import {mapState, mapMutations} from 'vuex'
 import YearSelector from "@/components/YearSelector"
 import TabIcon from "@/components/TabIcon"
-import About from "@/page/About";
+import About from "@/page/About"
 
 export default {
     name: "navbar",
@@ -308,7 +308,7 @@ export default {
         /* EDIT */
         updateDiaryIcon() {
             if (this.diaryHasChanged) {
-                this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content.svg' : 'img/logo_title.svg'
+                this.logoImageUrl = this.contentEditorShowed ?  icons.logo: 'img/logo_title.svg'
             } else {
                 this.logoImageUrl = this.contentEditorShowed ? 'img/logo_content_saved.svg' : 'img/logo_title_saved.svg'
             }

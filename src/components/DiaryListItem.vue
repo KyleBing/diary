@@ -6,7 +6,7 @@
       <div class="detail">
          <p class="title">{{diary.title}}</p>
          <img alt="Content" v-if="diary.content" class="icon"
-              :src="`img/content${active? '_white': ''}.svg`"/>
+              :src="`~@/assets/img/content${active? '_white': ''}.svg`"/>
          <img :alt="diary.weather" v-if="diary.weather"
               class="icon" :src="weatherIcon"/>
       </div>
@@ -25,12 +25,12 @@
          },
          weatherIcon(){
             if (this.active){
-               return `img/weather/${this.diary.weather}_white.svg`
+               return this.$icons.weather[`${this.diary.weather}_white`]
             } else {
                if (this.diary.isPublic){
-                  return `img/weather/${this.diary.weather}_active.svg`
+                   return this.$icons.weather[`${this.diary.weather}_active`]
                } else {
-                  return `img/weather/${this.diary.weather}.svg`
+                   return this.$icons.weather[this.diary.weather]
                }
             }
          },
