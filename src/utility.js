@@ -141,6 +141,7 @@ function postData(url, queryData) {
                renewAuthorization()
                resolve(res.data)
             } else {
+               reject(res)
                popMessage(POP_MSG_TYPE.danger, res.data.info )
                if (!res.data.logined){
                   Vue.$router.push('/login')
