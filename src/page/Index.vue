@@ -1,30 +1,31 @@
 <template>
-   <div>
-      <navbar/>
-      <div class="diary">
-         <div class="diary-list" :style="`height:${heightPanel}px`">
-            <list/>
-         </div>
-         <div class="diary-container" :style="`height:${heightPanel}px`">
-            <router-view/>
-         </div>
-      </div>
-   </div>
+    <div>
+        <navbar/>
+        <div class="diary">
+            <div class="diary-list" :style="`height:${heightPanel}px`">
+                <list/>
+            </div>
+            <div class="diary-container" :style="`height:${heightPanel}px`">
+                <router-view/>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import list from "@/page/List"
 import Navbar from "@/components/Navbar"
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
-   components: {
-      Navbar,
-      list
-   },
-   computed: {
-      ...mapState(['heightPanel'])
-   }
+    name: 'Index',
+    components: {
+        Navbar,
+        list
+    },
+    computed: {
+        ...mapState(['heightPanel'])
+    }
 }
 
 </script>

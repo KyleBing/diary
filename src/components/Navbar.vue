@@ -3,21 +3,33 @@
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
             <div class="navbar-btn-group left">
-                <div @click="menuShow" v-if="!menuShowed"><tab-icon alt="菜单"></tab-icon></div>
-                <div @click="menuClose" v-else><tab-icon alt="关闭"></tab-icon></div>
-                <div v-show="!searchBarShowed && !menuShowed" @click="showSearchbar"><tab-icon alt="搜索" @click=""></tab-icon></div>
+                <div @click="menuShow" v-if="!menuShowed">
+                    <tab-icon alt="菜单"></tab-icon>
+                </div>
+                <div @click="menuClose" v-else>
+                    <tab-icon alt="关闭"></tab-icon>
+                </div>
+                <div v-show="!searchBarShowed && !menuShowed" @click="showSearchbar">
+                    <tab-icon alt="搜索" @click=""></tab-icon>
+                </div>
             </div>
 
             <!--RIGHT part-->
             <!--NEW-->
             <div class="navbar-btn-group right">
-                <router-link to="/edit"><tab-icon alt="添加"></tab-icon></router-link>
+                <router-link to="/edit">
+                    <tab-icon alt="添加"></tab-icon>
+                </router-link>
             </div>
 
             <!--EDIT-->
             <div class="navbar-btn-group right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
-                <div @click="diaryRecover" v-if="diaryEditorContentHasChanged"><tab-icon alt="恢复"></tab-icon></div>
-                <div @click="diarySave"><tab-icon alt="保存"></tab-icon></div>
+                <div @click="diaryRecover" v-if="diaryEditorContentHasChanged">
+                    <tab-icon alt="恢复"></tab-icon>
+                </div>
+                <div @click="diarySave">
+                    <tab-icon alt="保存"></tab-icon>
+                </div>
             </div>
 
             <!--DETAIL-->
@@ -26,8 +38,12 @@
                     v-if="currentDiary && currentDiary.is_public === '1'"
                     id="shareBtn"
                     @click="copySharePath"
-                    :data-clipboard-text="`${location.origin}/${diaryPath}/#/share/${currentDiary.id}`"><tab-icon alt="分享"></tab-icon></div>
-                <div @click="toastShow"><tab-icon alt="删除"></tab-icon></div>
+                    :data-clipboard-text="`${location.origin}/${diaryPath}/#/share/${currentDiary.id}`">
+                    <tab-icon alt="分享"></tab-icon>
+                </div>
+                <div @click="toastShow">
+                    <tab-icon alt="删除"></tab-icon>
+                </div>
                 <router-link :to="`/edit/${currentDiary.id}`">
                     <tab-icon alt="编辑"></tab-icon>
                 </router-link>
@@ -143,7 +159,7 @@ import TabIcon from "@/components/TabIcon"
 import About from "@/page/About"
 
 export default {
-    name: "navbar",
+    name: "Navbar",
     components: {About, TabIcon, YearSelector},
     data() {
         return {
@@ -169,7 +185,7 @@ export default {
             toastIsShowed: false,
 
             // edit
-            logoImageUrl:  this.$icons.logo,
+            logoImageUrl: this.$icons.logo,
 
             // path
             diaryPath: utility.global.diaryPath
@@ -202,8 +218,8 @@ export default {
         categories() {
             this.categoriesSet = new Set(this.categories)
         },
-        searchBarShowed(newValue){
-            if(newValue){
+        searchBarShowed(newValue) {
+            if (newValue) {
                 this.$nextTick(() => {
                     document.querySelector('#keyword').focus()
                 })
@@ -308,9 +324,9 @@ export default {
         /* EDIT */
         updateDiaryIcon() {
             if (this.diaryHasChanged) {
-                this.logoImageUrl = this.contentEditorShowed ?  this.$icons.logo_content: this.$icons.logo_title
+                this.logoImageUrl = this.contentEditorShowed ? this.$icons.logo_content : this.$icons.logo_title
             } else {
-                this.logoImageUrl = this.contentEditorShowed ? this.$icons.logo_content_saved: this.$icons.logo_title_saved
+                this.logoImageUrl = this.contentEditorShowed ? this.$icons.logo_content_saved : this.$icons.logo_title_saved
             }
         },
         diarySave() {

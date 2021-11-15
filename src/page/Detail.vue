@@ -32,6 +32,7 @@ import utility from "../utility"
 import {mapMutations} from "vuex";
 
 export default {
+    name: 'Detail',
     data() {
         return {
             showToast: false,

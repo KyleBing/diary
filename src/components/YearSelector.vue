@@ -1,58 +1,58 @@
 <template>
-   <div class="year-container">
-      <div class="year" v-for="(year,indexYear) in years" :key="indexYear">
-         <div class="year-header">
-            <span>{{year.year}}</span>
-            <sup class="count">{{year.count}}</sup>
-         </div>
-         <div class="year-list">
-            <div :class="['year-month-item', {active: monthChosen === month.id}]"
-                 v-for="(month, indexMonth) in year.months"
-                 @click="monthClicked(month.id)"
-                 :key="indexMonth">
-               <p class="month">{{month.month}}</p>
-               <span class="month-count">{{month.count}}</span>
+    <div class="year-container">
+        <div class="year" v-for="(year,indexYear) in years" :key="indexYear">
+            <div class="year-header">
+                <span>{{ year.year }}</span>
+                <sup class="count">{{ year.count }}</sup>
             </div>
-         </div>
-      </div>
-   </div>
+            <div class="year-list">
+                <div :class="['year-month-item', {active: monthChosen === month.id}]"
+                     v-for="(month, indexMonth) in year.months"
+                     @click="monthClicked(month.id)"
+                     :key="indexMonth">
+                    <p class="month">{{ month.month }}</p>
+                    <span class="month-count">{{ month.count }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 import utility from "@/utility"
 
 export default {
-   name: "yearSelector",
-   data() {
-      return {
-         monthChosen: ''
-      }
-   },
-   mounted() {
-      this.monthChosen = utility.queryData.dateRange || ''
-   },
-   watch: {
-      monthChosen(){
-         utility.queryData.dateRange = this.monthChosen
-         this.setDateFilter(this.monthChosen)
-      }
-   },
-   computed: {
-      ...mapState({
-         years: 'statisticsYear'
-      })
-   },
-   methods: {
-      ...mapMutations(['setDateFilter']),
-      monthClicked(id){
-         if (id === this.monthChosen){
-            this.monthChosen = ''
-         } else {
-            this.monthChosen = id
-         }
-      }
-   }
+    name: "YearSelector",
+    data() {
+        return {
+            monthChosen: ''
+        }
+    },
+    mounted() {
+        this.monthChosen = utility.queryData.dateRange || ''
+    },
+    watch: {
+        monthChosen() {
+            utility.queryData.dateRange = this.monthChosen
+            this.setDateFilter(this.monthChosen)
+        }
+    },
+    computed: {
+        ...mapState({
+            years: 'statisticsYear'
+        })
+    },
+    methods: {
+        ...mapMutations(['setDateFilter']),
+        monthClicked(id) {
+            if (id === this.monthChosen) {
+                this.monthChosen = ''
+            } else {
+                this.monthChosen = id
+            }
+        }
+    }
 }
 </script>

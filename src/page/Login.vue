@@ -13,7 +13,7 @@
                     <label for="password">密码</label>
                     <input v-model.lazy="password" name="password" type="password" id="password">
                 </div>
-                <button class="btn" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{loginLabel}}</button>
+                <button class="btn" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{ loginLabel }}</button>
             </form>
             <div class="footer">
                 <router-link to="/register">注册</router-link>
@@ -81,7 +81,7 @@ export default {
     },
     watch: {
         email() {
-            this.labelEmail = this.emailVerified? "邮箱" : "输入的邮箱不正确，请重新输入"
+            this.labelEmail = this.emailVerified ? "邮箱" : "输入的邮箱不正确，请重新输入"
         }
     }
 }

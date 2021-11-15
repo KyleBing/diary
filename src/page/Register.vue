@@ -59,6 +59,7 @@
 import utility from "../utility"
 
 export default {
+    name: 'Register',
    data() {
       return {
          labelInvitation: '邀请码',
