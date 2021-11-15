@@ -60,7 +60,7 @@
 
 
             <!-- MENU -->
-            <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + heightPanel + 'px'">
+            <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
                 <div class="menu-list" v-show="menuListShowed">
                     <div class="menu-list-group">
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
@@ -126,7 +126,7 @@
 
                 <!-- year selector -->
                 <year-selector
-                    :style="`height: ${heightPanel}px`"
+                    :style="`height: ${insets.heightPanel}px`"
                     v-show="yearShowed"></year-selector>
 
                 <!--about-->
@@ -206,7 +206,7 @@ export default {
             'diaryEditorContentHasChanged',
             'currentDiary',
             'diaryListShowedInFullStyle',
-            'heightPanel',
+            'insets',
             'editLogoImg',
             'statisticsCategory',
             'statisticsYear',

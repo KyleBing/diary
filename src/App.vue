@@ -12,12 +12,15 @@ export default {
             }
         }
         window.onresize = () => {
-            this.setHeightPanel(window.innerHeight - 45)
-            this.setHeightWindow(window.innerHeight)
+            this.setInsets({
+                windowsHeight: window.innerHeight,
+                windowsWidth: window.innerWidth,
+                heightPanel: window.innerHeight - 45, // 除 navbar 的高度
+            })
         }
     },
     methods: {
-        ...mapMutations(['setHeightPanel', 'setHeightWindow'])
+        ...mapMutations(['setInsets'])
     }
 }
 </script>

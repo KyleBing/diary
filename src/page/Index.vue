@@ -2,10 +2,10 @@
     <div>
         <navbar/>
         <div class="diary">
-            <div class="diary-list" :style="`height:${heightPanel}px`">
+            <div class="diary-list" :style="`height:${insets.heightPanel}px`">
                 <list/>
             </div>
-            <div class="diary-container" :style="`height:${heightPanel}px`">
+            <div class="diary-container" :style="`height:${insets.heightPanel}px`">
                 <router-view/>
             </div>
         </div>
@@ -24,7 +24,7 @@ export default {
         list
     },
     computed: {
-        ...mapState(['heightPanel'])
+        ...mapState(['insets'])
     }
 }
 

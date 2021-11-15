@@ -54,6 +54,7 @@ textarea{
     }
   }
 }
+
 .editor-form-input{
   order: 1;
   justify-content: space-between;
@@ -99,8 +100,9 @@ textarea{
 
 
 // PC & IPAD
-@media (min-width: $grid-separate-width-md){
+@media (min-width: $grid-separate-width-big){
   .diary-edit{
+    flex-flow: row nowrap;
     padding: 20px;
   }
   textarea{
@@ -154,13 +156,18 @@ textarea{
 
 // IPAD
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .diary-edit{
+    flex-flow: column nowrap;
+    padding: 20px;
+  }
   .editor-form-container{
+    width: 100%;
+    flex-flow: row wrap;
     > * {
       width: 49%;
     }
   }
 }
-
 
 
 

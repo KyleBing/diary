@@ -1,11 +1,8 @@
 import utility from "@/utility";
 
 export default {
-   setHeightWindow(state, payload){
-      state.heightWindow = payload
-   },
-   setHeightPanel(state, payload){
-      state.heightPanel = payload
+   setInsets(state, payload){
+      state.insets = payload
    },
    setSearchBarState (state, payload){
       state.searchBarShowed = payload

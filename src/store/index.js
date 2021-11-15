@@ -7,8 +7,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
    state: {
-      heightWindow: window.innerHeight,
-      heightPanel: window.innerHeight - 45, // window height
+      insets: {
+         windowsHeight: window.innerHeight,
+         windowsWidth: window.innerWidth,
+         heightPanel: window.innerHeight - 45, // 除 navbar 的高度
+      },
       statisticsCategory: {}, // 统计信息
       statisticsYear: {}, // 统计信息
       dateFilter: '', // 日期筛选

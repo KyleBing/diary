@@ -1,5 +1,5 @@
 <template>
-    <div class="about" :style="'height:' + heightPanel + 'px'">
+    <div class="about" :style="'height:' + insets.heightPanel + 'px'">
         <h3 class="title">标题日记</h3>
         <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
         <h4 class="subtitle">电脑版</h4>
@@ -18,7 +18,7 @@ import {mapState} from "vuex";
 export default {
     name: "About",
     computed: {
-        ...mapState(['heightPanel'])
+        ...mapState(['insets'])
     }
 }
 </script>
