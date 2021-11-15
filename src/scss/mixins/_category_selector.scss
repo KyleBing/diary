@@ -18,7 +18,7 @@
     display: block;
     font-weight: bold;
     cursor: pointer;
-    font-size: 16px;
+    font-size: $fz-label;
     text-align: center;
     &:hover{
       background-color: $bg-light;

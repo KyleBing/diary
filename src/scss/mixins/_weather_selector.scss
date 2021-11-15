@@ -9,7 +9,7 @@
   .weather{
     @include border-radius(50px);
     @include unselectable;
-    padding: 8px;
+    padding: 7px;
     display: block;
     font-weight: bold;
     cursor: pointer;
@@ -28,17 +28,9 @@
 }
 
 
-// big
-@media (min-width: $grid-separate-width-max){
-  .weather-selector {
-    @include border-radius($radius-pc);
-    .weather{
-    }
-  }
-}
 
 // max
-@media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
+@media (min-width: $grid-separate-width-big){
   .weather-selector {
     @include border-radius($radius-pc);
     .weather{

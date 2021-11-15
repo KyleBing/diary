@@ -7,97 +7,110 @@ $height-input: 40px;
   flex-flow: row nowrap;
 }
 
-.editor-container{
-  margin-right: 20px;
-  flex-grow: 1;
-}
-
-.editor-form-container{
-  width: 30%;
-}
-
+// 编辑器
 textarea{
   width: 100%;
   display: block;
-  border-bottom: 1px solid $bg-light;
   line-height: 1.5;
-  padding: 15px;
-  &:focus{
-    @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.2))
-  }
-}
-
-.editor-title{
-  textarea{
-    resize: none;
-    font-size: 1.1rem;
-  }
-}
-
-.editor-content{
-  textarea{
-    overflow-x: hidden;
-    overflow-y: scroll;
-    font-family: "Consolas", "Monaco", sans-serif;
-    resize: vertical;
-    height: 220px;
-    font-size: 1rem;
-    &::-webkit-scrollbar {
-      z-index: 50;
-      width: 8px;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: rgba(0, 0, 0, 0);
-    }
-    &::-webkit-scrollbar-thumb {
-      border: 1px solid #cbcbcb;
-    }
-  }
-}
-
-.editor-form-input{
-  background-color: white;
-  padding: 10px;
+  padding: 15px 20px;
+  border: 1px solid $color-border;
+  @include transition(box-shadow 0.5s);
+  @include transition(-webkit-box-shadow 0.5s);
   @include border-radius($radius-pc);
-  overflow: hidden;
-  order: 1;
-  justify-content: space-between;
-  display: flex;
-  flex-flow: row wrap;
-}
-.editor-form-category{
-  order: 2;
-}
-.editor-form-weather{
-  order: 3;
-}
-.editor-input-group{
-  width: 100%;
-  justify-content: space-between;
-  display: flex;
-  font-size: $fz-label;
-  padding: 0 10px;
-  border-bottom: 1px solid $bg-light;
-  label{
-    white-space: nowrap;
-    @include unselectable();
-    color: $color-text-label;
-    line-height: $height-input;
+  &.title{
+    margin-bottom: 15px;
+    //@include border-radius($radius-pc $radius-pc 0 0);
   }
-  input{
-    flex-grow: 1;
-    padding: 6px 0;
-    text-align: right;
-    background-color: transparent;
-    line-height: $height-input - 6*2;
+  &.content{
+    @include border-radius($radius-pc);
   }
-  .input{
-    padding: 6px 0;
-  }
-  &:last-child{
-    border-bottom: none;
+  &:focus{
+    border-color: $color-border-highlight;
+    @include box-shadow(0 0 0 3px rgba(black, 0.1));
+    @include transition(box-shadow 0.5s);
+    @include transition(-webkit-box-shadow 0.5s);
   }
 }
+.editor-container{
+  margin-right: 20px;
+  flex-grow: 1;
+  .editor-title{
+    textarea{
+      resize: none;
+      font-size: 1.1rem;
+    }
+  }
+  .editor-content{
+    textarea{
+      overflow-x: hidden;
+      overflow-y: scroll;
+      font-family: "Consolas", "Monaco", sans-serif;
+      resize: vertical;
+      height: 220px;
+      font-size: 1rem;
+      &::-webkit-scrollbar {
+        z-index: 50;
+        width: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0);
+      }
+      &::-webkit-scrollbar-thumb {
+        border: 1px solid #cbcbcb;
+      }
+    }
+  }
+}
+
+// 日记 meta
+.meta-container{
+  width: 30%;
+  .editor-form-input{
+    background-color: white;
+    padding: 10px;
+    @include border-radius($radius-pc);
+    overflow: hidden;
+    order: 1;
+    justify-content: space-between;
+    display: flex;
+    flex-flow: row wrap;
+    .editor-input-item{
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      display: flex;
+      font-size: $fz-label;
+      padding: 0 10px;
+      border-bottom: 1px solid $bg-light;
+      label{
+        white-space: nowrap;
+        @include unselectable();
+        color: $color-text-label;
+        line-height: $height-input;
+      }
+      input{
+        flex-grow: 1;
+        padding: 6px 0;
+        text-align: right;
+        background-color: transparent;
+        line-height: $height-input - 6*2;
+      }
+      .input{
+        padding: 6px 0;
+      }
+      &:last-child{
+        border-bottom: none;
+      }
+    }
+  }
+  .editor-form-category{
+    order: 2;
+  }
+  .editor-form-weather{
+    order: 3;
+  }
+}
+
 
 .mx-datepicker{
   width: auto;
@@ -110,31 +123,8 @@ textarea{
     flex-flow: row nowrap;
     padding: 20px;
   }
-  .editor-form-container{
+  .meta-container{
     width: 350px;
-  }
-
-  textarea{
-    padding: 15px 20px;
-    border: 1px solid $color-border;
-    @include transition(box-shaow 0.5s);
-    @include border-radius($radius-pc);
-    &:focus{
-      border-color: $color-border-highlight;
-      @include box-shadow(0 0 0 2px rgba(black, 0.1));
-      @include transition(box-shaow 0.5s);
-    }
-    &.title{
-      margin-bottom: 10px;
-      //@include border-radius($radius-pc $radius-pc 0 0);
-    }
-    &.content{
-      @include border-radius($radius-pc);
-    }
-  }
-  .editor-content{
-  }
-  .editor-form-container{
     display: flex;
     flex-flow: column wrap;
     align-items: flex-start;
@@ -151,7 +141,7 @@ textarea{
       flex-grow: 1;
       margin-bottom: 10px;
     }
-    .editor-input-group{
+    .editor-input-item{
       margin-bottom: 5px;
       height: auto;
       padding: 5px 20px;
@@ -169,66 +159,17 @@ textarea{
     flex-flow: column nowrap;
     padding: 20px;
   }
-  .editor-form-container{
+  .editor-container{
+    margin-right: 0;
+    margin-bottom: 15px;
+    flex-grow: 0;
+  }
+  .meta-container{
     width: 100%;
     flex-flow: row wrap;
     > * {
-      width: 49%;
+      margin-bottom: 15px;
     }
   }
 }
 
-
-
-input[type=checkbox],
-input[type=radio]
-{
-  display: none;
-}
-
-$height-radio: 22px;
-$radio-gap: 2px;
-$radio-length-timer: 2;
-
-input[type=checkbox] + label.switch
-{
-  position: relative;
-  display: block;
-  @include border-radius($height-radio * 1.5);
-  background-color: $color-border;
-  @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
-  height: $height-radio + $radio-gap * 2;
-  width: $height-radio * $radio-length-timer;
-  @include transition(all 0.3s);
-  &:before{
-    content: '';
-    display: block;
-    position: absolute;
-    top: $radio-gap;
-    left: $radio-gap;
-    width: $height-radio;
-    height: $height-radio;
-    @include border-radius($height-radio);
-    background-color: white;
-    @include box-shadow(1px 2px 3px rgba(0,0,0,0.2));
-    @include transition(all 0.3s);
-  }
-}
-
-input[type=checkbox]:checked + label.switch
-{
-  background-color: $green;
-  @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
-  @include transition(all 0.3s);
-  &:before{
-    content: '';
-    display: block;
-    position: absolute;
-    left: $height-radio * $radio-length-timer - $radio-gap - $height-radio;
-    right: 0;
-    width: $height-radio;
-    height: $height-radio;
-    @include border-radius($height-radio);
-    @include transition(all 0.3s);
-  }
-}

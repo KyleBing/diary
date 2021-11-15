@@ -59,19 +59,14 @@ tt {
 }
 
 ::-webkit-scrollbar-thumb {
-    border: 1px solid #cbcbcb;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background-color: #eee;
+    background-color: #ddd;
     transition: all .2s;
     cursor: pointer;
 }
 
-:hover::-webkit-scrollbar-thumb {
-    background-color: #eee;
-    transition: all .2s;
-}
 
 ::-webkit-scrollbar-button {
     display: none;

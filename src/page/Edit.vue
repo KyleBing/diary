@@ -4,17 +4,17 @@
             <!--content-->
             <div class="editor-title">
                 <label  class="hidden"></label>
-                <textarea class="title" style="height: 100px" placeholder="一句话，概括你的一天" v-model="diary.title"/>
+                <textarea class="title" style="height: 150px" placeholder="一句话，概括你的一天" v-model="diary.title"/>
             </div>
             <div class="editor-content">
                 <label class="hidden"></label>
-                <textarea class="content" v-if="insets.windowsWidth > 1440" :style="`height: ${insets.heightPanel - 100 - 40 - 20}px`" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
+                <textarea class="content" v-if="insets.windowsWidth > 1440" :style="`height: ${insets.heightPanel - 150 - 40 - 20}px`" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
                 <textarea class="content" v-else placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
             </div>
         </div>
-        <div class="editor-form-container">
+        <div class="meta-container">
             <div class="editor-form-input">
-                <div class="editor-input-group">
+                <div class="editor-input-item">
                     <label>日期</label>
                     <date-picker :editable="false"
                                  v-model="diary.date"
@@ -24,15 +24,15 @@
                                  input-class="date"
                                  :clearable="false" type="datetime"/>
                 </div>
-                <div class="editor-input-group">
+                <div class="editor-input-item">
                     <label for="temperature">身处 ℃</label>
                     <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="diary.temperature">
                 </div>
-                <div class="editor-input-group">
+                <div class="editor-input-item">
                     <label for="temperatureOutside">室外 ℃</label>
                     <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="diary.temperatureOutside">
                 </div>
-                <div class="editor-input-group">
+                <div class="editor-input-item">
                     <label for="shareState">共享</label>
                     <div class="input">
                         <input class="share" type="checkbox" name="share" id="shareState" v-model="diary.isPublic">
