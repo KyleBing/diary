@@ -1,15 +1,17 @@
 <template>
     <div class="diary-edit" :style="`min-height: ${heightPanel}px`">
-        <!--content-->
-        <div class="editor-title">
-            <label  class="hidden"></label>
-            <textarea class="title" placeholder="一句话，概括你的一天" v-model="diary.title"/>
+        <div class="editor-container">
+            <!--content-->
+            <div class="editor-title">
+                <label  class="hidden"></label>
+                <textarea class="title" style="height: 100px" placeholder="一句话，概括你的一天" v-model="diary.title"/>
+            </div>
+            <div class="editor-content">
+                <label class="hidden"></label>
+                <textarea class="content" :style="`height: ${heightPanel - 100 - 40 - 20}px`" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
+            </div>
         </div>
-        <div class="editor-content">
-            <label class="hidden"></label>
-            <textarea class="content" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
-        </div>
-        <div class="editor-form-group">
+        <div class="editor-form-container">
             <div class="editor-form-input">
                 <div class="editor-input-group">
                     <label>日期</label>

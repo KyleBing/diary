@@ -2,7 +2,7 @@
 
 .category-selector{
   @include border-radius($radius-mobile);
-  padding: 15px 15px 5px;
+  padding: 10px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
   display: flex;
@@ -12,9 +12,8 @@
   .category{
     @include unselectable;
     @include border-radius(5px);
-    padding: 5px 8px;
-    margin-bottom: 10px;
-    margin-right: 5px;
+    padding: 5px 10px;
+    margin: 5px;
     flex-shrink: 0;
     display: block;
     font-weight: bold;
@@ -41,7 +40,7 @@
   $gaps: 4%;
   $cols: 5;
   .category-selector {
-    padding: 20px;
+    padding: 15px;
     @include border-radius($radius-pc);
     justify-content: flex-start;
     .category{

@@ -51,7 +51,7 @@ tt {
 
 ::-webkit-scrollbar {
     z-index: 50;
-    width: 3px;
+    width: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -59,15 +59,17 @@ tt {
 }
 
 ::-webkit-scrollbar-thumb {
+    border: 1px solid #cbcbcb;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #eee;
     transition: all .2s;
+    cursor: pointer;
 }
 
 :hover::-webkit-scrollbar-thumb {
-    background-color: #ddd;
+    background-color: #eee;
     transition: all .2s;
 }
 

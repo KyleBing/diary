@@ -3,6 +3,17 @@ $height-input: 40px;
 
 .diary-edit{
   background-color: $bg-light;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.editor-container{
+  margin-right: 20px;
+  flex-grow: 1;
+}
+
+.editor-form-container{
+  width: 30%;
 }
 
 textarea{
@@ -19,17 +30,28 @@ textarea{
 .editor-title{
   textarea{
     resize: none;
-    height: 100px;
     font-size: 1.1rem;
   }
 }
 
 .editor-content{
   textarea{
+    overflow-x: hidden;
+    overflow-y: scroll;
     font-family: "Consolas", "Monaco", sans-serif;
     resize: vertical;
     height: 220px;
     font-size: 1rem;
+    &::-webkit-scrollbar {
+      z-index: 50;
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    &::-webkit-scrollbar-thumb {
+      border: 1px solid #cbcbcb;
+    }
   }
 }
 .editor-form-input{
@@ -79,7 +101,7 @@ textarea{
 // PC & IPAD
 @media (min-width: $grid-separate-width-md){
   .diary-edit{
-    padding: 20px 20px 30px;
+    padding: 20px;
   }
   textarea{
     padding: 15px 20px;
@@ -96,20 +118,18 @@ textarea{
       //@include border-radius($radius-pc $radius-pc 0 0);
     }
     &.content{
-      @include border-radius($radius-pc $radius-pc 0 $radius-pc);
+      @include border-radius($radius-pc);
     }
   }
   .editor-content{
-    margin-bottom: 20px;
   }
-  .editor-form-group{
+  .editor-form-container{
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     > * {
       margin-bottom: 10px;
-      width: 32%;
     }
   }
   .editor-form{
@@ -126,12 +146,15 @@ textarea{
     height: auto;
     padding: 5px 20px;
     @include border-radius($radius-pc);
+    &:last-child{
+      margin-bottom: 0;
+    }
   }
 }
 
 // IPAD
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
-  .editor-form-group{
+  .editor-form-container{
     > * {
       width: 49%;
     }
