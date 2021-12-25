@@ -16,7 +16,7 @@
 }
 
 .load-more {
-  @include unselectable;
+  @extend .unselectable;
   background-color: white;
   border: 1px solid lighten($gray, 10%);
   display: block;

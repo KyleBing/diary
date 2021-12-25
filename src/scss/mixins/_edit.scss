@@ -84,7 +84,7 @@ textarea{
       border-bottom: 1px solid $bg-light;
       label{
         white-space: nowrap;
-        @include unselectable();
+        @extend .unselectable;
         color: $color-text-label;
         line-height: $height-input;
       }

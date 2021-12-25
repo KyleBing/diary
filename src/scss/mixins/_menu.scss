@@ -1,5 +1,6 @@
 // MENU
 $height-menu-list: 50px;
+$menu-category-list-item-height: 40px;
 
 .menu-panel{
   z-index: 10;
@@ -21,7 +22,6 @@ $height-menu-list: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @include unselectable;
   cursor: pointer;
   position: relative;
   font-size: 20px;
@@ -29,6 +29,7 @@ $height-menu-list: 50px;
   line-height: $height-menu-list;
   padding: 0 15px;
   color: white;
+  @extend .btn-like;
   &:after{
     width: 100%;
     bottom: 0;
@@ -53,6 +54,24 @@ $height-menu-list: 50px;
   }
 }
 
+.menu-btn {
+  flex-shrink: 0;
+  position: relative;
+  display: block;
+  text-align: center;
+  width: 45%;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: white;
+  line-height: $menu-category-list-item-height;
+  border: 1px solid $grass;
+  background-color: $grass;
+  @include border-radius(5px);
+  @extend .btn-like;
+}
+
+
+// 菜单中的类别标识
 .category-indicator{
   display: flex;
   justify-content: flex-start;
@@ -100,8 +119,6 @@ $height-menu-list: 50px;
 }
 
 // MENU CATEGORY
-$menu-category-list-item-height: 40px;
-
 .menu-category {
   padding: 20px;
 }
@@ -127,7 +144,7 @@ $menu-category-list-item-height: 40px;
     line-height: 1;
   }
   input[type=checkbox] + label {
-    @include unselectable;
+    @extend .unselectable;
     width: 100%;
     display: block;
     margin-bottom: 20px;
@@ -150,9 +167,8 @@ $menu-category-list-item-height: 40px;
   }
 }
 
-.category-operations{
+.category-operations-container{
   padding-top: 20px;
-  margin-top: 10px;
   border-top: 1px solid $bg-main;
 }
 

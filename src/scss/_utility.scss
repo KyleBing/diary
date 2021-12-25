@@ -17,13 +17,7 @@
   border-radius: $corner;
 }
 
-// unable to select
-@mixin unselectable(){
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+
 
 @mixin clearfix(){
   &:after{
@@ -79,3 +73,19 @@
 }
 
 
+
+
+.unselectable{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn-like{
+  @extend .unselectable;
+  cursor: pointer;
+  &:active{
+    transform: translateY(2px);
+  }
+}

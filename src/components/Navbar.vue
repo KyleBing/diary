@@ -104,23 +104,18 @@
                         </li>
                     </ul>
 
-                    <div class="menu-category-list category-operations">
-                        <div class="menu-category-item">
-                            <input :checked="isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="categoryAll">
-                            <label for="categoryAll" class="menu-category-study">全选</label>
-                        </div>
-                        <div class="menu-category-item">
-                            <input :checked="!isNotAllSelected" @click="toggleCategorySelect" class="hidden" type="checkbox" id="categoryNone">
-                            <label for="categoryAll" class="menu-category-life">取消全选</label>
-                        </div>
-                        <div class="menu-category-item">
-                            <input checked @click="reverseCategorySelect" class="hidden" type="checkbox" id="categoryReverse">
-                            <label for="categoryReverse" class="menu-category-week">反选</label>
-                        </div>
+                    <div class="menu-category-list category-operations-container">
                         <div class="menu-category-item">
                             <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
                             <label for="share" class="menu-category-grass">共享日记</label>
                         </div>
+                    </div>
+
+                    <div class="menu-category-list category-operations-container">
+                        <div  @click="categoryAll" class="menu-btn">全选</div>
+                        <div  @click="categoryNone" class="menu-btn">取消全选</div>
+                        <div  @click="categoryWork" class="menu-btn">周报</div>
+                        <div  @click="reverseCategorySelect" class="menu-btn">反选</div>
                     </div>
                 </div>
 
@@ -305,8 +300,13 @@ export default {
                     break
             }
         },
-        toggleCategorySelect() {
-            this.categories = this.categories.length ? [] : utility.CATEGORIES_ALL
+
+        /* CATEGORY */
+        categoryAll() {
+            this.categories = utility.CATEGORIES_ALL
+        },
+        categoryNone() {
+            this.categories = []
         },
         reverseCategorySelect() {
             let tempCategories = [].concat(utility.CATEGORIES_ALL)
@@ -314,6 +314,9 @@ export default {
                 tempCategories.splice(tempCategories.indexOf(item), 1)
             })
             this.categories = tempCategories
+        },
+        categoryWork(){
+            this.categories = ['work', 'week']
         },
 
         /* SEARCH */

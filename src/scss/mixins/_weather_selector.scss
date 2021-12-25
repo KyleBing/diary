@@ -8,7 +8,7 @@
   border-bottom: 1px solid $bg-light;
   .weather{
     @include border-radius(50px);
-    @include unselectable;
+    @extend .unselectable;
     padding: 7px;
     display: block;
     font-weight: bold;
@@ -18,7 +18,7 @@
       background-color: $bg-light;
     }
     img{
-      @include unselectable;
+      @extend .unselectable;
       margin: 0 auto;
       height: 30px;
       width: 30px;

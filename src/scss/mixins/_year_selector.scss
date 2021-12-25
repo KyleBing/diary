@@ -31,7 +31,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  @include unselectable;
+  @extend .unselectable;
   @include border-radius($radius-mobile);
   margin-bottom: 10px;
   width: 22%;

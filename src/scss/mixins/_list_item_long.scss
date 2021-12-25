@@ -6,7 +6,7 @@ $fz-md-article: 14px;
   background-color: white;
   .article-header{
     color: $bg-main;
-    @include unselectable();
+    @extend .unselectable;
     text-align: center;
     display: flex;
     justify-content: flex-end;

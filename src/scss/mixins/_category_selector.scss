@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   .category{
-    @include unselectable;
+    @extend .unselectable;
     @include border-radius(5px);
     padding: 5px 10px;
     margin: 5px;

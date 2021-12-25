@@ -46,7 +46,7 @@ $toast-border-color: $bg-menu;
     display: flex;
     flex-flow: row nowrap;
     div{
-      @include unselectable();
+      @extend .unselectable;
       cursor: pointer;
       text-align: center;
       padding: 10px;
