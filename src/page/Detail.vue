@@ -20,14 +20,16 @@
         <!--TITLE-->
         <div class="diary-title">
             <h2>{{ diary.title }}</h2>
+            <div class="btn btn-active clipboard">复制日记内容</div>
         </div>
 
         <!--CONTENT-->
-        <div class="diary-content" v-html="diary.content"></div>
+        <div class="diary-content" v-html="diary.contentHtml"></div>
     </div>
 </template>
 
 <script>
+import ClipboardJS from "clipboard";
 import utility from "../utility"
 import {mapMutations} from "vuex";
 
@@ -38,11 +40,25 @@ export default {
             showToast: false,
             id: '',
             diary: {},
+
+            clipboard: null // clipboard obj
         }
     },
     mounted() {
         this.id = this.$route.params.id
         this.showDiary(this.id)
+        // 绑定剪贴板操作方法
+        this.clipboard = new ClipboardJS('.clipboard', {
+            text: trigger => {
+                return this.diary.content
+            },
+        })
+        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+            utility.popMessage(utility.POP_MSG_TYPE.success, '已复制到 剪贴板', null, 2)
+        })
+    },
+    beforeDestroy() {
+        this.clipboard.destroy()
     },
     watch: {
         $route(to) {
@@ -78,9 +94,13 @@ export default {
                         let contentArray = diary.content.split('\n')
                         let contentHtml = ""
                         contentArray.forEach(item => {
-                            contentHtml += `<p>${item}</p>`
+                            if (item === ''){
+                                contentHtml += '<br/>'
+                            } else {
+                                contentHtml += `<p>${item}</p>`
+                            }
                         })
-                        this.diary.content = contentHtml
+                        this.diary.contentHtml = contentHtml
                     }
                     this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
                     this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
