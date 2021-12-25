@@ -20,11 +20,18 @@
         <!--TITLE-->
         <div class="diary-title">
             <h2>{{ diary.title }}</h2>
-            <div class="btn btn-active clipboard">复制日记内容</div>
+            <div class="clipboard ml-1" :data-clipboard="diary.title">
+                <img :src="$icons.clipboard" alt="clipboard">
+            </div>
         </div>
 
         <!--CONTENT-->
-        <div class="diary-content" v-html="diary.contentHtml"></div>
+        <div class="diary-content" v-if="diary.content">
+            <div class="content" v-html="diary.contentHtml"/>
+            <div class="clipboard ml-1" :data-clipboard="diary.content">
+                <img :src="$icons.clipboard" alt="clipboard">
+            </div>
+        </div>
     </div>
 </template>
 
@@ -50,7 +57,7 @@ export default {
         // 绑定剪贴板操作方法
         this.clipboard = new ClipboardJS('.clipboard', {
             text: trigger => {
-                return this.diary.content
+                return trigger.getAttribute('data-clipboard')
             },
         })
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示

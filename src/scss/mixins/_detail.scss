@@ -24,16 +24,23 @@ $height-meta: 30px;
 }
 
 .diary-title{
-  border-bottom: 1px solid $color-border;
+  position: relative;
   margin: 0 20px;
   padding: 20px 0;
   h2{
     font-weight: normal;
     font-size: 1.1rem;
   }
+  .clipboard{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+  }
 }
 
 .diary-content{
+  border-top: 1px solid $color-border;
+  position: relative;
   color: $bg-main;
   line-height: 1.6;
   font-size: 1rem;
@@ -44,8 +51,25 @@ $height-meta: 30px;
     margin-bottom: 5px;
     line-height: 1.5;
   }
+  .clipboard{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 }
 
+.clipboard{
+  padding: 3px;
+  @include border-radius($radius-pc);
+  &:hover{
+    background-color: $bg-list-active;
+  }
+  img{
+    display: block;
+    width: 20px;
+  }
+  @extend .btn-like;
+}
 
 .detail-category{
   font-size: .8rem;
