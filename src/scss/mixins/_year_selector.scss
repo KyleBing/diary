@@ -39,7 +39,6 @@
   background-color: rgba(white, 0.3);
   padding: 10px 20px;
   position: relative;
-  @include transition(all 0.5s);
   &:nth-child(4n){
     margin-right: 0;
   }

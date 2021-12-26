@@ -1,6 +1,6 @@
 <template>
     <div id="diaryApp" :style="`min-height: ${insets.heightPanel}px`">
-        <div class="search-bar" v-show="searchBarShowed">
+        <div class="search-bar" v-show="isShowSearchBar">
             <form @submit.prevent="search">
                 <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
                 <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
@@ -40,7 +40,6 @@ export default {
     data() {
         return {
             showDiaryList: true,
-            searchBarShow: false,
 
             haveMore: true,
             isLoading: true,
@@ -64,23 +63,23 @@ export default {
     mounted() {
         document.title = '日记 PC' // 变更标题
         // init
-        this.categories = utility.queryData.categories
-        this.keywordShow = utility.queryData.keyword
-        this.queryData.filterShared = this.categoriesFilterInfo.filterShared ? 1 : 0
+        this.categories = utility.getDiaryConfig().categories
+        this.keywordShow = utility.getDiaryConfig().keyword
+        this.queryData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
         this.reload()
         this.addScrollEvent()
-        this.searchBarShow = !!this.queryData.keyword
+        this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
     },
 
     computed: {
         ...mapState([
-            'searchBarShowed',
             'keyword',
-            'categoriesFilterInfo',
             'diaryListShowedInFullStyle',
             'listNeedBeReload',
             'listOperation',
-            'insets'])
+            'isShowSearchBar',
+            'insets'
+        ])
     },
     watch: {
         // route 载入 `/` 路径时，重载日记列表：比如删除日记后
@@ -135,10 +134,6 @@ export default {
             }
             this.diariesShow = tempShowArray
         },
-        categoriesFilterInfo() {
-            this.queryData.filterShared = this.categoriesFilterInfo.filterShared ? 1 : 0 // 是否筛选已共享的日记
-            this.reload()
-        },
         listNeedBeReload() {
             if (this.listNeedBeReload) {
                 this.reload()
@@ -183,10 +178,15 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['setKeyword', "setStatistics", 'setListNeedBeReload']),
+        ...mapMutations([
+            'SET_KEYWORD',
+            "setStatistics",
+            'setListNeedBeReload',
+            'SET_IS_SHOW_SEARCH_BAR']
+        ),
         /* MENU 相关 */
         search() {
-            this.setKeyword(this.keywordShow)
+            this.SET_KEYWORD(this.keywordShow)
             this.reload()
         },
         clearKeyword() {
@@ -212,7 +212,7 @@ export default {
         loadMore() {
             this.haveMore = false
             this.isLoading = true
-            this.queryData.dateRange = utility.queryData.dateRange
+            this.queryData.dateRange = utility.getDiaryConfig().dateRange
             this.getDiaries(this.queryData)
         },
         getDiaries(queryData) {

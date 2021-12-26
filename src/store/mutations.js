@@ -4,8 +4,8 @@ export default {
    setInsets(state, payload){
       state.insets = payload
    },
-   setSearchBarState (state, payload){
-      state.searchBarShowed = payload
+   SET_IS_SHOW_SEARCH_BAR (state, payload){
+      state.isShowSearchBar = payload
    },
    setDateFilter(state, payload){
       state.dateFilter = payload
@@ -14,14 +14,23 @@ export default {
       state.statisticsCategory = payload.category
       state.statisticsYear = payload.year
    },
-   setKeyword (state, payload){
-      state.keyword = payload
-      utility.queryData.keyword = payload
+   SET_IS_FILTER_SHARED (state, payload){
+      state.isFilterShared = payload
+      let diaryConfig = utility.getDiaryConfig()
+      diaryConfig.isFilterShared = payload
+      utility.setDiaryConfig(diaryConfig)
    },
-   setCategoriesFilterInfo (state, payload){
-      state.categoriesFilterInfo = payload
-      utility.queryData.categories = payload.categories // categories 变化时保存
-      utility.queryData.filterShared = payload.filterShared // categories 变化时保存
+   SET_FILTERED_CATEGORIES(state, payload){
+      state.filteredCategories = payload
+      let diaryConfig = utility.getDiaryConfig()
+      diaryConfig.filteredCategories = payload
+      utility.setDiaryConfig(diaryConfig)
+   },
+   SET_KEYWORD (state, payload){
+      state.keyword = payload
+      let diaryConfig = utility.getDiaryConfig()
+      diaryConfig.keyword = payload
+      utility.setDiaryConfig(diaryConfig)
    },
    setCurrentDiary (state, payload){
       state.currentDiary = payload

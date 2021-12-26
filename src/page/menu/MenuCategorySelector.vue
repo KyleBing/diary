@@ -43,11 +43,11 @@ export default {
         }
     },
     mounted() {
-        this.filterShared = utility.getDiaryConfig().filterShared
-        this.categories = utility.getDiaryConfig().categories
+        this.filterShared = utility.getDiaryConfig().isFilterShared
+        this.categories = utility.getDiaryConfig().filteredCategories
     },
     methods: {
-        ...mapMutations(['SET_IS_FILTER_SHARED']),
+        ...mapMutations(['SET_IS_FILTER_SHARED','SET_FILTERED_CATEGORIES']),
         selectCategoryAll() {
             this.categories = utility.CATEGORIES_ALL
         },
@@ -70,15 +70,10 @@ export default {
     },
     watch: {
         categories(newValue){
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.categories = newValue
-            utility.setDiaryConfig(diaryConfig)
+            this.SET_FILTERED_CATEGORIES(newValue)
         },
         filterShared(newValue){
             this.SET_IS_FILTER_SHARED(newValue)
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.filterShared = newValue
-            utility.setDiaryConfig(diaryConfig)
         }
     }
 }

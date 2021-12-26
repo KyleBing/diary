@@ -31,11 +31,13 @@ export default {
         }
     },
     mounted() {
-        this.monthChosen = utility.queryData.dateRange || ''
+        this.monthChosen = utility.getDiaryConfig().dateRange || ''
     },
     watch: {
         monthChosen() {
-            utility.queryData.dateRange = this.monthChosen
+            let diaryConfig = utility.getDiaryConfig()
+            diaryConfig.dateRange = this.monthChosen
+            utility.setDiaryConfig(diaryConfig)
             this.setDateFilter(this.monthChosen)
         }
     },

@@ -9,8 +9,8 @@
                 <div @click="menuClose" v-else>
                     <tab-icon alt="关闭"></tab-icon>
                 </div>
-                <div v-show="!searchBarShowed && !menuShowed" @click="showSearchbar">
-                    <tab-icon alt="搜索" @click=""></tab-icon>
+                <div v-show="!isShowSearchBar && !menuShowed" @click="showSearchbar">
+                    <tab-icon alt="搜索"></tab-icon>
                 </div>
             </div>
 
@@ -66,9 +66,9 @@
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
                             <div>类别</div>
                             <div class="category-indicator">
-                                <div class="item category-life" v-if="filterShared"></div> <!-- 共享小图标标识 -->
-                                <div :class="['item', 'category-' + item.nameEn ,{active: categoriesSet.has(item.nameEn)}]"
-                                     v-for="(item, index) in categoriesAll"
+                                <div class="item category-life" v-if="isFilterShared"></div> <!-- 共享小图标标识 -->
+                                <div :class="['item', 'category-' + item.nameEn ,{active: filteredCategories.some(category => category ===item.nameEn)}]"
+                                     v-for="(item, index) in categoryAll"
                                      :title="item.nameEn"
                                      :key="index"></div>
                             </div>
@@ -92,37 +92,11 @@
                     </div>
                 </div>
 
-                <!--category-->
-                <div class="menu-category" v-show="categoryShowed">
-                    <ul class="menu-category-list">
-                        <li class="menu-category-item" v-for="(item, index) in categoriesAll" :key="index">
-                            <input v-model="categories" class="hidden" type="checkbox" :id="'category-' + item.nameEn" :value="item.nameEn">
-                            <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">
-                                {{ item.name }}
-                                <span class="count">{{ statisticsCategory[item.nameEn] }}</span>
-                            </label>
-                        </li>
-                    </ul>
-
-                    <div class="menu-category-list category-operations-container">
-                        <div class="menu-category-item">
-                            <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
-                            <label for="share" class="menu-category-grass">共享日记</label>
-                        </div>
-                    </div>
-
-                    <div class="menu-category-list category-operations-container">
-                        <div  @click="categoryAll" class="menu-btn">全选</div>
-                        <div  @click="categoryNone" class="menu-btn">取消全选</div>
-                        <div  @click="categoryWork" class="menu-btn">周报</div>
-                        <div  @click="reverseCategorySelect" class="menu-btn">反选</div>
-                    </div>
-                </div>
+                <!-- category-->
+                <menu-category-selector v-show="categoryShowed"/>
 
                 <!-- year selector -->
-                <year-selector
-                    :style="`height: ${insets.heightPanel}px`"
-                    v-show="yearShowed"></year-selector>
+                <year-selector v-show="yearShowed"/>
 
                 <!--about-->
                 <about v-show="aboutShowed"/>
@@ -152,13 +126,15 @@ import {mapState, mapMutations} from 'vuex'
 import YearSelector from "@/components/YearSelector"
 import TabIcon from "@/components/TabIcon"
 import About from "@/page/About"
+import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 
 export default {
     name: "Navbar",
-    components: {About, TabIcon, YearSelector},
+    components: {MenuCategorySelector, About, TabIcon, YearSelector},
     data() {
         return {
             location: {}, // clipboard 使用
+
             showLongList: false,
             // menu
             menuShowed: false,            // menu panel
@@ -169,11 +145,8 @@ export default {
 
             // menu - category
             userInfo: utility.getAuthorization(),
-            categories: [],
             categoriesSet: new Set(),
             originCategories: [],
-            categoriesAll: utility.CATEGORIES_ALL_NAME,
-            filterShared: false, // 是否筛选已共享的日记
             originFilterShared: false,
 
             // toast
@@ -188,32 +161,26 @@ export default {
     },
     mounted() {
         this.location = window.location
-        this.categories = this.categoriesFilterInfo.categories
-        this.categoriesSet = new Set(this.categoriesFilterInfo.categories)
-        this.filterShared = this.categoriesFilterInfo.filterShared
+        this.categoriesSet = new Set(this.filteredCategories)
     },
     computed: {
-        isNotAllSelected() {
-            return !this.categories.length
-        },
         ...mapState([
-            'categoriesFilterInfo',
+            'filteredCategories',
+            'categoryAll',
             'diaryEditorContentHasChanged',
             'currentDiary',
             'diaryListShowedInFullStyle',
             'insets',
+            'isShowSearchBar',
+            'isFilterShared',
             'editLogoImg',
             'statisticsCategory',
             'statisticsYear',
             'dateFilter',
-            'searchBarShowed'
         ])
     },
     watch: {
-        categories() {
-            this.categoriesSet = new Set(this.categories)
-        },
-        searchBarShowed(newValue) {
+        keyword(newValue) {
             if (newValue) {
                 this.$nextTick(() => {
                     document.querySelector('#keyword').focus()
@@ -224,8 +191,7 @@ export default {
     methods: {
         ...mapMutations([
             'setDiaryListShowedInFullStyle',
-            'setCategoriesFilterInfo',
-            'setSearchBarState',
+            'SET_IS_SHOW_SEARCH_BAR',
             'setDiaryNeedToBeSaved',
             'setDiaryNeedToBeRecovered',
             'setListOperation',
@@ -246,10 +212,7 @@ export default {
         },
         menuClose() {
             if (this.categoryShowed) {
-                this.setCategoriesFilterInfo({
-                    categories: this.categories,
-                    filterShared: this.filterShared
-                })
+                this.setListNeedBeReload(true)
                 this.menuInit()
             } else if (this.aboutShowed) {
                 this.menuShowed = true            // menu panel
@@ -279,8 +242,6 @@ export default {
                     this.categoryShowed = true             // category
                     this.yearShowed = false            // year
                     this.aboutShowed = false            // about
-                    Object.assign(this.originCategories, this.categories)
-                    this.originFilterShared = this.filterShared
                     break
                 case 'year':
                     this.menuShowed = true             // menu panel
@@ -301,27 +262,10 @@ export default {
             }
         },
 
-        /* CATEGORY */
-        categoryAll() {
-            this.categories = utility.CATEGORIES_ALL
-        },
-        categoryNone() {
-            this.categories = []
-        },
-        reverseCategorySelect() {
-            let tempCategories = [].concat(utility.CATEGORIES_ALL)
-            this.categories.forEach(item => {
-                tempCategories.splice(tempCategories.indexOf(item), 1)
-            })
-            this.categories = tempCategories
-        },
-        categoryWork(){
-            this.categories = ['work', 'week']
-        },
 
         /* SEARCH */
         showSearchbar() {
-            this.setSearchBarState(true)
+            this.SET_IS_SHOW_SEARCH_BAR(true)
         },
 
         /* EDIT */

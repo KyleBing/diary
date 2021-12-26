@@ -30,40 +30,6 @@ const COOKIE_NAME = {
 }
 
 
-let queryData = {
-   set filterShared(content){
-      VueCookie.set(COOKIE_NAME.filterShared, content, COOKIE_NAME.options)
-   },
-   get filterShared(){
-      let filterShared = VueCookie.get(COOKIE_NAME.filterShared)
-      return filterShared === 'true'
-   },
-
-   set keyword(content){
-      VueCookie.set(COOKIE_NAME.keyword, content, COOKIE_NAME.options)
-   },
-   get keyword(){
-      let keyword = VueCookie.get(COOKIE_NAME.keyword)
-      return keyword? keyword: ''
-   },
-
-   set categories(content){
-      VueCookie.set(COOKIE_NAME.category, JSON.stringify(content), COOKIE_NAME.options)
-   },
-   get categories(){
-      let categories = VueCookie.get(COOKIE_NAME.category)
-      return JSON.parse(categories)
-   },
-
-   set dateRange(content){
-      VueCookie.set(COOKIE_NAME.dateRange, content, COOKIE_NAME.options)
-   },
-   get dateRange(){
-      return VueCookie.get(COOKIE_NAME.dateRange)
-   },
-}
-
-
 // 设置cookie
 function setAuthorization(email, token, username, uid) {
    VueCookie.set(COOKIE_NAME.email, email, COOKIE_NAME.options)
@@ -279,6 +245,26 @@ function temperatureProcessCTS(temperature){
    return temperature === '' ? '-273' : temperature
 }
 
+
+function getDiaryConfig(){
+   let diaryConfigString = localStorage.getItem('DiaryConfig')
+   if (diaryConfigString){
+      return JSON.parse(diaryConfigString)
+   } else {
+      return {
+         isFilterShared: false, // 是否筛选共享日记
+         keyword: '', // 关键词
+         filteredCategories: CATEGORIES_ALL, // 筛选的日记类别
+         dateRange: '' // 日记范围
+      }
+   }
+}
+
+function setDiaryConfig(newValue){
+   localStorage.setItem('DiaryConfig', JSON.stringify(newValue))
+}
+
+
 export default {
    URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, CATEGORIES_ALL_NAME, WEEKDAY, WEATHER,
    getAuthorization,
@@ -289,8 +275,8 @@ export default {
    formatDate,
    dateFormatter,
    deleteAuthorization,
-   queryData,
    global,
    temperatureProcessSTC,
-   temperatureProcessCTS
+   temperatureProcessCTS,
+   getDiaryConfig, setDiaryConfig
 }

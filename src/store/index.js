@@ -14,13 +14,14 @@ export default new Vuex.Store({
       },
       statisticsCategory: {}, // 统计信息
       statisticsYear: {}, // 统计信息
+
+      isFilterShared: false, // 是否筛选共享的日记
       dateFilter: '', // 日期筛选
-      keyword: utility.queryData.keyword, // 搜索关键字
-      searchBarShowed: !!utility.queryData.keyword, // 搜索栏显示
-      categoriesFilterInfo: {
-         categories: utility.queryData.categories || utility.CATEGORIES_ALL,
-         filterShared: utility.queryData.filterShared
-      }, // 已选的日记筛选类别
+      keyword: '', // 搜索关键字
+      filteredCategories: [], // 筛选的类别
+
+      isShowSearchBar: false, //
+
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储
       diaryNeedToBeRecovered: false, // 取消当前编辑的日记
@@ -29,6 +30,18 @@ export default new Vuex.Store({
       listNeedBeReload: false, // 是否刷新列表
       editLogoImg: false, // 编辑页LOGO
       listOperation:{}, // 列表页的操作，增删改操作，一般不再重新加载列表
+
+      categoryAll : [
+         {name: '生活', nameEn: 'life'},
+         {name: '学习', nameEn: 'study'},
+         {name: '工作', nameEn: 'work'},
+         {name: '运动', nameEn: 'sport'},
+         {name: '游戏', nameEn: 'game'},
+         {name: '电影', nameEn: 'film'},
+         {name: '大事', nameEn: 'bigevent'},
+         {name: '周报', nameEn: 'week'},
+         {name: '文章', nameEn: 'article'}
+      ]
    },
    mutations
 })
