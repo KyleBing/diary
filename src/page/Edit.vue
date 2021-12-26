@@ -106,7 +106,7 @@ export default {
     beforeRouteLeave(to, from, next) {
         // 在跳转到其它页面之前判断日记是否已保存
         if (this.diaryHasChanged) {
-            utility.popMessage(utility.POP_MSG_TYPE.warning, '当前日记未保存', next(false))
+            utility.popMessage('warning', '当前日记未保存', next(false))
         } else {
             next()
         }
@@ -225,17 +225,17 @@ export default {
         saveDiary() {
             if (this.diary.title.trim().length === 0) {
                 this.diary.title = '' // clear content
-                utility.popMessage(utility.POP_MSG_TYPE.warning, '内容未填写', null)
+                utility.popMessage('warning', '内容未填写', null)
                 this.setDiaryNeedToBeSaved(false) // 未能成功保存时，复位 diaryNeedToBeSaved 标识
                 return
             }
             if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
-                utility.popMessage(utility.POP_MSG_TYPE.warning, '室内温度格式不正确', null)
+                utility.popMessage('warning', '室内温度格式不正确', null)
                 this.setDiaryNeedToBeSaved(false)
                 return
             }
             if (this.diary.temperatureOutside !== '' && !/^-?\d{1,2}$/.test(this.diary.temperatureOutside)) {
-                utility.popMessage(utility.POP_MSG_TYPE.warning, '室外温度格式不正确', null)
+                utility.popMessage('warning', '室外温度格式不正确', null)
                 this.setDiaryNeedToBeSaved(false)
                 return
             }
@@ -254,7 +254,7 @@ export default {
 
             utility.postData(utility.URL.diaryOperation, queryData)
                 .then(res => {
-                    utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
+                    utility.popMessage('success', res.info, () => {
                         // 成功后更新 origin 字符串
                         Object.assign(this.diaryOrigin, this.diary)
                         this.updateDiaryIcon() // 更新 navbar icon

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import utility from "@/utility";
 import mutations from "@/store/mutations";
 
 Vue.use(Vuex)
@@ -41,7 +40,7 @@ export default new Vuex.Store({
          {name: '大事', nameEn: 'bigevent'},
          {name: '周报', nameEn: 'week'},
          {name: '文章', nameEn: 'article'}
-      ]
+      ],
    },
    mutations
 })

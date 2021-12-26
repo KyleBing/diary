@@ -223,10 +223,16 @@ export default {
                         if (diary.content) {
                             diary.content = diary.content.replace(/\n/g, '<br/>')
                         }
+
+                        // category map
+                        let categoryMap = new Map()
+                        this.categoryAll.forEach(item => {
+                            categoryMap.set(item.nameEn, item.name)
+                        })
+                        diary.categoryString = categoryMap.get(diary.category)
+
                         diary.weekday = utility.formatDate(diary.date).weekday
                         diary.dateString = utility.formatDate(diary.date).date
-                        let category = this.categoryAll.filter(item => diary.nameEn === item.category)
-                        diary.categoryString = category[0].name
                         return diary
                     })
 

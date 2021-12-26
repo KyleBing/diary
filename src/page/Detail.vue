@@ -14,7 +14,8 @@
             <div class="temperature" v-if="diary.temperatureOutside">
                 <span>外：{{ diary.temperatureOutside }} ℃</span>
             </div>
-            <div :class="[`detail-category-${diary.category}`, 'detail-category']"><span>{{ diary.categoryName }}</span>
+            <div :class="[`detail-category-${diary.category}`, 'detail-category']">
+                <span>{{ diary.categoryString }}</span>
             </div>
         </div>
         <!--TITLE-->
@@ -38,7 +39,7 @@
 <script>
 import ClipboardJS from "clipboard";
 import utility from "../utility"
-import {mapMutations} from "vuex";
+import {mapMutations, mapState} from "vuex";
 
 export default {
     name: 'Detail',
@@ -61,11 +62,14 @@ export default {
             },
         })
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage(utility.POP_MSG_TYPE.success, '已复制到 剪贴板', null, 2)
+            utility.popMessage('success', '已复制到 剪贴板', null, 2)
         })
     },
     beforeDestroy() {
         this.clipboard.destroy()
+    },
+    computed:{
+        ...mapState(['categoryAll'])
     },
     watch: {
         $route(to) {
@@ -109,9 +113,15 @@ export default {
                         })
                         this.diary.contentHtml = contentHtml
                     }
-                    this.diary.temperature = diary.temperature === '-273' ? '' : diary.temperature
-                    this.diary.temperatureOutside = diary.temperature_outside === '-273' ? '' : diary.temperature_outside
-                    this.diary.categoryName = utility.CATEGORIES[diary.category]
+                    this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
+                    this.diary.temperatureOutside = utility.temperatureProcessCTS(diary.temperature)
+
+                    // category map
+                    let categoryMap = new Map()
+                    this.categoryAll.forEach(item => {
+                        categoryMap.set(item.nameEn, item.name)
+                    })
+                    diary.categoryString = categoryMap.get(diary.category)
                 })
                 .catch(() => {
                     this.$router.back()

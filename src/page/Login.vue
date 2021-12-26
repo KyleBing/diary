@@ -64,7 +64,7 @@ export default {
                 })
                 .then(res => {
                     utility.setAuthorization(res.email, res.token, res.username, res.uid)
-                    utility.popMessage(utility.POP_MSG_TYPE.success, res.info, () => {
+                    utility.popMessage('success', res.info, () => {
                         this.$router.push('/')
                     })
                     this.loginLabel = '登录成功'

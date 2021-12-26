@@ -71,7 +71,7 @@ export default {
                 }
 
                 utility.postData(utility.URL.userOperation, queryData).then(res => {
-                    utility.popMessage(utility.POP_MSG_TYPE.success, `${res.info}，正在前往登录`, () => {
+                    utility.popMessage('success', `${res.info}，正在前往登录`, () => {
                         utility.deleteAuthorization()
                         this.$router.go(-1)
                     }, 2)

@@ -10,7 +10,7 @@
                     <div class="above">
                         <h3>{{ dateObj.weekday }} </h3>
                         <div :class="[`share-category-${diary.category}`, 'share-category']">
-                            <span>{{ diary.categoryName }}</span>
+                            <span>{{ diary.categoryString }}</span>
                         </div>
                     </div>
                     <div class="bottom">{{ dateObj.dateFull }}</div>
@@ -52,6 +52,7 @@
 
 <script>
 import utility from "../utility"
+import {mapState} from "vuex";
 
 export default {
     name: 'Share',
@@ -63,6 +64,9 @@ export default {
             dateObj: {},
             heightShare: 0
         }
+    },
+    computed:{
+        ...mapState(['categoryAll'])
     },
     mounted() {
         if (this.$route.params.id) {
@@ -98,7 +102,13 @@ export default {
                 }
                 this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                 this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
-                this.diary.categoryName = utility.CATEGORIES[diary.category]
+
+                // category map
+                let categoryMap = new Map()
+                this.categoryAll.forEach(item => {
+                    categoryMap.set(item.nameEn, item.name)
+                })
+                diary.categoryString = categoryMap.get(diary.category)
             })
                 .catch(() => {
                     this.diary = {}

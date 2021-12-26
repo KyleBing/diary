@@ -104,11 +104,11 @@ export default {
             utility.postData(utility.URL.userOperation, queryData)
                .then(res => {
                   if (res.success) { // 注册成功
-                     utility.popMessage(utility.POP_MSG_TYPE.success, `${res.info}，正在前往登录`, () => {
+                     utility.popMessage('success', `${res.info}，正在前往登录`, () => {
                         this.$router.push('/login')
                      })
                   } else { // 注册失败
-                     utility.popMessage(utility.POP_MSG_TYPE.warning, res.info)
+                     utility.popMessage('warning', res.info)
                   }
                })
          }

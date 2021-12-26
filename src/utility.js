@@ -3,6 +3,7 @@ import axios from 'axios'
 import VueCookie from 'vue-cookie'
 import qs from 'qs'
 import Vue from 'vue'
+import store from './store'
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? '/api/': '../diary-portal/'
 
@@ -22,10 +23,6 @@ const COOKIE_NAME = {
    token        : 'diaryToken',
    username     : 'diaryUsername',
    uid          : 'diaryUid',
-   category     : 'diaryCategories',
-   keyword      : 'diaryKeyword',
-   filterShared : 'diaryFilterShared',
-   dateRange    : 'diaryDateRange',
    options      : {expires : 7, path : '/', SameSite : 'Strict'}
 }
 
@@ -108,7 +105,7 @@ function postData(url, queryData) {
                resolve(res.data)
             } else {
                reject(res)
-               popMessage(POP_MSG_TYPE.danger, res.data.info )
+               popMessage('danger', res.data.info )
                if (!res.data.logined){
                   Vue.$router.push('/login')
                }
@@ -127,7 +124,7 @@ function getData(url, queryData) {
                renewAuthorization()
                resolve(res.data)
             } else {
-               popMessage(POP_MSG_TYPE.danger, res.data.info, reject)
+               popMessage('danger', res.data.info, reject)
             }
          }).catch(() => {
          reject()
@@ -137,13 +134,6 @@ function getData(url, queryData) {
 
 
 // CONST
-const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"]
-const POP_MSG_TYPE = {
-   success: "success",
-   warning: "warning",
-   danger: "danger",
-   default: "default"
-}
 const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',}
 const WEATHER = [
     {title : 'sunny' ,        name : '晴'} ,
@@ -157,19 +147,7 @@ const WEATHER = [
     {title : 'tornado' ,      name : '龙卷风'} ,
     {title : 'smog' ,         name : '雾霾'} ,
     {title : 'sandstorm' ,    name : '沙尘暴'} ,
-
 ]
-const CATEGORIES = {
-   life: '生活',
-   study: '学习',
-   film: '电影',
-   game: '游戏',
-   work: '工作',
-   sport: '运动',
-   bigevent: '大事',
-   week: '周报',
-   article: '文章',
-}
 
 // 格式化时间，输出字符串
 function dateFormatter(date, formatString) {
@@ -180,7 +158,7 @@ function dateFormatter(date, formatString) {
       "h+": date.getHours(),                          // 小时
       "m+": date.getMinutes(),                        // 分
       "s+": date.getSeconds(),                        // 秒
-      "q+": Math.floor((date.getMonth() + 3) / 3),    // 季度
+      "q+": Math.floor((date.getMonth() + 3) / 3), // 季度
       "S": date.getMilliseconds()                     // 毫秒
    }
    if (/(y+)/.test(formatString)) {
@@ -243,7 +221,7 @@ function getDiaryConfig(){
       return {
          isFilterShared: false, // 是否筛选共享日记
          keyword: '', // 关键词
-         filteredCategories: CATEGORIES_ALL, // 筛选的日记类别
+         filteredCategories: store.state.categoryAll.map(item => item.nameEn), // 筛选的日记类别
          dateRange: '' // 日记范围
       }
    }
@@ -255,7 +233,7 @@ function setDiaryConfig(newValue){
 
 
 export default {
-   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES, WEEKDAY, WEATHER,
+   URL,COOKIE_NAME, WEEKDAY, WEATHER,
    getAuthorization,
    setAuthorization,
    popMessage,

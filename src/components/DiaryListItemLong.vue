@@ -9,7 +9,7 @@
                      :src="$icons.weather[diary.weather + suffix]"
                      :alt="diary.weather">
             </div>
-            <div class="category">{{ categoryString }}</div>
+            <div class="category">{{ diary.categoryString }}</div>
         </router-link>
         <div class="article-body">
             <div class="title">{{ diary.title }}</div>
@@ -19,17 +19,10 @@
 </template>
 
 <script>
-import utility from "@/utility"
-
 export default {
     name: "DiaryListItemLong",
     props: {
         diary: Object
-    },
-    data() {
-        return {
-            categoryString: utility.CATEGORIES[this.diary.category]
-        }
     },
     computed: {
         active() {
