@@ -138,17 +138,6 @@ function getData(url, queryData) {
 
 // CONST
 const CATEGORIES_ALL = ["life", "study", "work", "sport", "game", "film", "bigevent", "week", "article"]
-const CATEGORIES_ALL_NAME = [
-   {name: '生活', nameEn: 'life'},
-   {name: '学习', nameEn: 'study'},
-   {name: '工作', nameEn: 'work'},
-   {name: '运动', nameEn: 'sport'},
-   {name: '游戏', nameEn: 'game'},
-   {name: '电影', nameEn: 'film'},
-   {name: '大事', nameEn: 'bigevent'},
-   {name: '周报', nameEn: 'week'},
-   {name: '文章', nameEn: 'article'}
-]
 const POP_MSG_TYPE = {
    success: "success",
    warning: "warning",
@@ -266,7 +255,7 @@ function setDiaryConfig(newValue){
 
 
 export default {
-   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES_ALL,CATEGORIES, CATEGORIES_ALL_NAME, WEEKDAY, WEATHER,
+   URL,COOKIE_NAME,POP_MSG_TYPE,CATEGORIES, WEEKDAY, WEATHER,
    getAuthorization,
    setAuthorization,
    popMessage,

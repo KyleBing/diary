@@ -51,7 +51,7 @@ export default {
                 keyword: '',
                 pageNo: 1,
                 pageCount: 50,
-                category: [],
+                diaryCategories: [],
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateRange: '' // 日记年月筛选
             },
@@ -63,9 +63,7 @@ export default {
     mounted() {
         document.title = '日记 PC' // 变更标题
         // init
-        this.categories = utility.getDiaryConfig().categories
         this.keywordShow = utility.getDiaryConfig().keyword
-        this.queryData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
         this.reload()
         this.addScrollEvent()
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
@@ -74,6 +72,7 @@ export default {
     computed: {
         ...mapState([
             'keyword',
+            'categoryAll',
             'diaryListShowedInFullStyle',
             'listNeedBeReload',
             'listOperation',
@@ -212,7 +211,9 @@ export default {
         loadMore() {
             this.haveMore = false
             this.isLoading = true
+            this.queryData.diaryCategories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
             this.queryData.dateRange = utility.getDiaryConfig().dateRange
+            this.queryData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
             this.getDiaries(this.queryData)
         },
         getDiaries(queryData) {
@@ -224,7 +225,7 @@ export default {
                         }
                         diary.weekday = utility.formatDate(diary.date).weekday
                         diary.dateString = utility.formatDate(diary.date).date
-                        let category = utility.CATEGORIES_ALL_NAME.filter(item => diary.nameEn === item.category)
+                        let category = this.categoryAll.filter(item => diary.nameEn === item.category)
                         diary.categoryString = category[0].name
                         return diary
                     })

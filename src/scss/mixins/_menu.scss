@@ -92,6 +92,14 @@ $menu-category-list-item-height: 40px;
       }
     }
   }
+
+  // shared 指示器
+  .category-shared{
+    border-color: white;
+    &.active{
+      background-color: white;
+    }
+  }
 }
 
 .user-info{

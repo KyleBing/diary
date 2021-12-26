@@ -2,14 +2,14 @@
     <div class="category-selector">
         <div :class="['category', 'category-' + item.nameEn, {active: categorySelected === item.nameEn}]"
              @click="chooseCategory(item.nameEn)"
-             v-for="item in categories"
+             v-for="item in categoryAll"
              :key="item.nameEn">{{ item.name }}
         </div>
     </div>
 </template>
 
 <script>
-import utility from "../utility"
+import {mapState} from "vuex";
 
 export default {
     name: "CategorySelector",
@@ -21,9 +21,11 @@ export default {
     },
     data() {
         return {
-            categories: utility.CATEGORIES_ALL_NAME,
             categorySelected: this.category
         }
+    },
+    computed: {
+        ...mapState(['categoryAll'])
     },
     watch: {
         category() {

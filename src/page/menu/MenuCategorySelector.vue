@@ -49,13 +49,13 @@ export default {
     methods: {
         ...mapMutations(['SET_IS_FILTER_SHARED','SET_FILTERED_CATEGORIES']),
         selectCategoryAll() {
-            this.categories = utility.CATEGORIES_ALL
+            this.categories = this.categoryAll.map(item => item.nameEn)
         },
         selectCategoryNone() {
             this.categories = []
         },
         reverseCategorySelect() {
-            let tempCategories = [].concat(utility.CATEGORIES_ALL)
+            let tempCategories = [].concat(this.categoryAll.map(item => item.nameEn))
             this.categories.forEach(item => {
                 tempCategories.splice(tempCategories.indexOf(item), 1)
             })
