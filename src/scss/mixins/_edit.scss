@@ -85,7 +85,7 @@ textarea{
       label{
         white-space: nowrap;
         @extend .unselectable;
-        color: $color-text-label;
+        color: $text-label;
         line-height: $height-input;
       }
       input{

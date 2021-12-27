@@ -15,7 +15,6 @@ $brown        : #A2845E;
 
 $color-main: $orange;
 
-$about-subtitle: #D1D5DA;
 
 // Background Color
 $bg-list-active : #fff3df;
@@ -43,11 +42,13 @@ $fz-big          : 18px;
 $fz-label        : 16px;
 
 // Color text
-$color-text-label         : #9B9B9B;
-$color-text-content       : #373737;
-$color-text-title         : #232323;
-$color-text-date          : #2d2d2d;
-$color-text-menu-second   : $about-subtitle;
+$text-label:          #9B9B9B;
+$text-content:        #373737;
+$text-title:          #232323;
+$text-date:           #2d2d2d;
+$text-about-subtitle: #D1D5DA;
+$text-menu-second:    $text-about-subtitle;
+
 
 // Height
 $height-header       : 40px;

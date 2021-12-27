@@ -23,6 +23,39 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+@import "../scss/plugin";
 
+.about{
+    position: relative;
+    height: 100%;
+    text-align: center;
+    color: $bg-light;
+    padding-top: 60px;
+    .title{
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 30px;
+        color: white;
+    }
+    .subtitle{
+        color: $text-about-subtitle;
+        font-weight: 300;
+    }
+    .author{
+        width: 100%;
+        position: absolute;
+        bottom: 60px;
+        a{
+            display: block;
+            line-height: 20px;
+            font-size: $fz-note;
+            height: 20px;
+            &:link,&:hover,&:active,&:visited{
+                color: $text-about-subtitle;
+                font-weight: 300;
+            }
+        }
+    }
+}
 </style>

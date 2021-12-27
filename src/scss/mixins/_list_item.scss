@@ -27,7 +27,7 @@
     line-height: $height-list;
     font-size: $fz-list-content;
     font-weight: bold;
-    color: $color-text-date;
+    color: $text-date;
   }
   .detail{
     position: relative;
@@ -43,7 +43,7 @@
       line-height: $height-list;
       display: block;
       font-size: $fz-list-content;
-      color: $color-text-title;
+      color: $text-title;
     }
     .icon{
       flex-shrink: 0;

@@ -84,9 +84,9 @@
                     <div class="user-info">
                         <p class="username">{{ userInfo.username }}</p>
                         <p class="email">{{ userInfo.email }}</p>
-                        <p class="email">•</p>
+                        <p class="email mt-1 mb-1">•</p>
                         <div v-if="statisticsCategory.shared > 0" class="statistics">
-                            <p>共有日记 {{ statisticsCategory.amount }} 篇</p>
+                            <p>日记 {{ statisticsCategory.amount }} 篇</p>
                             <p>共享 {{ statisticsCategory.shared }} 篇</p>
                         </div>
                     </div>

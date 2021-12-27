@@ -50,7 +50,7 @@ $menu-category-list-item-height: 40px;
     margin-top: 2px; // 抵消靠上的显示错觉
     font-size: 16px;
     line-height: 1;
-    color: $color-text-menu-second;
+    color: $text-menu-second;
   }
 }
 
@@ -108,21 +108,24 @@ $menu-category-list-item-height: 40px;
   margin-bottom: 60px;
   text-align: center;
   .username{
-    font-size: 16px;
+    font-size: 1.2rem;
     line-height: 1.5;
     display: block;
     font-weight: bold;
     color: white;
   }
   .email{
-    font-size: 13px;
+    font-family: 'Verdana';
+    font-size: 1rem;
     line-height: 1.2;
     display: block;
     font-weight: 300;
-    color: $about-subtitle;
+    color: $text-about-subtitle;
   }
   .statistics{
-    @extend .email;
+    font-size: 1rem;
+    font-family: "Verdana";
+    color: $text-about-subtitle;
   }
 }
 
@@ -190,38 +193,6 @@ $menu-category-list-item-height: 40px;
   border-top: 1px solid $bg-main;
 }
 
-.about{
-  position: relative;
-  height: 100%;
-  text-align: center;
-  color: $bg-light;
-  padding-top: 60px;
-  .title{
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 30px;
-    color: white;
-  }
-  .subtitle{
-    color: $about-subtitle;
-    font-weight: 300;
-  }
-  .author{
-    width: 100%;
-    position: absolute;
-    bottom: 60px;
-    a{
-      display: block;
-      line-height: 20px;
-      font-size: $fz-note;
-      height: 20px;
-      &:link,&:hover,&:active,&:visited{
-        color: $about-subtitle;
-        font-weight: 300;
-      }
-    }
-  }
-}
 
 // PC
 @media (min-width: $grid-separate-width-big) {
