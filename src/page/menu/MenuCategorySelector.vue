@@ -17,7 +17,7 @@
         <div class="menu-category-list category-operations-container">
             <div class="menu-category-item">
                 <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
-                <label for="share" class="menu-category-grass">共享日记</label>
+                <label for="share" class="menu-category-shared">共享日记</label>
             </div>
         </div>
 

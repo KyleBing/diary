@@ -143,6 +143,7 @@ $menu-category-list-item-height: 40px;
   display: block;
   text-align: center;
   width: 45%;
+  @extend .btn-like;
   .count{
     display: block;
     position: absolute;
@@ -150,6 +151,9 @@ $menu-category-list-item-height: 40px;
     right: 7px;
     font-size: 10px;
     line-height: 1;
+  }
+  label{
+    @extend .btn-like;
   }
   input[type=checkbox] + label {
     @extend .unselectable;
@@ -161,12 +165,18 @@ $menu-category-list-item-height: 40px;
     line-height: $menu-category-list-item-height;
     @include border-radius(5px);
     border: 1px dashed $gray;
+    &.menu-category-shared{
+      background-color: transparent;
+    }
   }
   @each $name, $color in $categories {
     input[type=checkbox]:checked + label {
       &.menu-category-#{$name} {
         background-color: $color;
         border-color: $color;
+        @if $name== 'shared'{
+          color: black;
+        }
         .count{
           color: darken($color, 20%);
         }

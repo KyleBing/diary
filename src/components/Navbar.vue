@@ -66,7 +66,7 @@
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
                             <div>类别</div>
                             <div class="category-indicator">
-                                <div class="item category-shared mr-2" v-if="isFilterShared"></div> <!-- 共享小图标标识 -->
+                                <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
                                 <div :class="['item', 'category-' + item.nameEn ,{active: filteredCategories.some(category => category ===item.nameEn)}]"
                                      v-for="(item, index) in categoryAll"
                                      :title="item.nameEn"
