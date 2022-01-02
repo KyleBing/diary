@@ -66,7 +66,7 @@
             <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
                 <div class="menu-list" v-show="menuListShowed">
                     <div class="menu-list-group">
-                        <div class="menu-list-group-item" @click="menuListClicked('search')">搜索</div>
+                        <div class="menu-list-group-item" v-if="isInMobileMode" @click="menuListClicked('search')">搜索</div>
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
                             <div>类别</div>
                             <div class="category-indicator">
