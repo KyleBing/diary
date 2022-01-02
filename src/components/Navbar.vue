@@ -19,7 +19,7 @@
 
             <!--RIGHT part-->
             <!--NEW-->
-            <div class="navbar-btn-group right" v-if="$route.name !== 'detail'">
+            <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail') || !isInMobileMode">
                 <router-link to="/edit">
                     <tab-icon alt="添加"></tab-icon>
                 </router-link>
