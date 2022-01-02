@@ -47,7 +47,7 @@
         <!--TITLE-->
         <div class="diary-title" v-if="diary.title">
             <h2>{{ diary.title }}</h2>
-            <div class="clipboard ml-1" :data-clipboard="diary.title">
+            <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
                 <img :src="$icons.clipboard" alt="clipboard">
             </div>
         </div>
@@ -55,7 +55,7 @@
         <!--CONTENT-->
         <div class="diary-content" v-if="diary.content">
             <div class="content" v-html="diary.contentHtml"/>
-            <div class="clipboard ml-1" :data-clipboard="diary.content">
+            <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
                 <img :src="$icons.clipboard" alt="clipboard">
             </div>
         </div>
