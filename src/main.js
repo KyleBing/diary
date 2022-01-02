@@ -5,11 +5,10 @@ import utility from "./utility"
 
 // router
 import Router from 'vue-router'
-import { pcRoutes, mobileRoutes } from './route'
+import {routes} from './route'
 const router = new Router({
    // mode: 'history', // 由于该项目是二级目录，使用 history 会导致开发与布署的地址不一
-   // routes: pcRoutes
-   routes: mobileRoutes
+   routes
 })
 Vue.use(Router)
 

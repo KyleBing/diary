@@ -10,7 +10,8 @@
 
             <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
                 <span v-if="diary.temperature">{{ diary.temperature }}</span>
-                <span v-if="diary.temperatureOutside">/{{ diary.temperatureOutside }}</span>
+                <span v-if="diary.temperatureOutside && diary.temperature"> / </span>
+                <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
                 <span> ℃</span>
             </div>
 
@@ -39,7 +40,8 @@
         </div>
 
 
-        <loading :loading="isLoading"></loading>
+        <!-- pc 时不显示展示加载图标 -->
+        <loading :loading="isLoading" v-if="isInMobileMode"/>
 
 
         <!--TITLE-->
@@ -145,7 +147,7 @@ export default {
                         this.diary.contentHtml = contentHtml
                     }
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
-                    this.diary.temperatureOutside = utility.temperatureProcessCTS(diary.temperature)
+                    this.diary.temperatureOutside = utility.temperatureProcessCTS(diary.temperature_outside)
 
                     // category map
                     let categoryMap = new Map()

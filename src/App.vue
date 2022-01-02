@@ -11,11 +11,6 @@ export default {
         this.SET_FILTERED_CATEGORIES(diaryConfig.filteredCategories)
         this.SET_KEYWORD(diaryConfig.keyword)
 
-        if (process.env.NODE_ENV !== 'development') {
-            if (innerWidth < 1024) {
-                location = '/diary/'
-            }
-        }
         window.onresize = () => {
             this.setInsets({
                 windowsHeight: window.innerHeight,

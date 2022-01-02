@@ -3,7 +3,7 @@
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
             <div class="navbar-btn-group left">
-                <div @click="menuShow" v-if="!menuShowed && (isInMobileMode && $route.name === 'list')">
+                <div @click="menuShow" v-if="(!isInMobileMode && !menuShowed) || (isInMobileMode && $route.name === 'list')">
                     <tab-icon alt="菜单"></tab-icon>
                 </div>
                 <div @click="menuClose" v-if="menuShowed">

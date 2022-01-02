@@ -10,31 +10,12 @@ import Share from '@/page/Share'
 import notFound_404 from "@/fundation/NotFound_404";
 import YearSelector from "@/components/YearSelector";
 
-const pcRoutes = [
+const routes = [
     {
         name: 'index',
         path: '/',
         component: Index,
         redirect: '/edit',
-        children: [
-            {name: 'detail', path: 'detail/:id', component: Detail,},
-            {name: 'editNew', path: 'edit', component: Edit,},
-            {name: 'edit', path: 'edit/:id', component: Edit,},]
-    },
-    {name: 'register',       path: '/register',        component: Register,       },
-    {name: 'share',          path: '/share/:id',       component: Share,          },
-    {name: 'changePassword', path: '/change-password', component: ChangePassword, },
-    {name: 'login',          path: '/login',           component: Login,          },
-    {name: 'test',           path: '/test',            component: YearSelector,   },
-    {path: '*',              component: notFound_404}
-]
-
-const mobileRoutes = [
-    {
-        name: 'index',
-        path: '/',
-        component: IndexMobile,
-        redirect: '/list',
         children: [
             {name: 'list', path: 'list', component: List,},
             {name: 'detail', path: 'detail/:id', component: Detail,},
@@ -50,5 +31,5 @@ const mobileRoutes = [
 ]
 
 export {
-    pcRoutes, mobileRoutes
+    routes
 }
