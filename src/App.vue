@@ -12,7 +12,7 @@ export default {
         this.SET_KEYWORD(diaryConfig.keyword)
 
         window.onresize = () => {
-            this.setInsets({
+            this.SET_INSETS({
                 windowsHeight: window.innerHeight,
                 windowsWidth: window.innerWidth,
                 heightPanel: window.innerHeight - 45, // 除 navbar 的高度
@@ -20,7 +20,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['setInsets', 'SET_KEYWORD','SET_FILTERED_CATEGORIES'])
+        ...mapMutations(['SET_INSETS', 'SET_KEYWORD','SET_FILTERED_CATEGORIES'])
     }
 }
 </script>

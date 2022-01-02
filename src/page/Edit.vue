@@ -158,12 +158,12 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setEditLogoImg',
-            'setDiaryNeedToBeSaved',
-            'setDiaryNeedToBeRecovered',
-            'setListNeedBeReload',
-            'setListOperation',
-            'setDiaryEditorContentHasChanged'
+            'SET_EDIT_LOGOIMG',
+            'SET_DIARY_NEED_TO_BE_SAVED',
+            'SET_DIARY_NEED_TO_BE_RECOVERED',
+            'SET_LIST_NEED_BE_RELOAD',
+            'SET_LIST_OPERATION',
+            'SET_DIARY_EDITOR_CONTENT_HAS_CHANGED'
         ]),
         getCurrentTemperature(){
             axios
@@ -195,11 +195,11 @@ export default {
         },
         updateDiaryIcon() {
             document.title = this.diaryHasChanged ? '日记 - 编辑中...' : '日记' // 变更标题
-            this.setDiaryEditorContentHasChanged(this.diaryHasChanged)
+            this.SET_DIARY_EDITOR_CONTENT_HAS_CHANGED(this.diaryHasChanged)
             if (this.diaryHasChanged) {
-                this.setEditLogoImg(this.diary.content ? this.$icons.logo_content: this.$icons.logo_title)
+                this.SET_EDIT_LOGOIMG(this.diary.content ? this.$icons.logo_content: this.$icons.logo_title)
             } else {
-                this.setEditLogoImg(this.diary.content ? this.$icons.logo_content_saved: this.$icons.logo_title_saved)
+                this.SET_EDIT_LOGOIMG(this.diary.content ? this.$icons.logo_content_saved: this.$icons.logo_title_saved)
             }
         },
         getDiary(id) {
@@ -226,17 +226,17 @@ export default {
             if (this.diary.title.trim().length === 0) {
                 this.diary.title = '' // clear content
                 utility.popMessage('warning', '内容未填写', null)
-                this.setDiaryNeedToBeSaved(false) // 未能成功保存时，复位 diaryNeedToBeSaved 标识
+                this.SET_DIARY_NEED_TO_BE_SAVED(false) // 未能成功保存时，复位 diaryNeedToBeSaved 标识
                 return
             }
             if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
                 utility.popMessage('warning', '室内温度格式不正确', null)
-                this.setDiaryNeedToBeSaved(false)
+                this.SET_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
             if (this.diary.temperatureOutside !== '' && !/^-?\d{1,2}$/.test(this.diary.temperatureOutside)) {
                 utility.popMessage('warning', '室外温度格式不正确', null)
-                this.setDiaryNeedToBeSaved(false)
+                this.SET_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
             let queryData = {
@@ -258,18 +258,18 @@ export default {
                         // 成功后更新 origin 字符串
                         Object.assign(this.diaryOrigin, this.diary)
                         this.updateDiaryIcon() // 更新 navbar icon
-                        this.setDiaryNeedToBeSaved(false)
-                        this.setListOperation({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
+                        this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                        this.SET_LIST_OPERATION({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
                         if (this.isNew) { // 如果是新建日记，跳转到对应路由
                             this.isNew = false
                             this.diary.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
                             this.$router.push('/edit/' + res.data.id)
-                            this.setListOperation({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
+                            this.SET_LIST_OPERATION({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
                         }
                     })
                 })
                 .catch(() => {
-                    this.setDiaryNeedToBeSaved(false)
+                    this.SET_DIARY_NEED_TO_BE_SAVED(false)
                 })
         },
         createDiary() {
@@ -292,7 +292,7 @@ export default {
         },
         recoverDiary() {
             Object.assign(this.diary, this.diaryOrigin)
-            this.setDiaryNeedToBeRecovered(false)
+            this.SET_DIARY_NEED_TO_BE_RECOVERED(false)
         },
         convertToServerVersion() { // 转换为数据库格式的日记
             let date = utility.dateFormatter(this.diary.date)

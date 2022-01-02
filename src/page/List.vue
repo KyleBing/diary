@@ -179,8 +179,8 @@ export default {
     methods: {
         ...mapMutations([
             'SET_KEYWORD',
-            "setStatistics",
-            'setListNeedBeReload',
+            "SET_STATISTICS",
+            'SET_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR']
         ),
         /* MENU 相关 */
@@ -205,7 +205,7 @@ export default {
         getStatistic() {
             utility.getData(utility.URL.diaryOperation, {type: 'statistic'})
                 .then(res => {
-                    this.setStatistics(res.data)
+                    this.SET_STATISTICS(res.data)
                 })
         },
         loadMore() {
@@ -249,7 +249,7 @@ export default {
                 })
                 .finally(() => {
                     // 列表加载完成后设置列表重载： false
-                    this.setListNeedBeReload(false)
+                    this.SET_LIST_NEED_BE_RELOAD(false)
                     this.isLoading = false
                 })
         },

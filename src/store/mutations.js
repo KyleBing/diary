@@ -1,16 +1,16 @@
 import utility from "@/utility";
 
 export default {
-   setInsets(state, payload){
+   SET_INSETS(state, payload){
       state.insets = payload
    },
    SET_IS_SHOW_SEARCH_BAR (state, payload){
       state.isShowSearchBar = payload
    },
-   setDateFilter(state, payload){
+   SET_DATE_FILTER(state, payload){
       state.dateFilter = payload
    },
-   setStatistics(state, payload){
+   SET_STATISTICS(state, payload){
       state.statisticsCategory = payload.category
       state.statisticsYear = payload.year
    },
@@ -32,29 +32,28 @@ export default {
       diaryConfig.keyword = payload
       utility.setDiaryConfig(diaryConfig)
    },
-   setCurrentDiary (state, payload){
+   SET_CURRENT_DIARY (state, payload){
       state.currentDiary = payload
    },
-   setDiaryNeedToBeSaved (state, payload){
+   SET_DIARY_NEED_TO_BE_SAVED (state, payload){
       state.diaryNeedToBeSaved = payload
    },
-   setDiaryListShowedInFullStyle (state, payload){
+   SET_DIARYLIST_SHOWED_INFULL_STYLE (state, payload){
       state.diaryListShowedInFullStyle = payload
    },
-
-   setListNeedBeReload(state, payload){
+   SET_LIST_NEED_BE_RELOAD(state, payload){
       state.listNeedBeReload = payload
    },
-   setEditLogoImg(state, payload){
+   SET_EDIT_LOGOIMG(state, payload){
       state.editLogoImg = payload
    },
-   setListOperation(state, payload){
+   SET_LIST_OPERATION(state, payload){
       state.listOperation = payload
    },
-   setDiaryNeedToBeRecovered(state, payload){
+   SET_DIARY_NEED_TO_BE_RECOVERED(state, payload){
       state.diaryNeedToBeRecovered = payload
    },
-   setDiaryEditorContentHasChanged(state, payload){
+   SET_DIARY_EDITOR_CONTENT_HAS_CHANGED(state, payload){
       state.diaryEditorContentHasChanged = payload
    },
 }

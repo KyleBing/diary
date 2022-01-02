@@ -38,7 +38,7 @@ export default {
             let diaryConfig = utility.getDiaryConfig()
             diaryConfig.dateRange = this.monthChosen
             utility.setDiaryConfig(diaryConfig)
-            this.setDateFilter(this.monthChosen)
+            this.SET_DATE_FILTER(this.monthChosen)
         }
     },
     computed: {
@@ -47,7 +47,7 @@ export default {
         })
     },
     methods: {
-        ...mapMutations(['setDateFilter']),
+        ...mapMutations(['SET_DATE_FILTER']),
         monthClicked(id) {
             if (id === this.monthChosen) {
                 this.monthChosen = ''

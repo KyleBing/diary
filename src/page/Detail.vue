@@ -107,7 +107,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['setCurrentDiary']),
+        ...mapMutations(['SET_CURRENT_DIARY']),
         goBack() {
             this.$router.back()
         },
@@ -129,7 +129,7 @@ export default {
                     this.isLoading = false // loading off
                     let diary = res.data
                     this.diary = diary
-                    this.setCurrentDiary(diary) // 设置 store: currentDiary
+                    this.SET_CURRENT_DIARY(diary) // 设置 store: currentDiary
                     let dateOjb = utility.formatDate(diary.date)
                     document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
                     this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time

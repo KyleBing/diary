@@ -195,16 +195,16 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setDiaryListShowedInFullStyle',
+            'SET_DIARYLIST_SHOWED_INFULL_STYLE',
             'SET_IS_SHOW_SEARCH_BAR',
-            'setDiaryNeedToBeSaved',
-            'setDiaryNeedToBeRecovered',
-            'setListOperation',
-            'setListNeedBeReload',
+            'SET_DIARY_NEED_TO_BE_SAVED',
+            'SET_DIARY_NEED_TO_BE_RECOVERED',
+            'SET_LIST_OPERATION',
+            'SET_LIST_NEED_BE_RELOAD',
         ]),
         toggleListStyle() {
             if (!this.menuShowed) {
-                this.setDiaryListShowedInFullStyle(!this.diaryListShowedInFullStyle)
+                this.SET_DIARYLIST_SHOWED_INFULL_STYLE(!this.diaryListShowedInFullStyle)
             }
         },
         /* MENU */
@@ -217,7 +217,7 @@ export default {
         },
         menuClose() {
             if (this.categoryShowed) {
-                this.setListNeedBeReload(true)
+                this.SET_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
             } else if (this.aboutShowed) {
                 this.menuShowed = true            // menu panel
@@ -226,7 +226,7 @@ export default {
                 this.yearShowed = false           // year
                 this.aboutShowed = false           // about
             } else if (this.yearShowed) {
-                this.setListNeedBeReload(true)
+                this.SET_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
             } else if (this.menuShowed) {
                 this.menuInit()
@@ -289,10 +289,10 @@ export default {
             }
         },
         diarySave() {
-            this.setDiaryNeedToBeSaved(true)
+            this.SET_DIARY_NEED_TO_BE_SAVED(true)
         },
         diaryRecover() {
-            this.setDiaryNeedToBeRecovered(true)
+            this.SET_DIARY_NEED_TO_BE_RECOVERED(true)
         },
 
         /* SHARE */
@@ -317,7 +317,7 @@ export default {
                 .then(res => {
                     that.toastHide()
                     utility.popMessage('success', res.info, () => {
-                        this.setListOperation({type: 'delete', dairy: null, id: this.currentDiary.id})
+                        this.SET_LIST_OPERATION({type: 'delete', dairy: null, id: this.currentDiary.id})
                     }, 1) // 删除成功后等待时间不要太长
                 })
         },
