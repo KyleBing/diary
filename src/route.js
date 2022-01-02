@@ -14,7 +14,6 @@ const routes = [
         name: 'index',
         path: '/',
         component: Index,
-        redirect: '/edit',
         children: [
             {name: 'list'   , path: 'list'      , component: List  , }, // mobile
             {name: 'detail' , path: 'detail/:id', component: Detail, },

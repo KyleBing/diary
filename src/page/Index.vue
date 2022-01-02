@@ -34,6 +34,13 @@ export default {
     computed: {
         ...mapState(['insets']),
         ...mapGetters(['isInMobileMode'])
+    },
+    mounted() {
+        if (this.isInMobileMode){
+            this.$router.push('/list')
+        } else {
+            this.$router.push('/edit')
+        }
     }
 }
 
