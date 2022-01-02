@@ -3,20 +3,23 @@
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
             <div class="navbar-btn-group left">
-                <div @click="menuShow" v-if="!menuShowed">
+                <div @click="menuShow" v-if="!menuShowed && (isInMobileMode && $route.name === 'list')">
                     <tab-icon alt="菜单"></tab-icon>
                 </div>
-                <div @click="menuClose" v-else>
+                <div @click="menuClose" v-if="menuShowed">
                     <tab-icon alt="关闭"></tab-icon>
                 </div>
-                <div v-show="!isShowSearchBar && !menuShowed" @click="showSearchbar">
+                <div @click="$router.back()" v-if="isInMobileMode && $route.name !== 'list'">
+                    <tab-icon alt="返回"></tab-icon>
+                </div>
+                <div v-show="!isShowSearchBar && !menuShowed" v-if="!isInMobileMode" @click="showSearchbar">
                     <tab-icon alt="搜索"></tab-icon>
                 </div>
             </div>
 
             <!--RIGHT part-->
             <!--NEW-->
-            <div class="navbar-btn-group right">
+            <div class="navbar-btn-group right" v-if="$route.name !== 'detail'">
                 <router-link to="/edit">
                     <tab-icon alt="添加"></tab-icon>
                 </router-link>
@@ -63,6 +66,7 @@
             <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
                 <div class="menu-list" v-show="menuListShowed">
                     <div class="menu-list-group">
+                        <div class="menu-list-group-item" @click="menuListClicked('search')">搜索</div>
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
                             <div>类别</div>
                             <div class="category-indicator">
@@ -122,7 +126,7 @@
 <script>
 import utility from "@/utility"
 import Clipboard from "clipboard"
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapGetters} from 'vuex'
 import YearSelector from "@/components/YearSelector"
 import TabIcon from "@/components/TabIcon"
 import About from "@/page/About"
@@ -177,7 +181,8 @@ export default {
             'statisticsCategory',
             'statisticsYear',
             'dateFilter',
-        ])
+        ]),
+        ...mapGetters(['isInMobileMode'])
     },
     watch: {
         keyword(newValue) {
@@ -236,6 +241,13 @@ export default {
         },
         menuListClicked(menuName) {
             switch (menuName) {
+                case 'search':
+                    this.SET_IS_SHOW_SEARCH_BAR(true);
+                    this.menuInit();
+                    this.$nextTick(() => {
+                        document.querySelector('#keyword').focus();
+                    });
+                    break;
                 case 'category':
                     this.menuShowed = true             // menu panel
                     this.menuListShowed = false            // menu list

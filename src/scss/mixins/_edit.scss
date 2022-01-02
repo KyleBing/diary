@@ -173,3 +173,24 @@ textarea{
   }
 }
 
+
+// MOBILE
+@media (max-width: $grid-separate-width-md) {
+  .diary-edit{
+    flex-flow: column nowrap;
+    padding: 10px;
+  }
+  .editor-container{
+    margin-right: 0;
+    margin-bottom: 15px;
+    flex-grow: 0;
+  }
+  .meta-container{
+    width: 100%;
+    flex-flow: row wrap;
+    > * {
+      margin-bottom: 15px;
+    }
+  }
+}
+

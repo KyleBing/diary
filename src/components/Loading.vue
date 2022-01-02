@@ -16,6 +16,50 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "src/scss/plugin";
+.loading{
+    box-sizing: content-box;
+    height: $height-loading;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .loading-item{
+        width: 3px;
+        margin-right: 5px;
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+    &-1{
+        height: $height-loading * 1;
+        @include animation(load-frame-1 1s infinite linear 0s);
+        background-color: $red;
+    }
+    &-2{
+        height: $height-loading * 0.5;
+        @include animation(load-frame-2 1s infinite linear 0s);
+        background-color: $color-main;
+    }
+    &-3{
+        height: $height-loading * 0.25;
+        @include animation(load-frame-1 1s infinite linear 0s);
+        background-color: $bg-main;
+    }
+}
+
+@keyframes load-frame-1 {
+    0% {height: $height-loading * .25}
+    50% {height: $height-loading * 1}
+    100% {height: $height-loading * .25}
+}
+
+@keyframes load-frame-2 {
+    0% {height: $height-loading * 1}
+    50% {height: $height-loading * .25}
+    100% {height: $height-loading * 1}
+}
+
 
 </style>

@@ -1,9 +1,27 @@
 <template>
     <!--content-->
-    <div class="diary-detail" id="diaryDetail">
-        <!--META-->
-        <div class="diary-meta">
-            <div class="date">{{ diary.date }}</div>
+    <div class="diary-detail" id="diaryDetail" :style="`min-height: ${insets.heightPanel}px`">
+        <!-- meta MOBILE-->
+        <div class="diary-meta" v-if="isInMobileMode && !isLoading">
+            <div class="date" >{{ diary.dateShort }}</div>
+            <div class="weather">
+                <img v-if="diary.weather" :src="$icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+            </div>
+
+            <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
+                <span v-if="diary.temperature">{{ diary.temperature }}</span>
+                <span v-if="diary.temperatureOutside">/{{ diary.temperatureOutside }}</span>
+                <span> ℃</span>
+            </div>
+
+            <div :class="[`detail-category-${diary.category}`, 'detail-category']">
+                <span>{{ diary.categoryString }}</span>
+            </div>
+        </div>
+
+        <!-- meta PC-->
+        <div class="diary-meta" v-else>
+            <div class="date">{{ diary.dateLong }}</div>
             <div class="weather">
                 <img v-if="diary.weather" :src="$icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
             </div>
@@ -14,12 +32,18 @@
             <div class="temperature" v-if="diary.temperatureOutside">
                 <span>外：{{ diary.temperatureOutside }} ℃</span>
             </div>
+
             <div :class="[`detail-category-${diary.category}`, 'detail-category']">
                 <span>{{ diary.categoryString }}</span>
             </div>
         </div>
+
+
+        <loading :loading="isLoading"></loading>
+
+
         <!--TITLE-->
-        <div class="diary-title">
+        <div class="diary-title" v-if="diary.title">
             <h2>{{ diary.title }}</h2>
             <div class="clipboard ml-1" :data-clipboard="diary.title">
                 <img :src="$icons.clipboard" alt="clipboard">
@@ -39,15 +63,18 @@
 <script>
 import ClipboardJS from "clipboard";
 import utility from "../utility"
-import {mapMutations, mapState} from "vuex";
+import {mapGetters, mapMutations, mapState} from "vuex";
+import Loading from "@/components/Loading";
 
 export default {
     name: 'Detail',
+    components: {Loading},
     data() {
         return {
             showToast: false,
             id: '',
             diary: {},
+            isLoading: false, // loading
 
             clipboard: null // clipboard obj
         }
@@ -69,7 +96,8 @@ export default {
         this.clipboard.destroy()
     },
     computed:{
-        ...mapState(['categoryAll'])
+        ...mapState(['categoryAll', 'insets']),
+        ...mapGetters(['isInMobileMode']),
     },
     watch: {
         $route(to) {
@@ -88,6 +116,7 @@ export default {
             this.showToast = false
         },
         showDiary(id) {
+            this.isLoading = true
             utility.getData(
                 utility.URL.diaryOperation,
                 {
@@ -95,12 +124,14 @@ export default {
                     diaryId: id
                 })
                 .then(res => {
+                    this.isLoading = false // loading off
                     let diary = res.data
                     this.diary = diary
                     this.setCurrentDiary(diary) // 设置 store: currentDiary
                     let dateOjb = utility.formatDate(diary.date)
                     document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
-                    this.diary.date = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+                    this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+                    this.diary.dateShort = dateOjb.date + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
                     if (diary.content) {
                         let contentArray = diary.content.split('\n')
                         let contentHtml = ""
@@ -124,6 +155,7 @@ export default {
                     diary.categoryString = categoryMap.get(diary.category)
                 })
                 .catch(() => {
+                    this.isLoading = false // loading off
                     this.$router.back()
                 })
         },

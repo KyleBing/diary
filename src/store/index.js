@@ -42,5 +42,10 @@ export default new Vuex.Store({
          {name: '文章', nameEn: 'article'}
       ],
    },
+   getters: {
+      isInMobileMode(state){
+         return state.insets.windowsWidth < state.insets.windowsHeight
+      }
+   },
    mutations
 })

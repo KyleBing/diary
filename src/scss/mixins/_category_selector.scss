@@ -57,10 +57,20 @@
   }
 }
 
-
+// IPAD
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .category-selector{
     .category{
     }
   }
 }
+
+// MOBILE
+@media (max-width: $grid-separate-width-md) {
+  .category-selector{
+    justify-content: flex-start;
+    .category{
+    }
+  }
+}
+

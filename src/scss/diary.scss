@@ -12,23 +12,23 @@ body{
 
 .diary {
   padding-top: $height-navbar;
-  .diary-list {
+  .diary-list-container {
+    overflow-y: auto;
     width: 100%;
+    background-color: $bg-light;
   }
   .diary-container {}
 }
 
-.diary-list{
-  background-color: $bg-light;
+.diary-list-group-container{
   padding-bottom: 100px;
-  width: 100%;
 }
 
 // PC & IPAD
 @media (min-width: $grid-separate-width-md) {
   .diary {
     display: flex;
-    .diary-list {
+    .diary-list-container {
       border-right: 1px solid $color-border;
       overflow-y: auto;
       width: $menu-panel-big;
@@ -48,7 +48,7 @@ body{
   .diary {
     padding-top: $height-navbar;
     display: flex;
-    .diary-list {
+    .diary-list-container {
       border-right: 1px solid $color-border;
       width: 400px;
     }
@@ -61,7 +61,7 @@ body{
 // MOBILE
 @media (max-width: $grid-separate-width-md) {
   .diary {
-    .diary-list {
+    .diary-list-container {
       width: 100%;
     }
     .diary-container {

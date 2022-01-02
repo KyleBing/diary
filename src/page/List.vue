@@ -1,5 +1,5 @@
 <template>
-    <div id="diaryApp" :style="`min-height: ${insets.heightPanel}px`">
+    <div class="diary-list-group-container" :style="`min-height: ${insets.heightPanel}px`">
         <div class="search-bar" v-show="isShowSearchBar">
             <form @submit.prevent="search">
                 <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <loading :loading="isLoading"></loading>
+        <loading :loading="isLoading"/>
         <div v-show="!isLoading && !haveMore" class="end-of-diary">
             <p><img :src="$icons.EOF" alt="EOF"></p>
         </div>
@@ -254,7 +254,7 @@ export default {
                 })
         },
         addScrollEvent() {
-            document.querySelector('.diary-list').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
+            document.querySelector('.diary-list-container').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
                 /* 判断是否加载内容*/
                 function needLoadContent() {
                     let lastNode = document.querySelector('.diary-list-group > div:last-child')
@@ -263,7 +263,7 @@ export default {
                     }
                     let lastOffsetTop = lastNode.offsetTop
                     let clientHeight = window.innerHeight
-                    let listEl = document.querySelector('.diary-list')
+                    let listEl = document.querySelector('.diary-list-container')
                     let scrollTop = listEl.scrollTop
                     // console.clear()
                     // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
