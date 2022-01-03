@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import axios from 'axios'
 import VueCookie from 'vue-cookie'
 import qs from 'qs'
@@ -9,7 +8,6 @@ const BASE_URL = process.env.NODE_ENV === 'development' ? '/api/': '../diary-por
 
 const global = {
    heightNavbar: 45,
-   diaryPath: 'diary-pc'
 }
 
 let URL = {
@@ -71,27 +69,32 @@ function deleteAuthorization() {
 
 
 // Prompt 提示
-function popMessage(type, title, callback = () => {
-}, timeout = 1.5) {
+function popMessage(
+    type,
+    title,
+    callback = () => {},
+    timeout = 1.5) {
    let popClass = 'pop-msg-' + type
-   let template = ` <div class="pop-msg animated-fast slideInDown ${popClass}">
-                        <h3>${title}</h3>
-                    </div>`
-   $('body').append(template)
+   let msgEl = document.createElement('div')
+   msgEl.classList.add('pop-msg', 'animated-fast', 'slideInDown', popClass)
+   let msgTitle = document.createElement('h3')
+   msgTitle.innerText = title
+   msgEl.append(msgTitle)
+   $('body').append(msgEl)
 
    setTimeout(() => {
-      $('.pop-msg')
-         .removeClass('slideInDown')
-         .addClass('slideOutUp')
+      msgEl.classList.replace('slideInDown', 'slideOutUp')
       setTimeout(() => {
-         $('.pop-msg')
-            .hide()
-            .remove()
+         msgEl.remove()
       }, 300); // 对应 css 中的动画时间
       if (callback) {
          callback()
       }
    }, 1000 * timeout)
+}
+
+function $(selector){
+   return document.querySelector(selector)
 }
 
 
