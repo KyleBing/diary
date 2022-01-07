@@ -44,7 +44,10 @@
                 </div>
             </div>
             <category-selector class="editor-form-category" :category="diary.category" @change="setCategory"/>
+            <diary-btn :is-loading="isLoading" type="light" v-if="diary.category === 'week'" @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>
             <weather-selector class="editor-form-weather" :weather="diary.weather" @change="setWeather"/>
+
+
         </div>
     </div>
 </template>
@@ -57,7 +60,9 @@ import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/locale/zh-cn'
 import 'vue2-datepicker/index.css'
 import {mapState, mapMutations} from 'vuex'
-import axios from "axios";
+import axios from "axios"
+import Moment from 'moment'
+import DiaryBtn from "@/components/DiaryBtn";
 
 export default {
     name: 'Edit',
@@ -86,10 +91,22 @@ export default {
                 temperature: '',
                 temperatureOutside: '',
             },
-            logoImageUrl: this.$icons.logo
+            logoImageUrl: this.$icons.logo,
+
+            queryData: { // 请求本周日志的 queryData
+                type: 'list',
+                keyword: '',
+                pageNo: 1,
+                pageCount: 15, // 单页请求条数
+                diaryCategories: JSON.stringify(['work']),
+                filterShared: 0, // 1 是筛选，0 是不筛选
+                dateRange: '' // 日记年月筛选
+            },
+            isLoading: false,
+
         }
     },
-    components: {categorySelector, weatherSelector, DatePicker},
+    components: {DiaryBtn, categorySelector, weatherSelector, DatePicker},
     beforeDestroy() {
         document.onkeydown = null // 去除按键绑定事件
     },
@@ -180,6 +197,33 @@ export default {
             'SET_LIST_OPERATION',
             'SET_DIARY_EDITOR_CONTENT_HAS_CHANGED'
         ]),
+        // 载入本星期的所有工作日志
+        loadCurrentWeekLogs() {
+            this.isLoading = true
+            utility.getData(utility.URL.diaryOperation, this.queryData)
+                .then(res => {
+                    this.isLoading = false
+                    const currentWeekStart = new Moment().startOf('week')
+                    const currentWeekEnd = new Moment().endOf('week')
+                    let workList = res.data.filter(item => {
+                        let diaryDate = new Moment(item.date)
+                        return diaryDate.isBetween(currentWeekStart, currentWeekEnd)
+                    })
+                    this.diary.title = '周报'
+                    this.diary.content = this.combineWeekWorkLog(workList)
+                }).catch(err => {
+                this.isLoading = false
+            })
+        },
+
+        combineWeekWorkLog(workList){
+            let contentStr = ''
+            workList.forEach(item => {
+                contentStr = contentStr + item.title + '\n' + item.content + '\n'
+            })
+            return contentStr
+        },
+
         getCurrentTemperature(){
             axios
                 .get('https://devapi.qweather.com/v7/weather/now',

@@ -66,26 +66,38 @@
 }
 
 .btn{
+  border: 1px solid transparent;
   padding: 8px 15px;
-  margin-top: 40px;
   text-align: center;
   width: 100%;
   display: block;
   font-weight: bold;
   font-size: $fz-big;
-  color: $bg-light;
   cursor: pointer;
   @include border-radius();
   &:active{
     transform: translateY(2px);
   }
+  @extend .btn-like;
 }
+
 .btn-active{
+  color: $bg-light;
   background-color: $color-main;
   &:hover{
-    background-color: darken($color-main,5%);
+    background-color: darken($color-main, 5%);
   }
 }
+
+.btn-light{
+  border-color: $color-border-light;
+  color: $color-main;
+  background-color: white;
+  &:hover{
+    background-color: darken(white, 1%);
+  }
+}
+
 .btn-inactive{
   color: $gray;
   border: 1px solid $gray;

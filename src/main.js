@@ -1,6 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import utility from "./utility"
+import Moment from "moment"
+
+// 全局配置 moment，设置星期的第一天为 星期一
+Moment.locale('zh', {
+   week: {
+      dow: 1
+   }
+})
 
 
 // router

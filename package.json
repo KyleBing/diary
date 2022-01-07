@@ -15,7 +15,8 @@
     "vue-cookie": "^1.1.4",
     "vue-router": "^3.4.5",
     "vue2-datepicker": "^3.6.2",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.0",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.0",

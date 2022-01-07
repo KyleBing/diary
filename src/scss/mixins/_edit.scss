@@ -70,7 +70,6 @@ textarea{
     padding: 10px;
     @include border-radius($radius-pc);
     overflow: hidden;
-    order: 1;
     justify-content: space-between;
     display: flex;
     flex-flow: row wrap;
@@ -104,10 +103,8 @@ textarea{
     }
   }
   .editor-form-category{
-    order: 2;
   }
   .editor-form-weather{
-    order: 3;
   }
 }
 

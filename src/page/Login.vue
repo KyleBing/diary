@@ -13,7 +13,7 @@
                     <label for="password">密码</label>
                     <input v-model.lazy="password" name="password" type="password" id="password">
                 </div>
-                <button class="btn" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{ loginLabel }}</button>
+                <button class="btn mt-8" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{ loginLabel }}</button>
             </form>
             <div class="footer">
                 <router-link to="/register">注册</router-link>

@@ -1,6 +1,6 @@
 $timer: 5px;
 // common
-@for $item from 1 through 8 {
+@for $item from 0 through 8 {
   .mt-#{$item}{margin-top: $timer * $item !important;}
   .mb-#{$item}{margin-bottom: $timer * $item !important;}
   .ml-#{$item}{margin-left: $timer * $item !important;}
