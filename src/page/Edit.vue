@@ -4,12 +4,15 @@
             <!--content-->
             <div class="editor-title">
                 <label  class="hidden"></label>
-                <textarea class="title" style="height: 150px" placeholder="一句话，概括你的一天" v-model="diary.title"/>
+                <textarea ref="diaryTitle" class="title" style="height: 150px" placeholder="一句话，概括你的一天" v-model="diary.title"/>
             </div>
             <div class="editor-content">
                 <label class="hidden"></label>
-                <textarea class="content" v-if="insets.windowsWidth > 1440" :style="`height: ${insets.heightPanel - 150 - 40 - 20}px`" placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
-                <textarea class="content" v-else placeholder="日记详细内容，如果你有很多要写的" v-model="diary.content"/>
+                <textarea class="content"
+                          ref="diaryContent"
+                          :style="insets.windowsWidth > 1440 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
+                          placeholder="日记详细内容，如果你有很多要写的"
+                          v-model="diary.content"/>
             </div>
         </div>
         <div class="meta-container">
@@ -87,6 +90,9 @@ export default {
         }
     },
     components: {categorySelector, weatherSelector, DatePicker},
+    beforeDestroy() {
+        document.onkeydown = null // 去除按键绑定事件
+    },
     mounted() {
         // 网页标签关闭前提醒
         window.onbeforeunload = () => {
@@ -101,6 +107,16 @@ export default {
         } else {
             this.diary.id = this.$route.params.id
             this.getDiary(this.$route.params.id)
+        }
+
+        // 添加按键事件 ctrl + J 保存日记
+        // 无法
+        document.onkeydown = event => {
+            if (event.ctrlKey && event.code === 'KeyS'){
+                event.preventDefault()
+                this.saveDiary()
+                return false
+            }
         }
     },
     beforeRouteLeave(to, from, next) {
