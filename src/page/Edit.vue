@@ -115,7 +115,6 @@ export default {
             if (event.ctrlKey && event.code === 'KeyS'){
                 event.preventDefault()
                 this.saveDiary()
-                return false
             }
         }
     },
