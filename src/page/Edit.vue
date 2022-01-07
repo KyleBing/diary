@@ -203,8 +203,8 @@ export default {
             utility.getData(utility.URL.diaryOperation, this.queryData)
                 .then(res => {
                     this.isLoading = false
-                    const currentWeekStart = new Moment().startOf('week')
-                    const currentWeekEnd = new Moment().endOf('week')
+                    const currentWeekStart = new Moment(this.diary.date).startOf('week')
+                    const currentWeekEnd = new Moment(this.diary.date).endOf('week')
                     let workList = res.data.filter(item => {
                         let diaryDate = new Moment(item.date)
                         return diaryDate.isBetween(currentWeekStart, currentWeekEnd)
