@@ -50,7 +50,7 @@ export default {
                 type: 'list',
                 keyword: '',
                 pageNo: 1,
-                pageCount: 50,
+                pageCount: 100, // 单页请求条数
                 diaryCategories: [],
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateRange: '' // 日记年月筛选
@@ -267,7 +267,8 @@ export default {
                     let scrollTop = listEl.scrollTop
                     // console.clear()
                     // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
-                    return (lastOffsetTop < clientHeight + scrollTop + clientHeight / 2) // 添加 1/2 触发高度
+                    // 当 list 滚动到上面的部分 + 屏幕高度 >  最后一个元素的 offsetTop 的时候，就说明已经触底了
+                    return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
                 }
 
                 if (this.haveMore && needLoadContent()) {
