@@ -173,7 +173,10 @@ textarea{
 
 // MOBILE
 @media (max-width: $grid-separate-width-md) {
-  .diary-edit{
+  textarea {
+    padding: 10px 15px;
+  }
+  .diary-edit {
     flex-flow: column nowrap;
     padding: 10px;
   }

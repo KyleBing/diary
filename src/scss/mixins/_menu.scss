@@ -64,8 +64,8 @@ $menu-category-list-item-height: 40px;
   font-size: 20px;
   color: white;
   line-height: $menu-category-list-item-height;
-  border: 1px solid $grass;
-  background-color: $grass;
+  border: 1px solid $color-main;
+  background-color: $color-main;
   @include border-radius(5px);
   @extend .btn-like;
 }
@@ -115,7 +115,6 @@ $menu-category-list-item-height: 40px;
     color: white;
   }
   .email{
-    font-family: 'Verdana';
     font-size: 1rem;
     line-height: 1.2;
     font-weight: 100;
@@ -124,7 +123,6 @@ $menu-category-list-item-height: 40px;
   }
   .statistics{
     font-size: 1rem;
-    font-family: "Verdana";
     color: $text-about-subtitle;
   }
 }
@@ -148,6 +146,7 @@ $menu-category-list-item-height: 40px;
   width: 45%;
   @extend .btn-like;
   .count{
+    color: white;
     display: block;
     position: absolute;
     top: 5px;
@@ -179,9 +178,6 @@ $menu-category-list-item-height: 40px;
         border-color: $color;
         @if $name== 'shared'{
           color: black;
-        }
-        .count{
-          color: darken($color, 20%);
         }
       }
     }
