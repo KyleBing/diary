@@ -24,7 +24,8 @@
     "fiber": "^1.0.4",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "filemanager-webpack-plugin": "^6.1.7"
   },
   "postcss": {
     "plugins": {
