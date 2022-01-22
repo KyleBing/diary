@@ -147,7 +147,7 @@ export default {
                     this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
                     this.diary.dateShort = dateOjb.date + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
-                    this.diary.temperatureOutside = utility.temperatureProcessCTS(diary.temperature_outside)
+                    this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
 
                     // category map
                     let categoryMap = new Map()
