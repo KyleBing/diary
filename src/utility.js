@@ -199,9 +199,11 @@ function formatDate(dateString) {
    }
 
    return {
+      year: year,
       weekday: WEEKDAY[week],
       date:`${month}月${day}日`,
       dateFull: `${year}年${month}月${day}日`,
+      dateFullSlash: `${year}/${month}/${day}`,
       timeName: timeArea,
       time: time
    }
