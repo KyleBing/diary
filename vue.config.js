@@ -29,8 +29,18 @@ module.exports = {
               onEnd: {
                 // mkdir: ['./archive'], // 新建 ./archive 目录
                 archive: [
-                  // 打包 ./dist 到 ./archive/dist-datetime.zip 压缩文件中，压缩包中不带 dist 外壳
-                  {source: '../diary/', destination: `../diary-${packTimeString}.zip`},
+                  // 打包 压缩包中不带 dist 外壳
+                  {
+                    source: '../diary/',
+                    destination: '../diary.tar.gz',
+                    format: 'tar',
+                    options: {
+                      gzip: true,
+                      gzipOptions: {
+                        level: 1,
+                      },
+                    }
+                  },
                 ]
               }
             }
