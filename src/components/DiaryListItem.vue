@@ -4,7 +4,7 @@
         <i :class="['category', 'bg-' + diary.category]"></i>
         <span class="date">{{ diary.date }}</span>
         <div class="detail">
-            <p class="title">{{ diary.title }}</p>
+            <p class="title">{{ isHideContent ? diary.title.replace(/[^，。《》【】]/g, '*'): diary.title }}</p>
             <img alt="Content" v-if="diary.content" class="icon"
                  :src="active? $icons.content_white: $icons.content"/>
             <img :alt="diary.weather" v-if="diary.weather"
@@ -14,12 +14,15 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
     name: "DiaryListItem",
     props: {
         diary: Object
     },
     computed: {
+        ...mapState(['isHideContent']),
         active() {
             return this.$route.params.id === this.diary.id
         },

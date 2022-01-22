@@ -4,6 +4,9 @@ export default {
    SET_INSETS(state, payload){
       state.insets = payload
    },
+   SET_IS_HIDE_CONTENT(state, payload){
+      state.isHideContent = payload
+   },
    SET_IS_SHOW_SEARCH_BAR (state, payload){
       state.isShowSearchBar = payload
    },

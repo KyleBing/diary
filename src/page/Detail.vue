@@ -46,7 +46,7 @@
 
         <!--TITLE-->
         <div class="diary-title" v-if="diary.title">
-            <h2>{{ diary.title }}</h2>
+            <h2>{{ isHideContent ? diary.title.replace(/[^，。《》【】]/g, '*') : diary.title }}</h2>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
                 <img :src="$icons.clipboard" alt="clipboard">
             </div>
@@ -54,7 +54,7 @@
 
         <!--CONTENT-->
         <div class="diary-content" v-if="diary.content">
-            <div class="content" v-html="diary.contentHtml"/>
+            <div class="content" v-html="getContentHtml(diary.content)"/>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
                 <img :src="$icons.clipboard" alt="clipboard">
             </div>
@@ -98,7 +98,7 @@ export default {
         this.clipboard.destroy()
     },
     computed:{
-        ...mapState(['categoryAll', 'insets']),
+        ...mapState(['categoryAll', 'insets', 'isHideContent']),
         ...mapGetters(['isInMobileMode']),
     },
     watch: {
@@ -117,6 +117,18 @@ export default {
         hide() {
             this.showToast = false
         },
+        getContentHtml(content){
+            let contentArray = content.split('\n')
+            let contentHtml = ""
+            contentArray.forEach(item => {
+                if (item === ''){
+                    contentHtml += '<br/>'
+                } else {
+                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。《》【】]/g, '*'): item}</p>`
+                }
+            })
+            return contentHtml
+        },
         showDiary(id) {
             this.isLoading = true
             utility.getData(
@@ -134,18 +146,6 @@ export default {
                     document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
                     this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
                     this.diary.dateShort = dateOjb.date + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
-                    if (diary.content) {
-                        let contentArray = diary.content.split('\n')
-                        let contentHtml = ""
-                        contentArray.forEach(item => {
-                            if (item === ''){
-                                contentHtml += '<br/>'
-                            } else {
-                                contentHtml += `<p>${item}</p>`
-                            }
-                        })
-                        this.diary.contentHtml = contentHtml
-                    }
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessCTS(diary.temperature_outside)
 

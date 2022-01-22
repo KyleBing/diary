@@ -29,6 +29,8 @@ export default {
             iconMap.set('恢复', this.$icons.tab.recover)
             iconMap.set('搜索', this.$icons.tab.search)
             iconMap.set('分享', this.$icons.tab.share)
+            iconMap.set('内容隐藏', this.$icons.tab.contentHide)
+            iconMap.set('内容显示', this.$icons.tab.contentShow)
             return iconMap
         }
     },

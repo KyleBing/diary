@@ -19,7 +19,8 @@ export default new Vuex.Store({
       keyword: '', // 搜索关键字
       filteredCategories: [], // 筛选的类别
 
-      isShowSearchBar: false, //
+      isShowSearchBar: false, // 搜索栏显示
+      isHideContent: false, // 是否显示列表内容
 
       currentDiary: null, // 当前日记
       diaryNeedToBeSaved: false, // 日记需要被存储

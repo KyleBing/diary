@@ -22,6 +22,8 @@ export default {
         recover: require('./tabicon/recover.svg'),
         search: require('./tabicon/search.svg'),
         share: require('./tabicon/share.svg'),
+        contentHide: require('./tabicon/eye-close.svg'),
+        contentShow: require('./tabicon/eye-open.svg'),
     },
     weather: {
         cloudy: require('./weather/cloudy.svg'),

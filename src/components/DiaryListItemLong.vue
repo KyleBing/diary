@@ -12,19 +12,22 @@
             <div class="category">{{ diary.categoryString }}</div>
         </router-link>
         <div class="article-body">
-            <div class="title">{{ diary.title }}</div>
-            <div class="content" v-html="diary.content"></div>
+            <div class="title">{{ isHideContent ? diary.title.replace(/[^，。《》【】]/g, '*'): diary.title }}</div>
+            <div class="content" v-html="isHideContent ? diary.content.replace(/[^，。《》【】]/g, '*'): diary.content"></div>
         </div>
     </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
     name: "DiaryListItemLong",
     props: {
         diary: Object
     },
     computed: {
+        ...mapState(['isHideContent']),
         active() {
             return this.$route.params.id === this.diary.id
         },

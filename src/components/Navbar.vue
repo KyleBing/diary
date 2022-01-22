@@ -14,6 +14,10 @@
                 <div @click="$router.back()" v-if="isInMobileMode && $route.name !== 'list'">
                     <tab-icon alt="返回"></tab-icon>
                 </div>
+                <div v-show="!menuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
+                    <tab-icon v-if="isHideContent" alt="内容隐藏"></tab-icon>
+                    <tab-icon v-else alt="内容显示"></tab-icon>
+                </div>
                 <div v-show="!isShowSearchBar && !menuShowed" v-if="!isInMobileMode" @click="showSearchbar">
                     <tab-icon alt="搜索"></tab-icon>
                 </div>
@@ -178,6 +182,7 @@ export default {
             'diaryListShowedInFullStyle',
             'insets',
             'isShowSearchBar',
+            'isHideContent',
             'isFilterShared',
             'editLogoImg',
             'statisticsCategory',
@@ -199,6 +204,7 @@ export default {
         ...mapMutations([
             'SET_DIARYLIST_SHOWED_INFULL_STYLE',
             'SET_IS_SHOW_SEARCH_BAR',
+            'SET_IS_HIDE_CONTENT',
             'SET_DIARY_NEED_TO_BE_SAVED',
             'SET_DIARY_NEED_TO_BE_RECOVERED',
             'SET_LIST_OPERATION',
@@ -276,10 +282,14 @@ export default {
             }
         },
 
-
         /* SEARCH */
         showSearchbar() {
             this.SET_IS_SHOW_SEARCH_BAR(true)
+        },
+
+        /* HIDE CONTENT */
+        toggleHideContent() {
+            this.SET_IS_HIDE_CONTENT(!this.isHideContent)
         },
 
         /* EDIT */
