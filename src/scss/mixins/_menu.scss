@@ -29,7 +29,9 @@ $menu-category-list-item-height: 40px;
   line-height: $height-menu-list;
   padding: 0 15px;
   color: white;
-  @extend .btn-like;
+  @extend .unselectable;
+  @include border-radius($radius-pc);
+  overflow: hidden;
   &:after{
     width: 100%;
     bottom: 0;
@@ -45,7 +47,6 @@ $menu-category-list-item-height: 40px;
   &:active{
     background-color: lighten($bg-menu,10%);
   }
-
   .addon{
     margin-top: 2px; // 抵消靠上的显示错觉
     font-size: 16px;
