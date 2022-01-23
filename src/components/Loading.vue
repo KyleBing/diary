@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/scss/plugin";
+@import "../assets/scss/plugin";
 .loading{
     box-sizing: content-box;
     height: $height-loading;

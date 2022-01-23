@@ -393,9 +393,3 @@ function getWeatherNameFromCode(code){
 }
 </script>
 
-<style lang="scss">
-// 重置 Vue2-datepicker 样式
-.mx-icon-clear, .mx-icon-calendar {
-    display: none
-}
-</style>

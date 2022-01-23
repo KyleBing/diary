@@ -39,7 +39,7 @@ export default {
 
 
 <style scoped lang="scss">
-@import "src/scss/plugin";
+@import "../assets/scss/plugin";
 .btn{
     display: flex;
     justify-content: center;

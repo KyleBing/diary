@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../scss/plugin";
+@import "../assets/scss/plugin";
 
 .about{
     position: relative;

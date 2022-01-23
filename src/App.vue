@@ -26,6 +26,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./scss/diary";
+@import "assets/scss/diary";
 </style>
 
