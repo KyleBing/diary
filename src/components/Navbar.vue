@@ -70,7 +70,7 @@
 
             <!-- MENU -->
             <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
-                <div class="menu-list" v-show="menuListShowed">
+                <div class="menu-list" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
                     <div class="menu-list-group">
                         <div class="menu-list-group-item" v-if="isInMobileMode" @click="menuListClicked('search')">搜索</div>
                         <div class="menu-list-group-item" @click="menuListClicked('category')">
@@ -91,13 +91,17 @@
                         <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
                         <div class="menu-list-group-item" @click="logout">退出</div>
                     </div>
-                    <div class="user-info">
-                        <p class="username">{{ userInfo.username }}</p>
-                        <p class="email">{{ userInfo.email }}</p>
-                        <p class="email mt-1 mb-1">•</p>
-                        <div v-if="statisticsCategory.shared > 0" class="statistics">
-                            <p>日记 {{ statisticsCategory.amount }} 篇</p>
-                            <p>共享 {{ statisticsCategory.shared }} 篇</p>
+                    <div class="user-info-panel">
+                        <div class="user-info">
+                            <div class="user">
+                                <p class="username">{{ userInfo.username }}</p>
+                                <p class="email">{{ userInfo.email }}</p>
+                            </div>
+                            <div class="separator"></div>
+                            <div v-if="statisticsCategory.shared > 0" class="statistics">
+                                <p>共享 {{ statisticsCategory.shared }} 篇</p>
+                                <p>总计 {{ statisticsCategory.amount }} 篇</p>
+                            </div>
                         </div>
                     </div>
                 </div>

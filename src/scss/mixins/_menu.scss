@@ -12,6 +12,12 @@ $menu-category-list-item-height: 40px;
   background-color: $bg-menu;
 }
 
+.menu-list{
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
 .menu-list-group{
   display: block;
   list-style-type: none;
@@ -103,28 +109,34 @@ $menu-category-list-item-height: 40px;
   }
 }
 
+.user-info-panel{
+  padding: 30px 80px;
+}
 .user-info{
-  text-shadow: 1px 2px 3px rgba(0,0,0,0.2);
-  margin-top: 60px;
-  margin-bottom: 60px;
-  text-align: center;
-  .username{
-    font-size: 1.2rem;
-    line-height: 1.5;
-    display: block;
-    font-weight: bold;
-    color: white;
-  }
-  .email{
-    font-size: 1rem;
-    line-height: 1.2;
-    font-weight: 100;
-    display: block;
-    color: $text-about-subtitle;
+  padding: 10px 20px;
+  @include border-radius($radius-pc);
+  display: flex;
+  background-color: transparentize(white, 0.9);
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+  font-size: 13px;
+  white-space: nowrap;
+  color: $text-about-subtitle;
+  .user{
+    width: 50%;
+    flex-grow: 1;
+    padding: 5px 5% 5px 0;
+    .username{
+    }
+    .email{
+      min-font-size: 10px;
+    }
   }
   .statistics{
-    font-size: 1rem;
-    color: $text-about-subtitle;
+    width: 40%;
+    padding: 5px 0 5px 5%;
+    border-left: 1px solid transparentize(white, 0.9);;
   }
 }
 
@@ -208,6 +220,9 @@ $menu-category-list-item-height: 40px;
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .menu-panel{
     width: $menu-panel-sm;
+  }
+  .user-info-panel{
+    padding: 30px 50px;
   }
   .menu-category {
     padding: 30px;
