@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  configureWebpack: config => {
+/*  configureWebpack: config => {
     if (process.env.NODE_ENV === 'production'){
       let packTimeString = new Moment().format('YYYYMMDDHHmmss') // 打包时间
       let plugins = []
@@ -48,5 +48,5 @@ module.exports = {
       )
       config.plugins = config.plugins.concat(plugins) // 将新建的 plugin 添加到原 config 中的 plugin 中
     }
-  }
+  }*/
 }
