@@ -46,7 +46,7 @@
 
         <!--TITLE-->
         <div class="diary-title" v-if="diary.title">
-            <h2>{{ isHideContent ? diary.title.replace(/[^，。《》【】]/g, '*') : diary.title }}</h2>
+            <h2>{{ isHideContent ? diary.title.replace(/[^，。]/g, '*') : diary.title }}</h2>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
                 <img :src="$icons.clipboard" alt="clipboard">
             </div>
@@ -124,7 +124,7 @@ export default {
                 if (item === ''){
                     contentHtml += '<br/>'
                 } else {
-                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。《》【】]/g, '*'): item}</p>`
+                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。]/g, '*'): item}</p>`
                 }
             })
             return contentHtml

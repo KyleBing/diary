@@ -12,8 +12,8 @@
             <div class="category">{{ diary.categoryString }}</div>
         </router-link>
         <div class="article-body">
-            <div class="title">{{ isHideContent ? diary.title.replace(/[^，。《》【】]/g, '*'): diary.title }}</div>
-            <div class="content" v-html="isHideContent ? diary.content.replace(/[^，。《》【】]/g, '*'): diary.content"></div>
+            <div class="title">{{ isHideContent ? diary.title.replace(/[^，。]/g, '*'): diary.title }}</div>
+            <div class="content" v-html="isHideContent ? diary.content.replace(/[^，。]/g, '*'): diary.content"></div>
         </div>
     </div>
 </template>

@@ -1,0 +1,264 @@
+/*
+ * 样式 - 暗黑模式
+ */
+
+$dark-bg: lighten(black, 20%);
+$dark-bg-dark: lighten(black, 10%);
+$dark-bg-selector: lighten(black, 20%);
+
+$dark-bg-nav: lighten(black, 8%);
+
+$dark-border: lighten(black, 20%);
+$dark-border-active: lighten(black, 40%);
+
+$dark-list-header-bg: lighten(black, 8%);
+$dark-list-header-text: lighten(black, 90%);
+$dark-list-bg: lighten(black, 15%);
+$dark-list-bg-active: lighten(black, 30%);
+$dark-text-title: lighten(black, 90%);
+$dark-text: lighten(black, 80%);
+$dark-text-subtitle: lighten(black, 70%);
+
+$dark-scroll-thumb: lighten(black, 30%);
+
+
+@media (prefers-color-scheme: dark) {
+
+  // SCROLL
+  ::-webkit-scrollbar {
+    background-color: $dark-bg-dark;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $dark-scroll-thumb;
+  }
+
+  body{
+    background-color: $dark-bg;
+    .diary-list-container{
+      border-right-color: $dark-border !important;
+      background-color: $dark-bg;
+    }
+  }
+
+  // NAVBAR
+  .navbar{
+    background-color: $dark-bg-nav;
+  }
+  .menu-panel{
+    background-color: darken($dark-bg, 3%);
+  }
+
+
+
+  // LIST
+  .diary-list-group-container{
+    background-color: $dark-bg-dark;
+  }
+  .diary-list-group{
+    .list-header{
+      border-color: $dark-border;
+      background-color: $dark-bg-dark;
+      color: $dark-list-header-text;
+    }
+  }
+
+  // LIST ITEM
+  .list-item{
+    background-color: $dark-list-bg;
+    &:hover{
+      background-color: $dark-list-bg-active;
+    }
+    .date{
+      color: $dark-text;
+    }
+    .detail{
+      .title{
+        color: $dark-text;
+      }
+      &:after{
+        border-bottom-color:$dark-bg-dark;
+      }
+    }
+    &.active{
+      .title, .date{
+        color: white;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+      }
+      .detail{
+        &:after{
+          content: none;
+        }
+      }
+    }
+  }
+
+
+  .article{
+    background-color: $dark-list-bg;
+    .article-header{
+      //background-color: $dark-list-bg;
+      color: $dark-text-title;
+    }
+    .article-body{
+      background-color: $dark-list-bg;
+      .title{
+        color: $dark-text;
+      }
+      .content {
+        color: $dark-text;
+      }
+    }
+    &.active{
+      .article-header{
+        color: white;
+      }
+    }
+  }
+
+
+
+  .end-of-diary {
+    background-color: $dark-bg;
+  }
+
+  // SEARCH
+  .search-bar{
+    background-color: $dark-bg-dark;
+    input{
+      background-color: $dark-bg;
+      border-color: $dark-border;
+      color: $dark-text;
+    }
+  }
+
+  // EDIT
+  .diary-edit{
+    background-color: $dark-bg;
+  }
+  textarea{
+    color: $dark-text;
+    border-color: $dark-border;
+    background-color: $dark-bg-dark;
+    &:focus{
+      border-color: $dark-border-active;
+      @include box-shadow(0 0 0 3px rgba(white, 0.1));
+    }
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      z-index: 50;
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    &::-webkit-scrollbar-thumb {
+      border: 1px solid #cbcbcb;
+    }
+  }
+  .year-container{
+    background-color: $dark-bg;
+  }
+
+  .category-selector{
+    border-bottom-color: $dark-border;
+    background-color: $dark-bg-dark;
+    .category{
+      &:hover{
+        background-color: $dark-bg-selector;
+      }
+    }
+  }
+  .weather-selector{
+    border-bottom-color: $dark-border;
+    background-color: $dark-bg-dark;
+    .weather{
+      &:hover{
+        background-color: $dark-bg-selector;
+      }
+    }
+  }
+  .meta-container{
+    .editor-form-input {
+      .editor-input-item{
+        border-bottom-color: $dark-border;
+      }
+      background-color: $dark-bg-dark;
+      input{
+        color: $dark-text;
+      }
+    }
+  }
+
+  // DETAIL
+  .diary-detail{
+    background-color: $dark-bg;
+  }
+  .diary-meta {
+    background-color: darken($dark-bg, 5%);
+    color: $dark-text;
+    .date {
+      color: $dark-text;
+    }
+  }
+  .diary-title{
+    color: $dark-text-title;
+  }
+  .diary-content{
+    border-top-color: $dark-border-active;
+    color: $dark-text;
+  }
+
+  // LOGIN AND REGISTER
+  .body-login-bg{
+    background-color: $dark-bg-dark;
+    .input-group {
+      margin-bottom: 15px;
+      label {
+        display: block;
+        line-height: 200%;
+        font-size: $fz-note;
+        color: $bg-light;
+      }
+      input {
+        background-color: $dark-bg;
+        &:focus{
+          background-color: lighten($dark-bg, 3%);
+        }
+      }
+    }
+  }
+  .btn-light{
+    border-color: $dark-border-active;
+    color: $color-main;
+    background-color: $dark-bg;
+    &:hover{
+      background-color: darken($dark-bg, 5%);
+    }
+  }
+
+
+
+  // FORM
+  input[type=checkbox] + label.switch
+  {
+    background-color: $dark-border-active;
+    @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
+    &:before{
+      background-color: $dark-bg;
+      @include box-shadow(1px 2px 3px rgba(0,0,0,0.2));
+    }
+  }
+  input[type=checkbox]:checked + label.switch
+  {
+    background-color: $green;
+    @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
+    &:before{
+    }
+  }
+
+
+
+}

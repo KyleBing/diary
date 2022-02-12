@@ -7,7 +7,7 @@
             <a href="http://kylebing.cn" class="social-link">🌖开发者主页</a>
             <a href="http://weibo.com/kylebing" class="social-link">@十月ooOO</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-            <a href="https://github.com/KyleBing/diary">v7.21 （2022-01-22）</a>
+            <a href="https://github.com/KyleBing/diary">v7.22 （2022-02-12）</a>
         </div>
     </div>
 </template>
