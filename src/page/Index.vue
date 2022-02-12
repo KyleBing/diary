@@ -3,14 +3,14 @@
         <navbar/>
 
         <div class="diary" v-if="isInMobileMode" :style="`height:${insets.heightPanel}px`">
-            <div class="diary-list-container diary-list-container-mobile"
+            <div ref="diaryList" class="diary-list-container diary-list-container-mobile"
                  :style="`height:${insets.heightPanel}px`">
                 <router-view/>
             </div>
         </div>
 
         <div class="diary" v-else>
-            <div class="diary-list-container" :style="`height:${insets.heightPanel}px`">
+            <div ref="diaryList" class="diary-list-container" :style="`height:${insets.heightPanel}px`">
                 <list/>
             </div>
             <div class="diary-container" :style="`height:${insets.heightPanel}px`">
@@ -32,7 +32,7 @@ export default {
         list
     },
     computed: {
-        ...mapState(['insets']),
+        ...mapState(['insets', 'isShowSearchBar']),
         ...mapGetters(['isInMobileMode'])
     },
     mounted() {
@@ -41,6 +41,16 @@ export default {
         } else {
             this.$router.push('/edit')
         }
+    },
+    watch:{
+        // 搜索按钮点击时，滚动到最顶部
+        isShowSearchBar(newValue){
+            if (newValue){
+                this.$refs.diaryList.scrollTo(0, 0)
+            } else {
+
+            }
+        },
     }
 }
 
