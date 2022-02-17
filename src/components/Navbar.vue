@@ -47,7 +47,7 @@
                     v-if="currentDiary && currentDiary.is_public === '1'"
                     id="shareBtn"
                     @click="copySharePath"
-                    :data-clipboard-text="`${location.origin}/${diaryPath}/#/share/${currentDiary.id}`">
+                    :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
                     <tab-icon alt="分享"></tab-icon>
                 </div>
                 <div @click="toastShow">
@@ -168,9 +168,6 @@ export default {
 
             // edit
             logoImageUrl: this.$icons.logo,
-
-            // path
-            diaryPath: utility.global.diaryPath
         }
     },
     mounted() {
