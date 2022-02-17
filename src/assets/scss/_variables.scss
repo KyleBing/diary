@@ -16,6 +16,7 @@ $brown        : #A2845E;
 $color-main: $orange;
 
 
+
 // Background Color
 $bg-list-active : #fff3df;
 $bg-light       : #f5f5f5;
@@ -104,3 +105,25 @@ $weathers: (
         "thunderstorm",
         "snow"
 );
+
+
+// DARK VALUES
+$dark-bg: lighten(black, 20%);
+$dark-bg-dark: lighten(black, 10%);
+$dark-bg-selector: lighten(black, 20%);
+
+$dark-bg-nav: lighten(black, 8%);
+
+$dark-border: lighten(black, 20%);
+$dark-border-active: lighten(black, 40%);
+
+$dark-list-header-bg: lighten(black, 8%);
+$dark-list-header-text: lighten(black, 90%);
+$dark-list-bg: lighten(black, 15%);
+$dark-list-bg-active: lighten(black, 30%);
+$dark-text-title: lighten(black, 90%);
+$dark-text: lighten(black, 80%);
+$dark-text-subtitle: lighten(black, 70%);
+
+$dark-scroll-thumb: lighten(black, 30%);
+

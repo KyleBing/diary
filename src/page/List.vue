@@ -61,7 +61,7 @@ export default {
     },
     components: {Loading, diaryListItem, diaryListItemLong},
     mounted() {
-        document.title = '日记 PC' // 变更标题
+        document.title = '日记' // 变更标题
         // init
         this.keywordShow = utility.getDiaryConfig().keyword
         this.reload()

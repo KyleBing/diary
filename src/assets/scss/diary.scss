@@ -3,12 +3,12 @@
 @import "variables";
 @import "mixin";
 @import "gutter";
-@import "dark";
 
 // FRAME
 body{
   position: relative;
-  background-color: white;
+  background-color: $bg-main;
+  //background-color: white;
 }
 
 .diary {
@@ -71,3 +71,5 @@ body{
   }
 }
 
+
+@import "dark";
