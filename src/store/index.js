@@ -42,6 +42,8 @@ export default new Vuex.Store({
          {name: '周报', nameEn: 'week'},
          {name: '文章', nameEn: 'article'}
       ],
+
+      isSavingDiary: false, // 是否正在保存日记
    },
    getters: {
       isInMobileMode(state){

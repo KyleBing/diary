@@ -36,7 +36,10 @@
                 <div @click="diaryRecover" v-if="diaryEditorContentHasChanged">
                     <tab-icon alt="恢复"></tab-icon>
                 </div>
-                <div @click="diarySave">
+                <div v-if="isSavingDiary">
+                    <Loading :height="50" :loading="true"/>
+                </div>
+                <div @click="diarySave" v-else>
                     <tab-icon alt="保存"></tab-icon>
                 </div>
             </div>
@@ -141,10 +144,11 @@ import YearSelector from "@/components/YearSelector"
 import TabIcon from "@/components/TabIcon"
 import About from "@/page/About"
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
+import Loading from "@/components/Loading";
 
 export default {
     name: "Navbar",
-    components: {MenuCategorySelector, About, TabIcon, YearSelector},
+    components: {Loading, MenuCategorySelector, About, TabIcon, YearSelector},
     data() {
         return {
             location: {}, // clipboard 使用
@@ -176,6 +180,7 @@ export default {
     },
     computed: {
         ...mapState([
+            'isSavingDiary',
             'filteredCategories',
             'categoryAll',
             'diaryEditorContentHasChanged',

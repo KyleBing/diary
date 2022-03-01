@@ -191,6 +191,7 @@ export default {
     methods: {
         ...mapMutations([
             'SET_EDIT_LOGOIMG',
+            'SET_IS_SAVING_DIARY',
             'SET_DIARY_NEED_TO_BE_SAVED',
             'SET_DIARY_NEED_TO_BE_RECOVERED',
             'SET_LIST_NEED_BE_RELOAD',
@@ -312,8 +313,10 @@ export default {
                 type: this.isNew ? 'add' : 'modify'
             }
 
+            this.SET_IS_SAVING_DIARY(true)
             utility.postData(utility.URL.diaryOperation, queryData)
                 .then(res => {
+                    this.SET_IS_SAVING_DIARY(false)
                     utility.popMessage('success', res.info, () => {
                         // 成功后更新 origin 字符串
                         Object.assign(this.diaryOrigin, this.diary)
@@ -329,6 +332,7 @@ export default {
                     })
                 })
                 .catch(() => {
+                    this.SET_IS_SAVING_DIARY(false)
                     this.SET_DIARY_NEED_TO_BE_SAVED(false)
                 })
         },

@@ -1,6 +1,9 @@
 import utility from "@/utility";
 
 export default {
+   SET_IS_SAVING_DIARY(state, payload){
+      state.isSavingDiary = payload
+   },
    SET_INSETS(state, payload){
       state.insets = payload
    },

@@ -18,10 +18,11 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/scss/plugin";
+// navbar 的高度是 45px, loading 的高度是 30px 上下的 padding 就是 15/2 px
 .loading{
     box-sizing: content-box;
     height: $height-loading;
-    padding: 20px 0;
+    padding: 7.5px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,7 +46,7 @@ export default {
     &-3{
         height: $height-loading * 0.25;
         @include animation(load-frame-1 1s infinite linear 0s);
-        background-color: $bg-main;
+        background-color: $green;
     }
 }
 
