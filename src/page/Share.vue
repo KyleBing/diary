@@ -23,15 +23,14 @@
                              :src="$icons.weather[`${diary.weather}_active`]"
                              :alt="diary.weather">
                     </div>
-                    <div class="temperature" v-if="diary.temperature && diary.temperatureOutside">
+                    <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
                         <span v-if="diary.temperature">{{ diary.temperature }}</span>
                         <span v-if="diary.temperature && diary.temperatureOutside"> / </span>
                         <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
-                    </div>
-                    <div class="temperature" v-else>
-                        <span v-if="diary.temperature">{{ diary.temperature }} ℃</span>
+                        <span>℃</span>
                     </div>
                 </div>
+
                 <!--end of head-->
             </div>
 
@@ -45,8 +44,12 @@
 
             <!--CONTENT-->
             <div class="share-content" v-html="diary.contentHtml"></div>
+
+
             <!--TODO: 来自谁的日记-->
         </div>
+        <router-link class="back-link" to="/">返回主页</router-link>
+
     </div>
 </template>
 
