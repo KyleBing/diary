@@ -1,5 +1,5 @@
-const FileManagerPlugin = require('filemanager-webpack-plugin')
-const Moment = require('moment')
+// const FileManagerPlugin = require('filemanager-webpack-plugin')
+// const Moment = require('moment')
 
 module.exports = {
   publicPath: './',
@@ -10,7 +10,6 @@ module.exports = {
     proxy: {
       '^/api': {
         target: 'https://kylebing.cn/diary-portal',
-        ws: true,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

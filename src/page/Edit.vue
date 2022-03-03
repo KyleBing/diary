@@ -352,7 +352,7 @@ export default {
             }
             // 新建日记时也记录原始数据
             Object.assign(this.diaryOrigin, this.diary)
-            this.updateDiaryIcon() // TODO: 新建日记时日记图标并没有更新
+            this.updateDiaryIcon()
         },
         recoverDiary() {
             Object.assign(this.diary, this.diaryOrigin)

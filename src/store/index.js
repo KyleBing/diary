@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import mutations from "@/store/mutations";
+import svgIcons from "@/assets/img/SvgIcons";
 
 Vue.use(Vuex)
 
@@ -28,7 +29,7 @@ export default new Vuex.Store({
       diaryEditorContentHasChanged: false, // 日记内容已经变化
       diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
       listNeedBeReload: false, // 是否刷新列表
-      editLogoImg: false, // 编辑页LOGO
+      editLogoImg: svgIcons.logo, // 编辑页LOGO
       listOperation:{}, // 列表页的操作，增删改操作，一般不再重新加载列表
 
       categoryAll : [

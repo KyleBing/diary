@@ -61,15 +61,13 @@
                 </router-link>
             </div>
 
-
             <div class="brand">
-                <a @click="toggleListStyle" v-if="$route.name !== 'edit'">
+                <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
+                <a @click="toggleListStyle" v-else>
                     <img v-if="!diaryListShowedInFullStyle" :src="$icons.logo" alt="日记">
                     <img v-else :src="$icons.logo_content" alt="日记">
                 </a>
-                <img v-else :src="editLogoImg" alt="LOGO">
             </div>
-
 
             <!-- MENU -->
             <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
@@ -169,9 +167,6 @@ export default {
 
             // toast
             toastIsShowed: false,
-
-            // edit
-            logoImageUrl: this.$icons.logo,
         }
     },
     mounted() {
@@ -298,14 +293,6 @@ export default {
             this.SET_IS_HIDE_CONTENT(!this.isHideContent)
         },
 
-        /* EDIT */
-        updateDiaryIcon() {
-            if (this.diaryHasChanged) {
-                this.logoImageUrl = this.contentEditorShowed ? this.$icons.logo_content : this.$icons.logo_title
-            } else {
-                this.logoImageUrl = this.contentEditorShowed ? this.$icons.logo_content_saved : this.$icons.logo_title_saved
-            }
-        },
         diarySave() {
             this.SET_DIARY_NEED_TO_BE_SAVED(true)
         },
