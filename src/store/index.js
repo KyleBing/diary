@@ -48,7 +48,9 @@ export default new Vuex.Store({
    },
    getters: {
       isInMobileMode(state){
-         return state.insets.windowsWidth < state.insets.windowsHeight
+         console.log(state.insets)
+         // 宽度小于 1024 或 高>宽 时，表示是在移动设备上
+         return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
       }
    },
    mutations

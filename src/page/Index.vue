@@ -2,6 +2,7 @@
     <div>
         <navbar/>
 
+        <!-- 竖屏时 -->
         <div class="diary" v-if="isInMobileMode" :style="`height:${insets.heightPanel}px`">
             <div ref="diaryList" class="diary-list-container diary-list-container-mobile"
                  :style="`height:${insets.heightPanel}px`">
@@ -9,6 +10,7 @@
             </div>
         </div>
 
+        <!-- 横屏时 -->
         <div class="diary" v-else>
             <div ref="diaryList" class="diary-list-container" :style="`height:${insets.heightPanel}px`">
                 <list/>
