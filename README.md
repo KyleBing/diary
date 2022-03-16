@@ -4,17 +4,21 @@
 
 > “ 用一句话概括你的一天 ”
 
-
-![2021-09-01 17 26 25](https://user-images.githubusercontent.com/12215982/131647475-149d1c2a-bfad-4c9a-baf2-24ad48bfca32.png)
-
-
-
 在线试用地址： [https://kylebing.cn/diary](https://kylebing.cn/diary) 点击右下角体验账号登录即可
-
 
 
 ## 使用插件
 `vue` `vue-router` `vuex` `vue-cookie` `Axios` `qs` `clipboard` `vue2-datepicker` `moment`
+
+
+## 截图
+
+![2021-09-01 17 26 25](https://user-images.githubusercontent.com/12215982/131647475-149d1c2a-bfad-4c9a-baf2-24ad48bfca32.png)
+
+<img src="https://user-images.githubusercontent.com/12215982/158507431-a2d4f039-7aca-4cbb-a95a-525ba54ecd75.PNG" alt="login" width="300"/> <img src="https://user-images.githubusercontent.com/12215982/158507424-919432c7-d348-4ce8-9787-231be88abb11.PNG" alt="list-long-black" width="300"/> <img src="https://user-images.githubusercontent.com/12215982/158507428-a98c0e50-0648-409d-a1b1-c0ca98a861cd.PNG" alt="list-black" width="300"/>
+<img src="https://user-images.githubusercontent.com/12215982/158507449-f259c295-f1e6-4ac9-9df5-d2d15c676b73.PNG" alt="list" width="300"/> <img src="https://user-images.githubusercontent.com/12215982/158507451-214f7258-26c4-4437-8059-c6054d164808.PNG" alt="list" width="300"/> <img src="https://user-images.githubusercontent.com/12215982/158507443-93df063b-f350-408f-a409-cbb59fa8f04f.PNG" alt="detail" width="300"/> 
+ <img src="https://user-images.githubusercontent.com/12215982/158507433-98f84209-0a56-4c82-8d1c-5f6881c178ef.PNG" alt="menu" width="300"/> <img src="https://user-images.githubusercontent.com/12215982/158507436-6d0f06bd-d79c-4afe-b107-5ee5ae11fa33.PNG" alt="years" width="300"/>
+<img src="https://user-images.githubusercontent.com/12215982/158507445-5ce1d2a2-1d45-4954-b628-cf13a998e830.PNG" alt="edit" width="300"/> <img src="https://user-images.githubusercontent.com/12215982/158507442-30b655db-7ced-44fb-80e0-de0c018fffa4.PNG" alt="category" width="300"/>  <img src="https://user-images.githubusercontent.com/12215982/158507439-81f27c14-872b-4a30-bae2-4d6274c6f955.PNG" alt="about" width="300"/>
 
 ---
 
@@ -28,11 +32,15 @@
 一天记录一条记录，一目了然的查看近一个月以来经历的事。
 
 #### 主要功能
-每天记录一句话，或添加大片的日记内容。可以同时记录当天的室内、室外温度、天气情况，可以指定日记的类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章。
-列表中同日的日记只显示一个日期时间。
-可以根据关键字搜索日记标题或内容。
-菜单中可以根据日期、类别对日记进行筛选。
-还支持日记分享功能：编辑日记时，将分享的开关打开，保存日记后，在日记详情页的工具栏中会多出一个分享按钮，点击会复制这篇日记的共享链接，这个链接是公开的，任何人都可以通过链接查看此篇日记。
+每天记录一句话，或添加大片的日记内容。
+- 可以同时记录当天的室内、室外温度、天气情况
+- 可以指定日记的类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章
+- 列表中同日的日记只显示一个日期时间。
+- 可以根据关键字搜索日记标题或内容。
+- 菜单中可以根据日期、类别对日记进行筛选。
+- 支持日记分享功能
+- 适应设备的暗黑模式，自动切换黑白两个样式
+  > 编辑日记时，将分享的开关打开，保存日记后，在日记详情页的工具栏中会多出一个分享按钮，点击会复制这篇日记的共享链接，这个链接是公开的，任何人都可以通过链接查看此篇日记。
 比如当前这篇日记的分享链接是：[https://kylebing.cn/diary/#/share/5312](https://kylebing.cn/diary/#/share/5312)
 
 #### 支持平台
