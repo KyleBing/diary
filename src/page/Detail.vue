@@ -28,10 +28,10 @@
             </div>
 
             <div class="temperature" v-if="diary.temperature">
-                <span>内：{{ diary.temperature }} ℃</span>
+                身处 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperature))]">{{ diary.temperature }}</span> ℃
             </div>
             <div class="temperature" v-if="diary.temperatureOutside">
-                <span>外：{{ diary.temperatureOutside }} ℃</span>
+                室外 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperatureOutside))]">{{ diary.temperatureOutside }}</span> ℃
             </div>
 
             <div :class="[`detail-category-${diary.category}`, 'detail-category']">
@@ -100,6 +100,7 @@ export default {
     computed:{
         ...mapState(['categoryAll', 'insets', 'isHideContent']),
         ...mapGetters(['isInMobileMode']),
+
     },
     watch: {
         $route(to) {
@@ -108,6 +109,21 @@ export default {
     },
     methods: {
         ...mapMutations(['SET_CURRENT_DIARY']),
+        getTemperatureClassName(temperature){
+            if (temperature >= 35){
+                return 'temperature-35'
+            } else if (temperature < 35 && temperature >= 28){
+                return 'temperature-35-28'
+            } else if (temperature < 28 && temperature >= 22){
+                return 'temperature-28-22'
+            } else if (temperature < 22 && temperature >= 15) {
+                return 'temperature-22-15'
+            } else if (temperature < 15 && temperature >= 4) {
+                return 'temperature-15-4'
+            } else if (temperature < 4) {
+                return 'temperature-4'
+            }
+        },
         goBack() {
             this.$router.back()
         },

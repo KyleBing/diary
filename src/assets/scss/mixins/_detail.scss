@@ -15,6 +15,8 @@ $height-meta: 30px;
     }
   }
   .temperature{
+    font-size: $fz-note;
+    color: $text-date;
     line-height: $height-meta;
   }
   .date{
@@ -106,3 +108,14 @@ $height-meta: 30px;
     }
   }
 }
+
+
+.temperature-number{
+  //font-weight: bold;
+}
+//.temperature-35{color: $magenta}
+//.temperature-35-28{color: $red}
+//.temperature-28-22{color: $green}
+//.temperature-22-15{color: saturate($cyan, 30%)}
+//.temperature-15-4{color: $blue}
+//.temperature-4{color: $purple}
