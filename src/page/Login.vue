@@ -25,6 +25,7 @@
 
 <script>
 import utility from "../utility"
+import userApi from "@/api/userApi";
 
 export default {
     name: "Login",
@@ -56,21 +57,23 @@ export default {
     methods: {
         loginSubmit() {
             this.loginLabel = '登录中...'
-            utility.postData(utility.URL.userOperation,
-                {
-                    email: this.email,
-                    password: this.password,
-                    type: "login"
-                })
+            let requestData = {
+                email: this.email,
+                password: this.password,
+            }
+            userApi.login(requestData)
                 .then(res => {
-                    utility.setAuthorization(res.email, res.token, res.username, res.uid)
+                    // set authorization
                     utility.popMessage('success', res.info, () => {
                         this.$router.push('/')
                     })
                     this.loginLabel = '登录成功'
                 })
                 .catch(err => {
-                    this.loginLabel = '登录'
+                    this.loginLabel = '登录失败'
+                    utility.popMessage('danger', err.message, () => {
+                        this.loginLabel = '登录'
+                    })
                 })
         },
         useTestAccount() {
