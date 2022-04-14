@@ -22,35 +22,14 @@ const COOKIE_NAME = {
 
 // 设置cookie
 function setAuthorization(email, token, username, uid) {
-   VueCookie.set(COOKIE_NAME.email, email, COOKIE_NAME.options)
-   VueCookie.set(COOKIE_NAME.token, token, COOKIE_NAME.options)
-   VueCookie.set(COOKIE_NAME.username, username, COOKIE_NAME.options)
-   VueCookie.set(COOKIE_NAME.uid, uid, COOKIE_NAME.options)
-}
-
-// 刷新 cookie 过期时间
-function renewAuthorization() {
-   let authentication = getAuthorization()
-   if (authentication.token) {
-      VueCookie.set(COOKIE_NAME.email, authentication.email, COOKIE_NAME.options)
-      VueCookie.set(COOKIE_NAME.token, authentication.token, COOKIE_NAME.options)
-      VueCookie.set(COOKIE_NAME.username, authentication.username, COOKIE_NAME.options)
-      VueCookie.set(COOKIE_NAME.uid, authentication.uid, COOKIE_NAME.options)
-   }
+   localStorage.setItem('DiaryAuthorization', {
+      email,token,username,uid
+   })
 }
 
 // 获取cookie
 function getAuthorization() {
-   let email = VueCookie.get(COOKIE_NAME.email)
-   let token = VueCookie.get(COOKIE_NAME.token)
-   let username = VueCookie.get(COOKIE_NAME.username)
-   let uid = VueCookie.get(COOKIE_NAME.uid)
-   return {
-      email: email,
-      token: token,
-      username: username,
-      uid: uid
-   }
+   return localStorage.getItem('DiaryAuthorization')
 }
 
 // 删除cookie

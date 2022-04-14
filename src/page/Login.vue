@@ -25,6 +25,7 @@
 
 <script>
 import userApi from "@/api/userApi";
+import utility from "@/utility";
 
 export default {
     name: "Login",
@@ -63,6 +64,8 @@ export default {
             userApi.login(requestData)
                 .then(res => {
                     // set authorization
+                    // TODO: 后台在登录成功后，需要返回用户的所有信息
+                    utility.setAuthorization(res.email, res.password, res.username, res.uid)
                     this.$popMessage('success', res.message, () => {
                         this.$router.push('/')
                     })
