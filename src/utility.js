@@ -10,11 +10,6 @@ const global = {
    heightNavbar: 45,
 }
 
-let URL = {
-   userOperation: BASE_URL + 'userOperation.php',
-   diaryOperation: BASE_URL + 'diaryOperation.php',
-   shareContent: BASE_URL + 'getShareContent.php'
-}
 
 const COOKIE_NAME = {
    email        : 'diaryEmail',
@@ -97,43 +92,6 @@ function $(selector){
    return document.querySelector(selector)
 }
 
-
-// request network
-function postData(url, queryData) {
-   return new Promise(function (resolve, reject) {
-      axios.post(url, qs.stringify(queryData))
-         .then(res => {
-            if (res.data.success) {
-               renewAuthorization()
-               resolve(res.data)
-            } else {
-               reject(res)
-               popMessage('danger', res.data.info )
-               if (!res.data.logined){
-                  Vue.$router.push('/login')
-               }
-            }
-         }).catch(() => {
-         reject()
-      })
-   })
-}
-
-function getData(url, queryData) {
-   return new Promise(function (resolve, reject) {
-      axios.get(url, {params: queryData})
-         .then(res => {
-            if (res.data.success) {
-               renewAuthorization()
-               resolve(res.data)
-            } else {
-               popMessage('danger', res.data.info, reject)
-            }
-         }).catch(() => {
-         reject()
-      })
-   })
-}
 
 
 // CONST
@@ -242,8 +200,6 @@ export default {
    getAuthorization,
    setAuthorization,
    popMessage,
-   postData,
-   getData,
    formatDate,
    dateFormatter,
    deleteAuthorization,

@@ -9,7 +9,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/api': {
-        target: 'https://kylebing.cn/diary-portal',
+        target: 'http://localhost:3000',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
