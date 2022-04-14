@@ -63,7 +63,7 @@ export default {
             userApi.login(requestData)
                 .then(res => {
                     // set authorization
-                    this.$popMessage('success', res.info, () => {
+                    this.$popMessage('success', res.message, () => {
                         this.$router.push('/')
                     })
                     this.loginLabel = '登录成功'

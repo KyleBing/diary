@@ -35,7 +35,9 @@ import utility from "../utility"
 import diaryListItem from "../components/DiaryListItem"
 import diaryListItemLong from "../components/DiaryListItemLong"
 import {mapState, mapMutations} from 'vuex'
-import Loading from "@/components/Loading";
+import Loading from "@/components/Loading"
+import diaryApi from "@/api/diaryApi";
+import statisticApi from "@/api/statisticApi";
 
 export default {
     name: 'List',
@@ -48,9 +50,8 @@ export default {
 
             keywordShow: '', // 关键词
 
-            queryData: {
-                type: 'list',
-                keyword: '',
+            requestData: {
+                keyword: [],
                 pageNo: 1,
                 pageCount: 100, // 单页请求条数
                 diaryCategories: [],
@@ -187,7 +188,7 @@ export default {
         ),
         /* MENU 相关 */
         search() {
-            this.SET_KEYWORD(this.keywordShow)
+            this.SET_KEYWORD(this.keywordShow.split(' '))
             this.reload()
         },
         clearKeyword() {
@@ -195,8 +196,8 @@ export default {
             this.search()
         },
         reload() {
-            this.queryData.pageNo = 1
-            this.queryData.keyword = this.keywordShow.split(' ').join(',')
+            this.requestData.pageNo = 1
+            this.requestData.keyword = this.keywordShow.split(' ').join(',')
             this.diaries = []
             this.diariesShow = []
             this.getStatistic()
@@ -205,7 +206,7 @@ export default {
 
         /* DIARY 相关 */
         getStatistic() {
-            utility.getData(utility.URL.diaryOperation, {type: 'statistic'})
+            statisticApi.category()
                 .then(res => {
                     this.SET_STATISTICS(res.data)
                 })
@@ -213,13 +214,13 @@ export default {
         loadMore() {
             this.haveMore = false
             this.isLoading = true
-            this.queryData.diaryCategories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
-            this.queryData.dateRange = utility.getDiaryConfig().dateRange
-            this.queryData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
-            this.getDiaries(this.queryData)
+            this.requestData.diaryCategories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
+            this.requestData.dateRange = utility.getDiaryConfig().dateRange
+            this.requestData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
+            this.getDiaries(this.requestData)
         },
-        getDiaries(queryData) {
-            utility.getData(utility.URL.diaryOperation, queryData)
+        getDiaries(requestData) {
+            diaryApi.list(requestData)
                 .then(res => {
                     let newDiariesList = res.data.map(diary => {
                         if (diary.content) {
@@ -239,9 +240,9 @@ export default {
                     })
 
                     // page operation
-                    if (res.data.length === this.queryData.pageCount) {
+                    if (res.data.length === this.requestData.pageCount) {
                         this.haveMore = true
-                        this.queryData.pageNo++
+                        this.requestData.pageNo++
                     } else {
                         this.haveMore = false
                     }

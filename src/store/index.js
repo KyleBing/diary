@@ -17,7 +17,7 @@ export default new Vuex.Store({
 
       isFilterShared: false, // 是否筛选共享的日记
       dateFilter: '', // 日期筛选
-      keyword: '', // 搜索关键字
+      keyword: [], // 搜索关键字
       filteredCategories: [], // 筛选的类别
 
       isShowSearchBar: false, // 搜索栏显示
