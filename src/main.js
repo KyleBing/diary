@@ -45,6 +45,8 @@ import store from "@/store"
 import icons from "@/assets/img/SvgIcons"
 Vue.prototype.$icons = icons
 
+// popMsg
+Vue.prototype.$popMessage = utility.popMessage
 
 new Vue({
    router,

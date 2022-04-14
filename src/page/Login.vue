@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import utility from "../utility"
 import userApi from "@/api/userApi";
 
 export default {
@@ -64,14 +63,14 @@ export default {
             userApi.login(requestData)
                 .then(res => {
                     // set authorization
-                    utility.popMessage('success', res.info, () => {
+                    this.$popMessage('success', res.info, () => {
                         this.$router.push('/')
                     })
                     this.loginLabel = '登录成功'
                 })
                 .catch(err => {
                     this.loginLabel = '登录失败'
-                    utility.popMessage('danger', err.message, () => {
+                    this.$popMessage('danger', err.message, () => {
                         this.loginLabel = '登录'
                     })
                 })

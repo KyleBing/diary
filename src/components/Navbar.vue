@@ -304,7 +304,7 @@ export default {
         copySharePath() {
             let clipboard = new Clipboard('#shareBtn')
             clipboard.on('success', function (e) {
-                utility.popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
+                this.$popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
                 e.clearSelection()
             })
             clipboard.on('error', function () {
@@ -321,7 +321,7 @@ export default {
             utility.postData(utility.URL.diaryOperation, queryData)
                 .then(res => {
                     that.toastHide()
-                    utility.popMessage('success', res.info, () => {
+                    this.$popMessage('success', res.info, () => {
                         this.SET_LIST_OPERATION({type: 'delete', dairy: null, id: this.currentDiary.id})
                     }, 1) // 删除成功后等待时间不要太长
                 })

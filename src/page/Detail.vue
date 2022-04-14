@@ -91,7 +91,7 @@ export default {
             },
         })
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '已复制到 剪贴板', null, 2)
+            this.$popMessage('success', '已复制到 剪贴板', null, 2)
         })
     },
     beforeDestroy() {
