@@ -56,7 +56,7 @@
 
 
 <script>
-import utility from "../utility"
+import userApi from "@/api/userApi";
 
 export default {
     name: 'Register',
@@ -93,24 +93,22 @@ export default {
    methods: {
       regSubmit: function () {
          if (this.verified) {
-            let queryData = {
-               "username": this.username,
-               "invitation": this.invitation,
-               "email": this.email,
-               "password": this.password1,
-               "type": "insert"
+            let requestData = {
+                username: this.username,
+                invitation: this.invitation,
+                email: this.email,
+                password: this.password1,
             }
 
-            utility.postData(utility.URL.userOperation, queryData)
+            userApi.register(requestData)
                .then(res => {
-                  if (res.success) { // 注册成功
-                     utility.popMessage('success', `${res.info}，正在前往登录`, () => {
-                        this.$router.push('/login')
-                     })
-                  } else { // 注册失败
-                     utility.popMessage('warning', res.info)
-                  }
+                   this.$popMessage('success', `${res.message}，正在前往登录`, () => {
+                       this.$router.push('/login')
+                   })
                })
+             .catch(err => {
+                 this.$popMessage('danger', err.message)
+             })
          }
       }
    },
