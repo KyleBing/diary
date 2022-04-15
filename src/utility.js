@@ -20,19 +20,19 @@ const COOKIE_NAME = {
 }
 
 
-// 设置cookie
+// 设置 authorization
 function setAuthorization(email, token, username, uid) {
-   localStorage.setItem('DiaryAuthorization', {
+   localStorage.setItem('DiaryAuthorization', JSON.stringify({
       email,token,username,uid
-   })
+   }))
 }
 
-// 获取cookie
+// 获取 authorization
 function getAuthorization() {
-   return localStorage.getItem('DiaryAuthorization')
+   return JSON.parse(localStorage.getItem('DiaryAuthorization'))
 }
 
-// 删除cookie
+// 删除 authorization
 function deleteAuthorization() {
    VueCookie.delete(COOKIE_NAME.email, {path: '/'})
    VueCookie.delete(COOKIE_NAME.token, {path: '/'})
