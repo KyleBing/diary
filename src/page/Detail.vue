@@ -67,6 +67,7 @@ import ClipboardJS from "clipboard";
 import utility from "../utility"
 import {mapGetters, mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: 'Detail',
@@ -147,12 +148,8 @@ export default {
         },
         showDiary(id) {
             this.isLoading = true
-            utility.getData(
-                utility.URL.diaryOperation,
-                {
-                    type: 'query',
-                    diaryId: id
-                })
+            let requestData = {diaryId: id}
+            diaryApi.detail(requestData)
                 .then(res => {
                     this.isLoading = false // loading off
                     let diary = res.data
