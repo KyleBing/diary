@@ -16,9 +16,11 @@ export default {
    SET_DATE_FILTER(state, payload){
       state.dateFilter = payload
    },
-   SET_STATISTICS(state, payload){
-      state.statisticsCategory = payload.category
-      state.statisticsYear = payload.year
+   SET_STATISTICS_CATEGORY(state, payload){
+      state.statisticsCategory = payload
+   },
+   SET_STATISTICS_YEAR(state, payload){
+      state.statisticsYear = payload
    },
    SET_IS_FILTER_SHARED (state, payload){
       state.isFilterShared = payload

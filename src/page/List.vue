@@ -182,7 +182,8 @@ export default {
     methods: {
         ...mapMutations([
             'SET_KEYWORD',
-            "SET_STATISTICS",
+            "SET_STATISTICS_CATEGORY",
+            "SET_STATISTICS_YEAR",
             'SET_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR']
         ),
@@ -197,7 +198,7 @@ export default {
         },
         reload() {
             this.requestData.pageNo = 1
-            this.requestData.keyword = this.keywordShow.split(' ').join(',')
+            this.requestData.keyword = this.keyword.join(' ')
             this.diaries = []
             this.diariesShow = []
             this.getStatistic()
@@ -208,7 +209,11 @@ export default {
         getStatistic() {
             statisticApi.category()
                 .then(res => {
-                    this.SET_STATISTICS(res.data)
+                    this.SET_STATISTICS_CATEGORY(res.data)
+                })
+            statisticApi.year()
+                .then(res => {
+                    this.SET_STATISTICS_YEAR(res.data)
                 })
         },
         loadMore() {

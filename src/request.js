@@ -1,6 +1,12 @@
 import axios from "axios";
+import utility from "@/utility";
 
-function request(method, requestData, url) {
+function request(method, requestData = {}, url) {
+
+    // 给 requestData 添加 authorization 数据
+    Object.assign(requestData, utility.getAuthorization())
+    console.log(requestData)
+
     // 根据不同请求方式，调换 params 和 requestData 内容
     let headers
     let params

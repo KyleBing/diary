@@ -64,13 +64,13 @@ export default {
     methods: {
         changePasswordSubmit: function () {
             if (this.passwordVerified) {
-                let queryData = {
+                let requestData = {
                     "oldPassword": this.oldPassword,
                     "newPassword": this.password1,
                     "type": "update"
                 }
 
-                utility.postData(utility.URL.userOperation, queryData).then(res => {
+                utility.postData(utility.URL.userOperation, requestData).then(res => {
                     this.$popMessage('success', `${res.info}，正在前往登录`, () => {
                         utility.deleteAuthorization()
                         this.$router.go(-1)

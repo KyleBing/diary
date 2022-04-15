@@ -143,6 +143,7 @@ import TabIcon from "@/components/TabIcon"
 import About from "@/page/About"
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import Loading from "@/components/Loading";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: "Navbar",
@@ -314,11 +315,11 @@ export default {
         /* DELETE */
         diaryDelete() {
             let that = this
-            let queryData = {
+            let requestData = {
                 diaryId: this.currentDiary.id,
                 type: 'delete'
             }
-            utility.postData(utility.URL.diaryOperation, queryData)
+            diaryApi.delete(requestData)
                 .then(res => {
                     that.toastHide()
                     this.$popMessage('success', res.info, () => {

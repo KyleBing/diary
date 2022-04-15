@@ -93,7 +93,7 @@ export default {
             },
             logoImageUrl: this.$icons.logo,
 
-            queryData: { // 请求本周日志的 queryData
+            requestData: { // 请求本周日志的 requestData
                 type: 'list',
                 keyword: '',
                 pageNo: 1,
@@ -201,7 +201,7 @@ export default {
         // 载入本星期的所有工作日志
         loadCurrentWeekLogs() {
             this.isLoading = true
-            utility.getData(utility.URL.diaryOperation, this.queryData)
+            utility.getData(utility.URL.diaryOperation, this.requestData)
                 .then(res => {
                     this.isLoading = false
                     // TODO: 由于目前载入的日志内容是最近的15条，所以无法载入之前的日志内容，这个需要后台添加时间段获取日志的功能再完善
@@ -300,7 +300,7 @@ export default {
                 this.SET_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
-            let queryData = {
+            let requestData = {
                 diaryId: this.diary.id,
                 diaryTitle: this.diary.title,
                 diaryContent: this.diary.content || null,
@@ -314,7 +314,7 @@ export default {
             }
 
             this.SET_IS_SAVING_DIARY(true)
-            utility.postData(utility.URL.diaryOperation, queryData)
+            utility.postData(utility.URL.diaryOperation, requestData)
                 .then(res => {
                     this.SET_IS_SAVING_DIARY(false)
                     this.$popMessage('success', res.info, () => {
