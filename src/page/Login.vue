@@ -64,8 +64,7 @@ export default {
             userApi.login(requestData)
                 .then(res => {
                     // set authorization
-                    // TODO: 后台在登录成功后，需要返回用户的所有信息
-                    utility.setAuthorization(res.email, res.password, res.username, res.uid)
+                    utility.setAuthorization(res.data.email, res.data.password, res.data.username, res.data.uid)
                     this.$popMessage('success', res.message, () => {
                         this.$router.push('/')
                     })

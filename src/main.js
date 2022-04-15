@@ -10,33 +10,9 @@ Moment.locale('zh', {
    }
 })
 
-
-// router
-import Router from 'vue-router'
-import {routes} from './route'
-const router = new Router({
-   // mode: 'history', // 由于该项目是二级目录，使用 history 会导致开发与布署的地址不一
-   routes
-})
-Vue.use(Router)
-
-
-router.beforeEach((to, from, next) => {
-   if (to.name !== 'login' && to.name !== 'register' && to.name !== 'share'){
-      if (utility.getAuthorization().email){
-         next()
-      } else {
-         next('/login')
-      }
-   } else {
-      next()
-   }
-})
-
 // cookie
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
-
 
 // store
 import store from "@/store"
@@ -47,6 +23,9 @@ Vue.prototype.$icons = icons
 
 // popMsg
 Vue.prototype.$popMessage = utility.popMessage
+
+// router
+import router from "./router"
 
 new Vue({
    router,
