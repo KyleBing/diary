@@ -63,6 +63,7 @@ import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
 import Moment from 'moment'
 import DiaryBtn from "@/components/DiaryBtn";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: 'Edit',
@@ -94,11 +95,10 @@ export default {
             logoImageUrl: this.$icons.logo,
 
             requestData: { // 请求本周日志的 requestData
-                type: 'list',
-                keyword: '',
+                keywords: '',
                 pageNo: 1,
                 pageCount: 15, // 单页请求条数
-                diaryCategories: JSON.stringify(['work']),
+                categories: JSON.stringify(['work']),
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateRange: '' // 日记年月筛选
             },
@@ -201,7 +201,7 @@ export default {
         // 载入本星期的所有工作日志
         loadCurrentWeekLogs() {
             this.isLoading = true
-            utility.getData(utility.URL.diaryOperation, this.requestData)
+            diaryApi.detail(this.requestData)
                 .then(res => {
                     this.isLoading = false
                     // TODO: 由于目前载入的日志内容是最近的15条，所以无法载入之前的日志内容，这个需要后台添加时间段获取日志的功能再完善
@@ -265,10 +265,10 @@ export default {
         },
         getDiary(id) {
             // 编辑日记
-            utility.getData(utility.URL.diaryOperation, {
-                type: 'query',
+            diaryApi.detail({
                 diaryId: id
-            }).then(res => {
+            })
+                .then(res => {
                 let diary = res.data
                 this.diary.category = diary.category
                 this.diary.date = new Date(diary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
@@ -310,31 +310,43 @@ export default {
                 diaryWeather: this.diary.weather,
                 diaryPublic: this.diary.isPublic ? '1' : '0',
                 diaryDate: utility.dateFormatter(this.diary.date),
-                type: this.isNew ? 'add' : 'modify'
             }
 
             this.SET_IS_SAVING_DIARY(true)
-            utility.postData(utility.URL.diaryOperation, requestData)
-                .then(res => {
-                    this.SET_IS_SAVING_DIARY(false)
-                    this.$popMessage('success', res.info, () => {
-                        // 成功后更新 origin 字符串
-                        Object.assign(this.diaryOrigin, this.diary)
-                        this.updateDiaryIcon() // 更新 navbar icon
+
+            if (this.isNew){
+                diaryApi.add(requestData)
+                    .then(this.processAfterSaveDiary)
+                    .catch(() => {
+                        this.SET_IS_SAVING_DIARY(false)
                         this.SET_DIARY_NEED_TO_BE_SAVED(false)
-                        this.SET_LIST_OPERATION({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
-                        if (this.isNew) { // 如果是新建日记，跳转到对应路由
-                            this.isNew = false
-                            this.diary.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
-                            this.$router.push('/edit/' + res.data.id)
-                            this.SET_LIST_OPERATION({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
-                        }
                     })
-                })
-                .catch(() => {
-                    this.SET_IS_SAVING_DIARY(false)
-                    this.SET_DIARY_NEED_TO_BE_SAVED(false)
-                })
+            } else {
+                diaryApi.modify(requestData)
+                    .then(this.processAfterSaveDiary)
+                    .catch(() => {
+                        this.SET_IS_SAVING_DIARY(false)
+                        this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                    })
+            }
+        },
+
+        // 保存日记后要操作的
+        processAfterSaveDiary(res){
+            this.SET_IS_SAVING_DIARY(false)
+            this.$popMessage('success', res.message, () => {
+                // 成功后更新 origin 字符串
+                Object.assign(this.diaryOrigin, this.diary)
+                this.updateDiaryIcon() // 更新 navbar icon
+                this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                this.SET_LIST_OPERATION({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
+                if (this.isNew) { // 如果是新建日记，跳转到对应路由
+                    this.isNew = false
+                    this.diary.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
+                    this.$router.push('/edit/' + res.data.id)
+                    this.SET_LIST_OPERATION({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
+                }
+            })
         },
         createDiary() {
             this.getCurrentTemperature()

@@ -90,6 +90,9 @@ export default {
                 this.reload()
             }
         },
+        keywordShow(newValue){
+            this.SET_KEYWORD(newValue.split(' '))
+        },
         diaries() {
             let tempShowArray = []
             if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中

@@ -37,6 +37,7 @@ function request(method, requestData = {}, url) {
                     if (res.data.success){
                         resolve(res.data)
                     } else {
+                        console.log('request err: ', res.data) // 如果演示模式，不用显示网络请求错误
                         reject(res.data)
                     }
                 } else {

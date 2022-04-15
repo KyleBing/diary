@@ -71,7 +71,7 @@ export default {
                 }
 
                 utility.postData(utility.URL.userOperation, requestData).then(res => {
-                    this.$popMessage('success', `${res.info}，正在前往登录`, () => {
+                    this.$popMessage('success', `${res.message}，正在前往登录`, () => {
                         utility.deleteAuthorization()
                         this.$router.go(-1)
                     }, 2)

@@ -322,7 +322,7 @@ export default {
             diaryApi.delete(requestData)
                 .then(res => {
                     that.toastHide()
-                    this.$popMessage('success', res.info, () => {
+                    this.$popMessage('success', res.message, () => {
                         this.SET_LIST_OPERATION({type: 'delete', dairy: null, id: this.currentDiary.id})
                     }, 1) // 删除成功后等待时间不要太长
                 })
