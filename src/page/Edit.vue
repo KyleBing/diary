@@ -301,15 +301,15 @@ export default {
                 return
             }
             let requestData = {
-                diaryId: this.diary.id,
-                diaryTitle: this.diary.title,
-                diaryContent: this.diary.content || null,
-                diaryCategory: this.diary.category,
-                diaryTemperature: utility.temperatureProcessCTS(this.diary.temperature),
-                diaryTemperatureOutside: utility.temperatureProcessCTS(this.diary.temperatureOutside),
-                diaryWeather: this.diary.weather,
-                diaryPublic: this.diary.isPublic ? '1' : '0',
-                diaryDate: utility.dateFormatter(this.diary.date),
+                id: this.diary.id,
+                title: this.diary.title,
+                content: this.diary.content || null,
+                category: this.diary.category,
+                temperature: utility.temperatureProcessCTS(this.diary.temperature),
+                temperatureOutside: utility.temperatureProcessCTS(this.diary.temperatureOutside),
+                weather: this.diary.weather,
+                isPublic: this.diary.isPublic ? '1' : '0',
+                date: utility.dateFormatter(this.diary.date),
             }
 
             this.SET_IS_SAVING_DIARY(true)

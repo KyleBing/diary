@@ -147,11 +147,11 @@ function formatDate(dateString) {
 }
 
 function temperatureProcessSTC(temperature){
-   return temperature === '-273' ? '' : temperature
+   return temperature === -273 ? '' : temperature
 }
 
 function temperatureProcessCTS(temperature){
-   return temperature === '' ? '-273' : temperature
+   return temperature === '' ? -273 : temperature
 }
 
 

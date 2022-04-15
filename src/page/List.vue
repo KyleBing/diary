@@ -66,7 +66,7 @@ export default {
     mounted() {
         document.title = '日记' // 变更标题
         // init
-        this.keywordShow = utility.getDiaryConfig().keyword
+        this.keywordShow = utility.getDiaryConfig().keyword.join(' ')
         this.reload()
         this.addScrollEvent()
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
