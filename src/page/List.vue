@@ -54,7 +54,7 @@ export default {
                 keyword: [],
                 pageNo: 1,
                 pageCount: 100, // 单页请求条数
-                diaryCategories: [],
+                categories: [],
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateRange: '' // 日记年月筛选
             },
@@ -198,7 +198,7 @@ export default {
         },
         reload() {
             this.requestData.pageNo = 1
-            this.requestData.keyword = this.keyword.join(' ')
+            this.requestData.keywords = JSON.stringify(this.keyword)
             this.diaries = []
             this.diariesShow = []
             this.getStatistic()
@@ -219,7 +219,7 @@ export default {
         loadMore() {
             this.haveMore = false
             this.isLoading = true
-            this.requestData.diaryCategories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
+            this.requestData.categories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
             this.requestData.dateRange = utility.getDiaryConfig().dateRange
             this.requestData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
             this.getDiaries(this.requestData)
