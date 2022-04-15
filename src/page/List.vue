@@ -174,7 +174,7 @@ export default {
                 case 'change':
                     // TODO: 修改日记的日期时排序调整位置
                     this.diaries.map((item, index) => {
-                        if (item.id === diary.id) {
+                        if (Number(item.id) === Number(diary.id)) {
                             this.diaries.splice(index, 1, diary)
                         }
                     })

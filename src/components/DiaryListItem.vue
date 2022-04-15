@@ -24,7 +24,7 @@ export default {
     computed: {
         ...mapState(['isHideContent']),
         active() {
-            return this.$route.params.id === this.diary.id
+            return Number(this.$route.params.id) === this.diary.id
         },
         weatherIcon() {
             if (this.active) {

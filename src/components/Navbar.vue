@@ -317,7 +317,6 @@ export default {
             let that = this
             let requestData = {
                 diaryId: this.currentDiary.id,
-                type: 'delete'
             }
             diaryApi.delete(requestData)
                 .then(res => {
