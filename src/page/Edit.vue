@@ -276,7 +276,7 @@ export default {
                 this.diary.weather = diary.weather
                 this.diary.title = diary.title
                 this.diary.content = diary.content
-                this.diary.isPublic = diary.is_public === '1'
+                this.diary.isPublic = diary.is_public === 1
                 this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                 this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
                 Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
@@ -309,7 +309,7 @@ export default {
                 temperature: utility.temperatureProcessCTS(this.diary.temperature),
                 temperatureOutside: utility.temperatureProcessCTS(this.diary.temperatureOutside),
                 weather: this.diary.weather,
-                isPublic: this.diary.isPublic ? '1' : '0',
+                isPublic: this.diary.isPublic ? 1 : 0,
                 date: utility.dateFormatter(this.diary.date),
             }
 
@@ -386,7 +386,7 @@ export default {
                 category: this.diary.category,
                 date_create: date,
                 date_modify: "",
-                is_public: this.diary.isPublic ? '1' : '0'
+                is_public: this.diary.isPublic ? 1 : 0
             }
         }
     },

@@ -47,7 +47,7 @@
             <!--DETAIL-->
             <div class="navbar-btn-group right" v-if="$route.name === 'detail' && currentDiary">
                 <div
-                    v-if="currentDiary && currentDiary.is_public === '1'"
+                    v-if="currentDiary && currentDiary.is_public === 1"
                     id="shareBtn"
                     @click="copySharePath"
                     :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">

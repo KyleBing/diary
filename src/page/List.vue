@@ -66,7 +66,7 @@ export default {
     mounted() {
         document.title = '日记' // 变更标题
         // init
-        this.keywordShow = utility.getDiaryConfig().keyword.join(' ')
+        this.keywordShow = utility.getDiaryConfig().keyword && utility.getDiaryConfig().keyword.join(' ')
         this.reload()
         this.addScrollEvent()
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
@@ -132,7 +132,7 @@ export default {
                             content: currentDiary.content,
                             weather: currentDiary.weather,
                             category: currentDiary.category,
-                            isPublic: currentDiary.is_public === '1'
+                            isPublic: currentDiary.is_public === 1
                         })
                     }
                 }

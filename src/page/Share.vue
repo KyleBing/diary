@@ -51,7 +51,6 @@
                 <!-- NO DIARY -->
                 <div v-else class="no-diary">
                     <p>无此日记</p>
-                    <router-link to="../">点此返回《标题日记》主页</router-link>
                 </div>
 
                 <!--TODO: 来自谁的日记-->
@@ -67,6 +66,7 @@
 import utility from "../utility"
 import {mapState} from "vuex";
 import Loading from "@/components/Loading";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: 'Share',
@@ -102,10 +102,10 @@ export default {
         },
         id() {
             this.isLoadingDiary = true
-            utility.getData(utility.URL.shareContent, {
-                'type': 'query',
+            let requestData = {
                 'diaryId': this.id
-            })
+            }
+            diaryApi.share(requestData)
                 .then(res => {
                     this.isLoadingDiary = false
                     let diary = res.data
