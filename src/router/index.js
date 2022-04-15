@@ -35,7 +35,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.name !== 'login' && to.name !== 'register' && to.name !== 'share'){
-        if (utility.getAuthorization().email){
+        if (utility.getAuthorization() && utility.getAuthorization().email){
             next()
         } else {
             next('/login')
