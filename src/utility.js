@@ -34,10 +34,7 @@ function getAuthorization() {
 
 // 删除 authorization
 function deleteAuthorization() {
-   VueCookie.delete(COOKIE_NAME.email, {path: '/'})
-   VueCookie.delete(COOKIE_NAME.token, {path: '/'})
-   VueCookie.delete(COOKIE_NAME.username, {path: '/'})
-   VueCookie.delete(COOKIE_NAME.uid, {path: '/'})
+   localStorage.removeItem('DiaryAuthorization')
 }
 
 

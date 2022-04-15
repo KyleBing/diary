@@ -137,6 +137,7 @@ export default {
     },
     beforeRouteLeave(to, from, next) {
         // 在跳转到其它页面之前判断日记是否已保存
+        // TODO: 如果 title 和 content 本身就是空，现在也是空，就不用提示了
         if (this.diaryHasChanged) {
             this.$popMessage('warning', '当前日记未保存', next(false))
         } else {
@@ -370,6 +371,8 @@ export default {
             Object.assign(this.diary, this.diaryOrigin)
             this.SET_DIARY_NEED_TO_BE_RECOVERED(false)
         },
+
+        // TODO: 日记列表显示为展开的列表时，修改日记后，星期和日期都会消失，需要手动生成添加这两个字段
         convertToServerVersion() { // 转换为数据库格式的日记
             let date = utility.dateFormatter(this.diary.date)
             return {

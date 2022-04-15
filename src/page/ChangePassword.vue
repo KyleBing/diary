@@ -37,6 +37,7 @@
 
 <script>
 import utility from "../utility"
+import userApi from "@/api/userApi";
 
 export default {
     name: 'ChangePassword',
@@ -65,17 +66,17 @@ export default {
         changePasswordSubmit: function () {
             if (this.passwordVerified) {
                 let requestData = {
-                    "oldPassword": this.oldPassword,
-                    "newPassword": this.password1,
-                    "type": "update"
+                    passwordOld: this.oldPassword,
+                    passwordNew: this.password1,
                 }
 
-                utility.postData(utility.URL.userOperation, requestData).then(res => {
-                    this.$popMessage('success', `${res.message}，正在前往登录`, () => {
-                        utility.deleteAuthorization()
-                        this.$router.go(-1)
-                    }, 2)
-                })
+                userApi.changePassword(requestData)
+                    .then(res => {
+                        this.$popMessage('success', `${res.message}，正在前往登录`, () => {
+                            utility.deleteAuthorization()
+                            this.$router.go(-1)
+                        }, 2)
+                    })
             }
         }
     },

@@ -29,7 +29,7 @@ export default {
     computed: {
         ...mapState(['isHideContent']),
         active() {
-            return this.$route.params.id === this.diary.id
+            return Number(this.$route.params.id) === Number(this.diary.id)
         },
         suffix() {
             return this.active ? '_white' : '_active'
