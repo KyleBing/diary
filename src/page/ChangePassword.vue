@@ -77,6 +77,9 @@ export default {
                             this.$router.go(-1)
                         }, 2)
                     })
+                    .catch(err => {
+                        this.$popMessage('danger', `${err.message}`, () => {}, 2)
+                    })
             }
         }
     },
