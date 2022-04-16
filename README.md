@@ -84,6 +84,13 @@
     ```
 
 
+## 开发说明
+配置存储：
+所有配置信息都保存在 LocalStorage 中
+- `DiaryConfig`: 用户的配置信息（类别筛选，日期筛选，关键字）
+- `DiaryAuthorization`: 用户信息（用户名，token，uid）
+
+
 ## 支持
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
