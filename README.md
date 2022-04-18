@@ -63,25 +63,10 @@
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `php`
 
-### 1. 前端设置
+### 前端设置
 1. 修改前端项目中 `utility.js` 的 `URL` 变量为后台的路径
 2. `vue.config.js` 中设置了 build 后的项目文件路径为 `../diary`，可以根据自己需要修改
 3. 注册界面中的邀请码对应后台 `config.php` 设置的邀请码
-
-### 2. 后台设置
-1. 数据库的结构在项目的根目录下 `diary.sql`
-
-2. 修改 `./class/config.php` 中的变量。
-
-    > `INVITATION` 是前端注册时使用的邀请码，只有对应上才能正常注册用户
-    ```php
-    define('HOST',          '127.0.0.1');       // 数据库地址
-    define('PORT',          '3306');            // 数据库端口
-    define('DATABASE',      'diary');           // 数据库名
-    define('USER',          '----');            // 数据库用户名
-    define('PASSWORD',      '----');            // 数据库密码
-    define('INVITATION',    '----');            // 邀请码，注册用户时使用，
-    ```
 
 
 ## 开发说明

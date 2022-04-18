@@ -8,13 +8,11 @@ module.exports = {
   outputDir: '../diary',
   devServer: {
     proxy: {
-      '^/api': {
+      '': {
         target: 'http://localhost:3000',
         // target: 'http://localhost/diary-portal',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
+        // target: 'http://kylebing.cn:3000',
+        changeOrigin: true
       },
     }
   },
