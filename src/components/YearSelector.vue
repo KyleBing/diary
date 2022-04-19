@@ -1,5 +1,5 @@
 <template>
-    <div class="year-container">
+    <div class="year-container" v-if="years.length > 0">
         <div class="year" v-for="(year,indexYear) in years" :key="indexYear">
             <div class="year-header">
                 <span>{{ year.year }}</span>
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-
+    <div v-else class="year-tip"> - 空 - </div>
 </template>
 
 <script>
