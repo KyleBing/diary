@@ -15,6 +15,9 @@ export default {
    },
    SET_DATE_FILTER(state, payload){
       state.dateFilter = payload
+      let diaryConfig = utility.getDiaryConfig()
+      diaryConfig.dateFilter = payload
+      utility.setDiaryConfig(diaryConfig)
    },
    SET_STATISTICS_CATEGORY(state, payload){
       state.statisticsCategory = payload

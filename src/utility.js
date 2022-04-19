@@ -1,24 +1,8 @@
-import axios from 'axios'
-import VueCookie from 'vue-cookie'
-import qs from 'qs'
-import Vue from 'vue'
 import store from './store'
-
-const BASE_URL = process.env.NODE_ENV === 'development' ? '/api/': '../diary-portal/'
 
 const global = {
    heightNavbar: 45,
 }
-
-
-const COOKIE_NAME = {
-   email        : 'diaryEmail',
-   token        : 'diaryToken',
-   username     : 'diaryUsername',
-   uid          : 'diaryUid',
-   options      : {expires : 7, path : '/', SameSite : 'Strict'}
-}
-
 
 // 设置 authorization
 function setAuthorization(email, token, username, uid) {
@@ -161,7 +145,7 @@ function getDiaryConfig(){
          isFilterShared: false, // 是否筛选共享日记
          keywords: [], // 关键词
          filteredCategories: store.state.categoryAll.map(item => item.nameEn), // 筛选的日记类别
-         dateRange: '' // 日记范围
+         dateFilter: '' // 日记范围
       }
    }
 }
@@ -175,7 +159,7 @@ function deleteDiaryConfig(newValue){
 
 
 export default {
-   URL,COOKIE_NAME, WEEKDAY, WEATHER,
+   WEEKDAY, WEATHER,
    getAuthorization,
    setAuthorization,
    popMessage,

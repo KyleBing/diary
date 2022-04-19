@@ -56,7 +56,7 @@ export default {
                 pageCount: 100, // 单页请求条数
                 categories: [],
                 filterShared: 0, // 1 是筛选，0 是不筛选
-                dateRange: '' // 日记年月筛选
+                dateFilter: '' // 日记年月筛选
             },
             diaries: [],
             diariesShow: [],
@@ -223,7 +223,7 @@ export default {
             this.haveMore = false
             this.isLoading = true
             this.requestData.categories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
-            this.requestData.dateRange = utility.getDiaryConfig().dateRange
+            this.requestData.dateFilter = utility.getDiaryConfig().dateFilter
             this.requestData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
             this.getDiaries(this.requestData)
         },

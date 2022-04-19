@@ -31,12 +31,12 @@ export default {
         }
     },
     mounted() {
-        this.monthChosen = utility.getDiaryConfig().dateRange || ''
+        this.monthChosen = utility.getDiaryConfig().dateFilter || ''
     },
     watch: {
         monthChosen() {
             let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.dateRange = this.monthChosen
+            diaryConfig.dateFilter = this.monthChosen
             utility.setDiaryConfig(diaryConfig)
             this.SET_DATE_FILTER(this.monthChosen)
         }
