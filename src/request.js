@@ -1,5 +1,6 @@
 import axios from "axios";
 import utility from "@/utility";
+const BASE_URL = '../diary-portal/'
 
 function request(method, requestData = {}, url) {
 
@@ -25,7 +26,7 @@ function request(method, requestData = {}, url) {
 
     return new Promise((resolve, reject) => {
         axios({
-            url,
+            url: BASE_URL + url,
             method,
             data: requestData,
             params,
@@ -48,9 +49,9 @@ function request(method, requestData = {}, url) {
                 if (err.response) {
                     console.log('response: ', err.response)
                 } else if (err.request) {
-                    console.log('request: ', err.response)
+                    console.log('request: ', err.request)
                 } else if (err.message) {
-                    console.log('message: ', err.response)
+                    console.log('message: ', err.message)
                 }
             })
     })

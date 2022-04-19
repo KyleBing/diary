@@ -9,7 +9,7 @@ export default {
         // 初始化 LocalStorage 存储对象
         let diaryConfig = utility.getDiaryConfig()
         this.SET_FILTERED_CATEGORIES(diaryConfig.filteredCategories)
-        this.SET_KEYWORD(diaryConfig.keyword)
+        this.SET_KEYWORD(diaryConfig.keywords)
 
         window.onresize = () => {
             this.SET_INSETS({
@@ -17,6 +17,11 @@ export default {
                 windowsWidth: window.innerWidth,
                 heightPanel: window.innerHeight - 45, // 除 navbar 的高度
             })
+        }
+
+        // 旧版本数据清除
+        if (diaryConfig.hasOwnProperty('keyword')){ // keyword 是旧版数据，已改为 keywords: []
+            utility.deleteDiaryConfig()
         }
     },
     methods: {

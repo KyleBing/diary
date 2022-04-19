@@ -159,7 +159,7 @@ function getDiaryConfig(){
    } else {
       return {
          isFilterShared: false, // 是否筛选共享日记
-         keyword: [], // 关键词
+         keywords: [], // 关键词
          filteredCategories: store.state.categoryAll.map(item => item.nameEn), // 筛选的日记类别
          dateRange: '' // 日记范围
       }
@@ -168,6 +168,9 @@ function getDiaryConfig(){
 
 function setDiaryConfig(newValue){
    localStorage.setItem('DiaryConfig', JSON.stringify(newValue))
+}
+function deleteDiaryConfig(newValue){
+   localStorage.removeItem('DiaryConfig')
 }
 
 
@@ -182,5 +185,5 @@ export default {
    global,
    temperatureProcessSTC,
    temperatureProcessCTS,
-   getDiaryConfig, setDiaryConfig
+   getDiaryConfig, setDiaryConfig, deleteDiaryConfig
 }

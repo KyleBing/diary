@@ -51,7 +51,7 @@ export default {
             keywordShow: '', // 关键词
 
             requestData: {
-                keyword: [],
+                keywords: [],
                 pageNo: 1,
                 pageCount: 100, // 单页请求条数
                 categories: [],
@@ -66,7 +66,7 @@ export default {
     mounted() {
         document.title = '日记' // 变更标题
         // init
-        this.keywordShow = utility.getDiaryConfig().keyword && utility.getDiaryConfig().keyword.join(' ')
+        this.keywordShow = utility.getDiaryConfig().keywords && utility.getDiaryConfig().keywords.join(' ')
         this.reload()
         this.addScrollEvent()
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
@@ -74,7 +74,7 @@ export default {
 
     computed: {
         ...mapState([
-            'keyword',
+            'keywords',
             'categoryAll',
             'diaryListShowedInFullStyle',
             'listNeedBeReload',
@@ -201,7 +201,7 @@ export default {
         },
         reload() {
             this.requestData.pageNo = 1
-            this.requestData.keywords = JSON.stringify(this.keyword)
+            this.requestData.keywords = JSON.stringify(this.keywords)
             this.diaries = []
             this.diariesShow = []
             this.getStatistic()

@@ -35,9 +35,9 @@ export default {
       utility.setDiaryConfig(diaryConfig)
    },
    SET_KEYWORD (state, payload){
-      state.keyword = payload
+      state.keywords = payload
       let diaryConfig = utility.getDiaryConfig()
-      diaryConfig.keyword = payload
+      diaryConfig.keywords = payload
       utility.setDiaryConfig(diaryConfig)
    },
    SET_CURRENT_DIARY (state, payload){

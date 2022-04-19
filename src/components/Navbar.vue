@@ -194,7 +194,7 @@ export default {
         ...mapGetters(['isInMobileMode'])
     },
     watch: {
-        keyword(newValue) {
+        keywords(newValue) {
             if (newValue) {
                 this.$nextTick(() => {
                     document.querySelector('#keyword').focus()
