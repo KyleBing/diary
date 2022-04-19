@@ -23,6 +23,11 @@ export default {
       state.statisticsCategory = payload
    },
    SET_STATISTICS_YEAR(state, payload){
+      // 如果没有任何年份数据，清除 dateFilter 数字
+      let diaryConfig = utility.getDiaryConfig()
+      diaryConfig.dateFilter = ''
+      state.dateFilter = '' // 同时变更 state 中的数据
+      utility.setDiaryConfig(diaryConfig)
       state.statisticsYear = payload
    },
    SET_IS_FILTER_SHARED (state, payload){
