@@ -105,7 +105,7 @@ export default {
             let requestData = {
                 'diaryId': this.id
             }
-            diaryApi.share(requestData)
+            diaryApi.detail(requestData)
                 .then(res => {
                     this.isLoadingDiary = false
                     let diary = res.data
