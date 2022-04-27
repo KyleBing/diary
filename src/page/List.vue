@@ -242,8 +242,8 @@ export default {
                         })
                         diary.categoryString = categoryMap.get(diary.category)
 
-                        diary.weekday = utility.formatDate(diary.date).weekday
-                        diary.dateString = utility.formatDate(diary.date).date
+                        diary.weekday = utility.dateProcess(diary.date).weekday
+                        diary.dateString = utility.dateProcess(diary.date).date
                         return diary
                     })
 

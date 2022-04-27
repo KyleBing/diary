@@ -110,7 +110,7 @@ export default {
                     this.isLoadingDiary = false
                     let diary = res.data
                     this.diary = diary
-                    this.dateObj = utility.formatDate(diary.date)
+                    this.dateObj = utility.dateProcess(diary.date)
                     document.title = '日记 - ' + this.dateObj.dateFull // 变更标题
                     if (this.diary.content) {
                         let contentArray = diary.content.split('\n')

@@ -155,17 +155,17 @@ export default {
                     let diary = res.data
                     this.diary = diary
                     this.SET_CURRENT_DIARY(diary) // 设置 store: currentDiary
-                    let dateOjb = utility.formatDate(diary.date)
+                    let dateOjb = utility.dateProcess(diary.date)
                     document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
                     if (dateOjb.year === new Date().getFullYear()){ // 当不是本年时
-                        this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+                        this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeLabel + ' ' + dateOjb.time
                         this.diary.dateShort = dateOjb.date + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
                     } else {
                         if (this.isInMobileMode){ // 手机模式时，显示压缩版的日期
-                            this.diary.dateLong = dateOjb.dateFullSlash + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+                            this.diary.dateLong = dateOjb.dateFullSlash + ' ' + dateOjb.weekday + ' ' + dateOjb.timeLabel + ' ' + dateOjb.time
                             this.diary.dateShort = dateOjb.dateFullSlash + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
                         } else {
-                            this.diary.dateLong = dateOjb.dateFull + ' ' + dateOjb.weekday + ' ' + dateOjb.timeName + ' ' + dateOjb.time
+                            this.diary.dateLong = dateOjb.dateFull + ' ' + dateOjb.weekday + ' ' + dateOjb.timeLabel + ' ' + dateOjb.time
                             this.diary.dateShort = dateOjb.dateFull + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
                         }
                     }

@@ -93,27 +93,28 @@ function dateFormatter(date, formatString) {
    return formatString
 }
 
-function formatDate(dateString) {
-   let year = Number(dateString.substring(0,4))
-   let month = Number(dateString.substring(5,7))
-   let day = Number(dateString.substring(8,10))
-   let hour = Number(dateString.substring(11,13))
-   let time = dateString.substring(11,16)
-   let date = new Date(year, month - 1, day)
+function dateProcess(dateString) {
+   let date = new Date(dateString)
+   let year = date.getFullYear()
+   let month = date.getMonth() + 1
+   let day = date.getDate()
+   let hour = date.getHours()
+   let minutes = date.getMinutes()
+   let seconds = date.getSeconds()
    let week = date.getDay()
-   let timeArea = ''
+   let timeLabel = ''
    if (hour >= 23 && hour < 24 || hour <= 3 && hour >= 0) {
-      timeArea = '深夜'
+      timeLabel = '深夜'
    } else if (hour >= 19 && hour < 23) {
-      timeArea = '晚上'
+      timeLabel = '晚上'
    } else if (hour >= 14 && hour < 19) {
-      timeArea = '傍晚'
+      timeLabel = '傍晚'
    } else if (hour >= 11 && hour < 14) {
-      timeArea = '中午'
+      timeLabel = '中午'
    } else if (hour >= 6 && hour < 11) {
-      timeArea = '早上'
+      timeLabel = '早上'
    } else if (hour >= 3 && hour < 6) {
-      timeArea = '凌晨'
+      timeLabel = '凌晨'
    }
 
    return {
@@ -122,8 +123,8 @@ function formatDate(dateString) {
       date:`${month}月${day}日`,
       dateFull: `${year}年${month}月${day}日`,
       dateFullSlash: `${year}/${month}/${day}`,
-      timeName: timeArea,
-      time: time
+      timeLabel: timeLabel,
+      time: `${hour}:${minutes}`
    }
 }
 
@@ -163,7 +164,7 @@ export default {
    getAuthorization,
    setAuthorization,
    popMessage,
-   formatDate,
+   dateProcess,
    dateFormatter,
    deleteAuthorization,
    global,
