@@ -120,12 +120,16 @@ function dateProcess(dateString) {
    return {
       year: year,
       weekday: WEEKDAY[week],
-      date:`${month}月${day}日`,
+      date:`${padNumberWith0(month)}月${padNumberWith0(day)}日`,
       dateFull: `${year}年${month}月${day}日`,
       dateFullSlash: `${year}/${month}/${day}`,
       timeLabel: timeLabel,
-      time: `${hour}:${minutes}`
+      time: `${padNumberWith0(hour)}:${padNumberWith0(minutes)}`
    }
+}
+
+function padNumberWith0(num){
+   return String(num).padStart(2, '0')
 }
 
 function temperatureProcessSTC(temperature){
