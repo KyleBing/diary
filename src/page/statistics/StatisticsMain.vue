@@ -1,0 +1,70 @@
+<template>
+    <div class="statistic-container">
+        <!-- 竖屏时 -->
+        <div class="statistics-container" v-if="isInMobileMode" :style="`height:${insets.windowsHeight}px`">
+
+        </div>
+        <!-- 横屏时 -->
+        <div class="statistics-container" v-else :style="`height:${insets.windowsHeight}px`">
+            <div class="statistic-header">
+                <div class="statistic-back-btn">
+                    <tab-icon alt="返回" @click="$router.go(-1)"/>
+                </div>
+                <div class="statistic-title">统计数据</div>
+            </div>
+            <div class="statistic-content">
+
+                <statistic-info/>
+                <statistic-charts/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import list from "@/page/List"
+import Navbar from "@/components/Navbar"
+import {mapGetters, mapState} from 'vuex'
+import ChartPie from "@/components/charts/chartPie";
+import StatisticInfo from "@/page/statistics/StatisticInfo";
+import TabIcon from "@/components/TabIcon";
+import StatisticCharts from "@/page/statistics/StatisticCharts";
+
+export default {
+    name: 'StatisticsMain',
+    components: {
+        StatisticCharts,
+        TabIcon,
+        StatisticInfo,
+        ChartPie,
+        Navbar,
+        list
+    },
+    computed: {
+        ...mapState(['insets', 'isShowSearchBar', 'statisticsCategory', 'statisticsYear']),
+        ...mapGetters(['isInMobileMode']),
+
+    },
+    mounted() {
+    },
+    watch:{
+        // 搜索按钮点击时，滚动到最顶部
+        isShowSearchBar(newValue){
+            if (newValue){
+                this.$refs.diaryList.scrollTo(0, 0)
+            } else {
+
+            }
+        },
+    }
+}
+
+</script>
+
+<style lang="scss" scoped>
+@import "../../assets/scss/plugin";
+.back-btn{
+    background-color: $bg-menu;
+}
+
+</style>

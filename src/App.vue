@@ -4,6 +4,7 @@
 <script>
 import {mapMutations} from "vuex";
 import utility from "@/utility";
+import statisticApi from "@/api/statisticApi";
 export default {
     mounted() {
         // 初始化 LocalStorage 存储对象
@@ -23,9 +24,21 @@ export default {
         if (diaryConfig.hasOwnProperty('keyword')){ // keyword 是旧版数据，已改为 keywords: []
             utility.deleteDiaryConfig()
         }
+        this.getStatistic() // 载入统计信息
     },
     methods: {
-        ...mapMutations(['SET_INSETS', 'SET_KEYWORD','SET_FILTERED_CATEGORIES'])
+        ...mapMutations(['SET_INSETS', 'SET_KEYWORD','SET_FILTERED_CATEGORIES','SET_STATISTICS_CATEGORY', 'SET_STATISTICS_YEAR']),
+        // 获取日记统计信息
+        getStatistic() {
+            statisticApi.category()
+                .then(res => {
+                    this.SET_STATISTICS_CATEGORY(res.data)
+                })
+            statisticApi.year()
+                .then(res => {
+                    this.SET_STATISTICS_YEAR(res.data)
+                })
+        },
     }
 }
 </script>

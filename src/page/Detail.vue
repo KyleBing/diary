@@ -100,7 +100,7 @@ export default {
     },
     computed:{
         ...mapState(['categoryAll', 'insets', 'isHideContent']),
-        ...mapGetters(['isInMobileMode']),
+        ...mapGetters(['isInMobileMode', 'categoryMap']),
 
     },
     watch: {
@@ -172,12 +172,7 @@ export default {
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
 
-                    // category map
-                    let categoryMap = new Map()
-                    this.categoryAll.forEach(item => {
-                        categoryMap.set(item.nameEn, item.name)
-                    })
-                    diary.categoryString = categoryMap.get(diary.category)
+                    diary.categoryString = this.categoryMap.get(diary.category)
                 })
                 .catch(() => {
                     this.isLoading = false // loading off

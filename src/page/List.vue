@@ -37,7 +37,6 @@ import diaryListItemLong from "../components/DiaryListItemLong"
 import {mapState, mapMutations} from 'vuex'
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi";
-import statisticApi from "@/api/statisticApi";
 
 export default {
     name: 'List',
@@ -204,21 +203,10 @@ export default {
             this.requestData.keywords = JSON.stringify(this.keywords)
             this.diaries = []
             this.diariesShow = []
-            this.getStatistic()
             this.loadMore()
         },
 
         /* DIARY 相关 */
-        getStatistic() {
-            statisticApi.category()
-                .then(res => {
-                    this.SET_STATISTICS_CATEGORY(res.data)
-                })
-            statisticApi.year()
-                .then(res => {
-                    this.SET_STATISTICS_YEAR(res.data)
-                })
-        },
         loadMore() {
             this.haveMore = false
             this.isLoading = true

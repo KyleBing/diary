@@ -25,7 +25,7 @@
                 </div>
 
                 <!--4. 统计信息-->
-                <router-link class="menu-list-group-item" to="/statistic">统计信息</router-link>
+                <router-link class="menu-list-group-item" to="/statistics">统计信息</router-link>
 
                 <!--5. 修改密码-->
                 <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>

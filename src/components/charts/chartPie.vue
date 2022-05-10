@@ -1,0 +1,117 @@
+<template>
+    <div ref="BarDom" class="charts" style="height: 350px; width: 500px"></div>
+</template>
+
+<script>
+import * as echarts from 'echarts'
+
+export default {
+    name: "ChartPie",
+    props: {
+        data: {
+            type: Array,
+            default: []
+            // {value: 1048, name: '搜索引擎'},
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        subTitle: {
+            type: String,
+            default: ''
+        },
+    },
+    watch: {
+        data(newValue) {
+            if (newValue) {
+                console.log('inside watch')
+                this.resetData(newValue)
+            }
+        },
+    },
+    data() {
+        return {
+            chart: null,
+            option: null
+        }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.initChart()
+            this.resetData(this.data)
+        })
+    },
+    computed: {
+        xAxisData() {
+            return this.data
+        }
+    },
+    methods: {
+        resetData(newValue) {
+            this.option.series[0].data = newValue
+            this.chart.setOption(this.option)
+        },
+        initChart() {
+            this.option = {
+                color: [
+                    '#FFA41C',
+                    '#2F3037',
+                    '#9FE080',
+                    '#5C7BD9',
+                    '#7ED3F4',
+                    '#EE6666',
+                    '#c7c7c7',
+                    '#FFDC60'
+                ],
+                title: {
+                    text: '',
+                    left: 'center',
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                series: [
+                    {
+                        name: '饼状图',
+                        type: 'pie',
+                        radius: '60%',
+                        data: [
+                            // {value: 1048, name: '搜索引擎'},
+                        ],
+                        label: {
+                            show: true,
+                            position: 'outside',
+                            fontSize: 12,
+                            formatter: '{b}: {d}%'
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.2)'
+                            }
+                        }
+                    }
+                ]
+            }
+
+            this.option.title.text = this.title
+            this.chart = echarts.init(this.$refs.BarDom);
+            this.chart.setOption(this.option);
+            this.option.series[0].name = this.title
+        },
+        resize() {
+            this.chart.resize()
+        }
+    },
+    beforeDestroy() {
+        window.onresize = null
+    }
+}
+
+</script>
+
+<style scoped>
+
+</style>

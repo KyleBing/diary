@@ -53,6 +53,15 @@ export default new Vuex.Store({
          // console.log(state.insets)
          // 宽度小于 1024 或 高>宽 时，表示是在移动设备上
          return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
+      },
+
+      // 类别字典
+      categoryMap(state){
+         let categoryMap = new Map()
+         state.categoryAll.forEach(item => {
+            categoryMap.set(item.nameEn, item.name)
+         })
+         return categoryMap
       }
    },
    mutations
