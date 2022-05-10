@@ -62,6 +62,29 @@ export default new Vuex.Store({
             categoryMap.set(item.nameEn, item.name)
          })
          return categoryMap
+      },
+
+      dataArrayYear(state){
+         if (state.statisticsYear){
+            return state.statisticsYear.reverse().map(year => {
+               return {
+                  name: year.year,
+                  value: year.count
+               }
+            })
+         }
+      },
+      dataArrayCategory(state, getter){
+         let tempData = {}
+         Object.assign(tempData, state.statisticsCategory)
+         return Object.keys(tempData).filter(item => {
+            return item !== 'amount' && item !== 'shared'
+         }).map(key => {
+            return {
+               name: getter.categoryMap.get(key),
+               value: state.statisticsCategory[key]
+            }
+         })
       }
    },
    mutations

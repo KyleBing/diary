@@ -1,22 +1,15 @@
 <template>
-    <div class="statistic-container">
-        <!-- 竖屏时 -->
-        <div class="statistics-container" v-if="isInMobileMode" :style="`height:${insets.windowsHeight}px`">
-
+    <div class="statistic-container" v-else :style="`height:${insets.windowsHeight}px`">
+        <div class="statistic-header">
+            <div class="statistic-back-btn">
+                <tab-icon alt="返回" @click="$router.go(-1)"/>
+            </div>
+            <div class="statistic-title">统计数据</div>
         </div>
-        <!-- 横屏时 -->
-        <div class="statistics-container" v-else :style="`height:${insets.windowsHeight}px`">
-            <div class="statistic-header">
-                <div class="statistic-back-btn">
-                    <tab-icon alt="返回" @click="$router.go(-1)"/>
-                </div>
-                <div class="statistic-title">统计数据</div>
-            </div>
-            <div class="statistic-content">
+        <div class="statistic-content">
 
-                <statistic-info/>
-                <statistic-charts/>
-            </div>
+            <statistic-info/>
+            <statistic-charts/>
         </div>
     </div>
 </template>

@@ -91,7 +91,7 @@ export default {
                     name: '到访人员类型',
                     type: 'bar',
                     data: [],
-                    barWidth: 24, //柱子宽度
+                    barWidth: 20, //柱子宽度
                     label: {
                         show: true,
                         position: 'top',
