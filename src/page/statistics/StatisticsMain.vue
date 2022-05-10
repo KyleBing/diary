@@ -2,7 +2,7 @@
     <div class="statistic-container" v-else :style="`height:${insets.windowsHeight}px`">
         <div class="statistic-header">
             <div class="statistic-back-btn" @click="$router.back()">
-                <tab-icon alt="返回"/>
+                <tab-icon alt="关闭"/>
             </div>
             <div class="statistic-title">统计数据</div>
         </div>
@@ -22,6 +22,7 @@ import ChartPie from "@/components/charts/chartPie";
 import StatisticInfo from "@/page/statistics/StatisticInfo";
 import TabIcon from "@/components/TabIcon";
 import StatisticCharts from "@/page/statistics/StatisticCharts";
+import statisticApi from "@/api/statisticApi";
 
 export default {
     name: 'StatisticsMain',
@@ -39,6 +40,7 @@ export default {
 
     },
     mounted() {
+        this.getStatistic()
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
@@ -48,6 +50,18 @@ export default {
             } else {
 
             }
+        },
+    },
+    methods: {
+        getStatistic() {
+            statisticApi.category()
+                .then(res => {
+                    this.SET_STATISTICS_CATEGORY(res.data)
+                })
+            statisticApi.year()
+                .then(res => {
+                    this.SET_STATISTICS_YEAR(res.data)
+                })
         },
     }
 }

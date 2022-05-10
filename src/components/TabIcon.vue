@@ -37,6 +37,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../assets/scss/plugin";
+img{
+    display: block;
+    height: $height-navbar;
+}
 
 </style>

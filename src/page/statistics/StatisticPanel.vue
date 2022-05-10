@@ -26,12 +26,12 @@ export default {
     flex-shrink: 0;
     background-color: $bg-light;
     @include border-radius($radius-pc);
-    padding: 30px 40px;
+    padding: 20px 30px;
 }
 h3{
     color: $text-title;
     line-height: 1;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 </style>

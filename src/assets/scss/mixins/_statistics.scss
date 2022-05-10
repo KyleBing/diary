@@ -2,19 +2,22 @@
   width: 100%;
   background-color: white;
   box-sizing: border-box;
-  padding: 20px;
 }
 
 .statistic-content{
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
+  overflow-y: auto;
 }
 
 .statistic-header{
+  height: $height-navbar;
+  background-color: $bg-main;
   display: flex;
+  color: white;
   justify-content: flex-start;
   align-items: center;
   .statistic-title{
