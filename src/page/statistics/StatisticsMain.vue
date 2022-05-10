@@ -1,8 +1,8 @@
 <template>
     <div class="statistic-container" v-else :style="`height:${insets.windowsHeight}px`">
         <div class="statistic-header">
-            <div class="statistic-back-btn">
-                <tab-icon alt="返回" @click="$router.go(-1)"/>
+            <div class="statistic-back-btn" @click="$router.back()">
+                <tab-icon alt="返回"/>
             </div>
             <div class="statistic-title">统计数据</div>
         </div>
