@@ -70,52 +70,8 @@
             </div>
 
             <!-- MENU -->
-            <div class="menu-panel" id="menu-panel" v-show="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
-                <div class="menu-list" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
-                    <div class="menu-list-group">
-                        <div class="menu-list-group-item" v-if="isInMobileMode" @click="menuListClicked('search')">搜索</div>
-                        <div class="menu-list-group-item" @click="menuListClicked('category')">
-                            <div>类别</div>
-                            <div class="category-indicator">
-                                <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
-                                <div :class="['item', 'category-' + item.nameEn ,{active: filteredCategories.some(category => category ===item.nameEn)}]"
-                                     v-for="(item, index) in categoryAll"
-                                     :title="item.nameEn"
-                                     :key="index"></div>
-                            </div>
-                        </div>
-                        <div class="menu-list-group-item" @click="menuListClicked('year')">
-                            <div>年份</div>
-                            <div class="addon">{{ dateFilter }}</div>
-                        </div>
-                        <div class="menu-list-group-item" @click="menuListClicked('about')">关于</div>
-                        <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
-                        <div class="menu-list-group-item" @click="logout">退出</div>
-                    </div>
-                    <div class="user-info-panel">
-                        <div class="user-info">
-                            <div class="user">
-                                <p class="username">{{ userInfo.username }}</p>
-                                <p class="email">{{ userInfo.email }}</p>
-                            </div>
-                            <div class="separator"></div>
-                            <div v-if="statisticsCategory.shared > 0" class="statistics">
-                                <p>共享 {{ statisticsCategory.shared }} 篇</p>
-                                <p>总计 {{ statisticsCategory.amount }} 篇</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <nav-menu/>
 
-                <!-- category-->
-                <menu-category-selector v-show="categoryShowed"/>
-
-                <!-- year selector -->
-                <year-selector v-show="yearShowed"/>
-
-                <!--about-->
-                <about v-show="aboutShowed"/>
-            </div>
         </nav>
 
         <!--TOAST-->
@@ -144,27 +100,16 @@ import About from "@/page/About"
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
+import NavMenu from "@/components/NavMenu";
 
 export default {
     name: "Navbar",
-    components: {Loading, MenuCategorySelector, About, TabIcon, YearSelector},
+    components: {NavMenu, Loading, MenuCategorySelector, About, TabIcon, YearSelector},
     data() {
         return {
             location: {}, // clipboard 使用
 
             showLongList: false,
-            // menu
-            menuShowed: false,            // menu panel
-            menuListShowed: true,         // menu list
-            categoryShowed: false,        // category
-            yearShowed: false,            // year chooser
-            aboutShowed: false,           // about
-
-            // menu - category
-            userInfo: utility.getAuthorization(),
-            categoriesSet: new Set(),
-            originCategories: [],
-            originFilterShared: false,
 
             // toast
             toastIsShowed: false,
@@ -172,24 +117,18 @@ export default {
     },
     mounted() {
         this.location = window.location
-        this.categoriesSet = new Set(this.filteredCategories)
     },
     computed: {
         ...mapState([
+            'menuShowed', // 菜单是否显示
             'isSavingDiary',
-            'filteredCategories',
-            'categoryAll',
             'diaryEditorContentHasChanged',
             'currentDiary',
             'diaryListShowedInFullStyle',
             'insets',
             'isShowSearchBar',
             'isHideContent',
-            'isFilterShared',
-            'editLogoImg',
-            'statisticsCategory',
-            'statisticsYear',
-            'dateFilter',
+            'editLogoImg'
         ]),
         ...mapGetters(['isInMobileMode'])
     },
@@ -210,90 +149,31 @@ export default {
             'SET_DIARY_NEED_TO_BE_SAVED',
             'SET_DIARY_NEED_TO_BE_RECOVERED',
             'SET_LIST_OPERATION',
-            'SET_LIST_NEED_BE_RELOAD',
+            'SET_MENU_SHOWED'
         ]),
+
+        // 菜单操作
+        menuShow() {
+            this.SET_MENU_SHOWED(true)
+        },
+        menuClose() {
+            this.SET_MENU_SHOWED(false)
+        },
         toggleListStyle() {
             if (!this.menuShowed) {
                 this.SET_DIARYLIST_SHOWED_INFULL_STYLE(!this.diaryListShowedInFullStyle)
             }
         },
-        /* MENU */
-        menuShow() {
-            this.menuShowed = true            // menu panel
-            this.menuListShowed = true            // menu list
-            this.categoryShowed = false           // category
-            this.yearShowed = false           // year
-            this.aboutShowed = false           // about
-        },
-        menuClose() {
-            if (this.categoryShowed) {
-                this.SET_LIST_NEED_BE_RELOAD(true)
-                this.menuInit()
-            } else if (this.aboutShowed) {
-                this.menuShowed = true            // menu panel
-                this.menuListShowed = true            // menu list
-                this.categoryShowed = false           // category
-                this.yearShowed = false           // year
-                this.aboutShowed = false           // about
-            } else if (this.yearShowed) {
-                this.SET_LIST_NEED_BE_RELOAD(true)
-                this.menuInit()
-            } else if (this.menuShowed) {
-                this.menuInit()
-            }
-        },
-        menuInit() {
-            this.menuShowed = false            // menu panel
-            this.menuListShowed = true             // menu list
-            this.categoryShowed = false            // category
-            this.yearShowed = false           // year
-            this.aboutShowed = false            // about
-        },
-        menuListClicked(menuName) {
-            switch (menuName) {
-                case 'search':
-                    this.SET_IS_SHOW_SEARCH_BAR(true);
-                    this.menuInit();
-                    this.$nextTick(() => {
-                        document.querySelector('#keyword').focus();
-                    });
-                    break;
-                case 'category':
-                    this.menuShowed = true             // menu panel
-                    this.menuListShowed = false            // menu list
-                    this.categoryShowed = true             // category
-                    this.yearShowed = false            // year
-                    this.aboutShowed = false            // about
-                    break
-                case 'year':
-                    this.menuShowed = true             // menu panel
-                    this.menuListShowed = false            // menu list
-                    this.categoryShowed = false            // category
-                    this.yearShowed = true             // year
-                    this.aboutShowed = false            // about
-                    break
-                case 'about':
-                    this.menuShowed = true             // menu panel
-                    this.menuListShowed = false            // menu list
-                    this.categoryShowed = false            // category
-                    this.yearShowed = false            // year
-                    this.aboutShowed = true             // about
-                    break
-                default:
-                    break
-            }
-        },
 
-        /* SEARCH */
+        // SEARCH BAR
         showSearchbar() {
             this.SET_IS_SHOW_SEARCH_BAR(true)
         },
 
-        /* HIDE CONTENT */
+        // HIDE CONTENT
         toggleHideContent() {
             this.SET_IS_HIDE_CONTENT(!this.isHideContent)
         },
-
         diarySave() {
             this.SET_DIARY_NEED_TO_BE_SAVED(true)
         },
@@ -301,7 +181,7 @@ export default {
             this.SET_DIARY_NEED_TO_BE_RECOVERED(true)
         },
 
-        /* SHARE */
+        // 分享
         copySharePath() {
             let clipboard = new Clipboard('#shareBtn')
             let that = this
@@ -333,10 +213,7 @@ export default {
         toastShow() {
             this.toastIsShowed = true
         },
-        logout() {
-            utility.deleteAuthorization()
-            this.$router.push('/login')
-        },
+
     }
 }
 </script>

@@ -45,6 +45,8 @@ export default new Vuex.Store({
       ],
 
       isSavingDiary: false, // 是否正在保存日记
+
+      menuShowed: false,
    },
    getters: {
       isInMobileMode(state){

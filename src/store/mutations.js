@@ -1,6 +1,9 @@
 import utility from "@/utility";
 
 export default {
+   SET_MENU_SHOWED(state, payload){
+      state.menuShowed = payload
+   },
    SET_IS_SAVING_DIARY(state, payload){
       state.isSavingDiary = payload
    },
