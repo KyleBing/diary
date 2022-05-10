@@ -146,9 +146,14 @@ $show-value-dash: true;
     }
 }
 
-@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
+
+
+@media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
     .info-list-group{
         flex-flow: column nowrap;
+        & > *{
+            width: 100%;
+        }
     }
 }
 

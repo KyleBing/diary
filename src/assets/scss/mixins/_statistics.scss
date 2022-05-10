@@ -34,4 +34,26 @@
 }
 
 
+@media (min-width: $grid-separate-width-max)  {
+  .statistic-content{
+    padding: 30px;
+  }
+}
+
+@media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
+}
+
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .statistic-content{
+    padding: 20px;
+  }
+}
+
+@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
+  .statistic-content{
+    padding: 30px;
+  }
+}
+
+
 
