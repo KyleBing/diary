@@ -11,9 +11,12 @@
   justify-content: space-between;
   align-items: flex-start;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .statistic-header{
+  position: sticky;
+  top: 0;
   height: $height-navbar;
   background-color: $bg-main;
   display: flex;
@@ -29,4 +32,6 @@
     @extend .btn-like
   }
 }
+
+
 

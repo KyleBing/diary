@@ -21,8 +21,7 @@ export default {
     name: "StatisticCharts",
     components: {StatisticPanel, ChartBar, ChartPie},
     computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear',]),
-        ...mapGetters(['dataArrayCategory', 'dataArrayYear']),
+        ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
     },
 }
 </script>

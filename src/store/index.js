@@ -47,6 +47,9 @@ export default new Vuex.Store({
       isSavingDiary: false, // 是否正在保存日记
 
       menuShowed: false,
+
+      dataArrayYear: [],
+      dataArrayCategory: []
    },
    getters: {
       isInMobileMode(state){
@@ -63,29 +66,6 @@ export default new Vuex.Store({
          })
          return categoryMap
       },
-
-      dataArrayYear(state){
-         if (state.statisticsYear){
-            return state.statisticsYear.reverse().map(year => {
-               return {
-                  name: year.year,
-                  value: year.count
-               }
-            })
-         }
-      },
-      dataArrayCategory(state, getter){
-         let tempData = {}
-         Object.assign(tempData, state.statisticsCategory)
-         return Object.keys(tempData).filter(item => {
-            return item !== 'amount' && item !== 'shared'
-         }).map(key => {
-            return {
-               name: getter.categoryMap.get(key),
-               value: state.statisticsCategory[key]
-            }
-         })
-      }
    },
    mutations
 })

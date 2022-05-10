@@ -39,8 +39,7 @@ export default {
     name: "StatisticInfo",
     components: {StatisticPanel},
     computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear',]),
-        ...mapGetters(['dataArrayCategory', 'dataArrayYear']),
+        ...mapState(['statisticsCategory', 'statisticsYear', 'dataArrayCategory', 'dataArrayYear']),
     }
 }
 </script>
@@ -144,6 +143,12 @@ $show-value-dash: true;
                 position: absolute;
             }
         }
+    }
+}
+
+@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
+    .info-list-group{
+        flex-flow: column nowrap;
     }
 }
 

@@ -1,6 +1,12 @@
 import utility from "@/utility";
 
 export default {
+   SET_DATA_ARRAY_CATEGORY(state, payload){
+      state.dataArrayCategory = payload
+   },
+   SET_DATA_ARRAY_YEAR(state, payload){
+      state.dataArrayYear = payload
+   },
    SET_MENU_SHOWED(state, payload){
       state.menuShowed = payload
    },
