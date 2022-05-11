@@ -93,7 +93,7 @@ export default {
                             show: true,
                             position: 'outside',
                             fontSize: 12,
-                            formatter: '{b}\n{d}%'
+                            formatter: '{b} {d}%'
                         },
                         emphasis: {
                             itemStyle: {
