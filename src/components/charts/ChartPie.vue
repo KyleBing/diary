@@ -1,5 +1,5 @@
 <template>
-    <div ref="BarDom" class="charts" style="height: 350px; width: 500px"></div>
+    <div ref="BarDom" class="charts" :style="`height: 350px; width: ${width}`"></div>
 </template>
 
 <script>
@@ -32,10 +32,14 @@ export default {
     data() {
         return {
             chart: null,
-            option: null
+            option: null,
+            width: '500px' // 图表宽度 500
         }
     },
     mounted() {
+        if (window.innerWidth< 400){
+            this.width = '100%'
+        }
         this.$nextTick(() => {
             this.initChart()
             this.resetData(this.data)
@@ -52,6 +56,7 @@ export default {
             this.chart.setOption(this.option)
         },
         initChart() {
+
             this.option = {
                 color: [
                     '#FFA41C',
@@ -63,6 +68,12 @@ export default {
                     '#c7c7c7',
                     '#FFDC60'
                 ],
+                grid: {
+                    top: 20,
+                    bottom: 20,
+                    left: 20,
+                    right: 20
+                },
                 title: {
                     text: '',
                     left: 'center',
@@ -82,7 +93,7 @@ export default {
                             show: true,
                             position: 'outside',
                             fontSize: 12,
-                            formatter: '{b}: {d}%'
+                            formatter: '{b}\n{d}%'
                         },
                         emphasis: {
                             itemStyle: {
@@ -93,6 +104,10 @@ export default {
                         }
                     }
                 ]
+            }
+
+            if (window.innerWidth< 400){
+                this.option.series[0].radius = '40%'
             }
 
             this.option.title.text = this.title

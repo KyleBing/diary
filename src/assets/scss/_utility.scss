@@ -3,6 +3,8 @@
 .hidden {display: none !important;}
 .show   {display: block !important;}
 
+@import "variables";
+
 // box-shadow
 @mixin box-shadow($value){
   -webkit-box-shadow:  $value;
@@ -89,3 +91,12 @@
     transform: translateY(2px);
   }
 }
+
+
+
+@media (max-width: $grid-separate-width-sm) {
+  .hide-in-mobile{
+    display: none;
+  }
+}
+

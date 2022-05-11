@@ -1,5 +1,5 @@
 <template>
-    <div ref="BarDom" class="charts" style="height: 350px; width: 500px"></div>
+    <div ref="BarDom" class="charts" :style="`height: 350px; width: ${width}`"></div>
 </template>
 
 <script>
@@ -24,7 +24,7 @@ export default {
     },
     watch: {
         data(newValue) {
-            if(newValue) {
+            if (newValue) {
                 this.resetData(newValue)
             }
         },
@@ -32,17 +32,21 @@ export default {
     data() {
         return {
             chart: null,
-            option: null
+            option: null,
+            width: '500px' // 图表宽度 500
         }
     },
     mounted() {
+        if (window.innerWidth< 400){
+            this.width = '100%'
+        }
         this.$nextTick(() => {
             this.initChart()
             this.resetData(this.data)
         })
     },
     computed: {
-        xAxisData(){
+        xAxisData() {
             return this.data
         }
     },
@@ -70,6 +74,10 @@ export default {
                     '#c7c7c7',
                     '#9FE080'
                 ],
+                grid: {
+                    bottom: 30,
+                    right: 10
+                },
                 title: {
                     text: '',
                     left: 'center'
@@ -91,7 +99,7 @@ export default {
                     name: '到访人员类型',
                     type: 'bar',
                     data: [],
-                    barWidth: 20, //柱子宽度
+                    // barWidth: 20, //柱子宽度
                     label: {
                         show: true,
                         position: 'top',
@@ -99,6 +107,10 @@ export default {
                     },
                 }]
             }
+
+            if (window.innerWidth< 400){
+            }
+
             this.option.title.text = this.title
             this.chart = echarts.init(this.$refs.BarDom)
             this.chart.setOption(this.option)

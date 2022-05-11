@@ -7,8 +7,8 @@
                     <th class="left">用户名</th>
                     <th>日记数量</th>
                     <th>码表数</th>
-                    <th>注册时间</th>
-                    <th>最后访问时间</th>
+                    <th class="hide-in-mobile">注册时间</th>
+                    <th class="hide-in-mobile">最后访问时间</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -16,8 +16,8 @@
                     <td class="left">{{item.username}}</td>
                     <td>{{ item.count_diary }}</td>
                     <td>{{ item.count_dict }}</td>
-                    <td>{{ item.register_time }}</td>
-                    <td :class="[{'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
+                    <td class="hide-in-mobile">{{ item.register_time }}</td>
+                    <td :class="['hide-in-mobile',{'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
                 </tr>
                 </tbody>
 
@@ -130,6 +130,15 @@ export default {
 
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
 
+}
+
+@media (max-width: $grid-separate-width-sm) {
+    .statistic-user{
+        flex-flow: column nowrap;
+        &>*{
+            width: 100%;
+        }
+    }
 }
 
 

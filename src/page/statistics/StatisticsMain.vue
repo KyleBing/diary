@@ -25,7 +25,7 @@
 import list from "@/page/List"
 import Navbar from "@/components/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
-import ChartPie from "@/components/charts/chartPie";
+import ChartPie from "@/components/charts/ChartPie";
 import StatisticInfo from "@/page/statistics/diary/StatisticInfo";
 import TabIcon from "@/components/TabIcon";
 import StatisticCharts from "@/page/statistics/diary/StatisticCharts";

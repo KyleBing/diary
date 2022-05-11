@@ -35,5 +35,16 @@ h3{
     padding-bottom: 15px;
 }
 
+@media (max-width: $grid-separate-width-sm) {
+    .statistic-panel-container{
+        padding: 5px;
+    }
+    .statistic-panel{
+        padding: 20px 25px;
+    }
+}
+
+
+
 </style>
 

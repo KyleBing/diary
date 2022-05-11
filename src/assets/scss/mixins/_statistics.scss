@@ -5,8 +5,6 @@
 }
 
 .statistic-content{
-  padding: 30px;
-
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -47,7 +45,7 @@
 
 @media (min-width: $grid-separate-width-max)  {
   .statistic-content{
-    padding: 30px;
+    padding: 20px;
   }
 }
 
@@ -66,5 +64,17 @@
   }
 }
 
+@media (max-width: $grid-separate-width-sm) {
+  .statistic-content{
+    padding: 10px;
+    .statistic-diary, .statistic-user{
+      flex-flow: column nowrap;
+    }
+    .statistic-info, .statistic-charts{
+      width: 100%;
+      flex-flow: column nowrap;
+    }
+  }
+}
 
 
