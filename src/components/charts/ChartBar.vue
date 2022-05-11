@@ -75,7 +75,7 @@ export default {
                     '#9FE080'
                 ],
                 grid: {
-                    bottom: 30,
+                    bottom: 40,
                     right: 10
                 },
                 title: {
@@ -91,6 +91,10 @@ export default {
                 xAxis: [{
                     type: 'category',
                     data: [],
+                    axisLabel: {
+                        fontSize: 11,
+                        rotate: -30
+                    }
                 }],
                 yAxis: [{
                     type: 'value'
