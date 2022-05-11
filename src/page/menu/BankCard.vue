@@ -2,7 +2,7 @@
     <div class="bank-card-container" v-if="cardList.length > 0">
         <div class="bank-card-list">
             <div :class="['bank-card', getCardBgName(card.cardName)]"  v-for="(card, index) in cardList" :key="index">
-                <div class="card-no">{{ card.cardNo }}</div>
+                <div class="card-no" :data-clipboard="card.cardNo.replaceAll(' ', '')">{{ card.cardNo }}</div>
                 <div class="card-main-info">
                     <div class="card-name">{{ card.cardName }}</div>
                     <div class="card-type">{{ card.cardType }}</div>
@@ -28,6 +28,7 @@
 <script>
 import {mapState, mapMutations} from 'vuex'
 import bankCardApi from "@/api/bankCardApi";
+import ClipboardJS from "clipboard";
 
 export default {
     name: "BankCard",
@@ -40,11 +41,25 @@ export default {
                     cardType: '储蓄卡',
                     note: '山东济南办卡'
                 }*/
-            ]
+            ],
+            clipboard: null // clipboard obj
+
         }
     },
     mounted() {
         this.getBankCards()
+        // 绑定剪贴板操作方法
+        this.clipboard = new ClipboardJS('.card-no', {
+            text: trigger => {
+                return trigger.getAttribute('data-clipboard')
+            },
+        })
+        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+            this.$popMessage('success', '卡号已复制到剪贴板', null, 2)
+        })
+    },
+    beforeDestroy() {
+        this.clipboard.destroy()
     },
     computed: {
         ...mapState({

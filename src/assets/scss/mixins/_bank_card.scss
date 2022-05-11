@@ -32,6 +32,7 @@ $card-bgs: (
     font-size: 30px;
     color: white;
     text-shadow: 1px 0 2px transparentize(black, 0.5);
+    @extend .btn-like;
   }
   .card-name{
     font-weight: bold;
