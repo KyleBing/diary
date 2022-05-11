@@ -23,15 +23,19 @@
         </div>
     </div>
     <div v-else class="bank-tip">
-        <p>您目前没有添加任何银行卡</p>
-        <p>--------------------------------------</p>
-        <p>请新建名为"银行卡列表" 的日记</p>
-        <p>日记内容格式如下，</p>
-        <p>之后，将会在此显示银行卡列表</p>
-        <p>--------------------------------------</p>
-        <div class="bank-card-example">
-            <pre>{{ example }}</pre>
-        </div>
+        <loading v-if="isLoading" :loading="isLoading"/>
+        <template v-else>
+            <p>您目前没有添加任何银行卡</p>
+            <p>--------------------------------------</p>
+            <p>请新建名为"银行卡列表" 的日记</p>
+            <p>日记内容格式如下，</p>
+            <p>之后，将会在此显示银行卡列表</p>
+            <p>--------------------------------------</p>
+            <div class="bank-card-example">
+                <pre>{{ example }}</pre>
+            </div>
+        </template>
+
     </div>
 </template>
 
@@ -39,11 +43,14 @@
 import {mapState, mapMutations} from 'vuex'
 import bankCardApi from "@/api/bankCardApi";
 import ClipboardJS from "clipboard";
+import Loading from "@/components/Loading";
 
 export default {
     name: "BankCard",
+    components: {Loading},
     data() {
         return {
+            isLoading: false,
             cardList: [
 /*                {
                     cardNo: '6226 2216 1178 0955',
@@ -113,8 +120,10 @@ export default {
         },
 
         getBankCards(){
+            this.isLoading = true // 请求的时候显示loading
             bankCardApi.getBankCard()
                 .then(res => {
+                    this.isLoading = false
                     if (res.data) {
                         let tempStrArray = res.data.split('\n\n')
                         tempStrArray.forEach(cardStr => {
@@ -130,11 +139,10 @@ export default {
                         // 没有设置任何银行卡信息
                     }
                 })
+                .catch(err => {
+                    this.isLoading = false
+                })
         },
-
-        copyCardNo(){
-
-        }
     }
 }
 </script>
