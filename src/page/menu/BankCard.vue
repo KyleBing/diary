@@ -22,7 +22,17 @@
 
         </div>
     </div>
-    <div v-else class="year-tip"> - 空 - </div>
+    <div v-else class="bank-tip">
+        <p>您目前没有添加任何银行卡</p>
+        <p>--------------------------------------</p>
+        <p>请新建名为"银行卡列表" 的日记</p>
+        <p>日记内容格式如下，</p>
+        <p>之后，将会在此显示银行卡列表</p>
+        <p>--------------------------------------</p>
+        <div class="bank-card-example">
+            <pre>{{ example }}</pre>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -42,7 +52,18 @@ export default {
                     note: '山东济南办卡'
                 }*/
             ],
-            clipboard: null // clipboard obj
+            clipboard: null, // clipboard obj
+            example: `6226 2216 1178 0955
+民生银行
+储蓄卡
+山东济南办卡
+
+6226 2216 1178 0955
+民生银行
+储蓄卡
+山东济南办卡
+
+`
 
         }
     },
@@ -99,10 +120,10 @@ export default {
                         tempStrArray.forEach(cardStr => {
                             let cardStrArray = cardStr.split('\n')
                             this.cardList.push({
-                                cardNo: cardStrArray[1],
-                                cardName: cardStrArray[0],
-                                cardType: cardStrArray[2],
-                                note: cardStrArray[3]
+                                cardNo: cardStrArray[1].trim(),
+                                cardName: cardStrArray[0].trim(),
+                                cardType: cardStrArray[2].trim(),
+                                note: cardStrArray[3].trim()
                             })
                         })
                     } else {
