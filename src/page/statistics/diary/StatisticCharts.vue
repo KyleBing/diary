@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex";
+import {mapState} from "vuex";
 import ChartPie from "@/components/charts/chartPie";
 import ChartBar from "@/components/charts/ChartBar";
 import StatisticPanel from "@/page/statistics/StatisticPanel";
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/plugin";
+@import "../../../assets/scss/plugin";
 .statistic-charts{
     display: flex;
     justify-content: flex-start;

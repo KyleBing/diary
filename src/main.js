@@ -24,6 +24,9 @@ Vue.prototype.$icons = icons
 // popMsg
 Vue.prototype.$popMessage = utility.popMessage
 
+
+Vue.prototype.$utility = utility
+
 // router
 import router from "./router"
 

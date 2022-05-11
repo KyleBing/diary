@@ -8,8 +8,15 @@
         </div>
         <div class="statistic-content" :style="`height:${insets.heightPanel}px`">
 
-            <statistic-info/>
-            <statistic-charts/>
+            <div class="statistic-diary">
+                <statistic-info/>
+                <statistic-charts/>
+            </div>
+
+            <div class="statistic-user">
+                <statistic-users/>
+            </div>
+
         </div>
     </div>
 </template>
@@ -19,14 +26,16 @@ import list from "@/page/List"
 import Navbar from "@/components/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import ChartPie from "@/components/charts/chartPie";
-import StatisticInfo from "@/page/statistics/StatisticInfo";
+import StatisticInfo from "@/page/statistics/diary/StatisticInfo";
 import TabIcon from "@/components/TabIcon";
-import StatisticCharts from "@/page/statistics/StatisticCharts";
+import StatisticCharts from "@/page/statistics/diary/StatisticCharts";
 import statisticApi from "@/api/statisticApi";
+import StatisticUsers from "@/page/statistics/users/StatisticUsers";
 
 export default {
     name: 'StatisticsMain',
     components: {
+        StatisticUsers,
         StatisticCharts,
         TabIcon,
         StatisticInfo,

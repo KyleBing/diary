@@ -6,12 +6,23 @@
 
 .statistic-content{
   padding: 30px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.statistic-diary{
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  overflow-y: auto;
-  overflow-x: hidden;
+}
+
+.statistic-user{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .statistic-header{

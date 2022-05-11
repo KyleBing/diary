@@ -5,6 +5,7 @@
 <script>
 import * as echarts from 'echarts'
 export default {
+    // TODO: 对应类别的颜色展示图表
     name: "ChartBar",
     props: {
         data: {
@@ -24,7 +25,6 @@ export default {
     watch: {
         data(newValue) {
             if(newValue) {
-                console.log('inside watch')
                 this.resetData(newValue)
             }
         },

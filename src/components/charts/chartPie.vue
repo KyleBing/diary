@@ -25,7 +25,6 @@ export default {
     watch: {
         data(newValue) {
             if (newValue) {
-                console.log('inside watch')
                 this.resetData(newValue)
             }
         },

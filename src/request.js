@@ -5,6 +5,7 @@ const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../diary-portal/'
 
 function request(method, requestData = {}, url) {
 
+    // 所有 requestData 都会自动添加  authorization 信息
     // 给 requestData 添加 authorization 内部的数据： username email uid 等等
     Object.assign(requestData, utility.getAuthorization())
 

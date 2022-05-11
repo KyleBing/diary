@@ -24,8 +24,8 @@
                     <div class="addon">{{ dateFilter }}</div>
                 </div>
 
-                <!--4. 统计信息-->
-                <router-link class="menu-list-group-item" to="/statistics">统计信息</router-link>
+                <!--4. 统计数据-->
+                <div class="menu-list-group-item" @click="goToStatisticPage">统计数据</div>
 
                 <!--5. 修改密码-->
                 <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
@@ -116,6 +116,11 @@ export default {
         logout() {
             utility.deleteAuthorization()
             this.$router.push('/login')
+        },
+
+        goToStatisticPage(){
+            this.SET_MENU_SHOWED(false)
+            this.$router.push('/statistics')
         },
 
         // MENU related

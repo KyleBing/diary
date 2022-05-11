@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex";
+import {mapState} from "vuex";
 import StatisticPanel from "@/page/statistics/StatisticPanel";
 
 export default {
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/plugin";
+@import "../../../assets/scss/plugin";
 .statistic-info{
     flex-shrink: 0;
     flex-grow: 1;
@@ -107,7 +107,7 @@ $show-value-dash: true;
                 z-index: 10;
                 background-color: $bg-light;
             }
-            color: $text-label;
+            color: $text-content;
             flex-shrink: 0;
         }
         .value-group{
