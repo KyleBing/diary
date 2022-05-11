@@ -1,0 +1,56 @@
+$bank-card-padding: 20px;
+
+.bank-card-list{
+  padding: $bank-card-padding;
+}
+
+$card-bgs: (
+      "green"     : ($green, $cyan),
+      "red"    : ($red, $orange),
+      "blue"    : ($cyan, $blue),
+);
+
+@each $name, $colors in $card-bgs {
+  .bank-bg-#{$name}{
+    background: linear-gradient(-30deg,$colors);
+  }
+}
+
+
+.bank-card{
+  position: relative;
+  @include border-radius($radius-pc);
+  background-color: transparentize(white, 0.4);
+  padding: 20px 30px;
+  margin-bottom: $bank-card-padding;
+  .card-no{
+    font-family: 'Impact';
+    font-size: 30px;
+    text-shadow: -1px -1px 2px transparentize(white, 0.7),
+                  1px 1px 1px transparentize(white, 0.2);
+  }
+  .card-name{
+    font-weight: bold;
+  }
+  .card-note{
+    font-size: 12px;
+  }
+
+  .copy-btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    img{
+      display: block;
+      width: 30px;
+    }
+  }
+}
+
+.card-detail-list{
+
+}
+
+.card-detail-list-item{
+
+}

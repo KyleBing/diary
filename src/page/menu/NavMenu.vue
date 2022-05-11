@@ -8,7 +8,7 @@
 
                 <!--2. 类别筛选-->
                 <div class="menu-list-group-item" @click="menuListClicked('category')">
-                    <div>类别</div>
+                    <div>类别筛选</div>
                     <div class="category-indicator">
                         <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
                         <div :class="['item', 'category-' + item.nameEn ,{active: filteredCategories.some(category => category ===item.nameEn)}]"
@@ -20,20 +20,23 @@
 
                 <!--3. 年份筛选-->
                 <div class="menu-list-group-item" @click="menuListClicked('year')">
-                    <div>年份</div>
+                    <div>年份筛选</div>
                     <div class="addon">{{ dateFilter }}</div>
                 </div>
 
                 <!--4. 统计数据-->
                 <div class="menu-list-group-item" @click="goToStatisticPage">统计数据</div>
 
-                <!--5. 修改密码-->
+                <!--5. 银行卡-->
+                <div class="menu-list-group-item" @click="menuListClicked('bankCard')">银行卡</div>
+
+                <!--6. 修改密码-->
                 <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
 
-                <!--6. 关于-->
+                <!--7. 关于-->
                 <div class="menu-list-group-item" @click="menuListClicked('about')">关于</div>
 
-                <!--7. 退出-->
+                <!--8. 退出-->
                 <div class="menu-list-group-item" @click="logout">退出</div>
 
             </div>
@@ -59,6 +62,9 @@
         <!-- year selector -->
         <year-selector v-show="yearShowed"/>
 
+        <!-- bank card -->
+        <bank-card v-show="bankCardShowed"/>
+
         <!--about-->
         <about v-show="aboutShowed"/>
     </div>
@@ -68,19 +74,21 @@
 <script>
 import utility from "@/utility";
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
-import YearSelector from "@/components/YearSelector";
+import YearSelector from "@/page/menu/YearSelector";
 import About from "@/page/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
+import BankCard from "@/page/menu/BankCard";
 
 export default {
     name: "NavMenu",
-    components: {About, YearSelector, MenuCategorySelector},
+    components: {BankCard, About, YearSelector, MenuCategorySelector},
     data(){
         return {
             // menu
             menuListShowed: true,         // menu list
             categoryShowed: false,        // category
             yearShowed: false,            // year chooser
+            bankCardShowed: false,        // bank card
             aboutShowed: false,           // about
 
             // menu - category
@@ -123,13 +131,19 @@ export default {
             this.$router.push('/statistics')
         },
 
+        goToBankCard(){
+            this.SET_MENU_SHOWED(false)
+            this.$router.push('/bank-card')
+        },
+
         // MENU related
         menuShow() {
-            this.SET_MENU_SHOWED(true) // menu panel
-            this.menuListShowed = true            // menu list
-            this.categoryShowed = false           // category
-            this.yearShowed = false           // year
-            this.aboutShowed = false           // about
+            this.SET_MENU_SHOWED(true)  // menu panel
+            this.menuListShowed = true  // menu list
+            this.categoryShowed = false // category
+            this.yearShowed = false     // year
+            this.bankCardShowed = false // bank card
+            this.aboutShowed = false    // about
         },
         menuClose(){
             if (this.categoryShowed) {
@@ -140,6 +154,7 @@ export default {
                 this.menuListShowed = true            // menu list
                 this.categoryShowed = false           // category
                 this.yearShowed = false           // year
+                this.bankCardShowed = false // bank card
                 this.aboutShowed = false           // about
             } else if (this.yearShowed) {
                 this.SET_LIST_NEED_BE_RELOAD(true)
@@ -149,11 +164,12 @@ export default {
             }
         },
         menuInit() {
-            this.SET_MENU_SHOWED(false) // menu panel
-            this.menuListShowed = true             // menu list
-            this.categoryShowed = false            // category
-            this.yearShowed = false           // year
-            this.aboutShowed = false            // about
+            this.SET_MENU_SHOWED(false)              // menu panel
+            this.menuListShowed = true               // menu list
+            this.categoryShowed = false              // category
+            this.yearShowed = false                  // year
+            this.bankCardShowed = false // bank card
+            this.aboutShowed = false                 // about
         },
         menuListClicked(menuName) {
             switch (menuName) {
@@ -169,23 +185,36 @@ export default {
                     this.menuListShowed = false // menu list
                     this.categoryShowed = true  // category
                     this.yearShowed = false     // year
+                    this.bankCardShowed = false // bank card
                     this.aboutShowed = false    // about
+
+                    break
+                case 'bankCard':
+                    this.SET_MENU_SHOWED(true)    // menu panel
+                    this.menuListShowed = false   // menu list
+                    this.categoryShowed = false   // category
+                    this.yearShowed = false       // year
+                    this.bankCardShowed = true    // bank card
+                    this.aboutShowed = false      // about
 
                     break
                 case 'year':
-                    this.SET_MENU_SHOWED(true)  // menu panel
-                    this.menuListShowed = false // menu list
-                    this.categoryShowed = false // category
-                    this.yearShowed = true      // year
-                    this.aboutShowed = false    // about
+                    this.SET_MENU_SHOWED(true)    // menu panel
+                    this.menuListShowed = false   // menu list
+                    this.categoryShowed = false   // category
+                    this.yearShowed = true        // year
+                    this.bankCardShowed = false   // bank card
+                    this.aboutShowed = false      // about
 
                     break
                 case 'about':
-                    this.SET_MENU_SHOWED(true)  // menu panel
-                    this.menuListShowed = false // menu list
-                    this.categoryShowed = false // category
-                    this.yearShowed = false     // year
-                    this.aboutShowed = true     // about
+                    this.SET_MENU_SHOWED(true)    // menu panel
+                    this.menuListShowed = false   // menu list
+                    this.categoryShowed = false   // category
+                    this.yearShowed = false       // year
+                    this.bankCardShowed = false   // bank card
+                    this.aboutShowed = true       // about
+
 
                     break
                 default:

@@ -25,7 +25,7 @@
 
             <!--RIGHT part-->
             <!--NEW-->
-            <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail') || !isInMobileMode">
+            <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail' && !menuShowed) || !isInMobileMode">
                 <router-link to="/edit">
                     <tab-icon alt="添加"></tab-icon>
                 </router-link>
@@ -94,13 +94,13 @@
 import utility from "@/utility"
 import Clipboard from "clipboard"
 import {mapState, mapMutations, mapGetters} from 'vuex'
-import YearSelector from "@/components/YearSelector"
+import YearSelector from "@/page/menu/YearSelector"
 import TabIcon from "@/components/TabIcon"
 import About from "@/page/About"
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
-import NavMenu from "@/components/NavMenu";
+import NavMenu from "@/page/menu/NavMenu";
 
 export default {
     name: "Navbar",
