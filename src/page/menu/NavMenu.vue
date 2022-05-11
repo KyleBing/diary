@@ -63,7 +63,7 @@
         <year-selector v-show="yearShowed"/>
 
         <!-- bank card -->
-        <bank-card v-show="bankCardShowed"/>
+        <bank-card v-if="bankCardShowed"/>
 
         <!--about-->
         <about v-show="aboutShowed"/>
