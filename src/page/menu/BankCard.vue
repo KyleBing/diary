@@ -3,6 +3,7 @@
         <div class="bank-card-list">
             <div :class="['bank-card', getCardBgName(card.cardName)]"  v-for="(card, index) in cardList" :key="index">
                 <div class="card-no" :data-clipboard="card.cardNo.replaceAll(' ', '')">{{ card.cardNo }}</div>
+                <div class="card-index">{{index + 1}}</div>
                 <div class="card-main-info">
                     <div class="card-name">{{ card.cardName }}</div>
                     <div class="card-type">{{ card.cardType }}</div>
