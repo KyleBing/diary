@@ -35,6 +35,32 @@
             <div class="bank-card-example">
                 <pre>{{ example }}</pre>
             </div>
+
+            <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
+
+
+            <div class="bank-card-list">
+                <div :class="['bank-card', getCardBgName(card.cardName)]"  v-for="(card, index) in cardListExample" :key="index">
+                    <div class="card-no" :data-clipboard="card.cardNo.replaceAll(' ', '')">{{ card.cardNo }}</div>
+                    <div class="card-index">{{index + 1}}</div>
+                    <div class="card-main-info">
+                        <div class="card-name">{{ card.cardName }}</div>
+                        <div class="card-type">{{ card.cardType }}</div>
+                    </div>
+
+                    <div class="card-note">{{ card.note }}</div>
+                    <!--                <div class="copy-btn" @click="copyCardNo">
+                                        <img src="../../assets/img/clipboard.svg" alt="copy">
+                                    </div>-->
+                    <div class="card-detail-list">
+                        <div class="card-detail-list-item">
+                            <div class="label"></div>
+                            <div class="value"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </template>
 
     </div>
@@ -52,6 +78,21 @@ export default {
     data() {
         return {
             isLoading: false,
+            cardListExample: [
+                {
+                    cardName: '建设银行',
+                    cardNo: '6226 2216 3456 0955',
+                    cardType: '储蓄卡',
+                    note: '山东济南'
+                },
+                {
+                    cardName: '中国银行',
+                    cardNo: '4567 2216 3456 0955',
+                    cardType: '储蓄卡',
+                    note: '山东济南'
+                },
+            ],
+
             cardList: [
 /*                {
                     cardName: '民生银行',

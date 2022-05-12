@@ -1,4 +1,5 @@
-$bank-card-padding: 20px;
+$bank-card-padding: 30px;
+$bank-card-gap: 20px;
 
 .bank-card-list{
   padding: $bank-card-padding;
@@ -19,6 +20,7 @@ $card-bgs: (
 
 
 .bank-card{
+  color: $text-title;
   @include box-shadow(1px 2px 3px transparentize(black, 0.8));
   border-top: 1px solid transparentize(white, 0.8);
   border-left: 1px solid transparentize(white, 0.8);
@@ -26,9 +28,10 @@ $card-bgs: (
   @include border-radius($radius-pc);
   background-color: transparentize(white, 0.4);
   padding: 20px 30px;
-  margin-bottom: $bank-card-padding;
+  margin-bottom: $bank-card-gap;
   .card-no{
     font-family: 'Impact';
+    padding-bottom: 3px;
     font-size: 30px;
     color: white;
     text-shadow: 1px 0 2px transparentize(black, 0.5);
@@ -88,4 +91,17 @@ $card-bgs: (
 .bank-card-example{
   padding: 20px 0;
   text-align: left;
+}
+
+
+// mobile
+@media (max-width: $grid-separate-width-sm) {
+  .bank-card-list{
+    padding: 20px;
+  }
+  .bank-card{
+    .card-no {
+      font-size: 26px;
+    }
+  }
 }
