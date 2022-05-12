@@ -1,5 +1,5 @@
 <template>
-    <div class="statistic-container" v-else >
+    <div class="statistic-container">
         <div class="statistic-header">
             <div class="statistic-back-btn" @click="$router.back()">
                 <tab-icon alt="关闭"/>
