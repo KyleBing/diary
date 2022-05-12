@@ -7,7 +7,9 @@ function request(method, requestData = {}, url) {
 
     // 所有 requestData 都会自动添加  authorization 信息
     // 给 requestData 添加 authorization 内部的数据： username email uid 等等
-    Object.assign(requestData, utility.getAuthorization())
+    if (url !== 'user/login' && url !== 'user/register'){ // 注册和登录时不添加 Token 数据
+        Object.assign(requestData, utility.getAuthorization())
+    }
 
     // 根据不同请求方式，调换 params 和 requestData 内容
     let headers
