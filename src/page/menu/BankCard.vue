@@ -26,11 +26,11 @@
         <loading v-if="isLoading" :loading="isLoading"/>
         <template v-else>
             <p>您目前没有添加任何银行卡</p>
-            <p>--------------------------------------</p>
+            <p>------------------------</p>
             <p>请新建名为"银行卡列表" 的日记</p>
             <p>日记内容格式如下，</p>
             <p>之后，将会在此显示银行卡列表</p>
-            <p>--------------------------------------</p>
+            <p>------------------------</p>
             <div class="bank-card-example">
                 <pre>{{ example }}</pre>
             </div>
@@ -53,20 +53,20 @@ export default {
             isLoading: false,
             cardList: [
 /*                {
-                    cardNo: '6226 2216 1178 0955',
                     cardName: '民生银行',
+                    cardNo: '6226 2216 1178 0955',
                     cardType: '储蓄卡',
                     note: '山东济南办卡'
                 }*/
             ],
             clipboard: null, // clipboard obj
-            example: `6226 2216 1178 0955
-民生银行
+            example: `民生银行
+6226 2216 1178 4567
 储蓄卡
 山东济南办卡
 
-6226 2216 1178 0955
 民生银行
+6226 2216 1178 4567
 储蓄卡
 山东济南办卡
 
