@@ -24,7 +24,6 @@ export default {
         if (diaryConfig.hasOwnProperty('keyword')){ // keyword 是旧版数据，已改为 keywords: []
             utility.deleteDiaryConfig()
         }
-        this.getStatistic() // 载入统计信息
     },
     computed: {
         ...mapGetters(['categoryMap']),
@@ -34,47 +33,7 @@ export default {
             'SET_INSETS',
             'SET_KEYWORD',
             'SET_FILTERED_CATEGORIES',
-            'SET_STATISTICS_CATEGORY',
-            'SET_STATISTICS_YEAR',
-            'SET_DATA_ARRAY_CATEGORY',
-            'SET_DATA_ARRAY_YEAR',
         ]),
-
-        // 获取日记统计信息
-        getStatistic() {
-            statisticApi.category()
-                .then(res => {
-                    this.SET_STATISTICS_CATEGORY(res.data)
-                    this.setDataArrayCategory(res.data)
-                })
-            statisticApi.year()
-                .then(res => {
-                    this.SET_STATISTICS_YEAR(res.data)
-                    this.setDataArrayYear(res.data)
-                })
-        },
-        setDataArrayYear(statisticsYear){
-            if (statisticsYear){
-                let data = statisticsYear.reverse().map(year => {
-                    return {
-                        name: year.year,
-                        value: year.count
-                    }
-                })
-                this.SET_DATA_ARRAY_YEAR(data)
-            }
-        },
-        setDataArrayCategory(statisticsCategory){
-            let keys = Object.keys(statisticsCategory)
-            keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-            let data =  keys.map(key => {
-                return {
-                    name: this.categoryMap.get(key),
-                    value: statisticsCategory[key]
-                }
-            })
-            this.SET_DATA_ARRAY_CATEGORY(data)
-        }
     }
 }
 </script>
