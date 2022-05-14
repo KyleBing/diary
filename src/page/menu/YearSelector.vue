@@ -35,9 +35,6 @@ export default {
     },
     watch: {
         monthChosen() {
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.dateFilter = this.monthChosen
-            utility.setDiaryConfig(diaryConfig)
             this.SET_DATE_FILTER(this.monthChosen)
         }
     },

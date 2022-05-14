@@ -145,8 +145,6 @@ export default {
         },
     },
     methods: {
-        ...mapMutations(['SET_DATE_FILTER']),
-
         getCardBgName(cardName){
             if (/招商/g.test(cardName)){
                 return this.mapCardBg.get('招商')

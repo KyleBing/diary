@@ -11,6 +11,7 @@ export default {
         let diaryConfig = utility.getDiaryConfig()
         this.SET_FILTERED_CATEGORIES(diaryConfig.filteredCategories)
         this.SET_KEYWORD(diaryConfig.keywords)
+        this.SET_DATE_FILTER(diaryConfig.dateFilter)
 
         window.onresize = () => {
             this.SET_INSETS({
@@ -32,6 +33,7 @@ export default {
         ...mapMutations([
             'SET_INSETS',
             'SET_KEYWORD',
+            'SET_DATE_FILTER',
             'SET_FILTERED_CATEGORIES',
         ]),
     }
