@@ -21,6 +21,8 @@
             </div>
         </div>
 
+        <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
+
         <loading :loading="isLoading"/>
 
         <div v-show="!isLoading && !haveMore" class="end-of-diary">
