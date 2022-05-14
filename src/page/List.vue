@@ -21,9 +21,8 @@
             </div>
         </div>
 
-        <div class="pt-4 pb-4">
-            <loading :loading="isLoading"/>
-        </div>
+        <loading :loading="isLoading"/>
+
         <div v-show="!isLoading && !haveMore" class="end-of-diary">
             <p><img :src="$icons.EOF" alt="EOF"></p>
         </div>

@@ -19,18 +19,18 @@ module.exports = {
 
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production'){
-      let packTimeString = new Moment().format('YYYYMMDDHHmmss') // 打包时间
+      let packTimeString = new Moment().format('YYYY-MM-DD') // 打包时间
       let plugins = []
       plugins.push(
           new FileManagerPlugin({
             events: {
               onEnd: {
-                // mkdir: ['./archive'], // 新建 ./archive 目录
+                mkdir: ['./archive'], // 新建 ./archive 目录
                 archive: [
                   // 打包 压缩包中不带 dist 外壳
                   {
-                    source: '../diary/',
-                    destination: `../diary-${packTimeString}.zip`,
+                    source: '../diary',
+                    destination: `./archive/diary-${packTimeString}.zip`,
                     format: 'zip',
                     options: {
                       gzipOptions: {
