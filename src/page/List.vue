@@ -21,7 +21,9 @@
             </div>
         </div>
 
-        <loading :loading="isLoading"/>
+        <div class="pt-4 pb-4" v-if="isLoading">
+            <loading :loading="isLoading"/>
+        </div>
 
         <div v-show="!isLoading && !haveMore" class="end-of-diary">
 
