@@ -44,7 +44,7 @@
             <div class="user-info-panel">
                 <div class="user-info">
                     <div class="user">
-                        <p class="username">{{ userInfo.username }}</p>
+                        <p class="username">{{ userInfo.nickname }}</p>
                         <p class="email">{{ userInfo.email }}</p>
                     </div>
                     <div class="separator"></div>

@@ -5,9 +5,9 @@ const global = {
 }
 
 // 设置 authorization
-function setAuthorization(email, token, username, uid) {
+function setAuthorization(email, token, nickname, uid) {
    localStorage.setItem('DiaryAuthorization', JSON.stringify({
-      email,token,username,uid
+      email,token,nickname,uid
    }))
 }
 

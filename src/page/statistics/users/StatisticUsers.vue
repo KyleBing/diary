@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="item in users" :key="item.uid">
-                    <td class="left">{{item.username}}</td>
+                    <td class="left">{{item.nickname}}</td>
                     <td>{{ item.count_diary }}</td>
                     <td>{{ item.count_dict }}</td>
                     <td class="hide-in-mobile">{{ item.register_time }}</td>
@@ -70,13 +70,13 @@ export default {
                     })
                     this.chartDataDiary = res.data.map(item => {
                         return {
-                            name: item.username,
+                            name: item.nickname,
                             value: item.count_diary
                         }
                     })
                     this.chartDataDict = res.data.map(item => {
                         return {
-                            name: item.username,
+                            name: item.nickname,
                             value: item.count_dict
                         }
                     })
