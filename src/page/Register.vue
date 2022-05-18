@@ -14,11 +14,11 @@
                       id="invitation">
             </div>
             <div class="input-group">
-               <label for="username" :class="{red: !usernameVerified}">{{ labelUsername }}</label>
-               <input v-model="username"
+               <label for="nickname" :class="{red: !nicknameVerified}">{{ labelUsername }}</label>
+               <input v-model="nickname"
                       type="text"
-                      name="username"
-                      id="username">
+                      name="nickname"
+                      id="nickname">
             </div>
             <div class="input-group">
                <label for="email" :class="{red: !emailVerified}">{{ labelEmail }}</label>
@@ -68,13 +68,13 @@ export default {
          labelPassword1: '密码',
          labelPassword2: '再次确认密码',
          labelUsername: '昵称',
-         username: '',
+         nickname: '',
          email: '',
          password1: '',
          password2: '',
          invitationCode: '',
          invitationVerified: false,
-         usernameVerified: false,
+         nicknameVerified: false,
          emailVerified: false,
          password1Verified: false,
          password2Verified: false,
@@ -87,15 +87,15 @@ export default {
    },
    computed: {
       verified: function () {
-         // return this.emailVerified && this.invitationVerified && this.usernameVerified && this.password1Verified && this.password2Verified
-         return this.emailVerified && this.usernameVerified && this.password1Verified && this.password2Verified
+         // return this.emailVerified && this.invitationVerified && this.nicknameVerified && this.password1Verified && this.password2Verified
+         return this.emailVerified && this.nicknameVerified && this.password1Verified && this.password2Verified
       },
    },
    methods: {
       regSubmit: function () {
          if (this.verified) {
             let requestData = {
-                username: this.username,
+                nickname: this.nickname,
                 invitationCode: this.invitationCode,
                 email: this.email,
                 password: this.password1,
@@ -123,13 +123,13 @@ export default {
             this.invitationVerified = false
          }
       },
-      username: function () {
-         if (this.username.length > 0) {
+      nickname: function () {
+         if (this.nickname.length > 0) {
             this.labelUsername = "昵称"
-            this.usernameVerified = true
+            this.nicknameVerified = true
          } else {
             this.labelUsername = "昵称不能为空"
-            this.usernameVerified = false
+            this.nicknameVerified = false
          }
       },
       email: function () {
