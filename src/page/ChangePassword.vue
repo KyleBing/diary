@@ -7,10 +7,10 @@
                     <img :src="$icons.logo" alt="Diary Logo">
                 </div>
                 <form id="regForm">
-                    <div class="input-group">
+<!--                    <div class="input-group">
                         <label for="oldPassword">原密码</label>
                         <input v-model.lazy="oldPassword" name="oldPassword" type="password" id="oldPassword">
-                    </div>
+                    </div>-->
                     <div class="input-group">
                         <label for="password1">新密码</label>
                         <input v-model.lazy="password1" name="password1" type="password" id="password1">
@@ -44,7 +44,6 @@ export default {
     data() {
         return {
             labelCheckPassword: "再次确认密码",
-            oldPassword: "",
             password1: "",
             password2: "",
             heightBg: 0
@@ -56,7 +55,7 @@ export default {
     },
     computed: {
         verified: function () {
-            return (this.passwordVerified && this.oldPassword.length > 0)
+            return (this.passwordVerified)
         },
         passwordVerified: function () {
             return (this.password1.length > 0 && this.password1 === this.password2)
@@ -66,8 +65,7 @@ export default {
         changePasswordSubmit: function () {
             if (this.passwordVerified) {
                 let requestData = {
-                    passwordOld: this.oldPassword,
-                    passwordNew: this.password1,
+                    password: this.password1,
                 }
 
                 userApi.changePassword(requestData)

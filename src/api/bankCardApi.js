@@ -1,5 +1,5 @@
 import request  from '../request.js'
 
 export default {
-    getBankCard(requestData)  { return request('get'   , requestData, 'bank-card')}  ,
+    getBankCard(params)  { return request('get'   , params, null,'bank-card')}  ,
 }

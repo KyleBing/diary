@@ -53,7 +53,7 @@ export default {
 
             keywordShow: '', // 关键词
 
-            requestData: {
+            params: {
                 keywords: [],
                 pageNo: 1,
                 pageCount: 100, // 单页请求条数
@@ -203,8 +203,8 @@ export default {
             this.search()
         },
         reload() {
-            this.requestData.pageNo = 1
-            this.requestData.keywords = JSON.stringify(this.keywords)
+            this.params.pageNo = 1
+            this.params.keywords = JSON.stringify(this.keywords)
             this.diaries = []
             this.diariesShow = []
             this.loadMore()
@@ -214,13 +214,13 @@ export default {
         loadMore() {
             this.haveMore = false
             this.isLoading = true
-            this.requestData.categories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
-            this.requestData.dateFilter = utility.getDiaryConfig().dateFilter
-            this.requestData.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
-            this.getDiaries(this.requestData)
+            this.params.categories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
+            this.params.dateFilter = utility.getDiaryConfig().dateFilter
+            this.params.filterShared = utility.getDiaryConfig().isFilterShared ? 1 : 0
+            this.getDiaries(this.params)
         },
-        getDiaries(requestData) {
-            diaryApi.list(requestData)
+        getDiaries(params) {
+            diaryApi.list(params)
                 .then(res => {
                     let newDiariesList = res.data.map(diary => {
                         if (diary.content) {
@@ -240,9 +240,9 @@ export default {
                     })
 
                     // page operation
-                    if (res.data.length === this.requestData.pageCount) {
+                    if (res.data.length === this.params.pageCount) {
                         this.haveMore = true
-                        this.requestData.pageNo++
+                        this.params.pageNo++
                     } else {
                         this.haveMore = false
                     }

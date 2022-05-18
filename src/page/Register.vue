@@ -1,3 +1,4 @@
+
 <template>
    <div class="body-login-bg" :style="`min-height: ${heightBg}px`">
       <div class="body-login">
@@ -7,7 +8,7 @@
          <form id="regForm">
             <div class="input-group">
                <label for="invitation" :class="{red: !invitationVerified}">{{ labelInvitation }}</label>
-               <input v-model="invitation"
+               <input v-model="invitationCode"
                       type="text"
                       name="invitation"
                       id="invitation">
@@ -71,7 +72,7 @@ export default {
          email: '',
          password1: '',
          password2: '',
-         invitation: '',
+         invitationCode: '',
          invitationVerified: false,
          usernameVerified: false,
          emailVerified: false,
@@ -95,7 +96,7 @@ export default {
          if (this.verified) {
             let requestData = {
                 username: this.username,
-                invitation: this.invitation,
+                invitationCode: this.invitationCode,
                 email: this.email,
                 password: this.password1,
             }
@@ -114,7 +115,7 @@ export default {
    },
    watch: {
       invitation: function () {
-         if (this.invitation.length > 0) {
+         if (this.invitationCode.length > 0) {
             this.labelInvitation = "邀请码"
             this.invitationVerified = true
          } else {
