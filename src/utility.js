@@ -4,21 +4,24 @@ const global = {
    heightNavbar: 45,
 }
 
+const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
+
+
 // 设置 authorization
 function setAuthorization(email, token, nickname, uid) {
-   localStorage.setItem('DiaryAuthorization', JSON.stringify({
+   localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
       email,token,nickname,uid
    }))
 }
 
 // 获取 authorization
 function getAuthorization() {
-   return JSON.parse(localStorage.getItem('DiaryAuthorization'))
+   return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME))
 }
 
 // 删除 authorization
 function deleteAuthorization() {
-   localStorage.removeItem('DiaryAuthorization')
+   localStorage.removeItem(AUTHORIZATION_NAME)
 }
 
 
