@@ -124,6 +124,7 @@ export default {
         logout() {
             utility.deleteAuthorization()
             this.$router.push('/login')
+            this.SET_MENU_SHOWED(false)
         },
 
         goToStatisticPage(){
