@@ -160,6 +160,8 @@ export default {
             } else if (this.yearShowed) {
                 this.SET_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
+            } else if (this.bankCardShowed) {
+                this.menuInit()
             } else if (this.menuShowed) {
                 this.menuInit()
             }
