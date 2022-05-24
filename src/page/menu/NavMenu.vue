@@ -57,7 +57,7 @@
         </div>
 
         <!-- category-->
-        <menu-category-selector v-show="categoryShowed"/>
+        <menu-category-selector v-if="categoryShowed"/>
 
         <!-- year selector -->
         <year-selector v-show="yearShowed"/>

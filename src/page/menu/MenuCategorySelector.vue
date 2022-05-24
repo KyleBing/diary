@@ -2,27 +2,17 @@
     <!--category-->
     <div class="menu-category" >
         <ul class="menu-category-list">
-            <li class="menu-category-item" v-for="(item, index) in categoryAll" :key="index">
-                <input v-model="categories"
-                       class="hidden" type="checkbox"
-                       :id="'category-' + item.name_en"
-                       :value="item.name_en">
-                <div class="category-menu-item"
-                    :style="categories.indexOf(item.name_en) > -1 ?
-                    `background-color: ${item.color}; border-color: ${item.color};`:
-                    `border: 1px dashed #cccccc;`"
-                    >
-                    {{ item.name }}
-                    <span class="count">{{ statisticsCategory[item.name_en] }}</span>
-                </div>
+            <li class="menu-category-item" v-for="(item, index) in categoryAll" :key="index"
+                :style="categoryMenuItemStyle(item)"
+                @click="toggleCategory(item)"
+            >
+                <div>{{ item.name }}<span class="count">{{ statisticsCategory[item.name_en] }}</span></div>
             </li>
         </ul>
 
         <div class="menu-category-list category-operations-container">
-            <div class="menu-category-item">
-                <input checked v-model="filterShared" class="hidden" type="checkbox" id="share">
-                <label for="share" class="menu-category-shared">共享日记</label>
-            </div>
+            <div :class="['menu-category-item', 'menu-category-shared', {active: isFilterShared}]"
+                 @click="toggleFilterShared">过滤共享日记</div>
         </div>
 
         <div class="menu-category-list category-operations-container">
@@ -42,16 +32,36 @@ export default {
     name: "MenuCategorySelector",
     data(){
         return {
-            categories: [],
             filterShared: false, // 是否筛选已共享的日记
+            categories: [] // category
         }
     },
     mounted() {
         this.filterShared = utility.getDiaryConfig().isFilterShared
-        this.categories = utility.getDiaryConfig().filteredCategories
+        this.$nextTick(() => {
+            this.categories = utility.getDiaryConfig().filteredCategories
+        })
     },
     methods: {
-        ...mapMutations(['SET_IS_FILTER_SHARED','SET_FILTERED_CATEGORIES']),
+        ...mapMutations(['SET_IS_FILTER_SHARED','SET_FILTERED_CATEGORIES','SET_IS_FILTER_SHARED']),
+        toggleFilterShared(){
+            this.SET_IS_FILTER_SHARED(!this.isFilterShared)
+        },
+        toggleCategory(category){
+            let index = this.categories.indexOf(category.name_en)
+            if ( index > -1) {
+                this.categories.splice(index, 1)
+            } else {
+                this.categories.push(category.name_en)
+            }
+        },
+        categoryMenuItemStyle(category){
+            if (this.categories.indexOf(category.name_en) > -1){
+                return `background-color: ${category.color}; border: 1px solid ${category.color};`
+            } else {
+                return ``
+            }
+        },
         selectCategoryAll() {
             this.categories = this.categoryAll.map(item => item.name_en)
         },
@@ -70,7 +80,7 @@ export default {
         },
     },
     computed: {
-        ...mapState(['statisticsCategory', "categoryAll"])
+        ...mapState(['statisticsCategory', "categoryAll", 'isFilterShared'])
     },
     watch: {
         categories(newValue){

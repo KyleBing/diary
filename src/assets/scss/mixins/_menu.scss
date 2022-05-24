@@ -152,12 +152,27 @@ $menu-category-list-item-height: 40px;
   flex-flow: row wrap;
 }
 .menu-category-item {
+  @extend .btn-like;
+  @extend .unselectable;
   flex-shrink: 0;
   position: relative;
   display: block;
   text-align: center;
   width: 45%;
-  @extend .btn-like;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: white;
+  line-height: $menu-category-list-item-height;
+  @include border-radius(5px);
+  border: 1px dashed $gray;
+  &.menu-category-shared{
+    background-color: transparent;
+    &.active{
+      background-color: white;
+      color: $text-title;
+      border: 1px solid white;
+    }
+  }
   .count{
     color: white;
     display: block;
@@ -166,34 +181,6 @@ $menu-category-list-item-height: 40px;
     right: 7px;
     font-size: 10px;
     line-height: 1;
-  }
-  label{
-    @extend .btn-like;
-  }
-  input[type=checkbox] + label {
-    @extend .unselectable;
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: white;
-    line-height: $menu-category-list-item-height;
-    @include border-radius(5px);
-
-    &.menu-category-shared{
-      background-color: transparent;
-    }
-  }
-  @each $name, $color in $categories {
-    input[type=checkbox]:checked + label {
-      &.menu-category-#{$name} {
-        background-color: $color;
-        border-color: $color;
-        @if $name== 'shared'{
-          color: black;
-        }
-      }
-    }
   }
 }
 
