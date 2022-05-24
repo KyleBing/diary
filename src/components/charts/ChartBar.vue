@@ -80,7 +80,10 @@ export default {
                 },
                 title: {
                     text: '',
-                    left: 'center'
+                    left: 'center',
+                    textStyle:{
+                        color: '#666666'
+                    }
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -93,6 +96,7 @@ export default {
                     data: [],
                     axisLabel: {
                         fontSize: 11,
+                        color: '#666666',
                         rotate: -30
                     }
                 }],

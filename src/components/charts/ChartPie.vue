@@ -77,6 +77,9 @@ export default {
                 title: {
                     text: '',
                     left: 'center',
+                    textStyle:{
+                        color: '#666666'
+                    }
                 },
                 tooltip: {
                     trigger: 'item'

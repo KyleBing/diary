@@ -119,7 +119,7 @@ export default {
     }
     th{
         font-weight: bold;
-        color: $text-label;
+        color: $text-content;
     }
     td{
         color: $text-content;
