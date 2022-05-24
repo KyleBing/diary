@@ -79,6 +79,7 @@ export default {
         ...mapState([
             'keywords',
             'categoryAll',
+            'categoryMap',
             'diaryListShowedInFullStyle',
             'listNeedBeReload',
             'listOperation',
@@ -227,12 +228,7 @@ export default {
                             diary.content = diary.content.replace(/\n/g, '<br/>')
                         }
 
-                        // category map
-                        let categoryMap = new Map()
-                        this.categoryAll.forEach(item => {
-                            categoryMap.set(item.nameEn, item.name)
-                        })
-                        diary.categoryString = categoryMap.get(diary.category)
+                        diary.categoryString = this.categoryMap.get(diary.category).name
 
                         diary.weekday = utility.dateProcess(diary.date).weekday
                         diary.dateString = utility.dateProcess(diary.date).date

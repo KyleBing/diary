@@ -5,12 +5,16 @@
             <li class="menu-category-item" v-for="(item, index) in categoryAll" :key="index">
                 <input v-model="categories"
                        class="hidden" type="checkbox"
-                       :id="'category-' + item.nameEn"
-                       :value="item.nameEn">
-                <label :class="'menu-category-' + item.nameEn" :for="'category-' + item.nameEn">
+                       :id="'category-' + item.name_en"
+                       :value="item.name_en">
+                <div class="category-menu-item"
+                    :style="categories.indexOf(item.name_en) > -1 ?
+                    `background-color: ${item.color}; border-color: ${item.color};`:
+                    `border: 1px dashed #cccccc;`"
+                    >
                     {{ item.name }}
-                    <span class="count">{{ statisticsCategory[item.nameEn] }}</span>
-                </label>
+                    <span class="count">{{ statisticsCategory[item.name_en] }}</span>
+                </div>
             </li>
         </ul>
 
@@ -49,13 +53,13 @@ export default {
     methods: {
         ...mapMutations(['SET_IS_FILTER_SHARED','SET_FILTERED_CATEGORIES']),
         selectCategoryAll() {
-            this.categories = this.categoryAll.map(item => item.nameEn)
+            this.categories = this.categoryAll.map(item => item.name_en)
         },
         selectCategoryNone() {
             this.categories = []
         },
         reverseCategorySelect() {
-            let tempCategories = [].concat(this.categoryAll.map(item => item.nameEn))
+            let tempCategories = [].concat(this.categoryAll.map(item => item.name_en))
             this.categories.forEach(item => {
                 tempCategories.splice(tempCategories.indexOf(item), 1)
             })

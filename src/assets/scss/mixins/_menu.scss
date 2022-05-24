@@ -179,7 +179,7 @@ $menu-category-list-item-height: 40px;
     color: white;
     line-height: $menu-category-list-item-height;
     @include border-radius(5px);
-    border: 1px dashed $gray;
+
     &.menu-category-shared{
       background-color: transparent;
     }

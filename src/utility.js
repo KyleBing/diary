@@ -152,7 +152,7 @@ function getDiaryConfig(){
       return {
          isFilterShared: false, // 是否筛选共享日记
          keywords: [], // 关键词
-         filteredCategories: store.state.categoryAll.map(item => item.nameEn), // 筛选的日记类别
+         filteredCategories: store.state.categoryAll.map(item => item.name_en), // 筛选的日记类别
          dateFilter: '' // 日记范围
       }
    }

@@ -11,9 +11,9 @@
                     <div>类别筛选</div>
                     <div class="category-indicator">
                         <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
-                        <div :class="['item', 'category-' + item.nameEn ,{active: filteredCategories.some(category => category ===item.nameEn)}]"
+                        <div :class="['item', 'category-' + item.name_en ,{active: filteredCategories.some(category => category ===item.name_en)}]"
                              v-for="(item, index) in categoryAll"
-                             :title="item.nameEn"
+                             :title="item.name_en"
                              :key="index"></div>
                     </div>
                 </div>

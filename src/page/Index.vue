@@ -27,6 +27,7 @@ import list from "@/page/List"
 import Navbar from "@/components/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import statisticApi from "@/api/statisticApi";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: 'Index',
@@ -45,6 +46,7 @@ export default {
             this.$router.push('/edit')
         }
         this.getStatistic() // 载入统计信息
+        this.getCategoryAll() // 获取类别列表
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
@@ -61,8 +63,21 @@ export default {
             'SET_STATISTICS_CATEGORY',
             'SET_STATISTICS_YEAR',
             'SET_DATA_ARRAY_CATEGORY',
-            'SET_DATA_ARRAY_YEAR'
+            'SET_DATA_ARRAY_YEAR',
+            'SET_CATEGORY_ALL',
+            'SET_CATEGORY_MAP',
         ]),
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                })
+        },
         // 获取日记统计信息
         getStatistic() {
             statisticApi.category()

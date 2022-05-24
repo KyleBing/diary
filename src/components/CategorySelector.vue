@@ -1,9 +1,11 @@
 <template>
     <div class="category-selector">
-        <div :class="['category', 'category-' + item.nameEn, {active: categorySelected === item.nameEn}]"
-             @click="chooseCategory(item.nameEn)"
-             v-for="item in categoryAll"
-             :key="item.nameEn">{{ item.name }}
+        <div
+            :style="itemStyle(categorySelected === category.name_en, category)"
+            class="category"
+            @click="chooseCategory(category.name_en)"
+            v-for="category in categoryAll"
+            :key="category.name_en">{{ category.name }}
         </div>
     </div>
 </template>
@@ -25,7 +27,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['categoryAll'])
+        ...mapState(['categoryAll','categoryMap']),
     },
     watch: {
         category() {
@@ -36,6 +38,13 @@ export default {
         }
     },
     methods: {
+        itemStyle(active, category){
+            if (active) {
+                return `color: white; background-color: ${category.color}`
+            } else {
+                return `color: ${category.color}`
+            }
+        },
         chooseCategory(categoryName) {
             this.categorySelected = categoryName
         }

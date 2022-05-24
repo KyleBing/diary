@@ -126,7 +126,7 @@ export default {
                     // category map
                     let categoryMap = new Map()
                     this.categoryAll.forEach(item => {
-                        categoryMap.set(item.nameEn, item.name)
+                        categoryMap.set(item.name_en, item.name)
                     })
                     diary.categoryString = categoryMap.get(diary.category)
                 })

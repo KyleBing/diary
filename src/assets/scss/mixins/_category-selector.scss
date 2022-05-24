@@ -25,15 +25,6 @@
     }
   }
 
-  @each $name, $color in $categories {
-    .category-#{$name}{
-      color: $color;
-    }
-    .category-#{$name}.active{
-      background-color: $color;
-      color: white;
-    }
-  }
 }
 
 @media (min-width: $grid-separate-width-max){
