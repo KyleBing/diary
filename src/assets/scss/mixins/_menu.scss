@@ -91,15 +91,6 @@ $menu-category-list-item-height: 40px;
     @include border-radius($height + 10);
     border: 1px dotted transparent;
   }
-  @each $name, $color in $categories {
-    .category-#{$name}{
-      border-color: $color;
-      &.active{
-        background-color: $color;
-      }
-    }
-  }
-
   // shared 指示器
   .category-shared{
     border-color: white;
