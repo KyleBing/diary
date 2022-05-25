@@ -8,9 +8,9 @@ const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage
 
 
 // 设置 authorization
-function setAuthorization(email, token, nickname, uid) {
+function setAuthorization(email, token, nickname, uid, group_id) {
    localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
-      email,token,nickname,uid
+      email,token,nickname,uid, group_id
    }))
 }
 

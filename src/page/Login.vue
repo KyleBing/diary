@@ -64,7 +64,7 @@ export default {
             userApi.login(requestData)
                 .then(res => {
                     // set authorization
-                    utility.setAuthorization(res.data.email, res.data.password, res.data.nickname, res.data.uid)
+                    utility.setAuthorization(res.data.email, res.data.password, res.data.nickname, res.data.uid, res.data.group_id)
                     this.$popMessage('success', res.message, () => {
                         this.$router.push('/')
                     })
