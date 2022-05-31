@@ -64,7 +64,7 @@
 
 <script>
 import utility from "../utility"
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
 
@@ -93,14 +93,27 @@ export default {
         window.onresize = () => {
             this.heightShare = window.innerWidth > 375 ? window.innerHeight - 60 - 100 : window.innerHeight
         }
+        // 在载入列表之前，先获取 categoryAll
+        if(this.categoryAll.length < 1){
+            this.getCategoryAll()
+        } else {
+            this.reload()
+        }
     },
-    watch: {
-        $route(to) {
-            if (to.params.id) {
-                this.id = to.params.id
-            }
+    methods: {
+        ...mapMutations(['SET_CATEGORY_MAP', 'SET_CATEGORY_ALL']),
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                })
         },
-        id() {
+        getDiaryContent(id){
             this.isLoadingDiary = true
             let requestData = {
                 'diaryId': this.id
@@ -134,6 +147,16 @@ export default {
                     this.isLoadingDiary = false
                     this.diary = {}
                 })
+        }
+    },
+    watch: {
+        $route(to) {
+            if (to.params.id) {
+                this.id = to.params.id
+            }
+        },
+        id(newValue) {
+            this.getDiaryContent(newValue)
         }
     }
 }

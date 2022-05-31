@@ -94,6 +94,11 @@ export default {
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
             this.$popMessage('success', '已复制到 剪贴板', null, 2)
         })
+
+        // 在载入列表之前，先获取 categoryAll
+        if(this.categoryAll.length < 1){
+            this.getCategoryAll()
+        }
     },
     beforeDestroy() {
         this.clipboard.destroy()
@@ -109,7 +114,22 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['SET_CURRENT_DIARY']),
+        ...mapMutations([
+            'SET_CURRENT_DIARY',
+            'SET_CATEGORY_ALL',
+            'SET_CATEGORY_MAP',
+        ]),
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                })
+        },
         getTemperatureClassName(temperature){
             if (temperature >= 35){
                 return 'temperature-35'

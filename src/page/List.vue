@@ -70,9 +70,14 @@ export default {
         document.title = '日记' // 变更标题
         // init
         this.keywordShow = utility.getDiaryConfig().keywords && utility.getDiaryConfig().keywords.join(' ')
-        this.reload()
         this.addScrollEvent()
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
+        // 在载入列表之前，先获取 categoryAll
+        if(this.categoryAll.length < 1){
+            this.getCategoryAll()
+        } else {
+            this.reload()
+        }
     },
 
     computed: {
@@ -192,8 +197,23 @@ export default {
             "SET_STATISTICS_CATEGORY",
             "SET_STATISTICS_YEAR",
             'SET_LIST_NEED_BE_RELOAD',
-            'SET_IS_SHOW_SEARCH_BAR']
+            'SET_IS_SHOW_SEARCH_BAR',
+            'SET_CATEGORY_MAP',
+            'SET_CATEGORY_ALL'
+            ]
         ),
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                    this.reload()
+                })
+        },
         /* MENU 相关 */
         search() {
             this.SET_KEYWORD(this.keywordShow.split(' '))

@@ -134,6 +134,10 @@ export default {
                 this.saveDiary()
             }
         }
+        // 在载入列表之前，先获取 categoryAll
+        if(this.categoryAll.length < 1){
+            this.getCategoryAll()
+        }
     },
     beforeRouteLeave(to, from, next) {
         // 在跳转到其它页面之前判断日记是否已保存
@@ -145,6 +149,15 @@ export default {
         }
     },
     computed: {
+        ...mapState([
+            'categoryAll',
+            'currentDiary',
+            'diaryNeedToBeSaved',
+            'diaryNeedToBeRecovered',
+            'insets',
+            'editLogoImg',
+            'diaryEditorContentHasChanged'
+        ]),
         diaryHasChanged() {
             return (this.diary.title !== this.diaryOrigin.title ||
                 this.diary.content !== this.diaryOrigin.content ||
@@ -154,14 +167,6 @@ export default {
                 this.diary.weather !== this.diaryOrigin.weather ||
                 this.diary.isPublic !== this.diaryOrigin.isPublic)
         },
-        ...mapState([
-            'currentDiary',
-            'diaryNeedToBeSaved',
-            'diaryNeedToBeRecovered',
-            'insets',
-            'editLogoImg',
-            'diaryEditorContentHasChanged'
-        ])
     },
 
     watch: {
@@ -197,8 +202,23 @@ export default {
             'SET_DIARY_NEED_TO_BE_RECOVERED',
             'SET_LIST_NEED_BE_RELOAD',
             'SET_LIST_OPERATION',
-            'SET_DIARY_EDITOR_CONTENT_HAS_CHANGED'
+            'SET_DIARY_EDITOR_CONTENT_HAS_CHANGED',
+            'SET_CATEGORY_ALL',
+            'SET_CATEGORY_MAP',
         ]),
+
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                })
+        },
+
         // 载入本星期的所有工作日志
         loadCurrentWeekLogs() {
             this.isLoading = true
