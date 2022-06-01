@@ -271,6 +271,9 @@ export default {
         },
         setCategory(data) {
             this.diary.category = data
+            if (data === 'bill' && this.diary.title === ''){
+                this.diary.title = '账单'
+            }
         },
         setWeather(data) {
             this.diary.weather = data
