@@ -161,7 +161,6 @@ export default {
         diaryHasChanged() {
             return (this.diary.title !== this.diaryOrigin.title ||
                 this.diary.content !== this.diaryOrigin.content ||
-                this.diary.category !== this.diaryOrigin.category ||
                 this.diary.temperature !== this.diaryOrigin.temperature ||
                 this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
                 this.diary.weather !== this.diaryOrigin.weather ||
