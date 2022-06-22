@@ -59,6 +59,7 @@ function $(selector){
 
 // CONST
 const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',}
+const WEEKDAY_SHORT = {0: '日', 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六',}
 const WEATHER = [
     {title : 'sunny' ,        name : '晴'} ,
     {title : 'cloudy' ,       name : '多云'} ,
@@ -123,7 +124,8 @@ function dateProcess(dateString) {
    return {
       year: year,
       weekday: WEEKDAY[week],
-      dateShort:`${padNumberWith0(month)}-${padNumberWith0(day)}`,
+      weekShort: WEEKDAY_SHORT[week],
+      dateShort:`${padNumberWith0(month)}/${padNumberWith0(day)}`,
       date:`${padNumberWith0(month)}月${padNumberWith0(day)}日`,
       dateFull: `${year}年${month}月${day}日`,
       dateFullSlash: `${year}/${month}/${day}`,

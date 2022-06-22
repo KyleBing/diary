@@ -12,22 +12,22 @@
                     <div class="bill-card-header">
                         <div class="title">{{ monthMap.get(month.month) }}</div>
                         <div class="bill-brief">
-                            <div class="number income">+{{ month.sumIncome.toFixed(0) }}</div>
-                            <div class="number output">{{ month.sumOutput.toFixed(0) }}</div>
-                            <div class="number sum">{{ month.sum.toFixed(0) }}</div>
+                            <div class="number bold income">+{{ month.sumIncome.toFixed(0) }}</div>
+                            <div class="number bold output">{{ month.sumOutput.toFixed(0) }}</div>
+                            <div class="number bold sum">{{ month.sum.toFixed(0) }}</div>
                         </div>
                     </div>
                     <table>
                         <tr>
-                            <th>日期</th>
+                            <th class="center">日期</th>
                             <th>收入</th>
                             <th>支出</th>
 <!--                            <th>合计</th>-->
-                            <th class="label">具体</th>
+                            <th class="label center">具体</th>
                         </tr>
                         <tr v-for="item in month.days" :key="item.date">
 <!--                            <td class="number">{{// $utility.dateFormatter(new Date(item.date), 'MM/dd')}}</td>-->
-                            <td class="number">{{$utility.dateProcess(item.date).dateShort}} {{$utility.dateProcess(item.date).weekday}}</td>
+                            <td class="number">{{$utility.dateProcess(item.date).dateShort}} {{$utility.dateProcess(item.date).weekShort}}</td>
                             <td class="number">
                                 <span v-if="item.sumIncome > 0">+{{item.sumIncome.toFixed(0) || '-'}}</span>
                                 <span v-else>{{-item.sumIncome.toFixed(0) || '-'}}</span>
@@ -62,9 +62,6 @@ import billApi from "@/api/billApi";
 import Loading from "@/components/Loading";
 import {mapState} from "vuex";
 import TabIcon from "@/components/TabIcon";
-
-
-
 
 export default {
     name: "Bill",
@@ -116,6 +113,7 @@ export default {
 @import "../assets/scss/plugin";
 
 .bill-content{
+    width: 100%;
     overflow: auto;
     padding: 30px;
     background-color: $bg-light;
@@ -128,13 +126,14 @@ export default {
     align-items: flex-start;
 }
 .bill-card{
-    overflow: hidden;
+    //overflow: hidden;
     background-color: white;
     margin-right: 20px;
     padding-bottom: 15px;
     @include border-radius($radius-pc);
-    border: 1px solid $color-border;
+    border: 2px solid $color-border;
     .bill-card-header{
+        //background-color: $bg-light;
         display: flex;
         justify-content: space-between;
         flex-flow: row nowrap;
@@ -156,30 +155,33 @@ export default {
     }
 
     table{
-        font-size: $fz-note;
+        font-size: $fz-small;
         tr{
             th{
-                border-bottom: 2px solid $color-border;
+                border-top: 1px solid $color-border-light;
+                border-bottom: 1px solid $color-border-light;
                 text-align: right;
                 font-weight: bold;
-                padding: 10px 15px 10px;
+                padding: 8px 15px 8px;
+                &.center{
+                    text-align: center;
+                }
             }
             td{
-                min-width: 90px;
+                min-width: 80px;
                 border-bottom: 1px solid $color-border-light;
                 text-align: right;
                 padding: 3px 15px;
-            }
-            th.label{
-                text-align: center;
+                &.center{
+                    text-align: center;
+                }
             }
             td.label{
                 color: $text-label;
                 white-space: nowrap;
-                max-width: 250px;
+                max-width: 200px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                font-size: $fz-note;
                 text-align: left
             }
             &:last-child{
@@ -189,9 +191,13 @@ export default {
             }
             &:hover{
                 td{
-                    background-color: $bg-light;
-                    border-bottom-color: $bg-light;
+                    background-color: $bg-menu;
+                    border-bottom-color: $bg-menu;
+                    color: white;
                 }
+            }
+            &:nth-child(even){
+                //background-color: transparentize(black, 0.95);
             }
         }
     }
@@ -219,13 +225,13 @@ export default {
     font-family: 'Droid Sans Mono';
 }
 .income{
-    color: $blue;
+    color: $aqua;
 }
 .output{
-    color: $red;
+    color: $pumpkin;
 }
 .sum{
-    color: $text-title;
+    color: black;
 }
 
 @media (max-width: $grid-separate-width-sm) {
