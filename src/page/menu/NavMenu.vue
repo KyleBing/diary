@@ -28,6 +28,9 @@
                 <!--4. 统计数据-->
                 <div class="menu-list-group-item" @click="goToStatisticPage">统计数据</div>
 
+                <!--4. 账单-->
+                <div class="menu-list-group-item" @click="goToBillPage">账单</div>
+
                 <!--5. 银行卡-->
                 <div class="menu-list-group-item" @click="menuListClicked('bankCard')">银行卡</div>
 
@@ -131,6 +134,11 @@ export default {
         goToStatisticPage(){
             this.SET_MENU_SHOWED(false)
             this.$router.push('/statistics')
+        },
+
+        goToBillPage(){
+            this.SET_MENU_SHOWED(false)
+            this.$router.push('/bill')
         },
 
         goToBankCard(){

@@ -24,6 +24,7 @@ const routes = [
     {name: 'login',          path: '/login',           component: resolve => require(['@/page/Login'], resolve),          },
     {name: 'test',           path: '/test',            component: resolve => require(['@/page/menu/YearSelector'], resolve),   },
     {name: 'statistics',     path: '/statistics',      component: resolve => require(['@/page/statistics/StatisticsMain'], resolve),   },
+    {name: 'bill',           path: '/bill',            component: resolve => require(['@/page/Bill'], resolve),   },
     {path: '*',                                        component: resolve => require(['@/fundation/NotFound_404'], resolve)}
 ]
 
