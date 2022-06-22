@@ -1,28 +1,34 @@
 <template>
-    <div class="bg" :style="`height: ${heightWindow}px`">
+    <div class="bg" :style="`height: ${insets.windowsHeight}px`">
         <div class="not-found">
             <div class="logo">
-                <img :src="$icons.logo" alt="LOGO">
+                <img :src="icons.logo" alt="LOGO">
             </div>
             <h1>访问的页面不存在</h1>
-            <h1><router-link to="/">返回主页</router-link></h1>
+            <p><router-link to="/">返回主页</router-link></p>
         </div>
     </div>
 </template>
 
 <script>
 import {mapState} from "vuex";
+import svgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: "notFound_404",
     computed: {
-        ...mapState(['heightWindow'])
+        ...mapState(['insets'])
+    },
+    data(){
+        return {
+            icons: svgIcons
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
-@import "../assets/scss/variables";
+@import "../assets/scss/plugin";
 .bg{
     display: flex;
     flex-flow: column nowrap;
@@ -32,6 +38,7 @@ export default {
     color: white;
 }
 a{
+    line-height: 1.5;
     color: $color-main;
     &:hover{
         text-decoration: underline;
