@@ -287,4 +287,50 @@
     }
   }
 
+
+  // BILL
+  .bill-content{
+    background-color: $dark-bg-dark;
+  }
+  .bill-card{
+    background-color: $dark-bg-nav;
+    border-color: $dark-border;
+
+    .bill-card-header{
+      .title{
+        color: $dark-text-title;
+      }
+    }
+
+    table{
+      tr{
+        color: $dark-text;
+        th{
+          border-color: $dark-border;
+        }
+        td{
+          border-bottom-color: $dark-border;
+        }
+        &:hover{
+          td{
+            background-color: $bg-menu;
+            color: $dark-text-title;
+          }
+        }
+      }
+    }
+  }
+
+  .income{
+    color: $aqua;
+  }
+  .output{
+    color: $pumpkin;
+  }
+  .sum{
+    color: white;
+  }
+
+
+
 }
