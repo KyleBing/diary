@@ -1,4 +1,3 @@
-
 <template>
     <div class="statistic-container">
         <div class="statistic-header">
@@ -146,7 +145,6 @@ export default {
             font-size: $fz-huge;
             font-weight: bold;
         }
-
         .bill-brief{
             font-size: $fz-big;
             letter-spacing: 1px;
@@ -155,9 +153,7 @@ export default {
             display: flex;
             justify-content: space-between;
         }
-
     }
-
 
     table{
         font-size: $fz-note;
@@ -201,13 +197,11 @@ export default {
     }
     @include transition(all 0.5s);
 
-
     &:hover{
         @include transition(all 0.5s);
-        @include box-shadow(2px 2px 5px transparentize(black, 0.8))
+        //@include box-shadow(2px 2px 5px transparentize(black, 0.8))
     }
 }
-
 
 .mark{
     margin-top: 10px;
@@ -233,7 +227,6 @@ export default {
 .sum{
     color: $text-title;
 }
-
 
 @media (max-width: $grid-separate-width-sm) {
     .bill-content{
@@ -261,7 +254,5 @@ export default {
         }
     }
 }
-
-
 
 </style>
