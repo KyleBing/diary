@@ -372,7 +372,11 @@ export default {
             })
         },
         createDiary() {
-            this.getCurrentTemperature()
+            // 只有在当天写日记时，才自动获取实时天气
+            console.log(Moment(this.diary.date).isSame(new Date(), 'day'))
+            if (Moment(this.diary.date).isSame(new Date(), 'day')){
+                this.getCurrentTemperature()
+            }
             this.isNew = true
             this.diary = {
                 id: "",
