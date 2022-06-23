@@ -385,7 +385,7 @@ export default {
                 isPublic: false,
                 date: this.diary.date || new Date(), // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
                 weather: 'sunny',
-                category: 'life',
+                category: this.diary.category,
                 temperature: '',
                 temperatureOutside: '',
             }
