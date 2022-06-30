@@ -46,6 +46,7 @@ export default {
             this.$router.push('/edit')
         }
         this.getStatistic() // 载入统计信息
+        this.getCategoryAll()
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
@@ -89,6 +90,18 @@ export default {
                 })
                 this.SET_DATA_ARRAY_YEAR(data)
             }
+        },
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                    this.getStatistic()
+                })
         },
         setDataArrayCategory(statisticsCategory){
             let keys = Object.keys(statisticsCategory)
