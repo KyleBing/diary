@@ -4,8 +4,20 @@
 
 <script>
 import * as echarts from 'echarts'
+import {mapState} from "vuex";
+
+const COLORS =  [
+    '#FFA41C',
+    '#2F3037',
+    '#9FE080',
+    '#5C7BD9',
+    '#7ED3F4',
+    '#EE6666',
+    '#c7c7c7',
+    '#FFDC60'
+]
+
 export default {
-    // TODO: 对应类别的颜色展示图表
     name: "ChartBar",
     props: {
         data: {
@@ -46,6 +58,7 @@ export default {
         })
     },
     computed: {
+        ...mapState(['categoryMap']),
         xAxisData() {
             return this.data
         }
@@ -54,26 +67,30 @@ export default {
         resetData(newValue) {
             let xAxisData = []
             let seriesData = []
+            let colorArray = []
             newValue.forEach(item => {
                 seriesData.push(item.value)
                 xAxisData.push(item.name)
+                let color = this.categoryMap.get(item.key) && this.categoryMap.get(item.key).color
+                if (color){
+                    colorArray.push(color)
+                }
             })
+
+            // 如果有类别颜色，colorBy: data
+            if (colorArray.length > 0){
+                this.option.color = colorArray
+            } else {
+                this.option.color = COLORS
+            }
+
+            this.option.colorBy = 'data'
             this.option.xAxis[0].data = xAxisData
             this.option.series[0].data = seriesData
             this.chart.setOption(this.option)
         },
         initChart() {
             this.option = {
-                color: [
-                    '#FFA41C',
-                    '#2F3037',
-                    '#EE6666',
-                    '#FFDC60',
-                    '#5C7BD9',
-                    '#7ED3F4',
-                    '#c7c7c7',
-                    '#9FE080'
-                ],
                 grid: {
                     bottom: 40,
                     right: 10

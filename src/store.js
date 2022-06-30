@@ -33,7 +33,7 @@ export default new Vuex.Store({
       listOperation:{}, // 列表页的操作，增删改操作，一般不再重新加载列表
 
       categoryAll : [
-         // {name: '生活', name_en: 'life'},
+         // {name: '生活', name_en: 'life', color: '#fff'},
       ],
       categoryMap: new Map(),
 

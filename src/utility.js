@@ -6,7 +6,6 @@ const global = {
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 
-
 // 设置 authorization
 function setAuthorization(email, token, nickname, uid, group_id) {
    localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
@@ -23,7 +22,6 @@ function getAuthorization() {
 function deleteAuthorization() {
    localStorage.removeItem(AUTHORIZATION_NAME)
 }
-
 
 
 // Prompt 提示

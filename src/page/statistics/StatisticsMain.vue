@@ -31,6 +31,7 @@ import TabIcon from "@/components/TabIcon";
 import StatisticCharts from "@/page/statistics/diary/StatisticCharts";
 import statisticApi from "@/api/statisticApi";
 import StatisticUsers from "@/page/statistics/users/StatisticUsers";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: 'StatisticsMain',
@@ -49,7 +50,7 @@ export default {
 
     },
     mounted() {
-        this.getStatistic()
+        this.getCategoryAll()
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
@@ -67,8 +68,23 @@ export default {
             'SET_DATA_ARRAY_YEAR',
             'SET_STATISTICS_YEAR',
             'SET_STATISTICS_CATEGORY',
-            'SET_STATISTICS_YEAR'
+            'SET_STATISTICS_YEAR',
+            'SET_CATEGORY_MAP',
+            'SET_CATEGORY_ALL'
         ]),
+
+        getCategoryAll(){
+            diaryApi.categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                    let tempMap = new Map()
+                    res.data.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+                    this.getStatistic()
+                })
+        },
 
         // 获取日记统计信息
         getStatistic() {
@@ -100,6 +116,7 @@ export default {
             let data =  keys.map(key => {
                 return {
                     name: this.categoryMap.get(key),
+                    key: key,
                     value: statisticsCategory[key]
                 }
             })

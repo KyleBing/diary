@@ -4,6 +4,18 @@
 
 <script>
 import * as echarts from 'echarts'
+import {mapState} from "vuex";
+
+const COLORS =  [
+    '#FFA41C',
+    '#2F3037',
+    '#9FE080',
+    '#5C7BD9',
+    '#7ED3F4',
+    '#EE6666',
+    '#c7c7c7',
+    '#FFDC60'
+]
 
 export default {
     name: "ChartPie",
@@ -46,6 +58,7 @@ export default {
         })
     },
     computed: {
+        ...mapState(['categoryMap']),
         xAxisData() {
             return this.data
         }
@@ -58,16 +71,7 @@ export default {
         initChart() {
 
             this.option = {
-                color: [
-                    '#FFA41C',
-                    '#2F3037',
-                    '#9FE080',
-                    '#5C7BD9',
-                    '#7ED3F4',
-                    '#EE6666',
-                    '#c7c7c7',
-                    '#FFDC60'
-                ],
+
                 grid: {
                     top: 20,
                     bottom: 20,
@@ -92,6 +96,15 @@ export default {
                         data: [
                             // {value: 1048, name: '搜索引擎'},
                         ],
+                        itemStyle: {
+                            color: item => {
+                                if (item.data.key){
+                                    return  this.categoryMap.get(item.data.key).color // 返回类别对应的颜色
+                                } else {
+                                    return COLORS[item.dataIndex%(COLORS.length - 1)]
+                                }
+                            }
+                        },
                         label: {
                             show: true,
                             position: 'outside',
