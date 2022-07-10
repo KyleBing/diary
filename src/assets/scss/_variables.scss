@@ -30,7 +30,7 @@ $color-border           : #E5E5EA;
 $color-border-light     : lighten($color-border, 3%);
 $color-border-highlight : darken($color-border, 15%);
 $color-border-share     : #F0E8DB;
-$color-border-menu      : #757575;
+$color-border-menu      : #646464;
 
 // Radius
 $radius-mobile: 5px;
@@ -117,6 +117,7 @@ $dark-bg-nav: lighten(black, 13%);
 $dark-border: lighten(black, 20%);
 $dark-border-active: lighten(black, 40%);
 
+$dark-menu-border: #484848;
 $dark-list-header-bg: lighten(black, 12%);
 $dark-list-header-text: lighten(black, 90%);
 $dark-list-bg: lighten(black, 15%);

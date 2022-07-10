@@ -32,6 +32,12 @@
     background-color: darken($dark-bg, 3%);
   }
 
+  .menu-list-group-item{
+    &:after{
+      background-color: $dark-menu-border;
+    }
+  }
+
 
 
   // LIST

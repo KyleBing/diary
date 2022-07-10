@@ -1,5 +1,8 @@
 <template>
     <div class="about" :style="'height:' + insets.heightPanel + 'px'">
+        <div class="logo">
+            <img src="../assets/img/logo.svg" alt="LOGO">
+        </div>
         <h3 class="title">标题日记</h3>
         <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
         <div class="author">
@@ -32,13 +35,22 @@ export default {
     text-align: center;
     color: $bg-light;
     padding-top: 60px;
+    .logo{
+        display: flex;
+        justify-content: center;
+        img{
+            display: block;
+            width: 70px;
+        }
+    }
     .title{
-        font-size: 20px;
+        font-size: $fz-label;
         font-weight: bold;
         line-height: 30px;
         color: white;
     }
     .subtitle{
+        font-size: $fz-small;
         color: $text-about-subtitle;
         font-weight: 300;
     }
