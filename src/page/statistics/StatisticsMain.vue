@@ -2,7 +2,7 @@
     <div class="statistic-container">
         <div class="statistic-header">
             <div class="statistic-back-btn" @click="$router.back()">
-                <tab-icon alt="关闭"/>
+                <tab-icon alt="关闭" />
             </div>
             <div class="statistic-title">统计数据</div>
         </div>

@@ -1,7 +1,9 @@
 <template>
-    <img :alt="alt"
-         :title="alt"
-         :src="icons.get(alt)">
+    <div class="icon-btn">
+        <img :alt="alt"
+             :title="alt"
+             :src="icons.get(alt)">
+    </div>
 </template>
 
 <script>
@@ -39,9 +41,24 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/plugin";
-img{
-    display: block;
+.icon-btn{
     height: $height-navbar;
+    width: $height-navbar;
+    padding: 3px;
+    @extend .btn-like;
+}
+img{
+    transition: all 0.5s;
+    width: $height-navbar - 3px * 2;
+    height: $height-navbar - 3px * 2;
+    display: block;
+    background-color: rgba(255,255,255,0);
+    &:active{
+        @include border-radius(50px);
+        background-color: rgba(255,255,255,0.2);
+        opacity: 0.8;
+        transition: all 0s;
+    }
 }
 
 </style>

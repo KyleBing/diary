@@ -10,21 +10,6 @@
   background-color: $bg-main;
   .navbar-btn-group{
     display: flex;
-    img{
-      padding: 3px;
-      display: block;
-      background-color: rgba(255,255,255,0);
-      cursor: pointer;
-      width: $height-navbar;
-      height: $height-navbar;
-      transition: all 0.5s;
-      &:active{
-        @include border-radius(50px);
-        background-color: rgba(255,255,255,0.2);
-        opacity: 0.8;
-        transition: all 0s;
-      }
-    }
   }
   .brand{
     cursor: pointer;
