@@ -7,7 +7,7 @@
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
             <a href="https://github.com/KyleBing/diary-vue">GitHub.com</a>
             <a>·</a>
-            <a href="">v7.32 @ 2022-06-22</a>
+            <a href="">v7.34 @ 2022-07-11</a>
         </div>
     </div>
 </template>
