@@ -177,8 +177,14 @@ export default {
             }
         },
         diary: {
-            handler() {
+            handler(newValue) {
                 this.updateDiaryIcon()
+                if (Moment().isSame(Moment(newValue.date), 'day')){
+                    this.getCurrentTemperature()
+                } else {
+                    this.diary.temperature = ''
+                    this.diary.temperatureOutside = ''
+                }
             },
             deep: true
         },
