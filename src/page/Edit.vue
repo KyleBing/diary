@@ -184,6 +184,8 @@ export default {
                 } else {
                     this.diary.temperature = ''
                     this.diary.temperatureOutside = ''
+                    this.diaryOrigin.temperature = ''
+                    this.diaryOrigin.temperatureOutside = ''
                 }
             },
             deep: true
