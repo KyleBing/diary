@@ -77,21 +77,19 @@ export default {
             id: '',
             diary: {},
             dateObj: {},
-            heightShare: 0,
 
             isLoadingDiary: false, // 日记请求中
         }
     },
     computed:{
-        ...mapState(['categoryAll'])
+        ...mapState(['categoryAll', 'insets']),
+        heightShare(){
+            return this.insets.windowsWidth > 375 ? this.insets.windowsHeight - 60 - 100 : this.insets.windowsHeight
+        }
     },
     mounted() {
         if (this.$route.params.id) {
             this.id = this.$route.params.id
-        }
-        this.heightShare = window.innerWidth > 375 ? window.innerHeight - 60 - 100 : window.innerHeight
-        window.onresize = () => {
-            this.heightShare = window.innerWidth > 375 ? window.innerHeight - 60 - 100 : window.innerHeight
         }
         // 在载入列表之前，先获取 categoryAll
         if(this.categoryAll.length < 1){

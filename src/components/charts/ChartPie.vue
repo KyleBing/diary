@@ -135,9 +135,6 @@ export default {
             this.chart.resize()
         }
     },
-    beforeDestroy() {
-        window.onresize = null
-    }
 }
 
 </script>
