@@ -17,7 +17,7 @@
             </form>
             <div class="footer">
                 <router-link to="/register">注册</router-link>
-                <a @click="useTestAccount">使用体验账户</a>
+                <a @click="useTestAccount">试用体验账户</a>
             </div>
         </div>
     </div>
