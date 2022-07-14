@@ -47,7 +47,6 @@ export default {
     computed: {
         ...mapState(['insets', 'isShowSearchBar', 'statisticsCategory', 'statisticsYear']),
         ...mapGetters(['isInMobileMode', 'categoryMap']),
-
     },
     mounted() {
         this.getCategoryAll()
