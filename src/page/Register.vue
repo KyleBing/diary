@@ -1,6 +1,6 @@
 
 <template>
-   <div class="body-login-bg" :style="`min-height: ${heightBg}px`">
+   <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
       <div class="body-login">
          <div class="logo">
             <img :src="$icons.logo" alt="Diary Logo">
@@ -58,6 +58,7 @@
 
 <script>
 import userApi from "@/api/userApi";
+import {mapState} from "vuex";
 
 export default {
     name: 'Register',
@@ -82,17 +83,17 @@ export default {
       }
    },
    mounted() {
-      this.heightBg = window.innerHeight
       document.title = '日记 - 注册' // 变更标题
    },
    computed: {
-      verified: function () {
+       ...mapState(['insets']),
+       verified() {
          // return this.emailVerified && this.invitationVerified && this.nicknameVerified && this.password1Verified && this.password2Verified
          return this.emailVerified && this.nicknameVerified && this.password1Verified && this.password2Verified
       },
    },
    methods: {
-      regSubmit: function () {
+      regSubmit() {
          if (this.verified) {
             let requestData = {
                 nickname: this.nickname,
@@ -114,7 +115,7 @@ export default {
       }
    },
    watch: {
-      invitation: function () {
+      invitation() {
          if (this.invitationCode.length > 0) {
             this.labelInvitation = "邀请码"
             this.invitationVerified = true
@@ -123,7 +124,7 @@ export default {
             this.invitationVerified = false
          }
       },
-      nickname: function () {
+      nickname() {
          if (this.nickname.length > 0) {
             this.labelUsername = "昵称"
             this.nicknameVerified = true
@@ -132,7 +133,7 @@ export default {
             this.nicknameVerified = false
          }
       },
-      email: function () {
+      email() {
          if (/(\w|\d)+@(\w|\d)+\.\w+/i.test(this.email)) {
             this.labelEmail = "邮箱"
             this.emailVerified = true
@@ -141,7 +142,7 @@ export default {
             this.emailVerified = false
          }
       },
-      password1: function () {
+      password1() {
          if (this.password1.length > 0) {
             this.labelPassword1 = "密码"
             this.password1Verified = true
@@ -150,7 +151,7 @@ export default {
             this.password1Verified = false
          }
       },
-      password2: function () {
+      password2() {
          if (this.password1 === this.password2 && this.password1Verified) {
             this.labelPassword2 = "再次确认密码"
             this.password2Verified = true

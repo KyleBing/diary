@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${heightBg}px`">
+    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
         <div class="body-login">
             <div class="logo">
                 <img :src="$icons.logo" alt="Diary Logo">
@@ -26,6 +26,7 @@
 <script>
 import userApi from "@/api/userApi";
 import utility from "@/utility";
+import {mapState} from "vuex";
 
 export default {
     name: "Login",
@@ -35,15 +36,14 @@ export default {
             labelCheckPassword: "再次确认密码",
             email: "",
             password: "",
-            heightBg: 0,
             loginLabel: '登录'
         }
     },
     mounted() {
-        this.heightBg = window.innerHeight
         document.title = '日记 - 登录' // 变更标题
     },
     computed: {
+        ...mapState(['insets']),
         emailVerified() {
             return /(\w|\d)+@(\w|\d)+\.\w+/i.test(this.email)
         },

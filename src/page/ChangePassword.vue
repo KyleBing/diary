@@ -38,6 +38,7 @@
 <script>
 import utility from "../utility"
 import userApi from "@/api/userApi";
+import {mapState} from "vuex";
 
 export default {
     name: 'ChangePassword',
@@ -46,23 +47,22 @@ export default {
             labelCheckPassword: "再次确认密码",
             password1: "",
             password2: "",
-            heightBg: 0
         }
     },
     mounted() {
-        this.heightBg = window.innerHeight
         document.title = '日记 - 修改密码' // 变更标题
     },
     computed: {
-        verified: function () {
+        ...mapState(['insets']),
+        verified() {
             return (this.passwordVerified)
         },
-        passwordVerified: function () {
+        passwordVerified() {
             return (this.password1.length > 0 && this.password1 === this.password2)
         }
     },
     methods: {
-        changePasswordSubmit: function () {
+        changePasswordSubmit() {
             if (this.passwordVerified) {
                 let requestData = {
                     password: this.password1,
@@ -82,7 +82,7 @@ export default {
         }
     },
     watch: {
-        password2: function () {
+        password2() {
             if (this.passwordVerified) {
                 this.labelCheckPassword = "再次确认密码"
             } else {
