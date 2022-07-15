@@ -187,7 +187,9 @@ export default {
                 this.updateDiaryIcon()
 /*                if (this.isNew){
                     if (Moment(newValue.date).isSame(new Date(), 'day')){
-                        this.getCurrentTemperature()
+                        if (newValue.temperatureOutside === ''){
+                            this.getCurrentTemperature()
+                        }
                     } else {
                         this.diary.temperature = ''
                         this.diary.temperatureOutside = ''
