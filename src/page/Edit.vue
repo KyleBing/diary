@@ -159,12 +159,18 @@ export default {
             'diaryEditorContentHasChanged'
         ]),
         diaryHasChanged() {
-            return (this.diary.title !== this.diaryOrigin.title ||
-                this.diary.content !== this.diaryOrigin.content ||
-                this.diary.temperature !== this.diaryOrigin.temperature ||
-                this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
-                this.diary.weather !== this.diaryOrigin.weather ||
-                this.diary.isPublic !== this.diaryOrigin.isPublic)
+            // 无内容时，改变任何其它位置的信息都不算变化
+            if (this.diary.title === '' && this.diary.content === ''){
+                return false
+            } else {
+                return (this.diary.title !== this.diaryOrigin.title ||
+                    this.diary.content !== this.diaryOrigin.content ||
+                    this.diary.temperature !== this.diaryOrigin.temperature ||
+                    this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
+                    this.diary.weather !== this.diaryOrigin.weather ||
+                    this.diary.category !== this.diaryOrigin.category ||
+                    this.diary.isPublic !== this.diaryOrigin.isPublic)
+            }
         },
     },
 
@@ -179,14 +185,16 @@ export default {
         diary: {
             handler(newValue) {
                 this.updateDiaryIcon()
-                if (Moment().isSame(Moment(newValue.date), 'day')){
-                    this.getCurrentTemperature()
-                } else {
-                    this.diary.temperature = ''
-                    this.diary.temperatureOutside = ''
-                    this.diaryOrigin.temperature = ''
-                    this.diaryOrigin.temperatureOutside = ''
-                }
+/*                if (this.isNew){
+                    if (Moment(newValue.date).isSame(new Date(), 'day')){
+                        this.getCurrentTemperature()
+                    } else {
+                        this.diary.temperature = ''
+                        this.diary.temperatureOutside = ''
+                        this.diaryOrigin.temperature = ''
+                        this.diaryOrigin.temperatureOutside = ''
+                    }
+                }*/
             },
             deep: true
         },
@@ -384,6 +392,11 @@ export default {
             console.log(Moment(this.diary.date).isSame(new Date(), 'day'))
             if (Moment(this.diary.date).isSame(new Date(), 'day')){
                 this.getCurrentTemperature()
+            } else {
+                this.diary.temperature = ''
+                this.diary.temperatureOutside = ''
+                this.diaryOrigin.temperature = ''
+                this.diaryOrigin.temperatureOutside = ''
             }
             this.isNew = true
             this.diary = {
