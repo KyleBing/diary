@@ -1,4 +1,6 @@
 // 通用
+@import "mixins/animate";
+
 @import "mixins/font";
 @import "mixins/toast";
 
@@ -23,3 +25,5 @@
 @import "mixins/year-selector"; // 年份选择
 @import "mixins/statistics"; // 统计数据
 @import "mixins/bank-card"; // 银行卡
+
+
