@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${heightBg}px`">
+    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
         <div class="body-login">
             <!--APP-->
             <div id="reg">
