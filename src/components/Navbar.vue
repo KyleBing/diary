@@ -21,9 +21,25 @@
                 <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
                     <tab-icon alt="搜索"/>
                 </div>
-                <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
-                    <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
-                    <tab-icon v-else alt="列表详情"/>
+<!--                <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">-->
+<!--                    <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>-->
+<!--                    <tab-icon v-else alt="列表详情"/>-->
+<!--                </div>-->
+
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
+                    <span v-if="!isDiaryListShowedInFullStyle">简洁列表</span>
+                    <span v-else="!isDiaryListShowedInFullStyle">详情列表</span>
+                </div>
+
+
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('bill')">
+                    <span>筛选账单类别</span>
+                </div>
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('work')">
+                    <span>筛选工作类别</span>
+                </div>
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('other')">
+                    <span>筛选其它类别</span>
                 </div>
             </div>
 
@@ -129,6 +145,7 @@ export default {
             'currentDiary',
             'isDiaryListShowedInFullStyle',
             'insets',
+            'categoryAll',
             'isShowSearchBar',
             'isHideContent',
             'editLogoImg'
@@ -152,8 +169,33 @@ export default {
             'SET_IS_DIARY_NEED_TO_BE_SAVED',
             'SET_IS_DIARY_NEED_TO_BE_RECOVERED',
             'SET_LIST_OPERATION',
+            'SET_FILTERED_CATEGORIES',
+            'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_MENU_SHOWED'
         ]),
+
+        switchToCategory(mode){
+            switch (mode){
+                case 'bill':
+                    this.SET_FILTERED_CATEGORIES(['bill'])
+                    break;
+                case 'work':
+                    this.SET_FILTERED_CATEGORIES(['work', 'week'])
+                    break;
+                case 'other':
+                    const otherArray = this.categoryAll
+                        .filter(item => item.name_en !== 'work' && item.name_en !== 'week' && item.name_en !== 'bill')
+                        .map(item => item.name_en)
+                    this.SET_FILTERED_CATEGORIES(otherArray)
+                    break;
+                case 'all':
+                    const allArray = this.categoryAll
+                        .map(item => item.name_en)
+                    this.SET_FILTERED_CATEGORIES(allArray)
+                    break;
+            }
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+        },
 
         // 菜单操作
         menuShow() {

@@ -23,4 +23,16 @@
       height: $height-navbar;
     }
   }
+  .btn-text{
+    font-size: $fz-note;
+    line-height: 29px;
+    margin: 8px 3px;
+    padding: 0 10px;
+    color: white;
+    @extend .btn-like;
+    @include border-radius($radius-mobile);
+    &:hover{
+      background-color: transparentize(white, 0.9);
+    }
+  }
 }
