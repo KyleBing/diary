@@ -13,7 +13,7 @@
             </div>
         </transition>
 
-        <div class="diary-list-group" v-if="!diaryListShowedInFullStyle">
+        <div class="diary-list-group" v-if="!isDiaryListShowedInFullStyle">
             <div v-for="(item, index) in diariesShow" :key="index">
                 <div v-if="!item.title" class="list-header">{{ item.date.split('-').join(' - ') }}</div>
                 <diary-list-item v-else :category="item.category" :diary="item"/>
@@ -91,8 +91,8 @@ export default {
             'keywords',
             'categoryAll',
             'categoryMap',
-            'diaryListShowedInFullStyle',
-            'listNeedBeReload',
+            'isDiaryListShowedInFullStyle',
+            'isListNeedBeReload',
             'listOperation',
             'isShowSearchBar',
             'insets'
@@ -154,8 +154,8 @@ export default {
             }
             this.diariesShow = tempShowArray
         },
-        listNeedBeReload() {
-            if (this.listNeedBeReload) {
+        isListNeedBeReload() {
+            if (this.isListNeedBeReload) {
                 this.reload()
             }
         },
@@ -202,7 +202,7 @@ export default {
             'SET_KEYWORD',
             "SET_STATISTICS_CATEGORY",
             "SET_STATISTICS_YEAR",
-            'SET_LIST_NEED_BE_RELOAD',
+            'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_CATEGORY_MAP',
             'SET_CATEGORY_ALL'
@@ -274,7 +274,7 @@ export default {
                 })
                 .finally(() => {
                     // 列表加载完成后设置列表重载： false
-                    this.SET_LIST_NEED_BE_RELOAD(false)
+                    this.SET_IS_LIST_NEED_BE_RELOAD(false)
                     this.isLoading = false
                 })
         },

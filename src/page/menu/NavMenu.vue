@@ -133,7 +133,7 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'SET_LIST_NEED_BE_RELOAD',
+            'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_MENU_SHOWED'
         ]),
@@ -170,7 +170,7 @@ export default {
         },
         menuClose(){
             if (this.categoryShowed) {
-                this.SET_LIST_NEED_BE_RELOAD(true)
+                this.SET_IS_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
             } else if (this.aboutShowed) {
                 this.SET_MENU_SHOWED(true) // menu panel
@@ -180,7 +180,7 @@ export default {
                 this.bankCardShowed = false // bank card
                 this.aboutShowed = false           // about
             } else if (this.yearShowed) {
-                this.SET_LIST_NEED_BE_RELOAD(true)
+                this.SET_IS_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
             } else if (this.bankCardShowed) {
                 this.menuInit()

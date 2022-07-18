@@ -152,11 +152,11 @@ export default {
         ...mapState([
             'categoryAll',
             'currentDiary',
-            'diaryNeedToBeSaved',
-            'diaryNeedToBeRecovered',
+            'isDiaryNeedToBeSaved',
+            'isDiaryNeedToBeRecovered',
             'insets',
             'editLogoImg',
-            'diaryEditorContentHasChanged'
+            'isDiaryEditorContentHasChanged'
         ]),
         diaryHasChanged() {
             // 无内容时，改变任何其它位置的信息都不算变化
@@ -200,26 +200,26 @@ export default {
             },
             deep: true
         },
-        diaryNeedToBeSaved() {
-            if (this.diaryNeedToBeSaved) {
+        isDiaryNeedToBeSaved() {
+            if (this.isDiaryNeedToBeSaved) {
                 this.saveDiary()
             }
         },
-        diaryNeedToBeRecovered() {
-            if (this.diaryNeedToBeRecovered) {
+        isDiaryNeedToBeRecovered() {
+            if (this.isDiaryNeedToBeRecovered) {
                 this.recoverDiary()
             }
         }
     },
     methods: {
         ...mapMutations([
-            'SET_EDIT_LOGOIMG',
+            'SET_EDIT_LOGO_IMG',
             'SET_IS_SAVING_DIARY',
-            'SET_DIARY_NEED_TO_BE_SAVED',
-            'SET_DIARY_NEED_TO_BE_RECOVERED',
-            'SET_LIST_NEED_BE_RELOAD',
+            'SET_IS_DIARY_NEED_TO_BE_SAVED',
+            'SET_IS_DIARY_NEED_TO_BE_RECOVERED',
+            'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_LIST_OPERATION',
-            'SET_DIARY_EDITOR_CONTENT_HAS_CHANGED',
+            'SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED',
             'SET_CATEGORY_ALL',
             'SET_CATEGORY_MAP',
         ]),
@@ -297,11 +297,11 @@ export default {
         },
         updateDiaryIcon() {
             document.title = this.diaryHasChanged ? '日记 - 编辑中...' : '日记' // 变更标题
-            this.SET_DIARY_EDITOR_CONTENT_HAS_CHANGED(this.diaryHasChanged)
+            this.SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED(this.diaryHasChanged)
             if (this.diaryHasChanged) {
-                this.SET_EDIT_LOGOIMG(this.diary.content ? this.$icons.logo_content: this.$icons.logo_title)
+                this.SET_EDIT_LOGO_IMG(this.diary.content ? this.$icons.logo_content: this.$icons.logo_title)
             } else {
-                this.SET_EDIT_LOGOIMG(this.diary.content ? this.$icons.logo_content_saved: this.$icons.logo_title_saved)
+                this.SET_EDIT_LOGO_IMG(this.diary.content ? this.$icons.logo_content_saved: this.$icons.logo_title_saved)
             }
         },
         getDiary(id) {
@@ -328,17 +328,17 @@ export default {
             if (this.diary.title.trim().length === 0) {
                 this.diary.title = '' // clear content
                 this.$popMessage('warning', '内容未填写', null)
-                this.SET_DIARY_NEED_TO_BE_SAVED(false) // 未能成功保存时，复位 diaryNeedToBeSaved 标识
+                this.SET_IS_DIARY_NEED_TO_BE_SAVED(false) // 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
                 return
             }
             if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
                 this.$popMessage('warning', '室内温度格式不正确', null)
-                this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
             if (this.diary.temperatureOutside !== '' && !/^-?\d{1,2}$/.test(this.diary.temperatureOutside)) {
                 this.$popMessage('warning', '室外温度格式不正确', null)
-                this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
             let requestData = {
@@ -360,14 +360,14 @@ export default {
                     .then(this.processAfterSaveDiary)
                     .catch(() => {
                         this.SET_IS_SAVING_DIARY(false)
-                        this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                        this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                     })
             } else {
                 diaryApi.modify(requestData)
                     .then(this.processAfterSaveDiary)
                     .catch(() => {
                         this.SET_IS_SAVING_DIARY(false)
-                        this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                        this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                     })
             }
         },
@@ -379,7 +379,7 @@ export default {
                 // 成功后更新 origin 字符串
                 Object.assign(this.diaryOrigin, this.diary)
                 this.updateDiaryIcon() // 更新 navbar icon
-                this.SET_DIARY_NEED_TO_BE_SAVED(false)
+                this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                 this.SET_LIST_OPERATION({type: 'change', diary: this.convertToServerVersion()}) // 向列表发送改变动作
                 if (this.isNew) { // 如果是新建日记，跳转到对应路由
                     this.isNew = false
@@ -418,7 +418,7 @@ export default {
         },
         recoverDiary() {
             Object.assign(this.diary, this.diaryOrigin)
-            this.SET_DIARY_NEED_TO_BE_RECOVERED(false)
+            this.SET_IS_DIARY_NEED_TO_BE_RECOVERED(false)
         },
 
         // TODO: 日记列表显示为展开的列表时，修改日记后，星期和日期都会消失，需要手动生成添加这两个字段

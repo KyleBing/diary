@@ -6,24 +6,24 @@
                 <div @click="menuShow"
                      v-if="(!isInMobileMode && !isMenuShowed)
                      || isInMobileMode && $route.name === 'list' && !isMenuShowed">
-                    <tab-icon alt="菜单"></tab-icon>
+                    <tab-icon alt="菜单"/>
                 </div>
                 <div @click="menuClose" v-if="isMenuShowed">
-                    <tab-icon alt="关闭"></tab-icon>
+                    <tab-icon alt="关闭"/>
                 </div>
                 <div @click="$router.back()" v-if="isInMobileMode && $route.name !== 'list'">
-                    <tab-icon alt="返回"></tab-icon>
+                    <tab-icon alt="返回"/>
                 </div>
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
-                    <tab-icon v-if="isHideContent" alt="内容隐藏"></tab-icon>
-                    <tab-icon v-else alt="内容显示"></tab-icon>
+                    <tab-icon v-if="isHideContent" alt="内容隐藏"/>
+                    <tab-icon v-else alt="内容显示"/>
                 </div>
                 <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
-                    <tab-icon alt="搜索"></tab-icon>
+                    <tab-icon alt="搜索"/>
                 </div>
-                <div v-if="!isInMobileMode" @click="toggleListStyle">
-                    <tab-icon v-if="!diaryListShowedInFullStyle" alt="列表简洁"></tab-icon>
-                    <tab-icon v-else alt="列表详情"></tab-icon>
+                <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
+                    <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
+                    <tab-icon v-else alt="列表详情"/>
                 </div>
             </div>
 
@@ -31,20 +31,20 @@
             <!--NEW-->
             <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
                 <router-link to="/edit">
-                    <tab-icon alt="添加"></tab-icon>
+                    <tab-icon alt="添加"/>
                 </router-link>
             </div>
 
             <!--EDIT-->
             <div class="navbar-btn-group right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
-                <div @click="diaryRecover" v-if="diaryEditorContentHasChanged">
-                    <tab-icon alt="恢复"></tab-icon>
+                <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
+                    <tab-icon alt="恢复"/>
                 </div>
                 <div v-if="isSavingDiary">
                     <Loading :height="50" :loading="true"/>
                 </div>
                 <div @click="diarySave" v-else>
-                    <tab-icon alt="保存"></tab-icon>
+                    <tab-icon alt="保存"/>
                 </div>
             </div>
 
@@ -55,13 +55,13 @@
                     id="shareBtn"
                     @click="copySharePath"
                     :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
-                    <tab-icon alt="分享"></tab-icon>
+                    <tab-icon alt="分享"/>
                 </div>
                 <div @click="toastShow">
-                    <tab-icon alt="删除"></tab-icon>
+                    <tab-icon alt="删除"/>
                 </div>
                 <router-link :to="`/edit/${currentDiary.id}`">
-                    <tab-icon alt="编辑"></tab-icon>
+                    <tab-icon alt="编辑"/>
                 </router-link>
             </div>
 
@@ -125,9 +125,9 @@ export default {
         ...mapState([
             'isMenuShowed', // 菜单是否显示
             'isSavingDiary',
-            'diaryEditorContentHasChanged',
+            'isDiaryEditorContentHasChanged',
             'currentDiary',
-            'diaryListShowedInFullStyle',
+            'isDiaryListShowedInFullStyle',
             'insets',
             'isShowSearchBar',
             'isHideContent',
@@ -146,11 +146,11 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'SET_DIARYLIST_SHOWED_INFULL_STYLE',
+            'SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE',
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_IS_HIDE_CONTENT',
-            'SET_DIARY_NEED_TO_BE_SAVED',
-            'SET_DIARY_NEED_TO_BE_RECOVERED',
+            'SET_IS_DIARY_NEED_TO_BE_SAVED',
+            'SET_IS_DIARY_NEED_TO_BE_RECOVERED',
             'SET_LIST_OPERATION',
             'SET_MENU_SHOWED'
         ]),
@@ -164,7 +164,7 @@ export default {
         },
         toggleListStyle() {
             if (!this.isMenuShowed) {
-                this.SET_DIARYLIST_SHOWED_INFULL_STYLE(!this.diaryListShowedInFullStyle)
+                this.SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE(!this.isDiaryListShowedInFullStyle)
             }
         },
 
@@ -178,10 +178,10 @@ export default {
             this.SET_IS_HIDE_CONTENT(!this.isHideContent)
         },
         diarySave() {
-            this.SET_DIARY_NEED_TO_BE_SAVED(true)
+            this.SET_IS_DIARY_NEED_TO_BE_SAVED(true)
         },
         diaryRecover() {
-            this.SET_DIARY_NEED_TO_BE_RECOVERED(true)
+            this.SET_IS_DIARY_NEED_TO_BE_RECOVERED(true)
         },
 
         // 分享

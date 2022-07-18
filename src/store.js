@@ -24,11 +24,15 @@ export default new Vuex.Store({
       isHideContent: false, // 是否显示列表内容
 
       currentDiary: null, // 当前日记
-      diaryNeedToBeSaved: false, // 日记需要被存储
-      diaryNeedToBeRecovered: false, // 取消当前编辑的日记
-      diaryEditorContentHasChanged: false, // 日记内容已经变化
-      diaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
-      listNeedBeReload: false, // 是否刷新列表
+
+      isDiaryNeedToBeSaved: false, // 日记需要被存储
+      isDiaryNeedToBeRecovered: false, // 取消当前编辑的日记
+      isDiaryEditorContentHasChanged: false, // 日记内容已经变化
+      isDiaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
+      isListNeedBeReload: false, // 是否刷新列表
+      isSavingDiary: false, // 是否正在保存日记
+      isMenuShowed: false, // 显示菜单
+
       editLogoImg: svgIcons.logo, // 编辑页LOGO
       listOperation:{}, // 列表页的操作，增删改操作，一般不再重新加载列表
 
@@ -36,10 +40,6 @@ export default new Vuex.Store({
          // {name: '生活', name_en: 'life', color: '#fff'},
       ],
       categoryMap: new Map(),
-
-      isSavingDiary: false, // 是否正在保存日记
-
-      isMenuShowed: false, // 显示菜单
 
       dataArrayYear: [],
       dataArrayCategory: []
@@ -130,26 +130,26 @@ export default new Vuex.Store({
       SET_CURRENT_DIARY (state, payload){
          state.currentDiary = payload
       },
-      SET_DIARY_NEED_TO_BE_SAVED (state, payload){
-         state.diaryNeedToBeSaved = payload
+      SET_IS_DIARY_NEED_TO_BE_SAVED (state, payload){
+         state.isDiaryNeedToBeSaved = payload
       },
-      SET_DIARYLIST_SHOWED_INFULL_STYLE (state, payload){
-         state.diaryListShowedInFullStyle = payload
+      SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE (state, payload){
+         state.isDiaryListShowedInFullStyle = payload
       },
-      SET_LIST_NEED_BE_RELOAD(state, payload){
-         state.listNeedBeReload = payload
+      SET_IS_LIST_NEED_BE_RELOAD(state, payload){
+         state.isListNeedBeReload = payload
       },
-      SET_EDIT_LOGOIMG(state, payload){
+      SET_EDIT_LOGO_IMG(state, payload){
          state.editLogoImg = payload
       },
       SET_LIST_OPERATION(state, payload){
          state.listOperation = payload
       },
-      SET_DIARY_NEED_TO_BE_RECOVERED(state, payload){
-         state.diaryNeedToBeRecovered = payload
+      SET_IS_DIARY_NEED_TO_BE_RECOVERED(state, payload){
+         state.isDiaryNeedToBeRecovered = payload
       },
-      SET_DIARY_EDITOR_CONTENT_HAS_CHANGED(state, payload){
-         state.diaryEditorContentHasChanged = payload
+      SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED(state, payload){
+         state.isDiaryEditorContentHasChanged = payload
       },
    }
 })
