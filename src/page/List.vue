@@ -1,11 +1,17 @@
 <template>
     <div class="diary-list-group-container" :style="`min-height: ${insets.heightPanel}px`">
-        <div class="search-bar" v-show="isShowSearchBar">
-            <form @submit.prevent="search">
-                <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
-                <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
-            </form>
-        </div>
+
+        <transition
+            enter-active-class="animated-fast fadeIn"
+            leave-active-class="animated-fast faceOut"
+        >
+            <div class="search-bar" v-if="isShowSearchBar">
+                <form @submit.prevent="search">
+                    <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
+                    <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
+                </form>
+            </div>
+        </transition>
 
         <div class="diary-list-group" v-if="!diaryListShowedInFullStyle">
             <div v-for="(item, index) in diariesShow" :key="index">
