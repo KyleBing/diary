@@ -39,7 +39,7 @@ export default new Vuex.Store({
 
       isSavingDiary: false, // 是否正在保存日记
 
-      menuShowed: false,
+      isMenuShowed: false, // 显示菜单
 
       dataArrayYear: [],
       dataArrayCategory: []
@@ -74,7 +74,7 @@ export default new Vuex.Store({
          state.dataArrayYear = payload
       },
       SET_MENU_SHOWED(state, payload){
-         state.menuShowed = payload
+         state.isMenuShowed = payload
       },
       SET_IS_SAVING_DIARY(state, payload){
          state.isSavingDiary = payload

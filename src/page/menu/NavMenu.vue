@@ -4,7 +4,7 @@
         enter-active-class="animated-fast slideInLeft"
         leave-active-class="animated-fast slideOutLeft"
     >
-        <div class="menu-panel" id="menu-panel" v-if="menuShowed" :style="'height:' + insets.heightPanel + 'px'">
+        <div class="menu-panel" id="menu-panel" v-if="isMenuShowed" :style="'height:' + insets.heightPanel + 'px'">
             <div class="menu-list" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
                 <div class="menu-list-group">
                     <!--1. 搜索-->
@@ -128,7 +128,7 @@ export default {
             'dateFilter',
             'isFilterShared',
             'filteredCategories',
-            'menuShowed'
+            'isMenuShowed'
         ])
     },
     methods: {
@@ -184,7 +184,7 @@ export default {
                 this.menuInit()
             } else if (this.bankCardShowed) {
                 this.menuInit()
-            } else if (this.menuShowed) {
+            } else if (this.isMenuShowed) {
                 this.menuInit()
             }
         },
@@ -248,7 +248,7 @@ export default {
         },
     },
     watch: {
-        menuShowed(newValue){
+        isMenuShowed(newValue){
             if (newValue){
                 this.menuShow()
             } else {

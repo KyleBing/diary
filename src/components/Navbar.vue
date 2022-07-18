@@ -4,28 +4,28 @@
         <nav class="navbar" id="navbar">
             <div class="navbar-btn-group left">
                 <div @click="menuShow"
-                     v-if="(!isInMobileMode && !menuShowed)
-                     || isInMobileMode && $route.name === 'list' && !menuShowed">
+                     v-if="(!isInMobileMode && !isMenuShowed)
+                     || isInMobileMode && $route.name === 'list' && !isMenuShowed">
                     <tab-icon alt="菜单"></tab-icon>
                 </div>
-                <div @click="menuClose" v-if="menuShowed">
+                <div @click="menuClose" v-if="isMenuShowed">
                     <tab-icon alt="关闭"></tab-icon>
                 </div>
                 <div @click="$router.back()" v-if="isInMobileMode && $route.name !== 'list'">
                     <tab-icon alt="返回"></tab-icon>
                 </div>
-                <div v-show="!menuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
                     <tab-icon v-if="isHideContent" alt="内容隐藏"></tab-icon>
                     <tab-icon v-else alt="内容显示"></tab-icon>
                 </div>
-                <div v-show="!isShowSearchBar && !menuShowed" v-if="!isInMobileMode" @click="showSearchbar">
+                <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
                     <tab-icon alt="搜索"></tab-icon>
                 </div>
             </div>
 
             <!--RIGHT part-->
             <!--NEW-->
-            <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail' && !menuShowed) || !isInMobileMode">
+            <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
                 <router-link to="/edit">
                     <tab-icon alt="添加"></tab-icon>
                 </router-link>
@@ -120,7 +120,7 @@ export default {
     },
     computed: {
         ...mapState([
-            'menuShowed', // 菜单是否显示
+            'isMenuShowed', // 菜单是否显示
             'isSavingDiary',
             'diaryEditorContentHasChanged',
             'currentDiary',
@@ -160,7 +160,7 @@ export default {
             this.SET_MENU_SHOWED(false)
         },
         toggleListStyle() {
-            if (!this.menuShowed) {
+            if (!this.isMenuShowed) {
                 this.SET_DIARYLIST_SHOWED_INFULL_STYLE(!this.diaryListShowedInFullStyle)
             }
         },
