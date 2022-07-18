@@ -32,7 +32,7 @@
 <!--                </div>-->
 
 
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('bill')">
+                <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('bill')">
                     <span>筛选账单类别</span>
                 </div>
                 <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('work')">

@@ -43,16 +43,12 @@
 
                     <!--7. 关于-->
                     <div class="menu-list-group-item" @click="menuListClicked('about')">关于</div>
-
-                    <!--8. 退出-->
-                    <div class="menu-list-group-item" @click="logout">退出</div>
-
                 </div>
 
                 <div class="user-info-panel">
                     <div class="user-info">
                         <div class="user">
-                            <p class="username">{{ userInfo.nickname }}</p>
+                            <p class="username">{{ userInfo.nickname }} <span class="logout" @click="logout">退出</span></p>
                             <p class="email">{{ userInfo.email }}</p>
                         </div>
                         <div class="separator"></div>
@@ -259,6 +255,4 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-
-</style>
+<style scoped lang="sass"></style>

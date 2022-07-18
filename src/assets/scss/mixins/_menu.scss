@@ -123,6 +123,10 @@ $menu-category-list-item-height: 40px;
     .email{
       min-font-size: 10px;
     }
+    .logout{
+      color: $color-main;
+      @extend .btn-like
+    }
   }
   .statistics{
     width: 40%;
@@ -207,5 +211,11 @@ $menu-category-list-item-height: 40px;
     .menu-category-item {
       width: 40%;
     }
+  }
+}
+
+@media (max-width: $grid-separate-width-md) {
+  .user-info-panel{
+    padding: 30px 50px 50px;
   }
 }
