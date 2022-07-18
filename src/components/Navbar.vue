@@ -21,6 +21,10 @@
                 <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
                     <tab-icon alt="搜索"></tab-icon>
                 </div>
+                <div v-if="!isInMobileMode" @click="toggleListStyle">
+                    <tab-icon v-if="!diaryListShowedInFullStyle" alt="列表简洁"></tab-icon>
+                    <tab-icon v-else alt="列表详情"></tab-icon>
+                </div>
             </div>
 
             <!--RIGHT part-->
@@ -63,9 +67,8 @@
 
             <div class="brand">
                 <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
-                <a @click="toggleListStyle" v-else>
-                    <img v-if="!diaryListShowedInFullStyle" :src="$icons.logo" alt="日记">
-                    <img v-else :src="$icons.logo_content" alt="日记">
+                <a v-else>
+                    <img :src="$icons.logo" alt="日记">
                 </a>
             </div>
 

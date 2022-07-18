@@ -33,6 +33,8 @@ export default {
             iconMap.set('分享', this.$icons.tab.share)
             iconMap.set('内容隐藏', this.$icons.tab.contentHide)
             iconMap.set('内容显示', this.$icons.tab.contentShow)
+            iconMap.set('列表简洁', this.$icons.logo)
+            iconMap.set('列表详情', this.$icons.logo_content)
             return iconMap
         }
     },
