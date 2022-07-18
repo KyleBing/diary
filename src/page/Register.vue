@@ -6,7 +6,7 @@
         >
             <div class="body-login" v-if="show">
                 <div class="logo">
-                    <img :src="$icons.logo" alt="Diary Logo">
+                    <img :src="icons.logo" alt="Diary Logo">
                 </div>
                 <form id="regForm">
                     <div class="input-group">
@@ -111,12 +111,12 @@ export default {
 
                 userApi.register(requestData)
                     .then(res => {
-                        this.$popMessage('success', `${res.message}，正在前往登录`, () => {
+                        utility.popMessage('success', `${res.message}，正在前往登录`, () => {
                             this.$router.push('/login')
                         })
                     })
                     .catch(err => {
-                        this.$popMessage('danger', err.message)
+                        utility.popMessage('danger', err.message)
                     })
             }
         }

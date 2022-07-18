@@ -8,7 +8,7 @@
                 <!--APP-->
                 <div id="reg">
                     <div class="logo">
-                        <img :src="$icons.logo" alt="Diary Logo">
+                        <img :src="icons.logo" alt="Diary Logo">
                     </div>
                     <form id="regForm">
     <!--                    <div class="input-group">
@@ -78,13 +78,13 @@ export default {
 
                 userApi.changePassword(requestData)
                     .then(res => {
-                        this.$popMessage('success', `${res.message}，正在前往登录`, () => {
+                        utility.popMessage('success', `${res.message}，正在前往登录`, () => {
                             utility.deleteAuthorization()
                             this.$router.go(-1)
                         }, 2)
                     })
                     .catch(err => {
-                        this.$popMessage('danger', `${err.message}`, () => {}, 2)
+                        utility.popMessage('danger', `${err.message}`, () => {}, 2)
                     })
             }
         }

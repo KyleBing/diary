@@ -39,6 +39,7 @@ import {mapState} from "vuex";
 import StatisticPanel from "@/page/statistics/StatisticPanel";
 import statisticApi from "@/api/statisticApi";
 import ChartBar from "@/components/charts/ChartBar";
+import utility from "@/utility";
 
 export default {
     name: "StatisticUsers",
@@ -64,8 +65,8 @@ export default {
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time = this.$utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd')
-                        item.last_visit_time = this.$utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd')
+                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd')
+                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd')
                         return item
                     })
                     this.chartDataDiary = res.data.map(item => {

@@ -35,7 +35,7 @@
 
             <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
 
-            <p><img :src="$icons.EOF" alt="EOF"></p>
+            <p><img :src="icons.EOF" alt="EOF"></p>
         </div>
     </div>
 </template>
@@ -47,12 +47,15 @@ import diaryListItemLong from "../components/DiaryListItemLong"
 import {mapState, mapMutations} from 'vuex'
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: 'List',
     data() {
         return {
             showDiaryList: true,
+
+            icons: SvgIcons,
 
             haveMore: true,
             isLoading: true,

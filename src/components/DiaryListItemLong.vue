@@ -6,7 +6,7 @@
             <div class="date">{{ diary.dateString }}</div>
             <div class="weather">
                 <img v-if="diary.weather"
-                     :src="$icons.weather[diary.weather + suffix]"
+                     :src="icons.weather[diary.weather + suffix]"
                      :alt="diary.weather">
             </div>
             <div class="category">{{ diary.categoryString }}</div>
@@ -20,11 +20,17 @@
 
 <script>
 import {mapState} from "vuex";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: "DiaryListItemLong",
     props: {
         diary: Object
+    },
+    data(){
+        return {
+            icons: SvgIcons,
+        }
     },
     computed: {
         ...mapState(['isHideContent']),

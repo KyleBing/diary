@@ -1,10 +1,18 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Index from "@/page/Index";
 import utility from "@/utility";
 
-Vue.use(VueRouter)
+import Register from "@/page/Register"
+import Login from "@/page/Login"
+import ChangePassword from "@/page/ChangePassword"
+import Bill from "@/page/Bill"
+import Share from "@/page/Share"
+import Statistics from "@/page/statistics/StatisticsMain"
+
+import List from "@/page/List"
+import Detail from "@/page/Detail"
+import Edit from "@/page/Edit"
+import NotFound_404 from "@/fundation/NotFound_404";
 
 const routes = [
     {
@@ -12,27 +20,28 @@ const routes = [
         path: '/',
         component: Index ,
         children: [
-            {name: 'list'   , path: 'list'      , component: resolve => require(['@/page/List'], resolve)}, // mobile
-            {name: 'detail' , path: 'detail/:id', component: resolve => require(['@/page/Detail'], resolve)},
-            {name: 'editNew', path: 'edit'      , component: resolve => require(['@/page/Edit'], resolve)},
-            {name: 'edit'   , path: 'edit/:id'  , component: resolve => require(['@/page/Edit'], resolve)}
+            {name: 'list'   , path: 'list'      ,        component: List}, // mobile
+            {name: 'detail' , path: 'detail/:id',        component: Detail},
+            {name: 'editNew', path: 'edit'      ,        component: Edit},
+            {name: 'edit'   , path: 'edit/:id'  ,        component: Edit}
         ]
     },
-    {name: 'register',       path: '/register',        component: resolve => require(['@/page/Register'], resolve)},
-    {name: 'share',          path: '/share/:id',       component: resolve => require(['@/page/Share'], resolve),          },
-    {name: 'changePassword', path: '/change-password', component: resolve => require(['@/page/ChangePassword'], resolve), },
-    {name: 'login',          path: '/login',           component: resolve => require(['@/page/Login'], resolve),          },
-    {name: 'test',           path: '/test',            component: resolve => require(['@/page/menu/YearSelector'], resolve),   },
-    {name: 'statistics',     path: '/statistics',      component: resolve => require(['@/page/statistics/StatisticsMain'], resolve),   },
-    {name: 'bill',           path: '/bill',            component: resolve => require(['@/page/Bill'], resolve),   },
-    {path: '*',                                        component: resolve => require(['@/fundation/NotFound_404'], resolve)}
+    {name: 'register',       path: '/register',          component: Register},
+    {name: 'share',          path: '/share/:id',         component: Share         },
+    {name: 'changePassword', path: '/change-password',   component: ChangePassword },
+    {name: 'login',          path: '/login',             component: Login          },
+    {name: 'test',           path: '/test',              component: resolve => require(['@/page/menu/YearSelector'], resolve),   },
+    {name: 'statistics',     path: '/statistics',        component: Statistics   },
+    {name: 'bill',           path: '/bill',              component: Bill },
+    {name: 'notFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 
 
-const router = new VueRouter({
-    // mode: 'history', // 由于该项目是二级目录，使用 history 会导致开发与布署的地址不一
+const router = createRouter({
+    history: createWebHashHistory(),
     routes
 })
+
 
 
 router.beforeEach((to, from, next) => {
@@ -49,3 +58,4 @@ router.beforeEach((to, from, next) => {
 
 
 export default router
+

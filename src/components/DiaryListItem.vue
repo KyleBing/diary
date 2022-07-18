@@ -6,7 +6,7 @@
         <div class="detail">
             <p class="title">{{ isHideContent ? diary.title.replace(/[^，。]/g, '*'): diary.title }}</p>
             <img alt="Content" v-if="diary.content" class="icon"
-                 :src="active? $icons.content_white: $icons.content"/>
+                 :src="active? icons.content_white: icons.content"/>
             <img :alt="diary.weather" v-if="diary.weather"
                  class="icon" :src="weatherIcon"/>
         </div>
@@ -15,11 +15,18 @@
 
 <script>
 import {mapState} from "vuex";
+import ICONS from "@/assets/img/SvgIcons";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: "DiaryListItem",
     props: {
         diary: Object
+    },
+    data(){
+        return {
+            icons: SvgIcons,
+        }
     },
     computed: {
         ...mapState(['isHideContent']),
@@ -28,12 +35,12 @@ export default {
         },
         weatherIcon() {
             if (this.active) {
-                return this.$icons.weather[`${this.diary.weather}_white`]
+                return ICONS.weather[`${this.diary.weather}_white`]
             } else {
                 if (this.diary.isPublic) {
-                    return this.$icons.weather[`${this.diary.weather}_active`]
+                    return ICONS.weather[`${this.diary.weather}_active`]
                 } else {
-                    return this.$icons.weather[this.diary.weather]
+                    return ICONS.weather[this.diary.weather]
                 }
             }
         },

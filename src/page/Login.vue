@@ -6,7 +6,7 @@
         >
             <div class="body-login" v-if="show">
                 <div class="logo">
-                    <img :src="$icons.logo" alt="Diary Logo">
+                    <img :src="icons.logo" alt="Diary Logo">
                 </div>
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
                     <div class="input-group">
@@ -78,14 +78,14 @@ export default {
                         res.data.uid,
                         res.data.group_id
                     )
-                    this.$popMessage('success', res.message, () => {
+                    utility.popMessage('success', res.message, () => {
                         this.$router.push('/')
                     })
                     this.loginLabel = '登录成功'
                 })
                 .catch(err => {
                     this.loginLabel = '登录失败'
-                    this.$popMessage('danger', err.message, () => {
+                    utility.popMessage('danger', err.message, () => {
                         this.loginLabel = '登录'
                     })
                 })

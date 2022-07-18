@@ -5,7 +5,7 @@
         <div class="diary-meta" v-if="isInMobileMode && !isLoading">
             <div class="date" >{{ diary.dateShort }}</div>
             <div class="weather">
-                <img v-if="diary.weather" :src="$icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+                <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
             </div>
 
             <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
@@ -24,7 +24,7 @@
         <div class="diary-meta" v-else>
             <div class="date">{{ diary.dateLong }}</div>
             <div class="weather">
-                <img v-if="diary.weather" :src="$icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+                <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
             </div>
 
             <div class="temperature" v-if="diary.temperature">
@@ -48,7 +48,7 @@
         <div class="diary-title" v-if="diary.title">
             <h2>{{ isHideContent ? diary.title.replace(/[^，。]/g, '*') : diary.title }}</h2>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
-                <img :src="$icons.clipboard" alt="clipboard">
+                <img :src="icons.clipboard" alt="clipboard">
             </div>
         </div>
 
@@ -56,7 +56,7 @@
         <div class="diary-content" v-if="diary.content">
             <div class="content" v-html="getContentHtml(diary.content)"/>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
-                <img :src="$icons.clipboard" alt="clipboard">
+                <img :src="icons.clipboard" alt="clipboard">
             </div>
         </div>
     </div>
@@ -92,7 +92,7 @@ export default {
             },
         })
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            this.$popMessage('success', '已复制到 剪贴板', null, 2)
+            utility.popMessage('success', '已复制到 剪贴板', null, 2)
         })
 
         // 在载入列表之前，先获取 categoryAll

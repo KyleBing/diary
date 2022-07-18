@@ -8,7 +8,7 @@
 
 
 ## 使用插件
-`vue` `vue-router` `vuex` `vue-cookie` `Axios` `qs` `clipboard` `vue2-datepicker` `moment`
+`vue` `vue-router` `vuex` `Axios` `qs` `clipboard` `vue2-datepicker` `moment`
 
 
 ## 截图

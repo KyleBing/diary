@@ -84,7 +84,7 @@
             <div class="brand">
                 <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
                 <a v-else>
-                    <img :src="$icons.logo" alt="日记">
+                    <img :src="icons.logo" alt="日记">
                 </a>
             </div>
 
@@ -120,6 +120,8 @@ import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
 import NavMenu from "@/page/menu/NavMenu";
+import ICONS from "@/assets/img/SvgIcons";
+
 
 export default {
     name: "Navbar",
@@ -127,6 +129,7 @@ export default {
     data() {
         return {
             location: {}, // clipboard 使用
+            icons: ICONS,
 
             showLongList: false,
 
@@ -247,7 +250,7 @@ export default {
             diaryApi.delete(requestData)
                 .then(res => {
                     that.toastHide()
-                    this.$popMessage('success', res.message, () => {
+                    utility.popMessage('success', res.message, () => {
                         this.SET_LIST_OPERATION({type: 'delete', dairy: null, id: this.currentDiary.id})
                     }, 1) // 删除成功后等待时间不要太长
                 })

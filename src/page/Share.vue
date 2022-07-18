@@ -28,7 +28,7 @@
                         <div class="share-meta">
                             <div class="weather">
                                 <img v-if="diary.weather"
-                                     :src="$icons.weather[`${diary.weather}_active`]"
+                                     :src="icons.weather[`${diary.weather}_active`]"
                                      :alt="diary.weather">
                             </div>
                             <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">

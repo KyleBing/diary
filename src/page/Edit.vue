@@ -46,8 +46,6 @@
             <category-selector class="editor-form-category" :category="diary.category" @change="setCategory"/>
             <diary-btn :is-loading="isLoading" type="light" v-if="diary.category === 'week'" @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>
             <weather-selector class="editor-form-weather" :weather="diary.weather" @change="setWeather"/>
-
-
         </div>
     </div>
 </template>
@@ -64,6 +62,7 @@ import axios from "axios"
 import Moment from 'moment'
 import DiaryBtn from "@/components/DiaryBtn";
 import diaryApi from "@/api/diaryApi";
+import ICONS from "@/assets/img/SvgIcons";
 
 export default {
     name: 'Edit',
@@ -92,7 +91,7 @@ export default {
                 temperature: '',
                 temperatureOutside: '',
             },
-            logoImageUrl: this.$icons.logo,
+            logoImageUrl: ICONS.logo,
 
             requestData: { // 请求本周日志的 requestData
                 keywords: '',
@@ -143,7 +142,7 @@ export default {
         // 在跳转到其它页面之前判断日记是否已保存
         // TODO: 如果 title 和 content 本身就是空，现在也是空，就不用提示了
         if (this.diaryHasChanged) {
-            this.$popMessage('warning', '当前日记未保存', next(false))
+            utility.popMessage('warning', '当前日记未保存', next(false))
         } else {
             next()
         }
@@ -299,9 +298,9 @@ export default {
             document.title = this.diaryHasChanged ? '日记 - 编辑中...' : '日记' // 变更标题
             this.SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED(this.diaryHasChanged)
             if (this.diaryHasChanged) {
-                this.SET_EDIT_LOGO_IMG(this.diary.content ? this.$icons.logo_content: this.$icons.logo_title)
+                this.SET_EDIT_LOGO_IMG(this.diary.content ? ICONS.logo_content: ICONS.logo_title)
             } else {
-                this.SET_EDIT_LOGO_IMG(this.diary.content ? this.$icons.logo_content_saved: this.$icons.logo_title_saved)
+                this.SET_EDIT_LOGO_IMG(this.diary.content ? ICONS.logo_content_saved: ICONS.logo_title_saved)
             }
         },
         getDiary(id) {
@@ -327,17 +326,17 @@ export default {
         saveDiary() {
             if (this.diary.title.trim().length === 0) {
                 this.diary.title = '' // clear content
-                this.$popMessage('warning', '内容未填写', null)
+                utility.popMessage('warning', '内容未填写', null)
                 this.SET_IS_DIARY_NEED_TO_BE_SAVED(false) // 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
                 return
             }
             if (this.diary.temperature !== '' && !/^-?\d{1,2}$/.test(this.diary.temperature)) {
-                this.$popMessage('warning', '室内温度格式不正确', null)
+                utility.popMessage('warning', '室内温度格式不正确', null)
                 this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
             if (this.diary.temperatureOutside !== '' && !/^-?\d{1,2}$/.test(this.diary.temperatureOutside)) {
-                this.$popMessage('warning', '室外温度格式不正确', null)
+                utility.popMessage('warning', '室外温度格式不正确', null)
                 this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                 return
             }
@@ -375,7 +374,7 @@ export default {
         // 保存日记后要操作的
         processAfterSaveDiary(res){
             this.SET_IS_SAVING_DIARY(false)
-            this.$popMessage('success', res.message, () => {
+            utility.popMessage('success', res.message, () => {
                 // 成功后更新 origin 字符串
                 Object.assign(this.diaryOrigin, this.diary)
                 this.updateDiaryIcon() // 更新 navbar icon

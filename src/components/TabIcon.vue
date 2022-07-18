@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import ICONS from "@/assets/img/SvgIcons";
 export default {
     name: "TabIcon",
     props:{
@@ -21,20 +22,20 @@ export default {
     computed:{
         icons(){
             let iconMap = new Map()
-            iconMap.set('保存', this.$icons.tab.done)
-            iconMap.set('添加', this.$icons.tab.add)
-            iconMap.set('关闭', this.$icons.tab.close)
-            iconMap.set('返回', this.$icons.tab.back)
-            iconMap.set('删除', this.$icons.tab.delete)
-            iconMap.set('编辑', this.$icons.tab.edit)
-            iconMap.set('菜单', this.$icons.tab.menu)
-            iconMap.set('恢复', this.$icons.tab.recover)
-            iconMap.set('搜索', this.$icons.tab.search)
-            iconMap.set('分享', this.$icons.tab.share)
-            iconMap.set('内容隐藏', this.$icons.tab.contentHide)
-            iconMap.set('内容显示', this.$icons.tab.contentShow)
-            iconMap.set('列表简洁', this.$icons.logo)
-            iconMap.set('列表详情', this.$icons.logo_content)
+            iconMap.set('保存', ICONS.tab.done)
+            iconMap.set('添加', ICONS.tab.add)
+            iconMap.set('关闭', ICONS.tab.close)
+            iconMap.set('返回', ICONS.tab.back)
+            iconMap.set('删除', ICONS.tab.delete)
+            iconMap.set('编辑', ICONS.tab.edit)
+            iconMap.set('菜单', ICONS.tab.menu)
+            iconMap.set('恢复', ICONS.tab.recover)
+            iconMap.set('搜索', ICONS.tab.search)
+            iconMap.set('分享', ICONS.tab.share)
+            iconMap.set('内容隐藏', ICONS.tab.contentHide)
+            iconMap.set('内容显示', ICONS.tab.contentShow)
+            iconMap.set('列表简洁', ICONS.logo)
+            iconMap.set('列表详情', ICONS.logo_content)
             return iconMap
         }
     },
