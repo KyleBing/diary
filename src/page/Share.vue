@@ -68,6 +68,7 @@ import {mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
 import SvgIcons from "@/assets/img/SvgIcons";
+import axios from "axios";
 
 export default {
     name: 'Share',
@@ -94,35 +95,34 @@ export default {
         if (this.$route.params.id) {
             this.id = this.$route.params.id
         }
-        // 在载入列表之前，先获取 categoryAll
-        if(this.categoryAll.length < 1){
-            this.getCategoryAll()
-        } else {
-            this.reload()
-        }
     },
     methods: {
         ...mapMutations(['SET_CATEGORY_MAP', 'SET_CATEGORY_ALL']),
-        getCategoryAll(){
-            diaryApi.categoryAllGet()
-                .then(res => {
-                    this.SET_CATEGORY_ALL(res.data)
-                    let tempMap = new Map()
-                    res.data.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
-                })
-        },
-        getDiaryContent(id){
+        getDiaryInfo(){
             this.isLoadingDiary = true
             let requestData = {
                 'diaryId': this.id
             }
-            diaryApi.detail(requestData)
-                .then(res => {
+            axios
+                .all([
+                    diaryApi.categoryAllGet(),
+                    diaryApi.detail(requestData)
+                ])
+                .then(ress => {
+                    // 类别数据
+                    const categoryAll = ress[0].data
+                    this.SET_CATEGORY_ALL(categoryAll)
+                    let tempMap = new Map()
+                    categoryAll.forEach(category => {
+                        tempMap.set(category.name_en, category)
+                    })
+                    this.SET_CATEGORY_MAP(tempMap)
+
+
+                    // 日记信息
+                    const diary = ress[1].data
+
                     this.isLoadingDiary = false
-                    let diary = res.data
                     this.diary = diary
                     this.dateObj = utility.dateProcess(diary.date)
                     document.title = '日记 - ' + this.dateObj.dateFull // 变更标题
@@ -143,12 +143,13 @@ export default {
                         categoryMap.set(item.name_en, item.name)
                     })
                     diary.categoryString = categoryMap.get(diary.category)
+
                 })
                 .catch(() => {
                     this.isLoadingDiary = false
                     this.diary = {}
                 })
-        }
+        },
     },
     watch: {
         $route(to) {
@@ -157,7 +158,7 @@ export default {
             }
         },
         id(newValue) {
-            this.getDiaryContent(newValue)
+            this.getDiaryInfo()
         }
     }
 }
