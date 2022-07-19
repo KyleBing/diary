@@ -1,6 +1,4 @@
-
 # 标题日记
-
 
 > “ 用一句话概括你的一天 ”
 
@@ -8,7 +6,7 @@
 
 
 ## 使用插件
-`vue` `vue-router` `vuex` `Axios` `qs` `clipboard` `vue2-datepicker` `moment`
+`vue3` `vue-router` `vuex` `axios` `qs` `clipboard` `@vuepic/vue-datepicker` `moment`
 
 
 ## 截图
@@ -68,7 +66,7 @@ PC
 ## 二、安装使用
 该项目包含两个部分，前端和后台。
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
-- 后台：[https://github.com/KyleBing/diary-portal-node](https://github.com/KyleBing/diary-portal-node) `nodejs`
+- 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
 
 ## 三、开发说明
