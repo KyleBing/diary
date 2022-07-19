@@ -26,8 +26,8 @@
                             <th class="label center">具体</th>
                         </tr>
                         <tr v-for="item in month.days" :key="item.date">
-<!--                            <td class="number">{{// $utility.dateFormatter(new Date(item.date), 'MM/dd')}}</td>-->
-                            <td class="number">{{$utility.dateProcess(item.date).dateShort}} {{$utility.dateProcess(item.date).weekShort}}</td>
+<!--                            <td class="number">{{// dateFormatter(new Date(item.date), 'MM/dd')}}</td>-->
+                            <td class="number">{{dateProcess(item.date).dateShort}} {{dateProcess(item.date).weekShort}}</td>
                             <td class="number">
                                 <span v-if="item.sumIncome > 0">+{{item.sumIncome.toFixed(0) || '-'}}</span>
                                 <span v-else>{{-item.sumIncome.toFixed(0) || '-'}}</span>
@@ -62,6 +62,7 @@ import billApi from "@/api/billApi";
 import Loading from "@/components/Loading";
 import {mapState} from "vuex";
 import TabIcon from "@/components/TabIcon";
+import utility from "@/utility";
 
 export default {
     name: "Bill",
@@ -104,7 +105,8 @@ export default {
                 .catch(err => {
                     this.isLoading = false
                 })
-        }
+        },
+        dateProcess: utility.dateProcess
     }
 }
 </script>
