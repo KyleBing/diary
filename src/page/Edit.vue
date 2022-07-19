@@ -20,12 +20,14 @@
                 <div class="editor-input-item">
                     <label>日期</label>
                     <Datepicker :editable="false"
-                                 v-model="diary.date"
-                                 :confirm="true"
-                                 :default-value="new Date()"
-                                 placeholder="---- -- --"
-                                 input-class="date"
-                                 :clearable="false" type="datetime"/>
+                                v-model="diary.date"
+                                format="yyyy-MM-dd HH:mm:ss"
+                                selectText="确定"
+                                cancelText="取消"
+                                locale="zh-CN"
+                                placeholder="---- -- --"
+                                input-class="date"
+                                :clearable="false"/>
                 </div>
                 <div class="editor-input-item">
                     <label for="temperature">身处 ℃</label>
