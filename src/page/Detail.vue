@@ -113,7 +113,9 @@ export default {
     },
     watch: {
         $route(to) {
-            this.showDiary(to.params.id)
+            if (to.params.id){
+                this.showDiary(to.params.id)
+            }
         }
     },
     methods: {

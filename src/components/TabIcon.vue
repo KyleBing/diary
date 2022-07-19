@@ -22,6 +22,7 @@ export default {
     computed:{
         icons(){
             let iconMap = new Map()
+            iconMap.set('LOGO', ICONS.logo)
             iconMap.set('保存', ICONS.tab.done)
             iconMap.set('添加', ICONS.tab.add)
             iconMap.set('关闭', ICONS.tab.close)
@@ -55,7 +56,7 @@ img{
     width: $height-navbar - 3px * 2;
     height: $height-navbar - 3px * 2;
     display: block;
-    background-color: rgba(255,255,255,0);
+    background-color: transparent;
     &:active{
         @include border-radius(50px);
         background-color: rgba(255,255,255,0.2);

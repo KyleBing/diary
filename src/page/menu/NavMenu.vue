@@ -48,7 +48,7 @@
                 <div class="user-info-panel">
                     <div class="user-info">
                         <div class="user">
-                            <p class="username">{{ userInfo.nickname }} <span class="logout" @click="logout">退出</span></p>
+                            <p class="username">{{ userInfo.nickname }} <span class="logout ml-3" @click="logout">退出</span></p>
                             <p class="email">{{ userInfo.email }}</p>
                         </div>
                         <div class="separator"></div>

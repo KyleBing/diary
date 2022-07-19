@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>list-detail</title>
-    <g id="list-detail" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <title>tabicon/ list-detail</title>
+    <g id="tabicon/-list-detail" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Rectangle" fill="#E5E5EA" x="10" y="12" width="24" height="2"></rect>
         <rect id="Rectangle-Copy-2" fill="#E5E5EA" x="10" y="24" width="24" height="2"></rect>
         <rect id="Rectangle-Copy" fill="#E5E5EA" x="10" y="16" width="24" height="5"></rect>

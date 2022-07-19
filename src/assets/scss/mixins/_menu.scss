@@ -123,9 +123,13 @@ $menu-category-list-item-height: 40px;
     .email{
       min-font-size: 10px;
     }
-    .logout{
+    .logout {
       color: $color-main;
-      @extend .btn-like
+      opacity: 0.5;
+      @extend .btn-like;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
   .statistics{
