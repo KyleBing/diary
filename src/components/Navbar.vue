@@ -235,9 +235,8 @@ export default {
         // 分享
         copySharePath() {
             let clipboard = new Clipboard('#shareBtn')
-            let that = this
             clipboard.on('success', function (e) {
-                that.$popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
+                utility.popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
                 e.clearSelection()
             })
             clipboard.on('error', function () {

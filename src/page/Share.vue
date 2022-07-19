@@ -67,12 +67,15 @@ import utility from "../utility"
 import {mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: 'Share',
     components: {Loading},
     data() {
         return {
+            icons: SvgIcons,
+
             showToast: false,
             id: '',
             diary: {},
