@@ -103,7 +103,7 @@ export default {
             this.getCategoryAll()
         }
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.clipboard.destroy()
     },
     computed:{

@@ -105,7 +105,7 @@ export default {
         }
     },
     components: {DiaryBtn, categorySelector, weatherSelector},
-    beforeDestroy() {
+    beforeUnmount() {
         document.onkeydown = null // 去除按键绑定事件
     },
     mounted() {

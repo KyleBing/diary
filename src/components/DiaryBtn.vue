@@ -30,6 +30,7 @@ export default {
             default: 'active' // active | inactive | light
         }
     },
+    emits: ['click', 'submit'],
     data(){
         return {
         }

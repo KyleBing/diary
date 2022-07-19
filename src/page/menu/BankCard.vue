@@ -128,7 +128,7 @@ export default {
             utility.popMessage('success', '卡号已复制到剪贴板', null, 2)
         })
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.clipboard.destroy()
     },
     computed: {
