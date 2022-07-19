@@ -1,6 +1,6 @@
 {
   "name": "diary-vue-pc",
-  "version": "7.3.5",
+  "version": "8.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode develop",
