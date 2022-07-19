@@ -63,12 +63,15 @@
 <script>
 import userApi from "@/api/userApi";
 import {mapState} from "vuex";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: 'Register',
     data() {
         return {
             show: false,
+
+            icons: SvgIcons,
 
             labelInvitation: '邀请码',
             labelEmail: '邮箱',

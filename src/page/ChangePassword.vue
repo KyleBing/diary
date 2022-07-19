@@ -24,7 +24,7 @@
                             <input v-model="password2" type="password" name="password2" id="password2" class="focused">
                         </div>
 
-                        <button class="btn"
+                        <button class="btn mt-8"
                                 :class="passwordVerified ? 'btn-active' : 'btn-inactive'"
                                 type="button"
                                 @click.prevent="changePasswordSubmit">确定修改
@@ -44,12 +44,15 @@
 import utility from "../utility"
 import userApi from "@/api/userApi";
 import {mapState} from "vuex";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: 'ChangePassword',
     data() {
         return {
             show: false,
+
+            icons: SvgIcons,
 
             labelCheckPassword: "再次确认密码",
             password1: "",

@@ -1864,6 +1864,13 @@
   resolved "https://registry.npmmirror.com/@vue/web-component-wrapper/-/web-component-wrapper-1.3.0.tgz#b6b40a7625429d2bd7c2281ddba601ed05dc7f1a"
   integrity sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==
 
+"@vuepic/vue-datepicker@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.npmmirror.com/@vuepic/vue-datepicker/-/vue-datepicker-3.3.1.tgz#1775ec9672516782e3bdc1a9324ba8340f56883e"
+  integrity sha512-tPCJ9KttSJugLDDaB+RMYibuJR9FHtN1L0FEmHvAC8lg5bLsXqzLppu1vp0I1kIU/F5BhBCyWq6Ho8NdYgfNcg==
+  dependencies:
+    date-fns "^2.28.0"
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.npmmirror.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
@@ -2960,10 +2967,10 @@ csstype@^2.6.8:
   resolved "https://registry.npmmirror.com/csstype/-/csstype-2.6.20.tgz#9229c65ea0b260cf4d3d997cb06288e36a8d6dda"
   integrity sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==
 
-date-format-parse@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.nlark.com/date-format-parse/download/date-format-parse-0.2.7.tgz#a2f78bca857a821785b48abedd4426c65aa7b918"
-  integrity sha1-oveLyoV6gheFtIq+3UQmxlqnuRg=
+date-fns@^2.28.0:
+  version "2.28.0"
+  resolved "https://registry.npmmirror.com/date-fns/-/date-fns-2.28.0.tgz#9570d656f5fc13143e50c975a3b6bbeb46cd08b2"
+  integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -6606,13 +6613,6 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
-
-vue2-datepicker@^3.6.2:
-  version "3.10.1"
-  resolved "https://registry.nlark.com/vue2-datepicker/download/vue2-datepicker-3.10.1.tgz#4e5149bb82481257183477bc6de649a43720e47a"
-  integrity sha1-TlFJu4JIElcYNHe8beZJpDcg5Ho=
-  dependencies:
-    date-format-parse "^0.2.7"
 
 vue@^3.2.13:
   version "3.2.37"

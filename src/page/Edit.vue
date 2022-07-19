@@ -19,7 +19,7 @@
             <div class="editor-form-input">
                 <div class="editor-input-item">
                     <label>日期</label>
-                    <date-picker :editable="false"
+                    <Datepicker :editable="false"
                                  v-model="diary.date"
                                  :confirm="true"
                                  :default-value="new Date()"
@@ -54,9 +54,6 @@
 import utility from "../utility"
 import categorySelector from "../components/CategorySelector"
 import weatherSelector from "../components/WeatherSelector"
-import DatePicker from 'vue2-datepicker'
-import 'vue2-datepicker/locale/zh-cn'
-import 'vue2-datepicker/index.css'
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
 import Moment from 'moment'
@@ -105,7 +102,7 @@ export default {
 
         }
     },
-    components: {DiaryBtn, categorySelector, weatherSelector, DatePicker},
+    components: {DiaryBtn, categorySelector, weatherSelector},
     beforeDestroy() {
         document.onkeydown = null // 去除按键绑定事件
     },

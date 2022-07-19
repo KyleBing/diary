@@ -68,6 +68,7 @@ import utility from "../utility"
 import {mapGetters, mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: 'Detail',
@@ -78,6 +79,8 @@ export default {
             id: '',
             diary: {},
             isLoading: false, // loading
+
+            icons: SvgIcons,
 
             clipboard: null // clipboard obj
         }

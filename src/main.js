@@ -4,7 +4,8 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
-createApp(App).use(store).use(router).mount('#app')
+const app = createApp(App)
+app.use(store).use(router).mount('#app')
 
 
 
@@ -22,3 +23,8 @@ Moment.locale('zh', {
       dow: 1
    }
 })
+
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+
+app.component('Datepicker', Datepicker);

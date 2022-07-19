@@ -11,6 +11,7 @@
 
 <script>
 import utility from "../utility"
+import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: "WeatherSelector",
@@ -24,6 +25,7 @@ export default {
         return {
             weatherSelected: this.weather,
             weathers: utility.WEATHER,
+            icons: SvgIcons
         }
     },
     watch: {
