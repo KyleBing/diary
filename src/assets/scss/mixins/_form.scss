@@ -4,9 +4,9 @@ input[type=radio]
   display: none;
 }
 
-$height-radio: 20px;
-$radio-gap: 2px;
-$radio-length-timer: 2;
+$height-radio: 18px;
+$radio-gap: 3px;
+$radio-length-timer: 2.2;
 
 input[type=checkbox] + label.switch
 {
