@@ -34,8 +34,8 @@ export default {
             iconMap.set('分享', ICONS.tab.share)
             iconMap.set('内容隐藏', ICONS.tab.contentHide)
             iconMap.set('内容显示', ICONS.tab.contentShow)
-            iconMap.set('列表简洁', ICONS.logo)
-            iconMap.set('列表详情', ICONS.logo_content)
+            iconMap.set('列表简洁', ICONS.tab.listSimple)
+            iconMap.set('列表详情', ICONS.tab.listDetail)
             return iconMap
         }
     },

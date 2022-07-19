@@ -24,6 +24,8 @@ export default {
         share: require('./tabicon/share.svg'),
         contentHide: require('./tabicon/eye-close.svg'),
         contentShow: require('./tabicon/eye-open.svg'),
+        listSimple: require('./tabicon/list-simple.svg'),
+        listDetail: require('./tabicon/list-detail.svg'),
     },
     weather: {
         cloudy: require('./weather/cloudy.svg'),
