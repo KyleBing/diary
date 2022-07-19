@@ -1,7 +1,8 @@
 <template>
     <div :class="['article', {active: active}, `article-${diary.category}`]">
         <router-link :to="`/detail/${diary.id}`"
-                     class="article-header">
+                     class="article-header"
+        >
             <div class="week">{{ diary.weekday }}</div>
             <div class="date">{{ diary.dateString }}</div>
             <div class="weather">
@@ -11,9 +12,14 @@
             </div>
             <div class="category">{{ diary.categoryString }}</div>
         </router-link>
-        <div class="article-body">
-            <div class="title">{{ isHideContent ? diary.title.replace(/[^，。]/g, '*'): diary.title }}</div>
-            <div class="content" v-html="isHideContent ? diary.content.replace(/[^，。]/g, '*'): diary.content"></div>
+
+        <div class="article-body" v-if="isHideContent">
+            <div class="title">{{ diary.title.replace(/[^，。]/g, '*') }}</div>
+            <div class="content" v-html="diary.content.replace(/[^，。]/g, '*')"/>
+        </div>
+        <div class="article-body" v-else>
+            <div class="title">{{ diary.title }}</div>
+            <div class="content" v-html="diary.content"/>
         </div>
     </div>
 </template>
@@ -27,7 +33,7 @@ export default {
     props: {
         diary: Object
     },
-    data(){
+    data() {
         return {
             icons: SvgIcons,
         }
