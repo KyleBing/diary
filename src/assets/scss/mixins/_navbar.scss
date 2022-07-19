@@ -32,7 +32,7 @@
     @extend .btn-like;
     @include border-radius($radius-mobile);
     &:hover{
-      background-color: transparentize(white, 0.9);
+      background-color: transparentize(white, 0.85);
     }
   }
 }

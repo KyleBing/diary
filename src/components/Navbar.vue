@@ -33,13 +33,16 @@
 
 
                 <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('bill')">
-                    <span>筛选账单类别</span>
+                    <span>账单</span>
                 </div>
                 <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('work')">
-                    <span>筛选工作类别</span>
+                    <span>工作</span>
                 </div>
                 <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('other')">
-                    <span>筛选其它类别</span>
+                    <span>其它</span>
+                </div>
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('all')">
+                    <span>全部</span>
                 </div>
             </div>
 
