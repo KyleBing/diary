@@ -44,6 +44,9 @@
                 <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('all')">
                     <span>全部</span>
                 </div>
+                <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('shared')">
+                    <span>共享</span>
+                </div>
             </div>
 
             <!--RIGHT part-->
@@ -154,7 +157,8 @@ export default {
             'categoryAll',
             'isShowSearchBar',
             'isHideContent',
-            'editLogoImg'
+            'editLogoImg',
+            'isFilterShared'
         ]),
         ...mapGetters(['isInMobileMode'])
     },
@@ -177,7 +181,8 @@ export default {
             'SET_LIST_OPERATION',
             'SET_FILTERED_CATEGORIES',
             'SET_IS_LIST_NEED_BE_RELOAD',
-            'SET_MENU_SHOWED'
+            'SET_MENU_SHOWED',
+            'SET_IS_FILTER_SHARED'
         ]),
 
         switchToCategory(mode){
@@ -198,6 +203,12 @@ export default {
                     const allArray = this.categoryAll
                         .map(item => item.name_en)
                     this.SET_FILTERED_CATEGORIES(allArray)
+                    break;
+                case 'shared':
+                    const all = this.categoryAll
+                        .map(item => item.name_en)
+                    this.SET_FILTERED_CATEGORIES(all)
+                    this.SET_IS_FILTER_SHARED(!this.isFilterShared)
                     break;
             }
             this.SET_IS_LIST_NEED_BE_RELOAD(true)

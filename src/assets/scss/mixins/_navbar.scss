@@ -31,6 +31,12 @@
     color: white;
     @extend .btn-like;
     @include border-radius($radius-mobile);
+    &.active{
+      background-color: $color-main;
+      &:hover{
+        background-color: $color-main;
+      }
+    }
     &:hover{
       background-color: transparentize(white, 0.85);
     }
