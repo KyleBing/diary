@@ -82,7 +82,7 @@ export default {
         this.addScrollEvent()
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
         // 在载入列表之前，先获取 categoryAll
-        if(this.categoryAll.length < 1){
+        if (this.categoryAll.length < 1) {
             this.getCategoryAll()
         } else {
             this.reload()
@@ -108,7 +108,7 @@ export default {
                 this.reload()
             }
         },
-        keywordShow(newValue){
+        keywordShow(newValue) {
             this.SET_KEYWORD(newValue.split(' '))
         },
         diaries() {
@@ -209,9 +209,8 @@ export default {
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_CATEGORY_MAP',
             'SET_CATEGORY_ALL'
-            ]
-        ),
-        getCategoryAll(){
+        ]),
+        getCategoryAll() {
             diaryApi.categoryAllGet()
                 .then(res => {
                     this.SET_CATEGORY_ALL(res.data)

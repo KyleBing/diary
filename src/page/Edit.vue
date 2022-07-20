@@ -101,7 +101,6 @@ export default {
                 dateFilter: '' // 日记年月筛选
             },
             isLoading: false,
-
         }
     },
     components: {DiaryBtn, categorySelector, weatherSelector},
