@@ -21,8 +21,8 @@
         </div>
 
         <div class="diary-list-group" v-else>
-            <div v-for="(item, index) in diaries" :key="index">
-                <div v-if="!item.title" class="list-header">{{ item.date }}</div>
+            <div v-for="(item, index) in diariesShow" :key="index">
+                <div v-if="!item.title" class="list-header big">{{ item.date }}</div>
                 <diary-list-item-long v-else :diary="item"/>
             </div>
         </div>
@@ -112,6 +112,7 @@ export default {
             this.SET_KEYWORD(newValue.split(' '))
         },
         diaries() {
+            console.log('diaries changed')
             let tempShowArray = []
             if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
                 let lastDiary = this.diaries[0]
