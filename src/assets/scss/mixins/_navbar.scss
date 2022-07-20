@@ -32,9 +32,11 @@
     @extend .btn-like;
     @include border-radius($radius-mobile);
     &.active{
-      background-color: $color-main;
+      background-color: white;
+      color: $text-title;
       &:hover{
-        background-color: $color-main;
+        background-color: white;
+        color: $text-title;
       }
     }
     &:hover{

@@ -21,6 +21,7 @@ export default {
             type: String
         }
     },
+    emits: ['change'],
     data() {
         return {
             categorySelected: this.category

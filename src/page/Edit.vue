@@ -173,7 +173,7 @@ export default {
 
     watch: {
         $route(to) {
-            console.log(to)
+            // console.log(to)
             if (to.params.id) {
                 this.getDiary(to.params.id)
             } else {

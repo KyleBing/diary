@@ -21,6 +21,7 @@ export default {
             default: 'sunny'
         }
     },
+    emits: ['change'],
     data() {
         return {
             weatherSelected: this.weather,
