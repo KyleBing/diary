@@ -30,7 +30,7 @@ export default {
 }
 h3{
     color: $text-title;
-    font-size: $fz-big;
+    font-size: $fz-title;
     line-height: 1;
     padding-bottom: 15px;
 }

@@ -33,7 +33,7 @@
       display: block;
       line-height: 1.5;
       padding: 8px 15px;
-      font-size: $fz-big;
+      font-size: $fz-title;
       color: white;
       font-weight: bold;
       transition: all .5s;
@@ -72,7 +72,7 @@
   width: 100%;
   display: block;
   font-weight: bold;
-  font-size: $fz-big;
+  font-size: $fz-title;
   cursor: pointer;
   @include border-radius();
   &:active{

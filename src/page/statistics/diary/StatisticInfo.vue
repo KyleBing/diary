@@ -55,7 +55,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: $fz-big;
+    font-size: $fz-title;
 }
 
 $show-value-dash: true;
