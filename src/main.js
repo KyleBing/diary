@@ -8,6 +8,10 @@ const app = createApp(App)
 app.use(store).use(router).mount('#app')
 
 
+// tooltip
+import FloatingVue from 'floating-vue'
+app.use(FloatingVue)
+import 'floating-vue/dist/style.css'
 
 
 // 使移动端支持 :hover 样式

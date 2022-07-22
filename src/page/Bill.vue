@@ -40,8 +40,8 @@
                                 <span v-if="item.sum > 0">+{{item.sum.toFixed(0) || 0}}</span>
                                 <span v-else>{{-item.sum.toFixed(0) || 0}}</span>
                             </td>-->
-                            <td class="label">
-                                {{ item.items.map(item => item.item).join('、') }}
+                            <td class="label" v-tooltip.right="tooltipContentWithoutReturn(item.items)">
+                                {{ tooltipContentWithoutReturn(item.items) }}
                             </td>
                         </tr>
                     </table>
@@ -74,7 +74,9 @@ export default {
             monthMap: new Map()
         }
     },
-    computed: {...mapState(['insets'])},
+    computed: {
+        ...mapState(['insets']),
+    },
     mounted() {
         this.monthMap = new Map([
             ['01', '一月'],
@@ -93,6 +95,16 @@ export default {
         this.getBillData()
     },
     methods: {
+        tooltipContentWithoutReturn(billItemArray){
+            return billItemArray.map(item => {
+                return  `${item.item}`
+            }).join(',')
+        },
+        tooltipContent(billItemArray){
+            return billItemArray.map(item => {
+                return  `${item.item}`
+            }).join('\n')
+        },
         getBillData(){
             this.isLoading = true
             billApi.sorted({
