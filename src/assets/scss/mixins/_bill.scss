@@ -18,6 +18,7 @@
   padding-bottom: 15px;
   @include border-radius($radius-pc);
   border: 2px solid $color-border;
+  font-family: 'JetBrains Mono';
   .bill-card-header{
     //background-color: $bg-light;
     display: flex;
@@ -37,6 +38,34 @@
       flex-flow: column nowrap;
       display: flex;
       justify-content: space-between;
+    }
+  }
+
+  .food-info{
+    font-size: $fz-list-content;
+    padding: 20px;
+    text-align: right;
+    border-top: 1px solid $color-border;
+    //display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    & > *{
+      padding: 0 5px;
+    }
+    .sum{
+      position: relative;
+      margin-top: 5px;
+      padding-top: 5px;
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 1px;
+        display: block;
+        background-color: $color-border;
+      }
     }
   }
 
@@ -105,21 +134,7 @@
   &.green{background: $gradient-green;}
   &.blue{background: $gradient-blue;}
 }
-.bold{
-  font-weight: bold;
-}
-.number{
-  font-family: 'Droid Sans Mono';
-}
-.income{
-  color: $gradient-aqua;
-}
-.output{
-  color: $gradient-pumpkin;
-}
-.sum{
-  color: black;
-}
+
 
 @media (max-width: $grid-separate-width-sm) {
   .bill-content{

@@ -12,9 +12,29 @@
                     <div class="bill-card-header">
                         <div class="title">{{ monthMap.get(month.month) }}</div>
                         <div class="bill-brief">
-                            <div class="number bold income">+{{ month.sumIncome.toFixed(0) }}</div>
-                            <div class="number bold output">{{ month.sumOutput.toFixed(0) }}</div>
-                            <div class="number bold sum">{{ month.sum.toFixed(0) }}</div>
+                            <div class="number text-green">
+                                +{{ month.sumIncome.toFixed(0) }} <span class="text-gray">收</span>
+                            </div>
+                            <div class="number text-orange">
+                                {{ month.sumOutput.toFixed(0) }} <span class="text-gray">支</span>
+                            </div>
+                            <div class="number text-black">
+                                {{ month.sum.toFixed(0) }} <span class="text-gray">合</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="food-info">
+                        <div class="number text-orange breakfast">
+                            {{ month.food.breakfast.toFixed(2) }} <span class="text-gray">早</span>
+                        </div>
+                        <div class="number text-orange launch">
+                            {{ month.food.launch.toFixed(2) }} <span class="text-gray">中</span>
+                        </div>
+                        <div class="number text-orange dinner">
+                            {{ month.food.dinner.toFixed(2) }} <span class="text-gray">晚</span>
+                        </div>
+                        <div class="number sum">
+                            {{ month.food.sum.toFixed(2) }} <span class="text-gray">合</span>
                         </div>
                     </div>
                     <table>
@@ -27,7 +47,7 @@
                         </tr>
                         <tr v-for="item in month.days" :key="item.date">
 <!--                            <td class="number">{{// dateFormatter(new Date(item.date), 'MM/dd')}}</td>-->
-                            <td class="number">{{dateProcess(item.date).dateShort}} {{dateProcess(item.date).weekShort}}</td>
+                            <td class="number">{{dateProcess(item.date).dateShort}} <span class="text-gray">{{dateProcess(item.date).weekShort}}</span></td>
                             <td class="number">
                                 <span v-if="item.sumIncome > 0">+{{item.sumIncome.toFixed(0) || '-'}}</span>
                                 <span v-else>{{-item.sumIncome.toFixed(0) || '-'}}</span>

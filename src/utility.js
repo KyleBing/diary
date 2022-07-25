@@ -123,7 +123,7 @@ function dateProcess(dateString) {
       year: year,
       weekday: WEEKDAY[week],
       weekShort: WEEKDAY_SHORT[week],
-      dateShort:`${padNumberWith0(month)}/${padNumberWith0(day)}`,
+      dateShort:`${padNumberWith0(month)}-${padNumberWith0(day)}`,
       date:`${padNumberWith0(month)}月${padNumberWith0(day)}日`,
       dateFull: `${year}年${month}月${day}日`,
       dateFullSlash: `${year}/${month}/${day}`,
