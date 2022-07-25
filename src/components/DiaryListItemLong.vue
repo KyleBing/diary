@@ -1,7 +1,8 @@
 <template>
     <div :class="['article', {active: active}, `article-${diary.category}`]">
-        <router-link :to="`/detail/${diary.id}`"
-                     class="article-header"
+        <router-link
+            :to="`/detail/${diary.id}`"
+            :class="['article-header']"
         >
             <div class="week">{{ diary.weekday }}</div>
             <div class="date">{{ diary.dateString }}</div>
@@ -31,7 +32,7 @@ import SvgIcons from "@/assets/img/SvgIcons";
 export default {
     name: "DiaryListItemLong",
     props: {
-        diary: Object
+        diary: Object,
     },
     data() {
         return {

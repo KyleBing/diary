@@ -11,6 +11,9 @@ $fz-md-article: 14px;
     display: flex;
     justify-content: flex-end;
     padding: 6px 15px;
+    &.hidden{
+      display: none !important;
+    }
     & > *{
       padding-left: 30px;
     }

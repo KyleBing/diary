@@ -144,15 +144,11 @@ export default {
                                 date: currentDiary.date.substring(0, 7)
                             })
                         }
-                        tempShowArray.push({  // 添加当前日记内容
-                            id: currentDiary.id,
-                            date: currentDiaryDay === lastDiaryDay ? '' : currentDiaryDay,
-                            title: currentDiary.title,
-                            content: currentDiary.content,
-                            weather: currentDiary.weather,
-                            category: currentDiary.category,
-                            isPublic: currentDiary.is_public === 1
-                        })
+                        let tempDiary = {}
+                        Object.assign(tempDiary, currentDiary)
+                        tempDiary.isPublic = currentDiary.is_public === 1
+                        tempDiary.date = currentDiaryDay === lastDiaryDay ? '' : currentDiaryDay
+                        tempShowArray.push(tempDiary) // 添加当前日记内容
                     }
                 }
             }
