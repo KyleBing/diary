@@ -111,7 +111,65 @@ export default {
         keywordShow(newValue) {
             this.SET_KEYWORD(newValue.split(' '))
         },
-        diaries() {
+        isListNeedBeReload() {
+            if (this.isListNeedBeReload) {
+                this.reload()
+            }
+        },
+        listOperation({type, diary, id}) {
+            console.log('list operation: ', type,diary,id)
+            switch (type) {
+                case 'add':
+                    let posInsert = 0
+                    for (let i = 0; i < this.diaries.length; i++) {
+                        let currentDiary = this.diaries[i]
+                        if (diary.date > currentDiary.date) {
+                            posInsert = i
+                            break
+                        }
+                    }
+                    this.diaries.splice(posInsert, 0, diary)
+                    this.refreshDiariesShow()
+                    break
+                case 'delete':
+                    this.diaries.map((item, index) => {
+                        if (item.id === id) {
+                            this.diaries.splice(index, 1)
+                            if (this.diaries[index]) {
+                                // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
+                                this.$router.push('/detail/' + this.diaries[index].id)
+                            } else {
+                                // 如果没有，就跳转到主页
+                                this.$router.push('/')
+                            }
+                        }
+                    })
+                    this.refreshDiariesShow()
+                    break
+                case 'change':
+                    // TODO: 修改日记的日期时排序调整位置
+                    this.diaries.map((item, index) => {
+                        if (Number(item.id) === Number(diary.id)) {
+                            this.diaries.splice(index, 1, diary)
+                        }
+                    })
+                    this.refreshDiariesShow()
+                    break
+            }
+        }
+    },
+    methods: {
+        ...mapMutations([
+            'SET_KEYWORD',
+            "SET_STATISTICS_CATEGORY",
+            "SET_STATISTICS_YEAR",
+            'SET_IS_LIST_NEED_BE_RELOAD',
+            'SET_IS_SHOW_SEARCH_BAR',
+            'SET_CATEGORY_MAP',
+            'SET_CATEGORY_ALL'
+        ]),
+        // 刷新 diaries show
+        refreshDiariesShow(){
             console.log('diaries changed')
             let tempShowArray = []
             if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
@@ -154,59 +212,6 @@ export default {
             }
             this.diariesShow = tempShowArray
         },
-        isListNeedBeReload() {
-            if (this.isListNeedBeReload) {
-                this.reload()
-            }
-        },
-        listOperation({type, diary, id}) {
-            switch (type) {
-                case 'add':
-                    let posInsert = 0
-                    for (let i = 0; i < this.diaries.length; i++) {
-                        let currentDiary = this.diaries[i]
-                        if (diary.date > currentDiary.date) {
-                            posInsert = i
-                            break
-                        }
-                    }
-                    this.diaries.splice(posInsert, 0, diary)
-                    break
-                case 'delete':
-                    this.diaries.map((item, index) => {
-                        if (item.id === id) {
-                            this.diaries.splice(index, 1)
-                            if (this.diaries[index]) {
-                                // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
-                                this.$router.push('/detail/' + this.diaries[index].id)
-                            } else {
-                                // 如果没有，就跳转到主页
-                                this.$router.push('/')
-                            }
-                        }
-                    })
-                    break
-                case 'change':
-                    // TODO: 修改日记的日期时排序调整位置
-                    this.diaries.map((item, index) => {
-                        if (Number(item.id) === Number(diary.id)) {
-                            this.diaries.splice(index, 1, diary)
-                        }
-                    })
-                    break
-            }
-        }
-    },
-    methods: {
-        ...mapMutations([
-            'SET_KEYWORD',
-            "SET_STATISTICS_CATEGORY",
-            "SET_STATISTICS_YEAR",
-            'SET_IS_LIST_NEED_BE_RELOAD',
-            'SET_IS_SHOW_SEARCH_BAR',
-            'SET_CATEGORY_MAP',
-            'SET_CATEGORY_ALL'
-        ]),
         getCategoryAll() {
             diaryApi.categoryAllGet()
                 .then(res => {
@@ -270,6 +275,7 @@ export default {
 
                     // diary operation
                     this.diaries = this.diaries.concat(newDiariesList)
+                    this.refreshDiariesShow()
                 })
                 .finally(() => {
                     // 列表加载完成后设置列表重载： false
