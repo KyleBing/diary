@@ -51,9 +51,11 @@
 }
 
 .search-bar{
+  position: sticky;
+  top: 0;
   background-color: $bg-searchbar;
-  position: relative;
   padding: 8px 10px;
+  z-index: $z-header;
   input{
     width: 100%;
     line-height: 25px;
