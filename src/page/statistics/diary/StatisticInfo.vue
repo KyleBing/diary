@@ -2,8 +2,8 @@
     <div class="statistic-info">
         <statistic-panel>
             <div class="main-statistic">
-                <span>共享 {{ statisticsCategory.shared }} 篇，</span>
-                <span>总计 {{ statisticsCategory.amount }} 篇</span>
+                <div>共享 <span class="number bold">{{ statisticsCategory.shared}}</span></div>
+                <div>总计 <span class="number bold">{{ statisticsCategory.amount }}</span></div>
             </div>
 
         </statistic-panel>
@@ -45,118 +45,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../../assets/scss/plugin";
-.statistic-info{
-    flex-shrink: 0;
-    flex-grow: 1;
-}
-
-.main-statistic{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: $fz-title;
-}
-
-$show-value-dash: true;
-
-.info-list-group{
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row nowrap;
-    > * {
-        width: 50%;
-    }
-}
-.info-list{
-    font-size: $fz-list-content;
-    margin-bottom: 15px;
-    &:last-child{
-        margin-bottom: 0;
-    }
-    .info-item{
-        position: relative;
-        justify-content: space-between;
-        align-items: flex-start;
-        display: flex;
-        line-height: 1.8;
-        &:hover{
-            &:after{
-                border-bottom-color: $color-main;
-            }
-        }
-        &.invalid{
-            @if $show-value-dash {
-                &::after{
-                    content: none;
-                }
-            }
-            .key{
-                color: $text-label;
-            }
-            .value{
-                color: $text-label;
-                &:before{
-                    content: '--';
-                }
-            }
-        }
-        .key{
-            @if $show-value-dash {
-                padding-right: 20px;
-                z-index: 10;
-                background-color: $bg-light;
-            }
-            color: $text-content;
-            flex-shrink: 0;
-        }
-        .value-group{
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
-        .unit{
-            margin-left: 3px;
-            font-size: 0.7rem;
-            font-weight: normal;
-        }
-
-        .value{
-            @if $show-value-dash {
-                padding-left: 20px;
-                z-index: 10;
-                background-color: $bg-light;
-            }
-            font-weight: bold;
-            color: $color-main;
-            text-align: right;
-            letter-spacing: 0.5px;
-            font-family: 'PTSans', sans-serif;
-        }
-        @if $show-value-dash {
-            &::after{
-                z-index: 1;
-                content: '';
-                top: 50%;
-                width: 100%;
-                display: block;
-                border-bottom: 1px dashed $color-border;
-                position: absolute;
-            }
-        }
-    }
-}
-
-
-
-@media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
-    .info-list-group{
-        flex-flow: column nowrap;
-        & > *{
-            width: 100%;
-        }
-    }
-}
-
-
-
+@import "statistic-info";
 </style>

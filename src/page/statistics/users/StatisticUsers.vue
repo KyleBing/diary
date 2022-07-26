@@ -65,8 +65,8 @@ export default {
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd')
-                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd')
+                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd hh:mm:ss')
+                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd hh:mm:ss')
                         return item
                     })
                     this.chartDataDiary = res.data.map(item => {
