@@ -8,7 +8,18 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-start;
-  font-size: $fz-big;
+  .main-statistic-item{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .label{
+      font-size: $fz-title;
+      margin-right: 20px;
+    }
+    .value{
+      font-size: $fz-big;
+    }
+  }
 }
 
 $show-value-dash: true;

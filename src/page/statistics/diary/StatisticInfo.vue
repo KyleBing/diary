@@ -2,8 +2,12 @@
     <div class="statistic-info">
         <statistic-panel>
             <div class="main-statistic">
-                <div>共享 <span class="number bold">{{ statisticsCategory.shared}}</span></div>
-                <div>总计 <span class="number bold">{{ statisticsCategory.amount }}</span></div>
+                <div class="main-statistic-item">
+                    <div class="label">共享</div> <div class="number value">{{ statisticsCategory.shared}}</div>
+                </div>
+                <div class="main-statistic-item">
+                    <div class="label">总计</div> <div class="number value">{{ statisticsCategory.amount }}</div>
+                </div>
             </div>
 
         </statistic-panel>
