@@ -174,10 +174,12 @@ export default {
             let tempShowArray = []
             if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
                 let lastDiary = this.diaries[0]
+                console.log(lastDiary)
+                let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date))
                 tempShowArray.push({ // 添加年月
-                    date: lastDiary.date.substring(0, 7)
+                    date: lastDiaryDateString.substring(0, 7)
                 })
-                let currentDay = Number(lastDiary.date.slice(8, 10))
+                let currentDay = Number(lastDiaryDateString.slice(8, 10))
                 tempShowArray.push({  // 添加当前日记内容
                     id: lastDiary.id,
                     date: currentDay,
@@ -192,14 +194,16 @@ export default {
                     for (let i = 1; i < this.diaries.length; i++) {
                         lastDiary = this.diaries[i - 1] // 更新上一条日记指向
                         let currentDiary = this.diaries[i]
-                        let lastDiaryMonth = lastDiary.date.substring(0, 7)
-                        let lastDiaryDay = Number(lastDiary.date.substring(8, 10))
-                        let currentDiaryMonth = currentDiary.date.substring(0, 7)
-                        let currentDiaryDay = Number(currentDiary.date.substring(8, 10))
+                        let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date))
+                        let currentDiaryDateString = utility.dateFormatter(new Date(currentDiary.date))
+                        let lastDiaryMonth = lastDiaryDateString.substring(0, 7)
+                        let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
+                        let currentDiaryMonth = currentDiaryDateString.substring(0, 7)
+                        let currentDiaryDay = Number(currentDiaryDateString.substring(8, 10))
                         // console.log(lastDiaryMonth, currentDiaryMonth)
                         if (lastDiaryMonth !== currentDiaryMonth) {
                             tempShowArray.push({ // 添加年月
-                                date: currentDiary.date.substring(0, 7)
+                                date: currentDiaryDateString.substring(0, 7)
                             })
                         }
                         let tempDiary = {}
