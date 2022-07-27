@@ -1,21 +1,18 @@
-# 标题日记
-
-> “ 用一句话概括你的一天 ”
-
-在线试用地址： [https://kylebing.cn/diary](https://kylebing.cn/diary) 点击右下角体验账号登录即可
+# " 标题日记 "
+> 用一句话概括你的一天
 
 
-## 使用插件
-`vue3` `vue-router` `vuex` `axios` `qs` `clipboard` `@vuepic/vue-datepicker` `moment`
+**试用地址** 点击登录界面右下角的体验账号登录即可
+> [https://kylebing.cn/diary](https://kylebing.cn/diary) 
 
 
-## 截图
 
-PC 
 
-![2021-09-01 17 26 25](https://user-images.githubusercontent.com/12215982/131647475-149d1c2a-bfad-4c9a-baf2-24ad48bfca32.png)
-![2022-05-11 105631](https://user-images.githubusercontent.com/12215982/167760064-6fa7b2ba-e165-4062-85b7-817a9bd250b0.png)
+## 界面
 
+PC
+<img width="1624" alt="Screen Shot 2022-07-27 at 22 56 12" src="https://user-images.githubusercontent.com/12215982/181280079-1d983dc4-1dec-4d90-9866-03e18f334b0a.png">
+<img width="1624" alt="Screen Shot 2022-07-27 at 22 56 22" src="https://user-images.githubusercontent.com/12215982/181280097-32844207-010b-4d30-b356-763e1a497046.png">
 
 移动端
 
@@ -36,9 +33,9 @@ PC
 一天记录一条记录，一目了然的查看近一个月以来经历的事。
 
 #### 2. 主要功能
-每天记录一句话，或添加大片的日记内容。
+
 - 可以同时记录当天的室内、室外温度、天气情况
-- 可以指定日记的类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章
+- 可以指定日记的类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章、账单
 - 列表中同日的日记只显示一个日期时间。
 - 可以根据关键字搜索日记标题或内容。
 - 菜单中可以根据日期、类别对日记进行筛选。
@@ -64,24 +61,36 @@ PC
 
 
 ## 二、安装使用
-该项目包含两个部分，前端和后台。
-- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
-- 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
+该项目包含两个部分：
+
+> 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
+
+> 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
 
 ## 三、开发说明
 配置存储：
-所有配置信息都保存在 LocalStorage 中
+所有配置信息都保存在 `LocalStorage` 中
 - `DiaryConfig`: 用户的配置信息（类别筛选，日期筛选，关键字）
 - `DiaryAuthorization`: 用户信息（用户名，token，uid）
 
+## 四、使用插件
+- `vue3` 
+- `vue-router` 
+- `vuex` 
+- `axios` 
+- `qs` 
+- `clipboard` 
+- `@vuepic/vue-datepicker` 
+- `moment`
 
-## 四、支持
+
+## 五、支持
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
 
-## 五、项目周期
+## 六、项目周期
 
-> `2018.08.14` 至 `作者逝世`
+`2018.08.14` ~ `作者离世的那一天`
