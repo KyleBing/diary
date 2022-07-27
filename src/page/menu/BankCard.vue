@@ -71,6 +71,7 @@ import {mapState, mapMutations} from 'vuex'
 import bankCardApi from "@/api/bankCardApi";
 import ClipboardJS from "clipboard";
 import Loading from "@/components/Loading";
+import utility from "@/utility";
 
 export default {
     name: "BankCard",
