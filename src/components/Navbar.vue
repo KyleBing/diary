@@ -2,7 +2,7 @@
     <div class="navbar-container">
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
-            <div class="navbar-btn-group left">
+            <div class="navbar-btn-group float-left">
                 <div @click="menuShow"
                      v-if="(!isInMobileMode && !isMenuShowed)
                      || isInMobileMode && $route.name === 'list' && !isMenuShowed">
@@ -51,14 +51,14 @@
 
             <!--RIGHT part-->
             <!--NEW-->
-            <div class="navbar-btn-group right" v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
+            <div class="navbar-btn-group float-right" v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
                 <router-link to="/edit">
                     <tab-icon alt="添加"/>
                 </router-link>
             </div>
 
             <!--EDIT-->
-            <div class="navbar-btn-group right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
+            <div class="navbar-btn-group float-right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
                 <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
                     <tab-icon alt="恢复"/>
                 </div>
@@ -71,7 +71,7 @@
             </div>
 
             <!--DETAIL-->
-            <div class="navbar-btn-group right" v-if="$route.name === 'detail' && currentDiary">
+            <div class="navbar-btn-group float-right" v-if="$route.name === 'detail' && currentDiary">
                 <div
                     v-if="currentDiary && currentDiary.is_public === 1"
                     id="shareBtn"
