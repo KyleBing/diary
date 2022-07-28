@@ -4,7 +4,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th class="left">用户名</th>
+                    <th class="text-left">用户名</th>
                     <th>日记</th>
                     <th>码表</th>
                     <th class="hide-in-mobile">注册时间</th>
@@ -13,11 +13,11 @@
                 </thead>
                 <tbody>
                 <tr v-for="item in users" :key="item.uid">
-                    <td class="left">{{item.nickname}}</td>
+                    <td class="text-left">{{item.nickname}}</td>
                     <td class="number">{{ item.count_diary }}</td>
                     <td class="number">{{ item.count_dict }}</td>
-                    <td class="number hide-in-mobile">{{ item.register_time }}</td>
-                    <td :class="['number', {'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
+                    <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
+                    <td :class="['text-right',' number', {'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
                 </tr>
                 </tbody>
 
@@ -105,12 +105,7 @@ export default {
         text-align: right;
         font-size: $fz-list-content;
         padding: 5px 5px;
-        &.left{
-            text-align: left;
-        }
-        &.right{
-            text-align: left;
-        }
+
         &.highlight{
             color: $color-main;
         }
