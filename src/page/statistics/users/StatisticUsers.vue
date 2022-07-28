@@ -14,10 +14,10 @@
                 <tbody>
                 <tr v-for="item in users" :key="item.uid">
                     <td class="left">{{item.nickname}}</td>
-                    <td>{{ item.count_diary }}</td>
-                    <td>{{ item.count_dict }}</td>
-                    <td class="hide-in-mobile">{{ item.register_time }}</td>
-                    <td :class="['right', {'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
+                    <td class="number">{{ item.count_diary }}</td>
+                    <td class="number">{{ item.count_dict }}</td>
+                    <td class="number hide-in-mobile">{{ item.register_time }}</td>
+                    <td :class="['number', {'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
                 </tr>
                 </tbody>
 
