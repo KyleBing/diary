@@ -64,6 +64,7 @@
 import userApi from "@/api/userApi";
 import {mapState} from "vuex";
 import SvgIcons from "@/assets/img/SvgIcons";
+import utility from "@/utility";
 
 export default {
     name: 'Register',
@@ -82,7 +83,7 @@ export default {
             email: '',
             password1: '',
             password2: '',
-            invitationCode: '',
+            invitationCode: 'kylebingooOO',
             invitationVerified: false,
             nicknameVerified: false,
             emailVerified: false,
