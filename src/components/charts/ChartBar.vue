@@ -1,5 +1,8 @@
 <template>
-    <div ref="BarDom" class="charts" :style="`height: 350px; width: ${width}`"></div>
+    <div ref="BarDom"
+         class="charts"
+         :style="`height: 300px; width: ${width}`"
+    />
 </template>
 
 <script>
@@ -93,7 +96,9 @@ export default {
             this.option = {
                 grid: {
                     bottom: 40,
-                    right: 10
+                    right: 10,
+                    top: 10,
+                    left: 40
                 },
                 title: {
                     text: '',

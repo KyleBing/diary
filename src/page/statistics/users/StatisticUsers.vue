@@ -5,10 +5,10 @@
                 <thead>
                 <tr>
                     <th class="left">用户名</th>
-                    <th>日记数量</th>
-                    <th>码表数</th>
+                    <th>日记</th>
+                    <th>码表</th>
                     <th class="hide-in-mobile">注册时间</th>
-                    <th class="hide-in-mobile">最后访问时间</th>
+                    <th>最后访问时间</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -17,7 +17,7 @@
                     <td>{{ item.count_diary }}</td>
                     <td>{{ item.count_dict }}</td>
                     <td class="hide-in-mobile">{{ item.register_time }}</td>
-                    <td :class="['hide-in-mobile',{'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
+                    <td :class="['right', {'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
                 </tr>
                 </tbody>
 
@@ -25,11 +25,8 @@
 
 
         </statistic-panel>
-        <statistic-panel title="">
-            <chart-bar title="用户日记数量" :data="chartDataDiary"/>
-        </statistic-panel>
-        <statistic-panel title="">
-            <chart-bar title="用户码表数量" :data="chartDataDict"/>
+        <statistic-panel title="用户日记数量">
+            <chart-bar title="" :data="chartDataDiary"/>
         </statistic-panel>
     </div>
 </template>
@@ -65,8 +62,8 @@ export default {
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd hh:mm:ss')
-                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd hh:mm:ss')
+                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy.MM.dd hh:mm')
+                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy.MM.dd hh:mm')
                         return item
                     })
                     this.chartDataDiary = res.data.map(item => {
@@ -138,6 +135,11 @@ export default {
         flex-flow: column nowrap;
         &>*{
             width: 100%;
+        }
+    }
+    .user-list{
+        th, td{
+            padding: 2px;
         }
     }
 }

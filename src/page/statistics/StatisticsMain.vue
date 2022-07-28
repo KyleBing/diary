@@ -5,11 +5,18 @@
                 <tab-icon alt="关闭" />
             </div>
             <div class="statistic-title">统计数据</div>
+            <div class="main-statistic">
+                <div class="main-statistic-item">
+                    <div class="label">共享</div> <div class="number value">{{ statisticsCategory.shared}}</div>
+                </div>
+                <div class="main-statistic-item">
+                    <div class="label">总计</div> <div class="number value">{{ statisticsCategory.amount }}</div>
+                </div>
+            </div>
         </div>
         <div class="statistic-content" :style="`height:${insets.heightPanel}px`">
 
             <div class="statistic-diary">
-                <statistic-info/>
                 <statistic-charts/>
             </div>
 

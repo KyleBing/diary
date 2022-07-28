@@ -1,26 +1,19 @@
 @import "../../../assets/scss/plugin";
 .statistic-info{
   flex-shrink: 0;
-  flex-grow: 1;
 }
 
-.main-statistic{
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  .main-statistic-item{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    .label{
-      font-size: $fz-title;
-      margin-right: 20px;
-    }
-    .value{
-      font-size: $fz-big;
-    }
-  }
+.statistic-charts{
+  width: 100%;
+  color: $color-main;
 }
+
+.statistic-group{
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
+
 
 $show-value-dash: true;
 
@@ -33,6 +26,10 @@ $show-value-dash: true;
   }
 }
 .info-list{
+  width: 200px;
+  margin-right: 5%;
+  height: 300px;
+  overflow-y: auto;
   font-size: $fz-list-content;
   margin-bottom: 15px;
   &:last-child{
@@ -43,6 +40,7 @@ $show-value-dash: true;
     justify-content: space-between;
     align-items: flex-start;
     display: flex;
+    font-family: 'JetBrains Mono';
     line-height: 1.8;
     &:hover{
       &:after{
@@ -94,7 +92,6 @@ $show-value-dash: true;
       color: $color-main;
       text-align: right;
       letter-spacing: 0.5px;
-      font-family: 'PTSans', sans-serif;
     }
     @if $show-value-dash {
       &::after{
@@ -120,3 +117,18 @@ $show-value-dash: true;
     }
   }
 }
+
+
+@media (max-width: $grid-separate-width-sm) {
+  .statistic-group{
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  .info-list{
+    width: 100%;
+    margin: 0;
+    height: auto;
+  }
+
+}
+

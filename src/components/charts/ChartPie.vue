@@ -1,5 +1,9 @@
 <template>
-    <div ref="BarDom" class="charts" :style="`height: 350px; width: ${width}`"></div>
+    <div
+        ref="BarDom"
+        class="charts"
+        :style="`height: 300px; width: ${width}`"
+    />
 </template>
 
 <script>
@@ -73,10 +77,10 @@ export default {
             this.option = {
 
                 grid: {
-                    top: 20,
-                    bottom: 20,
-                    left: 20,
-                    right: 20
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0
                 },
                 title: {
                     text: '',
@@ -92,7 +96,7 @@ export default {
                     {
                         name: '饼状图',
                         type: 'pie',
-                        radius: '60%',
+                        radius: '70%',
                         data: [
                             // {value: 1048, name: '搜索引擎'},
                         ],

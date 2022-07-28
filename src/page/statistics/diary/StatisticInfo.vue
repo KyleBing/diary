@@ -1,17 +1,5 @@
 <template>
     <div class="statistic-info">
-        <statistic-panel>
-            <div class="main-statistic">
-                <div class="main-statistic-item">
-                    <div class="label">共享</div> <div class="number value">{{ statisticsCategory.shared}}</div>
-                </div>
-                <div class="main-statistic-item">
-                    <div class="label">总计</div> <div class="number value">{{ statisticsCategory.amount }}</div>
-                </div>
-            </div>
-
-        </statistic-panel>
-
         <div class="info-list-group">
             <statistic-panel title="年份统计">
                 <div class="info-list">
@@ -49,5 +37,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "statistic-info";
 </style>

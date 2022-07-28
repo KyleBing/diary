@@ -174,7 +174,6 @@ export default {
             let tempShowArray = []
             if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
                 let lastDiary = this.diaries[0]
-                console.log(lastDiary)
                 let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date))
                 tempShowArray.push({ // 添加年月
                     date: lastDiaryDateString.substring(0, 7)

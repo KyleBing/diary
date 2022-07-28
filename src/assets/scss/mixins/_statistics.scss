@@ -30,14 +30,35 @@
   background-color: $bg-main;
   display: flex;
   color: white;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   .statistic-title{
+    flex-grow: 1;
     font-size: $fz-title;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
   }
   .statistic-back-btn{
+  }
+
+  .main-statistic{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    .main-statistic-item{
+      margin-right: 20px;
+      flex-flow: row nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      .label{
+        font-size: $fz-title;
+        margin-right: 10px;
+      }
+      .value{
+        font-size: $fz-title;
+      }
+    }
   }
 }
 
@@ -49,6 +70,9 @@
 }
 
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
+  .statistic-content{
+    padding: 20px;
+  }
 }
 
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
