@@ -26,7 +26,7 @@
 
         </statistic-panel>
         <statistic-panel title="用户日记数量">
-            <chart-bar title="" :data="chartDataDiary"/>
+            <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
         </statistic-panel>
     </div>
 </template>
@@ -89,12 +89,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../../assets/scss/plugin";
-.statistic-user{
-    flex-shrink: 0;
-    flex-grow: 1;
-    display: flex;
-    flex-flow: row nowrap;
-}
+
 
 .user-list{
     flex-grow: 1;

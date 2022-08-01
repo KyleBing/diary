@@ -36,6 +36,10 @@ export default {
             type: String,
             default: ''
         },
+        widthInit: {
+            type: String,
+            default: '500px'
+        },
     },
     watch: {
         data(newValue) {
@@ -54,6 +58,8 @@ export default {
     mounted() {
         if (window.innerWidth< 400){
             this.width = '100%'
+        } else {
+            this.width = this.widthInit
         }
         this.$nextTick(() => {
             this.initChart()
