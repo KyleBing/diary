@@ -178,3 +178,15 @@
     }
   }
 }
+
+
+.bill-detail-list{
+  font-size: $fz-small;
+  td{
+    padding: 1px 0 1px 5px;
+    &.price{
+      text-align: right;
+    }
+  }
+}
+

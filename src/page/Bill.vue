@@ -50,7 +50,7 @@
                             <th class="label center">具体</th>
                         </tr>
                         <tr v-for="item in month.days" :key="item.date">
-                            <!--                            <td class="number">{{// dateFormatter(new Date(item.date), 'MM/dd')}}</td>-->
+                            <!-- <td class="number">{{// dateFormatter(new Date(item.date), 'MM/dd')}}</td> -->
                             <td class="center number">{{ dateProcess(item.date).dateShort }}
                                 <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
                             <td class="number">
@@ -65,7 +65,7 @@
                                                             <span v-if="item.sum > 0">+{{item.sum.toFixed(0) || 0}}</span>
                                                             <span v-else>{{-item.sum.toFixed(0) || 0}}</span>
                                                         </td>-->
-                            <td class="label center" v-tooltip.right="tooltipContentWithoutReturn(item.items)">
+                            <td class="label center" v-tooltip.right="{content: tooltipContent(item.items), html: true}">
                                 {{ tooltipContentWithoutReturn(item.items) }}
                             </td>
                         </tr>
@@ -121,14 +121,23 @@ export default {
     },
     methods: {
         tooltipContentWithoutReturn(billItemArray) {
-            return billItemArray.map(item => {
-                return `${item.item}`
-            }).join(',')
+            return billItemArray
+                .map(item => {
+                    return `${item.item}`
+                })
+                .join('，')
         },
         tooltipContent(billItemArray) {
-            return billItemArray.map(item => {
-                return `${item.item}`
-            }).join('\n')
+            let listContent =  billItemArray.map(item => {
+                return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
+            }).join('')
+            console.log(listContent)
+            return `
+                    <table class="bill-detail-list">
+                    <tbody>
+                    ${listContent}
+                    </tbody>
+                    </table>`
         },
         getBillData() {
             this.isLoading = true
