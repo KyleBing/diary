@@ -1,5 +1,5 @@
 <template>
-    <div :class="['bank-card', getCardBgName(card.cardName)]"  v-for="(card, index) in cardList" :key="index">
+    <div :class="['bank-card', getCardBgName(card.cardName)]">
         <div class="card-no" :data-clipboard="card.cardNo.replaceAll(' ', '')">{{ card.cardNo }}</div>
         <div class="card-index">{{index + 1}}</div>
         <div class="card-main-info">
@@ -7,14 +7,23 @@
             <div class="card-type">{{ card.cardType }}</div>
         </div>
 
-        <div class="card-note">{{ card.note }}</div>
-        <!--                <div class="copy-btn" @click="copyCardNo">
-                            <img src="../../assets/img/clipboard.svg" alt="copy">
-                        </div>-->
+        <div class="card-note">{{ }}</div>
         <div class="card-detail-list">
-            <div class="card-detail-list-item">
-                <div class="label"></div>
-                <div class="value"></div>
+            <div class="card-detail-list-item" v-if="card.cardInitBank">
+                <div class="label">开户行</div>
+                <div class="value">{{card.cardInitBank}}</div>
+            </div>
+            <div class="card-detail-list-item" v-if="card.countUsage">
+                <div class="label">已刷次数</div>
+                <div class="value">{{card.countUsage}}</div>
+            </div>
+            <div class="card-detail-list-item" v-if="card.date">
+                <div class="label">日期</div>
+                <div class="value">{{card.date}}</div>
+            </div>
+            <div class="card-detail-list-item" v-if="card.verifyCode">
+                <div class="label">识别码</div>
+                <div class="value">{{card.verifyCode}}</div>
             </div>
         </div>
     </div>
@@ -27,26 +36,37 @@ import utility from "@/utility";
 export default {
     name: "BankCard",
     props: {
-        card: {
-
-        }
+        card: {},
+        index: 0
+    },
+    computed: {
+        mapCardBg(){
+            let tempMap = new Map()
+            tempMap.set('招商', 'bank-bg-white')
+            tempMap.set('农行', 'bank-bg-green')
+            tempMap.set('工商', 'bank-bg-red')
+            tempMap.set('建行', 'bank-bg-blue')
+            return tempMap
+        },
     },
     methods: {
+        getCardBgName(cardName){
+            if (/招商/g.test(cardName)){
+                return this.mapCardBg.get('招商')
+            } else if (/农行|农业/g.test(cardName)) {
+                return this.mapCardBg.get('农行')
+            } else if (/工商/g.test(cardName)) {
+                return this.mapCardBg.get('工商')
+            } else if (/建行|建设银行/g.test(cardName)) {
+                return this.mapCardBg.get('建行')
+            } else {
+                return 'bank-bg-white'
+            }
+        },
+    },
 
-    },
-    beforeUnmount() {
-        this.clipboard.destroy()
-    },
     mounted() {
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.card-no', {
-            text: trigger => {
-                return trigger.getAttribute('data-clipboard')
-            },
-        })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '卡号已复制到剪贴板', null, 2)
-        })
+
     }
 }
 </script>
