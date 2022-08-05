@@ -131,7 +131,6 @@ export default {
             let listContent =  billItemArray.map(item => {
                 return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
             }).join('')
-            console.log(listContent)
             return `
                     <table class="bill-detail-list">
                     <tbody>

@@ -90,7 +90,7 @@ import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import YearSelector from "@/page/menu/YearSelector";
 import About from "@/page/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
-import BankCard from "@/page/menu/BankCard";
+import BankCard from "@/page/Card/BankCardList";
 
 export default {
     name: "NavMenu",
