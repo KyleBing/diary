@@ -179,6 +179,7 @@ export default {
                     date: lastDiaryDateString.substring(0, 7)
                 })
                 let currentDay = Number(lastDiaryDateString.slice(8, 10))
+                console.log(lastDiary)
                 tempShowArray.push({  // 添加当前日记内容
                     id: lastDiary.id,
                     date: currentDay,
@@ -186,7 +187,7 @@ export default {
                     content: lastDiary.content,
                     weather: lastDiary.weather,
                     category: lastDiary.category,
-                    isPublic: lastDiary.is_public === '1'
+                    isPublic: lastDiary.is_public === 1
                 })
 
                 if (this.diaries.length > 1) {  // 再判断第二个日记与第一个的关系
