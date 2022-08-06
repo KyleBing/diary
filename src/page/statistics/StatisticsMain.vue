@@ -1,10 +1,6 @@
 <template>
     <div class="statistic-container">
-        <div class="statistic-header">
-            <div class="statistic-back-btn" @click="$router.back()">
-                <tab-icon alt="关闭" />
-            </div>
-            <div class="statistic-title">统计数据</div>
+        <page-header title="统计数据">
             <div class="main-statistic">
                 <div class="main-statistic-item">
                     <div class="label">共享</div> <div class="number value">{{ statisticsCategory.shared}}</div>
@@ -13,9 +9,8 @@
                     <div class="label">总计</div> <div class="number value">{{ statisticsCategory.amount }}</div>
                 </div>
             </div>
-        </div>
+        </page-header>
         <div class="statistic-content" :style="`height:${insets.heightPanel}px`">
-
             <div class="statistic-diary">
                 <statistic-charts/>
             </div>
@@ -39,10 +34,12 @@ import StatisticCharts from "@/page/statistics/diary/StatisticCharts";
 import statisticApi from "@/api/statisticApi";
 import StatisticUsers from "@/page/statistics/users/StatisticUsers";
 import diaryApi from "@/api/diaryApi";
+import PageHeader from "@/framework/PageHeader";
 
 export default {
     name: 'StatisticsMain',
     components: {
+        PageHeader,
         StatisticUsers,
         StatisticCharts,
         TabIcon,
@@ -137,6 +134,26 @@ export default {
 @import "../../assets/scss/plugin";
 .back-btn{
     background-color: $bg-menu;
+}
+
+.main-statistic{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    .main-statistic-item{
+        margin-right: 20px;
+        flex-flow: row nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .label{
+            font-size: $fz-title;
+            margin-right: 10px;
+        }
+        .value{
+            font-size: $fz-title;
+        }
+    }
 }
 
 </style>

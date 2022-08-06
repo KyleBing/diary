@@ -1,11 +1,6 @@
 <template>
     <div class="statistic-container">
-        <div class="statistic-header">
-            <div class="statistic-back-btn" @click="$router.back()">
-                <tab-icon alt="关闭"/>
-            </div>
-            <div class="statistic-title">账单</div>
-        </div>
+        <page-header title="账单"/>
         <div class="bill-content" :style="`height:${insets.heightPanel}px`">
             <div class="bill-container" v-if="!isLoading">
                 <div class="bill" v-for="month in billYearData" :key="month.id">
@@ -88,10 +83,11 @@ import Loading from "@/components/Loading";
 import {mapState} from "vuex";
 import TabIcon from "@/components/TabIcon";
 import utility from "@/utility";
+import PageHeader from "@/framework/PageHeader";
 
 export default {
     name: "Bill",
-    components: {TabIcon, Loading},
+    components: {PageHeader, TabIcon, Loading},
     data() {
         return {
             billYearData: [],

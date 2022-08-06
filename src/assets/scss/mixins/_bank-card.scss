@@ -1,6 +1,9 @@
 $bank-card-padding: 30px;
 $bank-card-gap: 20px;
 
+.bank-card-container{
+  background-color: $bg-menu;
+}
 .bank-card-list{
   padding: $bank-card-padding;
 }

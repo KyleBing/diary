@@ -25,7 +25,7 @@
                     <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
                     <tab-icon v-else alt="列表详情"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToCard">
                     <tab-icon alt="银行卡"/>
                 </div>
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToBill">
@@ -184,13 +184,16 @@ export default {
             'SET_MENU_SHOWED',
             'SET_IS_FILTER_SHARED'
         ]),
-
         routeToBill(){
             this.$router.push({
                 name: 'bill'
             })
         },
-
+        routeToCard(){
+            this.$router.push({
+                name: 'card'
+            })
+        },
         switchToCategory(mode){
             switch (mode){
                 case 'bill':

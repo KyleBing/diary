@@ -17,46 +17,6 @@
 }
 
 .statistic-user{
-
-}
-
-.statistic-header{
-  position: sticky;
-  top: 0;
-  height: $height-navbar;
-  background-color: $bg-main;
-  display: flex;
-  color: white;
-  justify-content: space-between;
-  align-items: center;
-  .statistic-title{
-    flex-grow: 1;
-    font-size: $fz-title;
-    font-weight: bold;
-    text-align: left;
-  }
-  .statistic-back-btn{
-  }
-
-  .main-statistic{
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-end;
-    .main-statistic-item{
-      margin-right: 20px;
-      flex-flow: row nowrap;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      .label{
-        font-size: $fz-title;
-        margin-right: 10px;
-      }
-      .value{
-        font-size: $fz-title;
-      }
-    }
-  }
 }
 
 
