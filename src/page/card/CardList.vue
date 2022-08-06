@@ -1,6 +1,9 @@
 <template>
     <page-header title="银行卡列表"/>
-    <div class="bank-card-container" v-if="cardList.length > 0">
+    <div class="bank-card-container"
+         v-if="cardList.length > 0"
+         :style="'height:' + insets.heightPanel + 'px'"
+    >
         <div class="bank-card-list">
             <card
                 :index="index"
@@ -113,9 +116,9 @@ export default {
 
     computed: {
         ...mapState({
-            years: 'statisticsYear'
+            years: 'statisticsYear',
         }),
-
+        ...mapState(['insets'])
     },
     methods: {
 

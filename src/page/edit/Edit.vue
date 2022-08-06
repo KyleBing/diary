@@ -126,8 +126,9 @@ export default {
         // 添加按键事件 ctrl + J 保存日记
         // 无法
         document.onkeydown = event => {
-            if (event.ctrlKey && event.code === 'KeyS'){
+            if ((event.ctrlKey || event.metaKey) && event.code === 'KeyS'){
                 event.preventDefault()
+                console.log(event.key)
                 this.saveDiary()
             }
         }

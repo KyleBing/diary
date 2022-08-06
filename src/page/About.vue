@@ -17,7 +17,7 @@
 
 <script>
 import {mapState} from "vuex";
-import {version, dateModify, nameZh, description} from "@/../package.json"
+import packageInfo from "@/../package.json"
 
 export default {
     name: "About",
@@ -26,10 +26,10 @@ export default {
     },
     data(){
         return {
-            version,
-            dateModify,
-            nameZh,
-            description
+            version: packageInfo.version,
+            dateModify: packageInfo.dateModify,
+            nameZh: packageInfo.nameZh,
+            description: packageInfo.description
         }
     }
 }

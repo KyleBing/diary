@@ -2,6 +2,7 @@ $bank-card-padding: 30px;
 $bank-card-gap: 20px;
 
 .bank-card-container{
+  overflow-y: auto;
   background-color: $bg-menu;
 }
 .bank-card-list{

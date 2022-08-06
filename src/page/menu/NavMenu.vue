@@ -88,7 +88,7 @@ import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import YearSelector from "@/page/menu/YearSelector";
 import About from "@/page/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
-import { version } from "@/../package.json"
+import packageInfo from "@/../package.json"
 
 export default {
     name: "NavMenu",
@@ -107,7 +107,7 @@ export default {
             originCategories: [],
             originFilterShared: false,
 
-            version: version
+            version: packageInfo.version
         }
     },
     mounted() {
