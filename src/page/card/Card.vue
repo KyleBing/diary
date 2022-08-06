@@ -34,7 +34,7 @@ import ClipboardJS from "clipboard";
 import utility from "@/utility";
 
 export default {
-    name: "BankCard",
+    name: "Card",
     props: {
         card: {},
         index: 0

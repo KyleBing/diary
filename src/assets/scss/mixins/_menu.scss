@@ -55,7 +55,7 @@ $menu-category-list-item-height: 40px;
   }
   .addon{
     margin-top: 2px; // 抵消靠上的显示错觉
-    font-size: 16px;
+    font-size: $fz-list-content;
     line-height: 1;
     color: $text-menu-second;
   }

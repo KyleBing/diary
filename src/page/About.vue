@@ -3,25 +3,34 @@
         <div class="logo">
             <img src="../assets/img/logo.svg" alt="LOGO">
         </div>
-        <h3 class="title">标题日记</h3>
-        <h4 class="subtitle">用一句话记录你最珍贵的时刻</h4>
+        <h3 class="title">{{nameZh}}</h3>
+        <h4 class="subtitle">{{description}}</h4>
         <div class="author">
             <a href="https://kylebing.cn" class="social-link">🌖 开发者主页</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
             <a href="https://github.com/KyleBing/diary-vue">GitHub.com</a>
             <a>·</a>
-            <a href="">v8.02 @ 2022-08-06</a>
+            <a href="">v{{version}} @ {{dateModify}}</a>
         </div>
     </div>
 </template>
 
 <script>
 import {mapState} from "vuex";
+import {version, dateModify, nameZh, description} from "@/../package.json"
 
 export default {
     name: "About",
     computed: {
         ...mapState(['insets'])
+    },
+    data(){
+        return {
+            version,
+            dateModify,
+            nameZh,
+            description
+        }
     }
 }
 </script>

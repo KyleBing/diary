@@ -2,7 +2,7 @@
     <page-header title="银行卡列表"/>
     <div class="bank-card-container" v-if="cardList.length > 0">
         <div class="bank-card-list">
-            <bank-card
+            <card
                 :index="index"
                 :card="card"
                 v-for="(card, index) in cardList"
@@ -27,7 +27,7 @@
 
             <div class="bank-card-list">
                 <div class="bank-card-list">
-                    <bank-card
+                    <card
                         :index="index"
                         :card="card"
                         v-for="(card, index) in cardListExample"
@@ -45,14 +45,14 @@ import {mapState, mapMutations} from 'vuex'
 import bankCardApi from "@/api/bankCardApi";
 import Loading from "@/components/Loading";
 import utility from "@/utility";
-import BankCard from "@/page/card/BankCard";
+import Card from "@/page/card/Card";
 import ClipboardJS from "clipboard";
 import TabIcon from "@/components/TabIcon";
 import PageHeader from "@/framework/PageHeader";
 
 export default {
     name: "CardList",
-    components: {PageHeader, TabIcon, BankCard, Loading},
+    components: {PageHeader, TabIcon, Card, Loading},
     data() {
         return {
             isLoading: false,

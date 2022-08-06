@@ -36,13 +36,16 @@
                     <div class="menu-list-group-item" @click="goToBillPage">账单</div>
 
                     <!--5. 银行卡-->
-                    <div class="menu-list-group-item" @click="menuListClicked('bankCard')">银行卡</div>
+                    <div class="menu-list-group-item" @click="goToBankCard">银行卡</div>
 
                     <!--6. 修改密码-->
                     <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
 
                     <!--7. 关于-->
-                    <div class="menu-list-group-item" @click="menuListClicked('about')">关于</div>
+                    <div class="menu-list-group-item" @click="menuListClicked('about')">
+                        <div>关于</div>
+                        <div class="addon">v{{version}}</div>
+                    </div>
                 </div>
 
                 <div class="user-info-panel">
@@ -70,11 +73,6 @@
                 <year-selector v-show="yearShowed"/>
             </transition>
 
-            <!-- bank card -->
-            <transition enter-active-class="animated-fast-fast fadeIn" leave-active-class="animated-fast-fast fadeOut">
-                <bank-card v-if="bankCardShowed"/>
-            </transition>
-
             <!--about-->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
                 <about v-show="aboutShowed"/>
@@ -90,18 +88,17 @@ import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import YearSelector from "@/page/menu/YearSelector";
 import About from "@/page/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
-import BankCard from "@/page/card/BankCardList";
+import { version } from "@/../package.json"
 
 export default {
     name: "NavMenu",
-    components: {BankCard, About, YearSelector, MenuCategorySelector},
+    components: {About, YearSelector, MenuCategorySelector},
     data(){
         return {
             // menu
             menuListShowed: true,         // menu list
             categoryShowed: false,        // category
             yearShowed: false,            // year chooser
-            bankCardShowed: false,        // bank card
             aboutShowed: false,           // about
 
             // menu - category
@@ -109,6 +106,8 @@ export default {
             categoriesSet: new Set(),
             originCategories: [],
             originFilterShared: false,
+
+            version: version
         }
     },
     mounted() {
@@ -142,17 +141,20 @@ export default {
 
         goToStatisticPage(){
             this.SET_MENU_SHOWED(false)
+            this.menuClose()
             this.$router.push('/statistics')
         },
 
         goToBillPage(){
             this.SET_MENU_SHOWED(false)
+            this.menuClose()
             this.$router.push('/bill')
         },
 
         goToBankCard(){
             this.SET_MENU_SHOWED(false)
-            this.$router.push('/bank-card')
+            this.menuClose()
+            this.$router.push('/card')
         },
 
         // MENU related
@@ -161,7 +163,6 @@ export default {
             this.menuListShowed = true  // menu list
             this.categoryShowed = false // category
             this.yearShowed = false     // year
-            this.bankCardShowed = false // bank card
             this.aboutShowed = false    // about
         },
         menuClose(){
@@ -173,12 +174,10 @@ export default {
                 this.menuListShowed = true            // menu list
                 this.categoryShowed = false           // category
                 this.yearShowed = false           // year
-                this.bankCardShowed = false // bank card
                 this.aboutShowed = false           // about
             } else if (this.yearShowed) {
                 this.SET_IS_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
-            } else if (this.bankCardShowed) {
                 this.menuInit()
             } else if (this.isMenuShowed) {
                 this.menuInit()
@@ -189,7 +188,6 @@ export default {
             this.menuListShowed = true               // menu list
             this.categoryShowed = false              // category
             this.yearShowed = false                  // year
-            this.bankCardShowed = false // bank card
             this.aboutShowed = false                 // about
         },
         menuListClicked(menuName) {
@@ -206,25 +204,19 @@ export default {
                     this.menuListShowed = false // menu list
                     this.categoryShowed = true  // category
                     this.yearShowed = false     // year
-                    this.bankCardShowed = false // bank card
                     this.aboutShowed = false    // about
 
                     break
                 case 'bankCard':
-                    this.SET_MENU_SHOWED(true)    // menu panel
-                    this.menuListShowed = false   // menu list
-                    this.categoryShowed = false   // category
-                    this.yearShowed = false       // year
-                    this.bankCardShowed = true    // bank card
-                    this.aboutShowed = false      // about
-
+                    this.$router.push({
+                        name: 'card'
+                    })
                     break
                 case 'year':
                     this.SET_MENU_SHOWED(true)    // menu panel
                     this.menuListShowed = false   // menu list
                     this.categoryShowed = false   // category
                     this.yearShowed = true        // year
-                    this.bankCardShowed = false   // bank card
                     this.aboutShowed = false      // about
 
                     break
@@ -233,7 +225,6 @@ export default {
                     this.menuListShowed = false   // menu list
                     this.categoryShowed = false   // category
                     this.yearShowed = false       // year
-                    this.bankCardShowed = false   // bank card
                     this.aboutShowed = true       // about
 
 

@@ -5,6 +5,9 @@ $bank-card-gap: 20px;
   background-color: $bg-menu;
 }
 .bank-card-list{
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
   padding: $bank-card-padding;
 }
 
@@ -21,8 +24,8 @@ $card-bgs: (
   }
 }
 
-
 .bank-card{
+  width: 450px;
   color: $text-title;
   @include box-shadow(1px 2px 3px transparentize(black, 0.8));
   border-top: 1px solid transparentize(white, 0.8);
@@ -32,6 +35,7 @@ $card-bgs: (
   background-color: transparentize(white, 0.4);
   padding: 20px 30px;
   margin-bottom: $bank-card-gap;
+  margin-right: $bank-card-gap;
   &:hover{
     .card-no{
 
@@ -122,8 +126,11 @@ $card-bgs: (
 @media (max-width: $grid-separate-width-sm) {
   .bank-card-list{
     padding: 20px;
+    flex-flow: column nowrap;
   }
   .bank-card{
+    width: 100%;
+    margin-right: 0;
     .card-no {
       font-size: 26px;
     }
