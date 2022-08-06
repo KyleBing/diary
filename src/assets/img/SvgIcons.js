@@ -21,6 +21,8 @@ export default {
         menu: require('./tabicon/menu.svg'),
         recover: require('./tabicon/recover.svg'),
         search: require('./tabicon/search.svg'),
+        bill: require('./tabicon/bill.svg'),
+        card: require('./tabicon/card.svg'),
         share: require('./tabicon/share.svg'),
         contentHide: require('./tabicon/eye-close.svg'),
         contentShow: require('./tabicon/eye-open.svg'),

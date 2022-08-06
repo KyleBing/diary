@@ -33,6 +33,8 @@ export default {
             iconMap.set('恢复', ICONS.tab.recover)
             iconMap.set('搜索', ICONS.tab.search)
             iconMap.set('分享', ICONS.tab.share)
+            iconMap.set('账单', ICONS.tab.bill)
+            iconMap.set('银行卡', ICONS.tab.card)
             iconMap.set('内容隐藏', ICONS.tab.contentHide)
             iconMap.set('内容显示', ICONS.tab.contentShow)
             iconMap.set('列表简洁', ICONS.tab.listSimple)

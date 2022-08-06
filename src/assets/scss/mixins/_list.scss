@@ -14,6 +14,7 @@
     font-family: 'Impact', sans-serif;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
     &.big{
+      border-bottom: none;
       padding: 10px 20px;
       height: auto;
       font-size: $fz-big;

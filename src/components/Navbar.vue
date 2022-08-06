@@ -25,12 +25,12 @@
                     <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
                     <tab-icon v-else alt="列表详情"/>
                 </div>
-
-<!--                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">-->
-<!--                    <span v-if="!isDiaryListShowedInFullStyle">简洁列表</span>-->
-<!--                    <span v-else="!isDiaryListShowedInFullStyle">详情列表</span>-->
-<!--                </div>-->
-
+                <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
+                    <tab-icon alt="银行卡"/>
+                </div>
+                <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
+                    <tab-icon alt="账单"/>
+                </div>
 
                 <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('bill')">
                     <span>账单</span>
