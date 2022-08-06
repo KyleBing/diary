@@ -46,13 +46,17 @@ a{
 }
 
 .not-found{
-    transform: translateY(-200px);
     padding: 50px 0;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: column nowrap;
+    h1{
+        font-size: $fz-title;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
     .logo{
         img{
             display: block;
