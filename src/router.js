@@ -1,17 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Index from "@/page/Index";
+import Index from "@/framework/Index";
 import utility from "@/utility";
 
 import Register from "@/page/Register"
 import Login from "@/page/Login"
 import ChangePassword from "@/page/ChangePassword"
-import Bill from "@/page/Bill"
+import Bill from "@/page/bill/Bill"
 import Share from "@/page/Share"
 import Statistics from "@/page/statistics/StatisticsMain"
 
-import List from "@/page/List"
+import List from "@/page/list/List"
 import Detail from "@/page/Detail"
-import Edit from "@/page/Edit"
+import Edit from "@/page/edit/Edit"
 import NotFound_404 from "@/fundation/NotFound_404";
 
 const routes = [

@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import list from "@/page/List"
-import Navbar from "@/components/Navbar"
+import list from "@/page/list/List"
+import Navbar from "@/framework/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import statisticApi from "@/api/statisticApi";
 import diaryApi from "@/api/diaryApi";

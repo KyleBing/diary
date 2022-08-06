@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import utility from "../utility"
-import categorySelector from "../components/CategorySelector"
-import weatherSelector from "../components/WeatherSelector"
+import utility from "../../utility"
+import categorySelector from "./CategorySelector"
+import weatherSelector from "./WeatherSelector"
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
 import Moment from 'moment'

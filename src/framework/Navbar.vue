@@ -28,7 +28,7 @@
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
                     <tab-icon alt="银行卡"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToBill">
                     <tab-icon alt="账单"/>
                 </div>
 
@@ -184,6 +184,12 @@ export default {
             'SET_MENU_SHOWED',
             'SET_IS_FILTER_SHARED'
         ]),
+
+        routeToBill(){
+            this.$router.push({
+                name: 'bill'
+            })
+        },
 
         switchToCategory(mode){
             switch (mode){

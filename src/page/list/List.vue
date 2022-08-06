@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import utility from "../utility"
-import diaryListItem from "../components/DiaryListItem"
-import diaryListItemLong from "../components/DiaryListItemLong"
+import utility from "../../utility"
+import diaryListItem from "./DiaryListItem"
+import diaryListItemLong from "./DiaryListItemLong"
 import {mapState, mapMutations} from 'vuex'
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi";

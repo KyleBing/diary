@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import list from "@/page/List"
-import Navbar from "@/components/Navbar"
+import list from "@/page/list/List"
+import Navbar from "@/framework/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import ChartPie from "@/components/charts/ChartPie";
 import StatisticInfo from "@/page/statistics/diary/StatisticInfo";

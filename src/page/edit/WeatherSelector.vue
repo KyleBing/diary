@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import utility from "../utility"
+import utility from "../../utility"
 import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
