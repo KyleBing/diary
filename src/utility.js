@@ -43,9 +43,9 @@ function popMessage(
       setTimeout(() => {
          msgEl.remove()
       }, 300); // 对应 css 中的动画时间
-      if (callback) {
-         callback()
-      }
+
+      callback && callback()
+
    }, 1000 * timeout)
 }
 
