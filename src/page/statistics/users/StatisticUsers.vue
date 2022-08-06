@@ -16,8 +16,13 @@
                     <td class="text-left">{{item.nickname}}</td>
                     <td class="number">{{ item.count_diary }}</td>
                     <td class="number">{{ item.count_dict }}</td>
+                    <td :class="[
+                        'text-right',
+                        'number',
+                        {'highlight': item.register_time.substring(0,10) !== item.last_visit_time.substring(0,10)}
+                        ]"
+                    >{{ item.last_visit_time }}</td>
                     <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
-                    <td :class="['text-right',' number', {'highlight': item.register_time !== item.last_visit_time}]">{{ item.last_visit_time }}</td>
                 </tr>
                 </tbody>
 
@@ -62,8 +67,8 @@ export default {
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy.MM.dd hh:mm')
-                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy.MM.dd hh:mm')
+                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd hh:mm')
+                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd hh:mm')
                         return item
                     })
                     this.chartDataDiary = res.data.map(item => {
