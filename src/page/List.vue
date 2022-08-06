@@ -2,8 +2,8 @@
     <div class="diary-list-group-container" :style="`min-height: ${insets.heightPanel}px`">
 
         <transition
-            enter-active-class="animated-fast fadeIn"
-            leave-active-class="animated-fast faceOut"
+            enter-active-class="animated-fast slideInDown"
+            leave-active-class="animated-fast slideOutUp"
         >
             <div class="search-bar" v-if="isShowSearchBar">
                 <form @submit.prevent="search">

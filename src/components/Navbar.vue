@@ -18,17 +18,17 @@
                     <tab-icon v-if="isHideContent" alt="内容隐藏"/>
                     <tab-icon v-else alt="内容显示"/>
                 </div>
-                <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
                     <tab-icon alt="搜索"/>
                 </div>
                 <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
                     <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
                     <tab-icon v-else alt="列表详情"/>
                 </div>
-                <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
                     <tab-icon alt="银行卡"/>
                 </div>
-                <div v-show="!isShowSearchBar && !isMenuShowed" v-if="!isInMobileMode" @click="showSearchbar">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
                     <tab-icon alt="账单"/>
                 </div>
 
@@ -228,9 +228,17 @@ export default {
         },
 
         // SEARCH BAR
-        showSearchbar() {
-            this.SET_IS_SHOW_SEARCH_BAR(true)
+        toggleSearchbar() {
+            this.SET_IS_SHOW_SEARCH_BAR(!this.isShowSearchBar)
         },
+
+        // show bill
+        showBillPanel(){
+
+        },
+
+        // show card
+        showCardPanel(){},
 
         // HIDE CONTENT
         toggleHideContent() {
