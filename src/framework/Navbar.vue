@@ -87,11 +87,13 @@
                 </router-link>
             </div>
 
-            <div class="brand">
+            <div class="brand" v-if="isInMobileMode" @click="toggleListStyle">
                 <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
-                <a v-else>
-                    <img :src="icons.logo" alt="日记">
-                </a>
+                <a v-else><img :src="icons.logo" alt="日记"></a>
+            </div>
+            <div class="brand" v-else>
+                <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
+                <a v-else><img :src="icons.logo" alt="日记"></a>
             </div>
 
             <!-- MENU -->
