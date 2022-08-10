@@ -1,5 +1,7 @@
 <template>
-    <page-header title="银行卡列表"/>
+    <page-header title="银行卡列表">
+        <tab-icon @click="editCardInfo"  alt="编辑"/>
+    </page-header>
     <div class="bank-card-container"
          v-if="cardList.length > 0"
          :style="'height:' + insets.heightPanel + 'px'"
@@ -17,7 +19,7 @@
         <template v-else>
             <p>您目前没有添加任何银行卡</p>
             <p>------------------------</p>
-            <p>请新建名为"银行卡列表" 的日记</p>
+            <p>请新建名为 "我的银行卡列表" 的日记</p>
             <p>日记内容格式如下，</p>
             <p>之后，将会在此显示银行卡列表</p>
             <p>------------------------</p>
@@ -52,6 +54,7 @@ import Card from "@/page/card/Card";
 import ClipboardJS from "clipboard";
 import TabIcon from "@/components/TabIcon";
 import PageHeader from "@/framework/PageHeader";
+import diaryApi from "@/api/diaryApi";
 
 export default {
     name: "CardList",
@@ -74,14 +77,7 @@ export default {
                 },
             ],
 
-            cardList: [
-                /*                {
-                                    cardName: '民生银行',
-                                    cardNo: '6226 2216 1178 0955',
-                                    cardType: '储蓄卡',
-                                    cardInitBank: '山东济南办卡'
-                                }*/
-            ],
+            cardList: [],
             clipboard: null, // clipboard obj
             example: `银行：民生银行
 卡号：6226 2216 1178 4567
@@ -121,10 +117,35 @@ export default {
         ...mapState({
             years: 'statisticsYear',
         }),
-        ...mapState(['insets'])
+        ...mapState(['insets', 'categoryAll'])
     },
     methods: {
+        // 编辑银行卡信息
+        editCardInfo(){
+            let params = {
+                categories: JSON.stringify(this.categoryAll.map(item => item.name_en)),
+                keywords: JSON.stringify(['我的银行卡列表']),
+                pageCount: 100,
+                pageNo: 1
+            }
+            diaryApi.list(params)
+                .then(res => {
+                    if (res.data.length === 1){
+                        this.$router.push({
+                            name: 'edit',
+                            params: {
+                                id: res.data[0].id
+                            }
+                        })
+                    } else {
+                        utility.popMessage('warning', '未找到对应的日记内容')
+                    }
+                    console.log(res)
+                })
+                .catch(err => {
 
+                })
+        },
 
         getBankCards(){
             this.isLoading = true // 请求的时候显示loading

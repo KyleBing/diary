@@ -115,6 +115,7 @@ export default {
             }
         }
         this.isNew = !(this.$route.params.id)
+        console.log('$route.params.id: ', this.$route.params.id)
         if (this.isNew) {
             // 新建日记
             this.createDiary()
@@ -309,19 +310,20 @@ export default {
                 diaryId: id
             })
                 .then(res => {
-                let diary = res.data
-                this.diary.category = diary.category
-                this.diary.date = new Date(diary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
-                this.diary.weather = diary.weather
-                this.diary.title = diary.title
-                this.diary.content = diary.content
-                this.diary.isPublic = diary.is_public === 1
-                this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
-                this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
-                Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
-            }).catch(() => {
-                this.$router.back()
-            })
+                    let diary = res.data
+                    this.diary.category = diary.category
+                    this.diary.date = new Date(diary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
+                    this.diary.weather = diary.weather
+                    this.diary.title = diary.title
+                    this.diary.content = diary.content
+                    this.diary.isPublic = diary.is_public === 1
+                    this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
+                    this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
+                    Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
+                })
+                .catch(() => {
+                    this.$router.back()
+                })
         },
         saveDiary() {
             if (this.diary.title.trim().length === 0) {

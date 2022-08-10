@@ -31,7 +31,6 @@ const routes = [
     {name: 'share',          path: '/share/:id',         component: Share         },
     {name: 'changePassword', path: '/change-password',   component: ChangePassword },
     {name: 'login',          path: '/login',             component: Login          },
-    {name: 'test',           path: '/test',              component: resolve => require(['@/page/menu/YearSelector'], resolve),   },
     {name: 'statistics',     path: '/statistics',        component: Statistics   },
     {name: 'bill',           path: '/bill',              component: Bill },
     {name: 'card',           path: '/card',              component: CardList },

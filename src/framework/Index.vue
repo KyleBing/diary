@@ -40,11 +40,15 @@ export default {
         ...mapGetters(['isInMobileMode', 'categoryMap'])
     },
     mounted() {
-        if (this.isInMobileMode){
-            this.$router.push('/list')
-        } else {
-            this.$router.push('/edit')
+        console.log('$route.path: ',this.$route.path)
+        if(this.$route.path === '/' || this.$route.path === undefined){
+            if (this.isInMobileMode){
+                this.$router.push('/list')
+            } else {
+                this.$router.push('/edit')
+            }
         }
+
         this.getStatistic() // 载入统计信息
         this.getCategoryAll()
     },
