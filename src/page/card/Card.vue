@@ -7,13 +7,17 @@
             <div class="card-type">{{ card.cardType }}</div>
         </div>
 
-        <div class="card-note">{{ }}</div>
+        <div class="card-note">{{card.note}}</div>
         <div class="card-detail-list">
             <div class="card-detail-list-item" v-if="card.cardInitBank">
                 <div class="label">开户行</div>
                 <div class="value">{{card.cardInitBank}}</div>
             </div>
-            <div class="card-detail-list-item" v-if="card.countUsage">
+            <div class="card-detail-list-item" v-if="card.credit && card.cardType.indexOf('信用卡') > -1">
+                <div class="label">额度</div>
+                <div class="value">{{card.credit}}</div>
+            </div>
+            <div class="card-detail-list-item" v-if="card.countUsage && card.cardType.indexOf('信用卡') > -1">
                 <div class="label">已刷次数</div>
                 <div class="value">{{card.countUsage}}</div>
             </div>

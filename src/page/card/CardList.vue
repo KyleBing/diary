@@ -91,8 +91,11 @@ export default {
 
 银行：民生银行
 卡号：6226 2216 1178 4567
-类别：储蓄卡
+类别：信用卡
 开户行：山东济南办卡
+额度：20000
+验证码：123/4
+到期日：2029-08-10
 `
         }
     },
@@ -157,7 +160,9 @@ export default {
                     cardInitBank: cardMap.get('开户行'),
                     countUsage: cardMap.get('已刷次数'),
                     verifyCode: cardMap.get('验证码'),
-                    date: cardMap.get('到期日')
+                    credit: cardMap.get('额度'),
+                    date: cardMap.get('到期日'),
+                    note: cardMap.get('备注')
                 })
             })
         }

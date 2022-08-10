@@ -14,27 +14,28 @@ $bank-card-gap: 20px;
 
 $card-bgs: (
       "green" : (#24b73d, #33c891),   // 农业
-      "red"   : (#ff264c, #ff8942),   // 工商
+      "red"   : (#ff264c, #ff7442),   // 工商
       "blue"  : (#0073ce, #2e92ff),   // 建行
       "white" : (#abab97, #dadada),   // 招商
 );
 
 @each $name, $colors in $card-bgs {
   .bank-bg-#{$name}{
-    background: linear-gradient(-30deg,$colors);
+    background: linear-gradient(-15deg,$colors);
   }
 }
 
 .bank-card{
-  width: 450px;
+  border-top: 1px solid transparentize(white, 0.6);
+  border-left: 1px solid transparentize(white, 0.6);
+  padding-bottom: 30px;
+  overflow: hidden;
+  @include border-radius($radius-pc);
+  width: 430px;
   color: $text-title;
   @include box-shadow(1px 2px 3px transparentize(black, 0.8));
-  border-top: 1px solid transparentize(white, 0.8);
-  border-left: 1px solid transparentize(white, 0.8);
   position: relative;
-  @include border-radius($radius-pc);
   background-color: transparentize(white, 0.4);
-  padding: 20px 30px;
   margin-bottom: $bank-card-gap;
   margin-right: $bank-card-gap;
   &:hover{
@@ -43,9 +44,9 @@ $card-bgs: (
     }
   }
   .card-no{
+    padding: 20px 20px 3px 20px;
     font-family: 'ImpactDiary';
     letter-spacing: 1px;
-    padding-bottom: 3px;
     font-size: $fz-big;
     color: white;
     text-shadow: 1px 0 2px transparentize(black, 0.3);
@@ -91,25 +92,38 @@ $card-bgs: (
 }
 
 .card-main-info{
+  padding: 0 20px;
+  font-size: $fz-title;
   display: flex;
   justify-content: space-between;
 }
 
 .card-detail-list{
-  padding: 10px 0;
-  font-size: $fz-small;
+  border-top: 1px solid transparentize(white, 0.8);
+  overflow-y: auto;
+  //height: 120px;
+  margin-top: 20px;
+  padding: 10px 60px;
+  display: flex;
+
+  justify-content: flex-start;
+  flex-flow: column nowrap;
+  font-size: $fz-list-content;
+  background-color: transparentize(white, 0.5);
 }
 
 .card-detail-list-item{
+  padding: 2px 0;
   display: flex;
   justify-content: space-between;
+  color: $text-content;
   .label{
     width: 5rem;
   }
   .value{
     padding-left: 20px;
     flex-grow: 1;
-    text-align: left;
+    text-align: right;
   }
 }
 
