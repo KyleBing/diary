@@ -32,25 +32,27 @@
                     <tab-icon alt="账单"/>
                 </div>
 
-                <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode"
-                     @click="switchToCategory('bill')">
-                    <span>账单</span>
-                </div>
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
-                     @click="switchToCategory('work')">
-                    <span>工作</span>
-                </div>
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
-                     @click="switchToCategory('other')">
-                    <span>其它</span>
-                </div>
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
-                     @click="switchToCategory('all')">
-                    <span>全部</span>
-                </div>
-                <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
-                     @click="switchToCategory('shared')">
-                    <span>共享</span>
+                <div class="btn-text-group">
+                    <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                         @click="switchToCategory('bill')">
+                        <span>账单</span>
+                    </div>
+                    <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                         @click="switchToCategory('work')">
+                        <span>工作</span>
+                    </div>
+                    <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                         @click="switchToCategory('other')">
+                        <span>其它</span>
+                    </div>
+                    <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                         @click="switchToCategory('all')">
+                        <span>全部</span>
+                    </div>
+                    <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                         @click="switchToCategory('shared')">
+                        <span>共享</span>
+                    </div>
                 </div>
             </div>
 

@@ -24,11 +24,16 @@
       height: $height-navbar;
     }
   }
+  .btn-text-group{
+    display: flex;
+    flex-flow: row nowrap;
+    height: $height-navbar;
+    align-items: center;
+  }
   .btn-text{
+    margin-right: 10px;
     font-size: $fz-small;
-    line-height: 29px;
-    margin: 8px 3px;
-    padding: 0 10px;
+    padding: 4px 8px;
     color: white;
     @extend .btn-like;
     @include border-radius($radius-mobile);
