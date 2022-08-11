@@ -32,26 +32,32 @@
                     <tab-icon alt="账单"/>
                 </div>
 
-                <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('bill')">
+                <div class="btn-text ml-5" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                     @click="switchToCategory('bill')">
                     <span>账单</span>
                 </div>
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('work')">
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                     @click="switchToCategory('work')">
                     <span>工作</span>
                 </div>
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('other')">
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                     @click="switchToCategory('other')">
                     <span>其它</span>
                 </div>
-                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('all')">
+                <div class="btn-text" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                     @click="switchToCategory('all')">
                     <span>全部</span>
                 </div>
-                <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="switchToCategory('shared')">
+                <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
+                     @click="switchToCategory('shared')">
                     <span>共享</span>
                 </div>
             </div>
 
             <!--RIGHT part-->
             <!--NEW-->
-            <div class="navbar-btn-group float-right" v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
+            <div class="navbar-btn-group float-right"
+                 v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
                 <router-link to="/edit">
                     <tab-icon alt="添加"/>
                 </router-link>

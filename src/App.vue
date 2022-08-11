@@ -12,6 +12,7 @@ export default {
         this.SET_FILTERED_CATEGORIES(diaryConfig.filteredCategories)
         this.SET_KEYWORD(diaryConfig.keywords)
         this.SET_DATE_FILTER(diaryConfig.dateFilter)
+        this.SET_IS_FILTER_SHARED(diaryConfig.isFilterShared)
 
         window.onresize = () => {
             this.SET_INSETS({
@@ -35,6 +36,7 @@ export default {
             'SET_KEYWORD',
             'SET_DATE_FILTER',
             'SET_FILTERED_CATEGORIES',
+            'SET_IS_FILTER_SHARED'
         ]),
     }
 }
