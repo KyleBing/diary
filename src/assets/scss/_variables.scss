@@ -109,17 +109,18 @@ $weathers: (
 
 
 // DARK VALUES
-
 $dark-color: black;
 $dark-bg               : lighten($dark-color, 20%) ;
 $dark-bg-dark          : lighten($dark-color, 15%) ;
 $dark-bg-selector      : lighten($dark-color, 20%) ;
+$dark-bg-page-header   : lighten($dark-color, 35%) ;
 
 $dark-bg-nav           : lighten($dark-color, 10%) ;
-$dark-border-nav       : lighten($dark-color, 20%) ;
+$dark-border-nav       : lighten($dark-color, 2%) ;
+
 
 $dark-border           : lighten($dark-color, 25%) ;
-$dark-border-active    : lighten($dark-color, 40%) ;
+$dark-border-active    : lighten($dark-color, 35%) ;
 
 $dark-menu-border      : lighten($dark-color, 5%)  ;
 $dark-list-header-bg   : lighten($dark-color, 12%) ;

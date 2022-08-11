@@ -1,25 +1,26 @@
 
 
 // 组件
-@import "mixins/menu"; // 菜单
-@import "mixins/navbar"; // navbar
-@import "mixins/list-item"; // 短列表
-@import "mixins/list-item-long"; // 长列表
-@import "mixins/form";
+@import "mixins/menu"           ; // 菜单
+@import "mixins/navbar"         ; // navbar
+@import "mixins/list-item"      ; // 短列表
+@import "mixins/list-item-long" ; // 长列表
+@import "mixins/form"           ;
+@import "mixins/page-header"    ;
 
 // 页面
-@import "mixins/detail"; // 详情
-@import "mixins/edit"; // 编辑
-@import "mixins/list"; // 列表
-@import "mixins/login-register"; // 登录和注册
-@import "mixins/share"; // 分享
-@import "mixins/bill"; // 账单
+@import "mixins/detail"         ; // 详情
+@import "mixins/edit"           ; // 编辑
+@import "mixins/list"           ; // 列表
+@import "mixins/login-register" ; // 登录和注册
+@import "mixins/share"          ; // 分享
+@import "mixins/bill"           ; // 账单
 
 // 面板
-@import "mixins/category-selector"; // 类别选择
-@import "mixins/weather-selector"; // 天气选择
-@import "mixins/year-selector"; // 年份选择
-@import "mixins/statistics"; // 统计数据
-@import "mixins/bank-card"; // 银行卡
+@import "mixins/category-selector" ; // 类别选择
+@import "mixins/weather-selector"  ; // 天气选择
+@import "mixins/year-selector"     ; // 年份选择
+@import "mixins/statistics"        ; // 统计数据
+@import "mixins/bank-card"         ; // 银行卡
 
 

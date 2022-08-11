@@ -10,7 +10,10 @@
                 </div>
             </div>
         </page-header>
-        <div class="statistic-content" :style="`height:${insets.heightPanel}px`">
+        <div v-if="isLoading" class="pt-8 pb-8">
+            <loading :loading="isLoading"/>
+        </div>
+        <div v-else class="statistic-content" :style="`height:${insets.heightPanel}px`">
 
             <div class="statistic-user">
                 <statistic-users/>
@@ -36,10 +39,12 @@ import statisticApi from "@/api/statisticApi";
 import StatisticUsers from "@/page/statistics/users/StatisticUsers";
 import diaryApi from "@/api/diaryApi";
 import PageHeader from "@/framework/PageHeader";
+import Loading from "@/components/Loading";
 
 export default {
     name: 'StatisticsMain',
     components: {
+        Loading,
         PageHeader,
         StatisticUsers,
         StatisticCharts,
@@ -48,6 +53,11 @@ export default {
         ChartPie,
         Navbar,
         list
+    },
+    data(){
+        return {
+            isLoading: false
+        }
     },
     computed: {
         ...mapState(['insets', 'isShowSearchBar', 'statisticsCategory', 'statisticsYear']),
@@ -78,8 +88,10 @@ export default {
         ]),
 
         getCategoryAll(){
+            this.isLoading = true
             diaryApi.categoryAllGet()
                 .then(res => {
+                    this.isLoading = false
                     this.SET_CATEGORY_ALL(res.data)
                     let tempMap = new Map()
                     res.data.forEach(category => {
@@ -87,6 +99,9 @@ export default {
                     })
                     this.SET_CATEGORY_MAP(tempMap)
                     this.getStatistic()
+                })
+                .catch(err => {
+                    this.isLoading = false
                 })
         },
 

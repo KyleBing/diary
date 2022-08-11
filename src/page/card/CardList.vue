@@ -2,46 +2,51 @@
     <page-header title="银行卡列表">
         <tab-icon @click="editCardInfo"  alt="编辑"/>
     </page-header>
-    <div class="bank-card-container"
-         v-if="cardList.length > 0"
-         :style="'height:' + insets.heightPanel + 'px'"
-    >
-        <div class="bank-card-list">
-            <card
-                :index="index"
-                :card="card"
-                v-for="(card, index) in cardList"
-                :key="index"/>
-        </div>
+    <div v-if="isLoading" class="pt-8 pb-8">
+        <loading :loading="isLoading"/>
     </div>
-    <div v-else class="bank-tip">
-        <loading v-if="isLoading" :loading="isLoading"/>
-        <template v-else>
-            <p>您目前没有添加任何银行卡</p>
-            <p>------------------------</p>
-            <p>请新建名为 "我的银行卡列表" 的日记</p>
-            <p>日记内容格式如下，</p>
-            <p>之后，将会在此显示银行卡列表</p>
-            <p>------------------------</p>
-            <div class="bank-card-example">
-                <pre>{{ example }}</pre>
-            </div>
-
-            <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
-
-
+    <div v-else>
+        <div class="bank-card-container"
+             v-if="cardList.length > 0"
+             :style="'height:' + insets.heightPanel + 'px'"
+        >
             <div class="bank-card-list">
-                <div class="bank-card-list">
-                    <card
-                        :index="index"
-                        :card="card"
-                        v-for="(card, index) in cardListExample"
-                        :key="index"/>
+                <card
+                    :index="index"
+                    :card="card"
+                    v-for="(card, index) in cardList"
+                    :key="index"/>
+            </div>
+        </div>
+        <div v-else class="bank-tip">
+            <loading v-if="isLoading" :loading="isLoading"/>
+            <template v-else>
+                <p>您目前没有添加任何银行卡</p>
+                <p>------------------------</p>
+                <p>请新建名为 "我的银行卡列表" 的日记</p>
+                <p>日记内容格式如下，</p>
+                <p>之后，将会在此显示银行卡列表</p>
+                <p>------------------------</p>
+                <div class="bank-card-example">
+                    <pre>{{ example }}</pre>
                 </div>
 
-            </div>
-        </template>
+                <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
 
+
+                <div class="bank-card-list">
+                    <div class="bank-card-list">
+                        <card
+                            :index="index"
+                            :card="card"
+                            v-for="(card, index) in cardListExample"
+                            :key="index"/>
+                    </div>
+
+                </div>
+            </template>
+
+        </div>
     </div>
 </template>
 
