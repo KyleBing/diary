@@ -11,12 +11,13 @@
             </div>
         </page-header>
         <div class="statistic-content" :style="`height:${insets.heightPanel}px`">
-            <div class="statistic-diary">
-                <statistic-charts/>
-            </div>
 
             <div class="statistic-user">
                 <statistic-users/>
+            </div>
+
+            <div class="statistic-diary">
+                <statistic-charts/>
             </div>
 
         </div>
