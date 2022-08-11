@@ -7,8 +7,8 @@
                     <th class="text-left">用户名</th>
                     <th>日记</th>
                     <th>码表</th>
-                    <th class="hide-in-mobile">注册时间</th>
                     <th>最后访问时间</th>
+                    <th class="hide-in-mobile">注册时间</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -105,9 +105,8 @@ export default {
         text-align: right;
         font-size: $fz-list-content;
         padding: 5px 5px;
-
         &.highlight{
-            color: $color-main;
+            color: $color-main!important;
         }
     }
     th{

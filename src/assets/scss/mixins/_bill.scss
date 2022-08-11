@@ -89,7 +89,7 @@
       td{
         white-space: nowrap;
         min-width: 80px;
-        border-bottom: 1px solid $color-border-light;
+        border-bottom: none;
         text-align: right;
         padding: 3px 15px;
         &.center{
@@ -133,10 +133,11 @@
   margin-top: 10px;
   height: 5px;
   width: 100%;
-  &.purple{background: $gradient-purple;}
-  &.red{background: $gradient-red;}
-  &.green{background: $gradient-green;}
-  &.blue{background: $gradient-blue;}
+  &.purple { background: $gradient-purple ; }
+  &.red    { background: $gradient-red    ; }
+  &.green  { background: $gradient-green  ; }
+  &.blue   { background: $gradient-blue   ; }
+
 }
 
 

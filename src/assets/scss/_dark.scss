@@ -293,38 +293,15 @@
     }
   }
 
+  // Page Header
+  .page-header{
+    background-color: $dark-bg-nav !important;
+  }
+
 
   // BILL
   .bill-content{
     background-color: $dark-bg-dark;
-  }
-  .bill-card{
-    background-color: $dark-bg-nav;
-    border-color: $dark-border;
-
-    .bill-card-header{
-      .title{
-        color: $dark-text-title;
-      }
-    }
-
-    table{
-      tr{
-        color: $dark-text;
-        th{
-          border-color: $dark-border;
-        }
-        td{
-          border-bottom-color: $dark-border;
-        }
-        &:hover{
-          td{
-            background-color: $bg-menu;
-            color: $dark-text-title;
-          }
-        }
-      }
-    }
   }
 
   .income{
@@ -338,8 +315,39 @@
   }
 
   .bill{
-
+    border-color: $dark-border-active;
+    background-color: $dark-bg;
+    .bill-header{
+      .title{
+        color: $dark-text-title;
+      }
+    }
+    .bill-brief{
+      border-color: $dark-border-active;
+    }
+    table {
+      font-size: $fz-small;
+      tr {
+        border-color: $dark-border;
+        th{
+          border-color: $dark-border-active;
+        }
+        td{
+          color: $dark-text-bill-price;
+          &.label{
+            color: $dark-text-subtitle
+          }
+        }
+        &:nth-child(even) {
+          background-color: $dark-list-bg;
+        }
+        &:hover{
+          td{
+            background-color: black;
+            color: white;
+          }
+        }
+      }
+    }
   }
-
-
 }

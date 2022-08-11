@@ -109,23 +109,29 @@ $weathers: (
 
 
 // DARK VALUES
-$dark-bg: lighten(black, 20%);
-$dark-bg-dark: lighten(black, 15%);
-$dark-bg-selector: lighten(black, 20%);
 
-$dark-bg-nav: lighten(black, 13%);
+$dark-color: black;
+$dark-bg               : lighten($dark-color, 20%) ;
+$dark-bg-dark          : lighten($dark-color, 15%) ;
+$dark-bg-selector      : lighten($dark-color, 20%) ;
 
-$dark-border: lighten(black, 20%);
-$dark-border-active: lighten(black, 40%);
+$dark-bg-nav           : lighten($dark-color, 10%) ;
+$dark-border-nav       : lighten($dark-color, 20%) ;
 
-$dark-menu-border: #484848;
-$dark-list-header-bg: lighten(black, 12%);
-$dark-list-header-text: lighten(black, 90%);
-$dark-list-bg: lighten(black, 15%);
-$dark-list-bg-active: lighten(black, 20%);
-$dark-text-title: lighten(black, 90%);
-$dark-text: lighten(black, 70%);
-$dark-text-subtitle: lighten(black, 70%);
+$dark-border           : lighten($dark-color, 25%) ;
+$dark-border-active    : lighten($dark-color, 40%) ;
 
-$dark-scroll-thumb: lighten(black, 30%);
+$dark-menu-border      : lighten($dark-color, 5%)  ;
+$dark-list-header-bg   : lighten($dark-color, 12%) ;
+$dark-list-header-text : lighten($dark-color, 90%) ;
+$dark-list-bg          : lighten($dark-color, 15%) ;
+$dark-list-bg-active   : lighten($dark-color, 20%) ;
+$dark-text-title       : lighten($dark-color, 90%) ;
+$dark-text             : lighten($dark-color, 70%) ;
+$dark-text-subtitle    : lighten($dark-color, 70%) ;
+
+$dark-text-bill-price  : lighten($dark-color, 80%) ;
+
+$dark-scroll-thumb     : lighten($dark-color, 30%) ;
+
 
