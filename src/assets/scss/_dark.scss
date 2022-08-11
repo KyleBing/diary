@@ -66,7 +66,7 @@
         color: $dark-text;
       }
       &:after{
-        border-bottom-color:$dark-bg-dark;
+        border-bottom-color:$dark-border;
       }
     }
     &.active{
@@ -337,6 +337,9 @@
     color: white;
   }
 
+  .bill{
+
+  }
 
 
 }
