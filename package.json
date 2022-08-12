@@ -2,9 +2,9 @@
   "name": "diary-vue-pc",
   "nameZh": "标题日记",
   "description": "用一句话记录你最珍贵的时刻",
-  "version": "8.0.3",
-  "dateModify": "2022.08.11",
-  "dateInit": "2018.08.14",
+  "version": "8.0.4",
+  "dateModify": "2022/08/12",
+  "dateInit": "2018/08/14",
   "author": {
     "email": "kylebing@163.com",
     "homePage": "https://kylebing.cn",
