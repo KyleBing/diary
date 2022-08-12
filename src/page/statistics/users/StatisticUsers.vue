@@ -7,8 +7,8 @@
                     <th class="text-left">用户名</th>
                     <th>日记</th>
                     <th>码表</th>
-                    <th>最后访问时间</th>
-                    <th class="hide-in-mobile">注册时间</th>
+                    <th class="text-center">最后访问时间</th>
+                    <th class="text-center hide-in-mobile">注册时间</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,8 +78,8 @@ export default {
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy-MM-dd hh:mm')
-                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy-MM-dd hh:mm')
+                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy MM-dd  hh:mm')
+                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy MM-dd  hh:mm')
                         return item
                     })
                     this.chartDataDiary = res.data.map(item => {
@@ -111,12 +111,24 @@ export default {
 .user-list{
     flex-grow: 1;
     table{
-        width: 100%;
+        max-width: 100%;
+    }
+    tr{
+        &:nth-child(even){
+            td{
+                background-color: $bg-light-td;
+            }
+        }
+        &:hover{
+            td{
+                background-color: $bg-light-td-hover;
+            }
+        }
     }
     th, td{
         text-align: right;
         font-size: $fz-list-content;
-        padding: 5px 5px;
+        padding: 5px 10px;
         &.highlight{
             color: $color-main!important;
         }
