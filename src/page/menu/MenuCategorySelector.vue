@@ -83,8 +83,11 @@ export default {
         ...mapState(['statisticsCategory', "categoryAll", 'isFilterShared'])
     },
     watch: {
-        categories(newValue){
-            this.SET_FILTERED_CATEGORIES(newValue)
+        categories: {
+            deep: true,
+            handler(newValue, oldValue){
+                this.SET_FILTERED_CATEGORIES(newValue)
+            }
         },
         filterShared(newValue){
             this.SET_IS_FILTER_SHARED(newValue)
