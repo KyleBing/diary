@@ -28,15 +28,6 @@
 
             </table>
         </statistic-panel>
-
-        <div>
-            <div v-for="item in 10" :key="item"
-                 :class="`date-level-${item}`"
-                 style="height: 30px;width: 30px;display:block;">
-                {{item}}
-            </div>
-        </div>
-
         <statistic-panel title="用户日记数量">
             <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
         </statistic-panel>
@@ -76,7 +67,6 @@ export default {
             let date = new Moment(dateString)
             let now = new Moment()
             let distance =  now.diff(date, 'day')
-            console.log(distance)
             if ( distance < 7) {
                 return `date-level-${distance}`
             } else {
