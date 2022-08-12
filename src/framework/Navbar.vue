@@ -173,15 +173,6 @@ export default {
         ]),
         ...mapGetters(['isInMobileMode'])
     },
-    watch: {
-        keywords(newValue) {
-            if (newValue) {
-                this.$nextTick(() => {
-                    document.querySelector('#keyword').focus()
-                })
-            }
-        }
-    },
     methods: {
         ...mapMutations([
             'SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE',

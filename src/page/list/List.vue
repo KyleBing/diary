@@ -102,6 +102,13 @@ export default {
         ])
     },
     watch: {
+        isShowSearchBar(newValue){
+            if (newValue){
+                this.$nextTick(() => {
+                    document.querySelector('#keyword').focus()
+                })
+            }
+        },
         // route 载入 `/` 路径时，重载日记列表：比如删除日记后
         $route(to) {
             if (to.path === '/') {
@@ -110,6 +117,7 @@ export default {
         },
         keywordShow(newValue) {
             this.SET_KEYWORD(newValue.split(' '))
+
         },
         isListNeedBeReload() {
             if (this.isListNeedBeReload) {
