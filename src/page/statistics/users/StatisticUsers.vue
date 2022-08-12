@@ -13,13 +13,13 @@
                 </thead>
                 <tbody>
                 <tr v-for="item in users" :key="item.uid">
-                    <td class="text-left">{{item.nickname}}</td>
+                    <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{item.nickname}}</td>
                     <td class="number">{{ item.count_diary }}</td>
                     <td class="number">{{ item.count_dict }}</td>
                     <td :class="[
                         'text-right',
                         'number',
-                        {'highlight': item.register_time.substring(0,10) !== item.last_visit_time.substring(0,10)}
+                        dateTextLevel(item.last_visit_time)
                         ]"
                     >{{ item.last_visit_time }}</td>
                     <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
@@ -27,9 +27,16 @@
                 </tbody>
 
             </table>
-
-
         </statistic-panel>
+
+        <div>
+            <div v-for="item in 10" :key="item"
+                 :class="`date-level-${item}`"
+                 style="height: 30px;width: 30px;display:block;">
+                {{item}}
+            </div>
+        </div>
+
         <statistic-panel title="用户日记数量">
             <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
         </statistic-panel>
@@ -42,12 +49,14 @@ import StatisticPanel from "@/page/statistics/StatisticPanel";
 import statisticApi from "@/api/statisticApi";
 import ChartBar from "@/components/charts/ChartBar";
 import utility from "@/utility";
+import Moment from "moment";
 
 export default {
     name: "StatisticUsers",
     components: {ChartBar, StatisticPanel},
     computed: {
         ...mapState(['statisticsCategory', 'statisticsYear', 'dataArrayCategory', 'dataArrayYear']),
+
     },
     data(){
         return {
@@ -62,6 +71,18 @@ export default {
         this.getStatisticUsers()
     },
     methods: {
+        // 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
+        dateTextLevel(dateString){
+            let date = new Moment(dateString)
+            let now = new Moment()
+            let distance =  now.diff(date, 'day')
+            console.log(distance)
+            if ( distance < 7) {
+                return `date-level-${distance}`
+            } else {
+                return `date-level-dead`
+            }
+        },
         getStatisticUsers(){
             statisticApi.users()
                 .then(res => {
@@ -93,6 +114,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use "sass:color";
 @import "../../../assets/scss/plugin";
 
 
@@ -119,6 +141,15 @@ export default {
 }
 
 
+@for $item from 0 through 7 {
+    .date-level-#{$item}{
+        color: color.change($red, $hue: -20deg * $item) !important;
+    }
+}
+
+.date-level-dead{
+    color: $text-title;
+}
 
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
 
