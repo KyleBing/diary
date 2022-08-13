@@ -1,7 +1,7 @@
 <template>
     <router-link :to="`/detail/${diary.id}`"
                  :class="[
-                     'list-item',
+                     'diary-list-item',
                      'diary-list-item-' + diary.category,
                      {active: active}
                      ]">
@@ -52,7 +52,7 @@ export default {
                     return ICONS.weather[this.diary.weather]
                 }
             }
-        },
+        }
     }
 }
 </script>

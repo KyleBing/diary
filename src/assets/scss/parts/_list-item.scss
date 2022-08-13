@@ -1,4 +1,4 @@
-.list-item{
+.diary-list-item{
   cursor: pointer;
   background-color: white;
   display: block;
@@ -95,6 +95,20 @@
         } @else{
           background-color: $color;
         }
+      }
+    }
+  }
+}
+
+
+@media (max-width: $grid-separate-width-sm) {
+  .diary-list-item{
+    .date{
+      font-size: $fz-list-content-mobile;
+    }
+    .detail{
+      .title{
+        font-size: $fz-list-content-mobile;
       }
     }
   }

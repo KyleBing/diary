@@ -15,14 +15,14 @@
 
         <div class="diary-list-group" v-if="!isDiaryListShowedInFullStyle">
             <div v-for="(item, index) in diariesShow" :key="index">
-                <div v-if="!item.title" class="list-header">{{ item.date.split('-').join(' - ') }}</div>
+                <ListHeader v-if="!item.title" :title="item.date.split('-').join(' - ')"/>
                 <diary-list-item v-else :category="item.category" :diary="item"/>
             </div>
         </div>
 
         <div class="diary-list-group" v-else>
             <div v-for="(item, index) in diariesShow" :key="index">
-                <div v-if="!item.title" class="list-header big">{{ item.date }}</div>
+                <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <diary-list-item-long v-else :diary="item"/>
             </div>
         </div>
@@ -48,6 +48,7 @@ import {mapState, mapMutations} from 'vuex'
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi";
 import SvgIcons from "@/assets/img/SvgIcons";
+import ListHeader from "@/page/list/ListHeader";
 
 export default {
     name: 'List',
@@ -74,7 +75,7 @@ export default {
             diariesShow: [],
         }
     },
-    components: {Loading, diaryListItem, diaryListItemLong},
+    components: {ListHeader, Loading, diaryListItem, diaryListItemLong},
     mounted() {
         document.title = '日记' // 变更标题
         // init

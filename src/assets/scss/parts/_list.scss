@@ -1,26 +1,4 @@
-.diary-list-group{
-  .list-header{
-    letter-spacing: 1px;
-    border-top: 1px solid $color-border;
-    border-bottom: 1px solid $color-border;
-    font-size: $fz-list-header;
-    font-weight: bold;
-    text-align: left;
-    padding: 0 20px;
-    color: $text-date;
-    background-color: $bg-light;
-    height: $height-header;
-    line-height: $height-header;
-    font-family: 'ImpactDiary';
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
-    &.big{
-      border-bottom: none;
-      padding: 10px 20px;
-      height: auto;
-      font-size: $fz-big;
-    }
-  }
-}
+
 
 .load-more {
   @extend .unselectable;
