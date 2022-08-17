@@ -46,9 +46,9 @@
   }
   .diary-list-group{
     .list-header{
-      border-color: $dark-border;
-      background-color: $dark-list-header-bg;
-      color: $dark-list-header-text;
+      border-color: $dark-border !important;
+      background-color: $dark-list-header-bg !important;
+      color: $dark-list-header-text !important;
     }
   }
 
@@ -66,7 +66,7 @@
         color: $dark-text;
       }
       &:after{
-        border-bottom-color:$dark-border;
+        border-bottom-color:$dark-menu-border;
       }
     }
     &.active{
