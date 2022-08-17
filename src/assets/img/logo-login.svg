@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo-login</title>
+    <g id="logo-login" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#FFCC00" cx="50" cy="50" r="32"></circle>
+        <path d="M49.2104997,43.0316278 L49.2104997,63.5426866 C43.4736664,60.7332589 37.7368332,59.9735901 32,61.26368 L32,40.7526213 L32,40.7526213 C38.9651423,39.2438611 44.7019755,40.00353 49.2104997,43.0316278 Z M68.2476103,40.7058838 L68.2476103,61.2169426 L68.2476103,61.2169426 C61.7389612,59.9399073 56.002128,60.6995762 51.0371106,63.4959491 L51.0371106,42.9848903 C55.942302,40.0699108 61.6791352,39.3102419 68.2476103,40.7058838 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+    </g>
+</svg>

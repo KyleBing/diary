@@ -82,7 +82,7 @@
 }
 
 .btn-active{
-  color: $bg-light;
+  color: white;
   background-color: $color-main;
   &:hover{
     background-color: darken($color-main, 5%);
@@ -100,8 +100,12 @@
 
 .btn-inactive{
   color: $gray;
-  border: 1px solid $gray;
+  border: 1px solid transparentize(white, 0.8);
   background-color: transparent;
+  &:hover{
+    border: 1px solid transparentize(black, 0.8);
+    background-color: transparentize(black, 0.9);
+  }
 }
 
 
