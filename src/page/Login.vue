@@ -6,7 +6,7 @@
         >
             <div class="body-login" v-if="show">
                 <div class="logo">
-                    <img :src="icons.logo" alt="Diary Logo">
+                    <img :src="icons.logo_login" alt="Diary Logo">
                 </div>
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
                     <div class="input-group">
@@ -21,7 +21,7 @@
                 </form>
                 <div class="footer">
                     <router-link to="/register">注册</router-link>
-                    <a @click="useTestAccount">试用体验账户</a>
+                    <a @click="useTestAccount">试用</a>
                 </div>
             </div>
         </transition>

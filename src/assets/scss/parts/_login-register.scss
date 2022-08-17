@@ -82,7 +82,7 @@
 }
 
 .btn-active{
-  color: white;
+  color: $bg-main;
   background-color: $color-main;
   &:hover{
     background-color: darken($color-main, 5%);
