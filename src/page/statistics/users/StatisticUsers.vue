@@ -165,12 +165,34 @@ export default {
         }
     }
     .user-list{
+        table{
+            width: 100%;
+        }
         th, td{
             padding: 2px;
         }
     }
 }
 
+
+@media (prefers-color-scheme: dark) {
+    .user-list {
+        table {
+        }
+        tr {
+            &:nth-child(even) {
+                td {
+                    background-color: $dark-list-bg;
+                }
+            }
+            &:hover {
+                td {
+                    background-color: $dark-list-bg-active;
+                }
+            }
+        }
+    }
+}
 
 
 

@@ -49,7 +49,7 @@ export default {
         return {
             chart: null,
             option: null,
-            width: '500px' // 图表宽度 500
+            width: '100%' // 图表宽度 500
         }
     },
     mounted() {
@@ -96,7 +96,7 @@ export default {
                     {
                         name: '饼状图',
                         type: 'pie',
-                        radius: '70%',
+                        radius: '60%',
                         data: [
                             // {value: 1048, name: '搜索引擎'},
                         ],

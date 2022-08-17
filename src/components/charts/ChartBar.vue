@@ -38,7 +38,7 @@ export default {
         },
         widthInit: {
             type: String,
-            default: '500px'
+            default: '100%'
         },
     },
     watch: {
