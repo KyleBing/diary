@@ -47,17 +47,19 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/plugin";
-$icon-padding: 5px;
+$icon-padding-pc: 5px;
+$icon-padding-mobile: 3px;
+
 .icon-btn{
     height: $height-navbar;
     width: $height-navbar;
-    padding: $icon-padding;
+    padding: $icon-padding-pc;
     @extend .btn-like;
 }
 img{
     transition: all 0.5s;
-    width: $height-navbar - $icon-padding * 2;
-    height: $height-navbar - $icon-padding * 2;
+    width: $height-navbar - $icon-padding-pc * 2;
+    height: $height-navbar - $icon-padding-pc * 2;
     display: block;
     background-color: transparent;
     &:active{
@@ -67,5 +69,16 @@ img{
         transition: all 0s;
     }
 }
+@media (max-width: $grid-separate-width-sm) {
+    .icon-btn{
+        padding: $icon-padding-mobile;
+    }
+    img{
+        width: $height-navbar - $icon-padding-mobile * 2;
+        height: $height-navbar - $icon-padding-mobile * 2;
+    }
+}
+
+
 
 </style>
