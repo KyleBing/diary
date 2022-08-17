@@ -27,6 +27,7 @@ $show-value-dash: true;
 }
 .info-list{
   width: 200px;
+  flex-shrink: 0;
   margin-right: 5%;
   height: 300px;
   overflow-y: auto;
@@ -44,7 +45,7 @@ $show-value-dash: true;
     line-height: 1.8;
     &:hover{
       &:after{
-        border-bottom-color: $color-main;
+        border-bottom-color: $orange;
       }
     }
     &.invalid{
@@ -89,7 +90,7 @@ $show-value-dash: true;
         background-color: $bg-light;
       }
       font-weight: bold;
-      color: $color-main;
+      color: $orange;
       text-align: right;
       letter-spacing: 0.5px;
     }
