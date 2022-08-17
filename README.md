@@ -11,32 +11,25 @@
 ## 界面
 
 PC
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 26 56" src="https://user-images.githubusercontent.com/12215982/185167943-87c84107-dde5-4119-b8c2-25de09685f3b.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 27 02" src="https://user-images.githubusercontent.com/12215982/185167980-4c9b8f72-74f7-41d9-9c80-7c8d8c2c73bf.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 27 13" src="https://user-images.githubusercontent.com/12215982/185167988-a9929018-c420-4e13-b4fc-a681c2458efc.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 27 18" src="https://user-images.githubusercontent.com/12215982/185168000-898a2bcc-5412-4f31-a96e-52a8d3598df6.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 29 33" src="https://user-images.githubusercontent.com/12215982/185168041-2148d489-aaf1-4382-8116-6737b15b6014.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 30 14" src="https://user-images.githubusercontent.com/12215982/185168051-b19223f9-2df8-42d1-a39c-823f772426e0.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 30 21" src="https://user-images.githubusercontent.com/12215982/185168074-38e2d9f8-abd6-4302-bc7a-4edea3703313.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 30 26" src="https://user-images.githubusercontent.com/12215982/185168085-bb97e434-132c-44be-b3f8-db55e25816e5.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 30 31" src="https://user-images.githubusercontent.com/12215982/185168097-94161d53-5761-4c08-827f-31440a7c17b6.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 31 01" src="https://user-images.githubusercontent.com/12215982/185168108-1647c59e-8fba-4369-a226-9279685e6844.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 31 28" src="https://user-images.githubusercontent.com/12215982/185168118-e38b3cb9-d96a-428e-b9d6-73d976872f77.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 41 37" src="https://user-images.githubusercontent.com/12215982/185168128-ec2d092f-85f6-4ffd-a510-dfcff5daf926.png">
-<img width="1512" alt="Screen Shot 2022-08-17 at 22 41 56" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
+
+<img width="1512" alt="登录" src="https://user-images.githubusercontent.com/12215982/185168128-ec2d092f-85f6-4ffd-a510-dfcff5daf926.png">
+<img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
+<img width="1512" alt="长列表" src="https://user-images.githubusercontent.com/12215982/185168051-b19223f9-2df8-42d1-a39c-823f772426e0.png">
+<img width="1512" alt="统计" src="https://user-images.githubusercontent.com/12215982/185168085-bb97e434-132c-44be-b3f8-db55e25816e5.png">
+<img width="1512" alt="列表" src="https://user-images.githubusercontent.com/12215982/185168097-94161d53-5761-4c08-827f-31440a7c17b6.png">
+<img width="1512" alt="银行卡列表" src="https://user-images.githubusercontent.com/12215982/185167943-87c84107-dde5-4119-b8c2-25de09685f3b.png">
+<img width="1512" alt="账单列表" src="https://user-images.githubusercontent.com/12215982/185167980-4c9b8f72-74f7-41d9-9c80-7c8d8c2c73bf.png">
+<img width="1512" alt="菜单" src="https://user-images.githubusercontent.com/12215982/185167988-a9929018-c420-4e13-b4fc-a681c2458efc.png">
+<img width="1512" alt="类别" src="https://user-images.githubusercontent.com/12215982/185168041-2148d489-aaf1-4382-8116-6737b15b6014.png">
+<img width="1512" alt="分享" src="https://user-images.githubusercontent.com/12215982/185168108-1647c59e-8fba-4369-a226-9279685e6844.png">
+<img width="1512" alt="分享" src="https://user-images.githubusercontent.com/12215982/185168118-e38b3cb9-d96a-428e-b9d6-73d976872f77.png">
 
 
 移动端
 
-<img src="https://user-images.githubusercontent.com/12215982/185166461-4696dc21-89b5-4c54-ad1f-8657bf9e3106.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166500-1817f0eb-7f65-420f-bd81-9afede94dc87.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166509-03df6525-0ddb-4f71-be8c-004599a10b4d.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166519-984f993c-783e-4b78-9cb0-3628af10935a.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166526-ae43b775-4eac-4c5a-a6b0-dc428500806c.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166532-a123b897-882e-4ff5-8df1-4f24f0cf8cb4.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166538-c8f4c194-44ee-4055-9f65-01a83ffa264a.PNG" alt="" width="240"/>
-<img src="https://user-images.githubusercontent.com/12215982/185166549-a90a5091-7b35-4ad9-ac62-f22515e6a8d8.PNG" alt="" width="240"/>
+<img src="https://user-images.githubusercontent.com/12215982/185166461-4696dc21-89b5-4c54-ad1f-8657bf9e3106.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166500-1817f0eb-7f65-420f-bd81-9afede94dc87.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166509-03df6525-0ddb-4f71-be8c-004599a10b4d.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166519-984f993c-783e-4b78-9cb0-3628af10935a.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166526-ae43b775-4eac-4c5a-a6b0-dc428500806c.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166532-a123b897-882e-4ff5-8df1-4f24f0cf8cb4.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166549-a90a5091-7b35-4ad9-ac62-f22515e6a8d8.PNG" alt="" width="240"/>
+
+
 ---
 
 ## 一、项目介绍
