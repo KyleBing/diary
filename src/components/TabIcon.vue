@@ -47,16 +47,17 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/scss/plugin";
+$icon-padding: 5px;
 .icon-btn{
     height: $height-navbar;
     width: $height-navbar;
-    padding: 3px;
+    padding: $icon-padding;
     @extend .btn-like;
 }
 img{
     transition: all 0.5s;
-    width: $height-navbar - 3px * 2;
-    height: $height-navbar - 3px * 2;
+    width: $height-navbar - $icon-padding * 2;
+    height: $height-navbar - $icon-padding * 2;
     display: block;
     background-color: transparent;
     &:active{

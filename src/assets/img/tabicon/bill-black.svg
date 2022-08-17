@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tabicon/ bill-black</title>
+    <g id="tabicon/-bill-black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#4A4A4A" x="11.5" y="10.5" width="22" height="25" rx="2"></rect>
+        <g id="Group" transform="translate(14.000000, 14.000000)" fill="#4A4A4A">
+            <circle id="Oval-Copy-2" cx="1" cy="1" r="1"></circle>
+            <circle id="Oval-Copy-3" cx="4" cy="1" r="1"></circle>
+            <circle id="Oval-Copy-4" cx="7" cy="1" r="1"></circle>
+            <circle id="Oval-Copy-5" cx="10" cy="1" r="1"></circle>
+            <circle id="Oval-Copy-6" cx="16" cy="1" r="1"></circle>
+            <circle id="Oval-Copy-7" cx="13" cy="1" r="1"></circle>
+        </g>
+        <polygon id="￥" fill="#4A4A4A" fill-rule="nonzero" points="18.3333333 20 21.4583333 24.4444444 18.3333333 24.4444444 18.3333333 25.5555556 21.4583333 25.5555556 21.4583333 26.6666667 18.3333333 26.6666667 18.3333333 27.7777778 21.4583333 27.7777778 21.4583333 30 23.5416667 30 23.5416667 27.7777778 26.6666667 27.7777778 26.6666667 26.6666667 23.5416667 26.6666667 23.5416667 25.5555556 26.6666667 25.5555556 26.6666667 24.4444444 23.5416667 24.4444444 26.6666667 20 24.5833333 20 22.5 23.3333333 20.4166667 20"></polygon>
+    </g>
+</svg>
