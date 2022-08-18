@@ -13,7 +13,7 @@
         <!-- 横屏时 -->
         <div class="diary" v-else>
             <div ref="diaryList" class="diary-list-container" :style="`height:${insets.heightPanel}px`">
-                <list/>
+                <List/>
             </div>
             <div class="diary-container" :style="`height:${insets.heightPanel}px`">
                 <router-view/>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import list from "@/page/list/List"
+import List from "@/page/list/List"
 import Navbar from "@/framework/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import statisticApi from "@/api/statisticApi";
@@ -33,7 +33,7 @@ export default {
     name: 'Index',
     components: {
         Navbar,
-        list
+        List
     },
     computed: {
         ...mapState(['insets', 'isShowSearchBar']),
@@ -52,7 +52,7 @@ export default {
         this.getStatistic() // 载入统计信息
         this.getCategoryAll()
     },
-    watch:{
+    watch: {
         // 搜索按钮点击时，滚动到最顶部
         isShowSearchBar(newValue){
             if (newValue){

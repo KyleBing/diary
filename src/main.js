@@ -28,7 +28,8 @@ Moment.locale('zh', {
    }
 })
 
+
+// Date Picker
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-
 app.component('Datepicker', Datepicker);

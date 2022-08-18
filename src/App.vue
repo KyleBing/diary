@@ -4,7 +4,6 @@
 <script>
 import {mapGetters, mapMutations} from "vuex";
 import utility from "@/utility";
-import statisticApi from "@/api/statisticApi";
 export default {
     mounted() {
         // 初始化 LocalStorage 存储对象
