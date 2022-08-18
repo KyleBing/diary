@@ -95,11 +95,12 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 }
 
 .share-content{
+  white-space: pre-wrap;
   p{
     font-size: 1rem;
     line-height: 1.6;
     text-indent: 2rem;
-    margin-bottom: 1.3rem;
+    margin-bottom: 5px;
   }
 }
 

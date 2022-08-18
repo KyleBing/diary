@@ -43,6 +43,7 @@ $fz-md-article: 14px;
       padding: 10px 0;
     }
     .content {
+      white-space: pre-wrap;
       padding-bottom: 12px;
       color: $bg-main;
       line-height: 1.5;

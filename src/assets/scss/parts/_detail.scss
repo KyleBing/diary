@@ -42,6 +42,7 @@ $height-meta: 30px;
 }
 
 .diary-content{
+  white-space: pre-wrap;
   border-top: 1px solid $color-border;
   position: relative;
   color: $bg-main;
@@ -106,7 +107,7 @@ $height-meta: 30px;
   }
   .diary-content{
     p{
-      text-indent: 2rem;
+      //text-indent: 2rem;
     }
   }
 }
