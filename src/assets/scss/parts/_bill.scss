@@ -16,7 +16,7 @@
   overflow: hidden;
   background-color: white;
   margin-right: 20px;
-  padding-bottom: 15px;
+  padding-bottom: 25px;
   @include border-radius($radius-pc);
   border: 2px solid $color-border;
   font-family: 'JetBrainsMonoDiary';
@@ -74,7 +74,7 @@
     font-size: $fz-small;
     tr{
       &:nth-child(even){
-        background-color: $bg-light;
+        background-color: $bg-lighter;
       }
       th{
         border-top: 1px solid $color-border-light;
@@ -129,18 +129,6 @@
   }
 }
 
-.mark{
-  margin-top: 10px;
-  height: 5px;
-  width: 100%;
-  &.purple { background: $gradient-purple ; }
-  &.red    { background: $gradient-red    ; }
-  &.green  { background: $gradient-green  ; }
-  &.blue   { background: $gradient-blue   ; }
-
-}
-
-
 @media (max-width: $grid-separate-width-sm) {
   .bill-content{
     padding: 10px;
@@ -153,19 +141,21 @@
     margin-bottom: 20px;
     width: 100%;
     .bill-header{
-      padding: 20px 10px;
+      padding: 15px 10px 10px;
       .title{
         font-size: $fz-big;
       }
     }
     .bill-brief{
+      line-height: 1.2;
       font-size: $fz-small;
-      padding: 10px 25px;
+      padding: 5px 50px;
     }
     table {
       width: 100%;
       tr{
         td{
+          min-width: 60px;
           padding: 2px 5px 2px ;
           width: auto;
           &.label{

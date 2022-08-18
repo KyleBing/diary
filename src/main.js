@@ -10,7 +10,17 @@ app.use(store).use(router).mount('#app')
 
 // tooltip
 import FloatingVue from 'floating-vue'
-app.use(FloatingVue)
+let tooltipOptions = {
+   // tooltip for bill
+   arrowOverflow: true,
+   themes: {
+      'tooltip-bill':{ // 这是主题名，对应 bill 页面中 v-tooltip 的 theme
+         placement: 'right',
+         triggers: ['hover', 'focus', 'touch'],
+      }
+   }
+}
+app.use(FloatingVue, tooltipOptions)
 import 'floating-vue/dist/style.css'
 
 

@@ -35,20 +35,17 @@
                         </div>
 
                     </div>
-
                     <table>
                         <tr>
                             <th class="center">日期</th>
                             <th>收入</th>
                             <th>支出</th>
-                            <!--                            <th>合计</th>-->
                             <th class="label center">具体</th>
                         </tr>
                         <tr v-for="item in month.days" :key="item.date">
-                            <!-- <td class="number">{{// dateFormatter(new Date(item.date), 'MM/dd')}}</td> -->
                             <td class="center number">{{ dateProcess(item.date).dateShort }}
                                 <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
-                            <td class="number">
+                            <td class="number" style="width:60px">
                                 <span v-if="item.sumIncome > 0">+{{ item.sumIncome.toFixed(0) || '-' }}</span>
                                 <span v-else>{{ -item.sumIncome.toFixed(0) || '-' }}</span>
                             </td>
@@ -56,20 +53,16 @@
                                 <span v-if="item.sumOutput > 0">+{{ item.sumOutput.toFixed(0) || '-' }}</span>
                                 <span v-else>{{ -item.sumOutput.toFixed(0) || '-' }}</span>
                             </td>
-                            <!--                            <td class="number">
-                                                            <span v-if="item.sum > 0">+{{item.sum.toFixed(0) || 0}}</span>
-                                                            <span v-else>{{-item.sum.toFixed(0) || 0}}</span>
-                                                        </td>-->
-                            <td class="label center" v-tooltip.right="{content: tooltipContent(item.items), html: true}">
+                            <td class="label center"
+                                v-tooltip="{
+                                content: tooltipContent(item.items),
+                                html: true,
+                                theme: 'tooltip-bill'
+                            }">
                                 {{ tooltipContentWithoutReturn(item.items) }}
                             </td>
                         </tr>
                     </table>
-                    <!--                    <div :class="[
-                                            'mark',
-                                            {'blue': month.sum > 0},
-                                            {'purple': month.sum < 0},
-                                            ]"/>-->
                 </div>
             </div>
             <loading v-else :loading="isLoading"/>
@@ -152,7 +145,22 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "../../assets/scss/plugin";
+
+
+// 对应 tooltip 的样式： theme 名， tooltip-bill
+.v-popper--theme-tooltip-bill {
+    .v-popper__inner {
+        padding: 10px;
+        color: white;
+        background: $bg-main;
+        @include border-radius($radius-mobile)
+    }
+
+    .v-popper__arrow-inner {
+        border-color: $bg-main;
+    }
+}
 
 </style>
