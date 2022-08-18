@@ -45,7 +45,7 @@
                         <tr v-for="item in month.days" :key="item.date">
                             <td class="center number">{{ dateProcess(item.date).dateShort }}
                                 <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
-                            <td class="number" style="width:60px">
+                            <td class="number">
                                 <span v-if="item.sumIncome > 0">+{{ item.sumIncome.toFixed(0) || '-' }}</span>
                                 <span v-else>{{ -item.sumIncome.toFixed(0) || '-' }}</span>
                             </td>

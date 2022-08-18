@@ -165,9 +165,9 @@
       width: 100%;
       tr{
         td{
-          min-width: 60px;
+          min-width: 50px;
+          width: 50px !important;
           padding: 2px 5px 2px ;
-          width: auto;
           &.label{
             max-width: 100px;
             white-space: nowrap;
