@@ -129,6 +129,16 @@
   }
 }
 
+.bill-detail-list{
+  font-size: $fz-list-content;
+  td{
+    padding: 2px 0 2px 5px;
+    &.price{
+      text-align: right;
+    }
+  }
+}
+
 @media (max-width: $grid-separate-width-sm) {
   .bill-content{
     padding: 10px;
@@ -168,16 +178,11 @@
       }
     }
   }
-}
-
-
-.bill-detail-list{
-  font-size: $fz-list-content;
-  td{
-    padding: 2px 0 2px 5px;
-    &.price{
-      text-align: right;
-    }
+  .bill-detail-list{
+    font-size: $fz-small;
   }
 }
+
+
+
 
