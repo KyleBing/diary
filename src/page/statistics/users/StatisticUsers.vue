@@ -1,37 +1,43 @@
 <template>
-    <div class="statistic-user" v-if="showUserStatisticInfo">
-        <statistic-panel  class="user-list" title="用户数据概览">
-            <table>
-                <thead>
-                <tr>
-                    <th class="text-left">用户名</th>
-                    <th>日记</th>
-                    <th>码表</th>
-                    <th class="text-center">最后访问时间</th>
-                    <th class="text-center hide-in-mobile">注册时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="item in users" :key="item.uid">
-                    <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{item.nickname}}</td>
-                    <td class="number">{{ item.count_diary }}</td>
-                    <td class="number">{{ item.count_dict }}</td>
-                    <td :class="[
+    <transition
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated faceOut"
+    >
+        <div class="statistic-user" v-if="showUserStatisticInfo">
+            <statistic-panel class="user-list" title="用户数据概览">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="text-left">用户名</th>
+                        <th>日记</th>
+                        <th>码表</th>
+                        <th class="text-center">最后访问时间</th>
+                        <th class="text-center hide-in-mobile">注册时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in users" :key="item.uid">
+                        <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
+                        <td class="number">{{ item.count_diary }}</td>
+                        <td class="number">{{ item.count_dict }}</td>
+                        <td :class="[
                         'text-right',
                         'number',
                         dateTextLevel(item.last_visit_time)
                         ]"
-                    >{{ item.last_visit_time }}</td>
-                    <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
-                </tr>
-                </tbody>
+                        >{{ item.last_visit_time }}
+                        </td>
+                        <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
+                    </tr>
+                    </tbody>
 
-            </table>
-        </statistic-panel>
-        <statistic-panel title="用户日记数量">
-            <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
-        </statistic-panel>
-    </div>
+                </table>
+            </statistic-panel>
+            <statistic-panel title="用户日记数量">
+                <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
+            </statistic-panel>
+        </div>
+    </transition>
 </template>
 
 <script>

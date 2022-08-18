@@ -1,5 +1,5 @@
 <template>
-    <div class="statistic-container">
+    <div class="statistic-container" :style="`height: ${insets.windowsHeight}px`">
         <page-header title="统计数据">
             <div class="main-statistic">
                 <div class="main-statistic-item">
