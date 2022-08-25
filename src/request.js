@@ -25,12 +25,11 @@ function request(method, params, requestData = {}, url) {
                     if (res.data.success){
                         resolve(res.data)
                     } else {
-                        console.log('request err: ', res.data) // 如果演示模式，不用显示网络请求错误
-                        // utility.popMessage('danger', res.data.message, () => {})
+                        console.log('request err: ', res.data) // 输出错误信息
                         reject(res.data)
                     }
                 } else {
-                    console.log('request err: ', res.data) // 如果演示模式，不用显示网络请求错误
+                    console.log('request err: ', res.data) // 输出错误信息
                 }
             })
             .catch(err => {
@@ -41,6 +40,7 @@ function request(method, params, requestData = {}, url) {
                 } else if (err.message) {
                     console.log('message: ', err.message)
                 }
+                reject(err)
             })
     })
 }

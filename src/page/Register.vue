@@ -6,7 +6,7 @@
         >
             <div class="body-login" v-if="show">
                 <div class="logo">
-                    <img :src="icons.logo" alt="Diary Logo">
+                    <img :src="icons.logo_login" alt="Diary Logo">
                 </div>
                 <form id="regForm">
                     <div class="input-group">
@@ -45,7 +45,7 @@
                                id="password2">
                     </div>
 
-                    <button class="btn"
+                    <button class="btn mt-8"
                             :class="verified ? 'btn-active' : 'btn-inactive'"
                             type="button"
                             @click.prevent="regSubmit">注册

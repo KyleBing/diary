@@ -8,7 +8,7 @@
                 <!--APP-->
                 <div id="reg">
                     <div class="logo">
-                        <img :src="icons.logo" alt="Diary Logo">
+                        <img :src="icons.logo_login" alt="Diary Logo">
                     </div>
                     <form id="regForm">
     <!--                    <div class="input-group">
@@ -20,7 +20,7 @@
                             <input v-model.lazy="password1" name="password1" type="password" id="password1">
                         </div>
                         <div class="input-group">
-                            <label for="password2" :class="[(passwordVerified || password2<1)? '' : 'red']">{{ labelCheckPassword }}</label>
+                            <label for="password2" :class="{red: (passwordVerified || password2<1)}">{{ labelCheckPassword }}</label>
                             <input v-model="password2" type="password" name="password2" id="password2" class="focused">
                         </div>
 
