@@ -42,7 +42,7 @@ function popMessage(
       msgEl.classList.replace('slideInDown', 'slideOutUp')
       setTimeout(() => {
          msgEl.remove()
-      }, 300); // 对应 css 中的动画时间
+      }, 150); // 需要对应 css 中 .animated-fast 的动画过渡时间
 
       callback && callback()
 
