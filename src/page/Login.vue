@@ -6,7 +6,7 @@
         >
             <div class="body-login" v-if="show">
                 <div class="logo">
-                    <img :src="icons.logo_login" alt="Diary Logo">
+                    <img :src="icons.logoIcon.login" alt="Diary Logo">
                 </div>
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
                     <div class="input-group">

@@ -65,7 +65,9 @@
   }
   &.active{
     background-color: $color-main;
+    background: linear-gradient(to bottom right, $color-main, darken($color-main, 5%));
     @include transition(all 0);
+    text-shadow: 1px 0 2px transparentize(black, 0.6);
     .month{
       color: white;
       @include transition(all 0);

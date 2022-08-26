@@ -1,11 +1,16 @@
 export default {
     // LOGO
     logo: require('./logo.svg'),
-    logo_login: require('./logo-login.svg'),
     logo_content: require('./logo_content.svg'),
     logo_content_saved: require('./logo_content_saved.svg'),
     logo_title: require('./logo_title.svg'),
     logo_title_saved: require('./logo_title_saved.svg'),
+
+    logoIcon: {
+        login: require('./logoicon/logo-login.svg'),
+        register: require('./logoicon/logo-register.svg'),
+        changePassword: require('./logoicon/logo-change-password.svg'),
+    },
     // EOF
     EOF: require('./EOF.svg'),
     // CONTENT
