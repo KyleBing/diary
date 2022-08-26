@@ -2,8 +2,8 @@
   "name": "diary",
   "nameZh": "标题日记",
   "description": "用一句话记录你最珍贵的时刻",
-  "version": "8.0.5",
-  "dateModify": "2022/08/17",
+  "version": "8.0.6",
+  "dateModify": "2022/08/26",
   "dateInit": "2018/08/14",
   "author": {
     "email": "kylebing@163.com",

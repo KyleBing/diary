@@ -1,3 +1,5 @@
+$height-weather: 31px;
+
 .weather-selector{
   @include border-radius($radius-mobile);
   display: flex;
@@ -20,8 +22,8 @@
     img{
       @extend .unselectable;
       margin: 0 auto;
-      height: 30px;
-      width: 30px;
+      height: $height-weather;
+      width: $height-weather;
       display: block;
     }
   }
