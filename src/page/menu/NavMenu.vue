@@ -13,22 +13,22 @@
                                     @click="menuListClicked('search')"/>
 
                     <!--2. 类别筛选-->
-                    <menu-list-item  menu-name="类别筛选" :icon="icons.tab.card"
+                    <menu-list-item  menu-name="类别筛选" :icon="icons.tab.category"
                                      @click="menuListClicked('category')"
                     >
                         <category-indicator/>
                     </menu-list-item>
 
                     <!--3. 年份筛选-->
-                    <menu-list-item menu-name="年份筛选" :icon="icons.tab.add"
+                    <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"
                                     @click="menuListClicked('year')"
                                     :add-on-text="dateFilter">
                     </menu-list-item>
-                    <menu-list-item menu-name="统计数据" :icon="icons.tab.share"      @click="goToStatisticPage" />
-                    <menu-list-item menu-name="账单"    :icon="icons.tab.bill"        @click="goToBillPage" />
+                    <menu-list-item menu-name="统计数据" :icon="icons.tab.statistics" @click="goToStatisticPage" />
+                    <menu-list-item menu-name="账单"    :icon="icons.tab.billSimple" @click="goToBillPage" />
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"       @click="goToBankCard" />
-                    <menu-list-item menu-name="修改密码" :icon="icons.tab.listDetail" @click="goToChangePassword" />
-                    <menu-list-item  menu-name="关于" :icon="icons.tab.listSimple"
+                    <menu-list-item menu-name="修改密码" :icon="icons.tab.key"        @click="goToChangePassword" />
+                    <menu-list-item  menu-name="关于" :icon="icons.tab.about"
                                      @click="menuListClicked('about')"
                                      :add-on-text="`v${version}`"
                                      />
