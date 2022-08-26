@@ -1,7 +1,7 @@
 <template>
     <div class="menu-list-item">
         <div class="menu-list-item-icon" v-if="icon">
-            <img src="../../assets/img/content.svg" alt="">
+            <img :src="icon" alt="icon">
         </div>
         <div class="menu-list-item-content">
             <div class="title">{{ menuName }}</div>
@@ -17,8 +17,8 @@ export default {
     name: "MenuListItem",
     props: {
         icon:{
-            type: String,
-            default: 'yes'
+            type: Object,
+            default: null
         },
         menuName:{
             type: String,

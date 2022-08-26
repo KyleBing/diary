@@ -8,29 +8,30 @@
             <div class="menu" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
                 <div class="menu-list">
                     <!--1. 搜索-->
-                    <menu-list-item v-if="isInMobileMode"
+                    <menu-list-item v-if="isInMobileMode" :icon="icons.tab.search"
                                     menu-name="搜索"
                                     @click="menuListClicked('search')"/>
 
                     <!--2. 类别筛选-->
-                    <menu-list-item  menu-name="类别筛选"
+                    <menu-list-item  menu-name="类别筛选" :icon="icons.tab.card"
                                      @click="menuListClicked('category')"
                     >
                         <category-indicator/>
                     </menu-list-item>
 
                     <!--3. 年份筛选-->
-                    <menu-list-item menu-name="年份筛选"
+                    <menu-list-item menu-name="年份筛选" :icon="icons.tab.add"
                                     @click="menuListClicked('year')"
                                     :add-on-text="dateFilter">
                     </menu-list-item>
-                    <menu-list-item  @click="goToStatisticPage" menu-name="统计数据"/>
-                    <menu-list-item  @click="goToBillPage" menu-name="账单"/>
-                    <menu-list-item  @click="goToBankCard" menu-name="银行卡"/>
-                    <menu-list-item  @click="goToChangePassword" menu-name="修改密码"/>
-                    <menu-list-item  @click="menuListClicked('about')"
+                    <menu-list-item menu-name="统计数据" :icon="icons.tab.share"      @click="goToStatisticPage" />
+                    <menu-list-item menu-name="账单"    :icon="icons.tab.bill"        @click="goToBillPage" />
+                    <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"       @click="goToBankCard" />
+                    <menu-list-item menu-name="修改密码" :icon="icons.tab.listDetail" @click="goToChangePassword" />
+                    <menu-list-item  menu-name="关于" :icon="icons.tab.delete"
+                                     @click="menuListClicked('about')"
                                      :add-on-text="`v${version}`"
-                                     menu-name="关于"/>
+                                     />
                 </div>
 
                 <div class="user-info-panel">
@@ -76,6 +77,7 @@ import {mapGetters, mapMutations, mapState} from "vuex";
 import packageInfo from "@/../package.json"
 import MenuListItem from "@/page/menu/MenuListItem";
 import CategoryIndicator from "@/page/menu/CategoryIndicator";
+import svgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: "NavMenu",
@@ -94,7 +96,9 @@ export default {
             originCategories: [],
             originFilterShared: false,
 
-            version: packageInfo.version
+            version: packageInfo.version,
+
+            icons: svgIcons
         }
     },
     mounted() {
