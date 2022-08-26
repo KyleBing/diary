@@ -16,14 +16,7 @@
                     <menu-list-item  menu-name="类别筛选"
                                      @click="menuListClicked('category')"
                     >
-                        <div class="category-indicator">
-                            <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
-                            <div :class="['item' ,{active: filteredCategories.some(category => category === item.name_en)}]"
-                                 :style="filteredCategories.indexOf(item.name_en) > -1? `background-color: ${item.color}`:`border-color: ${item.color}`"
-                                 v-for="(item, index) in categoryAll"
-                                 :title="item.name_en"
-                                 :key="index"></div>
-                        </div>
+                        <category-indicator/>
                     </menu-list-item>
 
                     <!--3. 年份筛选-->
@@ -82,10 +75,11 @@ import About from "@/page/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import packageInfo from "@/../package.json"
 import MenuListItem from "@/page/menu/MenuListItem";
+import CategoryIndicator from "@/page/menu/CategoryIndicator";
 
 export default {
     name: "NavMenu",
-    components: {MenuListItem, About, YearSelector, MenuCategorySelector},
+    components: {CategoryIndicator, MenuListItem, About, YearSelector, MenuCategorySelector},
     data(){
         return {
             // menu

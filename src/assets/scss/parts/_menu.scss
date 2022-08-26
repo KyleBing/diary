@@ -40,28 +40,6 @@ $menu-category-list-item-height: 40px;
 }
 
 
-// 菜单中的类别标识
-.category-indicator{
-  display: flex;
-  justify-content: flex-start;
-  $height: 10px;
-  .item{
-    margin-left: 5px;
-    height: $height;
-    width: $height;
-    display: block;
-    @include border-radius($height + 10);
-    border: 1px dotted transparent;
-  }
-  // shared 指示器
-  .category-shared{
-    border-color: white;
-    &.active{
-      background-color: white;
-    }
-  }
-}
-
 .user-info-panel{
   padding: 30px 60px 50px;
 }
