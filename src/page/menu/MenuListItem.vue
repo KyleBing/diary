@@ -1,6 +1,12 @@
 <template>
     <div class="menu-list-item">
-        <div>{{ menuName }}</div>
+        <div class="menu-list-item-title">
+            <div class="icon">
+                <img src="../../assets/img/logo-login.svg" alt="">
+            </div>
+            <div class="menu-title">{{ menuName }}</div>
+        </div>
+
         <slot></slot>
         <div class="addon" v-if="addOnText">{{ addOnText }}</div>
     </div>
@@ -66,6 +72,24 @@ $height-menu-list: 50px;
     &:active{
         background-color: lighten($bg-menu,10%);
     }
+    .menu-list-item-title{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .icon{
+            width: 30px;
+            height: 30px;
+            img{
+                display: block;
+                width: 100%;
+            }
+        }
+        .menu-title{
+            margin-left: 10px;
+
+        }
+    }
+
     .addon{
         margin-top: 2px; // 抵消靠上的显示错觉
         font-size: $fz-list-content;
