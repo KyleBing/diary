@@ -5,14 +5,17 @@
         leave-active-class="animated-fast slideOutLeft"
     >
         <div class="menu-panel" id="menu-panel" v-if="isMenuShowed" :style="'height:' + insets.heightPanel + 'px'">
-            <div class="menu-list" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
-                <div class="menu-list-group">
+            <div class="menu" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
+                <div class="menu-list">
                     <!--1. 搜索-->
-                    <div class="menu-list-group-item" v-if="isInMobileMode" @click="menuListClicked('search')">搜索</div>
+                    <menu-list-item v-if="isInMobileMode"
+                                    menu-name="搜索"
+                                    @click="menuListClicked('search')"/>
 
                     <!--2. 类别筛选-->
-                    <div class="menu-list-group-item" @click="menuListClicked('category')">
-                        <div>类别筛选</div>
+                    <menu-list-item  menu-name="类别筛选"
+                                     @click="menuListClicked('category')"
+                    >
                         <div class="category-indicator">
                             <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
                             <div :class="['item' ,{active: filteredCategories.some(category => category === item.name_en)}]"
@@ -21,31 +24,20 @@
                                  :title="item.name_en"
                                  :key="index"></div>
                         </div>
-                    </div>
+                    </menu-list-item>
 
                     <!--3. 年份筛选-->
-                    <div class="menu-list-group-item" @click="menuListClicked('year')">
-                        <div>年份筛选</div>
-                        <div class="addon">{{ dateFilter }}</div>
-                    </div>
-
-                    <!--4. 统计数据-->
-                    <div class="menu-list-group-item" @click="goToStatisticPage">统计数据</div>
-
-                    <!--4. 账单-->
-                    <div class="menu-list-group-item" @click="goToBillPage">账单</div>
-
-                    <!--5. 银行卡-->
-                    <div class="menu-list-group-item" @click="goToBankCard">银行卡</div>
-
-                    <!--6. 修改密码-->
-                    <router-link class="menu-list-group-item" to="/change-password">修改密码</router-link>
-
-                    <!--7. 关于-->
-                    <div class="menu-list-group-item" @click="menuListClicked('about')">
-                        <div>关于</div>
-                        <div class="addon">v{{version}}</div>
-                    </div>
+                    <menu-list-item menu-name="年份筛选"
+                                    @click="menuListClicked('year')"
+                                    :add-on-text="dateFilter">
+                    </menu-list-item>
+                    <menu-list-item  @click="goToStatisticPage" menu-name="统计数据"/>
+                    <menu-list-item  @click="goToBillPage" menu-name="账单"/>
+                    <menu-list-item  @click="goToBankCard" menu-name="银行卡"/>
+                    <menu-list-item  @click="goToChangePassword" menu-name="修改密码"/>
+                    <menu-list-item  @click="menuListClicked('about')"
+                                     :add-on-text="`v${version}`"
+                                     menu-name="关于"/>
                 </div>
 
                 <div class="user-info-panel">
@@ -89,10 +81,11 @@ import YearSelector from "@/page/menu/YearSelector";
 import About from "@/page/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import packageInfo from "@/../package.json"
+import MenuListItem from "@/page/menu/MenuListItem";
 
 export default {
     name: "NavMenu",
-    components: {About, YearSelector, MenuCategorySelector},
+    components: {MenuListItem, About, YearSelector, MenuCategorySelector},
     data(){
         return {
             // menu
@@ -155,6 +148,12 @@ export default {
             this.SET_MENU_SHOWED(false)
             this.menuClose()
             this.$router.push('/card')
+        },
+
+        goToChangePassword(){
+            this.SET_MENU_SHOWED(false)
+            this.menuClose()
+            this.$router.push('/change-password')
         },
 
         // MENU related

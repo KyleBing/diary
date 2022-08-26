@@ -1,5 +1,4 @@
 // MENU
-$height-menu-list: 50px;
 $menu-category-list-item-height: 40px;
 
 .menu-panel{
@@ -12,53 +11,16 @@ $menu-category-list-item-height: 40px;
   background-color: $bg-menu;
 }
 
-.menu-list{
+.menu{
   display: flex;
   flex-flow: column;
   justify-content: space-between;
 }
 
-.menu-list-group{
+.menu-list{
   display: block;
   list-style-type: none;
   padding: 30px 30px;
-}
-
-.menu-list-group-item{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  font-size: 20px;
-  height: $height-menu-list;
-  line-height: $height-menu-list;
-  padding: 0 15px;
-  color: white;
-  @extend .unselectable;
-  @include border-radius($radius-pc);
-  overflow: hidden;
-  &:after{
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    content: '';
-    display: block;
-    background-color: $color-border-menu;
-    height: 1px;
-    position: absolute;
-    transform-origin: 0 100%;
-    transform: scaleY(0.5);
-  }
-  &:active{
-    background-color: lighten($bg-menu,10%);
-  }
-  .addon{
-    margin-top: 2px; // 抵消靠上的显示错觉
-    font-size: $fz-list-content;
-    line-height: 1;
-    color: $text-menu-second;
-  }
 }
 
 .menu-btn {
