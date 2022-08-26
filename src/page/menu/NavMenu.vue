@@ -28,7 +28,7 @@
                     <menu-list-item menu-name="账单"    :icon="icons.tab.bill"        @click="goToBillPage" />
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"       @click="goToBankCard" />
                     <menu-list-item menu-name="修改密码" :icon="icons.tab.listDetail" @click="goToChangePassword" />
-                    <menu-list-item  menu-name="关于" :icon="icons.tab.delete"
+                    <menu-list-item  menu-name="关于" :icon="icons.tab.listSimple"
                                      @click="menuListClicked('about')"
                                      :add-on-text="`v${version}`"
                                      />
