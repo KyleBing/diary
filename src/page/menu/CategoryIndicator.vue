@@ -48,7 +48,7 @@ export default {
     display: flex;
     justify-content: flex-start;
 
-    $item-height: 15px;
+    $item-height: 8px;
     $item-width: 8px;
     $item-radius: 2px;
     .item{
