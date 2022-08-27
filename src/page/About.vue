@@ -8,7 +8,7 @@
         <div class="author">
             <a href="https://kylebing.cn" class="social-link">🌖 开发者主页</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-            <a href="https://github.com/KyleBing/diary-vue">GitHub.com</a>
+            <a href="https://github.com/KyleBing/diary-vue">[ 开源仓库 ]</a>
             <a>·</a>
             <a href="">v{{version}} @ {{dateModify}}</a>
         </div>

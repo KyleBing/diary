@@ -140,7 +140,6 @@ export default {
     },
     beforeRouteLeave(to, from, next) {
         // 在跳转到其它页面之前判断日记是否已保存
-        // TODO: 如果 title 和 content 本身就是空，现在也是空，就不用提示了
         if (this.diaryHasChanged) {
             utility.popMessage('warning', '当前日记未保存', next(false))
         } else {
