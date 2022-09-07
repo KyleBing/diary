@@ -17,7 +17,7 @@ export default {
     name: "MenuListItem",
     props: {
         icon:{
-            type: Object,
+            type: String,
             default: null
         },
         menuName:{
