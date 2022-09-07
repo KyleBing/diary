@@ -45,5 +45,34 @@ module.exports = {
       )
       config.plugins = config.plugins.concat(plugins) // 将新建的 plugin 添加到原 config 中的 plugin 中
     }
+  },
+
+  /**
+   * PWA 设置
+   */
+  pwa: {
+    name: '日记', // 名字
+    themeColor: "#373737", // 背景颜色
+    appleMobileWebAppCapable: true, // 苹果WebApp支持
+
+    // manifest 设置
+    manifestOptions: {
+      name: '标题日记',
+      short_name: "日记",
+      theme_color: "#373737",
+      start_url: ".",
+      display: "standalone",
+      background_color: "#000000"
+    },
+
+    // 图标
+    iconPaths: {
+      faviconSVG: 'src/assets/img/logo.svg',
+      favicon32: 'src/assets/img/favicon.png',
+      favicon16: 'src/assets/img/favicon.png',
+      appleTouchIcon: 'src/assets/img/appicon-apple.png',
+      maskIcon: '',
+      msTileImage: ''
+    }
   }
 }
