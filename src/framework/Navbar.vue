@@ -44,6 +44,10 @@
                     <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
                          @click="switchToCategory('shared')">共享</div>
                 </div>
+
+                <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
+                    <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
+                </div>
             </div>
 
             <!--RIGHT part-->
@@ -149,6 +153,7 @@ export default {
     },
     computed: {
         ...mapState([
+            'dateFilter',
             'isMenuShowed', // 菜单是否显示
             'isSavingDiary',
             'isDiaryEditorContentHasChanged',
@@ -174,8 +179,13 @@ export default {
             'SET_FILTERED_CATEGORIES',
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_MENU_SHOWED',
-            'SET_IS_FILTER_SHARED'
+            'SET_IS_FILTER_SHARED',
+            'SET_DATE_FILTER'
         ]),
+        clearDateFilter(){
+            this.SET_DATE_FILTER('')
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+        },
         routeToBill(){
             this.$router.push({
                 name: 'bill'
