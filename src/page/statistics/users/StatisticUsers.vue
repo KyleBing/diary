@@ -5,6 +5,7 @@
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
             <statistic-panel class="user-list" title="用户数据概览">
+                <h3 class="mt-4 mb-2">日记用户</h3>
                 <table>
                     <thead>
                     <tr>
@@ -18,7 +19,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in users" :key="item.uid">
+                    <tr v-for="item in usersDiary" :key="item.uid">
                         <td class="number">{{ item.uid }}</td>
                         <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
                         <td :class="[
@@ -33,7 +34,36 @@
                         <td class="number">{{ item.count_dict }}</td>
                     </tr>
                     </tbody>
+                </table>
+                <h3 class="mt-4 mb-2">五笔码表用户</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="text-left">ID</th>
+                        <th class="text-left">用户名</th>
 
+                        <th class="text-center">最后访问时间</th>
+                        <th class="text-center hide-in-mobile">注册时间</th>
+                        <th>日记</th>
+                        <th>码表</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in usersDict" :key="item.uid">
+                        <td class="number">{{ item.uid }}</td>
+                        <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
+                        <td :class="[
+                        'text-right',
+                        'number',
+                        dateTextLevel(item.last_visit_time)
+                        ]"
+                        >{{ item.last_visit_time }}
+                        </td>
+                        <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
+                        <td class="number">{{ item.count_diary }}</td>
+                        <td class="number">{{ item.count_dict }}</td>
+                    </tr>
+                    </tbody>
                 </table>
             </statistic-panel>
             <statistic-panel title="用户日记数量">
@@ -61,6 +91,8 @@ export default {
     data(){
         return {
             users: [],
+            usersDiary: [],
+            usersDict: [],
             chartDataDiary: [],
             chartDataDict: [],
 
@@ -91,6 +123,10 @@ export default {
                         item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy MM-dd  hh:mm')
                         return item
                     })
+
+                    this.usersDiary = this.users.filter(user => user.count_diary > 0)
+                    this.usersDict = this.users.filter(user => user.count_dict > 0)
+
                     this.chartDataDiary = res.data.map(item => {
                         return {
                             name: item.nickname,
