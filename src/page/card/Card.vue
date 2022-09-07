@@ -75,6 +75,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+@import "../../assets/scss/plugin";
+@import "card.scss";
 </style>

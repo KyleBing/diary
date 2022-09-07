@@ -7,14 +7,21 @@
     </div>
     <div v-else>
         <div class="bank-card-container"
-             v-if="cardList.length > 0"
+             v-if="cardListAll.length > 0"
              :style="'height:' + insets.heightPanel + 'px'"
         >
             <div class="bank-card-list">
                 <card
                     :index="index"
                     :card="card"
-                    v-for="(card, index) in cardList"
+                    v-for="(card, index) in cardListStore"
+                    :key="index"/>
+            </div>
+            <div class="bank-card-list">
+                <card
+                    :index="index"
+                    :card="card"
+                    v-for="(card, index) in cardListCredit"
                     :key="index"/>
             </div>
         </div>
@@ -82,7 +89,9 @@ export default {
                 },
             ],
 
-            cardList: [],
+            cardListAll: [],
+            cardListStore: [],
+            cardListCredit: [],
             clipboard: null, // clipboard obj
             example: `银行：民生银行
 卡号：6226 2216 1178 4567
@@ -158,8 +167,7 @@ export default {
                 .then(res => {
                     this.isLoading = false
                     if (res.data) {
-                        this.processCardInfo(res.data)
-
+                        this.processCardInfo(res.data.trim())
                     } else {
                         // 没有设置任何银行卡信息
                     }
@@ -179,7 +187,7 @@ export default {
                         .split('\n')
                         .map(cardItem => cardItem.split('：'))
                 )
-                this.cardList.push({
+                this.cardListAll.push({
                     cardNo: cardMap.get('卡号'),
                     cardName: cardMap.get('银行'),
                     cardType: cardMap.get('类别'),
@@ -190,6 +198,8 @@ export default {
                     date: cardMap.get('到期日'),
                     note: cardMap.get('备注')
                 })
+                this.cardListStore = this.cardListAll.filter(item => item.cardType.indexOf('储蓄卡') > -1)
+                this.cardListCredit = this.cardListAll.filter(item => item.cardType.indexOf('信用卡') > -1)
             })
         }
     }
@@ -198,5 +208,25 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/scss/plugin";
+$bank-card-list-padding: 30px;
+
+.bank-card-container{
+    overflow-y: auto;
+    background-color: $bg-menu;
+}
+.bank-card-list{
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    padding: $bank-card-list-padding;
+}
+
+// mobile
+@media (max-width: $grid-separate-width-sm) {
+    .bank-card-list{
+        padding: 20px;
+        flex-flow: column nowrap;
+    }
+}
 
 </style>

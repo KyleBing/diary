@@ -1,0 +1,158 @@
+$bank-card-gap: 20px;
+$card-bgs: (
+        "green" : (#24b73d, #33c891),   // 农业
+        "red"   : (#ff264c, #ff7442),   // 工商
+        "blue"  : (#0073ce, #2e92ff),   // 建行
+        "white" : (#abab97, #dadada),   // 招商
+);
+
+@each $name, $colors in $card-bgs {
+  .bank-bg-#{$name}{
+    background: linear-gradient(-15deg,$colors);
+  }
+}
+
+.bank-card{
+  display: flex;
+  flex-flow: column nowrap;
+  border-top: 1px solid transparentize(white, 0.7);
+  border-left: 1px solid transparentize(white, 0.7);
+  border-right: 1px solid transparentize(white, 0.9);
+  border-bottom: 1px solid transparentize(white, 0.9);
+  overflow: hidden;
+  @include border-radius($radius-pc);
+  width: 430px;
+  height: 190px;
+  color: $text-title;
+  @include box-shadow(1px 2px 3px transparentize(black, 0.8));
+  position: relative;
+  background-color: transparentize(white, 0.4);
+  margin-bottom: $bank-card-gap;
+  margin-right: $bank-card-gap;
+  &:hover{
+    .card-no{
+
+    }
+  }
+  .card-no{
+    flex-shrink: 0;
+    padding: 20px 20px 3px 20px;
+    font-family: 'ImpactDiary';
+    letter-spacing: 1px;
+    font-size: $fz-big;
+    color: white;
+    text-shadow: 0 0 2px transparentize(black, 0.5);
+    @extend .btn-like;
+    @include transition(all 0.4s)
+  }
+  .card-name{
+    flex-shrink: 0;
+    font-size: $fz-list-content;
+    color: white;
+    text-shadow: 1px 0 2px transparentize(black, 0.5);
+    @extend .btn-like;
+  }
+  .card-type{
+    flex-shrink: 0;
+    font-size: $fz-list-content;
+    color: white;
+    text-shadow: 1px 1px 0 transparentize(black, 0.7);
+  }
+  .card-index {
+    font-family: Monaco;
+    font-size: 10px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    color: white;
+    opacity: 0.5;
+  }
+  .card-note{
+    flex-shrink: 0;
+    font-size: 12px;
+    text-shadow: -1px -1px 1px transparentize(white, 0.5),
+    1px 1px 0 transparentize(black, 0.7);
+  }
+  .copy-btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    img{
+      display: block;
+      width: 30px;
+    }
+  }
+}
+
+.card-main-info{
+  padding: 0 20px;
+  font-size: $fz-title;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-detail-list{
+  flex-shrink: 0;
+  flex-grow: 1;
+  border-top: 1px solid transparentize(white, 0.9);
+  overflow-y: auto;
+  margin-top: 20px;
+  padding: 10px 50px 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: column nowrap;
+  font-size: $fz-small;
+  background-color: transparentize(white, 0.6);
+  @include transition(all 0.5s);
+  animation: card-move-up 0.5s;
+}
+
+
+@keyframes card-move-up {
+  from {
+    margin-top: 100px;
+  }
+  to {
+    margin-top: 20px;
+  }
+}
+
+
+.card-detail-list-item{
+  padding: 2px 0;
+  display: flex;
+  justify-content: space-between;
+  color: $text-content;
+  .label{
+    width: 5rem;
+  }
+  .value{
+    padding-left: 20px;
+    flex-grow: 1;
+    text-align: right;
+  }
+}
+
+.bank-tip{
+  background-color: $bg-menu;
+  padding: 30px;
+  color: $color-main;
+}
+.bank-card-example{
+  padding: 20px 0;
+  text-align: left;
+}
+
+// mobile
+@media (max-width: $grid-separate-width-sm) {
+  .bank-card{
+    width: 100%;
+    margin-right: 0;
+    .card-no {
+      font-size: 26px;
+    }
+    .card-detail-list{
+      padding: 10px 20px;
+    }
+  }
+}
