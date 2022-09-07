@@ -15,7 +15,7 @@
                     </div>
                     <div class="input-group">
                         <label for="password">密码</label>
-                        <input v-model.lazy="password" name="password" type="password" id="password">
+                        <input v-model="password" name="password" type="password" id="password">
                     </div>
                     <button class="btn mt-8" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{ loginLabel }}</button>
                 </form>
@@ -39,7 +39,6 @@ export default {
     data() {
         return {
             icons: SvgIcons,
-
             show: false,
             labelEmail: "邮箱",
             labelCheckPassword: "再次确认密码",
@@ -66,32 +65,36 @@ export default {
     },
     methods: {
         loginSubmit() {
-            this.loginLabel = '登录中...'
-            let requestData = {
-                email: this.email,
-                password: this.password,
+            if (this.verified){
+                this.loginLabel = '登录中...'
+                let requestData = {
+                    email: this.email,
+                    password: this.password,
+                }
+                userApi.login(requestData)
+                    .then(res => {
+                        // set authorization
+                        utility.setAuthorization(
+                            res.data.email,
+                            res.data.password,
+                            res.data.nickname,
+                            res.data.uid,
+                            res.data.group_id
+                        )
+                        utility.popMessage('success', res.message, () => {
+                            this.$router.push('/')
+                        })
+                        this.loginLabel = '登录成功'
+                    })
+                    .catch(err => {
+                        this.loginLabel = '登录失败'
+                        utility.popMessage('danger', err.message, () => {
+                            this.loginLabel = '登录'
+                        })
+                    })
+            } else {
+
             }
-            userApi.login(requestData)
-                .then(res => {
-                    // set authorization
-                    utility.setAuthorization(
-                        res.data.email,
-                        res.data.password,
-                        res.data.nickname,
-                        res.data.uid,
-                        res.data.group_id
-                    )
-                    utility.popMessage('success', res.message, () => {
-                        this.$router.push('/')
-                    })
-                    this.loginLabel = '登录成功'
-                })
-                .catch(err => {
-                    this.loginLabel = '登录失败'
-                    utility.popMessage('danger', err.message, () => {
-                        this.loginLabel = '登录'
-                    })
-                })
         },
         useTestAccount() {
             this.email = "test@163.com"
@@ -100,7 +103,13 @@ export default {
     },
     watch: {
         email() {
-            this.labelEmail = this.emailVerified ? "邮箱" : "输入的邮箱不正确，请重新输入"
+            if (this.email === ''){
+                this.labelEmail = '邮箱'
+            } else if (this.emailVerified) {
+                this.labelEmail = '邮箱'
+            } else {
+                this.labelEmail = '输入的邮箱不正确，请重新输入'
+            }
         }
     }
 }
