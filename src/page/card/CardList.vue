@@ -221,6 +221,7 @@ $bank-card-list-padding: 30px;
     padding: $bank-card-list-padding;
 }
 
+
 // mobile
 @media (max-width: $grid-separate-width-sm) {
     .bank-card-list{

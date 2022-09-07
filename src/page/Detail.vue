@@ -95,7 +95,7 @@ export default {
             },
         })
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '已复制到 剪贴板', null, 2)
+            utility.popMessage('success', '已复制到 剪贴板', null, 1)
         })
 
         // 在载入列表之前，先获取 categoryAll

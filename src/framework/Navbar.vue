@@ -76,9 +76,9 @@
             <div class="navbar-btn-group float-right" v-if="$route.name === 'detail' && currentDiary">
                 <div
                     v-if="currentDiary && currentDiary.is_public === 1"
-                    id="shareBtn"
+                    class="clipboard-trigger"
                     @click="copySharePath"
-                    :data-clipboard-text="`${location.origin}/diary/#/share/${currentDiary.id}`">
+                    :data-clipboard="shareUrl">
                     <tab-icon alt="分享"/>
                 </div>
                 <div @click="toastShow">
@@ -122,7 +122,7 @@
 
 <script>
 import utility from "@/utility"
-import Clipboard from "clipboard"
+import ClipboardJS from "clipboard"
 import {mapState, mapMutations, mapGetters} from 'vuex'
 import YearSelector from "@/page/menu/YearSelector"
 import TabIcon from "@/components/TabIcon"
@@ -146,10 +146,25 @@ export default {
 
             // toast
             toastIsShowed: false,
+
+            clipboard: null,
         }
     },
     mounted() {
         this.location = window.location
+
+        // 绑定剪贴板操作方法
+        this.clipboard = new ClipboardJS('.clipboard-trigger', {
+            text: trigger => {
+                return trigger.getAttribute('data-clipboard')
+            },
+        })
+        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+            utility.popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
+        })
+    },
+    unmounted() {
+        this.clipboard.destroy()
     },
     computed: {
         ...mapState([
@@ -166,7 +181,10 @@ export default {
             'editLogoImg',
             'isFilterShared'
         ]),
-        ...mapGetters(['isInMobileMode'])
+        ...mapGetters(['isInMobileMode']),
+        shareUrl(){
+            return `${location.origin}/diary/#/share/${this.currentDiary.id}`
+        }
     },
     methods: {
         ...mapMutations([
@@ -264,13 +282,6 @@ export default {
 
         // 分享
         copySharePath() {
-            let clipboard = new Clipboard('#shareBtn')
-            clipboard.on('success', function (e) {
-                utility.popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
-                e.clearSelection()
-            })
-            clipboard.on('error', function () {
-            })
         },
 
         /* DELETE */
