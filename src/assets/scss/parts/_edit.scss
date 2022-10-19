@@ -42,13 +42,18 @@ textarea{
   }
   .editor-content{
     textarea{
+      @include transition(height 0.3s);
       padding-bottom: 250px;
       overflow-x: hidden;
       overflow-y: scroll;
       font-family: "Consolas", "Monaco", sans-serif;
       resize: vertical;
-      height: 220px;
+      height: 150px;
       font-size: 1rem;
+      &:focus{
+        height: 260px;
+        @include transition(height 0.3s);
+      }
       &::-webkit-scrollbar {
         z-index: 50;
         width: 8px;
@@ -175,11 +180,17 @@ textarea{
   .diary-edit {
     flex-flow: column nowrap;
     padding: 10px;
+
   }
   .editor-container{
     margin-right: 0;
     margin-bottom: 15px;
     flex-grow: 0;
+    .editor-content{
+      textarea{
+        padding-bottom: 0;
+      }
+    }
   }
   .meta-container{
     width: 100%;

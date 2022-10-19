@@ -4,7 +4,10 @@
             <!--content-->
             <div class="editor-title">
                 <label  class="hidden"></label>
-                <textarea ref="diaryTitle" class="title" style="height: 150px" placeholder="一句话，概括你的一天" v-model="diary.title"/>
+                <textarea ref="diaryTitle"
+                          class="title" style="height: 150px"
+                          placeholder="一句话，概括你的一天"
+                          v-model="diary.title"/>
             </div>
             <div class="editor-content">
                 <label class="hidden"></label>
@@ -27,27 +30,55 @@
                                 locale="zh-CN"
                                 placeholder="---- -- --"
                                 input-class="date"
-                                :clearable="false"/>
+                                :clearable="false"
+                    />
                 </div>
                 <div class="editor-input-item">
                     <label for="temperature">身处 ℃</label>
-                    <input placeholder="--" class="temperature" type="number" name="temperature" id="temperature" v-model="diary.temperature">
+                    <input placeholder="--"
+                           class="temperature"
+                           type="number"
+                           name="temperature"
+                           id="temperature"
+                           v-model="diary.temperature"
+                    >
                 </div>
                 <div class="editor-input-item">
                     <label for="temperatureOutside">室外 ℃</label>
-                    <input placeholder="--" class="temperature" type="number" name="temperature" id="temperatureOutside" v-model="diary.temperatureOutside">
+                    <input placeholder="--"
+                           class="temperature"
+                           type="number"
+                           name="temperature"
+                           id="temperatureOutside"
+                           v-model="diary.temperatureOutside"
+                    >
                 </div>
                 <div class="editor-input-item">
                     <label for="shareState">共享</label>
                     <div class="input">
-                        <input class="share" type="checkbox" name="share" id="shareState" v-model="diary.isPublic">
+                        <input class="share"
+                               type="checkbox"
+                               name="share"
+                               id="shareState"
+                               v-model="diary.isPublic"
+                        >
                         <label class="switch" for="shareState"></label>
                     </div>
                 </div>
             </div>
-            <category-selector class="editor-form-category" :category="diary.category" @change="setCategory"/>
-            <diary-btn :is-loading="isLoading" type="light" v-if="diary.category === 'week'" @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>
-            <weather-selector class="editor-form-weather" :weather="diary.weather" @change="setWeather"/>
+            <category-selector
+                class="editor-form-category"
+                :category="diary.category"
+                @change="setCategory"
+            />
+            <diary-btn :is-loading="isLoading" type="light"
+                       v-if="diary.category === 'week'"
+                       @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>
+            <weather-selector
+                class="editor-form-weather"
+                :weather="diary.weather"
+                @change="setWeather"
+            />
         </div>
     </div>
 </template>
