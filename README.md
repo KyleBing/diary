@@ -1,16 +1,16 @@
-# " 标题日记 "
-> 用一句话概括你的一天
+# 标题日记
+> 一句话概括你的一天
 
 
-## 线上地址
-> 点击登录界面右下角的体验账号登录即可
-> [https://kylebing.cn/diary](https://kylebing.cn/diary) 
+在线项目，点击登录界面右下角的体验账号登录即可
+> [https://kylebing.cn/diary](https://kylebing.cn/diary)
 
 
 
-## 界面
 
-PC
+# 界面
+
+**PC**
 
 <img width="1512" alt="登录" src="https://user-images.githubusercontent.com/12215982/185168128-ec2d092f-85f6-4ffd-a510-dfcff5daf926.png">
 <img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
@@ -24,57 +24,42 @@ PC
 <img width="1512" alt="分享" src="https://user-images.githubusercontent.com/12215982/185168108-1647c59e-8fba-4369-a226-9279685e6844.png">
 <img width="1512" alt="分享" src="https://user-images.githubusercontent.com/12215982/185168118-e38b3cb9-d96a-428e-b9d6-73d976872f77.png">
 
-
-移动端
+**移动端**
 
 <img src="https://user-images.githubusercontent.com/12215982/185166461-4696dc21-89b5-4c54-ad1f-8657bf9e3106.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166500-1817f0eb-7f65-420f-bd81-9afede94dc87.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166509-03df6525-0ddb-4f71-be8c-004599a10b4d.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166519-984f993c-783e-4b78-9cb0-3628af10935a.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166526-ae43b775-4eac-4c5a-a6b0-dc428500806c.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166532-a123b897-882e-4ff5-8df1-4f24f0cf8cb4.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166549-a90a5091-7b35-4ad9-ac62-f22515e6a8d8.PNG" alt="" width="240"/>
 
-
 ---
 
-## 一、项目介绍
-《标题日记》是一款自己开发已久的日记 web 应用
+## 一、介绍
+《标题日记》是一款自己开发已久的 web 日记应用。
+也是自己一直以来想实现的这么个工具，从 2017 年开始，至今也还在不断的完善中。
+之前是没有开源的，后来心想还是开源吧，可能有需要用的。
 
-也是自己一直以来想实现的这么个工具，从 2017 年开始，时至今日也还在不断的完善中。
-之前是没有开源的，后台心想还是开源给更多人用吧，可能有需要用的。
+### 1. 初衷
+每天一句话概括自己的一天，一目了然的查看近一个月以来的事。
 
-#### 1. 初衷
-一天记录一条记录，一目了然的查看近一个月以来经历的事。
-
-#### 2. 主要功能
-
-- 可以同时记录当天的室内、室外温度、天气情况
-- 可以指定日记的类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章、账单
-- 列表中同日的日记只显示一个日期时间。
-- 可以根据关键字搜索日记标题或内容。
-- 菜单中可以根据日期、类别对日记进行筛选。
+### 2. 主要功能、特性
+- 记录标题、内容。
+- 记录室内、室外温度、天气情况。
+- 区分日记类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章、账单。
+- 列表中同日日记只显示一个日期时间。
+- 支持多个关键字搜索日记标题或内容。
+- 可根据日期、类别筛选日记。
 - 支持日记分享功能
-- 适应设备的暗黑模式，自动切换黑白两个样式
-- 所有日记统计信息
-  > 编辑日记时，将分享的开关打开，保存日记后，在日记详情页的工具栏中会多出一个分享按钮，点击会复制这篇日记的共享链接，这个链接是公开的，任何人都可以通过链接查看此篇日记。
-比如当前这篇日记的分享链接是：[https://kylebing.cn/diary/#/share/5587](https://kylebing.cn/diary/#/share/5587)
+  - 编辑日记时，将分享的开关打开，保存日记后，在日记详情页的工具栏中会多出一个分享按钮，点击会复制这篇日记的共享链接，这个链接是公开的，任何人都可以通过链接查看此篇日记。
+    比如当前这篇日记的分享链接是：[https://kylebing.cn/diary/#/share/5587](https://kylebing.cn/diary/#/share/5587)
+- 支持暗黑皮肤，根据本机颜色样式，自动切换黑白两种样式。
+- 日记统计信息
+- 账单统计功能（需要指定格式书写）
 
-#### 3. 支持平台
-支持 PC 和 移动端
-
-#### 4. 暗黑模式支持
-当电脑或手机处于暗黑模式时，会自动切换到暗黑主题色上
-
-#### 5. 项目历史
-我本来就是做前端的，2017 年的时候想学 iOS 了顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 iCloud 中的，有了 app 的界面样子，但并不能很完美的使用。
-后来过了很久，到 2019 年的时候感觉自己前端技术差不多了，就想把它实现了，最初使用的是 `HTML` + `jQuery`。
-后来对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，后来添加了 PC 版界面。
-再后来就大改了，改成了纯 Vue 模式，此时的PC版 和移动端还是在两个分支上的。
-又过了好久，想把这两个版本整合到一起，最终还是想到办法把它实现了，也就是现在的版本。
-
-
+### 3. 支持平台
+跨平台，PC 和 移动端匀能完美显示。
 
 ## 二、安装使用
-该项目包含两个部分：
+该项目包含两个部分，具体的部署方式在各个项目中均有介绍：
 
-> 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
-
-> 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
+- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
+- 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
 
 ## 三、开发说明
@@ -93,13 +78,21 @@ PC
 - `@vuepic/vue-datepicker` 
 - `moment`
 
+## 五、项目历程
+1. 2017 年的时候想学 iOS 了顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 `iCloud` 中的，有了 app 的界面样子，但并不能很完美的使用。
+2. 后来过了很久，到 2019 年的时候感觉自己前端技术差不多了，就想把它实现了，最初使用的是 `HTML` + `jQuery`。
+3. 后来对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，添加了 PC 版界面。
+4. 再后来就大改了，改成了纯 `Vue` 模式，此时的 PC 版和移动端还是在两个分支上的。
+5. 又过了好久，移动端和 PC 两个版本整合到一起，也就是现在的版本。
 
-## 五、支持
+
+
+## 六、支持
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
 
-## 六、项目周期
+## 七、项目周期
 
-`2017-09-27` ~ `2018.08.14` ~ `作者离世的那一天`
+> 始于 `2017-09-27`
