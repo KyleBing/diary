@@ -6,7 +6,7 @@
                 <label  class="hidden"></label>
                 <textarea ref="diaryTitle"
                           class="title" style="height: 150px"
-                          placeholder="一句话，概括你的一天"
+                          placeholder="一句话，概括你的一天 ( 建议 20 字内 )"
                           v-model="diary.title"/>
             </div>
             <div class="editor-content">
