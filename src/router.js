@@ -6,7 +6,7 @@ import Register from "@/page/Register"
 import Login from "@/page/Login"
 import ChangePassword from "@/page/ChangePassword"
 import Bill from "@/page/bill/Bill"
-import CardList from "@/page/card/CardList"
+import BankCardList from "@/page/card/BankCardList"
 import Share from "@/page/Share"
 import Statistics from "@/page/statistics/StatisticsMain"
 
@@ -33,7 +33,7 @@ const routes = [
     {name: 'login',          path: '/login',             component: Login          },
     {name: 'statistics',     path: '/statistics',        component: Statistics   },
     {name: 'bill',           path: '/bill',              component: Bill },
-    {name: 'card',           path: '/card',              component: CardList },
+    {name: 'card',           path: '/card',              component: BankCardList },
     {name: 'notFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 

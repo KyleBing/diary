@@ -9,29 +9,30 @@ export default createStore({
             windowsWidth: window.innerWidth,
             heightPanel: window.innerHeight - 45, // 除 navbar 的高度
         },
-        statisticsCategory: {}, // 统计信息
-        statisticsYear: {}, // 统计信息
+        statisticsCategory: {} ,                 // 统计信息
+        statisticsYear: {} ,                     // 统计信息
 
-        isFilterShared: false, // 是否筛选共享的日记
-        dateFilter: '', // 日期筛选
-        keywords: [], // 搜索关键字
-        filteredCategories: [], // 筛选的类别
+        isFilterShared: false ,                  // 是否筛选共享的日记
+        dateFilter: '' ,                         // 日期筛选
+        keywords: [] ,                           // 搜索关键字
+        filteredCategories: [] ,                 // 筛选的类别
 
-        isShowSearchBar: false, // 搜索栏显示
-        isHideContent: false, // 是否显示列表内容
+        isShowSearchBar: false ,                 // 搜索栏显示
+        isHideContent: false ,                   // 是否显示列表内容
 
-        currentDiary: null, // 当前日记
+        currentDiary: null ,                     // 当前日记
 
-        isDiaryNeedToBeSaved: false, // 日记需要被存储
-        isDiaryNeedToBeRecovered: false, // 取消当前编辑的日记
-        isDiaryEditorContentHasChanged: false, // 日记内容已经变化
-        isDiaryListShowedInFullStyle: false, // 日记列表是否显示为全部内容
-        isListNeedBeReload: false, // 是否刷新列表
-        isSavingDiary: false, // 是否正在保存日记
-        isMenuShowed: false, // 显示菜单
+        isDiaryNeedToBeSaved: false ,            // 日记需要被存储
+        isDiaryNeedToBeRecovered: false ,        // 取消当前编辑的日记
+        isDiaryEditorContentHasChanged: false ,  // 日记内容已经变化
+        isDiaryListShowedInFullStyle: false ,    // 日记列表是否显示为全部内容
+        isListNeedBeReload: false ,              // 是否刷新列表
+        isSavingDiary: false ,                   // 是否正在保存日记
+        isMenuShowed: false ,                    // 显示菜单
 
-        editLogoImg: svgIcons.logo, // 编辑页LOGO
-        listOperation:{}, // 列表页的操作，增删改操作，一般不再重新加载列表
+        editLogoImg: svgIcons.logo ,             // 编辑页LOGO
+        listOperation:{} ,                       // 列表页的操作，增删改操作，一般不再重新加载列表
+
 
         categoryAll : [
             // {name: '生活', name_en: 'life', color: '#fff'},

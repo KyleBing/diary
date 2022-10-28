@@ -38,7 +38,7 @@ import ClipboardJS from "clipboard";
 import utility from "@/utility";
 
 export default {
-    name: "Card",
+    name: "BankCard",
     props: {
         card: {},
         index: 0
@@ -77,5 +77,5 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/scss/plugin";
-@import "card.scss";
+@import "bank-card";
 </style>
