@@ -12,7 +12,7 @@ $card-bgs: (
   }
 }
 
-.bank-card{
+.bankcard{
   display: flex;
   flex-flow: column nowrap;
   border-top: 1px solid transparentize(white, 0.7);
@@ -30,35 +30,13 @@ $card-bgs: (
   margin-bottom: $bank-card-gap;
   margin-right: $bank-card-gap;
   &:hover{
-    .card-no{
+    .bankcard-no{
 
     }
   }
-  .card-no{
-    flex-shrink: 0;
-    padding: 20px 20px 3px 20px;
-    font-family: 'ImpactDiary';
-    letter-spacing: 1px;
-    font-size: $fz-big;
-    color: white;
-    text-shadow: 0 0 2px transparentize(black, 0.5);
-    @extend .btn-like;
-    @include transition(all 0.4s)
-  }
-  .card-name{
-    flex-shrink: 0;
-    font-size: $fz-list-content;
-    color: white;
-    text-shadow: 1px 0 2px transparentize(black, 0.5);
-    @extend .btn-like;
-  }
-  .card-type{
-    flex-shrink: 0;
-    font-size: $fz-list-content;
-    color: white;
-    text-shadow: 1px 1px 0 transparentize(black, 0.7);
-  }
-  .card-index {
+
+
+  .bankcard-index {
     font-family: Monaco;
     font-size: 10px;
     position: absolute;
@@ -67,7 +45,7 @@ $card-bgs: (
     color: white;
     opacity: 0.5;
   }
-  .card-note{
+  .bankcard-note{
     flex-shrink: 0;
     font-size: 12px;
     text-shadow: -1px -1px 1px transparentize(white, 0.5),
@@ -84,20 +62,62 @@ $card-bgs: (
   }
 }
 
-.card-main-info{
-  padding: 0 20px;
-  font-size: $fz-title;
+.bankcard-upper{
+  padding: 20px 20px 0 20px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  .bankcard-logo{
+    flex-shrink: 0;
+    img {
+      display: block;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .bankcard-main-info{
+    padding-left: 15px;
+    flex-grow: 1;
+    .bankcard-no{
+      flex-shrink: 0;
+      font-family: 'ImpactDiary';
+      letter-spacing: 1px;
+      font-size: 26px;
+      color: white;
+      text-shadow: 0 0 2px transparentize(black, 0.5);
+      @extend .btn-like;
+      @include transition(all 0.4s)
+    }
+  }
 }
 
-.card-detail-list{
+.bankcard-title{
+  font-size: $fz-title;
+  display: flex;
+  justify-content: flex-start;
+  .bankcard-name{
+    flex-shrink: 0;
+    font-size: $fz-list-content;
+    color: white;
+    text-shadow: 1px 0 2px transparentize(black, 0.5);
+    @extend .btn-like;
+  }
+  .bankcard-type{
+    margin-left: 30px;
+    flex-shrink: 0;
+    font-size: $fz-list-content;
+    color: white;
+    text-shadow: 1px 1px 0 transparentize(black, 0.7);
+  }
+}
+
+.bankcard-detail-list{
   flex-shrink: 0;
   flex-grow: 1;
   border-top: 1px solid transparentize(white, 0.9);
   overflow-y: auto;
   margin-top: 20px;
-  padding: 10px 50px 20px;
+  padding: 10px 30px 20px;
   display: flex;
   justify-content: flex-start;
   flex-flow: column nowrap;
@@ -118,7 +138,7 @@ $card-bgs: (
 }
 
 
-.card-detail-list-item{
+.bankcard-detail-list-item{
   padding: 2px 0;
   display: flex;
   justify-content: space-between;
@@ -145,13 +165,13 @@ $card-bgs: (
 
 // mobile
 @media (max-width: $grid-separate-width-sm) {
-  .bank-card{
+  .bankcard{
     width: 100%;
     margin-right: 0;
-    .card-no {
-      font-size: 26px;
+    .bankcard-no {
+      font-size: 22px;
     }
-    .card-detail-list{
+    .bankcard-detail-list{
       padding: 10px 20px;
     }
   }

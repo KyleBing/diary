@@ -99,5 +99,15 @@ export default {
         tornado: require('./weather/tornado.svg'),
         tornado_active: require('./weather/tornado_active.svg'),
         tornado_white: require('./weather/tornado_white.svg'),
+    },
+    bank: {
+        中信银行: require('./bankicon/中信银行.svg'),
+        农业银行: require('./bankicon/农业银行.svg'),
+        工商银行: require('./bankicon/工商银行.svg'),
+        中国银行: require('./bankicon/中国银行.svg'),
+        建设银行: require('./bankicon/建设银行.svg'),
+        招商银行: require('./bankicon/招商银行.svg'),
+        民生银行: require('./bankicon/民生银行.svg'),
+        浦发银行: require('./bankicon/浦发银行.svg'),
     }
 }
