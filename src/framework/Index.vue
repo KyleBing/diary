@@ -37,7 +37,7 @@ export default {
     },
     computed: {
         ...mapState(['insets', 'isShowSearchBar']),
-        ...mapGetters(['isInMobileMode', 'categoryMap'])
+        ...mapGetters(['isInMobileMode', 'categoryNameMap'])
     },
     mounted() {
         console.log('$route.path: ',this.$route.path)
@@ -69,7 +69,6 @@ export default {
             'SET_DATA_ARRAY_CATEGORY',
             'SET_DATA_ARRAY_YEAR',
             'SET_CATEGORY_ALL',
-            'SET_CATEGORY_MAP',
         ]),
         // 获取日记统计信息
         getStatistic() {
@@ -99,11 +98,6 @@ export default {
             diaryApi.categoryAllGet()
                 .then(res => {
                     this.SET_CATEGORY_ALL(res.data)
-                    let tempMap = new Map()
-                    res.data.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
                     this.getStatistic()
                 })
         },
@@ -112,7 +106,7 @@ export default {
             keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
             let data =  keys.map(key => {
                 return {
-                    name: this.categoryMap.get(key),
+                    name: this.categoryNameMap.get(key),
                     value: statisticsCategory[key]
                 }
             })

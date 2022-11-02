@@ -250,19 +250,13 @@ export default {
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_LIST_OPERATION',
             'SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED',
-            'SET_CATEGORY_ALL',
-            'SET_CATEGORY_MAP',
+            'SET_CATEGORY_ALL'
         ]),
 
         getCategoryAll(){
             diaryApi.categoryAllGet()
                 .then(res => {
                     this.SET_CATEGORY_ALL(res.data)
-                    let tempMap = new Map()
-                    res.data.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
                 })
         },
 

@@ -67,7 +67,7 @@ export default {
         })
     },
     computed: {
-        ...mapState(['categoryMap']),
+        ...mapState(['categoryNameMap']),
         xAxisData() {
             return this.data
         }
@@ -80,7 +80,7 @@ export default {
             newValue.forEach(item => {
                 seriesData.push(item.value)
                 xAxisData.push(item.name)
-                let color = this.categoryMap.get(item.key) && this.categoryMap.get(item.key).color
+                let color = this.categoryNameMap.get(item.key) && this.categoryNameMap.get(item.key).color
                 if (color){
                     colorArray.push(color)
                 }

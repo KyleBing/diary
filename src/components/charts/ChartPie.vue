@@ -8,7 +8,7 @@
 
 <script>
 import * as echarts from 'echarts'
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 const COLORS =  [
     '#FFA41C',
@@ -62,7 +62,7 @@ export default {
         })
     },
     computed: {
-        ...mapState(['categoryMap']),
+        ...mapGetters(['categoryNameMap']),
         xAxisData() {
             return this.data
         }
@@ -103,7 +103,7 @@ export default {
                         itemStyle: {
                             color: item => {
                                 if (item.data.key){
-                                    return  this.categoryMap.get(item.data.key).color // 返回类别对应的颜色
+                                    return  this.categoryNameMap.get(item.data.key).color // 返回类别对应的颜色
                                 } else {
                                     return COLORS[item.dataIndex%(COLORS.length - 1)]
                                 }

@@ -37,8 +37,6 @@ export default createStore({
         categoryAll : [
             // {name: '生活', name_en: 'life', color: '#fff'},
         ],
-        categoryMap: new Map(),
-
         dataArrayYear: [],
         dataArrayCategory: []
     },
@@ -49,21 +47,27 @@ export default createStore({
             return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
         },
 
-        // 类别字典
-        categoryMap(state){
-            let categoryMap = new Map()
+        // 类别名称字典
+        categoryNameMap(state){
+            let categoryNameMap = new Map()
             state.categoryAll.forEach(item => {
-                categoryMap.set(item.name_en, item.name)
+                categoryNameMap.set(item.name_en, item.name)
             })
-            return categoryMap
+            return categoryNameMap
+        },
+
+        // 类别对象字典
+        categoryObjectMap(state){
+            let categoryNameMap = new Map()
+            state.categoryAll.forEach(item => {
+                categoryNameMap.set(item.name_en, item)
+            })
+            return categoryNameMap
         },
     },
     mutations: {
         SET_CATEGORY_ALL(state, payload){
             state.categoryAll = payload
-        },
-        SET_CATEGORY_MAP(state, payload){
-            state.categoryMap = payload
         },
         SET_DATA_ARRAY_CATEGORY(state, payload){
             state.dataArrayCategory = payload

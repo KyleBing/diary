@@ -61,7 +61,7 @@ export default {
     },
     computed: {
         ...mapState(['insets', 'isShowSearchBar', 'statisticsCategory', 'statisticsYear']),
-        ...mapGetters(['isInMobileMode', 'categoryMap']),
+        ...mapGetters(['isInMobileMode', 'categoryNameMap']),
     },
     mounted() {
         this.getCategoryAll()
@@ -83,7 +83,6 @@ export default {
             'SET_STATISTICS_YEAR',
             'SET_STATISTICS_CATEGORY',
             'SET_STATISTICS_YEAR',
-            'SET_CATEGORY_MAP',
             'SET_CATEGORY_ALL'
         ]),
 
@@ -93,11 +92,6 @@ export default {
                 .then(res => {
                     this.isLoading = false
                     this.SET_CATEGORY_ALL(res.data)
-                    let tempMap = new Map()
-                    res.data.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
                     this.getStatistic()
                 })
                 .catch(err => {
@@ -134,7 +128,7 @@ export default {
             keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
             let data =  keys.map(key => {
                 return {
-                    name: this.categoryMap.get(key),
+                    name: this.categoryNameMap.get(key),
                     key: key,
                     value: statisticsCategory[key]
                 }

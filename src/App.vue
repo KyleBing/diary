@@ -4,7 +4,11 @@
 <script>
 import {mapGetters, mapMutations} from "vuex";
 import utility from "@/utility";
+import diaryApi from "@/api/diaryApi";
 export default {
+    created() {
+        this.getCategoryAll()
+    },
     mounted() {
         // 初始化 LocalStorage 存储对象
         let diaryConfig = utility.getDiaryConfig()
@@ -26,17 +30,22 @@ export default {
             utility.deleteDiaryConfig()
         }
     },
-    computed: {
-        ...mapGetters(['categoryMap']),
-    },
     methods: {
         ...mapMutations([
             'SET_INSETS',
             'SET_KEYWORD',
             'SET_DATE_FILTER',
             'SET_FILTERED_CATEGORIES',
+            'SET_CATEGORY_ALL',
             'SET_IS_FILTER_SHARED'
         ]),
+        getCategoryAll() {
+            diaryApi
+                .categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                })
+        },
     }
 }
 </script>

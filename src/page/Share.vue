@@ -97,7 +97,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['SET_CATEGORY_MAP', 'SET_CATEGORY_ALL']),
+        ...mapMutations([ 'SET_CATEGORY_ALL']),
         getDiaryInfo(){
             this.isLoadingDiary = true
             let requestData = {
@@ -112,12 +112,6 @@ export default {
                     // 类别数据
                     const categoryAll = ress[0].data
                     this.SET_CATEGORY_ALL(categoryAll)
-                    let tempMap = new Map()
-                    categoryAll.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
-
 
                     // 日记信息
                     const diary = ress[1].data
@@ -138,11 +132,11 @@ export default {
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
 
                     // category map
-                    let categoryMap = new Map()
+                    let categoryNameMap = new Map()
                     this.categoryAll.forEach(item => {
-                        categoryMap.set(item.name_en, item.name)
+                        categoryNameMap.set(item.name_en, item.name)
                     })
-                    diary.categoryString = categoryMap.get(diary.category)
+                    diary.categoryString = categoryNameMap.get(diary.category)
 
                 })
                 .catch(() => {

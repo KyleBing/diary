@@ -1,11 +1,8 @@
 <template>
-    <router-link :to="`/detail/${diary.id}`"
-                 :class="[
-                     'diary-list-item',
-                     'diary-list-item-' + diary.category,
-                     {active: active}
-                     ]">
-        <i :class="['category', 'bg-' + diary.category]"></i>
+    <router-link ref="listItem" :to="`/detail/${diary.id}`"
+                 :class="[ 'diary-list-item']"
+    >
+        <i :class="['category']" :style="`background-color: ${categoryObjectMap.get(diary.category).color}`"></i>
         <span class="date">{{ diary.date }}</span>
         <div class="detail">
             <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。]/g, '*') }}</p>
@@ -13,7 +10,7 @@
             <img alt="Content"
                  v-if="diary.content"
                  class="icon"
-                 :src="active? icons.content_white: icons.content"/>
+                 :src="isActive? icons.content_white: icons.content"/>
             <img :alt="diary.weather"
                  v-if="diary.weather"
                  class="icon"
@@ -23,13 +20,17 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 import ICONS from "@/assets/img/SvgIcons";
 import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
     name: "DiaryListItem",
     props: {
+        isActive: {
+            type: Boolean,
+            default: false
+        },
         diary: Object
     },
     data() {
@@ -37,13 +38,21 @@ export default {
             icons: SvgIcons,
         }
     },
+    mounted() {
+        this.$nextTick(()=>{
+            console.log(this.$refs.listItem)
+            if (this.isActive){
+                console.log(this.categoryObjectMap.get(this.diary.category).color)
+                this.$refs.listItem.style.backgroundColor = this.categoryObjectMap.get(this.diary.category).color
+            }
+        })
+
+    },
     computed: {
         ...mapState(['isHideContent']),
-        active() {
-            return Number(this.$route.params.id) === this.diary.id
-        },
+        ...mapGetters(['categoryObjectMap']),
         weatherIcon() {
-            if (this.active) {
+            if (this.isActive) {
                 return ICONS.weather[`${this.diary.weather}_white`]
             } else {
                 if (this.diary.isPublic) {
@@ -53,7 +62,7 @@ export default {
                 }
             }
         }
-    }
+    },
 }
 </script>
 

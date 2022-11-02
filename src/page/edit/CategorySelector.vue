@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
     name: "CategorySelector",
@@ -28,7 +28,9 @@ export default {
         }
     },
     computed: {
-        ...mapState(['categoryAll','categoryMap']),
+        ...mapState(['categoryAll']),
+        ...mapGetters(['categoryNameMap'])
+
     },
     watch: {
         category() {

@@ -108,7 +108,7 @@ export default {
     },
     computed:{
         ...mapState(['categoryAll', 'insets', 'isHideContent']),
-        ...mapGetters(['isInMobileMode', 'categoryMap']),
+        ...mapGetters(['isInMobileMode', 'categoryNameMap']),
 
     },
     watch: {
@@ -122,17 +122,11 @@ export default {
         ...mapMutations([
             'SET_CURRENT_DIARY',
             'SET_CATEGORY_ALL',
-            'SET_CATEGORY_MAP',
         ]),
         getCategoryAll(){
             diaryApi.categoryAllGet()
                 .then(res => {
                     this.SET_CATEGORY_ALL(res.data)
-                    let tempMap = new Map()
-                    res.data.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
                 })
         },
         getTemperatureClassName(temperature){
@@ -197,7 +191,7 @@ export default {
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
 
-                    diary.categoryString = this.categoryMap.get(diary.category)
+                    diary.categoryString = this.categoryNameMap.get(diary.category)
                 })
                 .catch(() => {
                     this.isLoading = false // loading off

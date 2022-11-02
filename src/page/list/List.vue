@@ -16,7 +16,7 @@
         <div class="diary-list-group" v-if="!isDiaryListShowedInFullStyle">
             <div v-for="(item, index) in diariesShow" :key="index">
                 <ListHeader v-if="!item.title" :title="item.date.split('-').join(' - ')"/>
-                <diary-list-item v-else :category="item.category" :diary="item"/>
+                <diary-list-item v-else :isActive="$route.params.id === String(item.id)" :category="item.category" :diary="item"/>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
 import utility from "../../utility"
 import diaryListItem from "./DiaryListItem"
 import diaryListItemLong from "./DiaryListItemLong"
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapGetters} from 'vuex'
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi";
 import SvgIcons from "@/assets/img/SvgIcons";
@@ -94,13 +94,13 @@ export default {
         ...mapState([
             'keywords',
             'categoryAll',
-            'categoryMap',
             'isDiaryListShowedInFullStyle',
             'isListNeedBeReload',
             'listOperation',
             'isShowSearchBar',
             'insets'
-        ])
+        ]),
+        ...mapGetters(['categoryNameMap'])
     },
     watch: {
         isShowSearchBar(newValue){
@@ -174,7 +174,6 @@ export default {
             "SET_STATISTICS_YEAR",
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR',
-            'SET_CATEGORY_MAP',
             'SET_CATEGORY_ALL'
         ]),
         // 刷新 diaries show
@@ -225,11 +224,6 @@ export default {
             diaryApi.categoryAllGet()
                 .then(res => {
                     this.SET_CATEGORY_ALL(res.data)
-                    let tempMap = new Map()
-                    res.data.forEach(category => {
-                        tempMap.set(category.name_en, category)
-                    })
-                    this.SET_CATEGORY_MAP(tempMap)
                     this.reload()
                 })
         },
@@ -267,7 +261,7 @@ export default {
                             diary.content = diary.content.replace(/\n/g, '<br/>')
                         }
 
-                        diary.categoryString = this.categoryMap.get(diary.category).name
+                        diary.categoryString = this.categoryNameMap.get(diary.category).name
 
                         diary.weekday = utility.dateProcess(diary.date).weekday
                         diary.dateString = utility.dateProcess(diary.date).date
