@@ -77,29 +77,6 @@
   }
 }
 
-@each $name, $color in $categories {
-  .diary-list-item-#{$name}{
-    .bg-#{$name}{
-      background-color: $color;
-    }
-    &.active{
-      //background: linear-gradient(0deg, darken($color, 2%), $color,  lighten($color, 10%));
-      @if $name == life{
-        background-color: lighten($color, 5%);
-      } @else{
-        background-color: $color;
-      }
-      &:hover{
-        @if $name == life{
-          background-color: lighten($color, 5%);
-        } @else{
-          background-color: $color;
-        }
-      }
-    }
-  }
-}
-
 
 @media (max-width: $grid-separate-width-sm) {
   .diary-list-item{

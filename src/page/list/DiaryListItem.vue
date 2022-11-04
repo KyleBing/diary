@@ -1,6 +1,8 @@
 <template>
-    <router-link ref="listItem" :to="`/detail/${diary.id}`"
-                 :class="[ 'diary-list-item']"
+    <router-link ref="listItem"
+                 :class="['diary-list-item', {active: isActive}]"
+                 :to="`/detail/${diary.id}`"
+                 :style="diaryItemStyle"
     >
         <i :class="['category']" :style="`background-color: ${categoryObjectMap.get(diary.category).color}`"></i>
         <span class="date">{{ diary.date }}</span>
@@ -39,13 +41,7 @@ export default {
         }
     },
     mounted() {
-        this.$nextTick(()=>{
-            console.log(this.$refs.listItem)
-            if (this.isActive){
-                console.log(this.categoryObjectMap.get(this.diary.category).color)
-                this.$refs.listItem.style.backgroundColor = this.categoryObjectMap.get(this.diary.category).color
-            }
-        })
+
 
     },
     computed: {
@@ -60,6 +56,11 @@ export default {
                 } else {
                     return ICONS.weather[this.diary.weather]
                 }
+            }
+        },
+        diaryItemStyle(){
+            if (this.isActive){
+                return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
             }
         }
     },
