@@ -261,7 +261,7 @@ export default {
                             diary.content = diary.content.replace(/\n/g, '<br/>')
                         }
 
-                        diary.categoryString = this.categoryNameMap.get(diary.category).name
+                        diary.categoryString = this.categoryNameMap.get(diary.category)
 
                         diary.weekday = utility.dateProcess(diary.date).weekday
                         diary.dateString = utility.dateProcess(diary.date).date

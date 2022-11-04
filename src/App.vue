@@ -39,12 +39,10 @@ export default {
             'SET_CATEGORY_ALL',
             'SET_IS_FILTER_SHARED'
         ]),
-        getCategoryAll() {
-            diaryApi
-                .categoryAllGet()
-                .then(res => {
-                    this.SET_CATEGORY_ALL(res.data)
-                })
+        async getCategoryAll() {
+            let res = await diaryApi.categoryAllGet()
+            console.log(res.data)
+            this.SET_CATEGORY_ALL(res.data)
         },
     }
 }

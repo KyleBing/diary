@@ -7,7 +7,7 @@
 
 <script>
 import * as echarts from 'echarts'
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 const COLORS =  [
     '#FFA41C',
@@ -67,7 +67,7 @@ export default {
         })
     },
     computed: {
-        ...mapState(['categoryNameMap']),
+        ...mapGetters(['categoryNameMap', 'categoryObjectMap']),
         xAxisData() {
             return this.data
         }
@@ -80,7 +80,7 @@ export default {
             newValue.forEach(item => {
                 seriesData.push(item.value)
                 xAxisData.push(item.name)
-                let color = this.categoryNameMap.get(item.key) && this.categoryNameMap.get(item.key).color
+                let color = this.categoryNameMap.get(item.key) && this.categoryObjectMap.get(item.key).color
                 if (color){
                     colorArray.push(color)
                 }

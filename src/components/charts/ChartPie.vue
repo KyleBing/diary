@@ -62,7 +62,7 @@ export default {
         })
     },
     computed: {
-        ...mapGetters(['categoryNameMap']),
+        ...mapGetters(['categoryNameMap', 'categoryObjectMap']),
         xAxisData() {
             return this.data
         }
@@ -103,7 +103,7 @@ export default {
                         itemStyle: {
                             color: item => {
                                 if (item.data.key){
-                                    return  this.categoryNameMap.get(item.data.key).color // 返回类别对应的颜色
+                                    return  this.categoryObjectMap.get(item.data.key).color // 返回类别对应的颜色
                                 } else {
                                     return COLORS[item.dataIndex%(COLORS.length - 1)]
                                 }

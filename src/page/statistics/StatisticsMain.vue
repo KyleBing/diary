@@ -65,6 +65,7 @@ export default {
     },
     mounted() {
         this.getCategoryAll()
+        console.log(this.categoryNameMap)
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
