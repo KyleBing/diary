@@ -41,7 +41,6 @@ export default {
         ]),
         async getCategoryAll() {
             let res = await diaryApi.categoryAllGet()
-            console.log(res.data)
             this.SET_CATEGORY_ALL(res.data)
         },
     }

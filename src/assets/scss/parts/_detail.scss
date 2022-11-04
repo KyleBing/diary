@@ -85,13 +85,6 @@ $height-meta: 30px;
   @include border-radius(5px)
 }
 
-@each $name, $color in $categories {
-  .detail-category-#{$name}{
-    border: 1px solid $color;
-    background-color: $color;
-  }
-}
-
 @media (min-width: $grid-separate-width-md){
   .diary-detail{
     padding: 40px 10%;

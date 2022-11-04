@@ -114,12 +114,6 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   padding: 3px 8px;
 }
 
-@each $name, $color in $categories {
-  .share-category-#{$name}{
-    background-color: $color;
-  }
-}
-
 .no-diary{
   height: 100%;
   font-size: 2rem;

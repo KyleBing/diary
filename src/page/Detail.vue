@@ -15,7 +15,7 @@
                 <span> ℃</span>
             </div>
 
-            <div :class="[`detail-category-${diary.category}`, 'detail-category']">
+            <div class="detail-category" :style="categoryBgColor">
                 <span>{{ diary.categoryString }}</span>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 室外 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperatureOutside))]">{{ diary.temperatureOutside }}</span> ℃
             </div>
 
-            <div :class="[`detail-category-${diary.category}`, 'detail-category']">
+            <div class="detail-category" :style="categoryBgColor">
                 <span>{{ diary.categoryString }}</span>
             </div>
         </div>
@@ -108,8 +108,10 @@ export default {
     },
     computed:{
         ...mapState(['categoryAll', 'insets', 'isHideContent']),
-        ...mapGetters(['isInMobileMode', 'categoryNameMap']),
-
+        ...mapGetters(['isInMobileMode', 'categoryNameMap', 'categoryObjectMap']),
+        categoryBgColor(){
+            return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+        },
     },
     watch: {
         $route(to) {
@@ -123,11 +125,9 @@ export default {
             'SET_CURRENT_DIARY',
             'SET_CATEGORY_ALL',
         ]),
-        getCategoryAll(){
-            diaryApi.categoryAllGet()
-                .then(res => {
-                    this.SET_CATEGORY_ALL(res.data)
-                })
+        async getCategoryAll() {
+            let res = await diaryApi.categoryAllGet()
+            this.SET_CATEGORY_ALL(res.data)
         },
         getTemperatureClassName(temperature){
             if (temperature >= 35){

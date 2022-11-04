@@ -64,7 +64,7 @@
 
 <script>
 import utility from "../utility"
-import {mapMutations, mapState} from "vuex";
+import {mapGetters, mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";
 import SvgIcons from "@/assets/img/SvgIcons";
@@ -87,6 +87,7 @@ export default {
     },
     computed:{
         ...mapState(['categoryAll', 'insets']),
+        ...mapGetters(['categoryNameMap', 'categoryObjectMap']),
         heightShare(){
             return this.insets.windowsWidth > 375 ? this.insets.windowsHeight - 60 - 100 : this.insets.windowsHeight
         }

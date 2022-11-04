@@ -1,5 +1,5 @@
 <template>
-    <div :class="['article', {active: active}, `article-${diary.category}`]">
+    <div :class="['article', {active: active},]" :style="diaryItemStyle">
         <router-link
             :to="`/detail/${diary.id}`"
             :class="['article-header']"
@@ -46,6 +46,11 @@ export default {
         },
         suffix() {
             return this.active ? '_white' : '_active'
+        },
+        diaryItemStyle(){
+            if (this.isActive){
+                return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+            }
         }
     }
 }
