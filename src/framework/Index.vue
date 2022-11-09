@@ -50,7 +50,6 @@ export default {
         }
 
         this.getStatistic() // 载入统计信息
-        this.getCategoryAll()
     },
     watch: {
         // 搜索按钮点击时，滚动到最顶部
@@ -93,13 +92,6 @@ export default {
                 })
                 this.SET_DATA_ARRAY_YEAR(data)
             }
-        },
-        getCategoryAll(){
-            diaryApi.categoryAllGet()
-                .then(res => {
-                    this.SET_CATEGORY_ALL(res.data)
-                    this.getStatistic()
-                })
         },
         setDataArrayCategory(statisticsCategory){
             let keys = Object.keys(statisticsCategory)

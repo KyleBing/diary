@@ -75,19 +75,23 @@ export default {
             diariesShow: [],
         }
     },
-    components: {ListHeader, Loading, diaryListItem, diaryListItemLong},
+    components: {
+        ListHeader,
+        Loading,
+        diaryListItem,
+        diaryListItemLong
+    },
     mounted() {
         document.title = '日记' // 变更标题
+
         // init
         this.keywordShow = utility.getDiaryConfig().keywords && utility.getDiaryConfig().keywords.join(' ')
-        this.addScrollEvent()
+        this.$nextTick(()=>{
+            this.addScrollEvent()
+        })
         this.SET_IS_SHOW_SEARCH_BAR(!!this.keywordShow)
-        // 在载入列表之前，先获取 categoryAll
-        if (this.categoryAll.length < 1) {
-            this.getCategoryAll()
-        } else {
-            this.reload()
-        }
+
+        this.reload() // 载入日记列表
     },
 
     computed: {
@@ -111,8 +115,8 @@ export default {
             }
         },
         // route 载入 `/` 路径时，重载日记列表：比如删除日记后
-        $route(to) {
-            if (to.path === '/') {
+        $route(newValue) {
+            if (newValue.path === '/') {
                 this.reload()
             }
         },
@@ -220,13 +224,7 @@ export default {
             }
             this.diariesShow = tempShowArray
         },
-        getCategoryAll() {
-            diaryApi.categoryAllGet()
-                .then(res => {
-                    this.SET_CATEGORY_ALL(res.data)
-                    this.reload()
-                })
-        },
+
         /* MENU 相关 */
         search() {
             this.SET_KEYWORD(this.keywordShow.split(' '))
@@ -254,15 +252,14 @@ export default {
             this.getDiaries(this.params)
         },
         getDiaries(params) {
-            diaryApi.list(params)
+            diaryApi
+                .list(params)
                 .then(res => {
                     let newDiariesList = res.data.map(diary => {
                         if (diary.content) {
                             diary.content = diary.content.replace(/\n/g, '<br/>')
                         }
-
                         diary.categoryString = this.categoryNameMap.get(diary.category)
-
                         diary.weekday = utility.dateProcess(diary.date).weekday
                         diary.dateString = utility.dateProcess(diary.date).date
                         return diary

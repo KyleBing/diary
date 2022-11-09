@@ -76,7 +76,6 @@ export default {
     data() {
         return {
             showToast: false,
-            id: '',
             diary: {},
             isLoading: false, // loading
 
@@ -86,8 +85,11 @@ export default {
         }
     },
     mounted() {
-        this.id = this.$route.params.id
-        this.showDiary(this.id)
+        // 初始化时，载入第一次点击的 id 内容
+        if (this.$route.params.id){
+            this.showDiary(this.$route.params.id)
+        }
+
         // 绑定剪贴板操作方法
         this.clipboard = new ClipboardJS('.clipboard', {
             text: trigger => {
@@ -97,11 +99,6 @@ export default {
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
             utility.popMessage('success', '已复制到 剪贴板', null, 1)
         })
-
-        // 在载入列表之前，先获取 categoryAll
-        if(this.categoryAll.length < 1){
-            this.getCategoryAll()
-        }
     },
     beforeUnmount() {
         this.clipboard.destroy()
@@ -110,13 +107,17 @@ export default {
         ...mapState(['categoryAll', 'insets', 'isHideContent']),
         ...mapGetters(['isInMobileMode', 'categoryNameMap', 'categoryObjectMap']),
         categoryBgColor(){
-            return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+            if (this.diary && this.diary.category){
+                return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+            } else {
+                return ''
+            }
         },
     },
     watch: {
-        $route(to) {
-            if (to.params.id){
-                this.showDiary(to.params.id)
+        '$route.params.id'(newValue){
+            if (newValue){
+                this.showDiary(newValue)
             }
         }
     },
@@ -125,10 +126,6 @@ export default {
             'SET_CURRENT_DIARY',
             'SET_CATEGORY_ALL',
         ]),
-        async getCategoryAll() {
-            let res = await diaryApi.categoryAllGet()
-            this.SET_CATEGORY_ALL(res.data)
-        },
         getTemperatureClassName(temperature){
             if (temperature >= 35){
                 return 'temperature-35'

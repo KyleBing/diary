@@ -164,10 +164,6 @@ export default {
                 this.saveDiary()
             }
         }
-        // 在载入列表之前，先获取 categoryAll
-        if(this.categoryAll.length < 1){
-            this.getCategoryAll()
-        }
     },
     beforeRouteLeave(to, from, next) {
         // 在跳转到其它页面之前判断日记是否已保存
@@ -252,14 +248,6 @@ export default {
             'SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED',
             'SET_CATEGORY_ALL'
         ]),
-
-        getCategoryAll(){
-            diaryApi.categoryAllGet()
-                .then(res => {
-                    this.SET_CATEGORY_ALL(res.data)
-                })
-        },
-
         // 载入本星期的所有工作日志
         loadCurrentWeekLogs() {
             this.isLoading = true

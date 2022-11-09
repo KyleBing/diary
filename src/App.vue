@@ -1,15 +1,14 @@
 <template>
-    <router-view/>
+    <router-view v-if="categoryAll.length > 0"/>
 </template>
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import {mapGetters, mapMutations, mapState} from "vuex";
 import utility from "@/utility";
 import diaryApi from "@/api/diaryApi";
 export default {
-    created() {
-        this.getCategoryAll()
-    },
     mounted() {
+        this.getCategoryAll()
+
         // 初始化 LocalStorage 存储对象
         let diaryConfig = utility.getDiaryConfig()
         this.SET_FILTERED_CATEGORIES(diaryConfig.filteredCategories)
@@ -30,6 +29,9 @@ export default {
             utility.deleteDiaryConfig()
         }
     },
+    computed: {
+        ...mapState(['categoryAll'])
+    },
     methods: {
         ...mapMutations([
             'SET_INSETS',
@@ -39,9 +41,12 @@ export default {
             'SET_CATEGORY_ALL',
             'SET_IS_FILTER_SHARED'
         ]),
-        async getCategoryAll() {
-            let res = await diaryApi.categoryAllGet()
-            this.SET_CATEGORY_ALL(res.data)
+        getCategoryAll() {
+            diaryApi
+                .categoryAllGet()
+                .then(res => {
+                    this.SET_CATEGORY_ALL(res.data)
+                })
         },
     }
 }

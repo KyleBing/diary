@@ -64,8 +64,6 @@ export default {
         ...mapGetters(['isInMobileMode', 'categoryNameMap']),
     },
     mounted() {
-        this.getCategoryAll()
-        console.log(this.categoryNameMap)
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
@@ -86,20 +84,6 @@ export default {
             'SET_STATISTICS_YEAR',
             'SET_CATEGORY_ALL'
         ]),
-
-        getCategoryAll(){
-            this.isLoading = true
-            diaryApi.categoryAllGet()
-                .then(res => {
-                    this.isLoading = false
-                    this.SET_CATEGORY_ALL(res.data)
-                    this.getStatistic()
-                })
-                .catch(err => {
-                    this.isLoading = false
-                })
-        },
-
         // 获取日记统计信息
         getStatistic() {
             statisticApi.category()

@@ -104,18 +104,12 @@ export default {
             let requestData = {
                 'diaryId': this.id
             }
-            axios
-                .all([
-                    diaryApi.categoryAllGet(),
-                    diaryApi.detail(requestData)
-                ])
-                .then(ress => {
-                    // 类别数据
-                    const categoryAll = ress[0].data
-                    this.SET_CATEGORY_ALL(categoryAll)
+            diaryApi
+                .detail(requestData)
+                .then(res => {
 
                     // 日记信息
-                    const diary = ress[1].data
+                    const diary = res.data
 
                     this.isLoadingDiary = false
                     this.diary = diary
