@@ -53,7 +53,7 @@ module.exports = {
   pwa: {
     name: '日记', // 名字
     themeColor: "#373737", // 背景颜色
-    appleMobileWebAppCapable: true, // 苹果WebApp支持
+    appleMobileWebAppCapable: true, // 苹果 WebApp 支持
 
     // manifest 设置
     manifestOptions: {
@@ -62,17 +62,25 @@ module.exports = {
       theme_color: "#373737",
       start_url: ".",
       display: "standalone",
-      background_color: "#000000"
+      background_color: "#000000",
+      icons: [
+        {
+          src: "./src/assets/img/logo.svg",
+          sizes: "512x512",
+          type: "image/svg+xml",
+          purpose: "any maskable",
+        },
+      ],
     },
 
     // 图标
     iconPaths: {
-      faviconSVG: 'src/assets/img/logo.svg',
-      favicon32: 'src/assets/img/favicon.png',
-      favicon16: 'src/assets/img/favicon.png',
-      appleTouchIcon: 'src/assets/img/appicon-apple.png',
-      maskIcon: '',
-      msTileImage: ''
+      faviconSVG: './src/assets/img/logo.svg',
+      favicon32: './src/assets/img/favicon.png',
+      favicon16: './src/assets/img/favicon.png',
+      appleTouchIcon: './src/assets/img/appicon-apple.png',
+      maskIcon: null,
+      msTileImage: null
     }
   }
 }

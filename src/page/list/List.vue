@@ -127,7 +127,7 @@ export default {
             }
         },
         listOperation({type, diary, id}) {
-            console.log('list operation: ', type,diary,id)
+            // console.log('list operation: ', type,diary,id)
             switch (type) {
                 case 'add':
                     let posInsert = 0
