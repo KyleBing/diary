@@ -62,10 +62,10 @@ module.exports = {
       theme_color: "#373737",
       start_url: ".",
       display: "standalone",
-      background_color: "#000000",
+      background_color: "#373737",
       icons: [
         {
-          src: "./src/assets/img/logo.svg",
+          src: "logo.svg",
           sizes: "512x512",
           type: "image/svg+xml",
           purpose: "any maskable",
@@ -76,10 +76,10 @@ module.exports = {
     // 图标
     iconPaths: {
       // 这里是项目外的路径，对应 public 目录
-      faviconSVG: './logo.svg',
-      favicon32: './favicon.png',
-      favicon16: './favicon.png',
-      appleTouchIcon: './appicon-apple.png',
+      faviconSVG: 'logo.svg',
+      favicon32: 'favicon.png',
+      favicon16: 'favicon.png',
+      appleTouchIcon: 'appicon-apple.png',
       maskIcon: null,
       msTileImage: null
     }
