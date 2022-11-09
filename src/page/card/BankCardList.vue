@@ -1,6 +1,6 @@
 <template>
     <page-header title="银行卡列表">
-        <tab-icon @click="editCardInfo"  alt="编辑"/>
+        <tab-icon @click="editCardInfo" alt="编辑"/>
     </page-header>
     <div v-if="isLoading" class="pt-8 pb-8">
         <loading :loading="isLoading"/>
@@ -40,7 +40,6 @@
 
                 <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
 
-
                 <div class="bank-card-list">
                     <div class="bank-card-list">
                         <bank-card
@@ -49,7 +48,6 @@
                             v-for="(card, index) in cardListExample"
                             :key="index"/>
                     </div>
-
                 </div>
             </template>
 
@@ -142,7 +140,8 @@ export default {
                 pageCount: 100,
                 pageNo: 1
             }
-            diaryApi.list(params)
+            diaryApi
+                .list(params)
                 .then(res => {
                     if (res.data.length === 1){
                         this.$router.push({
@@ -154,7 +153,6 @@ export default {
                     } else {
                         utility.popMessage('warning', '未找到对应的日记内容')
                     }
-                    console.log(res)
                 })
                 .catch(err => {
 
@@ -163,7 +161,8 @@ export default {
 
         getBankCards(){
             this.isLoading = true // 请求的时候显示loading
-            bankCardApi.getBankCard()
+            bankCardApi
+                .getBankCard()
                 .then(res => {
                     this.isLoading = false
                     if (res.data) {
@@ -221,8 +220,7 @@ $bank-card-list-padding: 30px;
     padding: $bank-card-list-padding;
 }
 
-
-// mobile
+// MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .bank-card-list{
         padding: 20px;

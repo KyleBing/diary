@@ -76,12 +76,10 @@ export default {
     data() {
         return {
             icons: SvgIcons,
-
-            showToast: false,
-            id: '',
             diary: {},
             dateObj: {},
 
+            isShowToast: false,
             isLoadingDiary: false, // 日记请求中
         }
     },
@@ -93,16 +91,14 @@ export default {
         }
     },
     mounted() {
-        if (this.$route.params.id) {
-            this.id = this.$route.params.id
-        }
+        this.getDiaryInfo(this.$route.params.id)
     },
     methods: {
         ...mapMutations([ 'SET_CATEGORY_ALL']),
-        getDiaryInfo(){
+        getDiaryInfo(diaryId){
             this.isLoadingDiary = true
             let requestData = {
-                'diaryId': this.id
+                'diaryId': this.$route.params.id
             }
             diaryApi
                 .detail(requestData)
@@ -141,14 +137,9 @@ export default {
         },
     },
     watch: {
-        $route(to) {
-            if (to.params.id) {
-                this.id = to.params.id
-            }
+        '$route.params.id'(newValue) {
+            this.getDiaryInfo(newValue)
         },
-        id(newValue) {
-            this.getDiaryInfo()
-        }
     }
 }
 

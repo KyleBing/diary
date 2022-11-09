@@ -39,10 +39,8 @@
             </div>
         </div>
 
-
         <!-- pc 时不显示展示加载图标 -->
         <loading :loading="isLoading" v-if="isInMobileMode"/>
-
 
         <!--TITLE-->
         <div class="diary-title" v-if="diary.title">
@@ -75,12 +73,10 @@ export default {
     components: {Loading},
     data() {
         return {
-            showToast: false,
-            diary: {},
+            isShowToast: false,
             isLoading: false, // loading
-
+            diary: {},
             icons: SvgIcons,
-
             clipboard: null // clipboard obj
         }
     },
@@ -145,10 +141,10 @@ export default {
             this.$router.back()
         },
         show() {
-            this.showToast = true
+            this.isShowToast = true
         },
         hide() {
-            this.showToast = false
+            this.isShowToast = false
         },
         getContentHtml(content){
             let contentArray = content.split('\n')

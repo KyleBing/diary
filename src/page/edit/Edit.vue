@@ -99,6 +99,8 @@ export default {
     data() {
         return {
             isNew: true,
+            isLoading: false,
+
             diary: {
                 id: "",
                 title: "",
@@ -131,7 +133,6 @@ export default {
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateFilter: '' // 日记年月筛选
             },
-            isLoading: false,
         }
     },
     components: {DiaryBtn, categorySelector, weatherSelector},
@@ -146,7 +147,6 @@ export default {
             }
         }
         this.isNew = !(this.$route.params.id)
-        console.log('$route.params.id: ', this.$route.params.id)
         if (this.isNew) {
             // 新建日记
             this.createDiary()
@@ -200,10 +200,9 @@ export default {
     },
 
     watch: {
-        $route(to) {
-            // console.log(to)
-            if (to.params.id) {
-                this.getDiary(to.params.id)
+        $route(newValue) {
+            if (newValue.params.id) {
+                this.getDiary(newValue.params.id)
             } else {
                 this.createDiary()
             }
@@ -211,18 +210,6 @@ export default {
         diary: {
             handler(newValue) {
                 this.updateDiaryIcon()
-/*                if (this.isNew){
-                    if (Moment(newValue.date).isSame(new Date(), 'day')){
-                        if (newValue.temperatureOutside === ''){
-                            this.getCurrentTemperature()
-                        }
-                    } else {
-                        this.diary.temperature = ''
-                        this.diary.temperatureOutside = ''
-                        this.diaryOrigin.temperature = ''
-                        this.diaryOrigin.temperatureOutside = ''
-                    }
-                }*/
             },
             deep: true
         },

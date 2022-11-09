@@ -31,10 +31,8 @@
             <loading :loading="isLoading"/>
         </div>
 
-        <div v-show="!isLoading && !haveMore" class="end-of-diary">
-
+        <div v-show="!isLoading && !isHasMore" class="end-of-diary">
             <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
-
             <p><img :src="icons.EOF" alt="EOF"></p>
         </div>
     </div>
@@ -55,10 +53,9 @@ export default {
     data() {
         return {
             showDiaryList: true,
-
             icons: SvgIcons,
 
-            haveMore: true,
+            isHasMore: true,
             isLoading: true,
 
             keywordShow: '', // 关键词
@@ -244,7 +241,7 @@ export default {
 
         /* DIARY 相关 */
         loadMore() {
-            this.haveMore = false
+            this.isHasMore = false
             this.isLoading = true
             this.params.categories = JSON.stringify(utility.getDiaryConfig().filteredCategories)
             this.params.dateFilter = utility.getDiaryConfig().dateFilter
@@ -267,10 +264,10 @@ export default {
 
                     // page operation
                     if (res.data.length === this.params.pageCount) {
-                        this.haveMore = true
+                        this.isHasMore = true
                         this.params.pageNo++
                     } else {
-                        this.haveMore = false
+                        this.isHasMore = false
                     }
 
                     // diary operation
@@ -301,7 +298,7 @@ export default {
                     return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
                 }
 
-                if (this.haveMore && needLoadContent()) {
+                if (this.isHasMore && needLoadContent()) {
                     this.loadMore()
                 }
             })
