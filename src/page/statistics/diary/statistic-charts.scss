@@ -14,7 +14,6 @@
   display: flex;
 }
 
-
 $show-value-dash: true;
 
 .info-list-group{
@@ -86,6 +85,7 @@ $show-value-dash: true;
     .value{
       @if $show-value-dash {
         padding-left: 20px;
+        padding-right: 10px;
         z-index: 10;
         background-color: $bg-light;
       }
@@ -101,7 +101,7 @@ $show-value-dash: true;
         top: 50%;
         width: 100%;
         display: block;
-        border-bottom: 1px dashed $color-border;
+        border-bottom: 1px dashed $color-border-highlight;
         position: absolute;
       }
     }

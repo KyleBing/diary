@@ -64,6 +64,7 @@ export default {
         ...mapGetters(['isInMobileMode', 'categoryNameMap']),
     },
     mounted() {
+        this.getStatistic()
     },
     watch:{
         // 搜索按钮点击时，滚动到最顶部
@@ -86,12 +87,14 @@ export default {
         ]),
         // 获取日记统计信息
         getStatistic() {
-            statisticApi.category()
+            statisticApi
+                .category()
                 .then(res => {
                     this.SET_STATISTICS_CATEGORY(res.data)
                     this.setDataArrayCategory(res.data)
                 })
-            statisticApi.year()
+            statisticApi
+                .year()
                 .then(res => {
                     this.SET_STATISTICS_YEAR(res.data)
                     this.setDataArrayYear(res.data)

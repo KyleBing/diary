@@ -25,11 +25,11 @@
                         <td :class="[
                         'text-right',
                         'number',
-                        dateTextLevel(item.last_visit_time)
+                        dateTextLevel(item.last_visit_time_string)
                         ]"
-                        >{{ item.last_visit_time }}
+                        >{{ item.last_visit_time_string }}
                         </td>
-                        <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
+                        <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
                         <td class="number">{{ item.count_diary }}</td>
                         <td class="number">{{ item.count_dict }}</td>
                     </tr>
@@ -55,11 +55,11 @@
                         <td :class="[
                         'text-right',
                         'number',
-                        dateTextLevel(item.last_visit_time)
+                        dateTextLevel(item.last_visit_time_string)
                         ]"
-                        >{{ item.last_visit_time }}
+                        >{{ item.last_visit_time_string }}
                         </td>
-                        <td class="text-right number hide-in-mobile">{{ item.register_time }}</td>
+                        <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
                         <td class="number">{{ item.count_diary }}</td>
                         <td class="number">{{ item.count_dict }}</td>
                     </tr>
@@ -105,7 +105,7 @@ export default {
     methods: {
         // 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
         dateTextLevel(dateString){
-            let date = new Moment(dateString)
+            let date = new Moment(dateString) // yyyy MM-dd  hh:mm 补全时间字符串
             let now = new Moment()
             let distance =  now.diff(date, 'day')
             if ( distance < 7) {
@@ -115,12 +115,13 @@ export default {
             }
         },
         getStatisticUsers(){
-            statisticApi.users()
+            statisticApi
+                .users()
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time = utility.dateFormatter(new Date(item.register_time), 'yyyy MM-dd  hh:mm')
-                        item.last_visit_time = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy MM-dd  hh:mm')
+                        item.register_time_string = utility.dateFormatter(new Date(item.register_time), 'yyyy MM-dd  hh:mm')
+                        item.last_visit_time_string = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy MM-dd  hh:mm')
                         return item
                     })
 
