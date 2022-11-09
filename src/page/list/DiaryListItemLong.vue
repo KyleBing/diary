@@ -1,6 +1,7 @@
 <template>
-    <div :class="['article', {active: active},]" :style="diaryItemStyle">
+    <div :class="['article', {active: isActive},]">
         <router-link
+            :style="diaryItemHeaderStyle"
             :to="`/detail/${diary.id}`"
             :class="['article-header']"
         >
@@ -11,7 +12,7 @@
                      :src="icons.weather[diary.weather + suffix]"
                      :alt="diary.weather">
             </div>
-            <div class="category">{{ diary.categoryString }}</div>
+            <div class="category" :style="diaryItemCategoryTextStyle" >{{ diary.categoryString }}</div>
         </router-link>
 
         <div class="article-body" v-if="isHideContent">
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 import SvgIcons from "@/assets/img/SvgIcons";
 
 export default {
@@ -41,15 +42,35 @@ export default {
     },
     computed: {
         ...mapState(['isHideContent']),
-        active() {
+        ...mapGetters(['categoryObjectMap']),
+        isActive() {
             return Number(this.$route.params.id) === Number(this.diary.id)
         },
         suffix() {
-            return this.active ? '_white' : '_active'
+            return this.isActive ? '_white' : '_active'
         },
-        diaryItemStyle(){
+        diaryItemHeaderStyle(){
             if (this.isActive){
-                return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+                return `
+                      background-color: ${this.categoryObjectMap.get(this.diary.category).color};
+                      border-top: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
+                      border-bottom: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
+                `
+
+            } else {
+                return `
+                      border-top: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
+                      border-bottom: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
+                `
+            }
+        },
+        diaryItemCategoryTextStyle(){
+            if (this.isActive){
+
+            } else {
+                return `
+                      color:  ${this.categoryObjectMap.get(this.diary.category).color}
+                `
             }
         }
     }

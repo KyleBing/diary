@@ -43,7 +43,7 @@
 
                 <div class="bank-card-list">
                     <div class="bank-card-list">
-                        <card
+                        <bank-card
                             :index="index"
                             :card="card"
                             v-for="(card, index) in cardListExample"
