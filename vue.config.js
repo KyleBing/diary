@@ -75,10 +75,11 @@ module.exports = {
 
     // 图标
     iconPaths: {
-      faviconSVG: './src/assets/img/logo.svg',
-      favicon32: './src/assets/img/favicon.png',
-      favicon16: './src/assets/img/favicon.png',
-      appleTouchIcon: './src/assets/img/appicon-apple.png',
+      // 这里是项目外的路径，对应 public 目录
+      faviconSVG: './logo.svg',
+      favicon32: './favicon.png',
+      favicon16: './favicon.png',
+      appleTouchIcon: './appicon-apple.png',
       maskIcon: null,
       msTileImage: null
     }
