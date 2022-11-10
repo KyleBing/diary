@@ -23,6 +23,7 @@
                 <div class="editor-input-item">
                     <label>日期</label>
                     <Datepicker :editable="false"
+                                :show-now-button="true"
                                 v-model="diary.date"
                                 format="yyyy-MM-dd HH:mm:ss"
                                 selectText="确定"
