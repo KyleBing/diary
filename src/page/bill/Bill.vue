@@ -129,9 +129,10 @@ export default {
         },
         getBillData() {
             this.isLoading = true
-            billApi.sorted({
-                year: new Date().getFullYear()
-            })
+            billApi
+                .sorted({
+                    year: new Date().getFullYear()
+                })
                 .then(res => {
                     this.isLoading = false
                     this.billYearData = res.data

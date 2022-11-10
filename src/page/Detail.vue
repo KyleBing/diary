@@ -161,7 +161,8 @@ export default {
         showDiary(id) {
             this.isLoading = true
             let requestData = {diaryId: id}
-            diaryApi.detail(requestData)
+            diaryApi
+                .detail(requestData)
                 .then(res => {
                     this.isLoading = false // loading off
                     let diary = res.data

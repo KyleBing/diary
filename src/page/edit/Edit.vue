@@ -238,7 +238,8 @@ export default {
         // 载入本星期的所有工作日志
         loadCurrentWeekLogs() {
             this.isLoading = true
-            diaryApi.list(this.requestData)
+            diaryApi
+                .list(this.requestData)
                 .then(res => {
                     this.isLoading = false
                     // TODO: 由于目前载入的日志内容是最近的15条，所以无法载入之前的日志内容，这个需要后台添加时间段获取日志的功能再完善
@@ -305,9 +306,10 @@ export default {
         },
         getDiary(id) {
             // 编辑日记
-            diaryApi.detail({
-                diaryId: id
-            })
+            diaryApi
+                .detail({
+                    diaryId: id
+                })
                 .then(res => {
                     let diary = res.data
                     this.diary.category = diary.category
@@ -356,14 +358,16 @@ export default {
             this.SET_IS_SAVING_DIARY(true)
 
             if (this.isNew){
-                diaryApi.add(requestData)
+                diaryApi
+                    .add(requestData)
                     .then(this.processAfterSaveDiary)
                     .catch(() => {
                         this.SET_IS_SAVING_DIARY(false)
                         this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
                     })
             } else {
-                diaryApi.modify(requestData)
+                diaryApi
+                    .modify(requestData)
                     .then(this.processAfterSaveDiary)
                     .catch(() => {
                         this.SET_IS_SAVING_DIARY(false)

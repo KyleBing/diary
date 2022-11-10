@@ -113,7 +113,8 @@ export default {
                     password: this.password1,
                 }
 
-                userApi.register(requestData)
+                userApi
+                    .register(requestData)
                     .then(res => {
                         utility.popMessage('success', `${res.message}，正在前往登录`, () => {
                             this.$router.push('/login')

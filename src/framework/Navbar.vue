@@ -293,7 +293,8 @@ export default {
             let requestData = {
                 diaryId: this.currentDiary.id,
             }
-            diaryApi.delete(requestData)
+            diaryApi
+                .delete(requestData)
                 .then(res => {
                     that.toastHide()
                     utility.popMessage('success', res.message, () => {

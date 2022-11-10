@@ -79,7 +79,8 @@ export default {
                     password: this.password1,
                 }
 
-                userApi.changePassword(requestData)
+                userApi
+                    .changePassword(requestData)
                     .then(res => {
                         utility.popMessage('success', `${res.message}，正在前往登录`, () => {
                             utility.deleteAuthorization()

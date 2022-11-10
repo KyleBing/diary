@@ -71,7 +71,8 @@ export default {
                     email: this.email,
                     password: this.password,
                 }
-                userApi.login(requestData)
+                userApi
+                    .login(requestData)
                     .then(res => {
                         // set authorization
                         utility.setAuthorization(
