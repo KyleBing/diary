@@ -5,8 +5,8 @@
             :to="`/detail/${diary.id}`"
             :class="['article-header']"
         >
-            <div class="week">{{ diary.weekday }}</div>
             <div class="date">{{ diary.dateString }}</div>
+            <div class="week">{{ diary.weekday }}</div>
             <div class="weather">
                 <img v-if="diary.weather"
                      :src="icons.weather[diary.weather + suffix]"
@@ -53,14 +53,12 @@ export default {
             if (this.isActive){
                 return `
                       background-color: ${this.categoryObjectMap.get(this.diary.category).color};
-                      border-top: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
-                      border-bottom: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
+                      border-top: 1px dashed ${this.categoryObjectMap.get(this.diary.category).color};
                 `
 
             } else {
                 return `
-                      border-top: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
-                      border-bottom: 1px dotted ${this.categoryObjectMap.get(this.diary.category).color};
+                      border-top: 1px dashed ${this.categoryObjectMap.get(this.diary.category).color};
                 `
             }
         },
