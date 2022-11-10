@@ -82,7 +82,8 @@ $height-meta: 30px;
   margin: 3px 0;
   padding: 2px 10px;
   color: white;
-  @include border-radius(5px)
+  @include border-radius(5px);
+  line-height: $height-meta - (2 + 3) * 2;
 }
 
 @media (min-width: $grid-separate-width-md){

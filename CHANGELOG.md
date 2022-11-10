@@ -1,6 +1,7 @@
 # CHANGE LOG
 ### v8.22
 - 列表中的账单条目显示当日总额
+- fix detail category 高度偏差
 
 ### v8.21
 - 类别颜色根据数据库颜色动态显示
