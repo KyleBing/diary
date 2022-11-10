@@ -9,6 +9,7 @@
         <div class="detail">
             <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
+            <div class="bill-amount" v-if="diary.hasOwnProperty('billData')">{{diary.billData.sum}}</div>
             <img alt="Content"
                  v-if="diary.content"
                  class="icon"
@@ -41,7 +42,6 @@ export default {
         }
     },
     mounted() {
-
 
     },
     computed: {

@@ -52,6 +52,14 @@
       width: $height-list - 4 * 2;
       display: block;
     }
+    .bill-amount{
+      padding-right: 10px;
+      font-size: $fz-small;
+      color: $text-label;
+      line-height: $height-list;
+      flex-grow: 1;
+      text-align: right;
+    }
     &:after{
       bottom: 0;
       left: 0;
