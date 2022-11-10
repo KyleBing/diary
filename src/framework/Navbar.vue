@@ -11,7 +11,7 @@
                 <div @click="menuClose" v-if="isMenuShowed">
                     <tab-icon alt="关闭"/>
                 </div>
-                <div @click="$router.back()" v-if="isInMobileMode && $route.name !== 'list'">
+                <div @click="commitBack" v-if="isInMobileMode && $route.name !== 'list'">
                     <tab-icon alt="返回"/>
                 </div>
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
@@ -105,7 +105,7 @@
         </nav>
 
         <!--TOAST-->
-        <div id="toast" class="fadeIn animated-fast" v-show="toastIsShowed">
+        <div id="toast" class="fadeIn animated-fast" v-show="isToastShowed">
             <div class="toast">
                 <div class="toast-header">确定删除吗</div>
                 <div class="toast-body"></div>
@@ -141,13 +141,10 @@ export default {
         return {
             location: {}, // clipboard 使用
             icons: ICONS,
-
-            showLongList: false,
+            clipboard: null,
 
             // toast
-            toastIsShowed: false,
-
-            clipboard: null,
+            isToastShowed: false,
         }
     },
     mounted() {
@@ -200,6 +197,12 @@ export default {
             'SET_IS_FILTER_SHARED',
             'SET_DATE_FILTER'
         ]),
+        commitBack(){
+            switch (this.$route.name){
+                case 'detail': this.$router.push({name: 'list'});break
+                default: this.$router.back()
+            }
+        },
         clearDateFilter(){
             this.SET_DATE_FILTER('')
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
@@ -299,10 +302,10 @@ export default {
                 })
         },
         toastHide() {
-            this.toastIsShowed = false
+            this.isToastShowed = false
         },
         toastShow() {
-            this.toastIsShowed = true
+            this.isToastShowed = true
         },
 
     }
