@@ -1,10 +1,10 @@
 {
   "name": "diary",
   "nameZh": "标题日记",
-  "description": "用一句话记录你最珍贵的时刻",
+  "description": "一句话概括你的一天",
   "version": "8.2.2",
-  "dateInit": "2018-08-14",
-  "dateModify": "2022-11-10",
+  "dateInit": "2018.08.14",
+  "dateModify": "2022.11.10",
   "author": {
     "email": "kylebing@163.com",
     "homePage": "https://kylebing.cn",

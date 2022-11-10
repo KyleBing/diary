@@ -5,12 +5,16 @@
         </div>
         <h3 class="title">{{nameZh}}</h3>
         <h4 class="subtitle">{{description}}</h4>
+        <div class="version">v{{version}}</div>
+
+
         <div class="author">
             <a href="https://kylebing.cn" class="social-link">🌖 开发者主页</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-            <a href="https://github.com/KyleBing/diary-vue">[ 开源仓库 ]</a>
             <a>·</a>
-            <a href="">v{{version}} @ {{dateModify}}</a>
+            <a href="https://github.com/KyleBing/diary-vue"> &gt;&gt; 前往开源仓库 &lt;&lt; </a>
+            <a>·</a>
+            <a href="">{{dateInit}} ~ {{dateModify}}</a>
         </div>
     </div>
 </template>
@@ -28,6 +32,7 @@ export default {
         return {
             version: packageInfo.version,
             dateModify: packageInfo.dateModify,
+            dateInit: packageInfo.dateInit,
             nameZh: packageInfo.nameZh,
             description: packageInfo.description
         }
@@ -56,15 +61,22 @@ export default {
     .title{
         font-size: $fz-label;
         font-weight: bold;
-        line-height: 30px;
+        line-height: 1.5;
         color: white;
     }
     .subtitle{
-        font-size: $fz-small;
-        color: $text-about-subtitle;
+        font-size: $fz-note;
         font-weight: 300;
+        color: $text-about-subtitle;
+    }
+    .version{
+        line-height: 1.5;
+        color: white;
+        margin-top: 20px;
+        font-size: $fz-list-content;
     }
     .author{
+        font-weight: 300;
         width: 100%;
         position: absolute;
         bottom: 60px;
@@ -75,7 +87,6 @@ export default {
             height: 20px;
             &:link,&:hover,&:active,&:visited{
                 color: $text-about-subtitle;
-                font-weight: 300;
             }
         }
     }
