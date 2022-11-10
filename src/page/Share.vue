@@ -17,7 +17,7 @@
                         <div class="share-date">
                             <div class="above">
                                 <h3>{{ dateObj.weekday }} </h3>
-                                <div :class="[`share-category-${diary.category}`, 'share-category']">
+                                <div class="share-category" :style="shareCategoryStyle">
                                     <span>{{ diary.categoryString }}</span>
                                 </div>
                             </div>
@@ -46,6 +46,14 @@
 
                     <!--CONTENT-->
                     <div class="share-content" v-html="diary.contentHtml"></div>
+
+                    <div class="share-author">
+                        <div class="line"></div>
+                        <div class="name">
+                            <div class="nickname">{{diary.nickname}}</div>
+                            <div class="username">{{diary.username}}</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- NO DIARY -->
@@ -88,6 +96,9 @@ export default {
         ...mapGetters(['categoryNameMap', 'categoryObjectMap']),
         heightShare(){
             return this.insets.windowsWidth > 375 ? this.insets.windowsHeight - 60 - 100 : this.insets.windowsHeight
+        },
+        shareCategoryStyle(){
+            return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
         }
     },
     mounted() {
@@ -112,12 +123,7 @@ export default {
                     this.dateObj = utility.dateProcess(diary.date)
                     document.title = '日记 - ' + this.dateObj.dateFull // 变更标题
                     if (this.diary.content) {
-                        let contentArray = diary.content.split('\n')
-                        let contentHtml = ""
-                        contentArray.forEach(item => {
-                            contentHtml += `<p>${item}</p>`
-                        })
-                        this.diary.contentHtml = contentHtml
+                        this.diary.contentHtml = this.getContentHtml(this.diary.content)
                     }
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
@@ -134,6 +140,18 @@ export default {
                     this.isLoadingDiary = false
                     this.diary = {}
                 })
+        },
+        getContentHtml(content){
+            let contentArray = content.split('\n')
+            let contentHtml = ""
+            contentArray.forEach(item => {
+                if (item === ''){
+                    contentHtml += '<br/>'
+                } else {
+                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。]/g, '*'): item}</p>`
+                }
+            })
+            return contentHtml
         },
     },
     watch: {

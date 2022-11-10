@@ -98,9 +98,39 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   white-space: pre-wrap;
   p{
     font-size: 1rem;
-    line-height: 1.6;
-    text-indent: 2rem;
-    margin-bottom: 5px;
+    line-height: 1.5;
+    //text-indent: 2rem;
+    margin-bottom: 3px;
+  }
+}
+
+// 作者信息
+.share-author{
+  margin-top: 60px;
+  margin-bottom: 30px;
+  padding-right: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: left;
+  font-size: $fz-label;
+  color: $text-label;
+  background-color: $bg-share;
+  .name{
+    .nickname{
+      font-weight: bold;
+      color: $text-content;
+    }
+    .username{
+      font-size: $fz-small;
+    }
+  }
+  .line{
+    right: 0;
+    width: 60px;
+    height: 1px;
+    margin-right: 20px;
+    background-color: $color-border-highlight;
   }
 }
 
