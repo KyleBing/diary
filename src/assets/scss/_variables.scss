@@ -110,6 +110,9 @@ $dark-bg-page-header   : lighten($dark-color, 35%) ;
 $dark-bg-nav           : lighten($dark-color, 10%) ;
 $dark-border-nav       : lighten($dark-color, 2%) ;
 
+$dark-bg-td            : lighten($dark-color, 23%);
+$dark-bg-td-even       : lighten($dark-color, 20%);
+$dark-bg-bill-brief    : lighten($dark-color, 18%);
 
 $dark-border           : lighten($dark-color, 25%) ;
 $dark-border-active    : lighten($dark-color, 35%) ;
@@ -117,8 +120,8 @@ $dark-border-active    : lighten($dark-color, 35%) ;
 $dark-menu-border      : lighten($dark-color, 5%)  ;
 $dark-list-header-bg   : lighten($dark-color, 12%) ;
 $dark-list-header-text : lighten($dark-color, 90%) ;
-$dark-list-bg          : lighten($dark-color, 15%) ;
-$dark-list-bg-active   : lighten($dark-color, 20%) ;
+$dark-list-bg          : lighten($dark-color, 20%) ;
+$dark-list-bg-active   : lighten($dark-color, 23%) ;
 $dark-text-title       : lighten($dark-color, 90%) ;
 $dark-text             : lighten($dark-color, 70%) ;
 $dark-text-subtitle    : lighten($dark-color, 70%) ;

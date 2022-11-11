@@ -322,11 +322,13 @@
       }
     }
     .bill-brief{
+      background-color: $dark-bg-bill-brief;
       border-color: $dark-border-active;
     }
     table {
       font-size: $fz-small;
       tr {
+        background-color: $dark-bg-td;
         border-color: $dark-border;
         th{
           border-color: $dark-border-active;
@@ -338,7 +340,7 @@
           }
         }
         &:nth-child(even) {
-          background-color: $dark-list-bg;
+          background-color: $dark-bg-td-even;
         }
         &:hover{
           td{
