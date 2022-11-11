@@ -18,7 +18,7 @@
   margin-right: 20px;
   padding-bottom: 25px;
   @include border-radius($radius-pc);
-  border: 2px solid $color-border;
+  border: 1px solid $color-border-bill;
   font-family: 'JetBrainsMonoDiary';
   .bill-header{
     display: flex;
