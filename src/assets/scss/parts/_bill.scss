@@ -118,6 +118,9 @@
           .text-income{
             color: $yellow;
           }
+          .text-gray{
+            color: transparentize(white, 0.2);
+          }
         }
       }
       &:nth-child(even){
