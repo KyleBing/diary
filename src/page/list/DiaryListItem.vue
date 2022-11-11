@@ -9,7 +9,7 @@
         <div class="detail">
             <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
-            <div class="bill-amount" v-if="diary.hasOwnProperty('billData')">{{diary.billData.sum}}</div>
+            <div class="bill-amount" v-if="diary.hasOwnProperty('billData')">{{diary.billData.sum.toFixed(moneyAccuracy)}}</div>
             <img alt="Content"
                  v-if="diary.content"
                  class="icon"
@@ -45,7 +45,7 @@ export default {
 
     },
     computed: {
-        ...mapState(['isHideContent']),
+        ...mapState(['isHideContent', 'moneyAccuracy']),
         ...mapGetters(['categoryObjectMap']),
         weatherIcon() {
             if (this.isActive) {

@@ -1,4 +1,8 @@
 # CHANGE LOG
+### v8.23
+- 账单文字颜色调整
+
+
 ### v8.22
 - 列表中的账单条目显示当日总额
 - fix detail category 高度偏差

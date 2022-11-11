@@ -34,7 +34,8 @@
   }
 
   .bill-brief{
-    border-top: 1px solid $color-border;
+    background-color: #fafafa;
+    border-top: 1px solid #ededed;
     padding: 15px 40px 20px;
     font-size: $fz-list-content;
     display: flex;
@@ -91,13 +92,13 @@
         min-width: 80px;
         border-bottom: none;
         text-align: right;
-        padding: 3px 15px;
+        padding: 3px 10px;
         &.center{
           text-align: center;
         }
       }
       td.label{
-        color: $text-label;
+        @extend .text-gray;
         white-space: nowrap;
         max-width: 200px;
         overflow: hidden;
@@ -114,6 +115,9 @@
           background-color: $bg-menu;
           border-bottom-color: $bg-menu;
           color: white;
+          .text-income{
+            color: $yellow;
+          }
         }
       }
       &:nth-child(even){
@@ -165,8 +169,8 @@
       width: 100%;
       tr{
         td{
-          min-width: 50px;
-          width: 50px !important;
+          min-width: 40px;
+          width: 40px !important;
           padding: 2px 5px 2px ;
           &.label{
             max-width: 100px;
