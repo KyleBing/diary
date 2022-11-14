@@ -46,6 +46,7 @@
                         <th class="text-center hide-in-mobile">注册时间</th>
                         <th>日记</th>
                         <th>码表</th>
+                        <th>同步次数</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,7 @@
                         <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
                         <td class="number">{{ item.count_diary }}</td>
                         <td class="number">{{ item.count_dict }}</td>
+                        <td class="number">{{ item.sync_count }}</td>
                     </tr>
                     </tbody>
                 </table>

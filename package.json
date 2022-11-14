@@ -2,9 +2,9 @@
   "name": "diary",
   "nameZh": "标题日记",
   "description": "一句话概括你的一天",
-  "version": "8.2.3b2",
+  "version": "8.2.3b3",
   "dateInit": "2018.08.14",
-  "dateModify": "2022.11.10",
+  "dateModify": "2022.11.14",
   "author": {
     "email": "kylebing@163.com",
     "homePage": "https://kylebing.cn",
