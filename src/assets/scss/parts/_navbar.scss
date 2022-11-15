@@ -33,16 +33,15 @@
   .btn-text{
     margin-right: 10px;
     font-size: $fz-small;
+    border: 1px solid transparent;
     padding: 4px 8px;
     color: white;
     @extend .btn-like;
     @include border-radius($radius-mobile);
     &.active{
-      background-color: white;
-      color: $text-title;
+      border-color: transparentize(white, 0.7);
       &:hover{
-        background-color: white;
-        color: $text-title;
+        background-color: transparentize(white, 0.85);
       }
     }
     &:hover{

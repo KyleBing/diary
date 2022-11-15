@@ -33,13 +33,15 @@
                 </div>
 
                 <div class="btn-text-group">
-                    <div class="btn-text ml-5" v-show="!isMenuShowed" v-if="!isInMobileMode"
+                    <div  :class="['btn-text', 'ml-5', {active: isInBillMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('bill')">账单</div>
-                    <div class="btn-text" v-show="!isMenuShowed" v-if="!isInMobileMode"
+                    <div :class="['btn-text', {active: isInWorkMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('work')">工作</div>
+                    <div :class="['btn-text', {active: isInMemoMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
+                         @click="switchToCategory('memo')">备忘</div>
                     <div class="btn-text" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('other')">其它</div>
-                    <div class="btn-text" v-show="!isMenuShowed" v-if="!isInMobileMode"
+                    <div :class="['btn-text', {active: isAllCategorySelected && !isFilterShared}]"  v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('all')">全部</div>
                     <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
                          @click="switchToCategory('shared')">共享</div>
@@ -173,6 +175,7 @@ export default {
             'isDiaryListShowedInFullStyle',
             'insets',
             'categoryAll',
+            'filteredCategories',
             'isShowSearchBar',
             'isHideContent',
             'editLogoImg',
@@ -181,7 +184,21 @@ export default {
         ...mapGetters(['isInMobileMode']),
         shareUrl(){
             return `${location.origin}/diary/#/share/${this.currentDiary.id}`
-        }
+        },
+        isAllCategorySelected(){
+            return this.filteredCategories.length === this.categoryAll.length
+        },
+        isInBillMode(){
+            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'bill'
+        },
+        isInMemoMode(){
+            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'memo'
+        },
+        isInWorkMode(){
+            return this.filteredCategories.length === 2
+                && this.filteredCategories.some(item => item === 'work')
+                && this.filteredCategories.some(item => item === 'week')
+        },
     },
     methods: {
         ...mapMutations([
@@ -220,18 +237,26 @@ export default {
         switchToCategory(mode){
             switch (mode){
                 case 'bill':
+                    this.SET_IS_FILTER_SHARED(false)
                     this.SET_FILTERED_CATEGORIES(['bill'])
                     break;
                 case 'work':
+                    this.SET_IS_FILTER_SHARED(false)
                     this.SET_FILTERED_CATEGORIES(['work', 'week'])
                     break;
+                case 'memo':
+                    this.SET_IS_FILTER_SHARED(false)
+                    this.SET_FILTERED_CATEGORIES(['memo'])
+                    break;
                 case 'other':
+                    this.SET_IS_FILTER_SHARED(false)
                     const otherArray = this.categoryAll
-                        .filter(item => item.name_en !== 'work' && item.name_en !== 'week' && item.name_en !== 'bill')
+                        .filter(item => !/work|week|bill|memo/i.test(item.name_en))
                         .map(item => item.name_en)
                     this.SET_FILTERED_CATEGORIES(otherArray)
                     break;
                 case 'all':
+                    this.SET_IS_FILTER_SHARED(false)
                     const allArray = this.categoryAll
                         .map(item => item.name_en)
                     this.SET_FILTERED_CATEGORIES(allArray)
@@ -240,7 +265,7 @@ export default {
                     const all = this.categoryAll
                         .map(item => item.name_en)
                     this.SET_FILTERED_CATEGORIES(all)
-                    this.SET_IS_FILTER_SHARED(!this.isFilterShared)
+                    this.SET_IS_FILTER_SHARED(true)
                     break;
             }
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
