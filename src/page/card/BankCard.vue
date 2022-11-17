@@ -1,10 +1,7 @@
 <template>
     <div :class="['bankcard', getCardBgName(card.cardName)]">
         <div class="bankcard-index">{{index + 1}}</div>
-
-
         <div class="bankcard-upper">
-
             <div class="bankcard-logo">
                 <img :src="getBankcardIcon(card.cardName)" alt="BankCard Icon">
             </div>
@@ -18,26 +15,17 @@
             </div>
         </div>
         <div class="bankcard-detail-list">
-            <div class="bankcard-detail-list-item" v-if="card.cardInitBank">
+            <div class="bankcard-detail-list-item" v-if="card.开户行">
                 <div class="label">开户行</div>
-                <div class="value">{{card.cardInitBank}}</div>
+                <div class="value">{{card.开户行}}</div>
             </div>
-            <div class="bankcard-detail-list-item" v-if="card.credit && card.cardType.indexOf('信用卡') > -1">
-                <div class="label">额度</div>
-                <div class="value">{{card.credit}}</div>
+            <div class="bankcard-detail-list-item"
+                 v-for="(infoItem, index) in card.extraInfos" :key="index"
+            >
+                <div class="label">{{ infoItem.key }}</div>
+                <div class="value">{{ infoItem.value }}</div>
             </div>
-            <div class="bankcard-detail-list-item" v-if="card.countUsage && card.cardType.indexOf('信用卡') > -1">
-                <div class="label">已刷次数</div>
-                <div class="value">{{card.countUsage}}</div>
-            </div>
-            <div class="bankcard-detail-list-item" v-if="card.date">
-                <div class="label">日期</div>
-                <div class="value">{{card.date}}</div>
-            </div>
-            <div class="bankcard-detail-list-item" v-if="card.verifyCode">
-                <div class="label">识别码</div>
-                <div class="value">{{card.verifyCode}}</div>
-            </div>
+
         </div>
     </div>
 </template>

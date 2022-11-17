@@ -186,17 +186,20 @@ export default {
                         .split('\n')
                         .map(cardItem => cardItem.split('：'))
                 )
-                this.cardListAll.push({
-                    cardNo: cardMap.get('卡号'),
-                    cardName: cardMap.get('银行'),
-                    cardType: cardMap.get('类别'),
-                    cardInitBank: cardMap.get('开户行'),
-                    countUsage: cardMap.get('已刷次数'),
-                    verifyCode: cardMap.get('验证码'),
-                    credit: cardMap.get('额度'),
-                    date: cardMap.get('到期日'),
-                    note: cardMap.get('备注')
+                let cardInfo = {}
+                let extraInfos = []
+                cardMap.forEach((value, key) => {
+                    switch (key){
+                        case '卡号': cardInfo.cardNo = value; break;
+                        case '银行': cardInfo.cardName = value; break;
+                        case '类别': cardInfo.cardType = value; break;
+                        default:
+                            extraInfos.push({key, value})
+                            break
+                    }
                 })
+                cardInfo['extraInfos'] = extraInfos
+                this.cardListAll.push(cardInfo)
                 this.cardListStore = this.cardListAll.filter(item => item.cardType.indexOf('储蓄卡') > -1)
                 this.cardListCredit = this.cardListAll.filter(item => item.cardType.indexOf('信用卡') > -1)
             })

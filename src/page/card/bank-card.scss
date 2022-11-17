@@ -22,7 +22,7 @@ $card-bgs: (
   overflow: hidden;
   @include border-radius($radius-pc);
   width: 430px;
-  height: 190px;
+  min-height: 200px;
   color: $text-title;
   @include box-shadow(1px 2px 3px transparentize(black, 0.8));
   position: relative;
@@ -34,8 +34,6 @@ $card-bgs: (
 
     }
   }
-
-
   .bankcard-index {
     font-family: Monaco;
     font-size: 10px;
@@ -61,15 +59,12 @@ $card-bgs: (
     }
   }
 }
-
 .bankcard-upper{
-  padding: 20px 20px 0 20px;
+  padding: 20px 20px 20px 20px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   .bankcard-logo{
-    //filter: brightness(100);
-    //background-color: white;
     height: 50px;
     width: 50px;
     @include border-radius(100px);
@@ -81,6 +76,7 @@ $card-bgs: (
     }
   }
   .bankcard-main-info{
+    padding-top: 5px;
     padding-left: 15px;
     flex-grow: 1;
     .bankcard-no{
@@ -121,8 +117,7 @@ $card-bgs: (
   flex-grow: 1;
   border-top: 1px solid transparentize(white, 0.9);
   overflow-y: auto;
-  margin-top: 20px;
-  padding: 10px 30px 20px;
+  padding: 10px 30px 40px;
   display: flex;
   justify-content: flex-start;
   flex-flow: column nowrap;
@@ -146,6 +141,7 @@ $card-bgs: (
 .bankcard-detail-list-item{
   padding: 2px 0;
   display: flex;
+  line-height: 1.2;
   justify-content: space-between;
   color: $text-content;
   .label{
@@ -173,11 +169,29 @@ $card-bgs: (
   .bankcard{
     width: 100%;
     margin-right: 0;
+    // upper
+    .bankcard-upper{
+      padding: 10px;
+      .bankcard-logo {
+        height: 42px;
+        width: 42px;
+      }
+      .bankcard-main-info{
+        padding-left: 15px;
+        .bankcard-no{
+          font-size: 22px;
+        }
+      }
+    }
     .bankcard-no {
       font-size: 22px;
     }
+    // down
     .bankcard-detail-list{
       padding: 10px 20px;
+      .bankcard-detail-list-item{
+        padding: 3px 0;
+      }
     }
   }
 }
