@@ -6,12 +6,12 @@
             :class="['article-header']"
         >
             <div class="date">{{ diary.dateString }}</div>
-            <div class="week">{{ diary.weekday }}</div>
             <div class="weather">
                 <img v-if="diary.weather"
                      :src="icons.weather[diary.weather + suffix]"
                      :alt="diary.weather">
             </div>
+            <div class="week">{{ diary.weekday }}</div>
             <div class="category" :style="diaryItemCategoryTextStyle" >{{ diary.categoryString }}</div>
         </router-link>
 
@@ -47,18 +47,16 @@ export default {
             return Number(this.$route.params.id) === Number(this.diary.id)
         },
         suffix() {
-            return this.isActive ? '_white' : '_active'
+            return this.isActive ? '_white' : ''
         },
         diaryItemHeaderStyle(){
             if (this.isActive){
                 return `
                       background-color: ${this.categoryObjectMap.get(this.diary.category).color};
-                      border-top: 1px dashed ${this.categoryObjectMap.get(this.diary.category).color};
                 `
 
             } else {
                 return `
-                      border-top: 1px dashed ${this.categoryObjectMap.get(this.diary.category).color};
                 `
             }
         },

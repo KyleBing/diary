@@ -2,6 +2,8 @@ $fz-article: 13px;
 $fz-md-article: 14px;
 
 .article{
+  margin: 2px 0;
+  overflow: hidden;
   font-size: $fz-article;
   background-color: white;
   .article-header{
@@ -10,7 +12,7 @@ $fz-md-article: 14px;
     text-align: center;
     display: flex;
     justify-content: flex-end;
-    padding: 6px 15px;
+    padding: 10px 15px;
     &.hidden{
       display: none !important;
     }
@@ -44,7 +46,7 @@ $fz-md-article: 14px;
     }
     .content {
       white-space: pre-wrap;
-      padding-bottom: 12px;
+      padding-bottom: 15px;
       color: $bg-main;
       line-height: 1.5;
       word-break: break-all;
