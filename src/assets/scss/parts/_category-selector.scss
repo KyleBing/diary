@@ -2,34 +2,36 @@
 
 .category-selector{
   @include border-radius($radius-mobile);
-  padding: 10px;
+  padding: 15px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-between;
-  .category{
-    @extend .unselectable;
-    @include border-radius(5px);
-    padding: 5px 10px;
-    margin: 5px;
-    flex-shrink: 0;
-    display: block;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: $fz-label;
-    text-align: center;
+  .category-wrapper{
+    width: 20%;
+    padding: 5px 3px;
     &:hover{
-      background-color: $bg-light;
+      .category{
+        background-color: $bg-light;
+      }
+    }
+    .category{
+      @extend .unselectable;
+      @include border-radius(5px);
+      padding: 5px;
+      flex-shrink: 0;
+      display: block;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: $fz-label;
+      text-align: center;
     }
   }
-
 }
 
 @media (min-width: $grid-separate-width-max){
-  $gaps: 4%;
-  $cols: 5;
   .category-selector {
     padding: 15px;
     @include border-radius($radius-pc);

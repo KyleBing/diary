@@ -1,7 +1,7 @@
 <template>
     <div class="diary-edit" :style="`min-height: ${insets.heightPanel}px`">
         <div class="editor-container">
-            <!--content-->
+            <!-- TITLE -->
             <div class="editor-title">
                 <label  class="hidden"></label>
                 <textarea ref="diaryTitle"
@@ -9,6 +9,7 @@
                           placeholder="一句话，概括你的一天"
                           v-model="diary.title"/>
             </div>
+            <!-- CONTENT -->
             <div class="editor-content">
                 <label class="hidden"></label>
                 <textarea class="content"
@@ -19,7 +20,17 @@
             </div>
         </div>
         <div class="meta-container">
+
+
+            <!-- Category Selector -->
+            <category-selector
+                class="editor-form-category"
+                :category="diary.category"
+                @change="setCategory"
+            />
+
             <div class="editor-form-input">
+                <!-- DATE -->
                 <div class="editor-input-item">
                     <label>日期</label>
                     <Datepicker :editable="false"
@@ -34,6 +45,7 @@
                                 :clearable="false"
                     />
                 </div>
+                <!-- TEMPERATURE -->
                 <div class="editor-input-item">
                     <label for="temperature">身处 ℃</label>
                     <input placeholder="--"
@@ -67,11 +79,7 @@
                     </div>
                 </div>
             </div>
-            <category-selector
-                class="editor-form-category"
-                :category="diary.category"
-                @change="setCategory"
-            />
+
             <diary-btn :is-loading="isLoading" type="light"
                        v-if="diary.category === 'week'"
                        @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>

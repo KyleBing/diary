@@ -1,11 +1,12 @@
 <template>
     <div class="category-selector">
-        <div
-            :style="itemStyle(categorySelected === category.name_en, category)"
-            class="category"
+        <div class="category-wrapper"
             @click="chooseCategory(category.name_en)"
             v-for="category in categoryAll"
-            :key="category.name_en">{{ category.name }}
+            :key="category.name_en">
+            <div class="category"
+                 :style="itemStyle(categorySelected === category.name_en, category)"
+            >{{ category.name }}</div>
         </div>
     </div>
 </template>
