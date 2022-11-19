@@ -128,7 +128,7 @@ import ClipboardJS from "clipboard"
 import {mapState, mapMutations, mapGetters} from 'vuex'
 import YearSelector from "@/page/menu/YearSelector"
 import TabIcon from "@/components/TabIcon"
-import About from "@/page/About"
+import About from "@/page/about/About"
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";

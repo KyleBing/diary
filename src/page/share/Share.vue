@@ -65,13 +65,13 @@
             </div>
 
         </div>
-        <router-link class="back-link" to="/"><img src="../assets/img/logo.svg" alt="logo">标题日记</router-link>
+        <router-link class="back-link" to="/"><img src="../../assets/img/logo.svg" alt="logo">标题日记</router-link>
 
     </div>
 </template>
 
 <script>
-import utility from "../utility"
+import utility from "../../utility"
 import {mapGetters, mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";

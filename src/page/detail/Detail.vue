@@ -62,7 +62,7 @@
 
 <script>
 import ClipboardJS from "clipboard";
-import utility from "../utility"
+import utility from "../../utility"
 import {mapGetters, mapMutations, mapState} from "vuex";
 import Loading from "@/components/Loading";
 import diaryApi from "@/api/diaryApi";

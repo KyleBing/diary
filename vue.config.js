@@ -17,6 +17,7 @@ module.exports = {
     }
   },
 
+  // 打包程序
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production'){
       let packTimeString = new Moment().format('YYYY-MM-DD') // 打包时间

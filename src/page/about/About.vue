@@ -1,7 +1,7 @@
 <template>
     <div class="about" :style="'height:' + insets.heightPanel + 'px'">
         <div class="logo">
-            <img src="../assets/img/logoicon/logo-login.svg" alt="LOGO">
+            <img src="../../assets/img/logoicon/logo-login.svg" alt="LOGO">
         </div>
         <h3 class="title">{{nameZh}}</h3>
         <h4 class="subtitle">{{description}}</h4>
@@ -21,7 +21,7 @@
 
 <script>
 import {mapState} from "vuex";
-import packageInfo from "@/../package.json"
+import packageInfo from "../../../package.json"
 
 export default {
     name: "About",
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/scss/plugin";
+@import "../../assets/scss/plugin";
 
 .about{
     position: relative;

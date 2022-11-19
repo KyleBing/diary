@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import utility from "../utility"
+import utility from "../../utility"
 import userApi from "@/api/userApi";
 import {mapState} from "vuex";
 import SvgIcons from "@/assets/img/SvgIcons";

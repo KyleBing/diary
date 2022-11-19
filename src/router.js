@@ -2,16 +2,16 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Index from "@/framework/Index";
 import utility from "@/utility";
 
-import Register from "@/page/Register"
-import Login from "@/page/Login"
-import ChangePassword from "@/page/ChangePassword"
+import Register from "@/page/register/Register"
+import Login from "@/page/login/Login"
+import ChangePassword from "@/page/changePassword/ChangePassword"
 import Bill from "@/page/bill/Bill"
-import BankCardList from "@/page/card/BankCardList"
-import Share from "@/page/Share"
+import BankCardList from "@/page/bankCard/BankCardList"
+import Share from "@/page/share/Share"
 import Statistics from "@/page/statistics/StatisticsMain"
 
 import List from "@/page/list/List"
-import Detail from "@/page/Detail"
+import Detail from "@/page/detail/Detail"
 import Edit from "@/page/edit/Edit"
 import NotFound_404 from "@/fundation/NotFound_404";
 

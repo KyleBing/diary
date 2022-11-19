@@ -60,7 +60,7 @@ import {mapState, mapMutations} from 'vuex'
 import bankCardApi from "@/api/bankCardApi";
 import Loading from "@/components/Loading";
 import utility from "@/utility";
-import BankCard from "@/page/card/BankCard";
+import BankCard from "@/page/bankCard/BankCard";
 import ClipboardJS from "clipboard";
 import TabIcon from "@/components/TabIcon";
 import PageHeader from "@/framework/PageHeader";

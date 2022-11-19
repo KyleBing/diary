@@ -72,7 +72,7 @@
 import utility from "@/utility";
 import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
 import YearSelector from "@/page/menu/YearSelector";
-import About from "@/page/About";
+import About from "@/page/about/About";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import packageInfo from "@/../package.json"
 import MenuListItem from "@/page/menu/MenuListItem";

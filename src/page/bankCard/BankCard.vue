@@ -119,5 +119,5 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/scss/plugin";
-@import "bank-card";
+@import "@/page/bankCard/bank-card.scss";
 </style>

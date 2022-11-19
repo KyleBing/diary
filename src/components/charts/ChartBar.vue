@@ -6,7 +6,31 @@
 </template>
 
 <script>
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core';
+import { BarChart } from 'echarts/charts';
+import {
+    TitleComponent,
+    TooltipComponent,
+    GridComponent,
+    DatasetComponent,
+    TransformComponent
+} from 'echarts/components';
+import { LabelLayout, UniversalTransition } from 'echarts/features';
+import { CanvasRenderer } from 'echarts/renderers';
+
+// 注册必须的组件
+echarts.use([
+    TitleComponent,
+    TooltipComponent,
+    GridComponent,
+    DatasetComponent,
+    TransformComponent,
+    BarChart,
+    LabelLayout,
+    UniversalTransition,
+    CanvasRenderer
+]);
+
 import {mapGetters, mapState} from "vuex";
 
 const COLORS =  [
