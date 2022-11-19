@@ -40,7 +40,7 @@ h3{
         padding: 5px;
     }
     .statistic-panel{
-        padding: 20px 25px;
+        padding: 15px;
     }
 }
 

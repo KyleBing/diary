@@ -4,70 +4,72 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
-            <statistic-panel class="user-list" title="用户数据概览">
-                <h3 class="mt-4 mb-2">日记用户</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="text-left">ID</th>
-                        <th class="text-left">用户名</th>
+            <view class="user-list">
+                <statistic-panel title="日记用户">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="text-left">ID</th>
+                            <th class="text-left">用户名</th>
 
-                        <th class="text-center">最后访问时间</th>
-                        <th class="text-center hide-in-mobile">注册时间</th>
-                        <th>日记</th>
-                        <th>码表</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="item in usersDiary" :key="item.uid">
-                        <td class="number">{{ item.uid }}</td>
-                        <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
-                        <td :class="[
+                            <th class="text-center">最后访问时间</th>
+                            <th class="text-center hide-in-mobile">注册时间</th>
+                            <th>日记</th>
+                            <th>码表</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="item in usersDiary" :key="item.uid">
+                            <td class="number">{{ item.uid }}</td>
+                            <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
+                            <td :class="[
+                            'text-right',
+                            'number',
+                            dateTextLevel(item.last_visit_time_string)
+                            ]"
+                            >{{ item.last_visit_time_string }}
+                            </td>
+                            <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
+                            <td class="number">{{ item.count_diary }}</td>
+                            <td class="number">{{ item.count_dict }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </statistic-panel>
+                <statistic-panel class="user-list" title="五笔码表用户">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="text-left">ID</th>
+                            <th class="text-left">用户名</th>
+
+                            <th class="text-center">最后访问时间</th>
+                            <th class="text-center hide-in-mobile">注册时间</th>
+                            <th>日记</th>
+                            <th>码表</th>
+                            <th>同步次数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="item in usersDict" :key="item.uid">
+                            <td class="number">{{ item.uid }}</td>
+                            <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
+                            <td :class="[
                         'text-right',
                         'number',
                         dateTextLevel(item.last_visit_time_string)
                         ]"
-                        >{{ item.last_visit_time_string }}
-                        </td>
-                        <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
-                        <td class="number">{{ item.count_diary }}</td>
-                        <td class="number">{{ item.count_dict }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <h3 class="mt-4 mb-2">五笔码表用户</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="text-left">ID</th>
-                        <th class="text-left">用户名</th>
-
-                        <th class="text-center">最后访问时间</th>
-                        <th class="text-center hide-in-mobile">注册时间</th>
-                        <th>日记</th>
-                        <th>码表</th>
-                        <th>同步次数</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="item in usersDict" :key="item.uid">
-                        <td class="number">{{ item.uid }}</td>
-                        <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
-                        <td :class="[
-                        'text-right',
-                        'number',
-                        dateTextLevel(item.last_visit_time_string)
-                        ]"
-                        >{{ item.last_visit_time_string }}
-                        </td>
-                        <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
-                        <td class="number">{{ item.count_diary }}</td>
-                        <td class="number">{{ item.count_dict }}</td>
-                        <td class="number">{{ item.sync_count }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </statistic-panel>
+                            >{{ item.last_visit_time_string }}
+                            </td>
+                            <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
+                            <td class="number">{{ item.count_diary }}</td>
+                            <td class="number">{{ item.count_dict }}</td>
+                            <td class="number">{{ item.sync_count }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </statistic-panel>
+            </view>
             <statistic-panel title="用户日记数量">
                 <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
             </statistic-panel>
@@ -155,9 +157,14 @@ export default {
 @use "sass:color";
 @import "../../../assets/scss/plugin";
 
-
 .user-list{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
     flex-grow: 1;
+    .section-title{
+        font-size: 14px;
+    }
     table{
         max-width: 100%;
     }
@@ -174,6 +181,9 @@ export default {
         }
     }
     th, td{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         text-align: right;
         font-size: $fz-list-content;
         padding: 5px 10px;
@@ -205,6 +215,8 @@ export default {
 
 }
 
+
+// ON MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .statistic-user{
         flex-flow: column nowrap;
@@ -213,16 +225,18 @@ export default {
         }
     }
     .user-list{
+        flex-flow: column nowrap;
         table{
             width: 100%;
         }
         th, td{
+            font-size: 12px;
             padding: 2px;
         }
     }
 }
 
-
+// THEME Black
 @media (prefers-color-scheme: dark) {
     .user-list {
         table {
