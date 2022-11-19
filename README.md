@@ -47,6 +47,17 @@
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
+部署前端项目时，最好在 `nginx` 中添加 `gzip` 开关，这样能有效加快项目载入速度，比如我的 1.3M 的 `js` 文件，在 `gzip` 处理后压缩到了 360kb。
+
+```ini
+gzip on;
+gzip_static on;
+gzip_min_length 1k;
+gzip_http_version 1.1;
+gzip_comp_level 9;
+gzip_types  text/css application/javascript application/json;
+```
+
 
 ## 三、开发说明
 配置存储：
