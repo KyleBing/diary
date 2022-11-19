@@ -6,9 +6,12 @@ import {mapGetters, mapMutations, mapState} from "vuex";
 import utility from "@/utility";
 import diaryApi from "@/api/diaryApi";
 export default {
+    created() {
+        // 日记项目载入后，隐藏 preloading
+        document.querySelector('.preloading').style.display = 'none'
+    },
     mounted() {
         this.getCategoryAll()
-
         // 初始化 LocalStorage 存储对象
         let diaryConfig = utility.getDiaryConfig()
         this.SET_FILTERED_CATEGORIES(diaryConfig.filteredCategories)

@@ -20,12 +20,25 @@
     <link rel="shortcut icon" href="<%= BASE_URL %>favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="<%= BASE_URL %>appicon-apple.png">
 
-    <meta http-equiv="pragram" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-
     <title>日记</title>
+    <link rel="stylesheet" href="preloading.css">
 </head>
 <body>
+
+<!--加载动画-->
+<view class="preloading">
+    <view class="logo-preloading">
+        <img src="logo.svg" alt="LOGO">
+    </view>
+    <view class="preloading-title">载入中</view>
+    <div class="loading">
+        <div class="loading-1 loading-item"></div>
+        <div class="loading-2 loading-item"></div>
+        <div class="loading-3 loading-item"></div>
+    </div>
+</view>
+
+
 <noscript>
     <strong>请开启JavaScript支持：未开启 JavaScript 支持的情况下，《标题日记》将无法正常工作</strong>
 </noscript>
@@ -41,4 +54,7 @@
     }, 1000)
 </script>
 </body>
+<script>
+    document.querySelector('.preloading').style.height = `${innerHeight}px`
+</script>
 </html>

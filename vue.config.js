@@ -60,7 +60,7 @@ module.exports = {
       name: '标题日记',
       short_name: "日记",
       theme_color: "#373737",
-      start_url: ".",
+      start_url: "./index.html",
       display: "standalone",
       background_color: "#373737",
       icons: [

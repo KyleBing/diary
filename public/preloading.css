@@ -1,0 +1,91 @@
+body{
+  background-color: #373737;
+}
+.preloading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.logo-preloading{
+  width: 60px;
+}
+.logo-preloading img{
+  width: 100%;
+}
+
+.preloading-title{
+  text-align: center;
+  font-size: 12px;
+  color: #FFCC00;
+}
+
+
+
+/* LOADING */
+.loading {
+  margin-top: 30px;
+  box-sizing: content-box;
+  height: 30px;
+  padding: 7.5px 10px;
+  padding-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loading-item {
+  width: 3px;
+  margin-right: 5px;
+}
+.loading-item:last-child {
+  margin-right: 0;
+}
+
+.loading-1 {
+  height: 30px;
+  -webkit-animation: load-frame-1 1s infinite linear 0s;
+  -o-animation: load-frame-1 1s infinite linear 0s;
+  animation: load-frame-1 1s infinite linear 0s;
+  background-color: #FF3B30;
+}
+
+.loading-2 {
+  height: 15px;
+  -webkit-animation: load-frame-2 1s infinite linear 0s;
+  -o-animation: load-frame-2 1s infinite linear 0s;
+  animation: load-frame-2 1s infinite linear 0s;
+  background-color: #FFCC00;
+}
+
+.loading-3 {
+  height: 7.5px;
+  -webkit-animation: load-frame-1 1s infinite linear 0s;
+  -o-animation: load-frame-1 1s infinite linear 0s;
+  animation: load-frame-1 1s infinite linear 0s;
+  background-color: #4CD964;
+}
+
+@keyframes load-frame-1 {
+  0% {
+    height: 7.5px
+  }
+  50% {
+    height: 30px
+  }
+  100% {
+    height: 7.5px
+  }
+}
+
+@keyframes load-frame-2 {
+  0% {
+    height: 30px
+  }
+  50% {
+    height: 7.5px
+  }
+  100% {
+    height: 30px
+  }
+}
