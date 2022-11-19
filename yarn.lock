@@ -5961,11 +5961,6 @@ thunky@^1.0.2:
   resolved "https://registry.npmmirror.com/thunky/-/thunky-1.1.0.tgz"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
 
-tiny-cookie@^1.0:
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/tiny-cookie/download/tiny-cookie-1.0.1.tgz"
-  integrity sha1-dTeGB5xkKjw9CyrMrWAPjeEZrCo=
-
 tiny-emitter@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/tiny-emitter/download/tiny-emitter-2.1.0.tgz"
@@ -6135,13 +6130,6 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmmirror.com/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
-
-vue-cookie@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npm.taobao.org/vue-cookie/download/vue-cookie-1.1.4.tgz"
-  integrity sha1-uLRtESvan5Oi9HAXwu1SgtIGT9o=
-  dependencies:
-    tiny-cookie "^1.0"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"

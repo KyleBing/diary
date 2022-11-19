@@ -27,7 +27,6 @@
     "moment": "^2.29.3",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
-    "vue-cookie": "^1.1.4",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
