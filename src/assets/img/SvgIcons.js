@@ -14,9 +14,9 @@ export default {
     // EOF
     EOF: require('./EOF.svg'),
     // CONTENT
-    content: require('./content.svg'),
-    clipboard: require('./clipboard.svg'),
-    content_white: require('./content_white.svg'),
+    content: require('./icons/content.svg'),
+    clipboard: require('./icons/clipboard.svg'),
+    content_white: require('./icons/content_white.svg'),
     tab: {
         add: require('./tabicon/add.svg'),
         back: require('./tabicon/back.svg'),

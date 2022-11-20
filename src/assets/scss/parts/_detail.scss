@@ -64,8 +64,8 @@ $height-meta: 30px;
 }
 
 .clipboard{
-  padding: 3px;
-  @include border-radius($radius-pc);
+  padding: 5px;
+  @include border-radius(30px);
   &:hover{
     background-color: $bg-list-active;
   }
