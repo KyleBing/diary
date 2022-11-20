@@ -13,8 +13,8 @@
                                     @click="menuListClicked('search')"/>
 
                     <!--2. 类别筛选-->
-                    <menu-list-item  menu-name="类别筛选" :icon="icons.tab.category"
-                                     @click="menuListClicked('category')"
+                    <menu-list-item menu-name="类别筛选" :icon="icons.tab.category"
+                                    @click="menuListClicked('category')"
                     >
                         <category-indicator/>
                     </menu-list-item>
@@ -25,13 +25,12 @@
                                     :add-on-text="dateFilter">
                     </menu-list-item>
                     <menu-list-item menu-name="统计数据" :icon="icons.tab.statistics" @click="goToStatisticPage" />
-                    <menu-list-item menu-name="账单"    :icon="icons.tab.billSimple" @click="goToBillPage" />
+                    <menu-list-item menu-name="账单"    :icon="icons.tab.bill"        @click="goToBillPage" />
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"       @click="goToBankCard" />
                     <menu-list-item menu-name="修改密码" :icon="icons.tab.key"        @click="goToChangePassword" />
-                    <menu-list-item  menu-name="关于" :icon="icons.tab.about"
-                                     @click="menuListClicked('about')"
-                                     :add-on-text="`v${version}`"
-                                     />
+                    <menu-list-item menu-name="关于" :icon="icons.tab.about"
+                                    @click="menuListClicked('about')"
+                                    :add-on-text="`v${version}`"/>
                 </div>
 
                 <div class="user-info-panel">
@@ -69,15 +68,15 @@
 </template>
 
 <script>
-import utility from "@/utility";
-import MenuCategorySelector from "@/page/menu/MenuCategorySelector";
-import YearSelector from "@/page/menu/YearSelector";
-import About from "@/page/about/About";
-import {mapGetters, mapMutations, mapState} from "vuex";
+import utility from "@/utility"
+import MenuCategorySelector from "@/page/menu/MenuCategorySelector"
+import YearSelector from "@/page/menu/YearSelector"
+import About from "@/page/about/About"
+import {mapGetters, mapMutations, mapState} from "vuex"
 import packageInfo from "@/../package.json"
-import MenuListItem from "@/page/menu/MenuListItem";
-import CategoryIndicator from "@/page/menu/CategoryIndicator";
-import svgIcons from "@/assets/img/SvgIcons";
+import MenuListItem from "@/page/menu/MenuListItem"
+import CategoryIndicator from "@/page/menu/CategoryIndicator"
+import svgIcons from "@/assets/img/SvgIcons"
 
 export default {
     name: "NavMenu",
@@ -190,19 +189,18 @@ export default {
         menuListClicked(menuName) {
             switch (menuName) {
                 case 'search':
-                    this.SET_IS_SHOW_SEARCH_BAR(true);
-                    this.menuInit();
+                    this.SET_IS_SHOW_SEARCH_BAR(true)
+                    this.menuInit()
                     this.$nextTick(() => {
-                        document.querySelector('#keyword').focus();
-                    });
-                    break;
+                        document.querySelector('#keyword').focus()
+                    })
+                    break
                 case 'category':
                     this.SET_MENU_SHOWED(true)  // menu panel
                     this.menuListShowed = false // menu list
                     this.categoryShowed = true  // category
                     this.yearShowed = false     // year
                     this.aboutShowed = false    // about
-
                     break
                 case 'bankCard':
                     this.$router.push({
@@ -215,7 +213,6 @@ export default {
                     this.categoryShowed = false   // category
                     this.yearShowed = true        // year
                     this.aboutShowed = false      // about
-
                     break
                 case 'about':
                     this.SET_MENU_SHOWED(true)    // menu panel
@@ -223,8 +220,6 @@ export default {
                     this.categoryShowed = false   // category
                     this.yearShowed = false       // year
                     this.aboutShowed = true       // about
-
-
                     break
                 default:
                     break
