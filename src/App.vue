@@ -2,9 +2,9 @@
     <router-view v-if="categoryAll.length > 0"/>
 </template>
 <script>
-import {mapGetters, mapMutations, mapState} from "vuex";
-import utility from "@/utility";
-import diaryApi from "@/api/diaryApi";
+import {mapGetters, mapMutations, mapState} from "vuex"
+import utility from "@/utility"
+import diaryApi from "@/api/diaryApi"
 export default {
     created() {
         // 日记项目载入后，隐藏 preloading

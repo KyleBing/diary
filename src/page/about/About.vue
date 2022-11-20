@@ -6,8 +6,6 @@
         <h3 class="title">{{nameZh}}</h3>
         <h4 class="subtitle">{{description}}</h4>
         <div class="version">v{{version}}</div>
-
-
         <div class="author">
             <a href="https://kylebing.cn" class="social-link">🌖 开发者主页</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
@@ -20,7 +18,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapState} from "vuex"
 import packageInfo from "../../../package.json"
 
 export default {

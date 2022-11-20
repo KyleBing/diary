@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import ChartPie from "@/components/charts/ChartPie";
-import ChartBar from "@/components/charts/ChartBar";
-import StatisticPanel from "@/page/statistics/StatisticPanel";
+import {mapState} from "vuex"
+import ChartPie from "@/components/charts/ChartPie"
+import ChartBar from "@/components/charts/ChartBar"
+import StatisticPanel from "@/page/statistics/StatisticPanel"
 
 export default {
     name: "StatisticCharts",

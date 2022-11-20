@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import ClipboardJS from "clipboard";
-import utility from "@/utility";
-import svgIcons from "@/assets/img/SvgIcons";
+import ClipboardJS from "clipboard"
+import utility from "@/utility"
+import svgIcons from "@/assets/img/SvgIcons"
 
 export default {
     name: "BankCard",

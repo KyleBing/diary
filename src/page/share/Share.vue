@@ -72,11 +72,11 @@
 
 <script>
 import utility from "../../utility"
-import {mapGetters, mapMutations, mapState} from "vuex";
-import Loading from "@/components/Loading";
-import diaryApi from "@/api/diaryApi";
-import SvgIcons from "@/assets/img/SvgIcons";
-import axios from "axios";
+import {mapGetters, mapMutations, mapState} from "vuex"
+import Loading from "@/components/Loading"
+import diaryApi from "@/api/diaryApi"
+import SvgIcons from "@/assets/img/SvgIcons"
+import axios from "axios"
 
 export default {
     name: 'Share',

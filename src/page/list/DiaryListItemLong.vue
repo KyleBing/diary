@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex";
-import SvgIcons from "@/assets/img/SvgIcons";
+import {mapGetters, mapState} from "vuex"
+import SvgIcons from "@/assets/img/SvgIcons"
 
 export default {
     name: "DiaryListItemLong",

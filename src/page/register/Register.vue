@@ -61,10 +61,10 @@
 
 
 <script>
-import userApi from "@/api/userApi";
-import {mapState} from "vuex";
-import SvgIcons from "@/assets/img/SvgIcons";
-import utility from "@/utility";
+import userApi from "@/api/userApi"
+import {mapState} from "vuex"
+import SvgIcons from "@/assets/img/SvgIcons"
+import utility from "@/utility"
 
 export default {
     name: 'Register',

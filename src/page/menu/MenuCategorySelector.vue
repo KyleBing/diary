@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import utility from "@/utility";
-import {mapMutations, mapState} from "vuex";
+import utility from "@/utility"
+import {mapMutations, mapState} from "vuex"
 
 export default {
     name: "MenuCategorySelector",
