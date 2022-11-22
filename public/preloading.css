@@ -24,7 +24,7 @@ body{
 
 
 /* LOADING */
-.loading {
+.preloading-loading {
   margin-top: 30px;
   box-sizing: content-box;
   height: 30px;
@@ -34,15 +34,15 @@ body{
   align-items: center;
   justify-content: center;
 }
-.loading-item {
+.preloading-loading-item {
   width: 3px;
   margin-right: 5px;
 }
-.loading-item:last-child {
+.preloading-loading-item:last-child {
   margin-right: 0;
 }
 
-.loading-1 {
+.preloading-loading-1 {
   height: 30px;
   -webkit-animation: load-frame-1 1s infinite linear 0s;
   -o-animation: load-frame-1 1s infinite linear 0s;
@@ -50,7 +50,7 @@ body{
   background-color: #FF3B30;
 }
 
-.loading-2 {
+.preloading-loading-2 {
   height: 15px;
   -webkit-animation: load-frame-2 1s infinite linear 0s;
   -o-animation: load-frame-2 1s infinite linear 0s;
@@ -58,7 +58,7 @@ body{
   background-color: #FFCC00;
 }
 
-.loading-3 {
+.preloading-loading-3 {
   height: 7.5px;
   -webkit-animation: load-frame-1 1s infinite linear 0s;
   -o-animation: load-frame-1 1s infinite linear 0s;
