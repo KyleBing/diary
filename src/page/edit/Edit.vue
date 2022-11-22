@@ -370,17 +370,23 @@ export default {
                 diaryApi
                     .add(requestData)
                     .then(this.processAfterSaveDiary)
-                    .catch(() => {
-                        this.SET_IS_SAVING_DIARY(false)
-                        this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
+                    .catch(err => {
+                        utility
+                            .popMessage('danger', err.message, () => {
+                                this.SET_IS_SAVING_DIARY(false)
+                                this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
+                            })
                     })
             } else {
                 diaryApi
                     .modify(requestData)
                     .then(this.processAfterSaveDiary)
-                    .catch(() => {
-                        this.SET_IS_SAVING_DIARY(false)
-                        this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
+                    .catch(err => {
+                        utility
+                            .popMessage('danger', err.message, () => {
+                                this.SET_IS_SAVING_DIARY(false)
+                                this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
+                            })
                     })
             }
         },
