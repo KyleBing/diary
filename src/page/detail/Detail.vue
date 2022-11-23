@@ -77,7 +77,7 @@ export default {
             isLoading: false, // loading
             diary: {},
             icons: SvgIcons,
-            clipboard: null // clipboard obj
+            clipboard: null, // clipboard obj
         }
     },
     mounted() {
@@ -147,16 +147,23 @@ export default {
             this.isShowToast = false
         },
         getContentHtml(content){
-            let contentArray = content.split('\n')
-            let contentHtml = ""
-            contentArray.forEach(item => {
-                if (item === ''){
-                    contentHtml += '<br/>'
-                } else {
-                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。]/g, '*'): item}</p>`
-                }
-            })
-            return contentHtml
+            let isInCodingMode = /\[ ?code ?\]/i.test(content)
+
+            if (isInCodingMode){
+                return `<pre class="code">${content}</pre>`
+            } else {
+                let contentArray = content.split('\n')
+                let contentHtml = ""
+                contentArray.forEach(item => {
+                    if (item === ''){
+                        contentHtml += '<br/>'
+                    } else {
+                        contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。]/g, '*'): item}</p>`
+                    }
+                })
+                return contentHtml
+            }
+
         },
         showDiary(id) {
             this.isLoading = true

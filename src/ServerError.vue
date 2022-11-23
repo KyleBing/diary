@@ -40,10 +40,11 @@ export default {
 }
 
 .logo-server-error{
+    margin-bottom: 20px;
     width: 80px;
-}
-.logo-server-error img{
-    width: 100%;
+    img{
+        width: 100%;
+    }
 }
 
 .server-error-title{

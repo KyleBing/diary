@@ -13,6 +13,7 @@ textarea{
   display: block;
   line-height: 1.5;
   padding: 15px 20px;
+  font-family: "JetBrainsMonoDiary", sans-serif;
   border: 1px solid $color-border;
   @include transition(box-shadow 0.5s);
   @include transition(-webkit-box-shadow 0.5s);
@@ -46,8 +47,8 @@ textarea{
       padding-bottom: 250px;
       overflow-x: hidden;
       overflow-y: scroll;
-      font-family: "Consolas", "Monaco", sans-serif;
       resize: vertical;
+      font-family: "JetBrainsMonoDiary", sans-serif;
       height: 150px;
       font-size: 1rem;
       &:focus{

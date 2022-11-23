@@ -51,7 +51,7 @@ $height-meta: 30px;
   margin: 0 20px;
   padding: 20px 0;
   p{
-    font-family: "Consolas", "Monaco", sans-serif;
+    font-family: "JetBrainsMonoDiary", sans-serif;
     margin-bottom: 0;
     line-height: 1.5;
     word-break: break-all;
@@ -60,6 +60,10 @@ $height-meta: 30px;
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+  .code{
+    font-family: "JetBrainsMonoDiary", sans-serif;
+    font-size: 14px;
   }
 }
 
