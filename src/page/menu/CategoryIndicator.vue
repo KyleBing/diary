@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/scss/plugin";
+@import "../../scss/plugin";
 
 
 // 菜单中的类别标识

@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/scss/plugin";
+@import "../scss/plugin";
 // navbar 的高度是 45px, loading 的高度是 30px 上下的 padding 就是 15/2 px
 .loading{
     box-sizing: content-box;

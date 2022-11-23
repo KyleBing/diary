@@ -155,7 +155,7 @@ export default {
 
 <style scoped lang="scss">
 @use "sass:color";
-@import "../../../assets/scss/plugin";
+@import "../../../scss/plugin";
 
 .user-list{
     display: flex;

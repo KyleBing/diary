@@ -1,11 +1,19 @@
 <template>
     <router-view v-if="categoryAll.length > 0"/>
+    <server-error v-if="isServerError"/>
 </template>
 <script>
 import {mapGetters, mapMutations, mapState} from "vuex"
 import utility from "@/utility"
 import diaryApi from "@/api/diaryApi"
+import ServerError from "@/ServerError";
 export default {
+    components: {ServerError},
+    data(){
+        return {
+            isServerError: false, // 服务器无法请求时
+        }
+    },
     created() {
         // 日记项目载入后，隐藏 preloading
         document.querySelector('.preloading').style.display = 'none'
@@ -50,12 +58,16 @@ export default {
                 .then(res => {
                     this.SET_CATEGORY_ALL(res.data)
                 })
+                .catch(err => {
+                    this.isServerError = true
+                    console.log('服务器错误，请联系管理员')
+                })
         },
     }
 }
 </script>
 
 <style lang="scss">
-@import "assets/scss/diary";
+@import "scss/diary";
 </style>
 

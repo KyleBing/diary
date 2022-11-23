@@ -149,7 +149,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/plugin";
+@import "../../scss/plugin";
 
 
 // 对应 tooltip 的样式： theme 名， tooltip-bill

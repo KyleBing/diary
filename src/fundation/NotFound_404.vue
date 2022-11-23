@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/scss/plugin";
+@import "../scss/plugin";
 .bg{
     display: flex;
     flex-flow: column nowrap;

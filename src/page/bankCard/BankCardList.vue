@@ -209,7 +209,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/plugin";
+@import "../../scss/plugin";
 $bank-card-list-padding: 30px;
 
 .bank-card-container{

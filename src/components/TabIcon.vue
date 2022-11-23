@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/plugin";
+@import "../scss/plugin";
 $icon-padding-pc: 5px;
 $icon-padding-mobile: 3px;
 

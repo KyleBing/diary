@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/scss/plugin";
+@import "../../scss/plugin";
 $height-menu-list: 50px;
 $height-icon: 35px;
 .menu-list-item{

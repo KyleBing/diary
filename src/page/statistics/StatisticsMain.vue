@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/scss/plugin";
+@import "../../scss/plugin";
 .back-btn{
     background-color: $bg-menu;
 }
