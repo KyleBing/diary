@@ -3,7 +3,7 @@
 
 
 在线项目，点击登录界面右下角的体验账号登录即可
-> [https://kylebing.cn/diary](https://kylebing.cn/diary)
+> [http://kylebing.cn/diary](http://kylebing.cn/diary)
 
 
 
@@ -33,7 +33,7 @@
 - 可根据日期、类别筛选日记。
 - 支持日记分享功能
   - 编辑日记时，将分享的开关打开，保存日记后，在日记详情页的工具栏中会多出一个分享按钮，点击会复制这篇日记的共享链接，这个链接是公开的，任何人都可以通过链接查看此篇日记。
-    比如当前这篇日记的分享链接是：[https://kylebing.cn/diary/#/share/5587](https://kylebing.cn/diary/#/share/5587)
+    比如当前这篇日记的分享链接是：[http://kylebing.cn/diary/#/share/5587](http://kylebing.cn/diary/#/share/5587)
 - 支持暗黑皮肤，根据本机颜色样式，自动切换黑白两种样式。
 - 日记统计信息
 - 账单统计功能（需要指定格式书写）
