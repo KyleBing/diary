@@ -231,4 +231,11 @@ $bank-card-list-padding: 30px;
     }
 }
 
+// DARK
+@media (prefers-color-scheme: dark) {
+    .bank-card-container{
+        background-color: $dark-bg;
+    }
+}
+
 </style>

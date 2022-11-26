@@ -61,3 +61,15 @@
 }
 
 
+// DARK
+@media (prefers-color-scheme: dark) {
+  .statistic-container{
+    color: $dark-text;
+    background-color: $dark-bg-dark !important;
+  }
+  .statistic-header{
+    background-color: $dark-bg-nav !important;
+  }
+}
+
+

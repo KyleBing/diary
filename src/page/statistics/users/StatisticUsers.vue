@@ -236,25 +236,33 @@ export default {
     }
 }
 
-// THEME Black
+// DARK
 @media (prefers-color-scheme: dark) {
-    .user-list {
-        table {
+    .user-list{
+        td{
+            color: $dark-text !important;
         }
         tr {
+            &:hover{
+                td{
+                    background-color: $dark-bg-td-active !important;
+                }
+            }
+            td{
+                background-color: $dark-bg-td;
+            }
             &:nth-child(even) {
                 td {
-                    background-color: $dark-list-bg;
+                    background-color: $dark-bg-td-even;
                 }
             }
-            &:hover {
-                td {
-                    background-color: $dark-list-bg-active;
-                }
-            }
+        }
+        th{
+            color: $dark-text !important;
         }
     }
 }
+
 
 
 

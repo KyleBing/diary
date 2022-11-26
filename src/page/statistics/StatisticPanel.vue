@@ -45,6 +45,16 @@ h3{
 }
 
 
+@media (prefers-color-scheme: dark) {
+    .statistic-panel {
+        background-color: $dark-bg !important;
+        h3{
+            color: $dark-text-title !important;
+        }
+    }
+}
+
+
 
 </style>
 

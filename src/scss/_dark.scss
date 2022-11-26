@@ -142,7 +142,7 @@
       background-color: rgba(0, 0, 0, 0);
     }
     &::-webkit-scrollbar-thumb {
-      border: 1px solid #cbcbcb;
+      border: 1px solid $dark-border-active !important;
     }
   }
   .year-container{
@@ -152,9 +152,11 @@
   .category-selector{
     border-bottom-color: $dark-border;
     background-color: $dark-bg-dark;
-    .category{
+    .category-wrapper{
       &:hover{
-        background-color: $dark-bg-selector;
+        .category{
+          background-color: $dark-bg-selector;
+        }
       }
     }
   }
@@ -250,49 +252,6 @@
   }
 
 
-  // Statistics
-  .statistic-container{
-    color: $dark-text;
-    background-color: $dark-bg !important;
-  }
-  .statistic-header{
-    background-color: $dark-bg-nav !important;
-  }
-
-  .statistic-panel {
-    background-color: $dark-bg-nav !important;
-    h3{
-      color: $dark-text-title !important;
-    }
-  }
-
-  .info-list{
-    .key{
-      color: $dark-text!important;
-      background-color: $dark-bg-nav!important;
-    }
-    .unit{
-
-    }
-    .value{
-      background-color: $dark-bg-nav!important;
-    }
-    .info-item{
-      &::after{
-        border-bottom: 1px dashed $dark-border-active !important;
-      }
-    }
-  }
-
-  .user-list{
-    td{
-      color: $dark-text !important;
-    }
-    th{
-      color: $dark-text !important;
-    }
-  }
-
   // Page Header
   .page-header{
     background-color: $dark-bg-nav;
@@ -310,11 +269,14 @@
     color: $gradient-pumpkin;
   }
   .sum{
-    color: white;
+    color: $dark-text-title;
+    &:after{
+      background-color: $dark-border-active !important;
+    }
   }
 
   .bill{
-    border-color: $dark-border-active;
+    border-color: $dark-border;
     background-color: $dark-bg;
     .bill-header{
       .title{

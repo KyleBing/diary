@@ -130,6 +130,29 @@ $show-value-dash: true;
     margin: 0;
     height: auto;
   }
+}
 
+// DARK
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .info-list{
+    .key{
+      color: $dark-text!important;
+      background-color: $dark-bg!important;
+    }
+    .unit{
+
+    }
+    .value{
+      background-color: $dark-bg!important;
+    }
+    .info-item{
+      &::after{
+        border-bottom: 1px dashed $dark-border-active !important;
+      }
+    }
+  }
 }
 
