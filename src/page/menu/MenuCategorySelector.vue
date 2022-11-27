@@ -17,9 +17,9 @@
 
         <div class="menu-category-list category-operations-container">
             <div @click="selectCategoryAll" class="menu-btn">全选</div>
-            <div @click="selectCategoryWork" class="menu-btn">周报</div>
-            <div @click="selectCategoryNone" class="menu-btn">全不选</div>
+<!--            <div @click="selectCategoryNone" class="menu-btn">全不选</div>-->
             <div @click="reverseCategorySelect" class="menu-btn">反选</div>
+            <div @click="selectCategoryWork" class="menu-btn">周报</div>
         </div>
     </div>
 </template>
