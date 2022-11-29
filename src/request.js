@@ -5,21 +5,24 @@ const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../portal/'
 
 function request(method, params, requestData = {}, url) {
 
-    params = params || {}
+    let headers = {}
     /*
     * 所有 requestData 都会自动添加  authorization 信息
     * 给 requestData 添加 authorization 内部的数据： username email uid 等等
     * */
     if (url !== 'user/login' && url !== 'user/register'){ // 注册和登录时不添加 Token 数据
-        Object.assign(params, utility.getAuthorization())
+        Object.assign(headers, {
+            'Diary-Token':  utility.getAuthorization().token
+        })
     }
 
     return new Promise((resolve, reject) => {
         axios({
             url: BASE_URL + url,
             method,
-            data: requestData,
             params,
+            data: requestData,
+            headers,
             withCredentials: true
         })
             .then(res => {
