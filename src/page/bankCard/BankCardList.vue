@@ -137,7 +137,7 @@ export default {
             let params = {
                 categories: JSON.stringify(this.categoryAll.map(item => item.name_en)),
                 keywords: JSON.stringify(['我的银行卡列表']),
-                pageCount: 100,
+                pageSize: 100,
                 pageNo: 1
             }
             diaryApi

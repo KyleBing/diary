@@ -22,14 +22,12 @@
                         <tr v-for="item in usersDiary" :key="item.uid">
                             <td class="number">{{ item.uid }}</td>
                             <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
-                            <td :class="[
-                            'text-right',
-                            'number',
-                            dateTextLevel(item.last_visit_time_string)
-                            ]"
-                            >{{ item.last_visit_time_string }}
+                            <td :class="[ 'text-right', 'number', dateTextLevel(item.last_visit_time_string) ]">
+                                {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 3) }}
                             </td>
-                            <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
+                            <td class="text-right number hide-in-mobile">
+                                {{ item.register_time_string.substring(0, item.register_time_string.length - 3) }}
+                            </td>
                             <td class="number">{{ item.count_diary }}</td>
                             <td class="number">{{ item.count_dict }}</td>
                         </tr>
@@ -54,14 +52,12 @@
                         <tr v-for="item in usersDict" :key="item.uid">
                             <td class="number">{{ item.uid }}</td>
                             <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
-                            <td :class="[
-                        'text-right',
-                        'number',
-                        dateTextLevel(item.last_visit_time_string)
-                        ]"
-                            >{{ item.last_visit_time_string }}
+                            <td :class="[ 'text-right', 'number', dateTextLevel(item.last_visit_time_string) ]">
+                                {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 3) }}
                             </td>
-                            <td class="text-right number hide-in-mobile">{{ item.register_time_string }}</td>
+                            <td class="text-right number hide-in-mobile">
+                                {{ item.register_time_string.substring(0, item.register_time_string.length - 3) }}
+                            </td>
                             <td class="number">{{ item.count_diary }}</td>
                             <td class="number">{{ item.count_dict }}</td>
                             <td class="number">{{ item.sync_count }}</td>
@@ -124,8 +120,8 @@ export default {
                 .then(res => {
                     this.showUserStatisticInfo = true
                     this.users = res.data.map(item => {
-                        item.register_time_string = utility.dateFormatter(new Date(item.register_time), 'yyyy MM-dd  hh:mm')
-                        item.last_visit_time_string = utility.dateFormatter(new Date(item.last_visit_time), 'yyyy MM-dd  hh:mm')
+                        item.register_time_string = utility.dateFormatter(new Date(item.register_time), )
+                        item.last_visit_time_string = utility.dateFormatter(new Date(item.last_visit_time), )
                         return item
                     })
 

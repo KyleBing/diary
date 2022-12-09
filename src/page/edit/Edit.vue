@@ -137,7 +137,7 @@ export default {
             requestData: { // 请求本周日志的 requestData
                 keywords: '',
                 pageNo: 1,
-                pageCount: 15, // 单页请求条数
+                pageSize: 15, // 单页请求条数
                 categories: JSON.stringify(['work']),
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateFilter: '' // 日记年月筛选

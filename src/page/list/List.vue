@@ -63,7 +63,7 @@ export default {
             params: {
                 keywords: [],
                 pageNo: 1,
-                pageCount: 100, // 单页请求条数
+                pageSize: 100, // 单页请求条数
                 categories: [],
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateFilter: '' // 日记年月筛选
@@ -263,7 +263,7 @@ export default {
                     })
 
                     // page operation
-                    if (res.data.length === this.params.pageCount) {
+                    if (res.data.length === this.params.pageSize) {
                         this.isHasMore = true
                         this.params.pageNo++
                     } else {
