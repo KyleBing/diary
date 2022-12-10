@@ -40,14 +40,12 @@
 
                 <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
 
-                <div class="bank-card-list">
-                    <div class="bank-card-list">
-                        <bank-card
-                            :index="index"
-                            :card="card"
-                            v-for="(card, index) in cardListExample"
-                            :key="index"/>
-                    </div>
+                <div class="bank-card-list p-0">
+                    <bank-card
+                        :index="index"
+                        :card="card"
+                        v-for="(card, index) in cardListExample"
+                        :key="index"/>
                 </div>
             </template>
 
@@ -211,6 +209,20 @@ export default {
 <style scoped lang="scss">
 @import "../../scss/plugin";
 $bank-card-list-padding: 30px;
+
+.bank-tip{
+    background-color: $bg-menu;
+    padding: 30px;
+    color: $color-main;
+}
+.bank-card-example{
+    padding: 20px 0;
+    text-align: left;
+    pre{
+        font-family: "JetBrainsMonoDiary";
+    }
+}
+
 
 .bank-card-container{
     overflow-y: auto;
