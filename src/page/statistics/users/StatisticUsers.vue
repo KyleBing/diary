@@ -236,7 +236,7 @@ export default {
 @media (prefers-color-scheme: dark) {
     .user-list{
         td{
-            color: $dark-text !important;
+            color: $dark-text;
         }
         tr {
             &:hover{
