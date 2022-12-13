@@ -9,9 +9,8 @@ module.exports = {
   devServer: {
     proxy: {
       '': {
-        target: 'http://localhost:3000',
-        // target: 'http://localhost/diary-portal/',
-        // target: 'http://kylebing.cn:3000',
+        // target: 'http://localhost:3000',
+        target: 'http://kylebing.cn:3000',
         changeOrigin: true
       },
     }
