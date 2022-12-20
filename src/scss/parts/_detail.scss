@@ -42,7 +42,6 @@ $height-meta: 30px;
 }
 
 .diary-content{
-  white-space: pre-wrap;
   border-top: 1px solid $color-border;
   position: relative;
   color: $bg-main;
@@ -51,21 +50,25 @@ $height-meta: 30px;
   margin: 0 20px;
   padding: 20px 0;
   overflow-y: auto;
-  p{
-    font-family: "JetBrainsMonoDiary", sans-serif;
-    margin-bottom: 0;
-    line-height: 1.5;
-    word-break: break-all;
-  }
   .clipboard{
     position: absolute;
     top: 10px;
     right: 10px;
   }
-  .code{
-    font-family: "JetBrainsMonoDiary", sans-serif;
-    font-size: 12px;
-    line-height: 1.3;
+  .content{
+    white-space: pre-wrap;
+    p{
+      font-family: "JetBrainsMonoDiary", sans-serif;
+      margin-bottom: 0;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+
+    .code{
+      font-family: "JetBrainsMonoDiary", sans-serif;
+      font-size: 12px;
+      line-height: 1.3;
+    }
   }
 }
 
@@ -115,14 +118,3 @@ $height-meta: 30px;
     }
   }
 }
-
-
-.temperature-number{
-  //font-weight: bold;
-}
-//.temperature-35{color: $magenta}
-//.temperature-35-28{color: $red}
-//.temperature-28-22{color: $green}
-//.temperature-22-15{color: saturate($cyan, 30%)}
-//.temperature-15-4{color: $blue}
-//.temperature-4{color: $purple}

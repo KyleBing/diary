@@ -52,7 +52,8 @@
 
         <!--CONTENT-->
         <div class="diary-content" v-if="diary.content">
-            <div class="content" v-html="getContentHtml(diary.content)"/>
+            <div v-if="isInMarkdownMode" class="markdown" v-html="contentMarkDownHtml"/>
+            <div v-else class="content" v-html="getContentHtml(diary.content)"/>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
                 <img :src="icons.clipboard" alt="clipboard">
             </div>
@@ -67,6 +68,7 @@ import {mapGetters, mapMutations, mapState} from "vuex"
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi"
 import SvgIcons from "@/assets/img/SvgIcons"
+import {marked} from "marked"
 
 export default {
     name: 'Detail',
@@ -109,6 +111,12 @@ export default {
                 return ''
             }
         },
+        isInMarkdownMode(){
+            return /\[ ?(markdown|md) ?\]/i.test(this.diary.content)
+        },
+        contentMarkDownHtml(){
+            return marked.parse(this.diary.content)
+        }
     },
     watch: {
         '$route.params.id'(newValue){
@@ -147,9 +155,8 @@ export default {
             this.isShowToast = false
         },
         getContentHtml(content){
-            let isInCodingMode = /\[ ?code ?\]/i.test(content)
-
-            if (isInCodingMode){
+            let isInCodeMode = /\[ ?code ?\]/i.test(content)
+            if (isInCodeMode){
                 return `<pre class="code">${content}</pre>`
             } else {
                 let contentArray = content.split('\n')

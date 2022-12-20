@@ -1,0 +1,76 @@
+$gap: 15px;
+
+.markdown{
+    font-size: 14px;
+
+    p{
+        margin-bottom: 5px;
+    }
+
+    img{
+        max-width: 100%;
+        padding: 5px;
+        background-color: white;
+        @include border-radius(3px);
+        @include box-shadow(1px 1px 5px transparentize(black, 0.9))
+    }
+
+
+    @for $item from 1 through 7 {
+        h#{$item}{
+            margin-top: (7-$item)*5px;
+            margin-bottom: (7-$item)*2px;
+            font-size: 14px + (7-$item)*2;
+        }
+    }
+
+    pre{
+        margin-bottom: $gap;
+        font-size: $fz-small;
+        padding: $gap;
+        background-color: $bg-light;
+        code{
+            font-family: "JetBrainsMonoDiary";
+        }
+    }
+
+    code{
+        padding: 2px 5px;
+        font-family: "JetBrainsMonoDiary";
+        background-color: $bg-light;
+        @include border-radius(2px);
+    }
+
+    table{
+        margin-bottom: $gap;
+        border: 1px solid $color-border;
+        tr{
+            th{
+                text-align: left;
+                min-width: 50px;
+                padding: 3px 5px;
+                border: 1px solid $color-border;
+                background-color: $bg-light;
+            }
+            td{
+                text-align: left;
+                border: 1px solid $color-border;
+                padding: 2px 3px;
+
+            }
+        }
+    }
+
+    ul{
+        margin-bottom: $gap;
+        li{
+            margin-left: 20px;
+            line-height: 1.5;
+        }
+    }
+    ol{
+        li{
+
+        }
+    }
+}
