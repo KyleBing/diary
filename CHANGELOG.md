@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+
+### v8.27 `2022-12-20`
+- 支持 markdown 显示
+
+
 ### v8.25
 - 请求凭证 token 改为放到 header 中
 
