@@ -73,6 +73,15 @@ $gap: 15px;
 
         }
     }
+    blockquote{
+        border-left: 3px solid $color-border-highlight;
+        padding-left: 20px;
+    }
+
+    a{
+        color: $orange;
+        text-decoration: underline;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -88,11 +97,9 @@ $gap: 15px;
         pre{
             background-color: $dark-bg-dark;
         }
-
         code{
             background-color: $dark-bg-dark;
         }
-
         table{
             border: 1px solid $dark-border;
             tr{
@@ -101,25 +108,24 @@ $gap: 15px;
                     background-color: $dark-bg-dark;
                 }
                 td{
-                    text-align: left;
                     border: 1px solid $dark-border;
-                    padding: 2px 3px;
-
                 }
             }
         }
 
         ul{
-            margin-bottom: $gap;
             li{
-                margin-left: 20px;
-                line-height: 1.5;
             }
         }
         ol{
             li{
-
             }
+        }
+        blockquote{
+            border-left: 3px solid $dark-border-active;
+        }
+        a{
+            color: $orange;
         }
     }
 }
