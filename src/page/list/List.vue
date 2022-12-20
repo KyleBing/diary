@@ -254,7 +254,7 @@ export default {
                 .then(res => {
                     let newDiariesList = res.data.map(diary => {
                         if (diary.content) {
-                            diary.content = diary.content.replace(/\n/g, '<br/>')
+                            diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                         }
                         diary.categoryString = this.categoryNameMap.get(diary.category)
                         diary.weekday = utility.dateProcess(diary.date).weekday

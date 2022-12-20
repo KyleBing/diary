@@ -45,7 +45,10 @@
                     <div class="divider" v-if="diary.content"></div>
 
                     <!--CONTENT-->
-                    <div class="share-content" v-html="diary.contentHtml"></div>
+                    <div class="share-content">
+                        <div v-if="isInMarkdownMode" class="markdown" v-html="contentMarkDownHtml"/>
+                        <div v-else class="content" v-html="diary.contentHtml"/>
+                    </div>
 
                     <div class="share-author">
                         <div class="line"></div>
@@ -76,7 +79,7 @@ import {mapGetters, mapMutations, mapState} from "vuex"
 import Loading from "@/components/Loading"
 import diaryApi from "@/api/diaryApi"
 import SvgIcons from "@/assets/img/SvgIcons"
-import axios from "axios"
+import {marked} from "marked";
 
 export default {
     name: 'Share',
@@ -99,6 +102,12 @@ export default {
         },
         shareCategoryStyle(){
             return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+        },
+        isInMarkdownMode(){
+            return /\[ ?(markdown|md) ?\]/i.test(this.diary.content)
+        },
+        contentMarkDownHtml(){
+            return marked.parse(this.diary.content)
         }
     },
     mounted() {

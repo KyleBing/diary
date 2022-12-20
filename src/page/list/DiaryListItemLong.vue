@@ -17,11 +17,12 @@
 
         <div class="article-body" v-if="isHideContent">
             <div class="title">{{ diary.title.replace(/[^，。]/g, '*') }}</div>
-            <div class="content" v-html="diary.content.replace(/[^，。]/g, '*')"/>
+            <div class="content" v-html="diary.contentHtml.replace(/[^，。]/g, '*')"/>
         </div>
         <div class="article-body" v-else>
             <div class="title">{{ diary.title }}</div>
-            <div class="content" v-html="diary.content"/>
+            <div class="markdown" v-if="isInMarkdownMode" v-html="contentMarkDownHtml"/>
+            <div class="content" v-else v-html="diary.contentHtml"/>
         </div>
     </div>
 </template>
@@ -29,6 +30,7 @@
 <script>
 import {mapGetters, mapState} from "vuex"
 import SvgIcons from "@/assets/img/SvgIcons"
+import {marked} from "marked";
 
 export default {
     name: "DiaryListItemLong",
@@ -59,6 +61,12 @@ export default {
                 return `
                 `
             }
+        },
+        isInMarkdownMode(){
+            return /\[ ?(markdown|md) ?\]/i.test(this.diary.content)
+        },
+        contentMarkDownHtml(){
+            return marked.parse(this.diary.content)
         },
         diaryItemCategoryTextStyle(){
             if (this.isActive){
