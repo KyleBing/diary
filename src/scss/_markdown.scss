@@ -8,11 +8,10 @@ $gap: 15px;
     }
 
     img{
+        border: 1px solid $color-border;
         max-width: 100%;
-        padding: 5px;
         background-color: white;
         @include border-radius(3px);
-        @include box-shadow(1px 1px 5px transparentize(black, 0.9))
     }
 
 
@@ -27,10 +26,12 @@ $gap: 15px;
     pre{
         margin-bottom: $gap;
         font-size: $fz-small;
-        padding: $gap;
+        padding: $gap $gap + 5;
         background-color: $bg-light;
         code{
+            padding: 0;
             font-family: "JetBrainsMonoDiary";
+            background-color: $bg-light;
         }
     }
 
@@ -66,16 +67,20 @@ $gap: 15px;
         li{
             margin-left: 20px;
             line-height: 1.5;
+            margin-bottom: 2px;
         }
     }
     ol{
+        margin-bottom: $gap;
         li{
-
+            margin-left: 20px;
+            line-height: 1.5;
+            margin-bottom: 2px;
         }
     }
     blockquote{
-        border-left: 3px solid $color-border-highlight;
-        padding-left: 20px;
+        border-left: 3px solid transparentize(black, 0.8);
+        padding-left: 18px;
     }
 
     a{
@@ -91,11 +96,15 @@ $gap: 15px;
         }
         img{
             padding: 5px;
+            border-color: $dark-border;
             background-color: $dark-bg-dark;
         }
 
         pre{
             background-color: $dark-bg-dark;
+            code{
+                background-color: $dark-bg-dark;
+            }
         }
         code{
             background-color: $dark-bg-dark;
