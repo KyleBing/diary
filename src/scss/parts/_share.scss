@@ -223,3 +223,13 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   }
 }
 
+
+@media (prefers-color-scheme: dark) {
+  .share{
+    color: $text-content;
+    .markdown{
+      color: $text-content;
+    }
+  }
+}
+
