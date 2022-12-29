@@ -35,6 +35,8 @@
                 <div class="btn-text-group">
                     <div  :class="['btn-text', 'ml-5', {active: isInBillMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('bill')">账单</div>
+                    <div :class="['btn-text', {active: isInPlayMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
+                         @click="switchToCategory('play')">剧本</div>
                     <div :class="['btn-text', {active: isInWorkMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('work')">工作</div>
                     <div :class="['btn-text', {active: isInMemoMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
@@ -69,7 +71,7 @@
                 <div v-if="isSavingDiary">
                     <Loading :height="50" :loading="true"/>
                 </div>
-                <div @click="diarySave" v-else>
+                <div @click="diarySave" v-else-if="isDiaryEditorContentHasChanged">
                     <tab-icon alt="保存"/>
                 </div>
             </div>
@@ -194,6 +196,9 @@ export default {
         isInMemoMode(){
             return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'memo'
         },
+        isInPlayMode(){
+            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'play'
+        },
         isInWorkMode(){
             return this.filteredCategories.length === 2
                 && this.filteredCategories.some(item => item === 'work')
@@ -239,6 +244,10 @@ export default {
                 case 'bill':
                     this.SET_IS_FILTER_SHARED(false)
                     this.SET_FILTERED_CATEGORIES(['bill'])
+                    break;
+                case 'play':
+                    this.SET_IS_FILTER_SHARED(false)
+                    this.SET_FILTERED_CATEGORIES(['play'])
                     break;
                 case 'work':
                     this.SET_IS_FILTER_SHARED(false)
