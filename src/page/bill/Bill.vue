@@ -3,6 +3,18 @@
         <page-header title="账单"/>
         <div class="bill-content" :style="`height:${insets.heightPanel}px`">
             <div class="bill-container" v-if="!isLoading">
+
+                <div class="bill-filter-panel">
+                    <div class="input-group white">
+                        <label for="invitation" >关键字</label>
+                        <input v-model="formSearch.keyword"
+                               type="text"
+                               name="invitation"
+                               id="invitation">
+                    </div>
+                    <div class="btn btn-active" @click="getBillData">筛选</div>
+                </div>
+
                 <div class="bill" v-for="month in billYearData" :key="month.id">
                     <div class="bill-header">
                         <div class="title">{{ monthMap.get(month.month) }}</div>
@@ -88,6 +100,10 @@ export default {
             billYearData: [],
             isLoading: false,
             monthMap: new Map(),
+
+            formSearch: {
+                keyword: ''
+            }
         }
     },
     computed: {
@@ -133,7 +149,8 @@ export default {
             this.isLoading = true
             billApi
                 .sorted({
-                    year: new Date().getFullYear()
+                    year: new Date().getFullYear(),
+                    keyword: this.formSearch.keyword
                 })
                 .then(res => {
                     this.isLoading = false

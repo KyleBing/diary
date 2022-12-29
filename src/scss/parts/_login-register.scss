@@ -18,32 +18,6 @@
       margin: 0 auto;
     }
   }
-  .input-group{
-    margin-bottom: 15px;
-    label{
-      display: block;
-      line-height: 200%;
-      font-size: $fz-note;
-      color: $bg-light;
-    }
-    input{
-      background-color: $bg-menu;
-      width: 100%;
-      @include border-radius();
-      display: block;
-      line-height: 1.5;
-      padding: 8px 15px;
-      font-size: $fz-title;
-      color: white;
-      font-weight: bold;
-      transition: all .5s;
-      &:focus{
-        background-color: $bg-menu;
-        transition: all .5s;
-        @include box-shadow(0 0 0 2px $color-main);
-      }
-    }
-  }
   .footer{
     padding: 20px 0 0;
     display: flex;
@@ -61,6 +35,47 @@
     }
     &.flex-end{
       justify-content: flex-end;
+    }
+  }
+}
+
+.input-group{
+  margin-bottom: 15px;
+  label{
+    display: block;
+    line-height: 200%;
+    font-size: $fz-note;
+    color: $bg-light;
+  }
+  input{
+    background-color: $bg-menu;
+    width: 100%;
+    @include border-radius();
+    display: block;
+    line-height: 1.5;
+    padding: 8px 15px;
+    font-size: $fz-title;
+    color: white;
+    font-weight: bold;
+    transition: all .5s;
+    &:focus{
+      background-color: $bg-menu;
+      transition: all .5s;
+      @include box-shadow(0 0 0 2px $color-main);
+    }
+  }
+  &.white{
+    label{
+      color: $text-content;
+    }
+    input {
+      background-color: $bg-light;
+      color: $text-content;
+
+      &:focus {
+        background-color: white;
+        @include box-shadow(0 0 0 2px $color-main);
+      }
     }
   }
 }
@@ -138,6 +153,25 @@
     margin-right: auto;
     .logo {
       padding: 0 0 30px;
+    }
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .input-group{
+    &.white{
+      label{
+        color: $bg-light;
+      }
+      input{
+        background-color: $bg-menu;
+        font-size: $fz-title;
+        color: white;
+        &:focus{
+          background-color: $bg-menu;
+        }
+      }
     }
   }
 }
