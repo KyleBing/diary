@@ -7,10 +7,11 @@
                 <div class="bill-filter-panel">
                     <div class="input-group white">
                         <label for="invitation" >关键字</label>
-                        <input v-model="formSearch.keyword"
-                               type="text"
-                               name="invitation"
-                               id="invitation">
+                        <textarea rows="3"
+                                  v-model="formSearch.keyword"
+                                  type="text"
+                                  name="invitation"
+                                  id="invitation"/>
                     </div>
                     <div class="btn btn-active" @click="getBillData">筛选</div>
                 </div>
