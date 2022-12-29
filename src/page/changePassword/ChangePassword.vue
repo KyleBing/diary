@@ -7,8 +7,10 @@
             <div class="body-login" v-if="show">
                 <!--APP-->
                 <div id="reg">
-                    <div class="logo">
-                        <img :src="icons.logoIcon.changePassword" alt="Diary Logo">
+                    <div class="logo-wrapper">
+                        <div class="logo">
+                            <img :src="icons.logoIcon.changePassword" alt="Diary Logo">
+                        </div>
                     </div>
                     <form id="regForm">
     <!--                    <div class="input-group">

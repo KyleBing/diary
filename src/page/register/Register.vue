@@ -5,8 +5,10 @@
             leave-active-class="animated-fast faceOut"
         >
             <div class="body-login" v-if="show">
-                <div class="logo">
-                    <img :src="icons.logoIcon.register" alt="Diary Logo">
+                <div class="logo-wrapper">
+                    <div class="logo">
+                        <img :src="icons.logoIcon.register" alt="Diary Logo">
+                    </div>
                 </div>
                 <form id="regForm">
                     <div class="input-group">

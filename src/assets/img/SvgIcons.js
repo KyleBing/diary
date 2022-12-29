@@ -12,7 +12,7 @@ export default {
         changePassword: require('./logo/logo-change-password.svg'),
     },
     // EOF
-    EOF: require('./EOF.svg'),
+    EOF: require('./logo/EOF.svg'),
     // CONTENT
     content: require('./icons/content.svg'),
     clipboard: require('./icons/clipboard.svg'),

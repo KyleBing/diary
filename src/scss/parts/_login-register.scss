@@ -10,12 +10,21 @@
   width: 100%;
   height: 100%;
   padding: 60px 25px;
-  .logo{
+  .logo-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 30px 0;
-    img{
+    .logo{
+      @include border-radius(200px);
+      overflow: hidden;
       height: 150px;
-      display: block;
-      margin: 0 auto;
+      width: 150px;
+      img{
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+      }
     }
   }
   .footer{
@@ -134,7 +143,7 @@
     width: $menu-panel-big;
     margin-left: auto;
     margin-right: auto;
-    .logo {
+    .logo-wrapper {
       padding: 0 0 30px;
     }
   }
@@ -151,7 +160,7 @@
     width: $menu-panel-sm;
     margin-left: auto;
     margin-right: auto;
-    .logo {
+    .logo-wrapper {
       padding: 0 0 30px;
     }
   }

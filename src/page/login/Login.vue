@@ -5,9 +5,12 @@
             leave-active-class="animated-fast faceOut"
         >
             <div class="body-login" v-if="show">
-                <div class="logo">
-                    <img :src="icons.logoIcon.login" alt="Diary Logo">
+                <div class="logo-wrapper">
+                    <div class="logo">
+                        <img :src="icons.logoIcon.login" alt="Diary Logo">
+                    </div>
                 </div>
+
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
                     <div class="input-group">
                         <label for="email" :class="{red: emailVerified || email.length < 1}">{{ labelEmail }}</label>
