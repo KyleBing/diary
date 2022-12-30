@@ -1,16 +1,17 @@
 .avatar{
   flex-shrink: 0;
+  box-sizing: content-box;
   @extend .btn-like;
   @include transition(all 0.3s);
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 2.5px solid $color-main;
+  border: 2.5px solid $color-main;
   img{
       width: 100%;
   }
   &:hover{
-    outline-color: $color-main;
+    border-color: $color-main;
     @include transition(all 0.3s);
     @include box-shadow(0 0 25px transparentize($color-main, 0.3))
   }
