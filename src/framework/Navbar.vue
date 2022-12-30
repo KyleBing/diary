@@ -221,7 +221,9 @@ export default {
         ]),
         commitBack(){
             switch (this.$route.name){
-                case 'detail': this.$router.push({name: 'list'});break
+                case 'detail':
+                    this.$router.push({name: 'List'});
+                    break
                 default: this.$router.back()
             }
         },

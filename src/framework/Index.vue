@@ -43,9 +43,9 @@ export default {
         console.log('$route.path: ',this.$route.path)
         if(this.$route.path === '/' || this.$route.path === undefined){
             if (this.isInMobileMode){
-                this.$router.push('/list')
+                this.$router.push({name: 'List'})
             } else {
-                this.$router.push('/edit')
+                this.$router.push({name: 'Edit'})
             }
         }
 

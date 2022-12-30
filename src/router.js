@@ -17,7 +17,7 @@ import NotFound_404 from "@/fundation/NotFound_404";
 
 const routes = [
     {
-        name: 'index',
+        name: 'Index',
         path: '/',
         component: Index ,
         children: [
