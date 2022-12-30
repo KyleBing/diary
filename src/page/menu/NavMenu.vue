@@ -144,7 +144,7 @@ export default {
         goToBankCard(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
-            this.$router.push('/card')
+            this.$router.push('/bank-card')
         },
 
         goToChangePassword(){
@@ -204,7 +204,7 @@ export default {
                     break
                 case 'bankCard':
                     this.$router.push({
-                        name: 'card'
+                        name: 'BankCard'
                     })
                     break
                 case 'year':

@@ -231,12 +231,12 @@ export default {
         },
         routeToBill(){
             this.$router.push({
-                name: 'bill'
+                name: 'Bill'
             })
         },
         routeToCard(){
             this.$router.push({
-                name: 'card'
+                name: 'BankCard'
             })
         },
         switchToCategory(mode){

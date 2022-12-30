@@ -68,7 +68,7 @@
                                 <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
                                 <span v-else>{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
                             </td>
-                            <td class="label center"
+                            <td class="label center link" @click="goToDiaryDetail(item.id)"
                                 v-tooltip="{
                                 content: tooltipContent(item.items),
                                 html: true,
@@ -128,6 +128,15 @@ export default {
         this.getBillData()
     },
     methods: {
+        goToDiaryDetail(diaryId){
+            console.log(diaryId)
+            this.$router.push({
+                name: 'Detail',
+                params: {
+                    id: diaryId
+                }
+            })
+        },
         tooltipContentWithoutReturn(billItemArray) {
             return billItemArray
                 .map(item => {

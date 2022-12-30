@@ -143,7 +143,7 @@ export default {
                 .then(res => {
                     if (res.data.length === 1){
                         this.$router.push({
-                            name: 'edit',
+                            name: 'Edit',
                             params: {
                                 id: res.data[0].id
                             }

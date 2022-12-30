@@ -24,3 +24,11 @@
 .show   {display: block !important;}
 
 
+.link {
+  @extend .btn-like;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+

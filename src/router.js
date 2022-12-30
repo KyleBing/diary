@@ -21,20 +21,20 @@ const routes = [
         path: '/',
         component: Index ,
         children: [
-            {name: 'list'   , path: 'list'      ,        component: List}, // mobile
-            {name: 'detail' , path: 'detail/:id',        component: Detail},
-            {name: 'editNew', path: 'edit'      ,        component: Edit},
-            {name: 'edit'   , path: 'edit/:id'  ,        component: Edit}
+            {name: 'List'   , path: 'list'      ,        component: List}, // mobile
+            {name: 'Detail' , path: 'detail/:id',        component: Detail},
+            {name: 'EditNew', path: 'edit'      ,        component: Edit},
+            {name: 'Edit'   , path: 'edit/:id'  ,        component: Edit}
         ]
     },
-    {name: 'register',       path: '/register',          component: Register},
-    {name: 'share',          path: '/share/:id',         component: Share         },
-    {name: 'changePassword', path: '/change-password',   component: ChangePassword },
-    {name: 'login',          path: '/login',             component: Login          },
-    {name: 'statistics',     path: '/statistics',        component: Statistics   },
-    {name: 'bill',           path: '/bill',              component: Bill },
-    {name: 'card',           path: '/card',              component: BankCardList },
-    {name: 'notFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
+    {name: 'Register',       path: '/register',          component: Register},
+    {name: 'Share',          path: '/share/:id',         component: Share         },
+    {name: 'ChangePassword', path: '/change-password',   component: ChangePassword },
+    {name: 'Login',          path: '/login',             component: Login          },
+    {name: 'Statistics',     path: '/statistics',        component: Statistics   },
+    {name: 'Bill',           path: '/bill',              component: Bill },
+    {name: 'BankCard',       path: '/bank-card',         component: BankCardList },
+    {name: 'NotFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 
 
