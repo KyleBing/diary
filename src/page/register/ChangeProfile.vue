@@ -7,7 +7,7 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
-                        <img :src="formUser.avatar || icons.logoIcon.register" alt="Diary Logo">
+                        <img :src="formUser.avatar || icons.logoIcon.changeAvatar" alt="Diary Logo">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
                 </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="about" :style="'height:' + insets.heightPanel + 'px'">
         <div class="logo">
-            <img src="../../assets/img/logo/logo-login.svg" alt="LOGO">
+            <img src="../../assets/img/logo/logo_login.svg" alt="LOGO">
         </div>
         <h3 class="title">{{nameZh}}</h3>
         <h4 class="subtitle">{{description}}</h4>

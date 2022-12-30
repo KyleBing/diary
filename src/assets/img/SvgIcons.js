@@ -7,9 +7,10 @@ export default {
     logo_title_saved: require('./logo/logo_title_saved.svg'),
 
     logoIcon: {
-        login: require('./logo/logo-login.svg'),
-        register: require('./logo/logo-register.svg'),
-        changePassword: require('./logo/logo-change-password.svg'),
+        login: require('./logo/logo_login.svg'),
+        register: require('./logo/logo_register.svg'),
+        changePassword: require('./logo/logo_change_password.svg'),
+        changeAvatar: require('./logo/logo_avatar.svg'),
     },
     // EOF
     EOF: require('./logo/EOF.svg'),
