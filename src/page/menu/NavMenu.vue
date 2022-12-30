@@ -33,23 +33,24 @@
                                     :add-on-text="`v${version}`"/>
                 </div>
 
+
                 <div class="user-info-panel">
-                    <div class="user-info">
-                        <div class="avatar">
-                            <img :src="userInfo.avatar" alt="Avatar">
-                        </div>
+                    <div class="avatar">
+                        <img :src="userInfo.avatar || icons.logoIcon.login" alt="Avatar">
+                    </div>
+                    <div class="user-info mt-4">
                         <div class="user">
-                            <div class="username">
-                                <p class="name">{{ userInfo.nickname }}</p>
-                                <p class="logout ml-3" @click="logout">退出</p>
-                                <p class="logout ml-3" @click="changeProfile">修改</p>
-                            </div>
+                            <div class="username">{{ userInfo.nickname }}</div>
                             <div class="email">{{ userInfo.email }}</div>
+                            <div class="operation">
+                                <div class="logout" @click="logout">退出</div>
+                                <div class="logout ml-3" @click="changeProfile">修改</div>
+                            </div>
                         </div>
                     </div>
                     <div v-if="statisticsCategory.shared > 0" class="statistics">
-                        <p>共享 {{ statisticsCategory.shared }} 篇</p>
-                        <p>总计 {{ statisticsCategory.amount }} 篇</p>
+                        <p>总计 <b>{{ statisticsCategory.amount }}</b> 篇</p>
+                        <p>共享 <b>{{ statisticsCategory.shared }}</b> 篇</p>
                     </div>
                 </div>
             </div>
@@ -123,6 +124,9 @@ export default {
         ])
     },
     methods: {
+        svgIcons() {
+            return svgIcons
+        },
         ...mapMutations([
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR',

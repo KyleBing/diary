@@ -39,25 +39,12 @@ $menu-category-list-item-height: 40px;
   @extend .btn-like;
 }
 
-
 .user-info-panel{
   padding: 30px 60px 50px;
-}
-.user-info{
-  padding: 10px 20px;
-  @include border-radius($radius-pc $radius-pc 0 0 );
-  display: flex;
-  background-color: transparentize(white, 0.9);
-  justify-content: center;
-  align-items: center;
-  line-height: 1.5;
-  font-size: 13px;
-  white-space: nowrap;
-  color: $text-about-subtitle;
   .avatar{
-    margin-right: 15px;
-    width: 40px;
-    height: 40px;
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
     @include border-radius(50px);
     outline-width: 1px;
     overflow: hidden;
@@ -66,46 +53,62 @@ $menu-category-list-item-height: 40px;
       display: block;
     }
   }
-  .user{
-    flex-shrink: 0;
-    padding: 5px 5% 5px 0;
-    .username{
-      max-width: 200px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-flow: row nowrap;
-      .name{
-        flex-shrink: 1;
+  .user-info{
+    margin: 0 auto;
+    padding: 8px 10px;
+    @include border-radius($radius-pc $radius-pc 0 0);
+    display: flex;
+    background-color: transparentize(white, 0.9);
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.5;
+    font-size: 13px;
+    white-space: nowrap;
+    color: $text-about-subtitle;
+
+    .user{
+      .username{
+        font-weight: bold;
+        font-size: $fz-label;
+        text-align: center;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
     }
-    .logout {
-      color: $color-main;
-      opacity: 0.7;
-      @extend .btn-like;
-      &:hover {
-        opacity: 1;
+    .operation{
+      display: flex;
+      justify-content: center;
+      .logout {
+        color: $color-main;
+        opacity: 0.7;
+        @extend .btn-like;
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }
+
+  .statistics{
+    margin: 0 auto;
+    margin-top: 1px;
+    padding: 8px 10px;
+    @include border-radius(0 0 $radius-pc $radius-pc);
+    display: flex;
+    background-color: transparentize(white, 0.9);
+    justify-content: space-around;
+    align-items: center;
+    line-height: 1.5;
+    font-size: 13px;
+    white-space: nowrap;
+    color: $text-about-subtitle;
+  }
 }
 
-.statistics{
-  margin-top: 1px;
-  padding: 10px 20px;
-  @include border-radius(0 0 $radius-pc $radius-pc);
-  display: flex;
-  background-color: transparentize(white, 0.9);
-  justify-content: space-around;
-  align-items: center;
-  line-height: 1.5;
-  font-size: 13px;
-  white-space: nowrap;
-  color: $text-about-subtitle;
-}
+
+
 
 // MENU CATEGORY
 .menu-category {

@@ -32,7 +32,7 @@
                     </button>
                 </form>
                 <div class="footer flex-start">
-                    <div @click="$router.go(-1)">返回</div>
+                    <div class="link" @click="$router.go(-1)">返回</div>
                 </div>
             </div>
         </transition>
@@ -56,7 +56,7 @@ export default {
             show: false,
             icons: SvgIcons,
 
-            avatarFile: null, // 头像文件
+            avatarFile: '', // 头像文件
             formUser:{
                 nickname: '',
                 phone: '',
