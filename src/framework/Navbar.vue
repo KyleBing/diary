@@ -5,7 +5,7 @@
             <div class="navbar-btn-group float-left">
                 <div @click="menuShow"
                      v-if="(!isInMobileMode && !isMenuShowed)
-                     || isInMobileMode && $route.name === 'list' && !isMenuShowed">
+                     || isInMobileMode && $route.name === 'List' && !isMenuShowed">
                     <tab-icon alt="菜单"/>
                 </div>
                 <div @click="menuClose" v-if="isMenuShowed">
@@ -64,7 +64,7 @@
             </div>
 
             <!--EDIT-->
-            <div class="navbar-btn-group float-right" v-if="$route.name === 'edit' || $route.name ==='editNew'">
+            <div class="navbar-btn-group float-right" v-if="$route.name === 'Edit' || $route.name ==='EditNew'">
                 <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
                     <tab-icon alt="恢复"/>
                 </div>
@@ -77,7 +77,7 @@
             </div>
 
             <!--DETAIL-->
-            <div class="navbar-btn-group float-right" v-if="$route.name === 'detail' && currentDiary">
+            <div class="navbar-btn-group float-right" v-if="$route.name === 'Eetail' && currentDiary">
                 <div
                     v-if="currentDiary && currentDiary.is_public === 1"
                     class="clipboard-trigger"
@@ -94,12 +94,12 @@
             </div>
 
             <div class="brand" v-if="isInMobileMode" @click="toggleListStyle">
-                <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
+                <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else-if="isDiaryListShowedInFullStyle"><img :src="icons.logo_content" alt="日记"></a>
                 <a v-else><img :src="icons.logo" alt="日记"></a>
             </div>
             <div class="brand" v-else>
-                <img :src="editLogoImg" v-if="$route.name === 'edit' || $route.name === 'editNew'" alt="LOGO">
+                <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else><img :src="icons.logo" alt="日记"></a>
             </div>
 
