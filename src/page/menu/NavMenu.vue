@@ -36,7 +36,10 @@
                 <div class="user-info-panel">
                     <div class="user-info">
                         <div class="user">
-                            <p class="username">{{ userInfo.nickname }} <span class="logout ml-3" @click="logout">退出</span></p>
+                            <p class="username">{{ userInfo.nickname }}
+                                <span class="logout ml-3" @click="logout">退出</span>
+                                <span class="logout ml-3" @click="changeProfile">修改资料</span>
+                            </p>
                             <p class="email">{{ userInfo.email }}</p>
                         </div>
                         <div class="separator"></div>
@@ -122,35 +125,37 @@ export default {
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_MENU_SHOWED'
         ]),
-
+        changeProfile(){
+            this.$router.push({name: 'ChangeProfile'})
+        },
         logout() {
             utility.deleteAuthorization()
-            this.$router.push('/login')
+            this.$router.push({name: 'Login'})
             this.SET_MENU_SHOWED(false)
         },
 
         goToStatisticPage(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
-            this.$router.push('/statistics')
+            this.$router.push({name: 'Statistics'})
         },
 
         goToBillPage(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
-            this.$router.push('/bill')
+            this.$router.push({name: 'Bill'})
         },
 
         goToBankCard(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
-            this.$router.push('/bank-card')
+            this.$router.push({name: 'BankCard'})
         },
 
         goToChangePassword(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
-            this.$router.push('/change-password')
+            this.$router.push({name: 'ChangePassword'})
         },
 
         // MENU related

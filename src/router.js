@@ -3,8 +3,8 @@ import Index from "@/framework/Index";
 import utility from "@/utility";
 
 import Register from "@/page/register/Register"
-import Login from "@/page/login/Login"
-import ChangePassword from "@/page/changePassword/ChangePassword"
+import Login from "@/page/register/Login.vue"
+import ChangePassword from "@/page/register/ChangePassword.vue"
 import Bill from "@/page/bill/Bill"
 import BankCardList from "@/page/bankCard/BankCardList"
 import Share from "@/page/share/Share"
@@ -30,6 +30,7 @@ const routes = [
     {name: 'Register',       path: '/register',          component: Register},
     {name: 'Share',          path: '/share/:id',         component: Share         },
     {name: 'ChangePassword', path: '/change-password',   component: ChangePassword },
+    {name: 'ChangeProfile',  path: '/change-profile',    component: ChangeProfile },
     {name: 'Login',          path: '/login',             component: Login          },
     {name: 'Statistics',     path: '/statistics',        component: Statistics   },
     {name: 'Bill',           path: '/bill',              component: Bill },

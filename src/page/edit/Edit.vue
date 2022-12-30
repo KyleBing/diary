@@ -403,7 +403,10 @@ export default {
                 if (this.isNew) { // 如果是新建日记，跳转到对应路由
                     this.isNew = false
                     this.diary.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
-                    this.$router.push('/edit/' + res.data.id)
+                    this.$router.push({
+                        name: 'Edit',
+                        id: res.data.id
+                    })
                     this.SET_LIST_OPERATION({type: 'add', diary: this.convertToServerVersion()}) // 向列表发送添加动作
                 }
             })

@@ -119,7 +119,7 @@ export default {
                     .register(requestData)
                     .then(res => {
                         utility.popMessage('success', `${res.message}，正在前往登录`, () => {
-                            this.$router.push('/login')
+                            this.$router.push({name: 'Login'})
                         })
                     })
                     .catch(err => {
