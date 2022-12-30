@@ -45,7 +45,7 @@ export default {
             if (this.isInMobileMode){
                 this.$router.push({name: 'List'})
             } else {
-                this.$router.push({name: 'Edit'})
+                this.$router.push({name: 'EditNew'})
             }
         }
 

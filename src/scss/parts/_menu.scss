@@ -45,7 +45,7 @@ $menu-category-list-item-height: 40px;
 }
 .user-info{
   padding: 10px 20px;
-  @include border-radius($radius-pc);
+  @include border-radius($radius-pc $radius-pc 0 0 );
   display: flex;
   background-color: transparentize(white, 0.9);
   justify-content: center;
@@ -54,14 +54,33 @@ $menu-category-list-item-height: 40px;
   font-size: 13px;
   white-space: nowrap;
   color: $text-about-subtitle;
+  .avatar{
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    @include border-radius(50px);
+    outline-width: 1px;
+    overflow: hidden;
+    img{
+      width: 100%;
+      display: block;
+    }
+  }
   .user{
-    width: 50%;
-    flex-grow: 1;
+    flex-shrink: 0;
     padding: 5px 5% 5px 0;
     .username{
-    }
-    .email{
-      min-font-size: 10px;
+      max-width: 200px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-flow: row nowrap;
+      .name{
+        flex-shrink: 1;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
     .logout {
       color: $color-main;
@@ -72,11 +91,20 @@ $menu-category-list-item-height: 40px;
       }
     }
   }
-  .statistics{
-    width: 40%;
-    padding: 5px 0 5px 5%;
-    border-left: 1px solid transparentize(white, 0.9);;
-  }
+}
+
+.statistics{
+  margin-top: 1px;
+  padding: 10px 20px;
+  @include border-radius(0 0 $radius-pc $radius-pc);
+  display: flex;
+  background-color: transparentize(white, 0.9);
+  justify-content: space-around;
+  align-items: center;
+  line-height: 1.5;
+  font-size: 13px;
+  white-space: nowrap;
+  color: $text-about-subtitle;
 }
 
 // MENU CATEGORY

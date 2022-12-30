@@ -1,0 +1,21 @@
+.avatar{
+  flex-shrink: 0;
+  @extend .btn-like;
+  @include transition(all 0.3s);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 2.5px solid $color-border;
+  img{
+      width: 100%;
+  }
+  &:hover{
+    outline-color: $color-main;
+    @include transition(all 0.3s);
+    @include box-shadow(0 0 25px transparentize($color-main, 0.3))
+  }
+}
+
+input[type=file]{
+  display: none;
+}

@@ -5,6 +5,7 @@ import utility from "@/utility";
 import Register from "@/page/register/Register"
 import Login from "@/page/register/Login.vue"
 import ChangePassword from "@/page/register/ChangePassword.vue"
+import ChangeProfile from  "@/page/register/ChangeProfile.vue"
 import Bill from "@/page/bill/Bill"
 import BankCardList from "@/page/bankCard/BankCardList"
 import Share from "@/page/share/Share"
@@ -47,11 +48,13 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'login' && to.name !== 'register' && to.name !== 'share'){
+    if (to.name !== 'Login' && to.name !== 'Register' && to.name !== 'Share'){
         if (utility.getAuthorization() && utility.getAuthorization().email){
             next()
         } else {
-            next('/login')
+            next({
+                name: 'Login'
+            })
         }
     } else {
         next()

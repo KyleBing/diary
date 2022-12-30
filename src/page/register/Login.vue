@@ -79,14 +79,16 @@ export default {
                     .then(res => {
                         // set authorization
                         utility.setAuthorization(
-                            res.data.email,
-                            res.data.password,
                             res.data.nickname,
                             res.data.uid,
+                            res.data.email,
+                            res.data.phone,
+                            res.data.avatar,
+                            res.data.password,
                             res.data.group_id
                         )
                         utility.popMessage('success', res.message, () => {
-                            this.$router.push('/')
+                            this.$router.push({name: 'Index'})
                         })
                         this.loginLabel = '登录成功'
                     })

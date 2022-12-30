@@ -30,7 +30,8 @@
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0",
-    "marked": "^4.2.4"
+    "marked": "^4.2.4",
+    "qiniu-js": "^3.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.8",
