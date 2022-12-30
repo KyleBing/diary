@@ -8,17 +8,26 @@
                     <div class="input-group white">
                         <label for="invitation" >关键字</label>
                         <textarea rows="3"
-                                  v-model="formSearch.keyword"
+                                  v-model.trim="formSearch.keyword"
                                   type="text"
                                   name="invitation"
                                   id="invitation"/>
                     </div>
+                    <div class="input-group white">
+                        <label for="year" >年份</label>
+                        <input v-model.trim="formSearch.year"
+                               type="text"
+                               name="year"
+                               id="year"/>
+                    </div>
+
                     <div class="btn btn-active" @click="getBillData">筛选</div>
                 </div>
 
                 <div class="bill" v-for="month in billYearData" :key="month.id">
                     <div class="bill-header">
                         <div class="title">{{ monthMap.get(month.month) }}</div>
+                        <div class="subtitle">{{month.month_id.substring(0,4)}}</div>
                     </div>
                     <div class="bill-brief">
                         <div class="brief-food">
@@ -103,6 +112,7 @@ export default {
             monthMap: new Map(),
 
             formSearch: {
+                year: new Date().getFullYear(),
                 keyword: ''
             }
         }
@@ -159,7 +169,7 @@ export default {
             this.isLoading = true
             billApi
                 .sorted({
-                    year: new Date().getFullYear(),
+                    year: this.formSearch.year,
                     keyword: this.formSearch.keyword
                 })
                 .then(res => {

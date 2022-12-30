@@ -19,21 +19,31 @@
   padding-bottom: 25px;
   @include border-radius($radius-pc);
   border: 1px solid $color-border-bill;
-  font-family: 'JetBrainsMonoDiary';
   .bill-header{
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
+    align-items: center;
+    flex-flow: column nowrap;
     padding: 20px;
     .title{
+      text-align: center;
+      font-family: serif;
       line-height: 1.3;
       letter-spacing: 1px;
       font-size: $fz-huge;
       font-weight: bold;
     }
+    .subtitle{
+      margin-top: 5px;
+      color: $text-label;
+      font-size: $fz-small;
+      text-align: center;
+    }
   }
 
   .bill-brief{
+    font-family: 'JetBrainsMonoDiary';
     background-color: #fafafa;
     border-top: 1px solid #ededed;
     padding: 15px 40px 20px;
@@ -72,6 +82,7 @@
 
 
   table{
+    font-family: 'JetBrainsMonoDiary';
     font-size: $fz-small;
     tr{
       &:nth-child(even){
