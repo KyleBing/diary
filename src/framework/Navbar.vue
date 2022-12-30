@@ -11,7 +11,7 @@
                 <div @click="menuClose" v-if="isMenuShowed">
                     <tab-icon alt="关闭"/>
                 </div>
-                <div @click="commitBack" v-if="isInMobileMode && $route.name !== 'list'">
+                <div @click="commitBack" v-if="isInMobileMode && $route.name !== 'List'">
                     <tab-icon alt="返回"/>
                 </div>
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
@@ -57,7 +57,7 @@
             <!--RIGHT part-->
             <!--NEW-->
             <div class="navbar-btn-group float-right"
-                 v-if="(isInMobileMode && $route.name !== 'detail' && !isMenuShowed) || !isInMobileMode">
+                 v-if="(isInMobileMode && $route.name !== 'Detail' && !isMenuShowed) || !isInMobileMode">
                 <router-link to="/edit">
                     <tab-icon alt="添加"/>
                 </router-link>
@@ -77,7 +77,7 @@
             </div>
 
             <!--DETAIL-->
-            <div class="navbar-btn-group float-right" v-if="$route.name === 'Eetail' && currentDiary">
+            <div class="navbar-btn-group float-right" v-if="$route.name === 'Detail' && currentDiary">
                 <div
                     v-if="currentDiary && currentDiary.is_public === 1"
                     class="clipboard-trigger"

@@ -149,7 +149,9 @@ export default {
                                 // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
                                 this.$router.push({
                                     name: 'Detail',
-                                    id: this.diaries[index].id
+                                    params: {
+                                        id: this.diaries[index].id
+                                    }
                                 })
                             } else {
                                 // 如果没有，就跳转到主页
