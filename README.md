@@ -47,6 +47,19 @@
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
+
+**项目配置**
+头像文件是存储到七牛云上的，免费注册会有免费额度，够用。
+需要修改 `/src/projectConfig.js` 文件内容，改成你的七牛云配置。
+
+```js
+export default {
+  QiniuImgBaseURL: 'http://rnov15v13.hb-bkt.clouddn.com/', // 最后面带 `/`
+  QiniuBucketName: 'diary-container', // 七牛云对象存储空间的名称
+}
+```
+
+
 部署前端项目时，最好在 `nginx` 中添加 `gzip` 开关，这样能有效加快项目载入速度，比如我的 1.3M 的 `js` 文件，在 `gzip` 处理后压缩到了 360kb。
 
 ```ini

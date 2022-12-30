@@ -38,7 +38,7 @@
                     <div class="avatar">
                         <img :src="userInfo.avatar || icons.logoIcon.login" alt="Avatar">
                     </div>
-                    <div class="user-info mt-4">
+                    <div class="user-info mt-2">
                         <div class="user">
                             <div class="username">{{ userInfo.nickname }}</div>
                             <div class="email">{{ userInfo.email }}</div>
