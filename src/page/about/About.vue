@@ -74,7 +74,6 @@ export default {
         font-size: $fz-list-content;
     }
     .author{
-        font-weight: 300;
         width: 100%;
         position: absolute;
         bottom: 60px;
