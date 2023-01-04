@@ -7,9 +7,9 @@ const global = {
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 
 // 设置 authorization
-function setAuthorization(nickname, uid, email, phone, avatar, token, group_id) {
+function setAuthorization(nickname, uid, email, phone, avatar, token, group_id, city, geolocation) {
    localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
-      nickname, uid, email, phone, avatar, token, group_id
+      nickname, uid, email, phone, avatar, token, group_id, city, geolocation
    }))
 }
 

@@ -72,6 +72,11 @@
       transition: all .5s;
       @include box-shadow(0 0 0 2px $color-main);
     }
+    &[disabled]{
+      cursor: not-allowed;
+      background-color: transparent;
+      border: 1px solid transparentize($color-main, 0.8);
+    }
   }
   &.white{
     label{

@@ -85,7 +85,9 @@ export default {
                             res.data.phone,
                             res.data.avatar,
                             res.data.password,
-                            res.data.group_id
+                            res.data.group_id,
+                            res.data.city,
+                            res.data.geolocation,
                         )
                         utility.popMessage('success', res.message, () => {
                             this.$router.push({name: 'Index'})

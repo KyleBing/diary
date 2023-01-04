@@ -21,7 +21,6 @@
         </div>
         <div class="meta-container">
 
-
             <!-- Category Selector -->
             <category-selector
                 class="editor-form-category"
@@ -102,6 +101,7 @@ import Moment from 'moment'
 import DiaryBtn from "@/components/DiaryBtn"
 import diaryApi from "@/api/diaryApi"
 import ICONS from "@/assets/img/SvgIcons"
+import projectConfig from "@/projectConfig";
 
 export default {
     name: 'Edit',
@@ -274,22 +274,25 @@ export default {
         },
 
         getCurrentTemperature(){
-            axios
-                .get('https://devapi.qweather.com/v7/weather/now',
-                    {
-                        params: {
-                            key: 'c5894aea6ce2495ca0f78a2963c04d57',
-                            location: '117.109678,36.695865'
+            let geolocation = utility.getAuthorization().geolocation
+            if (geolocation){
+                axios
+                    .get('https://devapi.qweather.com/v7/weather/now',
+                        {
+                            params: {
+                                key: projectConfig.HefengWeatherKey,
+                                location: geolocation
+                            }
+                        })
+                    .then(res => {
+                        if (res.data.code === '200'){
+                            this.diary.temperatureOutside =  res.data.now.temp
+                            this.diaryOrigin.temperatureOutside =  res.data.now.temp
+                            this.diary.weather =  getWeatherNameFromCode(res.data.now.icon)
+                            this.diaryOrigin.weather =  getWeatherNameFromCode(res.data.now.icon)
                         }
-                })
-                .then(res => {
-                    if (res.data.code === '200'){
-                        this.diary.temperatureOutside =  res.data.now.temp
-                        this.diaryOrigin.temperatureOutside =  res.data.now.temp
-                        this.diary.weather =  getWeatherNameFromCode(res.data.now.icon)
-                        this.diaryOrigin.weather =  getWeatherNameFromCode(res.data.now.icon)
-                    }
-                })
+                    })
+            }
         },
 
         goBack() {

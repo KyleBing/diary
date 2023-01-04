@@ -26,6 +26,21 @@
                                name="phone"
                                id="phone">
                     </div>
+                    <div class="input-group">
+                        <label for="city">城市</label>
+                        <input v-model="city"
+                               type="text"
+                               name="city"
+                               id="city">
+                    </div>
+                    <div class="input-group">
+                        <label for="geolocation">经纬度</label>
+                        <input v-model="formUser.geolocation"
+                               type="text"
+                               disabled
+                               name="geolocation"
+                               id="geolocation">
+                    </div>
                     <button class="btn mt-8 btn-active"
                             type="button"
                             @click.prevent="changeProfileSubmit">确定修改
@@ -48,6 +63,7 @@ import utility from "@/utility"
 import fileApi from "@/api/fileApi";
 import * as qiniu from 'qiniu-js'
 import projectConfig from "@/projectConfig";
+import axios from "axios";
 
 export default {
     name: 'ChangeProfile',
@@ -55,12 +71,15 @@ export default {
         return {
             show: false,
             icons: SvgIcons,
+            city: '',
 
             avatarFile: '', // 头像文件
             formUser:{
                 nickname: '',
                 phone: '',
                 avatar: '',
+                city: '',
+                geolocation: '',
             },
             heightBg: 0
         }
@@ -76,6 +95,7 @@ export default {
         ...mapState(['insets']),
     },
     methods: {
+
         uploadAvatar(event){
             if (event.target.files.length > 0){
                 this.avatarFile = event.target.files[0]
@@ -130,7 +150,9 @@ export default {
                         res.data.phone,
                         res.data.avatar,
                         res.data.password,
-                        res.data.group_id
+                        res.data.group_id,
+                        res.data.city,
+                        res.data.geolocation,
                     )
                     utility.popMessage('success', '修改成功', ()=>{
                         this.$router.go(-1)
@@ -143,6 +165,28 @@ export default {
         }
     },
     watch: {
+        city(newValue){
+            if (newValue.trim().length > 0){
+                this.formUser.city = newValue
+                // 根据城市名获取经纬度
+                axios
+                    .get('https://geoapi.qweather.com/v2/city/lookup',
+                        {
+                            params: {
+                                key: projectConfig.HefengWeatherKey,
+                                location: newValue, // 县区名
+                                number: 1, // 返回数据数量 1-20
+                            }
+                        })
+                    .then(res => {
+                        if (res.data.code === '200'){
+                            if (res.data.location.length > 0){
+                                this.formUser.geolocation = `${res.data.location[0].lon},${res.data.location[0].lat}`
+                            }
+                        }
+                    })
+            }
+        }
     }
 }
 </script>
