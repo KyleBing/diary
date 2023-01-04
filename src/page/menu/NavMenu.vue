@@ -49,6 +49,7 @@
                         </div>
                     </div>
                     <div v-if="statisticsCategory.shared > 0" class="statistics">
+                        <p>📍 {{userInfo.city}}</p>
                         <p>总计 <b>{{ statisticsCategory.amount }}</b> 篇</p>
                         <p>共享 <b>{{ statisticsCategory.shared }}</b> 篇</p>
                     </div>

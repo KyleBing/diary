@@ -28,7 +28,7 @@
                     </div>
                     <div class="input-group">
                         <label for="city">城市</label>
-                        <input v-model="city"
+                        <input v-model="formUser.city"
                                type="text"
                                name="city"
                                id="city">
@@ -71,7 +71,6 @@ export default {
         return {
             show: false,
             icons: SvgIcons,
-            city: '',
 
             avatarFile: '', // 头像文件
             formUser:{
@@ -90,6 +89,34 @@ export default {
         this.formUser.nickname = utility.getAuthorization().nickname
         this.formUser.phone = utility.getAuthorization().phone
         this.formUser.avatar = utility.getAuthorization().avatar
+        this.formUser.city = utility.getAuthorization().city
+        this.formUser.geolocation = utility.getAuthorization().geolocation
+
+        // 在给 formUser.city 赋值之后再添加其 watcher
+        this.$watch('formUser.city', newValue => {
+            if (newValue.trim().length > 0){
+                this.formUser.city = newValue
+                // 根据城市名获取经纬度
+                axios
+                    .get('https://geoapi.qweather.com/v2/city/lookup',
+                        {
+                            params: {
+                                key: projectConfig.HefengWeatherKey,
+                                location: newValue, // 县区名
+                                number: 1, // 返回数据数量 1-20
+                            }
+                        })
+                    .then(res => {
+                        if (res.data.code === '200'){
+                            if (res.data.location.length > 0){
+                                this.formUser.geolocation = `${res.data.location[0].lon},${res.data.location[0].lat}`
+                            } else {
+                                this.formUser.geolocation = ''
+                            }
+                        }
+                    })
+            }
+        })
     },
     computed: {
         ...mapState(['insets']),
@@ -165,28 +192,6 @@ export default {
         }
     },
     watch: {
-        city(newValue){
-            if (newValue.trim().length > 0){
-                this.formUser.city = newValue
-                // 根据城市名获取经纬度
-                axios
-                    .get('https://geoapi.qweather.com/v2/city/lookup',
-                        {
-                            params: {
-                                key: projectConfig.HefengWeatherKey,
-                                location: newValue, // 县区名
-                                number: 1, // 返回数据数量 1-20
-                            }
-                        })
-                    .then(res => {
-                        if (res.data.code === '200'){
-                            if (res.data.location.length > 0){
-                                this.formUser.geolocation = `${res.data.location[0].lon},${res.data.location[0].lat}`
-                            }
-                        }
-                    })
-            }
-        }
     }
 }
 </script>

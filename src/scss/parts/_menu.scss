@@ -68,10 +68,10 @@ $menu-category-list-item-height: 40px;
     color: $text-about-subtitle;
 
     .user{
+      text-align: center;
       .username{
         font-weight: bold;
         font-size: $fz-label;
-        text-align: center;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
