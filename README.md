@@ -74,7 +74,7 @@ export default {
 
 ### 3. nginx gzip 配置
 部署前端项目时，最好在 `nginx` 中添加 `gzip` 开关，这样能有效加快项目载入速度，比如我的 1.3M 的 `js` 文件，在 `gzip` 处理后压缩到了 360kb。
-
+> 可以参阅：[1.3mb js 文件压缩至 360kb，加快 vue 项目的加载速度，nginx gzip设置](https://blog.csdn.net/KimBing/article/details/127934749)
 ```ini
 gzip on;
 gzip_static on;
@@ -92,14 +92,15 @@ gzip_types  text/css application/javascript application/json;
 - `DiaryAuthorization`: 用户信息（用户名，token，uid）
 
 ## 四、使用插件
-- `vue3` 
-- `vue-router` 
-- `vuex` 
+- `vue3` + `vue-router` + `vuex` 
 - `axios` 
 - `qs` 
 - `clipboard` 
 - `@vuepic/vue-datepicker` 
 - `moment`
+- `marked`
+- `echarts`
+- `floating-vue`
 
 ## 五、项目历程
 1. 2017 年的时候想学 iOS 了顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 `iCloud` 中的，有了 app 的界面样子，但并不能很完美的使用。
