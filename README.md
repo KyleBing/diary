@@ -10,8 +10,13 @@
 # 界面
 > 详细的截图在文章最后
 
+__PC__
 <img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
+<img width="1512" alt="查询" src="https://user-images.githubusercontent.com/12215982/210965794-5201afe6-f87c-4de0-82d4-23bf12a3c1a8.png">
+<img width="1512" alt="账单" src="https://user-images.githubusercontent.com/12215982/210965800-62534cdb-5c33-47b5-930a-94a6ccc57a5b.png">
 
+
+__移动__
 <img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/>
 
 ---
@@ -48,8 +53,9 @@
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
 
-### 1. 图片存储配置
-头像文件是存储到七牛云上的，免费注册会有免费额度，够用。
+### 1. 图片存储配置 `[选配]`
+> 不配置只是不能显示用户头像而已
+头像文件是存储到 [七牛云](https://www.qiniu.com/) 上的，免费注册会有免费额度，够用。
 需要修改 `/src/projectConfig.js` 文件内容，改成你的七牛云配置。
 
 ```js
@@ -61,8 +67,9 @@ export default {
 }
 ```
 
-### 2. 和风天气配置
-用于从和风天气中获取地域的天气和温度信息，也是在 `/src/projectConfig.js` 文件中
+### 2. 和风天气配置 `[选配]`
+> 不配置只是不能自动获取当地天气和温度而已
+用于从 [和风天气](https://www.qweather.com/) 中获取地域的天气和温度信息，也是在 `/src/projectConfig.js` 文件中
 
 ```js
 export default {
