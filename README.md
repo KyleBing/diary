@@ -1,22 +1,26 @@
+<img width="200px" src="https://user-images.githubusercontent.com/12215982/210970978-f5039bc4-31cc-4422-ba66-18c4dd51092c.png"/>
+
 # 标题日记
-> 一句话概括你的一天
+一个纯文本日记应用
 
 
-在线项目，点击登录界面右下角的体验账号登录即可
-> [http://kylebing.cn/diary](http://kylebing.cn/diary)
+在线项目，点击登录界面右下角的体验账号登录即可<br>
+ [http://kylebing.cn/diary](http://kylebing.cn/diary)
 
 
 
 # 界面
-> 详细的截图在文章最后
+详细的截图在文章最后
 
 __PC__
+
 <img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
 <img width="1512" alt="查询" src="https://user-images.githubusercontent.com/12215982/210965794-5201afe6-f87c-4de0-82d4-23bf12a3c1a8.png">
 <img width="1512" alt="账单" src="https://user-images.githubusercontent.com/12215982/210965800-62534cdb-5c33-47b5-930a-94a6ccc57a5b.png">
 
 
 __移动__
+
 <img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/>
 
 ---
