@@ -85,7 +85,7 @@ export default {
             email: '',
             password1: '',
             password2: '',
-            invitationCode: 'kylebingooOO',
+            invitationCode: '',
             invitationVerified: false,
             nicknameVerified: false,
             emailVerified: false,
