@@ -16,7 +16,6 @@ $gap: 15px;
         @include border-radius(3px);
     }
 
-
     @for $item from 1 through 7 {
         h#{$item}{
             margin-top: (7-$item)*5px;
@@ -64,6 +63,11 @@ $gap: 15px;
         }
     }
 
+    input[type=checkbox]{
+        display: inline-block;
+        -webkit-appearance: checkbox !important;
+    }
+
     ul{
         margin-bottom: $gap;
         li{
@@ -83,8 +87,8 @@ $gap: 15px;
     blockquote{
         margin-top: 10px;
         margin-bottom: 10px;
-        padding-top: 8px;
-        padding-bottom: 8px;
+        padding-top: 3px;
+        padding-bottom: 3px;
         border-left: 3px solid transparentize(black, 0.8);
         padding-left: 18px;
         > *:last-child{
