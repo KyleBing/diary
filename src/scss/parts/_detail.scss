@@ -104,6 +104,7 @@ $height-meta: 30px;
   .diary-meta{
     margin: 0 0 30px;
     padding: 10px 0;
+
     @include border-radius($radius-pc);
     justify-content: space-around;
   }
