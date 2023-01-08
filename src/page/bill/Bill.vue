@@ -14,11 +14,16 @@
                                   id="invitation"/>
                     </div>
                     <div class="input-group white">
-                        <label for="year" >年份</label>
-                        <input v-model.trim="formSearch.year"
-                               type="text"
-                               name="year"
-                               id="year"/>
+                        <label for="invitation" >年份</label>
+                        <div class="year-selector">
+                            <div :class="['year-selector-item', {checked: year.checked}]" v-for="year in avilableYears">
+                                <label :for="year.value">{{year.value}}</label>
+                                <input v-model="year.checked"
+                                       type="checkbox"
+                                       name="year"
+                                       :id="year.value"/>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="btn btn-active" @click="getBillData">筛选</div>
@@ -114,13 +119,22 @@ export default {
             formSearch: {
                 year: new Date().getFullYear(),
                 keyword: ''
-            }
+            },
+            avilableYears: [], // 账单可选年份
         }
     },
     computed: {
         ...mapState(['insets', 'moneyAccuracy']),
     },
     mounted() {
+        // 可选的年份，从 2022 开始
+        let yearNow = new Date().getFullYear()
+        for (let i=0; i<=yearNow - 2022; i++){
+            this.avilableYears.push({
+                value: 2022 + i,
+                checked: true
+            })
+        }
         this.monthMap = new Map([
             ['01', '一月'],
             ['02', '二月'],
@@ -169,7 +183,10 @@ export default {
             this.isLoading = true
             billApi
                 .sorted({
-                    year: this.formSearch.year,
+                    years: this.avilableYears
+                        .filter(item => item.checked)
+                        .map(item => item.value)
+                        .join(','), // 2022, 2023
                     keyword: this.formSearch.keyword
                 })
                 .then(res => {
@@ -177,6 +194,7 @@ export default {
                     this.billYearData = res.data
                 })
                 .catch(err => {
+                    utility.popMessage('warning', err.message)
                     this.isLoading = false
                 })
         },

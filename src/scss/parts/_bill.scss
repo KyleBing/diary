@@ -5,6 +5,28 @@
   background-color: $bg-light;
 }
 
+.year-selector{
+  display: flex;
+  flex-flow: row wrap;
+  &-item{
+    @extend .btn-like;
+    background-color: $bg-light;
+    margin-right: 10px;
+    padding: 5px 10px;
+    @include border-radius($radius-mobile);
+    label{
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    input{
+      display: none;
+    }
+    &.checked{
+      background-color: $color-main;
+    }
+  }
+}
+
 .bill-container{
   display: flex;
   justify-content: flex-start;

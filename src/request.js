@@ -34,7 +34,8 @@ function request(method, params, requestData = {}, url) {
                         reject(res.data)
                     }
                 } else {
-                    console.log('request err: ', res.data) // 输出错误信息
+                    reject(res.data)
+                    console.log('request err: ', res.message) // 输出错误信息
                 }
             })
             .catch(err => {
