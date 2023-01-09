@@ -78,7 +78,7 @@ export default {
 ```js
 export default {
   // 和风天气开发 key
-  // 地址：https://console.qweather.com/
+  // 地址：https://dev.qweather.com/
   HefengWeatherKey: '',
 }
 ```
