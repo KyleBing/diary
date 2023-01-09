@@ -47,5 +47,8 @@
     &:hover{
       background-color: transparentize(white, 0.85);
     }
+    &.hole{
+      background-color: transparentize($color-main, 0.9);
+    }
   }
 }

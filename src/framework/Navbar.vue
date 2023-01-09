@@ -43,7 +43,7 @@
                          @click="switchToCategory('memo')">备忘</div>
                     <div class="btn-text" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('other')">其它</div>
-                    <div :class="['btn-text', {active: isAllCategorySelected && !isFilterShared}]"  v-show="!isMenuShowed" v-if="!isInMobileMode"
+                    <div :class="['btn-text', 'hole', {active: isAllCategorySelected && !isFilterShared}]"  v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('all')">全部</div>
                     <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
                          @click="switchToCategory('shared')">共享</div>
