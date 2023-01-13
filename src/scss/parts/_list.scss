@@ -71,3 +71,12 @@
   color: $color-main;
   margin-bottom: 1px;
 }
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .no-diary-list{
+    background-color: $dark-bg;
+  }
+
+}
