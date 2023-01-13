@@ -32,7 +32,7 @@ function deleteAuthorization() {
  * @param timeout
  */
 function popMessage(
-    type,
+    type, // default | warning | danger | success
     title,
     callback = () => {},
     timeout = 0.8) {

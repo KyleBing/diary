@@ -4,8 +4,8 @@
 一个纯文本日记应用
 
 
-在线项目，点击登录界面右下角的体验账号登录即可<br>
- [http://kylebing.cn/diary](http://kylebing.cn/diary)
+> 在线项目，点击登录界面右下角的体验账号登录即可<br>
+> [http://kylebing.cn/diary](http://kylebing.cn/diary)
 
 
 

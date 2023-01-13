@@ -64,11 +64,9 @@ $toast-border-color: $bg-menu;
   }
 }
 
-
 /**
 弹窗和 toast
  */
-
 .pop-msg{
   z-index: 1000;
   position: fixed;
@@ -78,7 +76,7 @@ $toast-border-color: $bg-menu;
   padding: 12px 0 8px;
   text-align: center;
   background-color: $bg-menu;
-
+  border-bottom: 1px solid transparentize($color-border, 0.9);
   h3{
     line-height: 25px;
     font-size: $fz-note;
@@ -87,6 +85,5 @@ $toast-border-color: $bg-menu;
   &-warning { h3{color: $color-main;} }
   &-success { h3{color: $green;} }
   &-danger  { h3{color: $red;} }
-
 }
 

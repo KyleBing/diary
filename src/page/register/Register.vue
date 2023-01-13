@@ -110,7 +110,7 @@ export default {
             if (this.verified) {
                 let requestData = {
                     nickname: this.nickname,
-                    invitationCode: this.invitationCode,
+                    invitationCode: encodeURIComponent(this.invitationCode),
                     email: this.email,
                     password: this.password1,
                 }

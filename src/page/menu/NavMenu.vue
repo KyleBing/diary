@@ -8,28 +8,24 @@
             <div class="menu" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
                 <div class="menu-list">
                     <!--1. 搜索-->
-                    <menu-list-item v-if="isInMobileMode" :icon="icons.tab.search"
-                                    menu-name="搜索"
-                                    @click="menuListClicked('search')"/>
-
+                    <menu-list-item v-if="isInMobileMode"
+                                    menu-name="搜索"    :icon="icons.tab.search" @click="menuListClicked('search')"/>
                     <!--2. 类别筛选-->
-                    <menu-list-item menu-name="类别筛选" :icon="icons.tab.category"
-                                    @click="menuListClicked('category')"
-                    >
+                    <menu-list-item menu-name="类别筛选" :icon="icons.tab.category" @click="menuListClicked('category')">
                         <category-indicator/>
                     </menu-list-item>
 
                     <!--3. 年份筛选-->
-                    <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"
-                                    @click="menuListClicked('year')"
+                    <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"       @click="menuListClicked('year')"
                                     :add-on-text="dateFilter">
                     </menu-list-item>
-                    <menu-list-item menu-name="统计数据" :icon="icons.tab.statistics" @click="goToStatisticPage" />
-                    <menu-list-item menu-name="账单"    :icon="icons.tab.bill"        @click="goToBillPage" />
-                    <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"       @click="goToBankCard" />
-                    <menu-list-item menu-name="修改密码" :icon="icons.tab.key"        @click="goToChangePassword" />
-                    <menu-list-item menu-name="关于" :icon="icons.tab.about"
-                                    @click="menuListClicked('about')"
+                    <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToStatisticPage" />
+                    <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToBillPage" />
+                    <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToBankCard" />
+                    <menu-list-item menu-name="修改密码"  :icon="icons.tab.key"         @click="goToChangePassword" />
+                    <menu-list-item  v-if="isAdmin"
+                                     menu-name="邀请码"   :icon="icons.tab.add"         @click="goToInvitationList" />
+                    <menu-list-item menu-name="关于"     :icon="icons.tab.about"      @click="menuListClicked('about')"
                                     :add-on-text="`v${version}`"/>
                 </div>
 
@@ -125,14 +121,18 @@ export default {
         ])
     },
     methods: {
-        svgIcons() {
-            return svgIcons
-        },
         ...mapMutations([
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_MENU_SHOWED'
         ]),
+        // 是否为管理员 管理员的组别为 1
+        isAdmin(){
+            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
+        },
+        svgIcons() {
+            return svgIcons
+        },
         changeProfile(){
             this.$router.push({name: 'ChangeProfile'})
         },
@@ -164,6 +164,12 @@ export default {
             this.SET_MENU_SHOWED(false)
             this.menuClose()
             this.$router.push({name: 'ChangePassword'})
+        },
+
+        goToInvitationList(){
+            this.SET_MENU_SHOWED(false)
+            this.menuClose()
+            this.$router.push({name: 'Invitation'})
         },
 
         // MENU related
