@@ -1,4 +1,6 @@
 export default {
+    adminEmail: 'xxxx@163.com', // 网站管理员邮箱帐号，用于向其申请注册邀请码
+
     // 七牛云
     // 地址： https://portal.qiniu.com/kodo/overview
     QiniuImgBaseURL: 'http://diary-container.kylebing.cn/', // 空间域名，最后面带 `/`

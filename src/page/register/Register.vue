@@ -18,6 +18,11 @@
                                name="invitation"
                                id="invitation">
                     </div>
+
+                    <div class="input-group">
+                        <label for="nickname">为避免恶意注册，请向管理员获取： {{adminEmail}}</label>
+                    </div>
+
                     <div class="input-group">
                         <label for="nickname" :class="{red: !nicknameVerified}">{{ labelUsername }}</label>
                         <input v-model="nickname"
@@ -67,12 +72,15 @@ import userApi from "@/api/userApi"
 import {mapState} from "vuex"
 import SvgIcons from "@/assets/img/SvgIcons"
 import utility from "@/utility"
+import projectConfig from "@/projectConfig";
 
 export default {
     name: 'Register',
     data() {
         return {
             show: false,
+
+            adminEmail: projectConfig.adminEmail,
 
             icons: SvgIcons,
 
