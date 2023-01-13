@@ -118,7 +118,10 @@ export default {
             'isFilterShared',
             'filteredCategories',
             'isMenuShowed'
-        ])
+        ]),
+        isAdmin(){
+            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
+        },
     },
     methods: {
         ...mapMutations([
@@ -127,9 +130,6 @@ export default {
             'SET_MENU_SHOWED'
         ]),
         // 是否为管理员 管理员的组别为 1
-        isAdmin(){
-            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
-        },
         svgIcons() {
             return svgIcons
         },
