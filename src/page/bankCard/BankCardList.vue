@@ -1,5 +1,5 @@
 <template>
-    <page-header title="银行卡列表（点击银行卡号即可复制）">
+    <page-header title="银行卡列表（点击卡号复制）">
         <tab-icon @click="editCardInfo" alt="编辑"/>
     </page-header>
     <div v-if="isLoading" class="pt-8 pb-8">

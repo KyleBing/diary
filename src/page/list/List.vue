@@ -1,6 +1,5 @@
 <template>
     <div class="diary-list-group-container" :style="`min-height: ${insets.heightPanel}px`">
-
         <transition
             enter-active-class="animated-fast slideInDown"
             leave-active-class="animated-fast slideOutUp"

@@ -31,6 +31,7 @@ function request(method, params, requestData = {}, url) {
                         resolve(res.data)
                     } else {
                         console.log('request err: ', res.data) // 输出错误信息
+                        utility.popMessage('danger', res.data.message, null)
                         reject(res.data)
                     }
                 } else {

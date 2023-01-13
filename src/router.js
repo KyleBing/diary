@@ -8,6 +8,7 @@ import ChangePassword from "@/page/register/ChangePassword.vue"
 import ChangeProfile from  "@/page/register/ChangeProfile.vue"
 import Bill from "@/page/bill/Bill"
 import BankCardList from "@/page/bankCard/BankCardList"
+import InvitationList from "@/page/invitation/InvitationList.vue"
 import Share from "@/page/share/Share"
 import Statistics from "@/page/statistics/StatisticsMain"
 
@@ -36,6 +37,7 @@ const routes = [
     {name: 'Statistics',     path: '/statistics',        component: Statistics   },
     {name: 'Bill',           path: '/bill',              component: Bill },
     {name: 'BankCard',       path: '/bank-card',         component: BankCardList },
+    {name: 'Invitation',     path: '/invitation',        component: InvitationList },
     {name: 'NotFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 
