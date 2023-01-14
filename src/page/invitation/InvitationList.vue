@@ -8,18 +8,20 @@
             <loading :loading="isLoading"/>
         </div>
 
-        <div v-else v-if="invitationList.length > 0"
+        <div v-else
              :style="'height:' + insets.heightPanel + 'px'">
             <div class="invitation-list" >
-                <div class="invitation-list-item" v-for="(item,index) in invitationList" :key="item.id">
+                <div :class="['invitation-list-item', {shared: item.is_shared === 1}]"
+                     v-for="(item,index) in invitationList" :key="item.id">
                     <div class="index">{{ index + 1 }}</div>
                     <div
                         class="invitation-code"
                         :data-clipboard="item.id"
                     >{{ item.id }}
                     </div>
-                    <div class="delete-btn" @click="deleteInvitationCode(item.id)">
-                        <tab-icon alt="关闭"></tab-icon>
+                    <div class="operation-btns">
+                        <tab-icon alt="关闭" @click="deleteInvitationCode(item.id)"/>
+                        <tab-icon v-if="item.is_shared === 0" alt="确定" @click="markAsShared(item.id)"/>
                     </div>
                 </div>
             </div>
@@ -95,7 +97,7 @@ export default {
             invitationApi
                 .generate()
                 .then(res => {
-                    utility.popMessage('success', '生成成功', null)
+                    utility.popMessage('success', res.message, null)
                     this.getInvitationList()
                 })
                 .catch(err => {
@@ -109,7 +111,20 @@ export default {
                     id: invitationId
                 })
                 .then(res => {
-                    utility.popMessage('success', '删除成功', null)
+                    utility.popMessage('success', res.message, null)
+                    this.getInvitationList()
+                })
+                .catch(err => {
+                })
+        },
+        // 邀请码为已分享状态
+        markAsShared(invitationId){
+            invitationApi
+                .markAsShared({
+                    id: invitationId
+                })
+                .then(res => {
+                    utility.popMessage('success', res.message, null)
                     this.getInvitationList()
                 })
                 .catch(err => {
@@ -155,9 +170,19 @@ export default {
             flex-grow: 1;
             font-size: $fz-title;
         }
-        .delete-btn{
+        .operation-btns{
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
             margin-left: 10px;
             flex-shrink: 0;
+        }
+        &.shared{
+            background: linear-gradient(lighten($green, 20%), $green);
+            border-top-color: lighten($green, 20%);
+            border-bottom-color: $green;
+            border-left-color: $green;
+            border-right-color: $green;
         }
     }
 }
