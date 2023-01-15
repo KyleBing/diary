@@ -128,12 +128,14 @@ export default {
                     this.usersDiary = this.users.filter(user => user.count_diary > 0)
                     this.usersDict = this.users.filter(user => user.count_dict > 0)
 
-                    this.chartDataDiary = res.data.map(item => {
-                        return {
-                            name: item.nickname,
-                            value: item.count_diary
-                        }
-                    })
+                    this.chartDataDiary = res.data
+                        .map(item => {
+                            return {
+                                name: item.nickname,
+                                value: item.count_diary
+                            }
+                        })
+                        .filter(item => item.value > 0) // 过滤日记数量为 0 的用户
                     this.chartDataDict = res.data.map(item => {
                         return {
                             name: item.nickname,
