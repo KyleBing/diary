@@ -80,6 +80,7 @@ import statisticApi from "@/api/statisticApi";
 import ChartBar from "@/components/charts/ChartBar";
 import utility from "@/utility";
 import Moment from "moment";
+import projectConfig from "@/projectConfig";
 
 export default {
     name: "StatisticUsers",
@@ -100,7 +101,9 @@ export default {
         }
     },
     mounted() {
-        this.getStatisticUsers()
+        if (utility.getAuthorization().email === projectConfig.adminEmail){
+            this.getStatisticUsers()
+        }
     },
     methods: {
         // 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
