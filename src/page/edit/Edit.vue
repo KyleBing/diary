@@ -64,6 +64,7 @@
                            id="temperatureOutside"
                            v-model="diary.temperatureOutside"
                     >
+                    <div class="refresh" @click="getCurrentTemperature">刷新</div>
                 </div>
                 <div class="editor-input-item">
                     <label for="shareState">共享</label>
@@ -273,6 +274,7 @@ export default {
             return contentStr
         },
 
+        // 获取当前位置的天气气温信息
         getCurrentTemperature(){
             let geolocation = utility.getAuthorization().geolocation
             if (geolocation){

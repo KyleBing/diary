@@ -210,3 +210,7 @@ textarea{
 .dp__icon.dp__input_icon{ // date picker icon
   display: none !important;
 }
+
+.refresh{
+  @extend .btn-like;
+}
