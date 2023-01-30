@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="nickname">为避免恶意注册，请向管理员获取： {{adminEmail}}</label>
+                        <label for="invitation">为避免恶意注册，请向管理员获取： {{adminEmail}}</label>
                     </div>
 
                     <div class="input-group">
