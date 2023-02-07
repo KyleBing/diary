@@ -107,17 +107,6 @@ export default {
     },
     mounted() {
         this.getBankCards()
-
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.card-no', {
-            text: trigger => {
-                console.log(trigger.getAttribute('data-clipboard'))
-                return trigger.getAttribute('data-clipboard')
-            },
-        })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '卡号已复制到剪贴板', null, 2)
-        })
     },
     beforeUnmount() {
         this.clipboard.destroy()
