@@ -85,7 +85,7 @@ export default {
     },
     mounted() {
         this.show = true
-        document.title = '日记 - 注册' // 变更标题
+        document.title = '日记 - 资料修改' // 变更标题
         this.formUser.nickname = utility.getAuthorization().nickname
         this.formUser.phone = utility.getAuthorization().phone
         this.formUser.avatar = utility.getAuthorization().avatar
