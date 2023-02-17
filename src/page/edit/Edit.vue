@@ -294,6 +294,8 @@ export default {
                             this.diaryOrigin.weather =  getWeatherNameFromCode(res.data.now.icon)
                         }
                     })
+            } else {
+                utility.popMessage('warning', '没有配置地域信息', null)
             }
         },
 
