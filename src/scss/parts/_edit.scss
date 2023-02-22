@@ -102,6 +102,11 @@ textarea{
         background-color: transparent;
         line-height: $height-input - 6*2;
       }
+      .refresh{
+        padding: 6px 0;
+        line-height: $height-input - 6*2;
+        margin-left: 5px;
+      }
       .input{
         padding: 6px 0;
       }
@@ -200,6 +205,7 @@ textarea{
       margin-bottom: 15px;
     }
   }
+
 }
 
 // plugin style overwrite
