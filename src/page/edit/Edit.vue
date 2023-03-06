@@ -12,11 +12,12 @@
             <!-- CONTENT -->
             <div class="editor-content">
                 <label class="hidden"></label>
-                <textarea class="content"
-                          ref="diaryContent"
-                          :style="insets.windowsWidth > 1440 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
-                          placeholder="日记详细内容，如果你有很多要写的"
-                          v-model="diary.content"/>
+                <textarea
+                    ref="textarea"
+                    v-model="diary.content"
+                    :style="insets.windowsWidth > 1440 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
+                    placeholder="日记详细内容，如果你有很多要写的"
+                    class="content"/>
             </div>
         </div>
         <div class="meta-container">
@@ -145,7 +146,7 @@ export default {
             },
         }
     },
-    components: {DiaryBtn, categorySelector, weatherSelector},
+    components: { DiaryBtn, categorySelector, weatherSelector},
     beforeUnmount() {
         document.onkeydown = null // 去除按键绑定事件
     },
@@ -165,15 +166,106 @@ export default {
             this.getDiary(this.$route.params.id)
         }
 
-        // 添加按键事件 ctrl + J 保存日记
-        // 无法
-        document.onkeydown = event => {
-            if ((event.ctrlKey || event.metaKey) && event.code === 'KeyS'){
-                event.preventDefault()
-                console.log(event.key)
-                this.saveDiary()
+        // key binding
+        this.$nextTick( _=> {
+            document.onkeydown = event => {
+                // CTRL + S 保存
+                if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+                    console.log(event.key)
+                    this.saveDiary()
+                }
+
+                // CTRL + ArrowLeft 移到最左端
+                if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
+                    event.preventDefault()
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+                    let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex)
+                    let textBefore = linesBefore.join('\n')
+                    let newCursorLocation = textBefore.length + 1  // -1行末尾 + 1
+                    this.$nextTick(_=>{
+                        textarea.setSelectionRange(newCursorLocation, newCursorLocation)
+                    })
+                }
+
+                // CTRL + ArrowRight 移到最右端
+                if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowRight') {
+                    event.preventDefault()
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+                    let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex + 1)
+                    let textBefore = linesBefore.join('\n')
+                    let newCursorLocation = textBefore.length
+                    this.$nextTick(_=>{
+                        textarea.setSelectionRange(newCursorLocation, newCursorLocation) // 定位光标
+                    })
+                }
+
+                // CTRL + D 复选行
+                if ((event.ctrlKey || event.metaKey) && event.key === 'd') {
+                    event.preventDefault()
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+
+                    textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 0, textAreaInfo.cursorLineContent)
+                    this.diary.content = textAreaInfo.textLineArray.join('\n')
+                    this.$nextTick(_=>{
+                        textarea.setSelectionRange(textAreaInfo.cursorPosition, textAreaInfo.cursorPosition) // 定位光标
+                    })
+                }
+
+                // CTRL + X 删除行
+                if ((event.ctrlKey || event.metaKey) && event.key === 'x') {
+                    event.preventDefault()
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+
+                    textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
+                    this.diary.content = textAreaInfo.textLineArray.join('\n')
+                    this.$nextTick(_=>{
+                        textarea.setSelectionRange(textAreaInfo.cursorPosition, textAreaInfo.cursorPosition) // 定位光标
+                    })
+                }
+
+                // shift + tab
+                if (event.shiftKey && event.key === 'Tab'){
+                    event.preventDefault()
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+
+                    let tempLine = textAreaInfo.cursorLineContent
+                    let deleteSpaceCount = 0
+                    if (tempLine.substring(0,4) === '    '){
+                        tempLine = tempLine.substring(4)
+                        deleteSpaceCount = 4
+                    } else {
+                        let trimSpaceResult = this.removeSpaceBeforeLine(0, tempLine)
+                        tempLine = trimSpaceResult.lineContent
+                        deleteSpaceCount = trimSpaceResult.countSpace
+                    }
+                    textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex,1, tempLine)
+                    this.diary.content = textAreaInfo.textLineArray.join('\n')
+
+                    this.$nextTick(_=>{
+                        textarea.setSelectionRange(textAreaInfo.cursorPosition - deleteSpaceCount, textAreaInfo.cursorPosition - deleteSpaceCount)
+                    })
+
+                } else if (event.key === 'Tab'){
+                    // tab
+                    event.preventDefault()
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+                    let contentBeforeCursor = this.diary.content.substring(0,textAreaInfo.cursorPosition)
+                    let contentAfterCursor = this.diary.content.substring(textAreaInfo.cursorPosition)
+                    this.diary.content = contentBeforeCursor + '    ' + contentAfterCursor
+                    this.$nextTick(_=>{
+                        textarea.setSelectionRange(textAreaInfo.cursorPosition + 4, textAreaInfo.cursorPosition + 4)
+                    })
+
+                }
             }
-        }
+        })
+
     },
     beforeRouteLeave(to, from, next) {
         // 在跳转到其它页面之前判断日记是否已保存
@@ -245,6 +337,37 @@ export default {
             'SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED',
             'SET_CATEGORY_ALL'
         ]),
+
+        /**
+         * 去除前面的空格
+         * @param initSpaceCount 初始空格数
+         * @param lineContent 行的内容
+         * @returns {*}
+         */
+        removeSpaceBeforeLine(initSpaceCount, lineContent){  // 去除字符行中前面的空格
+            let countSpace = initSpaceCount
+            if (lineContent.substring(0,1) === ' '){
+                countSpace  = countSpace + 1
+                lineContent = lineContent.substring(1)
+                return this.removeSpaceBeforeLine(countSpace, lineContent)
+            } else {
+                return {countSpace, lineContent}
+            }
+        },
+
+        getTextareaInfo(textarea, textContent){
+            let cursorPosition = textarea.selectionStart // cursorPos
+            let cursorLineIndex = textContent.substring(0, cursorPosition).split('\n').length - 1 // 光标所在行
+            let textLineArray = textContent.split('\n') // 原始文字 行数组
+            let cursorLineContent = textLineArray[cursorLineIndex] // 光标所在行的内容
+
+            return {
+                cursorPosition,
+                cursorLineIndex,
+                textLineArray,
+                cursorLineContent
+            }
+        },
         // 载入本星期的所有工作日志
         loadCurrentWeekLogs() {
             this.isLoading = true
