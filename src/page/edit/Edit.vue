@@ -171,7 +171,7 @@ export default {
             document.onkeydown = event => {
                 // CTRL + S 保存
                 if ((event.ctrlKey || event.metaKey) && event.key === 's') {
-                    console.log(event.key)
+                    event.preventDefault()
                     this.saveDiary()
                 }
 
