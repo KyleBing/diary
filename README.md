@@ -1,27 +1,19 @@
 <img width="100px" src="https://user-images.githubusercontent.com/12215982/210970978-f5039bc4-31cc-4422-ba66-18c4dd51092c.png"/>
 
 # 标题日记
-一个纯文本日记应用
+一个纯文本的日记 web 应用 
 
 
-> 在线项目，点击登录界面右下角的体验账号登录即可<br>
-> [http://kylebing.cn/diary](http://kylebing.cn/diary)
+> [http://kylebing.cn/diary](http://kylebing.cn/diary)  
+
+在线项目，点击登录界面右下角的体验账号登录即可
 
 
 
 # 界面
 详细的截图在文章最后
 
-__PC__
-
 <img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
-<img width="1512" alt="查询" src="https://user-images.githubusercontent.com/12215982/210965794-5201afe6-f87c-4de0-82d4-23bf12a3c1a8.png">
-<img width="1512" alt="账单" src="https://user-images.githubusercontent.com/12215982/210965800-62534cdb-5c33-47b5-930a-94a6ccc57a5b.png">
-
-
-__移动__
-
-<img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/>
 
 ---
 
@@ -31,13 +23,12 @@ __移动__
 建议标题字数控制在 20 字以内，这样更方便从列表概览内容。
 
 ### 1. 初衷
-每天一句话概括自己的一天，一目了然的查看近一个月以来的事。
+一句话概括自己的一天，一目了然的查看近况。
 
 ### 2. 主要功能、特性
 - 记录标题、内容。
 - 记录室内、室外温度、天气情况。
-- 区分日记类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章、账单。
-- 列表中同日日记只显示一个日期时间。
+- 日记类别：生活、学习、工作、运动、游戏、电影、大事、周报、文章、账单。
 - 支持多个关键字搜索日记标题或内容。
 - 可根据日期、类别筛选日记。
 - 支持日记分享功能
@@ -48,9 +39,9 @@ __移动__
 - 账单统计功能（需要指定格式书写）
 
 ### 3. 支持平台
-跨平台，PC 和 移动端匀能完美显示。
+跨平台，PC 和 移动端均能完美显示。
 
-### 4. 编辑器支持 jetbains 相关快捷键
+### 4. 编辑器支持 JetBrains 相关快捷键
 
 -  <kbd>CTRL</kbd>+ <kbd>D </kbd>复制当前行。
 -  <kbd>Tab</kbd> 在前面插入 4 个空格。
@@ -64,6 +55,8 @@ __移动__
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
+
+### 三、项目配置
 
 ### 1. 图片存储配置 `[选配]`
 > 不配置只是不能显示用户头像而已
@@ -102,7 +95,6 @@ gzip_http_version 1.1;
 gzip_comp_level 9;
 gzip_types  text/css application/javascript application/json;
 ```
-
 
 ## 三、开发说明
 配置存储：
