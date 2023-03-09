@@ -10,6 +10,8 @@
                         <img :src="icons.logoIcon.register" alt="Diary Logo">
                     </div>
                 </div>
+                <register-tip/>
+
                 <form id="regForm">
                     <div class="input-group">
                         <label for="invitation" :class="{red: !invitationVerified}">{{ labelInvitation }}</label>
@@ -18,42 +20,27 @@
                                name="invitation"
                                id="invitation">
                     </div>
-
-                    <div class="input-group">
-                        <label for="invitation">为避免恶意注册，一人一码，请向管理员获取： {{adminEmail}}</label>
-                    </div>
-
                     <div class="input-group">
                         <label for="nickname" :class="{red: !nicknameVerified}">{{ labelUsername }}</label>
-                        <input v-model="nickname"
-                               type="text"
-                               name="nickname"
-                               id="nickname">
+                        <input v-model="nickname" type="text"
+                               name="nickname" id="nickname">
                     </div>
                     <div class="input-group">
                         <label for="email" :class="{red: !emailVerified}">{{ labelEmail }}</label>
                         <input v-model.lazy="email"
-                               type="text"
-                               name="email"
-                               id="email">
+                               type="text" name="email" id="email">
                     </div>
                     <div class="input-group">
                         <label for="password1" :class="{red: !password1Verified}">{{ labelPassword1 }}</label>
                         <input v-model.lazy="password1"
-                               name="password1"
-                               type="password"
-                               id="password1">
+                               name="password1" type="password" id="password1">
                     </div>
                     <div class="input-group">
                         <label for="password2" :class="{red: !password2Verified}">{{ labelPassword2 }}</label>
                         <input v-model="password2"
-                               type="password"
-                               name="password2"
-                               id="password2">
+                               type="password" name="password2" id="password2">
                     </div>
-
-                    <button class="btn mt-8"
-                            :class="verified ? 'btn-active' : 'btn-inactive'"
+                    <button class="btn mt-8" :class="verified ? 'btn-active' : 'btn-inactive'"
                             type="button"
                             @click.prevent="regSubmit">注册
                     </button>
@@ -73,9 +60,11 @@ import {mapState} from "vuex"
 import SvgIcons from "@/assets/img/SvgIcons"
 import utility from "@/utility"
 import projectConfig from "@/projectConfig";
+import RegisterTip from "./RegisterTip";
 
 export default {
     name: 'Register',
+    components: {RegisterTip},
     data() {
         return {
             show: false,

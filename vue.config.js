@@ -5,16 +5,16 @@ module.exports = {
     publicPath: './',
     productionSourceMap: false, // 不产出 .map 文件
 
-  outputDir: '../diary',
-  devServer: {
-    proxy: {
-      '': {
-        target: 'http://localhost:3000',
-        // target: 'http://kylebing.cn:3000',
-        changeOrigin: true
-      },
-    }
-  },
+    outputDir: '../diary',
+    devServer: {
+        proxy: {
+            '': {
+                target: 'http://localhost:3000',
+                // target: 'http://kylebing.cn:3000',
+                changeOrigin: true
+            },
+        }
+    },
 
     // 打包程序
     configureWebpack: config => {
