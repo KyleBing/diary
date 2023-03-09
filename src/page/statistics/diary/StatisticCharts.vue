@@ -29,6 +29,8 @@
                 </div>
 
             </statistic-panel>
+
+            <statistic-weather/>
         </div>
     </transition>
 </template>
@@ -38,10 +40,11 @@ import {mapState} from "vuex"
 import ChartPie from "@/components/charts/ChartPie"
 import ChartBar from "@/components/charts/ChartBar"
 import StatisticPanel from "@/page/statistics/StatisticPanel"
+import StatisticWeather from "../weather/StatisticWeather";
 
 export default {
     name: "StatisticCharts",
-    components: {StatisticPanel, ChartBar, ChartPie},
+    components: {StatisticWeather, StatisticPanel, ChartBar, ChartPie},
     computed: {
         ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
     },
