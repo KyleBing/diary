@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
-           <chart-line-trend
+           <chart-line-trend-of-bill
                v-if="weatherStatisticData.length > 0"
                :height="400"
                :combine-data="weatherStatisticData"/>
@@ -15,12 +15,12 @@
 <script>
 import {mapState} from "vuex"
 import statisticApi from "../../../api/statisticApi";
-import ChartLineTrend from "./ChartLineTrend";
 import utility from "../../../utility";
+import ChartLineTrendOfBill from "./ChartLineTrendOfBillMonth";
 
 export default {
-    name: "StatisticWeather",
-    components: {ChartLineTrend},
+    name: "StatisticBillMonthSum",
+    components: {ChartLineTrendOfBill},
     computed: {
         ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
     },
@@ -37,15 +37,13 @@ export default {
     methods: {
         getWeatherData(){
             statisticApi
-                .weather()
+                .monthSum()
                 .then(res => {
-                    let tempData = res.data.map(item => {
-                        item.temperature = item.temperature === -273 ? null: item.temperature
-                        item.date = utility.dateFormatter(new Date(item.date), 'yyyy-MM-dd')
-                        item.temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
+                    this.weatherStatisticData = res.data.map(item => {
+                        item.sumOutput = Math.abs(item.sumOutput)
+                        item.date = item.month_id
                         return item
                     })
-                    this.weatherStatisticData = tempData
                 })
         }
     }

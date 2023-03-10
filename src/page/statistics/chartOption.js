@@ -6,7 +6,7 @@ const COLOR = {
     title  : '#fff',
     white  : '#fff',
     line   : 'rgba(0,0,0,0.2)',
-    green  : '#4CD964',
+    green  : '#2bb06a',
     cyan   : '#5AC8FA',
     blue   : '#007AFF',
     purple : '#5856D6',

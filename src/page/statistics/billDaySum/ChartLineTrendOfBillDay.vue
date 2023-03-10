@@ -7,7 +7,7 @@ import * as echarts from 'echarts'
 import chartOption from "../chartOption";
 
 export default {
-    name: "ChartLineTrend",
+    name: "ChartLineTrendOfBillDay",
     props: {
         combineData: {
             type: Array,
@@ -116,42 +116,37 @@ export default {
             this.chart = echarts.init(this.$refs.chart)
 
             this.option.series.push({
-                name: '室内温度',
-                data: this.combineData.map(item => item.temperature).reverse(),
+                name: '收入',
+                barWidth: 5, // 柱子宽度
+                data: this.combineData.map(item => item.sumIncome),
                 lineStyle: {
                     width: 2,
                     opacity: 1,
                 },
-                color: chartOption.COLOR.orange,
-                type: 'line',
-                smooth: true,
-                label: {
-                    show: true
-                }
+                color: chartOption.COLOR.red,
+                type: 'bar',
             },)
             this.option.xAxis.data =
                 this.combineData
                     .map(item => item.date)
-            this.option.legend.data.push('室内温度')
+                    .reverse()
+            this.option.legend.data.push('收入')
 
             this.option.series.push({
-                name: '室外温度',
-                data: this.combineData.map(item => item.temperature_outside),
+                name: '支出',
+                barWidth: 5, // 柱子宽度
+                data: this.combineData.map(item => item.sumOutput),
                 lineStyle: {
                     width: 2,
                     opacity: 1,
                 },
-                color: chartOption.COLOR.blue,
-                type: 'line',
-                smooth: true,
-                label: {
-                    show: true
-                }
+                color: chartOption.COLOR.green,
+                type: 'bar',
             },)
             this.option.xAxis.data =
                 this.combineData
                     .map(item => item.date)
-            this.option.legend.data.push('室外温度')
+            this.option.legend.data.push('支出')
 
             this.chart.setOption(this.option)
         },

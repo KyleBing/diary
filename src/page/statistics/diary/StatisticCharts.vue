@@ -27,10 +27,20 @@
                     <chart-pie :data="dataArrayYear" title=""/>
                     <chart-bar :data="dataArrayYear" title=""/>
                 </div>
-
             </statistic-panel>
 
-            <statistic-weather/>
+            <statistic-panel title="温度趋势">
+                <statistic-weather/>
+            </statistic-panel>
+
+            <statistic-panel title="账单趋势 - 日">
+                <statistic-bill-day-sum/>
+            </statistic-panel>
+
+            <statistic-panel title="账单趋势 - 月">
+                <statistic-bill-month-sum/>
+            </statistic-panel>
+
         </div>
     </transition>
 </template>
@@ -41,10 +51,12 @@ import ChartPie from "@/components/charts/ChartPie"
 import ChartBar from "@/components/charts/ChartBar"
 import StatisticPanel from "@/page/statistics/StatisticPanel"
 import StatisticWeather from "../weather/StatisticWeather";
+import StatisticBillDaySum from "../billDaySum/StatisticBillDaySum";
+import StatisticBillMonthSum from "../billMonthSum/StatisticBillMonthSum";
 
 export default {
     name: "StatisticCharts",
-    components: {StatisticWeather, StatisticPanel, ChartBar, ChartPie},
+    components: {StatisticBillMonthSum, StatisticBillDaySum, StatisticWeather, StatisticPanel, ChartBar, ChartPie},
     computed: {
         ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
     },

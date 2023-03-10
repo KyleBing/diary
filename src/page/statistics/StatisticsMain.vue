@@ -1,5 +1,7 @@
 <template>
     <div class="statistic-container" :style="`height: ${insets.windowsHeight}px`">
+
+        <!-- Header -->
         <page-header title="统计数据">
             <div class="main-statistic">
                 <div class="main-statistic-item">
@@ -10,6 +12,8 @@
                 </div>
             </div>
         </page-header>
+
+
         <div v-if="isLoading" class="pt-8 pb-8">
             <loading :loading="isLoading"/>
         </div>

@@ -148,7 +148,7 @@ export default {
     },
     components: { DiaryBtn, categorySelector, weatherSelector},
     beforeUnmount() {
-        document.onkeydown = null // 去除按键绑定事件
+        this.$refs.textarea.onkeydown = null // 去除按键绑定事件
     },
     mounted() {
         // 网页标签关闭前提醒
@@ -168,7 +168,7 @@ export default {
 
         // key binding
         this.$nextTick( _=> {
-            document.onkeydown = event => {
+            this.$refs.textarea.onkeydown = event => {
                 // CTRL + S 保存
                 if ((event.ctrlKey || event.metaKey) && event.key === 's') {
                     event.preventDefault()
@@ -210,21 +210,22 @@ export default {
                     textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 0, textAreaInfo.cursorLineContent)
                     this.diary.content = textAreaInfo.textLineArray.join('\n')
                     this.$nextTick(_=>{
-                        textarea.setSelectionRange(textAreaInfo.cursorPosition, textAreaInfo.cursorPosition) // 定位光标
+                        textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
                     })
                 }
 
                 // CTRL + X 删除行
                 if ((event.ctrlKey || event.metaKey) && event.key === 'x') {
-                    event.preventDefault()
                     let textarea = this.$refs.textarea // dom
                     let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
-
-                    textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
-                    this.diary.content = textAreaInfo.textLineArray.join('\n')
-                    this.$nextTick(_=>{
-                        textarea.setSelectionRange(textAreaInfo.cursorPosition, textAreaInfo.cursorPosition) // 定位光标
-                    })
+                    if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd){
+                        event.preventDefault()
+                        textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
+                        this.diary.content = textAreaInfo.textLineArray.join('\n')
+                        this.$nextTick(_=>{
+                            textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
+                        })
+                    }
                 }
 
                 // shift + tab
@@ -247,7 +248,7 @@ export default {
                     this.diary.content = textAreaInfo.textLineArray.join('\n')
 
                     this.$nextTick(_=>{
-                        textarea.setSelectionRange(textAreaInfo.cursorPosition - deleteSpaceCount, textAreaInfo.cursorPosition - deleteSpaceCount)
+                        textarea.setSelectionRange(textAreaInfo.cursorSelectionStart - deleteSpaceCount, textAreaInfo.cursorSelectionStart - deleteSpaceCount)
                     })
 
                 } else if (event.key === 'Tab'){
@@ -255,11 +256,11 @@ export default {
                     event.preventDefault()
                     let textarea = this.$refs.textarea // dom
                     let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
-                    let contentBeforeCursor = this.diary.content.substring(0,textAreaInfo.cursorPosition)
-                    let contentAfterCursor = this.diary.content.substring(textAreaInfo.cursorPosition)
+                    let contentBeforeCursor = this.diary.content.substring(0,textAreaInfo.cursorSelectionStart)
+                    let contentAfterCursor = this.diary.content.substring(textAreaInfo.cursorSelectionStart)
                     this.diary.content = contentBeforeCursor + '    ' + contentAfterCursor
                     this.$nextTick(_=>{
-                        textarea.setSelectionRange(textAreaInfo.cursorPosition + 4, textAreaInfo.cursorPosition + 4)
+                        textarea.setSelectionRange(textAreaInfo.cursorSelectionStart + 4, textAreaInfo.cursorSelectionStart + 4)
                     })
 
                 }
@@ -356,13 +357,15 @@ export default {
         },
 
         getTextareaInfo(textarea, textContent){
-            let cursorPosition = textarea.selectionStart // cursorPos
-            let cursorLineIndex = textContent.substring(0, cursorPosition).split('\n').length - 1 // 光标所在行
+            let cursorSelectionStart = textarea.selectionStart // cursorPos
+            let cursorSelectionEnd = textarea.selectionEnd // cursorPos
+            let cursorLineIndex = textContent.substring(0, cursorSelectionStart).split('\n').length - 1 // 光标所在行
             let textLineArray = textContent.split('\n') // 原始文字 行数组
             let cursorLineContent = textLineArray[cursorLineIndex] // 光标所在行的内容
 
             return {
-                cursorPosition,
+                cursorSelectionStart,
+                cursorSelectionEnd,
                 cursorLineIndex,
                 textLineArray,
                 cursorLineContent
