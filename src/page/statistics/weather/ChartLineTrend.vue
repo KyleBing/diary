@@ -120,7 +120,7 @@ export default {
                 data: this.combineData.map(item => item.temperature).reverse(),
                 lineStyle: {
                     width: 2,
-                    opacity: 1,
+                    opacity: 0,
                 },
                 color: chartOption.COLOR.orange,
                 type: 'line',
@@ -140,7 +140,7 @@ export default {
                 data: this.combineData.map(item => item.temperature_outside),
                 lineStyle: {
                     width: 2,
-                    opacity: 1,
+                    opacity: 0,
                 },
                 color: chartOption.COLOR.blue,
                 type: 'line',
