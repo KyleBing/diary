@@ -116,7 +116,7 @@ export default {
             this.chart = echarts.init(this.$refs.chart)
 
             this.option.series.push({
-                name: '室内温度',
+                name: '身处温度',
                 data: this.combineData.map(item => item.temperature).reverse(),
                 lineStyle: {
                     width: 2,
@@ -133,7 +133,7 @@ export default {
             this.option.xAxis.data =
                 this.combineData
                     .map(item => item.date)
-            this.option.legend.data.push('室内温度')
+            this.option.legend.data.push('身处温度')
 
             this.option.series.push({
                 name: '室外温度',
