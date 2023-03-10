@@ -41,7 +41,6 @@ import TabIcon from "@/components/TabIcon"
 import StatisticCharts from "@/page/statistics/diary/StatisticCharts"
 import statisticApi from "@/api/statisticApi"
 import StatisticUsers from "@/page/statistics/users/StatisticUsers"
-import diaryApi from "@/api/diaryApi"
 import PageHeader from "@/framework/PageHeader"
 import Loading from "@/components/Loading"
 

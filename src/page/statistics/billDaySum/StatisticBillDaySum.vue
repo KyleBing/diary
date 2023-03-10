@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
-           <chart-line-trend-of-bill
+           <chart-bar-of-bill-day
                v-if="weatherStatisticData.length > 0"
                :height="400"
                :combine-data="weatherStatisticData"/>
@@ -16,11 +16,11 @@
 import {mapState} from "vuex"
 import statisticApi from "../../../api/statisticApi";
 import utility from "../../../utility";
-import ChartLineTrendOfBill from "./ChartLineTrendOfBillDay";
+import ChartBarOfBillDay from "./ChartBarOfBillDay";
 
 export default {
     name: "StatisticBillDaySum",
-    components: {ChartLineTrendOfBill},
+    components: {ChartBarOfBillDay},
     computed: {
         ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
     },

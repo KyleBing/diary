@@ -7,7 +7,7 @@ import * as echarts from 'echarts'
 import chartOption from "../chartOption";
 
 export default {
-    name: "ChartLineTrendOfBillMonth",
+    name: "ChartBarOfBillMonth",
     props: {
         combineData: {
             type: Array,
@@ -121,6 +121,11 @@ export default {
                 data: this.combineData.map(item => item.sumIncome),
                 color: chartOption.COLOR.red,
                 type: 'bar',
+                label: {
+                    show: true,
+                    position: 'top',
+                    fontSize: 10,
+                }
             },)
             this.option.xAxis.data =
                 this.combineData
@@ -134,6 +139,11 @@ export default {
                 data: this.combineData.map(item => item.sumOutput),
                 color: chartOption.COLOR.green,
                 type: 'bar',
+                label: {
+                    show: true,
+                    position: 'top',
+                    fontSize: 10,
+                }
             },)
             this.option.xAxis.data =
                 this.combineData

@@ -126,7 +126,8 @@ export default {
                 type: 'line',
                 smooth: true,
                 label: {
-                    show: true
+                    show: true,
+                    fontSize: 10
                 }
             },)
             this.option.xAxis.data =
@@ -145,7 +146,8 @@ export default {
                 type: 'line',
                 smooth: true,
                 label: {
-                    show: true
+                    show: true,
+                    fontSize: 10
                 }
             },)
             this.option.xAxis.data =

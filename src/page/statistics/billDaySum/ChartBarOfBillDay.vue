@@ -7,7 +7,7 @@ import * as echarts from 'echarts'
 import chartOption from "../chartOption";
 
 export default {
-    name: "ChartLineTrendOfBillDay",
+    name: "ChartBarOfBillDay",
     props: {
         combineData: {
             type: Array,
