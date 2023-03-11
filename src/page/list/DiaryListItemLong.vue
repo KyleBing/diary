@@ -29,7 +29,7 @@
 
 <script>
 import {mapGetters, mapState} from "vuex"
-import SvgIcons from "@/assets/img/SvgIcons"
+import SvgIcons from "../../assets/img/SvgIcons"
 import {marked} from "marked";
 
 export default {

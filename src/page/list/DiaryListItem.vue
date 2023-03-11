@@ -24,8 +24,8 @@
 
 <script>
 import {mapGetters, mapState} from "vuex"
-import ICONS from "@/assets/img/SvgIcons"
-import SvgIcons from "@/assets/img/SvgIcons"
+import ICONS from "../../assets/img/SvgIcons"
+import SvgIcons from "../../assets/img/SvgIcons"
 
 export default {
     name: "DiaryListItem",

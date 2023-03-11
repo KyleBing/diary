@@ -25,7 +25,7 @@
 
 <script>
 import {mapState} from "vuex"
-import StatisticPanel from "@/page/statistics/StatisticPanel"
+import StatisticPanel from "../../../page/statistics/StatisticPanel"
 
 export default {
     name: "StatisticInfo",

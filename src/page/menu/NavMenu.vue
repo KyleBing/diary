@@ -72,15 +72,15 @@
 </template>
 
 <script>
-import utility from "@/utility"
-import MenuCategorySelector from "@/page/menu/MenuCategorySelector"
-import YearSelector from "@/page/menu/YearSelector"
-import About from "@/page/about/About"
+import utility from "../../utility"
+import MenuCategorySelector from "../../page/menu/MenuCategorySelector"
+import YearSelector from "../../page/menu/YearSelector"
+import About from "../../page/about/About"
 import {mapGetters, mapMutations, mapState} from "vuex"
-import packageInfo from "@/../package.json"
-import MenuListItem from "@/page/menu/MenuListItem"
-import CategoryIndicator from "@/page/menu/CategoryIndicator"
-import svgIcons from "@/assets/img/SvgIcons"
+import packageInfo from "../../../package.json"
+import MenuListItem from "../../page/menu/MenuListItem"
+import CategoryIndicator from "../../page/menu/CategoryIndicator"
+import svgIcons from "../../assets/img/SvgIcons"
 
 export default {
     name: "NavMenu",

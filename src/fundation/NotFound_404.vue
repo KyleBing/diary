@@ -12,7 +12,7 @@
 
 <script>
 import {mapState} from "vuex";
-import svgIcons from "@/assets/img/SvgIcons";
+import svgIcons from "../assets/img/SvgIcons";
 
 export default {
     name: "notFound_404",

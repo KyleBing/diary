@@ -55,11 +55,11 @@
 
 
 <script>
-import userApi from "@/api/userApi"
+import userApi from "../../api/userApi"
 import {mapState} from "vuex"
-import SvgIcons from "@/assets/img/SvgIcons"
-import utility from "@/utility"
-import projectConfig from "@/projectConfig";
+import SvgIcons from "../../assets/img/SvgIcons"
+import utility from "../../utility"
+import projectConfig from "../../projectConfig";
 import RegisterTip from "./RegisterTip";
 
 export default {

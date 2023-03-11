@@ -100,12 +100,12 @@
 </template>
 
 <script>
-import billApi from "@/api/billApi"
-import Loading from "@/components/Loading"
+import billApi from "../../api/billApi"
+import Loading from "../../components/Loading"
 import {mapState} from "vuex"
-import TabIcon from "@/components/TabIcon"
-import utility from "@/utility"
-import PageHeader from "@/framework/PageHeader"
+import TabIcon from "../../components/TabIcon"
+import utility from "../../utility"
+import PageHeader from "../../framework/PageHeader"
 
 export default {
     name: "Bill",

@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import userApi from "@/api/userApi"
-import utility from "@/utility"
+import userApi from "../../api/userApi"
+import utility from "../../utility"
 import {mapState} from "vuex"
-import SvgIcons from "@/assets/img/SvgIcons"
+import SvgIcons from "../../assets/img/SvgIcons"
 
 export default {
     name: "Login",

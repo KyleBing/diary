@@ -23,11 +23,10 @@
 </template>
 
 <script>
-import List from "@/page/list/List"
-import Navbar from "@/framework/Navbar"
+import List from "../page/list/List"
+import Navbar from "../framework/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
-import statisticApi from "@/api/statisticApi";
-import diaryApi from "@/api/diaryApi";
+import statisticApi from "../api/statisticApi";
 
 export default {
     name: 'Index',

@@ -21,7 +21,7 @@
 
 <script>
 import {mapState, mapMutations} from 'vuex'
-import utility from "@/utility"
+import utility from "../../utility"
 
 export default {
     name: "YearSelector",

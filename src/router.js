@@ -1,21 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Index from "@/framework/Index";
-import utility from "@/utility";
+import Index from "./framework/Index";
+import utility from "./utility";
 
-import Register from "@/page/register/Register"
-import Login from "@/page/register/Login.vue"
-import ChangePassword from "@/page/register/ChangePassword.vue"
-import ChangeProfile from  "@/page/register/ChangeProfile.vue"
-import Bill from "@/page/bill/Bill"
-import BankCardList from "@/page/bankCard/BankCardList"
-import InvitationList from "@/page/invitation/InvitationList.vue"
-import Share from "@/page/share/Share"
-import Statistics from "@/page/statistics/StatisticsMain"
+import Register from "./page/register/Register"
+import Login from "./page/register/Login.vue"
+import ChangePassword from "./page/register/ChangePassword.vue"
+import ChangeProfile from  "./page/register/ChangeProfile.vue"
+import Bill from "./page/bill/Bill"
+import BankCardList from "./page/bankCard/BankCardList"
+import InvitationList from "./page/invitation/InvitationList.vue"
+import Share from "./page/share/Share"
+import Statistics from "./page/statistics/StatisticsMain"
 
-import List from "@/page/list/List"
-import Detail from "@/page/detail/Detail"
-import Edit from "@/page/edit/Edit"
-import NotFound_404 from "@/fundation/NotFound_404";
+import List from "./page/list/List"
+import Detail from "./page/detail/Detail"
+import Edit from "./page/edit/Edit"
+import NotFound_404 from "./fundation/NotFound_404";
 
 const routes = [
     {

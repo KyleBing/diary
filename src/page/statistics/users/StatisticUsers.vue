@@ -75,12 +75,12 @@
 
 <script>
 import {mapState} from "vuex";
-import StatisticPanel from "@/page/statistics/StatisticPanel";
-import statisticApi from "@/api/statisticApi";
-import ChartBar from "@/components/charts/ChartBar";
-import utility from "@/utility";
+import StatisticPanel from "../../../page/statistics/StatisticPanel";
+import statisticApi from "../../../api/statisticApi";
+import ChartBar from "../../../components/charts/ChartBar";
+import utility from "../../../utility";
 import Moment from "moment";
-import projectConfig from "@/projectConfig";
+import projectConfig from "../../../projectConfig";
 
 export default {
     name: "StatisticUsers",

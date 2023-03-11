@@ -42,10 +42,10 @@ import utility from "../../utility"
 import diaryListItem from "./DiaryListItem"
 import diaryListItemLong from "./DiaryListItemLong"
 import {mapState, mapMutations, mapGetters} from 'vuex'
-import Loading from "@/components/Loading"
-import diaryApi from "@/api/diaryApi"
-import SvgIcons from "@/assets/img/SvgIcons"
-import ListHeader from "@/page/list/ListHeader"
+import Loading from "../../components/Loading"
+import diaryApi from "../../api/diaryApi"
+import SvgIcons from "../../assets/img/SvgIcons"
+import ListHeader from "../../page/list/ListHeader"
 
 export default {
     name: 'List',

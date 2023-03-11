@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TabIcon from "@/components/TabIcon";
+import TabIcon from "../components/TabIcon";
 export default {
     name: "PageHeader",
     props:{

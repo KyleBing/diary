@@ -31,15 +31,13 @@
 
 <script>
 import {mapState, mapMutations} from 'vuex'
-import bankCardApi from "@/api/bankCardApi"
-import Loading from "@/components/Loading"
-import utility from "@/utility"
-import BankCard from "@/page/bankCard/BankCard"
+import Loading from "../../components/Loading"
+import utility from "../../utility"
+import BankCard from "../../page/bankCard/BankCard"
 import ClipboardJS from "clipboard"
-import TabIcon from "@/components/TabIcon"
-import PageHeader from "@/framework/PageHeader"
-import diaryApi from "@/api/diaryApi"
-import invitationApi from "@/api/invitationApi";
+import TabIcon from "../../components/TabIcon"
+import PageHeader from "../../framework/PageHeader"
+import invitationApi from "../../api/invitationApi";
 
 export default {
     name: "InvitationList",

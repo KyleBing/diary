@@ -65,9 +65,9 @@
 import ClipboardJS from "clipboard"
 import utility from "../../utility"
 import {mapGetters, mapMutations, mapState} from "vuex"
-import Loading from "@/components/Loading"
-import diaryApi from "@/api/diaryApi"
-import SvgIcons from "@/assets/img/SvgIcons"
+import Loading from "../../components/Loading"
+import diaryApi from "../../api/diaryApi"
+import SvgIcons from "../../assets/img/SvgIcons"
 import {marked} from "marked"
 
 export default {

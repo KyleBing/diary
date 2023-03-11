@@ -47,9 +47,9 @@
 
 <script>
 import {mapState} from "vuex"
-import ChartPie from "@/components/charts/ChartPie"
-import ChartBar from "@/components/charts/ChartBar"
-import StatisticPanel from "@/page/statistics/StatisticPanel"
+import ChartPie from "../../../components/charts/ChartPie"
+import ChartBar from "../../../components/charts/ChartBar"
+import StatisticPanel from "../../../page/statistics/StatisticPanel"
 import StatisticWeather from "../weather/StatisticWeather";
 import StatisticBillDaySum from "../billDaySum/StatisticBillDaySum";
 import StatisticBillMonthSum from "../billMonthSum/StatisticBillMonthSum";

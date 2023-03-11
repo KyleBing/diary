@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import utility from "@/utility"
+import utility from "../../utility"
 import {mapMutations, mapState} from "vuex"
 
 export default {

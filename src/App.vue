@@ -4,9 +4,9 @@
 </template>
 <script>
 import {mapGetters, mapMutations, mapState} from "vuex"
-import utility from "@/utility"
-import diaryApi from "@/api/diaryApi"
-import ServerError from "@/ServerError";
+import utility from "./utility"
+import diaryApi from "./api/diaryApi"
+import ServerError from "./ServerError";
 export default {
     components: {ServerError},
     data(){

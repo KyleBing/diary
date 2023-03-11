@@ -100,10 +100,10 @@ import weatherSelector from "./WeatherSelector"
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
 import Moment from 'moment'
-import DiaryBtn from "@/components/DiaryBtn"
-import diaryApi from "@/api/diaryApi"
-import ICONS from "@/assets/img/SvgIcons"
-import projectConfig from "@/projectConfig";
+import DiaryBtn from "../../components/DiaryBtn"
+import diaryApi from "../../api/diaryApi"
+import ICONS from "../../assets/img/SvgIcons"
+import projectConfig from "../../projectConfig";
 
 export default {
     name: 'Edit',

@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import svgIcons from "@/assets/img/SvgIcons";
-import utility from "@/utility";
+import svgIcons from "./assets/img/SvgIcons";
+import utility from "./utility";
 
 export default createStore({
     state: {

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import svgIcons from "@/assets/img/SvgIcons"
+import svgIcons from "../../assets/img/SvgIcons"
 
 export default {
     name: "BankCard",

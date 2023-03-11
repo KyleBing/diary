@@ -56,13 +56,13 @@
 
 
 <script>
-import userApi from "@/api/userApi"
+import userApi from "../../api/userApi"
 import {mapState} from "vuex"
-import SvgIcons from "@/assets/img/SvgIcons"
-import utility from "@/utility"
-import fileApi from "@/api/fileApi";
+import SvgIcons from "../../assets/img/SvgIcons"
+import utility from "../../utility"
+import fileApi from "../../api/fileApi";
 import * as qiniu from 'qiniu-js'
-import projectConfig from "@/projectConfig";
+import projectConfig from "../../projectConfig";
 import axios from "axios";
 
 export default {
