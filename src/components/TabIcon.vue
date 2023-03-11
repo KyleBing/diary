@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ICONS from "@/assets/img/SvgIcons";
+import ICONS from "../assets/img/SvgIcons";
 export default {
     name: "TabIcon",
     props:{

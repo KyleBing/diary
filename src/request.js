@@ -1,5 +1,5 @@
 import axios from "axios";
-import utility from "@/utility";
+import utility from "./utility";
 const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../portal/'
 
 
