@@ -107,9 +107,10 @@ export default {
     },
     mounted() {
         this.getBankCards()
+
     },
     beforeUnmount() {
-        this.clipboard.destroy()
+        this.clipboard && this.clipboard.destroy()
     },
 
     computed: {
@@ -189,6 +190,16 @@ export default {
                 this.cardListAll.push(cardInfo)
                 this.cardListStore = this.cardListAll.filter(item => item.cardType.indexOf('储蓄卡') > -1)
                 this.cardListCredit = this.cardListAll.filter(item => item.cardType.indexOf('信用卡') > -1)
+            })
+
+            // 绑定剪贴板操作方法
+            this.clipboard = new ClipboardJS('.bankcard-no', {
+                text: trigger => {
+                    return trigger.getAttribute('data-clipboard')
+                },
+            })
+            this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+                utility.popMessage('success', '卡号已复制到剪贴板', null)
             })
         }
     }

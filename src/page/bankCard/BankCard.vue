@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import ClipboardJS from "clipboard"
-import utility from "@/utility"
 import svgIcons from "@/assets/img/SvgIcons"
 
 export default {
@@ -104,20 +102,12 @@ export default {
     },
 
     mounted() {
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.bankcard-no', {
-            text: trigger => {
-                return trigger.getAttribute('data-clipboard')
-            },
-        })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '卡号已复制到剪贴板', null)
-        })
+
     }
 }
 </script>
 
 <style scoped lang="scss">
 @import "../../scss/plugin";
-@import "@/page/bankCard/bank-card.scss";
+@import "../../page/bankCard/bank-card.scss";
 </style>
