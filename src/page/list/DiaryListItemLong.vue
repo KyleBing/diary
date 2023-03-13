@@ -21,7 +21,7 @@
         </div>
         <div class="article-body" v-else>
             <div class="title">{{ diary.title }}</div>
-            <div class="markdown" v-if="isInMarkdownMode" v-html="contentMarkDownHtml"/>
+            <div class="markdown" v-if="diary.is_markdown === 1" v-html="contentMarkDownHtml"/>
             <div class="content" v-else v-html="diary.contentHtml"/>
         </div>
     </div>
@@ -61,9 +61,6 @@ export default {
                 return `
                 `
             }
-        },
-        isInMarkdownMode(){
-            return /\[ ?(markdown|md) ?\]/i.test(this.diary.content)
         },
         contentMarkDownHtml(){
             return marked.parse(this.diary.content)

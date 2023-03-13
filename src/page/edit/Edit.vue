@@ -79,6 +79,18 @@
                         <label class="switch" for="shareState"></label>
                     </div>
                 </div>
+                <div class="editor-input-item">
+                    <label for="markdown">Markdown</label>
+                    <div class="input">
+                        <input class="share"
+                               type="checkbox"
+                               name="share"
+                               id="markdown"
+                               v-model="diary.isMarkdown"
+                        >
+                        <label class="switch" for="markdown"></label>
+                    </div>
+                </div>
             </div>
 
             <diary-btn :is-loading="isLoading" type="light"
@@ -117,6 +129,7 @@ export default {
                 title: "",
                 content: "",
                 isPublic: false,
+                isMarkdown: false,
                 date: new Date(),
                 weather: 'sunny',
                 category: 'life',
@@ -128,6 +141,7 @@ export default {
                 title: "",
                 content: "",
                 isPublic: false,
+                isMarkdown: false,
                 date: new Date(),
                 weather: 'sunny',
                 category: 'life',
@@ -301,7 +315,8 @@ export default {
                     this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
                     this.diary.weather !== this.diaryOrigin.weather ||
                     this.diary.category !== this.diaryOrigin.category ||
-                    this.diary.isPublic !== this.diaryOrigin.isPublic)
+                    this.diary.isPublic !== this.diaryOrigin.isPublic ||
+                    this.diary.isMarkdown !== this.diaryOrigin.isMarkdown)
             }
         },
     },
@@ -464,6 +479,7 @@ export default {
                     this.diary.title = diary.title
                     this.diary.content = diary.content
                     this.diary.isPublic = diary.is_public === 1
+                    this.diary.isMarkdown = diary.is_markdown === 1
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
                     Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
@@ -498,6 +514,7 @@ export default {
                 temperatureOutside: utility.temperatureProcessCTS(this.diary.temperatureOutside),
                 weather: this.diary.weather,
                 isPublic: this.diary.isPublic ? 1 : 0,
+                isMarkdown: this.diary.isMarkdown ? 1 : 0,
                 date: utility.dateFormatter(this.diary.date),
             }
 
@@ -566,6 +583,7 @@ export default {
                 title: "",
                 content: "",
                 isPublic: false,
+                isMarkdown: false,
                 date: this.diary.date || new Date(), // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
                 weather: 'sunny',
                 category: this.diary.category,
@@ -595,7 +613,8 @@ export default {
                 category: this.diary.category,
                 date_create: date,
                 date_modify: "",
-                is_public: this.diary.isPublic ? 1 : 0
+                is_public: this.diary.isPublic ? 1 : 0,
+                is_markdown: this.diary.isMarkdown ? 1 : 0
             }
         }
     },

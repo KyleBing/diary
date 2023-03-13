@@ -52,7 +52,7 @@
 
         <!--CONTENT-->
         <div class="diary-content" v-if="diary.content">
-            <div v-if="isInMarkdownMode" class="markdown" v-html="contentMarkDownHtml"/>
+            <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
             <div v-else class="content" v-html="getContentHtml(diary.content)"/>
             <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
                 <img :src="icons.clipboard" alt="clipboard">
@@ -110,9 +110,6 @@ export default {
             } else {
                 return ''
             }
-        },
-        isInMarkdownMode(){
-            return /\[ ?(markdown) ?\]/i.test(this.diary.content)
         },
         contentMarkDownHtml(){
             return marked.parse(this.diary.content)
