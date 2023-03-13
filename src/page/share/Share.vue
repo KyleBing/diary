@@ -46,7 +46,7 @@
 
                     <!--CONTENT-->
                     <div class="share-content">
-                        <div v-if="isInMarkdownMode" class="markdown" v-html="contentMarkDownHtml"/>
+                        <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
                         <div v-else class="content" v-html="diary.contentHtml"/>
                     </div>
 
@@ -102,9 +102,6 @@ export default {
         },
         shareCategoryStyle(){
             return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
-        },
-        isInMarkdownMode(){
-            return /\[ ?(markdown|md) ?\]/i.test(this.diary.content)
         },
         contentMarkDownHtml(){
             return marked.parse(this.diary.content)
