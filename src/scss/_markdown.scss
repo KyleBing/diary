@@ -3,9 +3,10 @@ $gap: 15px;
 .markdown{
     line-height: 1.6;
     color: $text-content;
-    font-size: 14px;
+    font-size: 15px;
 
     p{
+        line-height: 1.5;
         margin-bottom: 5px;
     }
 
@@ -20,7 +21,7 @@ $gap: 15px;
         h#{$item}{
             margin-top: (7-$item)*5px;
             margin-bottom: (7-$item)*2px;
-            font-size: 14px + (7-$item)*2;
+            font-size: 14px + (7-$item)*1.5;
         }
     }
 
@@ -38,6 +39,8 @@ $gap: 15px;
 
     code{
         padding: 2px 5px;
+        font-size: 13.5px;
+        color: #333;
         font-family: "JetBrainsMonoDiary";
         background-color: $bg-light;
         @include border-radius(2px);
@@ -50,15 +53,32 @@ $gap: 15px;
             th{
                 text-align: left;
                 min-width: 50px;
-                padding: 3px 5px;
+                padding: 4px 10px;
                 border: 1px solid $color-border;
                 background-color: $bg-light;
+                &[align=left]{
+                    text-align: left;
+                }
+                &[align=right]{
+                    text-align: right;
+                }
+                &[align=center]{
+                    text-align: center;
+                }
             }
             td{
                 text-align: left;
                 border: 1px solid $color-border;
-                padding: 2px 3px;
-
+                padding: 3px 10px;
+                &[align=left]{
+                    text-align: left;
+                }
+                &[align=right]{
+                    text-align: right;
+                }
+                &[align=center]{
+                    text-align: center;
+                }
             }
         }
     }
@@ -68,15 +88,8 @@ $gap: 15px;
         -webkit-appearance: checkbox !important;
     }
 
-    ul{
-        margin-bottom: $gap;
-        li{
-            margin-left: 20px;
-            line-height: 1.5;
-            margin-bottom: 2px;
-        }
-    }
-    ol{
+    ol, ul{
+        margin-left: $gap;
         margin-bottom: $gap;
         li{
             margin-left: 20px;
@@ -85,12 +98,13 @@ $gap: 15px;
         }
     }
     blockquote{
-        margin-top: 10px;
-        margin-bottom: 10px;
-        padding-top: 3px;
-        padding-bottom: 3px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding-top: 18px;
+        padding-bottom: 18px;
         border-left: 3px solid transparentize(black, 0.8);
         padding-left: 18px;
+        background-color: #f5f5f5;
         > *:last-child{
             margin-bottom: 0;
         }
@@ -104,6 +118,13 @@ $gap: 15px;
 
 @media (prefers-color-scheme: dark) {
     .markdown{
+
+        @for $item from 1 through 7 {
+            h#{$item}{
+                color: darken(white, 10%);
+            }
+        }
+
         color: $dark-text;
         p{
         }
@@ -120,6 +141,7 @@ $gap: 15px;
             }
         }
         code{
+            color: $dark-text;
             background-color: $dark-bg-dark;
         }
         table{
@@ -144,10 +166,11 @@ $gap: 15px;
             }
         }
         blockquote{
-            border-left: 3px solid $dark-border-active;
+            background-color: darken(white, 83%);
+            border-left: 3px solid darken(white, 60%);
         }
         a{
-            color: $orange;
+            color: darken(white, 10%);
         }
     }
 }

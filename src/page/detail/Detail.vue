@@ -112,7 +112,7 @@ export default {
             }
         },
         isInMarkdownMode(){
-            return /\[ ?(markdown|md) ?\]/i.test(this.diary.content)
+            return /\[ ?(markdown) ?\]/i.test(this.diary.content)
         },
         contentMarkDownHtml(){
             return marked.parse(this.diary.content)
