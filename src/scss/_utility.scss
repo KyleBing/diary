@@ -80,6 +80,7 @@
 }
 
 .btn-like{
+  white-space: nowrap;
   @extend .unselectable;
   cursor: pointer;
   &:active{
