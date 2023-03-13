@@ -94,5 +94,24 @@ $height-icon: 35px;
         }
     }
 }
+@media (prefers-color-scheme: dark) {
+    .menu-list-item{
+        .menu-list-item-content{
+            &:after{
+                width: 100%;
+                bottom: 0;
+                left: 0;
+                content: '';
+                display: block;
+                background-color: $dark-menu-border;
+                height: 1px;
+                position: absolute;
+                transform-origin: 0 100%;
+                transform: scaleY(0.5);
+            }
+        }
+    }
+}
+
 
 </style>

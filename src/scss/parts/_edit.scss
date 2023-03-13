@@ -103,6 +103,7 @@ textarea{
         line-height: $height-input - 6*2;
       }
       .refresh{
+        @extend .btn-like;
         padding: 6px 0;
         line-height: $height-input - 6*2;
         margin-left: 5px;
@@ -217,6 +218,3 @@ textarea{
   display: none !important;
 }
 
-.refresh{
-  @extend .btn-like;
-}

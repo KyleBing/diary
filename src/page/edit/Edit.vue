@@ -168,12 +168,16 @@ export default {
 
         // key binding
         this.$nextTick( _=> {
-            this.$refs.textarea.onkeydown = event => {
+            // 页面快捷键
+            window.onkeydown = event => {
                 // CTRL + S 保存
                 if ((event.ctrlKey || event.metaKey) && event.key === 's') {
                     event.preventDefault()
                     this.saveDiary()
                 }
+            }
+            // 编辑器快捷键
+            this.$refs.textarea.onkeydown = event => {
 
                 // CTRL + ArrowLeft 移到最左端
                 if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
