@@ -56,7 +56,7 @@
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
 
-### 三、项目配置
+## 三、项目配置
 
 ### 1. 图片存储配置 `[选配]`
 > 不配置只是不能显示用户头像而已
@@ -96,24 +96,24 @@ gzip_comp_level 9;
 gzip_types  text/css application/javascript application/json;
 ```
 
-## 三、开发说明
+## 四、开发说明
 配置存储：
 所有配置信息都保存在 `LocalStorage` 中
 - `DiaryConfig`: 用户的配置信息（类别筛选，日期筛选，关键字）
-- `DiaryAuthorization`: 用户信息（用户名，token，uid）
+- `Authorization`: 用户信息（avatar,city,email,geolocation,group_id,nickname,phone,token,uid）
 
-## 四、使用插件
+## 五、用到的 npm 包
 - `vue3` + `vue-router` + `vuex` 
 - `axios` 
-- `qs` 
 - `clipboard` 
-- `@vuepic/vue-datepicker` 
 - `moment`
+- `@vuepic/vue-datepicker` 
 - `marked`
 - `echarts`
 - `floating-vue`
+- `qiniu-js`
 
-## 五、项目历程
+## 六、项目历程
 1. 2017 年的时候想学 iOS 了顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 `iCloud` 中的，有了 app 的界面样子，但并不能很完美的使用。
 2. 后来过了很久，到 2019 年的时候感觉自己前端技术差不多了，就想把它实现了，最初使用的是 `HTML` + `jQuery`。
 3. 后来对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，添加了 PC 版界面。
@@ -122,18 +122,18 @@ gzip_types  text/css application/javascript application/json;
 
 
 
-## 六、支持
+## 七、支持
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
 
-## 七、项目周期
+## 八、项目周期
 
 > 始于 `2017-09-27`
 
 
-## 八、界面截图 - 详细
+## 九、界面截图 - 详细
 
 **PC**
 
