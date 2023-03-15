@@ -1,4 +1,4 @@
-<img width="100px" src="https://user-images.githubusercontent.com/12215982/210970978-f5039bc4-31cc-4422-ba66-18c4dd51092c.png"/>
+<img width="100px" src="https://user-images.githubusercontent.com/12215982/225367174-f967aa05-5f35-474e-8ae2-0ea0619bd5d8.svg"/>
 
 # 标题日记
 一个纯文本的日记 web 应用 
