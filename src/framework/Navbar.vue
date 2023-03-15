@@ -225,7 +225,8 @@ export default {
                 case 'Detail':
                     this.$router.push({name: 'List'});
                     break
-                default: this.$router.back()
+                default:
+                    this.$router.push({name: 'List'})
             }
         },
         clearDateFilter(){

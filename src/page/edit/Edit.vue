@@ -485,7 +485,7 @@ export default {
                     Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
                 })
                 .catch(() => {
-                    this.$router.back()
+                    this.$router.push({name: 'List'})
                 })
         },
         saveDiary() {

@@ -200,7 +200,7 @@ export default {
                 })
                 .catch(() => {
                     this.isLoading = false // loading off
-                    this.$router.back()
+                    this.$router.push({name: 'List'})
                 })
         },
     }
