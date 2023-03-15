@@ -142,7 +142,7 @@ gzip_types  text/css application/javascript application/json;
 <img width="1512" alt="长列表" src="https://user-images.githubusercontent.com/12215982/185168051-b19223f9-2df8-42d1-a39c-823f772426e0.png">
 <img width="1512" alt="统计" src="https://user-images.githubusercontent.com/12215982/185168085-bb97e434-132c-44be-b3f8-db55e25816e5.png">
 <img width="1512" alt="列表" src="https://user-images.githubusercontent.com/12215982/185168097-94161d53-5761-4c08-827f-31440a7c17b6.png">
-<img width="1512" alt="银行卡列表" src="https://user-images.githubusercontent.com/12215982/185167943-87c84107-dde5-4119-b8c2-25de09685f3b.png">
+<img width="1512" alt="银行卡列表" src="https://user-images.githubusercontent.com/12215982/225222928-9bf993ef-39aa-4708-ba20-13f5f2b5f398.png">
 <img width="1512" alt="账单列表" src="https://user-images.githubusercontent.com/12215982/185167980-4c9b8f72-74f7-41d9-9c80-7c8d8c2c73bf.png">
 <img width="1512" alt="菜单" src="https://user-images.githubusercontent.com/12215982/185167988-a9929018-c420-4e13-b4fc-a681c2458efc.png">
 <img width="1512" alt="类别" src="https://user-images.githubusercontent.com/12215982/185168041-2148d489-aaf1-4382-8116-6737b15b6014.png">
