@@ -189,7 +189,7 @@ export default {
             let tempShowArray = []
             if (this.diaries.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
                 let lastDiary = this.diaries[0]
-                let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date))
+                let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
                 tempShowArray.push({ // 添加年月
                     date: lastDiaryDateString.substring(0, 7)
                 })
@@ -205,8 +205,8 @@ export default {
                     for (let i = 1; i < this.diaries.length; i++) {
                         lastDiary = this.diaries[i - 1] // 更新上一条日记指向
                         let currentDiary = this.diaries[i]
-                        let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date))
-                        let currentDiaryDateString = utility.dateFormatter(new Date(currentDiary.date))
+                        let lastDiaryDateString = utility.dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
+                        let currentDiaryDateString = utility.dateFormatter(new Date(currentDiary.date), 'yyyy-MM-dd')
                         let lastDiaryMonth = lastDiaryDateString.substring(0, 7)
                         let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
                         let currentDiaryMonth = currentDiaryDateString.substring(0, 7)
