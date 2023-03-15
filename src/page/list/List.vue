@@ -220,7 +220,8 @@ export default {
                         let tempDiary = {}
                         Object.assign(tempDiary, currentDiary)
                         tempDiary.isPublic = currentDiary.is_public === 1
-                        tempDiary.date = currentDiaryDay === lastDiaryDay ? '' : currentDiaryDay
+                        // 判断前一个日记和后一个日记的日期字符串是否一致，‘年月日’ 搜索的时候可能会有月份不同但天数相同的情况，就会导致下一条的日期不会显示。
+                        tempDiary.date = currentDiaryDateString === lastDiaryDateString ? '' : currentDiaryDay
                         tempShowArray.push(tempDiary) // 添加当前日记内容
                     }
                 }
