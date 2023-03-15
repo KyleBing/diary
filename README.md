@@ -49,14 +49,19 @@
 -  <kbd>CTRL</kbd>+ <kbd>← </kbd>移动到行最左端
 -  <kbd>CTRL</kbd>+ <kbd>→ </kbd>移动到行最右端
 
-## 二、安装使用
+## 二、安装
 该项目包含两个部分，具体的部署方式在各个项目中均有介绍：
 
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
+## 三、邀请码的使用
+新用户注册需要邀请码，邀请码有两种：一种是万能的，在后台系统的配置文件中配置；另外一种是一次性的，一人一码。  
+登入系统后，点开菜单，选择邀请码菜单（只有前端配置的管理员帐户才能看到），可以生成新的邀请码，点击邀请码就可以复制内容，分享给别人就可以了。  
+邀请码页面中显示的是都是未注册的码，复制后邀请码变为绿色，表示已被分享还未使用。
 
-## 三、项目配置
+
+## 四、项目配置
 
 ### 1. 图片存储配置 `[选配]`
 > 不配置只是不能显示用户头像而已
@@ -96,13 +101,13 @@ gzip_comp_level 9;
 gzip_types  text/css application/javascript application/json;
 ```
 
-## 四、开发说明
+## 五、开发说明
 配置存储：
 所有配置信息都保存在 `LocalStorage` 中
 - `DiaryConfig`: 用户的配置信息（类别筛选，日期筛选，关键字）
 - `Authorization`: 用户信息（avatar,city,email,geolocation,group_id,nickname,phone,token,uid）
 
-## 五、用到的 npm 包
+## 六、用到的 npm 包
 - `vue3` + `vue-router` + `vuex` 
 - `axios` 
 - `clipboard` 
@@ -113,7 +118,7 @@ gzip_types  text/css application/javascript application/json;
 - `floating-vue`
 - `qiniu-js`
 
-## 六、项目历程
+## 七、项目历程
 1. 2017 年的时候想学 iOS 了顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 `iCloud` 中的，有了 app 的界面样子，但并不能很完美的使用。
 2. 后来过了很久，到 2019 年的时候感觉自己前端技术差不多了，就想把它实现了，最初使用的是 `HTML` + `jQuery`。
 3. 后来对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，添加了 PC 版界面。
@@ -122,18 +127,18 @@ gzip_types  text/css application/javascript application/json;
 
 
 
-## 七、支持
+## 八、支持
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
 
-## 八、项目周期
+## 九、项目周期
 
 > 始于 `2017-09-27`
 
 
-## 九、界面截图 - 详细
+## 十、界面截图 - 详细
 
 **PC**
 
