@@ -2,6 +2,8 @@
 @import "plugin";
 @import "normalize";
 
+@import "login-register"; // menu
+@import "menu"; // menu
 @import "gutter"; // 间隔
 @import "markdown"; // markdown
 @import "form"; // 组件
@@ -75,3 +77,14 @@ body{
 
 
 @import "dark";
+
+// Overwrite DatePicker Style
+
+// plugin style overwrite
+.dp__input{
+  border: none !important;
+}
+
+.dp__icon.dp__input_icon{ // date picker icon
+  display: none !important;
+}

@@ -203,9 +203,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../../scss/plugin";
-
 
 // 对应 tooltip 的样式： theme 名， tooltip-bill
 .v-popper--theme-tooltip-bill {

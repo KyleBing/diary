@@ -620,7 +620,6 @@ export default {
     },
 }
 
-
 // 和风天气 API 天气图标对应： https://dev.qweather.com/docs/start/icons/
 function getWeatherNameFromCode(code){
     let weatherDict = new Map([
@@ -640,6 +639,6 @@ function getWeatherNameFromCode(code){
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./edit";
 </style>
