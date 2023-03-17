@@ -1,12 +1,15 @@
 <template>
     <div class="category-selector">
-        <div class="category-wrapper"
+        <div
+            class="category-wrapper"
             @click="chooseCategory(category.name_en)"
             v-for="category in categoryAll"
             :key="category.name_en">
-            <div class="category"
-                 :style="itemStyle(categorySelected === category.name_en, category)"
-            >{{ category.name }}</div>
+            <div
+                class="category"
+                :style="itemStyle(categorySelected === category.name_en, category)"
+            >{{ category.name }}
+            </div>
         </div>
     </div>
 </template>
@@ -31,7 +34,6 @@ export default {
     computed: {
         ...mapState(['categoryAll']),
         ...mapGetters(['categoryNameMap'])
-
     },
     watch: {
         category() {
@@ -42,7 +44,7 @@ export default {
         }
     },
     methods: {
-        itemStyle(active, category){
+        itemStyle(active, category) {
             if (active) {
                 return `color: white; background-color: ${category.color}`
             } else {

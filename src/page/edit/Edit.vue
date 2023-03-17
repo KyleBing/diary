@@ -15,7 +15,7 @@
                 <textarea
                     ref="textarea"
                     v-model="diary.content"
-                    :style="insets.windowsWidth > 1440 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
+                    :style="insets.windowsWidth > 1366 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     class="content"/>
             </div>

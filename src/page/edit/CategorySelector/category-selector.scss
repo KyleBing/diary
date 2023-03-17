@@ -19,6 +19,7 @@
       }
     }
     .category{
+      white-space: nowrap;
       @extend .unselectable;
       @include border-radius(5px);
       padding: 5px;
@@ -36,7 +37,9 @@
   .category-selector {
     padding: 15px;
     @include border-radius($radius-pc);
-    .category{
+    .category-wrapper{
+      .category{
+      }
     }
   }
 }
@@ -45,24 +48,22 @@
 // MAX
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
   .category-selector{
-    .category{
+    .category-wrapper{
+      .category{
+      }
     }
   }
 }
 
 // IPAD
-@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-big) {
   .category-selector{
-    .category{
+    .category-wrapper{
+      width: 100px;
+      .category{
+      }
     }
   }
 }
 
-// MOBILE
-@media (max-width: $grid-separate-width-md) {
-  .category-selector{
-    .category{
-    }
-  }
-}
 
