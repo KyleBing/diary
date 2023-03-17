@@ -132,7 +132,9 @@ function dateProcess(dateString) {
    }
 
    return {
-      year: year,
+      year,
+      day,
+      month,
       weekday: WEEKDAY[week],
       weekShort: WEEKDAY_SHORT[week],
       dateShort:`${padNumberWith0(month)}-${padNumberWith0(day)}`,

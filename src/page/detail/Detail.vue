@@ -3,16 +3,22 @@
     <div class="diary-detail" id="diaryDetail" :style="`min-height: ${insets.heightPanel}px`">
         <!-- meta MOBILE-->
         <div class="diary-meta" v-if="isInMobileMode && !isLoading">
-            <div class="date" >{{ diary.dateShort }}</div>
-            <div class="weather">
-                <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+            <div class="date-wrapper" v-if="diary.dateObj">
+                <span class="date">{{ diary.dateObj.dateFullSlash + ' ' + diary.dateObj.weekday }}</span>
+                <span class="time">{{ diary.dateObj.time }}</span>
             </div>
 
-            <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
-                <span v-if="diary.temperature">{{ diary.temperature }}</span>
-                <span v-if="diary.temperatureOutside && diary.temperature"> / </span>
-                <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
-                <span> ℃</span>
+            <div class="weather-wrapper">
+                <div class="weather">
+                    <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+                </div>
+
+                <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
+                    <span v-if="diary.temperature">{{ diary.temperature }}</span>
+                    <span v-if="diary.temperatureOutside && diary.temperature"> / </span>
+                    <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
+                    <span> ℃</span>
+                </div>
             </div>
 
             <div class="detail-category" :style="categoryBgColor">
@@ -22,16 +28,22 @@
 
         <!-- meta PC-->
         <div class="diary-meta" v-else>
-            <div class="date">{{ diary.dateLong }}</div>
-            <div class="weather">
-                <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+            <div class="date-wrapper" v-if="diary.dateObj">
+                <span class="date">{{ diary.dateObj.dateFull + ' ' + diary.dateObj.weekday }}</span>
+                <span class="time">{{ diary.dateObj.timeLabel + ' ' + diary.dateObj.time }}</span>
             </div>
 
-            <div class="temperature" v-if="diary.temperature">
-                身处 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperature))]">{{ diary.temperature }}</span> ℃
-            </div>
-            <div class="temperature" v-if="diary.temperatureOutside">
-                室外 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperatureOutside))]">{{ diary.temperatureOutside }}</span> ℃
+            <div class="weather-wrapper">
+                <div class="weather">
+                    <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
+                </div>
+
+                <div class="temperature" v-if="diary.temperature">
+                    身处 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperature))]">{{ diary.temperature }}</span> ℃
+                </div>
+                <div class="temperature" v-if="diary.temperatureOutside">
+                    室外 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperatureOutside))]">{{ diary.temperatureOutside }}</span> ℃
+                </div>
             </div>
 
             <div class="detail-category" :style="categoryBgColor">
@@ -179,20 +191,9 @@ export default {
                     let diary = res.data
                     this.diary = diary
                     this.SET_CURRENT_DIARY(diary) // 设置 store: currentDiary
-                    let dateOjb = utility.dateProcess(diary.date)
-                    document.title = '日记 - ' + dateOjb.dateFull // 变更当前标签的 Title
-                    if (dateOjb.year === new Date().getFullYear()){ // 当不是本年时
-                        this.diary.dateLong = dateOjb.date + ' ' + dateOjb.weekday + ' ' + dateOjb.timeLabel + ' ' + dateOjb.time
-                        this.diary.dateShort = dateOjb.date + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
-                    } else {
-                        if (this.isInMobileMode){ // 手机模式时，显示压缩版的日期
-                            this.diary.dateLong = dateOjb.dateFullSlash + ' ' + dateOjb.weekday + ' ' + dateOjb.timeLabel + ' ' + dateOjb.time
-                            this.diary.dateShort = dateOjb.dateFullSlash + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
-                        } else {
-                            this.diary.dateLong = dateOjb.dateFull + ' ' + dateOjb.weekday + ' ' + dateOjb.timeLabel + ' ' + dateOjb.time
-                            this.diary.dateShort = dateOjb.dateFull + ' ' + dateOjb.weekday +  ' ' + dateOjb.time
-                        }
-                    }
+                    let dateObj = utility.dateProcess(diary.date)
+                    this.diary.dateObj = dateObj
+                    document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
 

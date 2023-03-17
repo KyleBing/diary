@@ -9,21 +9,41 @@ $height-meta: 30px;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
-  .weather{
-    padding: 3px;
-    img{
-      height: $height-meta - 3*2;
-      display: block;
+
+  .weather-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .weather{
+      margin-right: 10px;
+      flex-grow: 1;
+      padding: 3px;
+      img{
+        height: $height-meta - 3*2;
+        display: block;
+      }
+    }
+    .temperature{
+      margin-right: 15px;
+      flex-shrink: 0;
+      font-size: $fz-note;
+      color: $text-date;
+      line-height: $height-meta;
     }
   }
-  .temperature{
-    font-size: $fz-note;
-    color: $text-date;
-    line-height: $height-meta;
-  }
-  .date{
+
+  .date-wrapper{
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
     line-height: $height-meta;
     color: $bg-main;
+    .date{
+
+    }
+    .time{
+      margin-left: 20px;
+    }
   }
 }
 
@@ -98,17 +118,15 @@ $height-meta: 30px;
 }
 
 @media (min-width: $grid-separate-width-md){
-
   .diary-detail{
     padding: 40px 10%;
     margin: 0 auto;
   }
   .diary-meta{
     margin: 0 0 30px;
-    padding: 10px 0;
-
+    padding: 10px 50px;
+    justify-content: space-between;
     @include border-radius($radius-pc);
-    justify-content: space-around;
   }
   .diary-title{
   }

@@ -640,6 +640,6 @@ function getWeatherNameFromCode(code){
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "./edit";
 </style>

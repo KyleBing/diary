@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../scss/plugin";
 $height-menu-list: 50px;
 $height-icon: 35px;
