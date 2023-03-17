@@ -33,7 +33,7 @@
 
 <script>
 import list from "../../page/list/List"
-import Navbar from "../../framework/Navbar"
+import Navbar from "../../framework/navbar/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import ChartPie from "../../components/charts/ChartPie"
 import StatisticInfo from "../../page/statistics/diary/StatisticInfo"
@@ -41,7 +41,7 @@ import TabIcon from "../../components/TabIcon"
 import StatisticCharts from "../../page/statistics/diary/StatisticCharts"
 import statisticApi from "../../api/statisticApi"
 import StatisticUsers from "../../page/statistics/users/StatisticUsers"
-import PageHeader from "../../framework/PageHeader"
+import PageHeader from "../../framework/pageHeader/PageHeader"
 import Loading from "../../components/Loading"
 
 export default {

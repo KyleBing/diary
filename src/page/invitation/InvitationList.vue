@@ -36,7 +36,7 @@ import utility from "../../utility"
 import BankCard from "../../page/bankCard/BankCard"
 import ClipboardJS from "clipboard"
 import TabIcon from "../../components/TabIcon"
-import PageHeader from "../../framework/PageHeader"
+import PageHeader from "../../framework/pageHeader/PageHeader"
 import invitationApi from "../../api/invitationApi";
 
 export default {

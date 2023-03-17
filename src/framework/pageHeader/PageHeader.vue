@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TabIcon from "../components/TabIcon";
+import TabIcon from "../../components/TabIcon";
 export default {
     name: "PageHeader",
     props:{
@@ -21,4 +21,9 @@ export default {
     components: {TabIcon}
 }
 </script>
+
+<style lang="scss">
+@import "page-header";
+</style>
+
 

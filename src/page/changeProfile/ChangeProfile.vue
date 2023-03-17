@@ -195,3 +195,8 @@ export default {
     }
 }
 </script>
+
+
+<style lang="scss">
+@import "./change-profile";
+</style>

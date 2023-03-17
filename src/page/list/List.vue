@@ -39,8 +39,8 @@
 
 <script>
 import utility from "../../utility"
-import diaryListItem from "./DiaryListItem"
-import diaryListItemLong from "./DiaryListItemLong"
+import diaryListItem from "./diaryListItem/DiaryListItem"
+import diaryListItemLong from "./diaryListItemLong/DiaryListItemLong"
 import {mapState, mapMutations, mapGetters} from 'vuex'
 import Loading from "../../components/Loading"
 import diaryApi from "../../api/diaryApi"
@@ -315,3 +315,6 @@ export default {
 
 </script>
 
+<style lang="scss">
+@import "./list";
+</style>

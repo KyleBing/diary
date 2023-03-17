@@ -1,0 +1,109 @@
+@use "sass:color";
+@import "../../../scss/plugin";
+
+.user-list{
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+  .section-title{
+    font-size: 14px;
+  }
+  table{
+    max-width: 100%;
+  }
+  tr{
+    &:nth-child(even){
+      td{
+        background-color: $bg-light-td;
+      }
+    }
+    &:hover{
+      td{
+        background-color: $bg-light-td-hover;
+      }
+    }
+  }
+  th, td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+    font-size: $fz-list-content;
+    padding: 5px 10px;
+    &.highlight{
+      color: $color-main!important;
+    }
+  }
+  th{
+    font-weight: bold;
+    color: $text-content;
+  }
+  td{
+    color: $text-content;
+  }
+}
+
+
+@for $item from 0 through 7 {
+  .date-level-#{$item}{
+    color: color.change($red, $hue: -20deg * $item) !important;
+  }
+}
+
+.date-level-dead{
+  color: $text-title;
+}
+
+@media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
+
+}
+
+
+// ON MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .statistic-user{
+    flex-flow: column nowrap;
+    &>*{
+      width: 100%;
+    }
+  }
+  .user-list{
+    flex-flow: column nowrap;
+    table{
+      width: 100%;
+    }
+    th, td{
+      font-size: 12px;
+      padding: 2px;
+    }
+  }
+}
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .user-list{
+    td{
+      color: $dark-text;
+    }
+    tr {
+      &:hover{
+        td{
+          background-color: $dark-bg-td-active !important;
+        }
+      }
+      td{
+        background-color: $dark-bg-td;
+      }
+      &:nth-child(even) {
+        td {
+          background-color: $dark-bg-td-even;
+        }
+      }
+    }
+    th{
+      color: $dark-text !important;
+    }
+  }
+}
+

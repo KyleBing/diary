@@ -24,7 +24,7 @@
 
 <script>
 import List from "../page/list/List"
-import Navbar from "../framework/Navbar"
+import Navbar from "./navbar/Navbar"
 import {mapGetters, mapMutations, mapState} from 'vuex'
 import statisticApi from "../api/statisticApi";
 

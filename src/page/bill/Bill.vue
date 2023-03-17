@@ -105,7 +105,7 @@ import Loading from "../../components/Loading"
 import {mapState} from "vuex"
 import TabIcon from "../../components/TabIcon"
 import utility from "../../utility"
-import PageHeader from "../../framework/PageHeader"
+import PageHeader from "../../framework/pageHeader/PageHeader"
 
 export default {
     name: "Bill",
@@ -220,5 +220,7 @@ export default {
         border-color: $bg-main;
     }
 }
+
+@import "bill";
 
 </style>

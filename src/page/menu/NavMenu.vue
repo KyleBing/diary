@@ -74,7 +74,7 @@
 <script>
 import utility from "../../utility"
 import MenuCategorySelector from "../../page/menu/MenuCategorySelector"
-import YearSelector from "../../page/menu/YearSelector"
+import YearSelector from "./YearSelector/YearSelector"
 import About from "../../page/about/About"
 import {mapGetters, mapMutations, mapState} from "vuex"
 import packageInfo from "../../../package.json"

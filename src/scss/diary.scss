@@ -1,9 +1,11 @@
 @import "reset";
 @import "plugin";
 @import "normalize";
-@import "mixin";
-@import "gutter";
-@import "markdown";
+
+@import "gutter"; // 间隔
+@import "markdown"; // markdown
+@import "form"; // 组件
+@import "statistics"; // 统计数据
 
 // FRAME
 body{

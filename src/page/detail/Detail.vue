@@ -207,3 +207,7 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+@import "detail";
+</style>

@@ -168,3 +168,6 @@ export default {
 }
 
 </script>
+<style lang="scss">
+@import "./share";
+</style>

@@ -2,10 +2,10 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Index from "./framework/Index";
 import utility from "./utility";
 
-import Register from "./page/register/Register"
-import Login from "./page/register/Login.vue"
-import ChangePassword from "./page/register/ChangePassword.vue"
-import ChangeProfile from  "./page/register/ChangeProfile.vue"
+import Register from "./page/login&register/Register"
+import Login from "./page/login&register/Login.vue"
+import ChangePassword from "./page/login&register/ChangePassword.vue"
+import ChangeProfile from "./page/changeProfile/ChangeProfile.vue"
 import Bill from "./page/bill/Bill"
 import BankCardList from "./page/bankCard/BankCardList"
 import InvitationList from "./page/invitation/InvitationList.vue"
