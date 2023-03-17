@@ -1,3 +1,5 @@
+@import "../../../scss/plugin";
+
 $height-weather: 31px;
 
 .weather-selector{
@@ -31,7 +33,7 @@ $height-weather: 31px;
 
 
 
-// max
+// MAX
 @media (min-width: $grid-separate-width-big){
   .weather-selector {
     @include border-radius($radius-pc);

@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import utility from "../../utility"
-import SvgIcons from "../../assets/img/SvgIcons";
+import utility from "../../../utility"
+import SvgIcons from "../../../assets/img/SvgIcons";
 
 export default {
     name: "WeatherSelector",
@@ -44,3 +44,7 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+@import "./weather-selector";
+</style>

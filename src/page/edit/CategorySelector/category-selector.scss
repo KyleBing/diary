@@ -1,5 +1,7 @@
 @use "sass:math";
 
+@import "../../../scss/plugin";
+
 .category-selector{
   @include border-radius($radius-mobile);
   padding: 15px;
@@ -8,7 +10,7 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   .category-wrapper{
     width: 20%;
     padding: 5px 3px;
@@ -35,14 +37,13 @@
   .category-selector {
     padding: 15px;
     @include border-radius($radius-pc);
-    justify-content: flex-start;
     .category{
     }
   }
 }
 
 
-// max
+// MAX
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
   .category-selector{
     .category{
@@ -61,7 +62,6 @@
 // MOBILE
 @media (max-width: $grid-separate-width-md) {
   .category-selector{
-    justify-content: flex-start;
     .category{
     }
   }

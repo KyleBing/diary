@@ -107,8 +107,8 @@
 
 <script>
 import utility from "../../utility"
-import categorySelector from "./CategorySelector"
-import weatherSelector from "./WeatherSelector"
+import categorySelector from "./CategorySelector/CategorySelector"
+import weatherSelector from "./WeatherSelector/WeatherSelector"
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
 import Moment from 'moment'
