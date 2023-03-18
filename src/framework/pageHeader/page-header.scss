@@ -19,3 +19,10 @@
   .page-back-btn{
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  // Page Header
+  .page-header{
+    background-color: $dark-bg-nav;
+  }
+}

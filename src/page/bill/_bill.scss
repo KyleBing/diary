@@ -251,4 +251,70 @@
     border: 1px solid $dark-border;
     background-color: $dark-bg;
   }
+
+  // BILL
+  .bill-content{
+    background-color: $dark-bg-dark;
+  }
+
+  .income{
+    color: $gradient-aqua;
+  }
+  .output{
+    color: $gradient-pumpkin;
+  }
+  .sum{
+    color: $dark-text-title;
+    &:after{
+      background-color: $dark-border-active !important;
+    }
+  }
+
+  .bill{
+    border-color: $dark-border;
+    background-color: $dark-bg;
+    .bill-header{
+      .title{
+        color: $dark-text-title;
+      }
+    }
+    .bill-brief{
+      background-color: $dark-bg-bill-brief;
+      border-color: $dark-border-active;
+    }
+    table {
+      font-size: $fz-small;
+      tr {
+        background-color: $dark-bg-td;
+        border-color: $dark-border;
+        th{
+          border-color: $dark-border-active;
+        }
+        td{
+          color: $dark-text-bill-price;
+          &.label{
+            color: $dark-text-subtitle
+          }
+        }
+        &:nth-child(even) {
+          background-color: $dark-bg-td-even;
+        }
+        &:hover{
+          td{
+            background-color: black;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .year-selector {
+    .year-selector-item {
+      color: $text-title;
+      label{
+        color: $text-title;
+      }
+    }
+  }
 }

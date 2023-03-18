@@ -24,7 +24,6 @@
 
             <!-- Category Selector -->
             <category-selector
-                class="editor-form-category"
                 :category="diary.category"
                 @change="setCategory"
             />
@@ -97,7 +96,6 @@
                        v-if="diary.category === 'week'"
                        @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>
             <weather-selector
-                class="editor-form-weather"
                 :weather="diary.weather"
                 @change="setWeather"
             />
@@ -640,5 +638,5 @@ function getWeatherNameFromCode(code){
 </script>
 
 <style lang="scss">
-@import "./edit";
+@import "edit";
 </style>

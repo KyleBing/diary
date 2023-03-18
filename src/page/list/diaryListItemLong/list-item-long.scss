@@ -87,3 +87,29 @@ $fz-md-article: 14px;
     }
   }
 }
+
+
+@media (prefers-color-scheme: dark) {
+  .article{
+    background-color: $dark-list-bg;
+    .article-header{
+      //background-color: $dark-list-bg;
+      color: $dark-text-title;
+    }
+    .article-body{
+      background-color: $dark-list-bg;
+      .title{
+        color: $dark-text;
+      }
+      .content {
+        color: $dark-text;
+      }
+    }
+    &.active{
+      .article-header{
+        color: white;
+      }
+    }
+  }
+
+}

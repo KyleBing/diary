@@ -139,3 +139,40 @@ $height-meta: 30px;
     }
   }
 }
+
+
+@media (prefers-color-scheme: dark) {
+// DETAIL
+.diary-detail{
+  background-color: $dark-bg;
+}
+  .diary-meta {
+    background-color: darken($dark-bg, 5%);
+    color: $dark-text;
+    .date {
+      color: $dark-text;
+    }
+    .weather-wrapper{
+      .temperature{
+        color: $dark-text;
+      }
+    }
+  }
+  .diary-title{
+    color: $dark-text-title;
+  }
+  .diary-content{
+    border-top-color: $dark-border-active;
+    color: $dark-text;
+  }
+
+  .date-wrapper{
+    color: $dark-text;
+    .date{
+    }
+    .time{
+      color: $dark-text;
+      margin-left: 20px;
+    }
+  }
+}

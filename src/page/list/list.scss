@@ -75,8 +75,32 @@
 
 // DARK
 @media (prefers-color-scheme: dark) {
+  // SEARCH
+  .search-bar{
+    background-color: $dark-bg-dark;
+    input{
+      background-color: $dark-bg;
+      border-color: $dark-border;
+      color: $dark-text;
+    }
+  }
   .no-diary-list{
     background-color: $dark-bg;
+  }
+
+  .end-of-diary {
+    background-color: $dark-bg;
+  }
+
+  .diary-list-group-container{
+    background-color: $dark-bg-dark;
+  }
+  .diary-list-group{
+    .list-header{
+      border-color: $dark-border !important;
+      background-color: $dark-list-header-bg !important;
+      color: $dark-list-header-text !important;
+    }
   }
 
 }

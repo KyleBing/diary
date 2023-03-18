@@ -67,3 +67,17 @@
 }
 
 
+// DARK
+@media (prefers-color-scheme: dark) {
+  .category-selector{
+    background-color: $dark-bg-dark;
+    border-bottom-color: $dark-border;
+    .category-wrapper {
+      &:hover{
+        .category{
+          background-color: $dark-bg;
+        }
+      }
+    }
+  }
+}

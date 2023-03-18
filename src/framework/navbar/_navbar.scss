@@ -54,3 +54,21 @@
     }
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  // NAVBAR
+  .navbar{
+    background-color: $dark-bg-nav;
+  }
+  .menu-panel{
+    background-color: darken($dark-bg, 3%);
+  }
+
+  .menu-list-group-item{
+    &:after{
+      background-color: $dark-menu-border;
+    }
+  }
+
+}
+

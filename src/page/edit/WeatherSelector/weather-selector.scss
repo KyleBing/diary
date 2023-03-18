@@ -55,3 +55,15 @@ $height-weather: 31px;
 @media (max-width: $grid-separate-width-md) {
 
 }
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .weather-selector{
+    background-color: $dark-bg-dark;
+    border-bottom-color: $dark-border;
+    .weather:hover{
+      background-color: $dark-bg;
+    }
+  }
+}

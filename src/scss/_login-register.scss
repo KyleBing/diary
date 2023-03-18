@@ -173,6 +173,35 @@
 
 
 @media (prefers-color-scheme: dark) {
+
+  // LOGIN AND REGISTER
+  .body-login-bg{
+    background-color: $dark-bg-nav;
+    .input-group {
+      margin-bottom: 15px;
+      label {
+        display: block;
+        line-height: 200%;
+        font-size: $fz-note;
+        color: $bg-light;
+      }
+      input {
+        background-color: $dark-bg;
+        &:focus{
+          background-color: lighten($dark-bg, 3%);
+        }
+      }
+    }
+  }
+  .btn-light{
+    border-color: $dark-border-active;
+    color: $color-main;
+    background-color: $dark-bg;
+    &:hover{
+      background-color: darken($dark-bg, 5%);
+    }
+  }
+
   .input-group{
     &.white{
       label{

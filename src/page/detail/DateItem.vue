@@ -58,4 +58,8 @@ export default {
     margin-left: 5px;
 }
 
+@media (prefers-color-scheme: dark) {
+    color: $dark-text;
+}
+
 </style>

@@ -103,3 +103,39 @@
     }
   }
 }
+
+
+
+
+
+@media (prefers-color-scheme: dark) {
+  // LIST ITEM
+  .diary-list-item{
+    background-color: $dark-list-bg;
+    &:hover{
+      background-color: $dark-list-bg-active;
+    }
+    .date{
+      color: $dark-text;
+    }
+    .detail{
+      .title{
+        color: $dark-text;
+      }
+      &:after{
+        border-bottom-color:$dark-menu-border;
+      }
+    }
+    &.active{
+      .title, .date{
+        color: white;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+      }
+      .detail{
+        &:after{
+          content: none;
+        }
+      }
+    }
+  }
+}
