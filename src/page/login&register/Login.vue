@@ -11,6 +11,10 @@
                     </div>
                 </div>
 
+                <div class="qr-wrapper" id="qrWrapper">
+
+                </div>
+
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
                     <div class="input-group">
                         <label for="email" :class="{red: emailVerified || email.length < 1}">{{ labelEmail }}</label>
@@ -53,6 +57,9 @@ export default {
     mounted() {
         this.show = true
         document.title = '日记 - 登录' // 变更标题
+        this.$nextTick(_=> {
+            this.wxLoginRequest()
+        })
     },
     computed: {
         ...mapState(['insets']),
@@ -67,6 +74,18 @@ export default {
         }
     },
     methods: {
+        wxLoginRequest(){
+            let obj = new WxLogin({
+                self_redirect: true, // 是否自动跳转至 redirect_uri
+                id: "qrWrapper",
+                appid: "",
+                scope: "",
+                redirect_uri: "",
+                state: "",
+                style: "",
+                href: ""
+            })
+        },
         loginSubmit() {
             if (this.verified){
                 this.loginLabel = '登录中...'
