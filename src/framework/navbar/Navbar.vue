@@ -41,6 +41,8 @@
                          @click="switchToCategory('work')">工作</div>
                     <div :class="['btn-text', {active: isInMemoMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('memo')">备忘</div>
+                    <div :class="['btn-text', {active: isInBigEventMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
+                         @click="switchToCategory('bigevent')">大事</div>
                     <div class="btn-text" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('other')">其它</div>
                     <div :class="['btn-text', 'hole', {active: isAllCategorySelected && !isFilterShared}]"  v-show="!isMenuShowed" v-if="!isInMobileMode"
@@ -196,6 +198,9 @@ export default {
         isInMemoMode(){
             return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'memo'
         },
+        isInBigEventMode(){
+            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'bigevent'
+        },
         isInPlayMode(){
             return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'play'
         },
@@ -260,6 +265,10 @@ export default {
                 case 'memo':
                     this.SET_IS_FILTER_SHARED(false)
                     this.SET_FILTERED_CATEGORIES(['memo'])
+                    break;
+                case 'bigevent':
+                    this.SET_IS_FILTER_SHARED(false)
+                    this.SET_FILTERED_CATEGORIES(['bigevent'])
                     break;
                 case 'other':
                     this.SET_IS_FILTER_SHARED(false)
