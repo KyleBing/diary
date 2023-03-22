@@ -96,6 +96,7 @@ $height-icon: 35px;
 }
 @media (prefers-color-scheme: dark) {
     .menu-list-item{
+        color: $dark-text-title;
         .menu-list-item-content{
             &:after{
                 width: 100%;
