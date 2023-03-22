@@ -14,10 +14,14 @@
                 <div :class="['invitation-list-item', {shared: item.is_shared === 1}]"
                      v-for="(item,index) in invitationList" :key="item.id">
                     <div class="index">{{ index + 1 }}</div>
-                    <div
-                        class="invitation-code"
-                        :data-clipboard="item.id"
-                    >{{ item.id }}
+                    <div class="invitation-code-wrapper">
+                        <div
+                            class="invitation-code"
+                            :data-clipboard="item.id"
+                        >{{ item.id }}
+                        </div>
+                        <div class="create-time">{{item.date_create}}</div>
+
                     </div>
                     <div class="operation-btns">
                         <tab-icon alt="关闭" @click="deleteInvitationCode(item.id)"/>
@@ -81,7 +85,10 @@ export default {
                 .then(res => {
                     this.isLoading = false
                     if (res.data) {
-                        this.invitationList = res.data
+                        this.invitationList = res.data.map(item => {
+                            item.date_create = utility.dateFormatter(new Date(item.date_create))
+                            return item
+                        })
                     } else {
                         // 没有设置任何银行卡信息
                     }
@@ -149,7 +156,7 @@ export default {
         align-items: center;
         margin-right: 15px;
         margin-bottom: 15px;
-        padding: 10px 10px 10px 30px;
+        padding: 10px;
         background-color: white;
         @include border-radius($radius-pc);
         border: 1px solid white;
@@ -157,17 +164,27 @@ export default {
         font-family: 'JetBrainsMonoDiary', sans-serif;
         flex-flow: row nowrap;
         .index{
+            flex-shrink: 0;
+            width: 30px;
+            text-align: center;
             color: $magenta;
             font-size: $fz-title;
             font-weight: bold;
             margin-right: 10px;
         }
-        .invitation-code{
-            @extend .btn-like;
-            overflow: hidden;
+        .invitation-code-wrapper{
             flex-grow: 1;
-            font-size: $fz-title;
+            .invitation-code{
+                @extend .btn-like;
+                overflow: hidden;
+                font-size: $fz-title;
+            }
+            .create-time{
+                font-size: $fz-small;
+                color: $text-content;
+            }
         }
+
         .operation-btns{
             display: flex;
             flex-flow: row nowrap;
@@ -176,8 +193,8 @@ export default {
             flex-shrink: 0;
         }
         &.shared{
-            background: linear-gradient(lighten($green, 20%), $green);
-            border-top-color: lighten($green, 20%);
+            background: linear-gradient(lighten($green, 15%), $green);
+            border-top-color: lighten($green, 15%);
             border-bottom-color: $green;
             border-left-color: $green;
             border-right-color: $green;
@@ -213,8 +230,27 @@ export default {
             .index{
                 color: white;
             }
-            .invitation-code{
-                color: $color-main;
+            .invitation-code-wrapper {
+                .invitation-code{
+                    color: $color-main;
+                }
+                .create-time{
+                    color: $color-main;
+                }
+            }
+            &.shared{
+                .index{
+                    color: $text-content;
+                }
+                .invitation-code-wrapper {
+                    .invitation-code{
+                        color: $text-content;
+                    }
+                    .create-time{
+                        color: $text-content;
+                    }
+                }
+
             }
         }
     }
