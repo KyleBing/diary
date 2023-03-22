@@ -59,6 +59,9 @@
   // NAVBAR
   .navbar{
     background-color: $dark-bg-nav;
+    .btn-text{
+      color: $dark-text-title;
+    }
   }
   .menu-panel{
     background-color: darken($dark-bg, 3%);

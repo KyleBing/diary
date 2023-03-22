@@ -170,7 +170,7 @@ $gap: 15px;
             border-left: 3px solid darken(white, 60%);
         }
         a{
-            color: darken(white, 10%);
+            color: $dark-text-title;
         }
     }
 }

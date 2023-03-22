@@ -279,6 +279,7 @@
       }
     }
     .bill-brief{
+      color: $dark-text-title;
       background-color: $dark-bg-bill-brief;
       border-color: $dark-border-active;
     }
@@ -293,7 +294,7 @@
         td{
           color: $dark-text-bill-price;
           &.label{
-            color: $dark-text-subtitle
+            color: $dark-text-title;
           }
         }
         &:nth-child(even) {
