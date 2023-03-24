@@ -161,6 +161,7 @@ export default {
     components: { DiaryBtn, categorySelector, weatherSelector},
     beforeUnmount() {
         this.$refs.textarea.onkeydown = null // 去除按键绑定事件
+        window.onkeydown = null // 去除 edit 页面的绑定事件
     },
     mounted() {
         // 网页标签关闭前提醒
