@@ -13,7 +13,7 @@
             <img alt="Content"
                  v-if="diary.content"
                  class="icon"
-                 :src="isActive? icons.content_white: icons.content"/>
+                 :src="contentIcon"/>
             <img :alt="diary.weather"
                  v-if="diary.weather"
                  class="icon"
@@ -61,6 +61,21 @@ export default {
         diaryItemStyle(){
             if (this.isActive){
                 return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
+            }
+        },
+        contentIcon(){
+            if (this.diary.is_markdown){
+                if (this.isActive){
+                    return this.icons.content_md_white
+                } else {
+                    return this.icons.content_md
+                }
+            } else {
+                if (this.isActive){
+                    return this.icons.content_white
+                } else {
+                    return this.icons.content
+                }
             }
         }
     },

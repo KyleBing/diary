@@ -16,8 +16,10 @@ export default {
     EOF: require('./logo/EOF.svg'),
     // CONTENT
     content: require('./icons/content.svg'),
-    clipboard: require('./icons/clipboard.svg'),
     content_white: require('./icons/content_white.svg'),
+    content_md: require('./icons/content_md.svg'),
+    content_md_white: require('./icons/content_md_white.svg'),
+    clipboard: require('./icons/clipboard.svg'),
     tab: {
         add: require('./tabicon/add.svg'),
         back: require('./tabicon/back.svg'),

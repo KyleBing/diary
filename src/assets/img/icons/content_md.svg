@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>content_md</title>
+    <g id="content_md" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#C7C7CC" x="5.5" y="4.5" width="19" height="21" rx="3"></rect>
+        <polygon id="M" fill="#C7C7CC" fill-rule="nonzero" points="11.1839166 21.0856292 10 21.0856292 10 9.08562919 11.2434847 9.08562919 14.981385 18.6953196 15.0260611 18.6953196 18.7416232 9.08562919 20 9.08562919 20 21.0856292 18.8235294 21.0856292 18.8235294 12.1461945 18.7416232 12.1461945 15.5845123 20.165037 14.4229337 20.165037 11.2434847 12.1461945 11.1839166 12.1461945"></polygon>
+    </g>
+</svg>
