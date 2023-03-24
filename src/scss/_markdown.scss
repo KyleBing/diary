@@ -5,6 +5,13 @@ $gap: 15px;
     color: $text-content;
     font-size: 15px;
 
+    hr{
+        height: 1px;
+        background-color: $color-border;
+        width: 100%;
+        margin: 20px 0;
+    }
+
     p{
         line-height: 1.5;
         margin-bottom: 5px;
@@ -118,6 +125,9 @@ $gap: 15px;
 
 @media (prefers-color-scheme: dark) {
     .markdown{
+        hr{
+            background-color: $dark-border-active;
+        }
 
         @for $item from 1 through 7 {
             h#{$item}{
