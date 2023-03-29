@@ -7,7 +7,7 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
-                        <img :src="formUser.avatar || icons.logoIcon.changeAvatar" alt="Diary Logo">
+                        <img :src="formUser.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.changeAvatar" alt="Diary Logo">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
                 </div>
@@ -80,7 +80,9 @@ export default {
                 city: '',
                 geolocation: '',
             },
-            heightBg: 0
+            heightBg: 0,
+
+            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix
         }
     },
     mounted() {
@@ -131,8 +133,8 @@ export default {
                     event.target.value = '' // 清空 Input 内容
                     return
                 }
-                if (this.avatarFile.size > 1024 * 300){
-                    utility.popMessage('warning', '头像文件应小于 300kb', null, 3)
+                if (this.avatarFile.size > 1024 * 1024 * 3){
+                    utility.popMessage('warning', '头像文件应小于 3M', null, 3)
                     event.target.value = '' // 清空 Input 内容
                     return
                 }

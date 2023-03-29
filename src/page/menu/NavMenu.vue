@@ -32,7 +32,7 @@
 
                 <div class="user-info-panel">
                     <div class="avatar">
-                        <img :src="userInfo.avatar || icons.logoIcon.login" alt="Avatar">
+                        <img :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
                     </div>
                     <div class="user-info mt-2">
                         <div class="user">
@@ -81,6 +81,7 @@ import packageInfo from "../../../package.json"
 import MenuListItem from "../../page/menu/MenuListItem"
 import CategoryIndicator from "../../page/menu/CategoryIndicator"
 import svgIcons from "../../assets/img/SvgIcons"
+import projectConfig from "../../projectConfig";
 
 export default {
     name: "NavMenu",
@@ -101,7 +102,9 @@ export default {
 
             version: packageInfo.version,
 
-            icons: svgIcons
+            icons: svgIcons,
+
+            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix
         }
     },
     mounted() {
