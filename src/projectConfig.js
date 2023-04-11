@@ -3,7 +3,7 @@ export default {
 
     // 七牛云
     // 地址： https://portal.qiniu.com/kodo/overview
-    QiniuImgBaseURL: 'http://diary-container.kylebing.cn/', // 空间域名，最后面带 `/`
+    QiniuImgBaseURL: 'https://diary-container.kylebing.cn/', // 空间域名，最后面带 `/`
     QiniuBucketName: 'diary-container', // 七牛云对象存储空间的名称
     QiniuStyleSuffix: 'thumbnail_600px', // 七牛云图片样式后缀，缩放图片尺寸
 
