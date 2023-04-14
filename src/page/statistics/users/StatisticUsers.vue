@@ -26,7 +26,7 @@
                                 {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 8) }}
                             </td>
                             <td class="text-right number hide-in-mobile">
-                                {{ item.register_time_string.substring(0, item.register_time_string.length - 3) }}
+                                {{ item.register_time_string.substring(0, item.register_time_string.length - 8) }}
                             </td>
                             <td class="number">{{ item.count_diary }}</td>
                             <td class="number">{{ item.count_dict }}</td>
@@ -56,7 +56,7 @@
                                 {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 8) }}
                             </td>
                             <td class="text-right number hide-in-mobile">
-                                {{ item.register_time_string.substring(0, item.register_time_string.length - 3) }}
+                                {{ item.register_time_string.substring(0, item.register_time_string.length - 8) }}
                             </td>
                             <td class="number">{{ item.count_diary }}</td>
                             <td class="number">{{ item.count_dict }}</td>

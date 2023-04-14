@@ -42,7 +42,7 @@ export default {
 
                 dataZoom: [
                     {
-                        startValue: '2014-06-01'
+                        startValue: '2022-06-01'
                     },
                     {
                         type: 'inside'

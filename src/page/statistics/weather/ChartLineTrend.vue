@@ -42,7 +42,7 @@ export default {
 
                 dataZoom: [
                     {
-                        startValue: '2014-06-01'
+                        startValue: '2021-06-01'
                     },
                     {
                         type: 'inside'
@@ -117,7 +117,7 @@ export default {
 
             this.option.series.push({
                 name: '身处温度',
-                data: this.combineData.map(item => item.temperature).reverse(),
+                data: this.combineData.map(item => item.temperature),
                 lineStyle: {
                     width: 2,
                     opacity: 0,
