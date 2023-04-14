@@ -45,7 +45,7 @@ textarea{
   }
   .editor-content{
     textarea{
-      @include transition(height 0.3s);
+      @include transition(all 0.3s);
       padding-bottom: 250px;
       overflow-x: hidden;
       overflow-y: scroll;
@@ -55,7 +55,7 @@ textarea{
       font-size: 1rem;
       &:focus{
         height: 260px;
-        @include transition(height 0.3s);
+        @include transition(all 0.3s);
       }
       &::-webkit-scrollbar {
         z-index: 50;
