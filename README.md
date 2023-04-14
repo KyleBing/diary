@@ -1,7 +1,7 @@
 <img width="100px" src="https://user-images.githubusercontent.com/12215982/225367174-f967aa05-5f35-474e-8ae2-0ea0619bd5d8.svg"/>
 
 # 标题日记
-一个纯文本的日记 web 应用 
+一个纯文本的日记 web 应用，专注于记录生活琐事。
 
 
 > [http://kylebing.cn/diary](http://kylebing.cn/diary)  
@@ -23,7 +23,7 @@
 建议标题字数控制在 20 字以内，这样更方便从列表概览内容。
 
 ### 1. 初衷
-一句话概括自己的一天，一目了然的查看近况。
+每天一句话概括自己的一天。简约而不简单。
 
 ### 2. 主要功能、特性
 - 记录标题、内容。

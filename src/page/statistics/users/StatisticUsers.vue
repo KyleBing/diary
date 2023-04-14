@@ -9,10 +9,10 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="text-left">ID</th>
+                            <th class="">ID</th>
                             <th class="text-left">用户名</th>
 
-                            <th class="text-center">最后访问时间</th>
+                            <th class="">最后访问时间</th>
                             <th class="text-center hide-in-mobile">注册时间</th>
                             <th>日记</th>
                             <th>码表</th>
@@ -20,10 +20,10 @@
                         </thead>
                         <tbody>
                         <tr v-for="item in usersDiary" :key="item.uid">
-                            <td class="number">{{ item.uid }}</td>
-                            <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
+                            <td  class="number id">{{ item.uid }}</td>
+                            <td :class="['text-left', 'name', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
                             <td :class="[ 'text-right', 'number', dateTextLevel(item.last_visit_time_string) ]">
-                                {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 3) }}
+                                {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 8) }}
                             </td>
                             <td class="text-right number hide-in-mobile">
                                 {{ item.register_time_string.substring(0, item.register_time_string.length - 3) }}
@@ -38,10 +38,10 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="text-left">ID</th>
+                            <th class="">ID</th>
                             <th class="text-left">用户名</th>
 
-                            <th class="text-center">最后访问时间</th>
+                            <th class="">最后访问时间</th>
                             <th class="text-center hide-in-mobile">注册时间</th>
                             <th>日记</th>
                             <th>码表</th>
@@ -51,9 +51,9 @@
                         <tbody>
                         <tr v-for="item in usersDict" :key="item.uid">
                             <td class="number">{{ item.uid }}</td>
-                            <td :class="['text-left', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
+                            <td :class="['text-left', 'name', dateTextLevel(item.last_visit_time)]">{{ item.nickname }}</td>
                             <td :class="[ 'text-right', 'number', dateTextLevel(item.last_visit_time_string) ]">
-                                {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 3) }}
+                                {{ item.last_visit_time_string.substring(0, item.last_visit_time_string.length - 8) }}
                             </td>
                             <td class="text-right number hide-in-mobile">
                                 {{ item.register_time_string.substring(0, item.register_time_string.length - 3) }}

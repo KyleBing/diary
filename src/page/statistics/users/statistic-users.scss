@@ -41,6 +41,16 @@
   }
   td{
     color: $text-content;
+    &.no{
+
+    }
+    &.id{
+      width: 50px;
+    }
+    &.name{
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 }
 
