@@ -135,7 +135,9 @@ export default {
                             show: true,
                             position: 'outside',
                             fontSize: 12,
-                            formatter: '{b} {d}%'
+                            formatter: data => {
+                                return `${data.name}\t${Math.ceil(data.percent)}%`
+                            }
                         },
                         emphasis: {
                             itemStyle: {
