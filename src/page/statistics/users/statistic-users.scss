@@ -29,8 +29,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: right;
-    font-size: $fz-list-content;
-    padding: 5px 10px;
+    font-size: $fz-small;
+    padding: 2px 10px;
     &.highlight{
       color: $color-main!important;
     }
