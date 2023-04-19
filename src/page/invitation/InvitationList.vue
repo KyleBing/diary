@@ -102,7 +102,6 @@ export default {
             invitationApi
                 .generate()
                 .then(res => {
-                    utility.popMessage('success', res.message, null)
                     this.getInvitationList()
                 })
                 .catch(err => {
