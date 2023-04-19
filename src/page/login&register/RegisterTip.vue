@@ -10,7 +10,7 @@
                 <li><a target="_blank" href="https://kylebing.cn/diary">标题日记</a></li>
                 <li><a target="_blank" href="https://kylebing.cn/tools/map">路书</a></li>
                 <li><a target="_blank" href="https://kylebing.cn/manager">后台</a></li>
-                <li><a target="_blank" href="https://kylebing.cn/qr">挪车二维码</a></li>
+                <li><a target="_blank" href="https://kylebing.cn/qr?hash=two">挪车二维码</a></li>
                 <li><a target="_blank" href="https://github.com/KyleBing/wubi-dict-editor">五笔码表同步功能</a></li>
             </ol>
             <p>关于邀请码：为了避免恶意注册，注册规则现为一人一码。</p>
