@@ -50,7 +50,11 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' && to.name !== 'Register' && to.name !== 'Share'){
+    if (to.name !== 'Login' &&
+        to.name !== 'Register' &&
+        to.name !== 'Share' &&
+        to.name !== 'Invitation'
+    ){
         if (utility.getAuthorization() && utility.getAuthorization().email){
             next()
         } else {

@@ -1,6 +1,6 @@
 <template>
     <page-header title="邀请码（点击复制）">
-        <tab-icon @click="generateNewInvitationCode" alt="添加"/>
+        <tab-icon v-if="isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
     </page-header>
 
     <div class="invitation-container">
@@ -23,7 +23,7 @@
                         <div class="create-time">{{item.date_create}}</div>
 
                     </div>
-                    <div class="operation-btns">
+                    <div class="operation-btns" v-if="isAdminUser">
                         <tab-icon alt="关闭" @click="deleteInvitationCode(item.id)"/>
                         <tab-icon v-if="item.is_shared === 0" alt="确定" @click="markAsShared(item.id)"/>
                     </div>
@@ -42,6 +42,7 @@ import ClipboardJS from "clipboard"
 import TabIcon from "../../components/TabIcon"
 import PageHeader from "../../framework/pageHeader/PageHeader"
 import invitationApi from "../../api/invitationApi";
+import projectConfig from "../../projectConfig";
 
 export default {
     name: "InvitationList",
@@ -76,7 +77,10 @@ export default {
         ...mapState({
             years: 'statisticsYear',
         }),
-        ...mapState(['insets', 'categoryAll'])
+        ...mapState(['insets', 'categoryAll']),
+        isAdminUser(){
+            return utility.getAuthorization() && utility.getAuthorization().email === projectConfig.adminEmail
+        }
     },
     methods: {
         getInvitationList(){
@@ -172,6 +176,7 @@ export default {
             margin-right: 10px;
         }
         .invitation-code-wrapper{
+            padding-right: 10px;
             flex-grow: 1;
             .invitation-code{
                 @extend .btn-like;
@@ -188,7 +193,6 @@ export default {
             display: flex;
             flex-flow: row nowrap;
             align-items: center;
-            margin-left: 10px;
             flex-shrink: 0;
         }
         &.shared{
