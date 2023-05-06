@@ -9,6 +9,7 @@
                     <div class="logo">
                         <img :src="icons.logoIcon.register" alt="Diary Logo">
                     </div>
+                    <div class="project-name">注册</div>
                 </div>
                 <register-tip/>
 

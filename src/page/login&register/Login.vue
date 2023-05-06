@@ -9,6 +9,7 @@
                     <div class="logo">
                         <img :src="icons.logoIcon.login" alt="Diary Logo">
                     </div>
+                    <div class="project-name">标题日记</div>
                 </div>
 
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
@@ -25,6 +26,9 @@
                 <div class="footer">
                     <router-link to="/register">注册</router-link>
                     <a @click="useTestAccount">试用演示账户</a>
+                </div>
+                <div class="link-btn">
+                    <a target="_blank" href="https://kylebing.cn/diary/#/share/6766">这是个什么玩意？</a>
                 </div>
             </div>
         </transition>
