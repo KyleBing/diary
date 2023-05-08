@@ -10,7 +10,7 @@
             <a href="http://kylebing.cn" class="social-link">🌖 开发者主页</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
             <a>·</a>
-            <a href="https://github.com/KyleBing/diary-vue"> &gt;&gt; 前往开源仓库 &lt;&lt; </a>
+            <a href="https://github.com/KyleBing/diary-vue"> github 开源仓库 </a>
             <a>·</a>
             <a href="">{{dateInit}} ~ {{dateModify}}</a>
         </div>

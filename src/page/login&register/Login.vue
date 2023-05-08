@@ -9,7 +9,6 @@
                     <div class="logo">
                         <img :src="icons.logoIcon.login" alt="Diary Logo">
                     </div>
-                    <div class="project-name">标题日记</div>
                 </div>
 
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
