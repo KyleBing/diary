@@ -174,14 +174,15 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   .share {}
 }
 
+// Mobile
 @media (max-width: $grid-separate-width-sm){
   .share-container{
-    padding: 60px 20px 100px;
+    padding: 0;
   }
   .share{
-    border: none;
-    padding: 20px;
-    width: 100%;
+    padding: 30px 20px;
+    width: auto;
+    @include border-radius(0);
   }
   .share-head{
     flex-flow: column nowrap;
@@ -203,25 +204,13 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     background-color: $color-border;
   }
   .share-meta{
-    align-items: center;
-    justify-content: space-between;
-    flex-flow: row nowrap;
-    .temperature{
-      text-align: left;
-    }
-  }
-}
-
-@media (max-width: $grid-separate-width-xs) {
-  .share-container{
-    padding: 0;
-  }
-  .share{
-    @include border-radius(0);
-  }
-  .share-meta{
     display: none;
   }
+  .back-link{
+    margin: 0;
+    padding: 30px 0;
+  }
+
 }
 
 
