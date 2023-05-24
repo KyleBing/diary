@@ -26,6 +26,11 @@ $height-input: 40px;
     background: linear-gradient(to bottom, lighten(white, 10%), white);
     color: $text-content;
     text-align: center;
+    @include transition(border 0.1s);
+    &:hover{
+      @include transition(border 0.2s);
+      border-color: $color-border-highlight;
+    }
     &:last-child{
       margin-right: 0;
     }
@@ -238,7 +243,6 @@ textarea{
   .append{
     color: $dark-text;
   }
-
   .operation-group{
     .operation-group-item{
       border: 1px solid $dark-border;
@@ -247,6 +251,9 @@ textarea{
       text-align: center;
       &:last-child{
         margin-right: 0;
+      }
+      &:hover{
+        border-color: $dark-border-active;
       }
     }
   }

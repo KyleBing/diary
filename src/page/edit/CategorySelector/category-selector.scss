@@ -18,7 +18,10 @@
         background-color: $bg-light;
       }
     }
+    @include transition(background-color  0.2s);
+
     .category{
+      @include transition(background-color  0.1s);
       white-space: nowrap;
       @extend .unselectable;
       @include border-radius(5px);

@@ -56,18 +56,23 @@ $icon-padding-mobile: 3px;
     width: $height-navbar;
     padding: $icon-padding-pc;
     @extend .btn-like;
+    @include border-radius(50px);
+
 }
 img{
-    transition: all 0.5s;
+    transition: all 0.2s;
     width: $height-navbar - $icon-padding-pc * 2;
     height: $height-navbar - $icon-padding-pc * 2;
     display: block;
     background-color: transparent;
     &:active{
         @include border-radius(50px);
-        background-color: rgba(255,255,255,0.2);
         opacity: 0.8;
         transition: all 0s;
+    }
+    &:hover{
+        @include border-radius(10px);
+        background-color: lighten($bg-menu, 0%);
     }
 }
 @media (max-width: $grid-separate-width-sm) {
