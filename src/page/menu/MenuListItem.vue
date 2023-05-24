@@ -45,6 +45,9 @@ $height-icon: 35px;
     @include border-radius($radius-pc);
     overflow: hidden;
     color: white;
+    &:hover{
+        background-color: lighten($bg-menu, 5%);
+    }
 
     &:active{
         background-color: lighten($bg-menu,10%);
@@ -73,6 +76,7 @@ $height-icon: 35px;
         font-size: $fz-menu;
         height: $height-menu-list;
         line-height: $height-menu-list;
+
         .addon{
             margin-top: 2px; // 抵消靠上的显示错觉
             font-size: $fz-list-content;
@@ -97,6 +101,9 @@ $height-icon: 35px;
 @media (prefers-color-scheme: dark) {
     .menu-list-item{
         color: $dark-text-title;
+        &:hover{
+            background-color: lighten($dark-bg, 0.9);
+        }
         .menu-list-item-content{
             &:after{
                 width: 100%;

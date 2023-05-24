@@ -9,6 +9,34 @@ $height-input: 40px;
   flex-flow: row nowrap;
 }
 
+.operation-group{
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  .operation-group-item{
+    border: 1px solid $color-border;
+    margin-right: 10px;
+    font-size: $fz-main;
+    flex-grow: 1;
+    @extend .btn-like;
+    width: 32%;
+    padding: 8px 10px;
+    @include border-radius($radius-mobile);
+    background: linear-gradient(to bottom, lighten(white, 10%), white);
+    color: $text-content;
+    text-align: center;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+
+.append{
+  color: $text-content;
+}
+
+
 // 编辑器
 textarea{
   width: 100%;
@@ -207,6 +235,21 @@ textarea{
 }
 
 @media (prefers-color-scheme: dark) {
+  .append{
+    color: $dark-text;
+  }
+
+  .operation-group{
+    .operation-group-item{
+      border: 1px solid $dark-border;
+      background: $dark-bg;
+      color: $dark-text;
+      text-align: center;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
 
   // FORM
   input[type=checkbox] + label.switch

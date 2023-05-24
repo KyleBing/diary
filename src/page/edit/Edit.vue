@@ -44,9 +44,16 @@
                                 :clearable="false"
                     />
                 </div>
+                <div class="editor-input-item">
+                    <div class="operation-group">
+                        <div class="operation-group-item" @click="dateMove(-1)">前一天</div>
+                        <div class="operation-group-item" @click="dateMove(0)">现在</div>
+                        <div class="operation-group-item" @click="dateMove(+1)">后一天</div>
+                    </div>
+                </div>
                 <!-- TEMPERATURE -->
                 <div class="editor-input-item">
-                    <label for="temperature">身处 ℃</label>
+                    <label for="temperature">身处</label>
                     <input placeholder="--"
                            class="temperature"
                            type="number"
@@ -54,9 +61,10 @@
                            id="temperature"
                            v-model="diary.temperature"
                     >
+                    <div class="append"> ℃</div>
                 </div>
                 <div class="editor-input-item">
-                    <label for="temperatureOutside">室外 ℃</label>
+                    <label for="temperatureOutside">室外</label>
                     <input placeholder="--"
                            class="temperature"
                            type="number"
@@ -64,7 +72,8 @@
                            id="temperatureOutside"
                            v-model="diary.temperatureOutside"
                     >
-                    <div class="refresh" @click="getCurrentTemperature">刷新</div>
+                    <div class="append"> ℃</div>
+<!--                    <div class="refresh" @click="getCurrentTemperature">刷新</div>-->
                 </div>
                 <div class="editor-input-item">
                     <label for="shareState">共享</label>
@@ -330,6 +339,15 @@ export default {
         },
         diary: {
             handler(newValue) {
+                let dateMomentTemp = new Moment(newValue.date)
+
+                if (dateMomentTemp.isSame(new Date(), 'day')){
+
+                } else {
+                    this.diary.temperature = ''
+                    this.diary.temperatureOutside = ''
+                    this.diary.weather = 'sunny'
+                }
                 this.updateDiaryIcon()
             },
             deep: true
@@ -356,6 +374,22 @@ export default {
             'SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED',
             'SET_CATEGORY_ALL'
         ]),
+
+        // 日期前后移动
+        dateMove(step){
+            switch (step){
+                case -1:
+                case 1:
+                    let dateTemp = new Moment(this.diary.date)
+                    dateTemp.add(step, 'day')
+                    this.diary.date = dateTemp.toDate()
+                    break;
+                case 0:
+                    this.diary.date = new Date()
+                    this.getCurrentTemperature()
+                    break;
+            }
+        },
 
         /**
          * 去除前面的空格
