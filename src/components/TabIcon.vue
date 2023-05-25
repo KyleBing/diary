@@ -88,6 +88,20 @@ img{
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    .icon-btn{
+        &:hover{
+            img{
+                background-color: lighten($dark-bg, 2%);
+            }
+        }
+        &:active{
+            img{
+                background-color: lighten($dark-bg, 6%);
+            }
+        }
+    }
+}
 
 
 </style>

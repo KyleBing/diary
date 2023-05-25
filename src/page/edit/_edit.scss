@@ -261,6 +261,20 @@ textarea{
   .append{
     color: $dark-text;
   }
+  .editor-container{
+    .editor-content{
+      .btn-list{
+        .btn{
+          background-color: $dark-bg-nav;
+          font-weight: normal;
+          padding: 5px 8px;
+          color: $dark-text-title;
+          border: 1px solid $dark-border;
+          font-size: $fz-main;
+        }
+      }
+    }
+  }
   .operation-group{
     .operation-group-item{
       border: 1px solid $dark-border;

@@ -56,7 +56,7 @@ $height-meta: 30px;
     font-size: 1.1rem;
     word-break: break-all;
   }
-  .clipboard{
+  .clipboard-btn{
     position: absolute;
     top: 20px;
     right: 10px;
@@ -176,5 +176,17 @@ $height-meta: 30px;
       color: $dark-text;
       margin-left: 20px;
     }
+  }
+  .clipboard-btn{
+    background-color: transparentize(white, 0.3);
+    border: 1px solid $dark-border;
+    &:hover{
+      background-color: $bg-list-active;
+    }
+    img{
+      display: block;
+      width: 15px;
+    }
+    @extend .btn-like;
   }
 }
