@@ -57,7 +57,7 @@
         <!--TITLE-->
         <div class="diary-title" v-if="diary.title">
             <h2>{{ isHideContent ? diary.title.replace(/[^，。]/g, '*') : diary.title }}</h2>
-            <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
+            <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
                 <img :src="icons.clipboard" alt="clipboard">
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="diary-content" v-if="diary.content">
             <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
             <div v-else class="content" v-html="getContentHtml(diary.content)"/>
-            <div class="clipboard ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
+            <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
                 <img :src="icons.clipboard" alt="clipboard">
             </div>
         </div>

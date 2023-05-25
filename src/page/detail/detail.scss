@@ -72,7 +72,7 @@ $height-meta: 30px;
   margin: 0 20px;
   padding: 20px 0 60px;
   overflow-y: auto;
-  .clipboard{
+  .clipboard-btn{
     position: absolute;
     top: 10px;
     right: 10px;
@@ -94,15 +94,17 @@ $height-meta: 30px;
   }
 }
 
-.clipboard{
+.clipboard-btn{
   padding: 5px;
   @include border-radius(30px);
+  background-color: transparentize(white, 0.5);
+  border: 1px solid $color-border;
   &:hover{
-    background-color: $bg-list-active;
+    background-color: white;
   }
   img{
     display: block;
-    width: 20px;
+    width: 15px;
   }
   @extend .btn-like;
 }
