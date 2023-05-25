@@ -317,14 +317,16 @@ export default {
             if (this.diary.title === '' && this.diary.content === ''){
                 return false
             } else {
-                return (this.diary.title !== this.diaryOrigin.title ||
+                return (
+                    this.diary.title !== this.diaryOrigin.title ||
                     this.diary.content !== this.diaryOrigin.content ||
                     this.diary.temperature !== this.diaryOrigin.temperature ||
                     this.diary.temperatureOutside !== this.diaryOrigin.temperatureOutside ||
                     this.diary.weather !== this.diaryOrigin.weather ||
                     this.diary.category !== this.diaryOrigin.category ||
                     this.diary.isPublic !== this.diaryOrigin.isPublic ||
-                    this.diary.isMarkdown !== this.diaryOrigin.isMarkdown)
+                    this.diary.isMarkdown !== this.diaryOrigin.isMarkdown
+                )
             }
         },
     },
@@ -339,15 +341,7 @@ export default {
         },
         diary: {
             handler(newValue) {
-                let dateMomentTemp = new Moment(newValue.date)
 
-                if (dateMomentTemp.isSame(new Date(), 'day')){
-
-                } else {
-                    this.diary.temperature = ''
-                    this.diary.temperatureOutside = ''
-                    this.diary.weather = 'sunny'
-                }
                 this.updateDiaryIcon()
             },
             deep: true
@@ -377,6 +371,8 @@ export default {
 
         // 日期前后移动
         dateMove(step){
+
+
             switch (step){
                 case -1:
                 case 1:
@@ -388,6 +384,17 @@ export default {
                     this.diary.date = new Date()
                     this.getCurrentTemperature()
                     break;
+            }
+            let dateMomentDiary = new Moment(this.diary.date)
+            let dateMomentDiaryOrigin = new Moment(this.diaryOrigin.date)
+
+            // 当是今天日期、或旧日期和新日期相同时，温湿度、天气不动。
+            if ( dateMomentDiary.isSame(dateMomentDiaryOrigin, 'day')){
+
+            } else {
+                this.diary.temperature = ''
+                this.diary.temperatureOutside = ''
+                this.diary.weather = 'sunny'
             }
         },
 
