@@ -77,6 +77,7 @@ textarea{
     }
   }
   .editor-content{
+    position: relative;
     textarea{
       @include transition(all 0.3s);
       padding-bottom: 250px;
@@ -99,6 +100,19 @@ textarea{
       }
       &::-webkit-scrollbar-thumb {
         border: 1px solid #cbcbcb;
+      }
+    }
+    .btn-list{
+      display: flex;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      .btn{
+        background-color: white;
+        font-weight: normal;
+        padding: 5px 8px;
+        border: 1px solid $color-border;
+        font-size: $fz-main;
       }
     }
   }
@@ -212,6 +226,7 @@ textarea{
 
 // MOBILE
 @media (max-width: $grid-separate-width-md) {
+
   textarea {
     padding: 10px 15px;
   }
@@ -227,6 +242,9 @@ textarea{
     .editor-content{
       textarea{
         padding-bottom: 0;
+      }
+      .btn-list{
+        display: none;
       }
     }
   }

@@ -18,6 +18,9 @@
                     :style="insets.windowsWidth > 1366 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     class="content"/>
+                <div class="btn-list">
+                    <div class="btn" @click="toggleSpaceShow">显示空格</div>
+                </div>
             </div>
         </div>
         <div class="meta-container">
@@ -128,6 +131,7 @@ export default {
     name: 'Edit',
     data() {
         return {
+            spaceIdentifier: '✎', // 为了判断目前是否处于空格显示状态
             isNew: true,
             isLoading: false,
 
@@ -208,7 +212,12 @@ export default {
                     let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
                     let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex)
                     let textBefore = linesBefore.join('\n')
-                    let newCursorLocation = textBefore.length + 1  // -1行末尾 + 1
+                    let newCursorLocation = 0
+                    if (textBefore.length === 0){
+
+                    } else {
+                        newCursorLocation = textBefore.length + 1  // -1行末尾 + 1
+                    }
                     this.$nextTick(_=>{
                         textarea.setSelectionRange(newCursorLocation, newCursorLocation)
                     })
@@ -368,7 +377,17 @@ export default {
             'SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED',
             'SET_CATEGORY_ALL'
         ]),
-
+        toggleSpaceShow(){
+            if (this.diary.content.indexOf(this.spaceIdentifier) > -1){
+                // 显示 space 模式
+                this.diary.content = this.diary.content.substring(0, this.diary.content.length - 1)
+                this.diary.content = this.diary.content.replace(/·/ig, ' ')
+            } else {
+                // 正常模式
+                this.diary.content = this.diary.content.replace(/ /ig, '·')
+                this.diary.content = this.diary.content + this.spaceIdentifier
+            }
+        },
         // 日期前后移动
         dateMove(step){
 
