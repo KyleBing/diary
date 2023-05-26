@@ -145,14 +145,16 @@
 }
 
 .btn-light {
-  border-color: $color-border-light;
-  color: $color-main;
+  font-weight: normal;
+  border-color: $color-border;
+  color: $text-content;
   background-color: white;
 
   &:hover {
     background-color: darken(white, 1%);
   }
 }
+
 
 .btn-inactive {
   color: $gray;
@@ -239,7 +241,7 @@
   }
   .btn-light {
     border-color: $dark-border-active;
-    color: $color-main;
+    color: $dark-text;
     background-color: $dark-bg;
 
     &:hover {

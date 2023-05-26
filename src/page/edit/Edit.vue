@@ -25,12 +25,17 @@
         </div>
         <div class="meta-container">
 
-            <!-- Category Selector -->
-            <category-selector
-                :category="diary.category"
-                @change="setCategory"
-            />
+            <!-- 类别选择 -->
+            <category-selector :category="diary.category" @change="setCategory"/>
 
+            <!--  周报载入按钮  -->
+            <loading-button
+                :is-loading="isLoading"
+                type="light"
+                v-if="diary.category === 'week'"
+                @click="loadCurrentWeekLogs">载入本周工作日志</loading-button>
+
+            <!--  主参数区 -->
             <div class="editor-form-input">
                 <!-- DATE -->
                 <div class="editor-input-item">
@@ -54,7 +59,6 @@
                         <div class="operation-group-item" @click="dateMove(+1)">后一天</div>
                     </div>
                 </div>
-                <!-- TEMPERATURE -->
                 <div class="editor-input-item">
                     <label for="temperature">身处</label>
                     <input placeholder="--"
@@ -104,13 +108,8 @@
                 </div>
             </div>
 
-            <diary-btn :is-loading="isLoading" type="light"
-                       v-if="diary.category === 'week'"
-                       @click="loadCurrentWeekLogs">载入本周工作日志</diary-btn>
-            <weather-selector
-                :weather="diary.weather"
-                @change="setWeather"
-            />
+
+            <weather-selector :weather="diary.weather" @change="setWeather"/>
         </div>
     </div>
 </template>
@@ -122,7 +121,7 @@ import weatherSelector from "./WeatherSelector/WeatherSelector"
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
 import Moment from 'moment'
-import DiaryBtn from "../../components/DiaryBtn"
+import LoadingButton from "../../components/LoadingButton.vue"
 import diaryApi from "../../api/diaryApi"
 import ICONS from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
@@ -171,7 +170,7 @@ export default {
             },
         }
     },
-    components: { DiaryBtn, categorySelector, weatherSelector},
+    components: { LoadingButton, categorySelector, weatherSelector},
     beforeUnmount() {
         this.$refs.textarea.onkeydown = null // 去除按键绑定事件
         window.onkeydown = null // 去除 edit 页面的绑定事件

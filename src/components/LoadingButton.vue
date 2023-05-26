@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    name: "DiaryBtn",
+    name: "LoadingButton",
     props: {
         isLoading: {
             type: Boolean,
