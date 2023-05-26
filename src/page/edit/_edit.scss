@@ -16,12 +16,12 @@ $height-input: 40px;
   justify-content: stretch;
   .operation-group-item{
     border: 1px solid $color-border;
-    margin-right: 10px;
+    margin-right: 20px;
     font-size: $fz-main;
     flex-grow: 1;
     @extend .btn-like;
-    width: 32%;
-    padding: 8px 10px;
+    width: 25%;
+    padding: 5px 10px;
     @include border-radius($radius-mobile);
     background: linear-gradient(to bottom, lighten(white, 10%), white);
     color: $text-content;
