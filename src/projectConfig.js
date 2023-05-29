@@ -3,11 +3,15 @@ export default {
 
     // 七牛云
     // 地址： https://portal.qiniu.com/kodo/overview
-    QiniuImgBaseURL: 'https://diary-container.kylebing.cn/', // 空间域名，最后面带 `/`
-    QiniuBucketName: 'diary-container', // 七牛云对象存储空间的名称
-    QiniuStyleSuffix: 'thumbnail_600px', // 七牛云图片样式后缀，缩放图片尺寸
+    QiniuImgBaseURL: '', // 空间域名，最后面带 `/`
+    QiniuBucketName: '', // 七牛云对象存储空间的名称
+    QiniuStyleSuffix: '', // 七牛云图片样式后缀，缩放图片尺寸
 
     // 和风天气开发 key
     // 地址：https://console.qweather.com/
     HefengWeatherKey: '和风天气的开发key',
+
+    // 注册说明 HTML 格式
+    registerTip: ``
+
 }
