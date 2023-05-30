@@ -66,7 +66,7 @@ export default {
             },
         })
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '卡号已复制到剪贴板', null, 2)
+            utility.popMessage('success', '邀请码已复制到剪贴板', null, 2)
         })
     },
     beforeUnmount() {
