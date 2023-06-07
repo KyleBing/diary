@@ -57,6 +57,8 @@
             </div>
 
             <!--RIGHT part-->
+
+
             <!--NEW-->
             <div class="navbar-btn-group float-right"
                  v-if="(isInMobileMode && $route.name !== 'Detail' && !isMenuShowed) || !isInMobileMode">
@@ -93,6 +95,11 @@
                 <router-link :to="`/edit/${currentDiary.id}`">
                     <tab-icon alt="编辑"/>
                 </router-link>
+            </div>
+
+            <!--CLOCK-->
+            <div class="clock pr-6 float-right" v-if="!isInMobileMode">
+                <Clock/>
             </div>
 
             <div class="brand" v-if="isInMobileMode" @click="toggleListStyle">
@@ -138,11 +145,12 @@ import Loading from "../../components/Loading";
 import diaryApi from "../../api/diaryApi";
 import NavMenu from "../../page/menu/NavMenu";
 import ICONS from "../../assets/img/SvgIcons";
+import Clock from "./Clock";
 
 
 export default {
     name: "Navbar",
-    components: {NavMenu, Loading, MenuCategorySelector, About, TabIcon, YearSelector},
+    components: {Clock, NavMenu, Loading, MenuCategorySelector, About, TabIcon, YearSelector},
     data() {
         return {
             location: {}, // clipboard 使用

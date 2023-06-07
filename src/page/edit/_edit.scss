@@ -144,7 +144,8 @@ textarea{
         line-height: $height-input;
       }
       input{
-        font-family: 'JetBrainsMonoDiary';
+        font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+        font-weight: bold;
         flex-grow: 1;
         padding: 6px 0;
         text-align: right;
