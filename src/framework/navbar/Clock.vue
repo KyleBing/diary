@@ -42,7 +42,7 @@ export default {
             this.clock = {
                 date: utility.dateFormatter(timeNow, 'MM.dd'),
                 week: weekMap.get(String(timeNow.getDay())),
-                time:  utility.dateFormatter(timeNow, 'hh:mm:ss'),
+                time:  utility.dateFormatter(timeNow, 'hh:mm'),
             }
             this.clockStop()
             this.intervalHandleClock = setInterval(()=>{
@@ -50,7 +50,7 @@ export default {
                 this.clock = {
                     date: utility.dateFormatter(timeNow, 'MM.dd'),
                     week: weekMap.get(String(timeNow.getDay())),
-                    time:  utility.dateFormatter(timeNow, 'hh:mm:ss'),
+                    time:  utility.dateFormatter(timeNow, 'hh:mm'),
                 }
             }, 1000)
         },
