@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Index from "./framework/Index";
+import Hole from "./framework/Hole";
 import utility from "./utility";
 
 import Register from "./page/login&register/Register"
@@ -16,6 +17,7 @@ import List from "./page/list/List"
 import Detail from "./page/detail/Detail"
 import Edit from "./page/edit/Edit"
 import NotFound_404 from "./fundation/NotFound_404";
+import ListHole from "./page/listHole/ListHole";
 
 const routes = [
     {
@@ -27,6 +29,14 @@ const routes = [
             {name: 'Detail' , path: 'detail/:id',        component: Detail},
             {name: 'EditNew', path: 'edit'      ,        component: Edit},
             {name: 'Edit'   , path: 'edit/:id'  ,        component: Edit}
+        ]
+    },
+    {
+        name: 'Hole',
+        path: '/hole',
+        component: Hole ,
+        children: [
+            {name: 'ListHole'   , path: 'list'      ,        component: ListHole}, // mobile
         ]
     },
     {name: 'Register',       path: '/register',          component: Register},
