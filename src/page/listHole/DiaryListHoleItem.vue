@@ -5,17 +5,16 @@
                  :style="backgroundColor"
     >
         <div class="diary-list-hole-item">
+            <div class="title">{{diary.title}}</div>
+            <div class="content markdown small" v-if="diary.is_markdown === 1" v-html="contentMarkDownHtml"></div>
+            <div class="content" v-else v-html="diary.contentHtml"></div>
             <div class="meta" :style="backgroundColor">
                 <div class="date">{{diary.dateString}}</div>
                 <div class="week">{{diary.weekday}}</div>
                 <div class="category">{{diary.categoryString}}</div>
             </div>
-            <div class="title" :style="backgroundColor">{{diary.title}}</div>
-            <div class="content markdown small" v-if="diary.is_markdown === 1" v-html="contentMarkDownHtml"></div>
-            <div class="content" v-else v-html="diary.contentHtml"></div>
             <div :style="backgroundColor" class="marker left"></div>
             <div :style="backgroundColor" class="marker right"></div>
-            <div :style="backgroundColor" class="marker top"></div>
             <div :style="backgroundColor" class="marker bottom"></div>
         </div>
     </router-link>
@@ -126,7 +125,6 @@ $animate-width: 5px;
         .title{
             background-color: transparent !important;
             color: black;
-            text-shadow: 1px 1px 0 transparentize(black, 0.8);
         }
         .content{
             color: black;

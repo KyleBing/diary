@@ -56,7 +56,7 @@ export default {
             params: {
                 keywords: [],
                 pageNo: 1,
-                pageSize: 100, // 单页请求条数
+                pageSize: 150, // 单页请求条数
                 categories: [],
                 filterShared: 0, // 1 是筛选，0 是不筛选
                 dateFilter: '' // 日记年月筛选
