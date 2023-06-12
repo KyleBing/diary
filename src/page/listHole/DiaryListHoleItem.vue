@@ -110,6 +110,7 @@ $animate-width: 5px;
     }
     outline: 0 solid transparentize(black, 0.6);
     &:hover{
+        background-color: white;
         .meta{
             opacity: 1;
             top: -30px;
