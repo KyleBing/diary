@@ -32,7 +32,9 @@
                     <tab-icon alt="账单"/>
                 </div>
 
-                <div class="btn-text-group">
+                <NavbarCategorySelector class="ml-5"/>
+
+<!--                <div class="btn-text-group">
                     <div  :class="['btn-text', 'ml-5', {active: isInBillMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
                          @click="switchToCategory('bill')">账单</div>
                     <div :class="['btn-text', {active: isInPlayMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
@@ -49,7 +51,7 @@
                          @click="switchToCategory('all')">全部</div>
                     <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
                          @click="switchToCategory('shared')">共享</div>
-                </div>
+                </div>-->
 
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
                     <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
@@ -146,11 +148,12 @@ import diaryApi from "../../api/diaryApi";
 import NavMenu from "../../page/menu/NavMenu";
 import ICONS from "../../assets/img/SvgIcons";
 import Clock from "./Clock";
+import NavbarCategorySelector from "@/framework/NavbarCategorySelector.vue";
 
 
 export default {
     name: "Navbar",
-    components: {Clock, NavMenu, Loading, MenuCategorySelector, About, TabIcon, YearSelector},
+    components: {NavbarCategorySelector, Clock, NavMenu, Loading, MenuCategorySelector, About, TabIcon, YearSelector},
     data() {
         return {
             location: {}, // clipboard 使用
