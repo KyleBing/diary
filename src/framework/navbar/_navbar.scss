@@ -10,11 +10,14 @@
 .navbar{
   padding: 0 5px 0 0;
   background-color: $bg-main;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 
-  .navbar-btn-group{
-    display: flex;
-  }
   .brand{
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
     cursor: pointer;
     margin: 0 auto;
     height: $height-navbar;
@@ -26,7 +29,24 @@
       height: $height-navbar;
     }
   }
-  .btn-text-group{
+
+  .nav-btn-wrapper{
+    display: flex;
+
+  }
+
+  .nav-part-left{
+    display: flex;
+    justify-content: flex-start;
+
+  }
+
+  .nav-part-right{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+    .btn-text-group{
     display: flex;
     flex-flow: row nowrap;
     height: $height-navbar;

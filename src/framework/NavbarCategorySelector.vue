@@ -1,7 +1,6 @@
 <template>
     <!--category-->
     <div class="navbar-category-filter">
-
         <div class="navbar-category-list">
             <div class="navbar-category-list-item"
                  v-for="(item, index) in categoryAll" :key="index"
@@ -10,10 +9,10 @@
             >{{ item.name }}</div>
         </div>
         <div class="navbar-category-list-special">
+            <div class="navbar-category-list-item" @click="selectCategoryWork" >周报</div>
             <div :class="['navbar-category-list-item', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
             <div class="navbar-category-list-item" @click="selectCategoryAll" >全选</div>
             <div class="navbar-category-list-item" @click="reverseCategorySelect">反选</div>
-            <div class="navbar-category-list-item" @click="selectCategoryWork" >周报</div>
         </div>
     </div>
 
@@ -46,6 +45,7 @@ export default {
         ]),
         toggleFilterShared(){
             this.filterShared = !this.isFilterShared
+            this.SET_IS_FILTER_SHARED(this.filterShared)
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
         toggleCategory(category){
@@ -92,44 +92,47 @@ export default {
                 this.SET_IS_LIST_NEED_BE_RELOAD(true)
             }
         },
-        filterShared(newValue){
-            this.SET_IS_FILTER_SHARED(newValue)
-        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "../scss/plugin";
+$nav-btn-height: 15px;
+
 .navbar-category-filter{
     display: flex;
-    justify-content: flex-start;
 }
 
 .navbar-category-list-special{
+    width: 80px;
     align-items: center;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column wrap;
     justify-content: flex-start;
-    padding: 2.5px;
-    height: 45px;
+    height: $height-navbar;
+    padding: ($height-navbar - $nav-btn-height * 2)/2;
+    .navbar-category-list-item{
+        color: transparentize(white, 0.5);
+    }
 }
 .navbar-category-list{
-    width: 300px;
+    width: 250px;
+    flex-shrink: 0;
     flex-grow: 1;
     align-items: center;
     display: flex;
     flex-flow: column wrap;
     justify-content: flex-start;
-    padding: ($height-navbar - 18 * 2)/2;
+    padding: ($height-navbar - $nav-btn-height * 2)/2;
     height: $height-navbar;
 }
 .navbar-category-list-item{
     font-size: $fz-small;
     padding: 0 5px;
-    height: 18px;
+    height: $nav-btn-height;
     font-weight: normal;
-    line-height: 18px;
+    line-height: $nav-btn-height;
     color: transparentize(white, 0.8);
     @extend .btn-like;
     &.active{

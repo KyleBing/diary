@@ -2,7 +2,7 @@
     <div class="navbar-container">
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
-            <div class="navbar-btn-group float-left">
+            <div class="nav-part-left">
                 <div @click="menuShow"
                      v-if="(!isInMobileMode && !isMenuShowed)
                      || isInMobileMode && $route.name === 'List' && !isMenuShowed">
@@ -31,79 +31,59 @@
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToBill">
                     <tab-icon alt="账单"/>
                 </div>
-
-                <NavbarCategorySelector class="ml-5"/>
-
-<!--                <div class="btn-text-group">
-                    <div  :class="['btn-text', 'ml-5', {active: isInBillMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('bill')">账单</div>
-                    <div :class="['btn-text', {active: isInPlayMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('play')">剧本</div>
-                    <div :class="['btn-text', {active: isInWorkMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('work')">工作</div>
-                    <div :class="['btn-text', {active: isInMemoMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('memo')">备忘</div>
-                    <div :class="['btn-text', {active: isInBigEventMode}]" v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('bigevent')">大事</div>
-                    <div class="btn-text" v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('other')">其它</div>
-                    <div :class="['btn-text', 'hole', {active: isAllCategorySelected && !isFilterShared}]"  v-show="!isMenuShowed" v-if="!isInMobileMode"
-                         @click="switchToCategory('all')">全部</div>
-                    <div :class="['btn-text', {active: isFilterShared}]" v-show="!isMenuShowed"  v-if="!isInMobileMode"
-                         @click="switchToCategory('shared')">共享</div>
-                </div>-->
-
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
                     <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
                 </div>
+                <NavbarCategorySelector class="ml-5"/>
+
             </div>
 
-            <!--RIGHT part-->
+            <div class="nav-part-right">
+                <!--CLOCK-->
+                <div class="clock pr-6" v-if="!isInMobileMode">
+                    <Clock/>
+                </div>
 
+                <!--DETAIL-->
+                <div class="nav-btn-wrapper" v-if="$route.name === 'Detail' && currentDiary">
+                    <div
+                        v-if="currentDiary && currentDiary.is_public === 1"
+                        class="clipboard-trigger"
+                        @click="copySharePath"
+                        :data-clipboard="shareUrl">
+                        <tab-icon alt="分享"/>
+                    </div>
+                    <div @click="toastShow">
+                        <tab-icon alt="删除"/>
+                    </div>
+                    <router-link :to="`/edit/${currentDiary.id}`">
+                        <tab-icon alt="编辑"/>
+                    </router-link>
+                </div>
 
-            <!--NEW-->
-            <div class="navbar-btn-group float-right"
-                 v-if="(isInMobileMode && $route.name !== 'Detail' && !isMenuShowed) || !isInMobileMode">
-                <router-link to="/edit">
+                <!--EDIT-->
+                <div class="nav-btn-wrapper" v-if="$route.name === 'Edit' || $route.name ==='EditNew'">
+                    <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
+                        <tab-icon alt="恢复"/>
+                    </div>
+                    <div v-if="isSavingDiary">
+                        <Loading :height="50" :loading="true"/>
+                    </div>
+                    <div @click="diarySave" v-else>
+                        <tab-icon alt="保存"/>
+                    </div>
+                </div>
+
+                <router-link
+                    v-if="(isInMobileMode && $route.name !== 'Detail' && !isMenuShowed) || !isInMobileMode"
+                    to="/edit"
+                >
                     <tab-icon alt="添加"/>
                 </router-link>
             </div>
 
-            <!--EDIT-->
-            <div class="navbar-btn-group float-right" v-if="$route.name === 'Edit' || $route.name ==='EditNew'">
-                <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
-                    <tab-icon alt="恢复"/>
-                </div>
-                <div v-if="isSavingDiary">
-                    <Loading :height="50" :loading="true"/>
-                </div>
-                <div @click="diarySave" v-else>
-                    <tab-icon alt="保存"/>
-                </div>
-            </div>
 
-            <!--DETAIL-->
-            <div class="navbar-btn-group float-right" v-if="$route.name === 'Detail' && currentDiary">
-                <div
-                    v-if="currentDiary && currentDiary.is_public === 1"
-                    class="clipboard-trigger"
-                    @click="copySharePath"
-                    :data-clipboard="shareUrl">
-                    <tab-icon alt="分享"/>
-                </div>
-                <div @click="toastShow">
-                    <tab-icon alt="删除"/>
-                </div>
-                <router-link :to="`/edit/${currentDiary.id}`">
-                    <tab-icon alt="编辑"/>
-                </router-link>
-            </div>
-
-            <!--CLOCK-->
-            <div class="clock pr-6 float-right" v-if="!isInMobileMode">
-                <Clock/>
-            </div>
-
+            <!--LOGO-->
             <div class="brand" v-if="isInMobileMode" @click="toggleListStyle">
                 <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else-if="isDiaryListShowedInFullStyle"><img :src="icons.logo_content" alt="日记"></a>
@@ -113,6 +93,10 @@
                 <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else><img :src="icons.logo" alt="日记"></a>
             </div>
+
+            <!--RIGHT part-->
+
+
 
             <!-- MENU -->
             <nav-menu/>
@@ -200,26 +184,6 @@ export default {
         shareUrl(){
             return `${location.origin}/diary/#/share/${this.currentDiary.id}`
         },
-        isAllCategorySelected(){
-            return this.filteredCategories.length === this.categoryAll.length
-        },
-        isInBillMode(){
-            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'bill'
-        },
-        isInMemoMode(){
-            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'memo'
-        },
-        isInBigEventMode(){
-            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'bigevent'
-        },
-        isInPlayMode(){
-            return this.filteredCategories.length === 1 && this.filteredCategories[0] === 'play'
-        },
-        isInWorkMode(){
-            return this.filteredCategories.length === 2
-                && this.filteredCategories.some(item => item === 'work')
-                && this.filteredCategories.some(item => item === 'week')
-        },
     },
     methods: {
         ...mapMutations([
@@ -258,50 +222,6 @@ export default {
             this.$router.push({
                 name: 'BankCard'
             })
-        },
-        switchToCategory(mode){
-            switch (mode){
-                case 'bill':
-                    this.SET_IS_FILTER_SHARED(false)
-                    this.SET_FILTERED_CATEGORIES(['bill'])
-                    break;
-                case 'play':
-                    this.SET_IS_FILTER_SHARED(false)
-                    this.SET_FILTERED_CATEGORIES(['play'])
-                    break;
-                case 'work':
-                    this.SET_IS_FILTER_SHARED(false)
-                    this.SET_FILTERED_CATEGORIES(['work', 'week'])
-                    break;
-                case 'memo':
-                    this.SET_IS_FILTER_SHARED(false)
-                    this.SET_FILTERED_CATEGORIES(['memo'])
-                    break;
-                case 'bigevent':
-                    this.SET_IS_FILTER_SHARED(false)
-                    this.SET_FILTERED_CATEGORIES(['bigevent'])
-                    break;
-                case 'other':
-                    this.SET_IS_FILTER_SHARED(false)
-                    const otherArray = this.categoryAll
-                        .filter(item => !/work|week|bill|memo/i.test(item.name_en))
-                        .map(item => item.name_en)
-                    this.SET_FILTERED_CATEGORIES(otherArray)
-                    break;
-                case 'all':
-                    this.SET_IS_FILTER_SHARED(false)
-                    const allArray = this.categoryAll
-                        .map(item => item.name_en)
-                    this.SET_FILTERED_CATEGORIES(allArray)
-                    break;
-                case 'shared':
-                    const all = this.categoryAll
-                        .map(item => item.name_en)
-                    this.SET_FILTERED_CATEGORIES(all)
-                    this.SET_IS_FILTER_SHARED(true)
-                    break;
-            }
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
 
         // 菜单操作
