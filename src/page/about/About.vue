@@ -53,17 +53,17 @@ export default {
         justify-content: center;
         img{
             display: block;
-            width: 70px;
+            width: 80px;
         }
     }
     .title{
-        font-size: $fz-label;
+        font-size: $fz-title;
         font-weight: bold;
         line-height: 1.5;
         color: white;
     }
     .subtitle{
-        font-size: $fz-note;
+        font-size: $fz-label;
         font-weight: 300;
         color: $text-about-subtitle;
     }
