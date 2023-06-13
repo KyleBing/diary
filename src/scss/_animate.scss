@@ -22,16 +22,6 @@
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
-@-webkit-keyframes slideInUp {
-  from {
-    @include transform(translate3d(0, 100%, 0));
-    visibility: visible;
-  }
-  to {
-    @include transform(translate3d(0, 0, 0));
-  }
-}
-
 @-webkit-keyframes slideInDown {
   from {
     -webkit-transform: translate3d(0, -100%, 0);
@@ -279,3 +269,4 @@
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp;
 }
+

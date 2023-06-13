@@ -1,19 +1,41 @@
 <template>
     <!--category-->
     <div class="navbar-category-filter">
-        <div class="navbar-category-list">
-            <div class="navbar-category-list-item"
-                 v-for="(item, index) in categoryAll" :key="index"
-                 :style="categoryMenuItemStyle(item)"
-                 @click="toggleCategory(item)"
-            >{{ item.name }}</div>
-        </div>
-        <div class="navbar-category-list-special">
-            <div class="navbar-category-list-item" @click="selectCategoryWork" >周报</div>
-            <div :class="['navbar-category-list-item', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
-            <div class="navbar-category-list-item" @click="selectCategoryAll" >全选</div>
-            <div class="navbar-category-list-item" @click="reverseCategorySelect">反选</div>
-        </div>
+        <transition
+            enter-active-class="animated-fast slideInRight"
+            leave-active-class="animated-fast slideOutRight"
+        >
+            <div v-if="isIndicatorCollapsed" class="indicator-list" @click="toggleIndicator">
+                <div class="indicator-list-item"
+                     v-for="(item, index) in categoryAll" :key="index"
+                     :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
+                     @click="toggleCategory(item)"
+                />
+                <div class="indicator-list-item" :style="isFilterShared? 'background-color: white':''"/>
+            </div>
+        </transition>
+
+        <transition
+            enter-active-class="animated-fast slideInRight"
+            leave-active-class="animated-fast slideOutRight"
+        >
+            <div class="navbar-category-list-container"  v-if="!isIndicatorCollapsed" >
+                <div class="navbar-category-list">
+                    <div class="navbar-category-list-item"
+                         v-for="(item, index) in categoryAll" :key="index"
+                         :style="categoryMenuItemStyle(item)"
+                         @click="toggleCategory(item)"
+                    >{{ item.name }}</div>
+                    <div :class="['navbar-category-list-item', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
+                </div>
+                <div class="navbar-category-list-special">
+                    <div class="navbar-category-list-item" @click="selectCategoryAll" >全选</div>
+                    <div class="navbar-category-list-item" @click="reverseCategorySelect">反选</div>
+                    <div class="navbar-category-list-item" @click="selectCategoryWork" >周报</div>
+                    <div class="navbar-category-list-item" @click="toggleIndicator">关闭</div>
+                </div>
+            </div>
+        </transition>
     </div>
 
 </template>
@@ -27,7 +49,8 @@ export default {
     data(){
         return {
             filterShared: false, // 是否筛选已共享的日记
-            categories: [] // category
+            categories: [], // category
+            isIndicatorCollapsed: true,  // 是否处于折叠状态
         }
     },
     mounted() {
@@ -43,6 +66,9 @@ export default {
             'SET_IS_FILTER_SHARED',
             'SET_IS_LIST_NEED_BE_RELOAD'
         ]),
+        toggleIndicator(){
+            this.isIndicatorCollapsed = !this.isIndicatorCollapsed
+        },
         toggleFilterShared(){
             this.filterShared = !this.isFilterShared
             this.SET_IS_FILTER_SHARED(this.filterShared)
@@ -54,6 +80,14 @@ export default {
                 this.categories.splice(index, 1)
             } else {
                 this.categories.push(category.name_en)
+            }
+        },
+        indicatorItemStyle(category){
+            if (this.categories.indexOf(category.name_en) > -1){
+                return `background-color: ${category.color};`
+                // return `border-bottom: 1px solid ${category.color};`
+            } else {
+                return ``
             }
         },
         categoryMenuItemStyle(category){
@@ -104,6 +138,11 @@ $nav-btn-height: 15px;
     display: flex;
 }
 
+.navbar-category-list-container{
+    display: flex;
+}
+
+
 .navbar-category-list-special{
     width: 80px;
     align-items: center;
@@ -138,6 +177,37 @@ $nav-btn-height: 15px;
     &.active{
         color: white;
         font-weight: bold;
+        &:hover{
+            color: white;
+        }
+    }
+    &:hover{
+        color: transparentize(white, 0.6);
+    }
+}
+
+$height-indicator: 8px;
+.indicator-list{
+    width: $height-indicator * (8+3);
+    cursor: pointer;
+    @extend .btn-like;
+    height: $height-navbar;
+    padding: ($height-navbar - $height-indicator * 2 - 3)/2 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-flow: column wrap;
+    .indicator-list-item{
+        margin-right: 3px;
+        margin-bottom: 3px;
+        flex-shrink: 0;
+        border: 1px dotted white;
+        height: $height-indicator;
+        width: $height-indicator;
+        @include border-radius(2px);
+        &:nth-child(2n){
+            margin-bottom: 0;
+        }
     }
 }
 

@@ -34,7 +34,7 @@
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
                     <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
                 </div>
-                <NavbarCategorySelector class="ml-5"/>
+                <NavbarCategorySelector v-if="!isMenuShowed" class="ml-5"/>
 
             </div>
 
