@@ -40,7 +40,7 @@ export default {
         clockStart(){
             let timeNow = new Date()
             this.clock = {
-                date: utility.dateFormatter(timeNow, 'MM.dd'),
+                date: utility.dateFormatter(timeNow, 'MM月dd日'),
                 week: weekMap.get(String(timeNow.getDay())),
                 time:  utility.dateFormatter(timeNow, 'hh:mm'),
             }
@@ -48,7 +48,7 @@ export default {
             this.intervalHandleClock = setInterval(()=>{
                 timeNow = new Date()
                 this.clock = {
-                    date: utility.dateFormatter(timeNow, 'MM.dd'),
+                    date: utility.dateFormatter(timeNow, 'MM月dd日'),
                     week: weekMap.get(String(timeNow.getDay())),
                     time:  utility.dateFormatter(timeNow, 'hh:mm'),
                 }
