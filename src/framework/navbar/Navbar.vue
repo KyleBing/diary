@@ -21,10 +21,10 @@
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
                     <tab-icon alt="搜索"/>
                 </div>
-                <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
+<!--                <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
                     <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
                     <tab-icon v-else alt="列表详情"/>
-                </div>
+                </div>-->
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToCard">
                     <tab-icon alt="银行卡"/>
                 </div>

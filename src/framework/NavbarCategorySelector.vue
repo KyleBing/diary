@@ -9,7 +9,6 @@
                 <div class="indicator-list-item"
                      v-for="(item, index) in categoryAll" :key="index"
                      :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
-                     @click="toggleCategory(item)"
                 />
                 <div class="indicator-list-item" :style="isFilterShared? 'background-color: white':''"/>
             </div>
@@ -26,32 +25,35 @@
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
-                    <div :class="['navbar-category-list-item', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
                 </div>
                 <div class="navbar-category-list-special">
+                    <div :class="['navbar-category-list-item', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
                     <div class="navbar-category-list-item" @click="selectCategoryAll" >全选</div>
                     <div class="navbar-category-list-item" @click="reverseCategorySelect">反选</div>
-                    <div class="navbar-category-list-item" @click="selectCategoryWork" >周报</div>
-                    <div class="navbar-category-list-item" @click="toggleIndicator">关闭</div>
+                    <div class="navbar-category-list-item" @click="toggleIndicator">折叠</div>
                 </div>
             </div>
+
         </transition>
     </div>
-
 </template>
 
 <script>
 import utility from "../utility"
 import {mapMutations, mapState} from "vuex"
+import TabIcon from "../components/TabIcon";
 
 export default {
     name: "NavbarCategorySelector",
+    components: {TabIcon},
     data(){
         return {
             filterShared: false, // 是否筛选已共享的日记
             categories: [], // category
-            isIndicatorCollapsed: true,  // 是否处于折叠状态
         }
+    },
+    computed: {
+        ...mapState([ 'categoryAll', 'isFilterShared', 'isIndicatorCollapsed'])
     },
     mounted() {
         this.filterShared = utility.getDiaryConfig().isFilterShared
@@ -64,10 +66,11 @@ export default {
             'SET_IS_FILTER_SHARED',
             'SET_FILTERED_CATEGORIES',
             'SET_IS_FILTER_SHARED',
-            'SET_IS_LIST_NEED_BE_RELOAD'
+            'SET_IS_LIST_NEED_BE_RELOAD',
+            'SET_IS_INDICATOR_COLLAPSED'
         ]),
         toggleIndicator(){
-            this.isIndicatorCollapsed = !this.isIndicatorCollapsed
+            this.SET_IS_INDICATOR_COLLAPSED(!this.isIndicatorCollapsed)
         },
         toggleFilterShared(){
             this.filterShared = !this.isFilterShared
@@ -115,9 +118,7 @@ export default {
             this.categories = ['work', 'week']
         },
     },
-    computed: {
-        ...mapState([ "categoryAll", 'isFilterShared'])
-    },
+
     watch: {
         categories: {
             deep: true,
@@ -144,24 +145,23 @@ $nav-btn-height: 15px;
 
 
 .navbar-category-list-special{
-    width: 80px;
     align-items: center;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row nowrap;
     justify-content: flex-start;
     height: $height-navbar;
-    padding: ($height-navbar - $nav-btn-height * 2)/2;
+    //padding: ($height-navbar - $nav-btn-height * 2)/2;
     .navbar-category-list-item{
         color: transparentize(white, 0.5);
     }
 }
 .navbar-category-list{
-    width: 250px;
+    width: 255px;
     flex-shrink: 0;
     flex-grow: 1;
     align-items: center;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     justify-content: flex-start;
     padding: ($height-navbar - $nav-btn-height * 2)/2;
     height: $height-navbar;
@@ -196,7 +196,7 @@ $height-indicator: 8px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     .indicator-list-item{
         margin-right: 3px;
         margin-bottom: 3px;
