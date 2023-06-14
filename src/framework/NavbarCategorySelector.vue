@@ -57,9 +57,7 @@ export default {
     },
     mounted() {
         this.filterShared = utility.getDiaryConfig().isFilterShared
-        this.$nextTick(() => {
-            this.categories = utility.getDiaryConfig().filteredCategories
-        })
+        this.categories = utility.getDiaryConfig().filteredCategories
     },
     methods: {
         ...mapMutations([
@@ -113,9 +111,6 @@ export default {
                 tempCategories.splice(tempCategories.indexOf(item), 1)
             })
             this.categories = tempCategories
-        },
-        selectCategoryWork(){
-            this.categories = ['work', 'week']
         },
     },
 
