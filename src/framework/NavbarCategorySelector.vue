@@ -172,7 +172,7 @@ $nav-btn-height: 15px;
     height: $nav-btn-height;
     font-weight: normal;
     line-height: $nav-btn-height;
-    color: transparentize(white, 0.8);
+    color: transparentize(white, 0.6);
     @extend .btn-like;
     &.active{
         color: white;
