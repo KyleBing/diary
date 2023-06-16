@@ -65,7 +65,6 @@ export default {
 @import "../../scss/plugin";
 .clock{
     font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
-    font-weight: bold;
     height: $height-navbar;
     align-items: center;
     justify-content: center;

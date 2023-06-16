@@ -25,15 +25,6 @@
         </div>
         <div class="meta-container">
 
-            <!-- 类别选择 -->
-            <category-selector :category="diary.category" @change="setCategory"/>
-
-            <!--  周报载入按钮  -->
-            <loading-button
-                :is-loading="isLoading"
-                type="light"
-                v-if="diary.category === 'week'"
-                @click="loadCurrentWeekLogs">载入本周工作日志</loading-button>
 
             <!--  主参数区 -->
             <div class="editor-form-input">
@@ -43,11 +34,11 @@
                     <Datepicker :editable="false"
                                 :show-now-button="true"
                                 v-model="diary.date"
-                                format="yyyy-MM-dd HH:mm:ss"
+                                format="yyyy/MM/dd HH:mm"
                                 selectText="确定"
                                 cancelText="取消"
                                 locale="zh-CN"
-                                placeholder="---- -- --"
+                                placeholder="---- -- -- --:--"
                                 input-class="date"
                                 :clearable="false"
                     />
@@ -80,7 +71,7 @@
                            v-model="diary.temperatureOutside"
                     >
                     <div class="append"> ℃</div>
-<!--                    <div class="refresh" @click="getCurrentTemperature">刷新</div>-->
+                    <!--                    <div class="refresh" @click="getCurrentTemperature">刷新</div>-->
                 </div>
                 <div class="editor-input-item">
                     <label for="shareState">共享</label>
@@ -107,6 +98,16 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 类别选择 -->
+            <category-selector :category="diary.category" @change="setCategory"/>
+
+            <!--  周报载入按钮  -->
+            <loading-button
+                :is-loading="isLoading"
+                type="light"
+                v-if="diary.category === 'week'"
+                @click="loadCurrentWeekLogs">载入本周工作日志</loading-button>
 
 
             <weather-selector :weather="diary.weather" @change="setWeather"/>

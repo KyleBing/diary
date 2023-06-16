@@ -2,7 +2,8 @@
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>tabicon / menu-black</title>
     <g id="tabicon-/-menu-black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <line x1="11" y1="18.5" x2="35" y2="18.5" id="Path-11" stroke="#4A4A4A" stroke-width="2"></line>
-        <line x1="11" y1="28.5" x2="35" y2="28.5" id="Path-12" stroke="#4A4A4A" stroke-width="2"></line>
+        <line x1="11" y1="22.5" x2="35" y2="22.5" id="Path-11" stroke="#4A4A4A" stroke-width="2"></line>
+        <line x1="11" y1="15.5" x2="35" y2="15.5" id="Path-11-Copy" stroke="#4A4A4A" stroke-width="2"></line>
+        <line x1="11" y1="29.5" x2="35" y2="29.5" id="Path-12" stroke="#4A4A4A" stroke-width="2"></line>
     </g>
 </svg>
