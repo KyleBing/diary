@@ -29,27 +29,10 @@
                                     :add-on-text="`v${version}`"/>
                 </div>
 
+                <user-profile/>
 
-                <div class="user-info-panel">
-                    <div class="avatar">
-                        <img :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
-                    </div>
-                    <div class="user-info mt-2 mb-4">
-                        <div class="user">
-                            <div class="username">{{ userInfo.nickname }}</div>
-                            <div class="email">{{ userInfo.email }}</div>
-                            <div class="operation">
-                                <div class="logout" @click="logout">退出</div>
-                                <div class="logout ml-3" @click="changeProfile">修改</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-if="statisticsCategory.shared > 0" class="statistics">
-                        <p>📍 {{userInfo.city}}</p>
-                        <p>总计 <b>{{ statisticsCategory.amount }}</b> 篇</p>
-                        <p>共享 <b>{{ statisticsCategory.shared }}</b> 篇</p>
-                    </div>
-                </div>
+
+
             </div>
 
             <!-- category-->
@@ -82,10 +65,11 @@ import MenuListItem from "../../page/menu/MenuListItem"
 import CategoryIndicator from "../../page/menu/CategoryIndicator"
 import svgIcons from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
+import UserProfile from "@/page/menu/UserProfile.vue";
 
 export default {
     name: "NavMenu",
-    components: {CategoryIndicator, MenuListItem, About, YearSelector, MenuCategorySelector},
+    components: {UserProfile, CategoryIndicator, MenuListItem, About, YearSelector, MenuCategorySelector},
     data(){
         return {
             // menu
@@ -95,7 +79,6 @@ export default {
             aboutShowed: false,           // about
 
             // menu - category
-            userInfo: utility.getAuthorization(),
             categoriesSet: new Set(),
             originCategories: [],
             originFilterShared: false,
@@ -133,18 +116,6 @@ export default {
             'SET_MENU_SHOWED'
         ]),
         // 是否为管理员 管理员的组别为 1
-        svgIcons() {
-            return svgIcons
-        },
-        changeProfile(){
-            this.$router.push({name: 'ChangeProfile'})
-        },
-        logout() {
-            utility.deleteAuthorization()
-            this.$router.push({name: 'Login'})
-            this.SET_MENU_SHOWED(false)
-        },
-
         goToStatisticPage(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()

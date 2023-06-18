@@ -39,74 +39,6 @@ $menu-category-list-item-height: 40px;
   @extend .btn-like;
 }
 
-.user-info-panel{
-  padding: 30px 60px 50px;
-  .avatar{
-    margin: 0 auto;
-    width: 60px;
-    height: 60px;
-    @include border-radius(50px);
-    outline-width: 1px;
-    overflow: hidden;
-    img{
-      width: 100%;
-      display: block;
-    }
-  }
-  .user-info{
-    margin: 0 auto;
-    padding: 8px 10px;
-    @include border-radius($radius-pc $radius-pc 0 0);
-    display: flex;
-    //background-color: transparentize(white, 0.9);
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    line-height: 1.5;
-    font-size: 13px;
-    white-space: nowrap;
-    color: $text-about-subtitle;
-
-    .user{
-      text-align: center;
-      .username{
-        font-weight: bold;
-        font-size: $fz-label;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-    }
-    .operation{
-      display: flex;
-      justify-content: center;
-      .logout {
-        color: $color-main;
-        opacity: 0.7;
-        @extend .btn-like;
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-  }
-
-  .statistics{
-    margin: 0 auto;
-    margin-top: 1px;
-    padding: 8px 10px;
-    @include border-radius($radius-mobile);
-    display: flex;
-    background-color: transparentize(white, 0.9);
-    justify-content: space-around;
-    align-items: center;
-    line-height: 1.5;
-    font-size: 13px;
-    white-space: nowrap;
-    color: $text-about-subtitle;
-  }
-}
-
 
 
 
@@ -178,7 +110,7 @@ $menu-category-list-item-height: 40px;
   .menu-panel{
     width: $menu-panel-sm;
   }
-  .user-info-panel{
+  .user-profile{
     padding: 30px 50px;
   }
   .menu-category {
@@ -190,7 +122,7 @@ $menu-category-list-item-height: 40px;
 }
 
 @media (max-width: $grid-separate-width-md) {
-  .user-info-panel{
+  .user-profile{
     padding: 30px 50px 50px;
   }
 }
