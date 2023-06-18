@@ -14,7 +14,7 @@ $height-input: 40px;
   width: 100%;
   display: flex;
   justify-content: stretch;
-  .operation-group-item{
+  .operation-group-button{
     border: 1px solid $color-border;
     margin-right: 20px;
     font-size: $fz-main;
@@ -67,7 +67,7 @@ textarea{
     @include transition(-webkit-box-shadow 0.5s);
   }
 }
-.editor-container{
+.section-editor{
   margin-right: 20px;
   flex-grow: 1;
   .editor-title{
@@ -119,11 +119,11 @@ textarea{
 }
 
 // 日记 meta
-.meta-container{
+.section-edit-meta{
   width: 30%;
   .editor-form-input{
     background-color: white;
-    padding: 10px;
+    padding: 10px 20px;
     @include border-radius($radius-pc);
     overflow: hidden;
     justify-content: space-between;
@@ -174,7 +174,7 @@ textarea{
     flex-flow: row nowrap;
     padding: 20px;
   }
-  .meta-container{
+  .section-edit-meta{
     width: 350px;
     display: flex;
     flex-flow: column wrap;
@@ -210,12 +210,12 @@ textarea{
     flex-flow: column nowrap;
     padding: 20px;
   }
-  .editor-container{
+  .section-editor{
     margin-right: 0;
     margin-bottom: 15px;
     flex-grow: 0;
   }
-  .meta-container{
+  .section-edit-meta{
     width: 100%;
     flex-flow: row wrap;
     > * {
@@ -236,7 +236,7 @@ textarea{
     padding: 10px;
 
   }
-  .editor-container{
+  .section-editor{
     margin-right: 0;
     margin-bottom: 15px;
     flex-grow: 0;
@@ -249,9 +249,13 @@ textarea{
       }
     }
   }
-  .meta-container{
+
+  .section-edit-meta{
     width: 100%;
     flex-flow: row wrap;
+    .editor-form-input{
+      @include border-radius($radius-mobile);
+    }
     > * {
       margin-bottom: 15px;
     }
@@ -262,7 +266,7 @@ textarea{
   .append{
     color: $dark-text;
   }
-  .editor-container{
+  .section-editor{
     .editor-content{
       .btn-list{
         .btn{
@@ -277,7 +281,7 @@ textarea{
     }
   }
   .operation-group{
-    .operation-group-item{
+    .operation-group-button{
       border: 1px solid $dark-border;
       background: $dark-bg;
       color: $dark-text;
@@ -337,7 +341,7 @@ textarea{
     background-color: $dark-bg;
   }
 
-  .category-selector{
+  .edit-category-selector{
     border-bottom-color: $dark-border;
     background-color: $dark-bg-dark;
     .category-wrapper{
@@ -357,7 +361,7 @@ textarea{
       }
     }
   }
-  .meta-container{
+  .section-edit-meta{
     .editor-form-input {
       .editor-input-item{
         border-bottom-color: $dark-border;

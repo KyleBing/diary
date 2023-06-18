@@ -1,13 +1,13 @@
 @import "../../../scss/plugin";
 
-$height-weather: 31px;
+$height-weather: 30px;
 
 .weather-selector{
   @include border-radius($radius-mobile);
   display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
-  padding: 15px;
+  padding: 20px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
   .weather{

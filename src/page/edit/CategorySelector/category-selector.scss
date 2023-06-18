@@ -1,9 +1,9 @@
 @use "sass:math";
 @import "../../../scss/plugin";
 
-.category-selector{
+.edit-category-selector{
   @include border-radius($radius-mobile);
-  padding: 15px;
+  padding: 20px;
   background-color: white;
   border-bottom: 1px solid $bg-light;
   display: flex;
@@ -12,7 +12,7 @@
   justify-content: flex-start;
   .category-wrapper{
     width: 20%;
-    padding: 5px 3px;
+    padding: 3px 2px;
     &:hover{
       .category{
         background-color: $bg-light;
@@ -37,8 +37,7 @@
 }
 
 @media (min-width: $grid-separate-width-max){
-  .category-selector {
-    padding: 15px;
+  .edit-category-selector {
     @include border-radius($radius-pc);
     .category-wrapper{
       .category{
@@ -50,7 +49,7 @@
 
 // MAX
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
-  .category-selector{
+  .edit-category-selector{
     .category-wrapper{
       .category{
       }
@@ -60,7 +59,7 @@
 
 // IPAD
 @media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-big) {
-  .category-selector{
+  .edit-category-selector{
     .category-wrapper{
       width: 100px;
       .category{
@@ -72,7 +71,7 @@
 
 // DARK
 @media (prefers-color-scheme: dark) {
-  .category-selector{
+  .edit-category-selector{
     background-color: $dark-bg-dark;
     border-bottom-color: $dark-border;
     .category-wrapper {

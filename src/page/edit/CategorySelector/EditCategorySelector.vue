@@ -1,5 +1,5 @@
 <template>
-    <div class="category-selector">
+    <div class="edit-category-selector">
         <div
             class="category-wrapper"
             @click="chooseCategory(category.name_en)"
@@ -18,7 +18,7 @@
 import {mapGetters, mapState} from "vuex"
 
 export default {
-    name: "CategorySelector",
+    name: "EditCategorySelector",
     props: {
         category: {
             default: 'life',

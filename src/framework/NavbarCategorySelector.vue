@@ -127,6 +127,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 @import "../scss/plugin";
 $nav-btn-height: 15px;
 
@@ -158,7 +159,7 @@ $nav-btn-height: 15px;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    padding: ($height-navbar - $nav-btn-height * 2)/2;
+    padding: math.div($height-navbar - $nav-btn-height * 2, 2);
     height: $height-navbar;
 }
 .navbar-category-list-item{

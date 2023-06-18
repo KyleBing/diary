@@ -1,6 +1,6 @@
 <template>
     <div class="diary-edit" :style="`min-height: ${insets.heightPanel}px`">
-        <div class="editor-container">
+        <div class="section-editor">
             <!-- TITLE -->
             <div class="editor-title">
                 <label  class="hidden"></label>
@@ -23,9 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="meta-container">
-
-
+        <div class="section-edit-meta">
             <!--  主参数区 -->
             <div class="editor-form-input">
                 <!-- DATE -->
@@ -45,9 +43,9 @@
                 </div>
                 <div class="editor-input-item">
                     <div class="operation-group">
-                        <div class="operation-group-item" @click="dateMove(-1)">前一天</div>
-                        <div class="operation-group-item" @click="dateMove(0)">现在</div>
-                        <div class="operation-group-item" @click="dateMove(+1)">后一天</div>
+                        <div class="operation-group-button" @click="dateMove(-1)">前一天</div>
+                        <div class="operation-group-button" @click="dateMove(0)">现在</div>
+                        <div class="operation-group-button" @click="dateMove(+1)">后一天</div>
                     </div>
                 </div>
                 <div class="editor-input-item">
@@ -100,7 +98,7 @@
             </div>
 
             <!-- 类别选择 -->
-            <category-selector :category="diary.category" @change="setCategory"/>
+            <edit-category-selector :category="diary.category" @change="setCategory"/>
 
             <!--  周报载入按钮  -->
             <loading-button
@@ -117,7 +115,7 @@
 
 <script>
 import utility from "../../utility"
-import categorySelector from "./CategorySelector/CategorySelector"
+import EditCategorySelector from "./CategorySelector/EditCategorySelector.vue"
 import weatherSelector from "./WeatherSelector/WeatherSelector"
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
@@ -129,6 +127,11 @@ import projectConfig from "../../projectConfig";
 
 export default {
     name: 'Edit',
+    components: {
+        LoadingButton,
+        EditCategorySelector,
+        weatherSelector
+    },
     data() {
         return {
             spaceIdentifier: '✎', // 为了判断目前是否处于空格显示状态
@@ -171,7 +174,6 @@ export default {
             },
         }
     },
-    components: { LoadingButton, categorySelector, weatherSelector},
     beforeUnmount() {
         this.$refs.textarea.onkeydown = null // 去除按键绑定事件
         window.onkeydown = null // 去除 edit 页面的绑定事件
