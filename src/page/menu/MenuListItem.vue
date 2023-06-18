@@ -66,7 +66,7 @@ $height-icon: 35px;
         }
     }
     .menu-list-item-content{
-        padding: 0 10px 0 5px;
+        padding: 0 10px 0 10px;
         width: 100%;
         display: flex;
         justify-content: space-between;
