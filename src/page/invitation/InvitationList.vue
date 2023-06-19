@@ -17,7 +17,7 @@
                     <div class="invitation-code-wrapper">
                         <div
                             class="invitation-code"
-                            :data-clipboard="item.id"
+                            :data-clipboard="`${item.id}\n\n时效：3天`"
                         >{{ item.id }}
                         </div>
                         <div class="create-time">{{item.date_create}}</div>
