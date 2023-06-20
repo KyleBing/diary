@@ -8,7 +8,7 @@
                id="temperature"
                v-model="temperatureLocal"
         >
-        <div class="unit"> ℃</div>
+        <div class="unit">{{unit}}</div>
     </div>
 </template>
 
@@ -24,6 +24,10 @@ export default {
         modelValue: {
             type: String,
             default: '20'
+        },
+        unit: {
+            type: String,
+            default: '℃'
         }
     },
     mounted() {
@@ -57,37 +61,54 @@ export default {
 <style scoped lang="scss">
 @import "../../scss/plugin";
 
-$height: 70px;
+$height: 60px;
 .temperature-set-item{
     height: $height;
-    width: 49%;
+    //width: 32%;
+    width: 48%;
     @include border-radius($radius-mobile);
-    background-color: $bg-light;
+    //background-color: $bg-light;
+    background-color: white;
     position: relative;
     border: 1px solid $color-border;
+    &:hover{
+        border-color: black;
+        label{
+            color: black;
+        }
+        input{
+            color: black;
+        }
+    }
     input{
+        color: $text-content;
         text-align: center;
         line-height: $height;
         background-color: transparent;
         display: block;
         width: 100%;
-        font-size: 3rem;
+        //font-family: "Galvji", sans-serif;
+        //font-size: 25px;
+        font-size: 2.2rem;
         font-family: "DS-Digital", sans-serif;
         cursor: ns-resize;
     }
     label{
-        top: 5px;
-        left: 5px;
+        padding: 3px 5px;
+        background-color: white;
+        z-index: $z-header;
+        top: -10px;
+        left: 10px;
         font-size: $fz-small;
-        color: $text-content;
+        color: $text-label;
         position: absolute;
     }
     .unit{
         position: absolute;
-        right: 8px;
-        bottom: 8px;
+        right: 5px;
+        bottom: 3px;
         font-size: $fz-list-content;
-        color: $text-content;
+        color: $text-label;
     }
 }
 

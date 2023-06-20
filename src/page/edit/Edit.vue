@@ -25,36 +25,28 @@
         </div>
         <div class="section-edit-meta">
             <!--  主参数区 -->
-            <div class="editor-form-input">
-                <!-- DATE -->
-                <div class="editor-input-item">
-                    <label>日期</label>
-                    <Datepicker :editable="false"
-                                :show-now-button="true"
-                                v-model="diary.date"
-                                format="yyyy/MM/dd HH:mm"
-                                selectText="确定"
-                                cancelText="取消"
-                                locale="zh-CN"
-                                placeholder="---- -- -- --:--"
-                                input-class="date"
-                                :clearable="false"
-                    />
-                </div>
-                <div class="editor-input-item">
-                    <div class="operation-group">
-                        <div class="operation-group-button" @click="dateMove(-1)">前一天</div>
-                        <div class="operation-group-button" @click="dateMove(0)">现在</div>
-                        <div class="operation-group-button" @click="dateMove(+1)">后一天</div>
-                    </div>
-                </div>
+            <div class="editor-form">
 
+                <!-- 日期选择-->
+                <editor-date-selector v-model="diary.date"/>
+
+<!--                <div class="edit-btn-list">
+                    <div class="edit-btn-list-item" @click="dateMove(-1)">前一天</div>
+                    <div class="edit-btn-list-item" @click="dateMove(0)">现在</div>
+                    <div class="edit-btn-list-item" @click="dateMove(+1)">后一天</div>
+                </div>-->
+
+                <!-- 温度设置-->
                 <div class="temperature-wrapper mt-1 mb-1">
                     <temperature-set-item
                         label="身处"
                         v-model="diary.temperature"/>
+<!--                    <temperature-set-item
+                        unit="%RH"
+                        label="湿度"
+                        v-model="diary.temperatureOutside"/>-->
                     <temperature-set-item
-                        label="室外"
+                        label="户外"
                         v-model="diary.temperatureOutside"/>
                 </div>
 
@@ -102,7 +94,7 @@
 
 <script>
 import utility from "../../utility"
-import EditCategorySelector from "./CategorySelector/EditCategorySelector.vue"
+import EditCategorySelector from "./CategorySelector/EditorCategorySelector.vue"
 import weatherSelector from "./WeatherSelector/WeatherSelector"
 import {mapState, mapMutations} from 'vuex'
 import axios from "axios"
@@ -112,10 +104,12 @@ import diaryApi from "../../api/diaryApi"
 import ICONS from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
 import TemperatureSetItem from "./TemperatureSetItem";
+import EditorDateSelector from "./EditorDateSelector";
 
 export default {
     name: 'Edit',
     components: {
+        EditorDateSelector,
         TemperatureSetItem,
         LoadingButton,
         EditCategorySelector,
@@ -381,8 +375,6 @@ export default {
         },
         // 日期前后移动
         dateMove(step){
-
-
             switch (step){
                 case -1:
                 case 1:

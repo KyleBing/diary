@@ -18,7 +18,7 @@
 import {mapGetters, mapState} from "vuex"
 
 export default {
-    name: "EditCategorySelector",
+    name: "EditorCategorySelector",
     props: {
         category: {
             default: 'life',
@@ -59,5 +59,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./category-selector";
+@import "editor-category-selector";
 </style>
