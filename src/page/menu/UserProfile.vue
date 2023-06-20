@@ -111,7 +111,6 @@ export default {
 
     .statistics{
         margin: 0 auto;
-        margin-top: 1px;
         padding: 10px 10px;
         @include border-radius($radius-mobile);
         display: flex;
@@ -122,6 +121,13 @@ export default {
         font-size: 13px;
         white-space: nowrap;
         color: $text-about-subtitle;
+    }
+}
+
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+    .user-profile{
+        padding: 20px 40px 50px;
     }
 }
 

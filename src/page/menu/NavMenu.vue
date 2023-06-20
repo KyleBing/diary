@@ -5,17 +5,19 @@
         leave-active-class="animated-fast slideOutLeft"
     >
         <div class="menu-panel" id="menu-panel" v-if="isMenuShowed" :style="'height:' + insets.heightPanel + 'px'">
+
+            <!-- 菜单列表 -->
             <div class="menu" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
                 <div class="menu-list">
-                    <!--1. 搜索-->
+                    <!-- 1. 搜索 -->
                     <menu-list-item v-if="isInMobileMode"
                                     menu-name="搜索"    :icon="icons.tab.search" @click="menuListClicked('search')"/>
-                    <!--2. 类别筛选-->
+                    <!-- 2. 类别筛选 -->
                     <menu-list-item menu-name="类别筛选" :icon="icons.tab.category" @click="menuListClicked('category')">
-                        <category-indicator v-if="isInMobileMode"/>
+                        <menu-category-indicator v-if="isInMobileMode"/>
                     </menu-list-item>
 
-                    <!--3. 年份筛选-->
+                    <!-- 3. 年份筛选 -->
                     <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"       @click="menuListClicked('year')"
                                     :add-on-text="dateFilter">
                     </menu-list-item>
@@ -29,23 +31,22 @@
                                     :add-on-text="`v${version}`"/>
                 </div>
 
+                <!-- 用户信息 -->
                 <user-profile/>
-
-
 
             </div>
 
-            <!-- category-->
+            <!-- 页面 类别筛选 -->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
                 <menu-category-selector v-if="categoryShowed"/>
             </transition>
 
-            <!-- year selector -->
+            <!-- 页面 年份筛选 -->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
                 <year-selector v-show="yearShowed"/>
             </transition>
 
-            <!--about-->
+            <!-- 页面 关于 -->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
                 <about v-show="aboutShowed"/>
             </transition>
@@ -62,14 +63,21 @@ import About from "../../page/about/About"
 import {mapGetters, mapMutations, mapState} from "vuex"
 import packageInfo from "../../../package.json"
 import MenuListItem from "../../page/menu/MenuListItem"
-import CategoryIndicator from "../../page/menu/CategoryIndicator"
+import MenuCategoryIndicator from "./MenuCategoryIndicator"
 import svgIcons from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
-import UserProfile from "@/page/menu/UserProfile.vue";
+import UserProfile from "../../page/menu/UserProfile.vue";
 
 export default {
     name: "NavMenu",
-    components: {UserProfile, CategoryIndicator, MenuListItem, About, YearSelector, MenuCategorySelector},
+    components: {
+        UserProfile,
+        MenuCategoryIndicator,
+        MenuListItem,
+        About,
+        YearSelector,
+        MenuCategorySelector
+    },
     data(){
         return {
             // menu

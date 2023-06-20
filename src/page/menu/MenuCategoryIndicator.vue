@@ -1,5 +1,5 @@
 <template>
-    <div class="category-indicator">
+    <div class="menu-category-indicator">
         <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
         <div :class="['item' ,{active: filteredCategories.some(category => category === item.name_en)}]"
              :style="filteredCategories.indexOf(item.name_en) > -1? `background-color: ${item.color}`:`border-color: ${item.color}`"
@@ -14,7 +14,7 @@
 import {mapGetters, mapState} from "vuex"
 
 export default {
-    name: "CategoryIndicator",
+    name: "MenuCategoryIndicator",
     data() {
         return {
         }
@@ -42,15 +42,15 @@ export default {
 <style lang="scss" scoped>
 @import "../../scss/plugin";
 
+$item-height: 14px;
+$item-width: 6px;
+$item-radius: 2px;
 
 // 菜单中的类别标识
-.category-indicator{
+.menu-category-indicator{
     display: flex;
     justify-content: flex-start;
 
-    $item-height: 8px;
-    $item-width: 8px;
-    $item-radius: 2px;
     .item{
         margin-left: 4px;
         height: $item-height;
