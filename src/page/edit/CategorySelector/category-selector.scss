@@ -67,6 +67,12 @@
     }
   }
 }
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .edit-category-selector{
+    @include border-radius(0)
+  }
+}
 
 
 // DARK
