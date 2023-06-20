@@ -48,29 +48,16 @@
                         <div class="operation-group-button" @click="dateMove(+1)">后一天</div>
                     </div>
                 </div>
-                <div class="editor-input-item">
-                    <label for="temperature">身处</label>
-                    <input placeholder="--"
-                           class="temperature"
-                           type="number"
-                           name="temperature"
-                           id="temperature"
-                           v-model="diary.temperature"
-                    >
-                    <div class="append"> ℃</div>
+
+                <div class="temperature-wrapper mt-1 mb-1">
+                    <temperature-set-item
+                        label="身处"
+                        v-model="diary.temperature"/>
+                    <temperature-set-item
+                        label="室外"
+                        v-model="diary.temperatureOutside"/>
                 </div>
-                <div class="editor-input-item">
-                    <label for="temperatureOutside">室外</label>
-                    <input placeholder="--"
-                           class="temperature"
-                           type="number"
-                           name="temperature"
-                           id="temperatureOutside"
-                           v-model="diary.temperatureOutside"
-                    >
-                    <div class="append"> ℃</div>
-                    <!--                    <div class="refresh" @click="getCurrentTemperature">刷新</div>-->
-                </div>
+
                 <div class="editor-input-item">
                     <label for="shareState">共享</label>
                     <div class="input">
@@ -124,10 +111,12 @@ import LoadingButton from "../../components/LoadingButton.vue"
 import diaryApi from "../../api/diaryApi"
 import ICONS from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
+import TemperatureSetItem from "./TemperatureSetItem";
 
 export default {
     name: 'Edit',
     components: {
+        TemperatureSetItem,
         LoadingButton,
         EditCategorySelector,
         weatherSelector

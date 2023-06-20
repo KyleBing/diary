@@ -37,6 +37,12 @@ $height-input: 40px;
   }
 }
 
+.temperature-wrapper{
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+}
+
 .append{
   color: $text-content;
 }
@@ -122,6 +128,7 @@ textarea{
 .section-edit-meta{
   width: 30%;
   .editor-form-input{
+    border: 1px solid $color-border;
     background-color: white;
     padding: 10px 20px;
     @include border-radius($radius-pc);

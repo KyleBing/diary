@@ -5,7 +5,7 @@
   @include border-radius($radius-mobile);
   padding: 20px;
   background-color: white;
-  border-bottom: 1px solid $bg-light;
+  border: 1px solid $color-border;
   display: flex;
   flex-flow: row wrap;
   align-items: center;

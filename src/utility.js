@@ -151,11 +151,11 @@ function padNumberWith0(num){
 }
 
 function temperatureProcessSTC(temperature){
-   return temperature === -273 ? '' : temperature
+   return temperature === -273 ? '' : String(temperature)
 }
 
 function temperatureProcessCTS(temperature){
-   return temperature === '' ? -273 : temperature
+   return temperature === '' ? -273 : String(temperature)
 }
 
 

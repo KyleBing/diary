@@ -3,13 +3,13 @@
 $height-weather: 30px;
 
 .weather-selector{
+  border: 1px solid $color-border;
   @include border-radius($radius-mobile);
   display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
   padding: 20px;
   background-color: white;
-  border-bottom: 1px solid $bg-light;
   .weather{
     @include border-radius(50px);
     @extend .unselectable;
