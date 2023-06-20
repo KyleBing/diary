@@ -4,10 +4,12 @@ $fz-article: 13px;
 $fz-md-article: 14px;
 
 .article{
-  margin: 2px 0;
+  margin: 10px;
   overflow: hidden;
   font-size: $fz-article;
   background-color: white;
+  @include border-radius($radius-mobile);
+
   .article-header{
     color: $bg-main;
     @extend .unselectable;
