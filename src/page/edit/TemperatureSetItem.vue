@@ -32,16 +32,23 @@ export default {
     },
     mounted() {
         this.$nextTick(_=> {
-            this.temperatureLocal = Number(this.modelValue)
+            if (this.modelValue === ''){
+                this.temperatureLocal = ''
+            } else {
+                this.temperatureLocal = Number(this.modelValue)
+            }
         })
     },
     data(){
         return {
-            temperatureLocal: 0
+            temperatureLocal: ''
         }
     },
     methods: {
         mouseWheelScrolled(event){
+            if (this.temperatureLocal === ''){
+                this.temperatureLocal = 20 // 数值变化从 20 开始
+            }
             if (event.deltaY > 0){
                 this.temperatureLocal = this.temperatureLocal + 1
             } else {
