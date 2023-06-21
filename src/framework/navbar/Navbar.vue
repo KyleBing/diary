@@ -132,7 +132,7 @@ import diaryApi from "../../api/diaryApi";
 import NavMenu from "../../page/menu/NavMenu";
 import ICONS from "../../assets/img/SvgIcons";
 import Clock from "./Clock";
-import NavbarCategorySelector from "@/framework/NavbarCategorySelector.vue";
+import NavbarCategorySelector from "@/framework/navbar/NavbarCategorySelector.vue";
 
 
 export default {

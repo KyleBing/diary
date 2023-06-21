@@ -43,8 +43,6 @@ export default createStore({
         // BILL
         moneyAccuracy: 1, // 展示的货币精度，小数位数
 
-        // CATEGORY INDICATOR
-        isIndicatorCollapsed: true, // navbar category indicator 是否处于折叠状态
 
     },
     getters: {
@@ -73,9 +71,6 @@ export default createStore({
         },
     },
     mutations: {
-        SET_IS_INDICATOR_COLLAPSED(state, payload){
-            state.isIndicatorCollapsed = payload
-        },
         SET_CATEGORY_ALL(state, payload){
             state.categoryAll = payload
         },

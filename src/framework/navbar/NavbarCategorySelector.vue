@@ -5,32 +5,16 @@
             enter-active-class="animated-fast slideInRight"
             leave-active-class="animated-fast slideOutRight"
         >
-            <div v-if="isIndicatorCollapsed" class="indicator-list" @click="toggleIndicator">
-                <div class="indicator-list-item"
-                     v-for="(item, index) in categoryAll" :key="index"
-                     :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
-                />
-                <div class="indicator-list-item" :style="isFilterShared? 'background-color: white':''"/>
-            </div>
-        </transition>
-
-        <transition
-            enter-active-class="animated-fast slideInRight"
-            leave-active-class="animated-fast slideOutRight"
-        >
-            <div class="navbar-category-list-container"  v-if="!isIndicatorCollapsed" >
+            <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
                     <div class="navbar-category-list-item"
                          v-for="(item, index) in categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
-                </div>
-                <div class="navbar-category-list-special">
-                    <div :class="['navbar-category-list-item', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
-                    <div class="navbar-category-list-item" @click="selectCategoryAll" >全选</div>
-                    <div class="navbar-category-list-item" @click="reverseCategorySelect">反选</div>
-                    <div class="navbar-category-list-item" @click="toggleIndicator">折叠</div>
+                    <div :class="['navbar-category-list-item' ,'ml-3', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
+                    <div class="navbar-category-list-item special" @click="selectCategoryAll" >全选</div>
+                    <div class="navbar-category-list-item special" @click="reverseCategorySelect">反选</div>
                 </div>
             </div>
 
@@ -39,9 +23,9 @@
 </template>
 
 <script>
-import utility from "../utility"
+import utility from "../../utility"
 import {mapMutations, mapState} from "vuex"
-import TabIcon from "../components/TabIcon";
+import TabIcon from "../../components/TabIcon";
 
 export default {
     name: "NavbarCategorySelector",
@@ -53,7 +37,7 @@ export default {
         }
     },
     computed: {
-        ...mapState([ 'categoryAll', 'isFilterShared', 'isIndicatorCollapsed'])
+        ...mapState([ 'categoryAll', 'isFilterShared'])
     },
     mounted() {
         this.filterShared = utility.getDiaryConfig().isFilterShared
@@ -67,9 +51,6 @@ export default {
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_IS_INDICATOR_COLLAPSED'
         ]),
-        toggleIndicator(){
-            this.SET_IS_INDICATOR_COLLAPSED(!this.isIndicatorCollapsed)
-        },
         toggleFilterShared(){
             this.filterShared = !this.isFilterShared
             this.SET_IS_FILTER_SHARED(this.filterShared)
@@ -128,7 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 @use "sass:math";
-@import "../scss/plugin";
+@import "../../scss/plugin";
 $nav-btn-height: 15px;
 
 .navbar-category-filter{
@@ -157,19 +138,23 @@ $nav-btn-height: 15px;
     flex-grow: 1;
     align-items: center;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: flex-start;
     padding: math.div($height-navbar - $nav-btn-height * 2, 2);
     height: $height-navbar;
 }
 .navbar-category-list-item{
     font-size: $fz-small;
-    padding: 0 5px;
+    padding: 0 3px;
     height: $nav-btn-height;
     font-weight: normal;
     line-height: $nav-btn-height;
     color: transparentize(white, 0.6);
     @extend .btn-like;
+    &.special{
+        font-weight: bold;
+        color: transparentize($color-main, 0.4);
+    }
     &.active{
         color: white;
         font-weight: bold;
@@ -178,7 +163,11 @@ $nav-btn-height: 15px;
         }
     }
     &:hover{
-        color: transparentize(white, 0.6);
+        font-weight: bold;
+        color: transparentize(white, 0.2);
+        &.special{
+            color: transparentize($color-main, 0.2);
+        }
     }
 }
 
@@ -188,14 +177,13 @@ $height-indicator: 8px;
     cursor: pointer;
     @extend .btn-like;
     height: $height-navbar;
-    padding: ($height-navbar - $height-indicator * 2 - 3)/2 0;
+    //padding: ($height-navbar - $height-indicator * 2 - 3)/2 0;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     .indicator-list-item{
         margin-right: 3px;
-        margin-bottom: 3px;
         flex-shrink: 0;
         border: 1px dotted white;
         height: $height-indicator;
