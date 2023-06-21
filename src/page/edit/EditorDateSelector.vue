@@ -113,6 +113,7 @@ export default {
 
 .date-selector{
     display: flex;
+    width: 100%;
     flex-flow: column nowrap;
 }
 
