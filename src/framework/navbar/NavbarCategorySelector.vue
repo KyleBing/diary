@@ -42,6 +42,11 @@ export default {
     mounted() {
         this.filterShared = utility.getDiaryConfig().isFilterShared
         this.categories = utility.getDiaryConfig().filteredCategories
+        // 避免上面的触发 watch 所以在后面手动添加 watch
+        this.$watch('categories', newValue => {
+            this.SET_FILTERED_CATEGORIES(newValue)
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+        }, {deep: true})
     },
     methods: {
         ...mapMutations([
@@ -93,16 +98,6 @@ export default {
             this.categories = tempCategories
         },
     },
-
-    watch: {
-        categories: {
-            deep: true,
-            handler(newValue, oldValue){
-                this.SET_FILTERED_CATEGORIES(newValue)
-                this.SET_IS_LIST_NEED_BE_RELOAD(true)
-            }
-        },
-    }
 }
 </script>
 
