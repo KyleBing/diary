@@ -72,14 +72,14 @@ $height: 60px;
 .temperature-set-item{
     height: $height;
     //width: 32%;
-    width: 48%;
+    width: 46%;
     @include border-radius($radius-mobile);
     //background-color: $bg-light;
     background-color: white;
     position: relative;
     border: 1px solid $color-border;
     &:hover{
-        border-color: black;
+        border-color: $color-border-highlight;
         label{
             color: black;
         }

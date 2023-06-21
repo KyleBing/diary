@@ -30,14 +30,8 @@
                 <!-- 日期选择-->
                 <editor-date-selector v-model="diary.date"/>
 
-<!--                <div class="edit-btn-list">
-                    <div class="edit-btn-list-item" @click="dateMove(-1)">前一天</div>
-                    <div class="edit-btn-list-item" @click="dateMove(0)">现在</div>
-                    <div class="edit-btn-list-item" @click="dateMove(+1)">后一天</div>
-                </div>-->
-
                 <!-- 温度设置-->
-                <div class="temperature-wrapper mt-1 mb-1">
+                <div class="temperature-wrapper mt-2 mb-3">
                     <temperature-set-item
                         label="身处"
                         v-model="diary.temperature"/>

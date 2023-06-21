@@ -1,7 +1,11 @@
 <template>
+    <div class="date-meta">
+        <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
+        <div class="weekday">{{lunarObject.ncWeek}}</div>
+    </div>
     <div class="date-set-item">
-<!--        <label>日期</label>-->
         <Datepicker
+            @wheel="mouseWheelScrolled"
             :editable="false"
             :show-now-button="true"
             v-model="dateLocal"
@@ -17,6 +21,7 @@
 </template>
 
 <script>
+import calendar from "js-calendar-converter"
 import Moment from "moment/moment";
 
 export default {
@@ -34,15 +39,36 @@ export default {
     },
     data(){
         return {
-            dateLocal: new Date()
+            dateLocal: new Date(),
+            lunarObject: {
+                // Animal: "兔",
+                // IDayCn: "初十",
+                // IMonthCn: "九月",
+                // Term: null,
+                // astro: "天蝎座",
+                // cDay: 1,
+                // cMonth: 11,
+                // cYear: 1987,
+                // gzDay: "甲寅",
+                // gzMonth: "庚戌",
+                // gzYear: "丁卯",
+                // isLeap: false,
+                // isTerm: false,
+                // isToday: false,
+                // lDay: 10,
+                // lMonth: 9,
+                // lYear: 1987,
+                // nWeek: 7,
+                // ncWeek: "星期日"
+            }
         }
     },
     methods: {
         mouseWheelScrolled(event){
             if (event.deltaY > 0){
-                this.dateLocal = this.dateLocal + 1
+                this.dateMove(1)
             } else {
-                this.dateLocal = this.dateLocal - 1
+                this.dateMove(-1)
             }
         },
         // 日期前后移动
@@ -50,7 +76,7 @@ export default {
             switch (step) {
                 case -1:
                 case 1:
-                    let dateTemp = new Moment(this.diary.date)
+                    let dateTemp = new Moment(this.dateLocal)
                     dateTemp.add(step, 'day')
                     this.dateLocal = dateTemp.toDate()
                     this.$emit('update:modelValue', this.dateLocal)
@@ -65,6 +91,16 @@ export default {
     watch: {
         modelValue(newValue){
             this.dateLocal = newValue
+        },
+        dateLocal(newValue){
+            console.log(newValue,                 newValue.getFullYear(),
+                newValue.getMonth(),
+                newValue.getDate())
+            this.lunarObject = calendar.solar2lunar(
+                newValue.getFullYear(),
+                newValue.getMonth() + 1,
+                newValue.getDate()
+            )
         }
     }
 }
@@ -85,9 +121,20 @@ export default {
     display: none !important;
 }
 
+.date-meta{
+    padding: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    color: $text-label;
+    .lunar{}
+    .weekday{
+
+    }
+}
 
 $height: 60px;
 .date-set-item{
+    box-sizing: content-box;
     height: $height;
     width: 100%;
     @include border-radius($radius-mobile);
@@ -96,7 +143,8 @@ $height: 60px;
     position: relative;
     border: 1px solid $color-border;
     &:hover{
-        border-color: black;
+        //background-color: $bg-light;
+        border-color: $color-border-highlight;
         label{
             color: black;
         }
@@ -110,8 +158,9 @@ $height: 60px;
         background-color: transparent;
         display: block;
         width: 100%;
-        font-family: "Galvji", sans-serif;
-        font-size: 25px;
+        //font-family: "Galvji", sans-serif;
+        font-size: 28px;
+        letter-spacing: 1px;
         //font-size: 2.3rem;
         //font-family: "DS-Digital", sans-serif;
         line-height: 40px;
