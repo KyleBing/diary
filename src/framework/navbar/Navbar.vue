@@ -6,7 +6,7 @@
                 <div @click="menuShow"
                      v-if="(!isInMobileMode && !isMenuShowed)
                      || isInMobileMode && $route.name === 'List' && !isMenuShowed">
-                    <tab-icon alt="菜单"/>
+                    <tab-icon alt="LOGO"/>
                 </div>
                 <div @click="menuClose" v-if="isMenuShowed">
                     <tab-icon alt="关闭"/>
@@ -85,7 +85,8 @@
             </div>
 
 
-            <!--LOGO-->
+<!--
+            &lt;!&ndash;LOGO&ndash;&gt;
             <div class="brand" v-if="isInMobileMode" @click="toggleListStyle">
                 <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else-if="isDiaryListShowedInFullStyle"><img :src="icons.logo_content" alt="日记"></a>
@@ -95,6 +96,7 @@
                 <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else><img :src="icons.logo" alt="日记"></a>
             </div>
+-->
 
 
             <!-- MENU -->

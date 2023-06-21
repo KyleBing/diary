@@ -93,9 +93,6 @@ export default {
             this.dateLocal = newValue
         },
         dateLocal(newValue){
-            console.log(newValue,                 newValue.getFullYear(),
-                newValue.getMonth(),
-                newValue.getDate())
             this.lunarObject = calendar.solar2lunar(
                 newValue.getFullYear(),
                 newValue.getMonth() + 1,

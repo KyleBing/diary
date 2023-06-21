@@ -59,7 +59,11 @@ export default {
     },
     watch:{
         modelValue(newValue){
-            this.temperatureLocal = Number(newValue)
+            if (newValue === ''){
+                this.temperatureLocal = ''
+            } else {
+                this.temperatureLocal = Number(newValue)
+            }
         }
     }
 }
@@ -71,7 +75,6 @@ export default {
 $height: 60px;
 .temperature-set-item{
     height: $height;
-    //width: 32%;
     width: 46%;
     @include border-radius($radius-mobile);
     //background-color: $bg-light;
