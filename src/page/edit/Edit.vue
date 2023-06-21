@@ -1,6 +1,6 @@
 <template>
-    <div class="diary-edit" :style="`min-height: ${insets.heightPanel}px`">
-        <div class="section-editor">
+    <div class="diary-edit-container" :style="`min-height: ${insets.heightPanel}px`">
+        <div class="diary-edit-content">
             <!-- TITLE -->
             <div class="editor-title">
                 <label  class="hidden"></label>
@@ -18,12 +18,12 @@
                     :style="insets.windowsWidth > 1366 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     class="content"/>
-                <div class="btn-list">
-                    <div class="btn" @click="toggleSpaceShow">显示空格</div>
+                <div class="editor-float-btn">
+                    <button-small @click="toggleSpaceShow">显示空格</button-small>
                 </div>
             </div>
         </div>
-        <div class="section-edit-meta">
+        <div class="diary-edit-meta">
             <!--  主参数区 -->
             <div class="editor-form">
 
@@ -35,10 +35,6 @@
                     <temperature-set-item
                         label="身处"
                         v-model="diary.temperature"/>
-<!--                    <temperature-set-item
-                        unit="%RH"
-                        label="湿度"
-                        v-model="diary.temperatureOutside"/>-->
                     <temperature-set-item
                         label="户外"
                         v-model="diary.temperatureOutside"/>
@@ -99,10 +95,12 @@ import ICONS from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
 import TemperatureSetItem from "./TemperatureSetItem";
 import EditorDateSelector from "./EditorDateSelector";
+import ButtonSmall from "@/components/ButtonSmall";
 
 export default {
     name: 'Edit',
     components: {
+        ButtonSmall,
         EditorDateSelector,
         TemperatureSetItem,
         LoadingButton,

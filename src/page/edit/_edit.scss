@@ -3,7 +3,7 @@
 // NEW
 $height-input: 40px;
 
-.diary-edit{
+.diary-edit-container{
   background-color: $bg-light;
   display: flex;
   flex-flow: row nowrap;
@@ -13,10 +13,6 @@ $height-input: 40px;
   display: flex;
   justify-content: space-between;
   flex-flow: row nowrap;
-}
-
-.append{
-  color: $text-content;
 }
 
 
@@ -43,7 +39,7 @@ textarea{
   }
 }
 
-.section-editor{
+.diary-edit-content{
   margin-right: 20px;
   flex-grow: 1;
   .editor-title{
@@ -79,55 +75,17 @@ textarea{
         border: 1px solid #cbcbcb;
       }
     }
-    .btn-list{
+    .editor-float-btn{
       display: flex;
       position: absolute;
       bottom: 10px;
       left: 10px;
-      .btn{
-        background-color: white;
-        font-weight: normal;
-        padding: 5px 8px;
-        border: 1px solid $color-border;
-        font-size: $fz-main;
-      }
     }
   }
 }
-
-
-.edit-btn-list{
-  width: 100%;
-  display: flex;
-  justify-content: stretch;
-  margin-bottom: 10px;
-  .edit-btn-list-item{
-    border: 1px solid $color-border;
-    font-size: $fz-main;
-    margin-right: 10px;
-    flex-grow: 1;
-    @extend .btn-like;
-    width: 25%;
-    padding: 5px 10px;
-    @include border-radius($radius-mobile);
-    background: linear-gradient(to bottom, lighten(white, 10%), white);
-    color: $text-content;
-    text-align: center;
-    @include transition(border 0.1s);
-    &:hover{
-      color: black;
-      @include transition(border 0);
-      border-color: black;
-    }
-    &:last-child{
-      margin-right: 0;
-    }
-  }
-}
-
 
 // 日记 meta
-.section-edit-meta{
+.diary-edit-meta{
   width: 30%;
   .editor-form{
     border: 1px solid $color-border;
@@ -179,11 +137,11 @@ textarea{
 
 // PC
 @media (min-width: $grid-separate-width-big){
-  .diary-edit{
+  .diary-edit-container{
     flex-flow: row nowrap;
     padding: 20px;
   }
-  .section-edit-meta{
+  .diary-edit-meta{
     width: 350px;
     display: flex;
     flex-flow: column wrap;
@@ -215,16 +173,16 @@ textarea{
 
 // IPAD
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
-  .diary-edit{
+  .diary-edit-container{
     flex-flow: column nowrap;
     padding: 20px;
   }
-  .section-editor{
+  .diary-edit-content{
     margin-right: 0;
     margin-bottom: 15px;
     flex-grow: 0;
   }
-  .section-edit-meta{
+  .diary-edit-meta{
     width: 100%;
     flex-flow: row wrap;
     > * {
@@ -239,11 +197,11 @@ textarea{
   textarea {
     padding: 10px 15px;
   }
-  .diary-edit {
+  .diary-edit-container {
     flex-flow: column nowrap;
     padding: 0 0 80px;
   }
-  .section-editor{
+  .diary-edit-content{
     margin-right: 0;
     margin-bottom: 15px;
     flex-grow: 0;
@@ -263,7 +221,7 @@ textarea{
     }
   }
 
-  .section-edit-meta{
+  .diary-edit-meta{
     width: 100%;
     flex-flow: row wrap;
     .editor-form{
@@ -276,37 +234,6 @@ textarea{
 }
 
 @media (prefers-color-scheme: dark) {
-  .append{
-    color: $dark-text;
-  }
-  .section-editor{
-    .editor-content{
-      .btn-list{
-        .btn{
-          background-color: $dark-bg-nav;
-          font-weight: normal;
-          padding: 5px 8px;
-          color: $dark-text-title;
-          border: 1px solid $dark-border;
-          font-size: $fz-main;
-        }
-      }
-    }
-  }
-  .edit-btn-list{
-    .edit-btn-list-item{
-      border: 1px solid $dark-border;
-      background: $dark-bg;
-      color: $dark-text;
-      text-align: center;
-      &:last-child{
-        margin-right: 0;
-      }
-      &:hover{
-        border-color: $dark-border-active;
-      }
-    }
-  }
 
   // FORM
   input[type=checkbox] + label.switch
@@ -327,7 +254,7 @@ textarea{
   }
 
   // EDIT
-  .diary-edit{
+  .diary-edit-container{
     background-color: $dark-bg;
   }
   textarea{
@@ -350,6 +277,7 @@ textarea{
       border: 1px solid $dark-border-active !important;
     }
   }
+
   .year-container{
     background-color: $dark-bg;
   }
@@ -374,7 +302,7 @@ textarea{
       }
     }
   }
-  .section-edit-meta{
+  .diary-edit-meta{
     .editor-form {
       .editor-input-item{
         border-bottom-color: $dark-border;

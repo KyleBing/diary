@@ -1,8 +1,5 @@
 <template>
-    <div class="date-meta">
-        <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
-        <div class="weekday">{{lunarObject.ncWeek}}</div>
-    </div>
+
     <div class="date-set-item">
         <Datepicker
             @wheel="mouseWheelScrolled"
@@ -17,6 +14,10 @@
             input-class="date"
             :clearable="false"
         />
+    </div>
+    <div class="date-meta">
+        <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
+        <div class="weekday">{{lunarObject.ncWeek}}</div>
     </div>
 </template>
 
@@ -138,7 +139,6 @@ $height: 60px;
     //background-color: $bg-light;
     background-color: white;
     position: relative;
-    border: 1px solid $color-border;
     &:hover{
         //background-color: $bg-light;
         border-color: $color-border-highlight;
