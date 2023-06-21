@@ -48,8 +48,7 @@ export default {
             'SET_IS_FILTER_SHARED',
             'SET_FILTERED_CATEGORIES',
             'SET_IS_FILTER_SHARED',
-            'SET_IS_LIST_NEED_BE_RELOAD',
-            'SET_IS_INDICATOR_COLLAPSED'
+            'SET_IS_LIST_NEED_BE_RELOAD'
         ]),
         toggleFilterShared(){
             this.filterShared = !this.isFilterShared

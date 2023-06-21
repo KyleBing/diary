@@ -34,17 +34,19 @@
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
                     <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
                 </div>
-                <NavbarCategorySelector v-if="!isInMobileMode" class="ml-5"/>
+
+
+                <NavbarCategorySelector v-if="!isInMobileMode && !isMenuShowed" class="ml-5"/>
 
             </div>
 
             <div class="nav-part-right">
-                <!--CLOCK-->
+                <!--时钟-->
                 <div class="clock pr-6" v-if="!isInMobileMode">
                     <Clock/>
                 </div>
 
-                <!--DETAIL-->
+                <!--详情按钮-->
                 <div class="nav-btn-wrapper" v-if="$route.name === 'Detail' && currentDiary">
                     <div
                         v-if="currentDiary && currentDiary.is_public === 1"
@@ -61,7 +63,7 @@
                     </router-link>
                 </div>
 
-                <!--EDIT-->
+                <!--编辑按钮-->
                 <div class="nav-btn-wrapper" v-if="$route.name === 'Edit' || $route.name ==='EditNew'">
                     <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
                         <tab-icon alt="恢复"/>
@@ -93,9 +95,6 @@
                 <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
                 <a v-else><img :src="icons.logo" alt="日记"></a>
             </div>
-
-            <!--RIGHT part-->
-
 
 
             <!-- MENU -->
