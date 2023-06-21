@@ -14,7 +14,7 @@
                                     menu-name="搜索"    :icon="icons.tab.search" @click="menuListClicked('search')"/>
                     <!-- 2. 类别筛选 -->
                     <menu-list-item menu-name="类别筛选" :icon="icons.tab.category" @click="menuListClicked('category')">
-                        <menu-category-indicator v-if="isInMobileMode"/>
+                        <menu-category-indicator/>
                     </menu-list-item>
 
                     <!-- 3. 年份筛选 -->

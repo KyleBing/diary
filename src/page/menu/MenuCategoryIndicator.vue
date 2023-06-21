@@ -40,9 +40,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 @import "../../scss/plugin";
 
-$item-height: 14px;
+$item-height: 12px;
 $item-width: 6px;
 $item-radius: 2px;
 
@@ -52,7 +53,7 @@ $item-radius: 2px;
     justify-content: flex-start;
 
     .item{
-        margin-left: 4px;
+        margin-left: math.div($item-width, 2);
         height: $item-height;
         width: $item-width;
         display: block;
