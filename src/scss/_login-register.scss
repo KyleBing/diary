@@ -203,7 +203,7 @@
   .body-login {
     padding-bottom: 80px;
     padding-top: 0;
-    width: $menu-panel-sm;
+    width: $menu-panel-big;
     margin-left: auto;
     margin-right: auto;
 
@@ -215,7 +215,6 @@
 
 
 @media (prefers-color-scheme: dark) {
-
   // LOGIN AND REGISTER
   .body-login-bg {
     background-color: $dark-bg-nav;
