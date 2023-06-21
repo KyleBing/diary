@@ -42,9 +42,7 @@
 
             <div class="nav-part-right">
                 <!--时钟-->
-                <div class="clock pr-6" v-if="!isInMobileMode">
-                    <Clock/>
-                </div>
+                <Clock class="pr-6" v-if="!isInMobileMode"/>
 
                 <!--详情按钮-->
                 <div class="nav-btn-wrapper" v-if="$route.name === 'Detail' && currentDiary">

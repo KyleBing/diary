@@ -1,7 +1,7 @@
 @import "../../scss/plugin";
 
 // NEW
-$height-input: 40px;
+
 
 .diary-edit-container{
   background-color: $bg-light;
@@ -90,15 +90,24 @@ textarea{
   > *{
     margin-bottom: 20px;
   }
+
+
   .editor-form{
     border: 1px solid $color-border;
     background-color: white;
-    padding: 20px 25px;
+    padding: 25px 25px;
     @include border-radius($radius-pc);
     overflow: hidden;
     justify-content: space-between;
     display: flex;
     flex-flow: row wrap;
+  }
+
+  $height-input: 35px;
+  .editor-meta-switches{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
     .editor-form-item{
       width: 45%;
       align-items: center;
@@ -112,9 +121,6 @@ textarea{
         @extend .unselectable;
         color: $text-label;
         line-height: $height-input;
-      }
-      &.no-border{
-        border: none;
       }
       &:hover{
         @include border-radius($radius-mobile);
@@ -148,7 +154,6 @@ textarea{
     align-items: flex-start;
     .editor-form-item{
       height: auto;
-      padding: 5px 20px;
       &:last-child{
         margin-bottom: 0;
       }
@@ -171,6 +176,12 @@ textarea{
   .diary-edit-meta{
     width: 100%;
     flex-flow: row wrap;
+    .editor-form {
+      display: flex;
+      .editor-meta-switches{
+        width: 50%;
+      }
+    }
   }
 }
 
@@ -211,6 +222,7 @@ textarea{
       margin-bottom: 15px;
     }
     .editor-form{
+      width: 100%;
       @include border-radius(0);
     }
   }

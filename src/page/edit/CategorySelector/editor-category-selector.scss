@@ -2,7 +2,7 @@
 @import "../../../scss/plugin";
 
 .edit-category-selector{
-  @include border-radius($radius-mobile);
+  @include border-radius($radius-pc);
   padding: 20px;
   background-color: white;
   border: 1px solid $color-border;
@@ -50,6 +50,7 @@
 // MAX
 @media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
   .edit-category-selector{
+    @include border-radius($radius-pc);
     .category-wrapper{
       .category{
       }
@@ -58,8 +59,9 @@
 }
 
 // IPAD
-@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-big) {
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .edit-category-selector{
+    @include border-radius($radius-pc);
     .category-wrapper{
       width: 100px;
       .category{
@@ -67,6 +69,13 @@
     }
   }
 }
+
+@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
+  .edit-category-selector{
+    @include border-radius(0)
+  }
+}
+
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
   .edit-category-selector{

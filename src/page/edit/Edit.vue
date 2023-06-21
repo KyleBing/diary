@@ -29,42 +29,43 @@
                 <!-- 日期选择-->
                 <editor-date-selector v-model="diary.date"/>
 
-
-                <div class="editor-form-item">
-                    <label for="markdown">身处</label>
-                    <temperature-set-item
-                        unit="℃"
-                        v-model="diary.temperature"/>
-                </div>
-                <div class="editor-form-item">
-                    <label for="markdown">室外</label>
-                    <temperature-set-item
-                        unit="℃"
-                        v-model="diary.temperatureOutside"/>
-                </div>
-
-                <div class="editor-form-item no-border">
-                    <label for="shareState">共享</label>
-                    <div class="input">
-                        <input class="share"
-                               type="checkbox"
-                               name="share"
-                               id="shareState"
-                               v-model="diary.isPublic"
-                        >
-                        <label class="switch" for="shareState"></label>
+                <div class="editor-meta-switches">
+                    <div class="editor-form-item">
+                        <label for="markdown">身处</label>
+                        <temperature-set-item
+                            unit="℃"
+                            v-model="diary.temperature"/>
                     </div>
-                </div>
-                <div class="editor-form-item no-border">
-                    <label for="markdown">MD</label>
-                    <div class="input">
-                        <input class="share"
-                               type="checkbox"
-                               name="share"
-                               id="markdown"
-                               v-model="diary.isMarkdown"
-                        >
-                        <label class="switch" for="markdown"></label>
+                    <div class="editor-form-item">
+                        <label for="markdown">室外</label>
+                        <temperature-set-item
+                            unit="℃"
+                            v-model="diary.temperatureOutside"/>
+                    </div>
+
+                    <div class="editor-form-item">
+                        <label for="shareState">共享</label>
+                        <div class="input">
+                            <input class="share"
+                                   type="checkbox"
+                                   name="share"
+                                   id="shareState"
+                                   v-model="diary.isPublic"
+                            >
+                            <label class="switch" for="shareState"></label>
+                        </div>
+                    </div>
+                    <div class="editor-form-item">
+                        <label for="markdown">MD</label>
+                        <div class="input">
+                            <input class="share"
+                                   type="checkbox"
+                                   name="share"
+                                   id="markdown"
+                                   v-model="diary.isMarkdown"
+                            >
+                            <label class="switch" for="markdown"></label>
+                        </div>
                     </div>
                 </div>
 

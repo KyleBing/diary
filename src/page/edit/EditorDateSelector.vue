@@ -1,23 +1,26 @@
 <template>
-    <div class="date-set-item">
-        <Datepicker
-            @wheel="mouseWheelScrolled"
-            :editable="false"
-            :show-now-button="true"
-            v-model="dateLocal"
-            format="yyyy/MM/dd HH:mm"
-            selectText="确定"
-            cancelText="取消"
-            locale="zh-CN"
-            placeholder="----/--/-- --:--"
-            input-class="date"
-            :clearable="false"
-        />
+    <div class="date-selector">
+        <div class="date-set-item">
+            <Datepicker
+                @wheel="mouseWheelScrolled"
+                :editable="false"
+                :show-now-button="true"
+                v-model="dateLocal"
+                format="yyyy.MM.dd HH:mm"
+                selectText="确定"
+                cancelText="取消"
+                locale="zh-CN"
+                placeholder="----.--.-- --:--"
+                input-class="date"
+                :clearable="false"
+            />
+        </div>
+        <div class="date-meta">
+            <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
+            <div class="weekday">{{lunarObject.ncWeek}}</div>
+        </div>
     </div>
-    <div class="date-meta">
-        <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
-        <div class="weekday">{{lunarObject.ncWeek}}</div>
-    </div>
+
 </template>
 
 <script>
@@ -107,6 +110,12 @@ export default {
 @use "sass:math";
 @import "../../scss/plugin";
 
+
+.date-selector{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
 $height: 40px;
 .date-set-item{
     box-sizing: content-box;
@@ -160,6 +169,7 @@ $height: 40px;
     padding: 0 20% 20px;
     margin-bottom: 15px;
     display: flex;
+    font-size: $fz-main;
     justify-content: space-between;
     color: $text-label;
     border-bottom: 1px solid $color-border;
@@ -179,4 +189,32 @@ $height: 40px;
 .dp__icon.dp__input_icon{ // date picker icon
     display: none !important;
 }
+
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+    .date-selector{
+        width: 50%;
+        .date-set-item{
+            input{
+                text-align: left;
+            }
+        }
+        .date-meta{
+            justify-content: flex-start;
+            padding: 0;
+            border: none;
+            .lunar{
+                margin-right: 20px;
+            }
+        }
+    }
+}
+// MOBILE
+@media (max-width: $grid-separate-width-md) {
+    .date-selector {
+        width: 100%;
+    }
+}
+
+
+
 </style>
