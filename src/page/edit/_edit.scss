@@ -87,49 +87,41 @@ textarea{
 // 日记 meta
 .diary-edit-meta{
   width: 30%;
+  > *{
+    margin-bottom: 20px;
+  }
   .editor-form{
     border: 1px solid $color-border;
     background-color: white;
-    padding: 20px;
+    padding: 20px 25px;
     @include border-radius($radius-pc);
     overflow: hidden;
     justify-content: space-between;
     display: flex;
     flex-flow: row wrap;
-    .editor-input-item{
-      width: 100%;
+    .editor-form-item{
+      width: 45%;
       align-items: center;
       justify-content: space-between;
       display: flex;
       font-size: $fz-label;
       padding: 0 10px;
-      border-bottom: 1px solid $color-border;
       label{
+        padding-right: 10px;
         white-space: nowrap;
         @extend .unselectable;
         color: $text-label;
         line-height: $height-input;
       }
-      input{
-        font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
-        font-weight: bold;
-        flex-grow: 1;
-        padding: 6px 0;
-        text-align: right;
-        background-color: transparent;
-        line-height: $height-input - 6*2;
+      &.no-border{
+        border: none;
       }
-      .refresh{
-        @extend .btn-like;
-        padding: 6px 0;
-        line-height: $height-input - 6*2;
-        margin-left: 5px;
-      }
-      .input{
-        padding: 6px 0;
-      }
-      &:last-child{
-        border-bottom: none;
+      &:hover{
+        @include border-radius($radius-mobile);
+        //background-color: transparentize($color-main, 0.9);
+        label{
+          color: $text-content;
+        }
       }
     }
   }
@@ -154,13 +146,7 @@ textarea{
   .editor-form{
     flex-flow: column nowrap;
     align-items: flex-start;
-    > * {
-      width: 100%;
-      flex-grow: 1;
-      margin-bottom: 10px;
-    }
-    .editor-input-item{
-      margin-bottom: 5px;
+    .editor-form-item{
       height: auto;
       padding: 5px 20px;
       &:last-child{
@@ -185,9 +171,6 @@ textarea{
   .diary-edit-meta{
     width: 100%;
     flex-flow: row wrap;
-    > * {
-      margin-bottom: 15px;
-    }
   }
 }
 
@@ -215,7 +198,7 @@ textarea{
         padding-bottom: 0;
         @include border-radius(0)
       }
-      .btn-list{
+      .editor-float-btn{
         display: none;
       }
     }
@@ -224,11 +207,11 @@ textarea{
   .diary-edit-meta{
     width: 100%;
     flex-flow: row wrap;
+    > *{
+      margin-bottom: 15px;
+    }
     .editor-form{
       @include border-radius(0);
-    }
-    > * {
-      margin-bottom: 15px;
     }
   }
 }
@@ -304,14 +287,8 @@ textarea{
   }
   .diary-edit-meta{
     .editor-form {
-      .editor-input-item{
+      .editor-form-item{
         border-bottom-color: $dark-border;
-      }
-      .refresh{
-        color: $dark-text;
-        &:hover{
-          color: $color-main;
-        }
       }
       background-color: $dark-bg-dark;
       input{

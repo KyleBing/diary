@@ -1,5 +1,4 @@
 <template>
-
     <div class="date-set-item">
         <Datepicker
             @wheel="mouseWheelScrolled"
@@ -108,43 +107,18 @@ export default {
 @use "sass:math";
 @import "../../scss/plugin";
 
-// Overwrite DatePicker Style
-// plugin style overwrite
-
-.dp__input{
-    border: none !important;
-}
-
-.dp__icon.dp__input_icon{ // date picker icon
-    display: none !important;
-}
-
-.date-meta{
-    padding: 0 10%;
-    display: flex;
-    justify-content: space-between;
-    color: $text-label;
-    .lunar{}
-    .weekday{
-
-    }
-}
-
-$height: 60px;
+$height: 40px;
 .date-set-item{
     box-sizing: content-box;
     height: $height;
     width: 100%;
     @include border-radius($radius-mobile);
-    //background-color: $bg-light;
     background-color: white;
     position: relative;
+    margin-bottom: 5px;
     &:hover{
-        //background-color: $bg-light;
+        background-color: $bg-light;
         border-color: $color-border-highlight;
-        label{
-            color: black;
-        }
         input{
             color: black;
         }
@@ -155,11 +129,8 @@ $height: 60px;
         background-color: transparent;
         display: block;
         width: 100%;
-        //font-family: "Galvji", sans-serif;
-        font-size: 28px;
-        letter-spacing: 1px;
-        //font-size: 2.3rem;
-        //font-family: "DS-Digital", sans-serif;
+        font-weight: bold;
+        font-size: 26px;
         line-height: 40px;
         padding: math.div($height - 40, 2) ;
         cursor: ns-resize;
@@ -183,4 +154,29 @@ $height: 60px;
     }
 }
 
+
+.date-meta{
+    width: 100%;
+    padding: 0 20% 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    color: $text-label;
+    border-bottom: 1px solid $color-border;
+    .lunar{}
+    .weekday{}
+}
+
+
+
+// Overwrite DatePicker Style
+// plugin style overwrite
+
+.dp__input{
+    border: none !important;
+}
+
+.dp__icon.dp__input_icon{ // date picker icon
+    display: none !important;
+}
 </style>

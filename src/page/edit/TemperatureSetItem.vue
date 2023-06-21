@@ -1,6 +1,5 @@
 <template>
-    <div class="temperature-set-item">
-        <label for="temperature">{{label}}</label>
+    <div :class="['temperature-set-item',{active: !!temperatureLocal}]">
         <input placeholder="--"
                @wheel="mouseWheelScrolled"
                class="temperature"
@@ -72,52 +71,41 @@ export default {
 <style scoped lang="scss">
 @import "../../scss/plugin";
 
-$height: 60px;
 .temperature-set-item{
-    height: $height;
-    width: 46%;
-    @include border-radius($radius-mobile);
-    //background-color: $bg-light;
-    background-color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
     position: relative;
-    border: 1px solid $color-border;
     &:hover{
         border-color: $color-border-highlight;
-        label{
-            color: black;
-        }
         input{
             color: black;
         }
     }
+    &.active{
+        input{
+            color: $text-content;
+        }
+        .unit{
+            color: $text-content;
+        }
+    }
     input{
+        padding: 0 5px 0 10px;
         color: $text-content;
-        text-align: center;
-        line-height: $height;
+        text-align: right;
         background-color: transparent;
         display: block;
         width: 100%;
-        //font-family: "Galvji", sans-serif;
-        //font-size: 25px;
-        font-size: 2.2rem;
-        font-family: "DS-Digital", sans-serif;
+        font-size: $fz-label;
+        border-bottom: 1px solid transparent;
         cursor: ns-resize;
-    }
-    label{
-        padding: 3px 5px;
-        background-color: white;
-        z-index: $z-header;
-        top: -10px;
-        left: 10px;
-        font-size: $fz-small;
-        color: $text-label;
-        position: absolute;
+        &:hover{
+            border-color: $color-border-highlight;
+        }
     }
     .unit{
-        position: absolute;
-        right: 5px;
-        bottom: 3px;
-        font-size: $fz-list-content;
+        font-size: $fz-label;
         color: $text-label;
     }
 }

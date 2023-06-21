@@ -26,21 +26,24 @@
         <div class="diary-edit-meta">
             <!--  主参数区 -->
             <div class="editor-form">
-
                 <!-- 日期选择-->
                 <editor-date-selector v-model="diary.date"/>
 
-                <!-- 温度设置-->
-                <div class="temperature-wrapper mt-2 mb-3">
+
+                <div class="editor-form-item">
+                    <label for="markdown">身处</label>
                     <temperature-set-item
-                        label="身处"
+                        unit="℃"
                         v-model="diary.temperature"/>
+                </div>
+                <div class="editor-form-item">
+                    <label for="markdown">室外</label>
                     <temperature-set-item
-                        label="户外"
+                        unit="℃"
                         v-model="diary.temperatureOutside"/>
                 </div>
 
-                <div class="editor-input-item">
+                <div class="editor-form-item no-border">
                     <label for="shareState">共享</label>
                     <div class="input">
                         <input class="share"
@@ -52,8 +55,8 @@
                         <label class="switch" for="shareState"></label>
                     </div>
                 </div>
-                <div class="editor-input-item">
-                    <label for="markdown">Markdown</label>
+                <div class="editor-form-item no-border">
+                    <label for="markdown">MD</label>
                     <div class="input">
                         <input class="share"
                                type="checkbox"
@@ -64,6 +67,7 @@
                         <label class="switch" for="markdown"></label>
                     </div>
                 </div>
+
             </div>
 
             <!-- 类别选择 -->
@@ -93,16 +97,16 @@ import LoadingButton from "../../components/LoadingButton.vue"
 import diaryApi from "../../api/diaryApi"
 import ICONS from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
-import TemperatureSetItem from "./TemperatureSetItem";
 import EditorDateSelector from "./EditorDateSelector";
 import ButtonSmall from "@/components/ButtonSmall";
+import TemperatureSetItem from "@/page/edit/TemperatureSetItem";
 
 export default {
     name: 'Edit',
     components: {
+        TemperatureSetItem,
         ButtonSmall,
         EditorDateSelector,
-        TemperatureSetItem,
         LoadingButton,
         EditCategorySelector,
         weatherSelector
