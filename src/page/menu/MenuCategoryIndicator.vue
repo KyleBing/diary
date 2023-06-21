@@ -1,22 +1,22 @@
 <template>
-    <div class="menu-category-indicator">
-        <div :class="['item', 'category-shared', 'mr-2', {active: isFilterShared}]"></div> <!-- 共享小图标标识 -->
-        <div :class="['item' ,{active: filteredCategories.some(category => category === item.name_en)}]"
-             :style="filteredCategories.indexOf(item.name_en) > -1? `background-color: ${item.color}`:`border-color: ${item.color}`"
-             v-for="(item, index) in categoryAll"
-             :title="item.name_en"
-             :key="index"></div>
+    <div class="indicator-list">
+        <div class="indicator-list-item"
+             v-for="(item, index) in categoryAll" :key="index"
+             :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
+        />
+        <div class="indicator-list-item" :style="isFilterShared? 'background-color: white':''"/>
     </div>
 </template>
 
 <script>
-
 import {mapGetters, mapState} from "vuex"
+import utility from "../../utility"
 
 export default {
     name: "MenuCategoryIndicator",
     data() {
         return {
+            categories: [], // category
         }
     },
     props: {
@@ -27,6 +27,20 @@ export default {
         addOnText:{
             type: String,
             default: ''
+        },
+    },
+    mounted() {
+        this.filterShared = utility.getDiaryConfig().isFilterShared
+        this.categories = utility.getDiaryConfig().filteredCategories
+    },
+    methods: {
+        indicatorItemStyle(category){
+            if (this.categories.indexOf(category.name_en) > -1){
+                return `background-color: ${category.color};`
+                // return `border-bottom: 1px solid ${category.color};`
+            } else {
+                return ``
+            }
         },
     },
     computed: {
@@ -43,28 +57,27 @@ export default {
 @use "sass:math";
 @import "../../scss/plugin";
 
-$item-height: 12px;
-$item-width: 6px;
-$item-radius: 2px;
-
-// 菜单中的类别标识
-.menu-category-indicator{
+$height-indicator: 8px;
+.indicator-list{
+    width: $height-indicator * (8+3);
+    cursor: pointer;
+    @extend .btn-like;
+    height: $height-navbar;
+    padding: ($height-navbar - $height-indicator * 2 - 3)/2 0;
     display: flex;
+    align-items: flex-start;
     justify-content: flex-start;
-
-    .item{
-        margin-left: math.div($item-width, 2);
-        height: $item-height;
-        width: $item-width;
-        display: block;
-        @include border-radius($item-radius);
-        border: 1px dotted transparent;
-    }
-    // shared 指示器
-    .category-shared{
-        border-color: white;
-        &.active{
-            background-color: white;
+    flex-flow: row wrap;
+    .indicator-list-item{
+        margin-right: 3px;
+        margin-bottom: 3px;
+        flex-shrink: 0;
+        border: 1px dotted white;
+        height: $height-indicator;
+        width: $height-indicator;
+        @include border-radius(2px);
+        &:nth-child(2n){
+            margin-bottom: 0;
         }
     }
 }
