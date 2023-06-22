@@ -1,5 +1,5 @@
 <template>
-    <div class="icon-btn">
+    <div :class="['icon-btn', {wide: alt === 'LOGO'}]">
         <img :alt="alt"
              :title="alt"
              :src="icons.get(alt)">
@@ -57,6 +57,19 @@ $icon-padding-mobile: 3px;
     padding: $icon-padding-pc;
     @extend .btn-like;
     @include border-radius(50px);
+    img{
+        transition: all 0.2s;
+        width: $height-navbar - $icon-padding-pc * 2;
+        height: $height-navbar - $icon-padding-pc * 2;
+        display: block;
+        background-color: transparent;
+    }
+    &.wide{
+        width: $height-navbar + 5;
+        img{
+            width: $height-navbar - $icon-padding-pc * 2 + 5;
+        }
+    }
     &:hover{
         img{
             @include border-radius(10px);
@@ -71,13 +84,7 @@ $icon-padding-mobile: 3px;
         }
     }
 }
-img{
-    transition: all 0.2s;
-    width: $height-navbar - $icon-padding-pc * 2;
-    height: $height-navbar - $icon-padding-pc * 2;
-    display: block;
-    background-color: transparent;
-}
+
 @media (max-width: $grid-separate-width-sm) {
     .icon-btn{
         padding: $icon-padding-mobile;
