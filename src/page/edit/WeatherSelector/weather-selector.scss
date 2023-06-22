@@ -62,6 +62,7 @@ $height-weather: 30px;
 // DARK
 @media (prefers-color-scheme: dark) {
   .weather-selector{
+    border-color: $dark-border;
     background-color: $dark-bg-dark;
     border-bottom-color: $dark-border;
     .weather:hover{

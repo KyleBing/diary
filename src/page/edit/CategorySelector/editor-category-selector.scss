@@ -87,6 +87,7 @@
 // DARK
 @media (prefers-color-scheme: dark) {
   .edit-category-selector{
+    border-color: $dark-border;
     background-color: $dark-bg-dark;
     border-bottom-color: $dark-border;
     .category-wrapper {

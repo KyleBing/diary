@@ -123,7 +123,6 @@ $height: 40px;
     height: $height;
     width: 100%;
     @include border-radius($radius-mobile);
-    background-color: white;
     position: relative;
     margin-bottom: 5px;
     &:hover{
@@ -213,6 +212,27 @@ $height: 40px;
 @media (max-width: $grid-separate-width-md) {
     .date-selector {
         width: 100%;
+    }
+}
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+    .date-set-item{
+        &:hover{
+            background-color: $dark-bg;
+            input{
+                color: $dark-text-title;
+            }
+        }
+        input{
+            color: $dark-text-title;
+            //color: white;
+        }
+    }
+
+    .date-meta{
+        border-bottom-color: $dark-border;
     }
 }
 

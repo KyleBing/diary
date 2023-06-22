@@ -299,13 +299,20 @@ textarea{
   }
   .diary-edit-meta{
     .editor-form {
+      border-color: $dark-border;
       .editor-form-item{
         border-bottom-color: $dark-border;
+        label{
+          color: $dark-text;
+        }
+        &:hover{
+          @include border-radius($radius-mobile);
+          label{
+            color: $dark-text;
+          }
+        }
       }
       background-color: $dark-bg-dark;
-      input{
-        color: $dark-text;
-      }
     }
   }
 

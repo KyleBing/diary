@@ -110,4 +110,23 @@ export default {
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    .temperature-set-item{
+        input{
+            color: $dark-text;
+        }
+        .unit{
+            color: $dark-text;
+        }
+        &.active{
+            input{
+                color: $dark-text-title;
+            }
+            .unit{
+                color: $dark-text-title;
+            }
+        }
+    }
+}
+
 </style>
