@@ -5,7 +5,7 @@
                class="temperature"
                name="temperature"
                id="temperature"
-               v-model="temperatureLocal"
+               v-model.lazy="temperatureLocal"
         >
         <div class="unit">{{unit}}</div>
     </div>
@@ -63,6 +63,9 @@ export default {
             } else {
                 this.temperatureLocal = Number(newValue)
             }
+        },
+        temperatureLocal(newValue){
+            this.$emit('update:modelValue', String(newValue))
         }
     }
 }
