@@ -13,7 +13,7 @@
 # 界面
 详细的截图在文章最后
 
-<img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
+<img width="1920" alt="编辑页面" src="https://github.com/KyleBing/diary/assets/12215982/617f63a5-ec94-49f4-9c61-1761055e320c">
 
 ---
 
@@ -145,17 +145,40 @@ gzip_types  text/css application/javascript application/json;
 
 **PC**
 
+登录  
 <img width="1512" alt="登录" src="https://user-images.githubusercontent.com/12215982/185168128-ec2d092f-85f6-4ffd-a510-dfcff5daf926.png">
-<img width="1512" alt="编辑" src="https://user-images.githubusercontent.com/12215982/185168137-831ff4f8-82ea-47f1-b092-3c66a86cdb4b.png">
-<img width="1512" alt="长列表" src="https://user-images.githubusercontent.com/12215982/185168051-b19223f9-2df8-42d1-a39c-823f772426e0.png">
+
+编辑页面  
+<img width="1920" alt="编辑页面" src="https://github.com/KyleBing/diary/assets/12215982/617f63a5-ec94-49f4-9c61-1761055e320c">
+
+日记详情  
+<img width="1920" alt="日记详情" src="https://github.com/KyleBing/diary/assets/12215982/69de00a4-d689-4a2f-9e89-92bdf78a89c8">
+
+统计  
 <img width="1512" alt="统计" src="https://user-images.githubusercontent.com/12215982/185168085-bb97e434-132c-44be-b3f8-db55e25816e5.png">
-<img width="1512" alt="列表" src="https://user-images.githubusercontent.com/12215982/185168097-94161d53-5761-4c08-827f-31440a7c17b6.png">
-<img width="1512" alt="银行卡列表" src="https://user-images.githubusercontent.com/12215982/225222928-9bf993ef-39aa-4708-ba20-13f5f2b5f398.png">
-<img width="1512" alt="账单列表" src="https://user-images.githubusercontent.com/12215982/185167980-4c9b8f72-74f7-41d9-9c80-7c8d8c2c73bf.png">
-<img width="1512" alt="菜单" src="https://user-images.githubusercontent.com/12215982/185167988-a9929018-c420-4e13-b4fc-a681c2458efc.png">
-<img width="1512" alt="类别" src="https://user-images.githubusercontent.com/12215982/185168041-2148d489-aaf1-4382-8116-6737b15b6014.png">
-<img width="1512" alt="分享" src="https://user-images.githubusercontent.com/12215982/185168108-1647c59e-8fba-4369-a226-9279685e6844.png">
-<img width="1512" alt="分享" src="https://user-images.githubusercontent.com/12215982/185168118-e38b3cb9-d96a-428e-b9d6-73d976872f77.png">
+
+银行卡列表  
+<img width="1920" alt="银行卡列表" src="https://user-images.githubusercontent.com/12215982/225222928-9bf993ef-39aa-4708-ba20-13f5f2b5f398.png">
+
+共享日记  
+<img width="1920" alt="共享日记" src="https://github.com/KyleBing/diary/assets/12215982/0143c6e2-e6fd-48dc-92ea-94d37c4afd67">
+
+资料编辑  
+<img width="1920" alt="资料编辑" src="https://github.com/KyleBing/diary/assets/12215982/ecffb47f-e114-46f6-8455-403d77fcfe9b">
+
+一键隐藏所有内容  
+<img width="1920" alt="一键隐藏所有内容" src="https://github.com/KyleBing/diary/assets/12215982/fb54c8b7-0abb-4490-9ecb-b3d7fd0c95bc">
+
+账单  
+<img width="1920" alt="账单" src="https://github.com/KyleBing/diary/assets/12215982/473093a7-f83e-422d-b32c-84f65fc9f9e8">
+
+类别筛选  
+<img width="1920" alt="类别筛选" src="https://github.com/KyleBing/diary/assets/12215982/6ad0596e-86a4-42f6-ab19-86465716fc0a">
+
+菜单  
+<img width="1920" alt="菜单" src="https://github.com/KyleBing/diary/assets/12215982/fd10285b-9ae6-493f-9321-940ad22fa052">
+
+
 
 **移动端**
 
