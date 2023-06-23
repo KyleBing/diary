@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         mouseWheelScrolled(event){
+            event.preventDefault()
             if (this.temperatureLocal === ''){
                 this.temperatureLocal = 20 // 数值变化从 20 开始
             }

@@ -68,9 +68,11 @@ export default {
     },
     methods: {
         mouseWheelScrolled(event){
-            if (event.deltaY > 0){
+            event.preventDefault()
+            console.log(event.deltaY,event)
+            if (event.deltaY > 10){
                 this.dateMove(1)
-            } else {
+            } else if (event.deltaY < -10) {
                 this.dateMove(-1)
             }
         },
@@ -101,6 +103,7 @@ export default {
                 newValue.getMonth() + 1,
                 newValue.getDate()
             )
+            this.$emit('update:modelValue', this.dateLocal)
         }
     }
 }
