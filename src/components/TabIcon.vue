@@ -87,7 +87,6 @@ $icon-padding-mobile: 3px;
 
 @media (max-width: $grid-separate-width-sm) {
     .icon-btn{
-        padding: $icon-padding-mobile;
     }
     img{
         width: $height-navbar - $icon-padding-mobile * 2;

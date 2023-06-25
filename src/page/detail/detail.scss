@@ -119,7 +119,8 @@ $height-meta: 30px;
   line-height: $height-meta - (2 + 3) * 2;
 }
 
-@media (min-width: $grid-separate-width-md){
+// PC
+@media (min-width: $grid-separate-width-big){
   .diary-detail{
     padding: 40px 10%;
     margin: 0 auto;
@@ -129,6 +130,30 @@ $height-meta: 30px;
     padding: 10px 50px;
     justify-content: space-between;
     @include border-radius($radius-pc);
+  }
+  .diary-title{
+  }
+  .diary-content{
+    p{
+      //text-indent: 2rem;
+    }
+    .code{
+      font-size: 14px;
+    }
+  }
+}
+
+// iPad
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .diary-detail{
+    padding: 30px;
+    margin: 0 auto;
+  }
+  .diary-meta{
+    margin: 0 0 30px;
+    padding: 10px 50px;
+    justify-content: space-between;
+    @include border-radius($radius-mobile);
   }
   .diary-title{
   }
