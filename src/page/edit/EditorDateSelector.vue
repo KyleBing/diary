@@ -69,11 +69,19 @@ export default {
     methods: {
         mouseWheelScrolled(event){
             event.preventDefault()
-            console.log(event.deltaY,event)
-            if (event.deltaY > 10){
-                this.dateMove(1)
-            } else if (event.deltaY < -10) {
-                this.dateMove(-1)
+
+            if (event.ctrlKey){
+                if (event.deltaY > 10){
+                    this.dateMove(1)
+                } else if (event.deltaY < -10) {
+                    this.dateMove(-1)
+                }
+            } else {
+                if (event.deltaY > 10){
+                    this.dateTimeMove(1)
+                } else if (event.deltaY < -10) {
+                    this.dateTimeMove(-1)
+                }
             }
         },
         // 日期前后移动
@@ -83,6 +91,22 @@ export default {
                 case 1:
                     let dateTemp = new Moment(this.dateLocal)
                     dateTemp.add(step, 'day')
+                    this.dateLocal = dateTemp.toDate()
+                    this.$emit('update:modelValue', this.dateLocal)
+                    break;
+                case 0:
+                    this.dateLocal = new Date()
+                    this.$emit('update:modelValue', this.dateLocal)
+                    break;
+            }
+        },
+        // 日期前后移动
+        dateTimeMove(step) {
+            switch (step) {
+                case -1:
+                case 1:
+                    let dateTemp = new Moment(this.dateLocal)
+                    dateTemp.add(step, 'hour')
                     this.dateLocal = dateTemp.toDate()
                     this.$emit('update:modelValue', this.dateLocal)
                     break;
