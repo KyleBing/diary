@@ -24,7 +24,7 @@
 <script>
 import projectConfig from "@/projectConfig";
 import utility from "@/utility";
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 import svgIcons from "@/assets/img/SvgIcons";
 
 export default {
@@ -43,13 +43,14 @@ export default {
         ])
     },
     methods: {
+        ...mapMutations(['SET_MENU_SHOWED']),
         changeProfile(){
             this.$router.push({name: 'ChangeProfile'})
         },
         logout() {
             utility.deleteAuthorization()
-            this.$router.push({name: 'Login'})
             this.SET_MENU_SHOWED(false)
+            this.$router.push({name: 'Login'})
         },
     }
 }

@@ -157,10 +157,10 @@ export default {
         // MENU related
         menuShow() {
             this.SET_MENU_SHOWED(true)  // menu panel
-            this.menuListShowed = true  // menu list
-            this.categoryShowed = false // category
-            this.yearShowed = false     // year
-            this.aboutShowed = false    // about
+            this.menuListShowed = true          // menu list
+            this.categoryShowed = false         // category
+            this.yearShowed = false             // year
+            this.aboutShowed = false            // about
         },
         menuClose(){
             if (this.categoryShowed) {
@@ -168,10 +168,10 @@ export default {
                 this.menuInit()
             } else if (this.aboutShowed) {
                 this.SET_MENU_SHOWED(true) // menu panel
-                this.menuListShowed = true            // menu list
-                this.categoryShowed = false           // category
+                this.menuListShowed = true        // menu list
+                this.categoryShowed = false       // category
                 this.yearShowed = false           // year
-                this.aboutShowed = false           // about
+                this.aboutShowed = false          // about
             } else if (this.yearShowed) {
                 this.SET_IS_LIST_NEED_BE_RELOAD(true)
                 this.menuInit()
@@ -181,11 +181,11 @@ export default {
             }
         },
         menuInit() {
-            this.SET_MENU_SHOWED(false)              // menu panel
-            this.menuListShowed = true               // menu list
-            this.categoryShowed = false              // category
-            this.yearShowed = false                  // year
-            this.aboutShowed = false                 // about
+            this.SET_MENU_SHOWED(false)         // menu panel
+            this.menuListShowed = true      // menu list
+            this.categoryShowed = false     // category
+            this.yearShowed = false         // year
+            this.aboutShowed = false        // about
         },
         menuListClicked(menuName) {
             switch (menuName) {
