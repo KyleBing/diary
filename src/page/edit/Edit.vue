@@ -27,7 +27,7 @@
             <!--  主参数区 -->
             <div class="editor-form">
                 <!-- 日期选择-->
-                <editor-date-selector v-model="diary.date"/>
+                <editor-date-selector @dayChange="dayHasChanged" v-model="diary.date"/>
 
                 <div class="editor-meta-switches">
                     <div class="editor-form-item">
@@ -371,25 +371,9 @@ export default {
             }
         },
         // 日期前后移动
-        dateMove(step){
-            switch (step){
-                case -1:
-                case 1:
-                    let dateTemp = new Moment(this.diary.date)
-                    dateTemp.add(step, 'day')
-                    this.diary.date = dateTemp.toDate()
-                    break;
-                case 0:
-                    this.diary.date = new Date()
-                    this.getCurrentTemperature()
-                    break;
-            }
-            let dateMomentDiary = new Moment(this.diary.date)
-            let dateMomentDiaryOrigin = new Moment(this.diaryOrigin.date)
-
-            // 当是今天日期、或旧日期和新日期相同时，温湿度、天气不动。
-            if ( dateMomentDiary.isSame(dateMomentDiaryOrigin, 'day')){
-
+        dayHasChanged(isToday){
+            if (isToday){
+                this.getCurrentTemperature()
             } else {
                 this.diary.temperature = ''
                 this.diary.temperatureOutside = ''

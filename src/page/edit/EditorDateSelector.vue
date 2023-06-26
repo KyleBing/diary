@@ -121,13 +121,25 @@ export default {
         modelValue(newValue){
             this.dateLocal = newValue
         },
-        dateLocal(newValue){
+        dateLocal(newValue, oldValue){
             this.lunarObject = calendar.solar2lunar(
                 newValue.getFullYear(),
                 newValue.getMonth() + 1,
                 newValue.getDate()
             )
             this.$emit('update:modelValue', this.dateLocal)
+
+            // 判断是否日期有变，day 有变，emit dayChange, 附带是否为今天的标识
+            let dateMomentDiary = new Moment(newValue)
+            let dateMomentDiaryOrigin = new Moment(oldValue)
+            if ( dateMomentDiary.isSame(dateMomentDiaryOrigin, 'day')){
+            } else {
+                if (dateMomentDiary.isSame(new Date(), 'day')){
+                    this.$emit('dayChange', true)
+                } else {
+                    this.$emit('dayChange', false)
+                }
+            }
         }
     }
 }
