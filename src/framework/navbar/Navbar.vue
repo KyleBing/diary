@@ -71,7 +71,8 @@
                         <Loading :height="50" :loading="true"/>
                     </div>
                     <div @click="diarySave" v-else>
-                        <tab-icon alt="保存"/>
+                        <tab-icon v-if="isDiaryEditorContentHasChanged" alt="确定-已变化"/>
+                        <tab-icon v-else alt="确定-已保存"/>
                     </div>
                 </div>
 

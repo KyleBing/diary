@@ -26,6 +26,8 @@ export default {
         close: require('./tabicon/close.svg'),
         delete: require('./tabicon/delete.svg'),
         done: require('./tabicon/done.svg'),
+        doneSaved: require('./tabicon/done-saved.svg'),
+        doneChanged: require('./tabicon/done-changed.svg'),
         edit: require('./tabicon/edit.svg'),
         menu: require('./tabicon/menu.svg'),
         recover: require('./tabicon/recover.svg'),

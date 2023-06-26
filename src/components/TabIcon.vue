@@ -25,6 +25,8 @@ export default {
             iconMap.set('LOGO', ICONS.logo)
             iconMap.set('保存', ICONS.tab.done)
             iconMap.set('确定', ICONS.tab.done)
+            iconMap.set('确定-已保存', ICONS.tab.doneSaved)
+            iconMap.set('确定-已变化', ICONS.tab.doneChanged)
             iconMap.set('添加', ICONS.tab.add)
             iconMap.set('关闭', ICONS.tab.close)
             iconMap.set('返回', ICONS.tab.back)
