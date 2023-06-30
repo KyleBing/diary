@@ -84,7 +84,7 @@ export default {
         categoryMenuItemStyle(category){
             if (this.categories.indexOf(category.name_en) > -1){
                 // return `color: ${category.color}; opacity: 0.5; font-weight: bold`
-                return `color: #ccc; font-weight: bold; transform: scale(1.1);`
+                return `color: #ccc; font-weight: bold;`
             } else {
                 return ``
             }
