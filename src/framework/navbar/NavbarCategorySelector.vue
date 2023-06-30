@@ -162,7 +162,7 @@ $nav-btn-height: 15px;
     }
     &:hover{
         font-weight: bold;
-        color: transparentize(white, 0.4);
+        color: rgba(255,255,255,0.7);
         &.special{
             color: transparentize($color-main, 0.2);
         }
