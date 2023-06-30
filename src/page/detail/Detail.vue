@@ -165,8 +165,9 @@ export default {
         },
         getContentHtml(content){
             let isInCodeMode = /\[ ?code ?\]/i.test(content)
+
             if (isInCodeMode){
-                return `<pre class="code">${content}</pre>`
+                return `<pre class="code">${this.isHideContent? content.replace(/[^，。\n]/g, '*'): content}</pre>`
             } else {
                 let contentArray = content.split('\n')
                 let contentHtml = ""
