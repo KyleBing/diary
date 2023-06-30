@@ -13,10 +13,15 @@
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
                     <div :class="['navbar-category-list-item' ,'ml-3', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
+
+                </div>
+                <div class="navbar-category-list-special">
                     <div class="navbar-category-list-item special" @click="selectCategoryAll" >全选</div>
+                    <div class="navbar-category-list-item special" @click="selectCategoryNone" >清选</div>
                     <div class="navbar-category-list-item special" @click="reverseCategorySelect">反选</div>
                 </div>
             </div>
+
 
         </transition>
     </div>
@@ -78,8 +83,8 @@ export default {
         },
         categoryMenuItemStyle(category){
             if (this.categories.indexOf(category.name_en) > -1){
-                return `color: ${category.color}; font-weight: bold`
-                // return `border-bottom: 1px solid ${category.color};`
+                // return `color: ${category.color}; opacity: 0.5; font-weight: bold`
+                return `color: #ccc; font-weight: bold; transform: scale(1.1);`
             } else {
                 return ``
             }
@@ -127,7 +132,6 @@ $nav-btn-height: 15px;
     }
 }
 .navbar-category-list{
-    width: 255px;
     flex-shrink: 0;
     flex-grow: 1;
     align-items: center;
