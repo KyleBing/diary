@@ -84,7 +84,7 @@ export default {
         categoryMenuItemStyle(category){
             if (this.categories.indexOf(category.name_en) > -1){
                 // return `color: ${category.color}; opacity: 0.5; font-weight: bold`
-                return `color: rgba(255,255,255,0.7); font-weight: bold;`
+                return `color: rgba(255,255,255,0.8); font-weight: bold;`
             } else {
                 return ``
             }
@@ -162,7 +162,7 @@ $nav-btn-height: 15px;
     }
     &:hover{
         font-weight: bold;
-        color: rgba(255,255,255,0.7);
+        color: rgba(255,255,255,0.8);
         &.special{
             color: transparentize($color-main, 0.2);
         }
