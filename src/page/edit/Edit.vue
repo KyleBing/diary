@@ -444,7 +444,6 @@ export default {
                 .list(this.requestData)
                 .then(res => {
                     this.isLoading = false
-                    // TODO: 由于目前载入的日志内容是最近的15条，所以无法载入之前的日志内容，这个需要后台添加时间段获取日志的功能再完善
                     const currentWeekStart = new Moment(this.diary.date).startOf('week')
                     const currentWeekEnd = new Moment(this.diary.date).endOf('week')
                     let workList = res.data.filter(item => {
@@ -658,7 +657,6 @@ export default {
             this.SET_IS_DIARY_NEED_TO_BE_RECOVERED(false)
         },
 
-        // TODO: 日记列表显示为展开的列表时，修改日记后，星期和日期都会消失，需要手动生成添加这两个字段
         convertToServerVersion() { // 转换为数据库格式的日记
             let date = utility.dateFormatter(this.diary.date)
             return {

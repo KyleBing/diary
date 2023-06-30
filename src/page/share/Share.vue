@@ -63,8 +63,6 @@
                 <div v-else class="no-diary">
                     <p>无此日记</p>
                 </div>
-
-                <!--TODO: 来自谁的日记-->
             </div>
 
         </div>
