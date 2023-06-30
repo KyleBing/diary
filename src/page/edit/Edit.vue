@@ -142,6 +142,10 @@ export default {
                 temperature: '',
                 temperatureOutside: '',
             },
+            recoverDiaryContent: {  // 编辑过程中点击了隐藏按钮，此时记录没有保存的内容。供一会恢复
+                title: '',
+                content: ''
+            },
             logoImageUrl: ICONS.logo,
 
             requestData: { // 请求本周日志的 requestData
@@ -348,12 +352,23 @@ export default {
             }
         },
         isHideContent(newValue){
-            if (newValue){
+            if (newValue){ // 保存当前未保存的日记内容
+                if (this.isDiaryEditorContentHasChanged){
+                    this.recoverDiaryContent = {
+                        title: this.diary.title,
+                        content: this.diary.content
+                    }
+                }
                 this.diary.title = this.diary.title.replace(/[^，。\n]/g, '*')
                 this.diary.content = this.diary.content.replace(/[^，。\n]/g, '*')
             } else {
-                this.diary.title = this.diaryOrigin.title
-                this.diary.content = this.diaryOrigin.content
+                if (this.recoverDiaryContent.title || this.recoverDiaryContent.content) { // 如果存在没有保存的日记内容
+                    this.diary.title = this.recoverDiaryContent.title
+                    this.diary.content = this.recoverDiaryContent.content
+                } else {
+                    this.diary.title = this.diaryOrigin.title
+                    this.diary.content = this.diaryOrigin.content
+                }
             }
         }
     },
@@ -636,6 +651,10 @@ export default {
         },
         recoverDiary() {
             Object.assign(this.diary, this.diaryOrigin)
+            this.recoverDiaryContent = {
+                title: '',
+                content: ''
+            }
             this.SET_IS_DIARY_NEED_TO_BE_RECOVERED(false)
         },
 
