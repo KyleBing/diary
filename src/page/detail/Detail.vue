@@ -64,7 +64,7 @@
 
         <!--CONTENT-->
         <div class="diary-content" v-if="diary.content">
-            <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
+            <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
             <div v-else class="content" v-html="getContentHtml(diary.content)"/>
             <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
                 <img :src="icons.clipboard" alt="clipboard">
