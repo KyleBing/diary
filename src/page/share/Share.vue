@@ -154,7 +154,7 @@ export default {
                 if (item === ''){
                     contentHtml += '<br/>'
                 } else {
-                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。]/g, '*'): item}</p>`
+                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。\n]/g, '*'): item}</p>`
                 }
             })
             return contentHtml

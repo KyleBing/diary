@@ -300,6 +300,7 @@ export default {
             'isDiaryNeedToBeSaved',
             'isDiaryNeedToBeRecovered',
             'insets',
+            'isHideContent',
             'editLogoImg',
             'isDiaryEditorContentHasChanged'
         ]),
@@ -332,7 +333,6 @@ export default {
         },
         diary: {
             handler(newValue) {
-
                 this.updateDiaryIcon()
             },
             deep: true
@@ -345,6 +345,15 @@ export default {
         isDiaryNeedToBeRecovered() {
             if (this.isDiaryNeedToBeRecovered) {
                 this.recoverDiary()
+            }
+        },
+        isHideContent(newValue){
+            if (newValue){
+                this.diary.title = this.diary.title.replace(/[^，。\n]/g, '*')
+                this.diary.content = this.diary.content.replace(/[^，。\n]/g, '*')
+            } else {
+                this.diary.title = this.diaryOrigin.title
+                this.diary.content = this.diaryOrigin.content
             }
         }
     },
@@ -496,16 +505,24 @@ export default {
                 })
                 .then(res => {
                     let diary = res.data
+
+                    if (this.isHideContent){
+                        this.diary.title = diary.title.replace(/[^，。\n]/g, '*')
+                        this.diary.content = diary.content.replace(/[^，。\n]/g, '*')
+                    } else {
+                        this.diary.title = diary.title
+                        this.diary.content = diary.content
+                    }
+
                     this.diary.category = diary.category
                     this.diary.date = new Date(diary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
                     this.diary.weather = diary.weather
-                    this.diary.title = diary.title
-                    this.diary.content = diary.content
                     this.diary.isPublic = diary.is_public === 1
                     this.diary.isMarkdown = diary.is_markdown === 1
                     this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
                     this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
                     Object.assign(this.diaryOrigin, this.diary) // 不能直接赋值，赋值的是它的引用
+
                 })
                 .catch(() => {
                     this.$router.push({name: 'List'})
