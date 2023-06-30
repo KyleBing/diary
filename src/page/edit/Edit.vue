@@ -359,8 +359,8 @@ export default {
                         content: this.diary.content
                     }
                 }
-                this.diary.title = this.diary.title.replace(/[^，。\n]/g, '*')
-                this.diary.content = this.diary.content.replace(/[^，。\n]/g, '*')
+                this.diary.title = this.diary.title.replace(/[^，。 \n]/g, '*')
+                this.diary.content = this.diary.content.replace(/[^，。 \n]/g, '*')
             } else {
                 if (this.recoverDiaryContent.title || this.recoverDiaryContent.content) { // 如果存在没有保存的日记内容
                     this.diary.title = this.recoverDiaryContent.title
@@ -521,8 +521,8 @@ export default {
                     let diary = res.data
 
                     if (this.isHideContent){
-                        this.diary.title = diary.title.replace(/[^，。\n]/g, '*')
-                        this.diary.content = diary.content.replace(/[^，。\n]/g, '*')
+                        this.diary.title = diary.title.replace(/[^，。 \n]/g, '*')
+                        this.diary.content = diary.content.replace(/[^，。 \n]/g, '*')
                     } else {
                         this.diary.title = diary.title
                         this.diary.content = diary.content

@@ -16,8 +16,8 @@
         </router-link>
 
         <div class="article-body" v-if="isHideContent">
-            <div class="title">{{ diary.title.replace(/[^，。\n]/g, '*') }}</div>
-            <div class="content" v-html="diary.contentHtml.replace(/[^，。\n]/g, '*')"/>
+            <div class="title">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</div>
+            <div class="content" v-html="diary.contentHtml.replace(/[^，。 \n]/g, '*')"/>
         </div>
         <div class="article-body" v-else>
             <div class="title">{{ diary.title }}</div>

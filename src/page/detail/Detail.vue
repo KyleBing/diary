@@ -56,7 +56,7 @@
 
         <!--TITLE-->
         <div class="diary-title" v-if="diary.title">
-            <h2>{{ isHideContent ? diary.title.replace(/[^，。\n]/g, '*') : diary.title }}</h2>
+            <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
             <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
                 <img :src="icons.clipboard" alt="clipboard">
             </div>
@@ -167,7 +167,7 @@ export default {
             let isInCodeMode = /\[ ?code ?\]/i.test(content)
 
             if (isInCodeMode){
-                return `<pre class="code">${this.isHideContent? content.replace(/[^，。\n]/g, '*'): content}</pre>`
+                return `<pre class="code">${this.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
             } else {
                 let contentArray = content.split('\n')
                 let contentHtml = ""
@@ -175,7 +175,7 @@ export default {
                     if (item === ''){
                         contentHtml += '<br/>'
                     } else {
-                        contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。\n]/g, '*'): item}</p>`
+                        contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}</p>`
                     }
                 })
                 return contentHtml

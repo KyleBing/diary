@@ -7,7 +7,7 @@
         <i :class="['category']" :style="`background-color: ${categoryObjectMap.get(diary.category).color}`"></i>
         <span class="date">{{ diary.date }}</span>
         <div class="detail">
-            <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。\n]/g, '*') }}</p>
+            <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
             <div class="bill-amount" v-if="diary.hasOwnProperty('billData')">{{diary.billData.sum.toFixed(moneyAccuracy)}}</div>
             <img alt="Content"
