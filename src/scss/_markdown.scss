@@ -68,6 +68,8 @@ $gap-small: 8px;
         font-size: $fz-small;
         padding: $gap $gap + 5;
         background-color: $bg-light;
+        width: 100%;
+        overflow-x: auto;
         code{
             padding: 0;
             font-family: "JetBrainsMonoDiary";

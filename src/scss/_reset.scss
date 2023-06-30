@@ -59,9 +59,9 @@ tt {
 }
 
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
     background-color: #ddd;
     transition: all .2s;
     cursor: pointer;
