@@ -2,10 +2,8 @@
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>tabicon/ category</title>
     <g id="tabicon/-category" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group" transform="translate(10.000000, 10.000000)" stroke="#E5E5EA" stroke-width="2">
-            <polyline id="Path" points="3 15 0 15 0 0 15 0 15 3"></polyline>
-            <polyline id="Path" points="8 20 5 20 5 5 20 5 20 8"></polyline>
-            <rect id="Rectangle-Copy-2" x="10" y="10" width="15" height="15"></rect>
-        </g>
+        <polyline id="Path" stroke="#E5E5EA" stroke-width="2" points="12 24 9 24 9 9 24 9 24 12"></polyline>
+        <polyline id="Path" stroke="#E5E5EA" stroke-width="2" points="18 30 15 30 15 15 30 15 30 18"></polyline>
+        <rect id="Rectangle-Copy-2" stroke="#E5E5EA" stroke-width="2" x="21" y="21" width="15" height="15"></rect>
     </g>
 </svg>

@@ -21,6 +21,7 @@ export default {
     content_md_white: require('./icons/content_md_white.svg'),
     clipboard: require('./icons/clipboard.svg'),
     tab: {
+        invitation: require('./tabicon/invitation.svg'),
         add: require('./tabicon/add.svg'),
         back: require('./tabicon/back.svg'),
         close: require('./tabicon/close.svg'),

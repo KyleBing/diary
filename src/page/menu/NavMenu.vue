@@ -26,8 +26,8 @@
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToBankCard" />
                     <menu-list-item menu-name="修改密码"  :icon="icons.tab.key"         @click="goToChangePassword" />
                     <menu-list-item  v-if="isAdmin"
-                                     menu-name="邀请码"   :icon="icons.tab.add"         @click="goToInvitationList" />
-                    <menu-list-item menu-name="关于"     :icon="icons.tab.about"      @click="menuListClicked('about')"
+                                     menu-name="邀请码"   :icon="icons.tab.invitation"         @click="goToInvitationList" />
+                    <menu-list-item menu-name="关于"     :icon="icons.tab.about"        @click="menuListClicked('about')"
                                     :add-on-text="`v${version}`"/>
                 </div>
 
