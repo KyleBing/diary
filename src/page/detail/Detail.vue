@@ -15,7 +15,7 @@
 
                 <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
                     <span v-if="diary.temperature">{{ diary.temperature }}</span>
-                    <span v-if="diary.temperatureOutside && diary.temperature"> / </span>
+                    <span v-if="diary.temperatureOutside && diary.temperature">/</span>
                     <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
                     <span> ℃</span>
                 </div>
