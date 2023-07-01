@@ -143,7 +143,6 @@ $height-meta: 30px;
 
     .date-wrapper{
       .date{
-
       }
       .time{
         margin-left: 20px;
@@ -174,6 +173,25 @@ $height-meta: 30px;
     padding: 10px 50px;
     justify-content: space-between;
     @include border-radius($radius-mobile);
+
+    .weather-wrapper{
+      .weather{
+        margin-right: 15px;
+        img{
+        }
+      }
+      .temperature{
+        margin-right: 15px;
+      }
+    }
+
+    .date-wrapper{
+      .date{
+      }
+      .time{
+        margin-left: 20px;
+      }
+    }
   }
   .diary-title{
   }
