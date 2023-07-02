@@ -29,9 +29,9 @@ export default {
 
         window.onresize = () => {
             this.SET_INSETS({
-                windowsHeight: window.innerHeight,
-                windowsWidth: window.innerWidth,
-                heightPanel: window.innerHeight - 45, // 除 navbar 的高度
+                windowsHeight: document.documentElement.clientHeight,
+                windowsWidth: document.documentElement.clientWidth,
+                heightPanel: document.documentElement.clientHeight - 45, // 除 navbar 的高度
             })
         }
 
