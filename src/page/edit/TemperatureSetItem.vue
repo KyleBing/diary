@@ -1,11 +1,12 @@
 <template>
     <div :class="['temperature-set-item',{active: !!temperatureLocal}]">
         <input placeholder="--"
+               @keydown="keyPressed"
                @wheel="mouseWheelScrolled"
                class="temperature"
                name="temperature"
                id="temperature"
-               v-model.lazy="temperatureLocal"
+               v-model="temperatureLocal"
         >
         <div class="unit">{{unit}}</div>
     </div>
@@ -55,6 +56,23 @@ export default {
                 this.temperatureLocal = this.temperatureLocal - 1
             }
             this.$emit('update:modelValue', String(this.temperatureLocal))
+        },
+        keyPressed(event){
+            if (this.temperatureLocal === ''){
+                this.temperatureLocal = 20 // 数值变化从 20 开始
+            }
+            switch (event.key){
+                case 'ArrowUp':
+                    this.temperatureLocal = this.temperatureLocal + 1
+                    break;
+                case 'ArrowDown':
+                    this.temperatureLocal = this.temperatureLocal - 1
+                    break;
+                default: break
+            }
+            console.log(this.temperatureLocal)
+            this.$emit('update:modelValue', String(this.temperatureLocal))
+            event.preventDefault()
         }
     },
     watch:{
