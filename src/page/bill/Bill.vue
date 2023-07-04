@@ -70,7 +70,8 @@
                             <th class="label center">具体</th>
                         </tr>
                         <tr v-for="item in month.days" :key="item.date">
-                            <td class="center number">{{ dateProcess(item.date).dateShort }}
+                            <td class="center number link"  @click="goToDiaryDetail(item.id)">
+                                {{ dateProcess(item.date).dateShort }}
                                 <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
                             <td class="number">
                                 <span v-if="item.sumIncome === 0" class="text-invalid">~</span>
@@ -82,7 +83,7 @@
                                 <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
                                 <span v-else>{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
                             </td>
-                            <td class="label center link" @click="goToDiaryDetail(item.id)"
+                            <td class="label center"
                                 v-tooltip="{
                                 content: tooltipContent(item.items),
                                 html: true,
