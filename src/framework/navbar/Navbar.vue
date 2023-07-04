@@ -71,7 +71,8 @@
                         <Loading :height="50" :loading="true"/>
                     </div>
                     <div @click="diarySave" v-else>
-                        <tab-icon v-if="isDiaryEditorContentHasChanged" alt="确定-已变化"/>
+                        <tab-icon v-if="isNewDiary" alt="确定"/>
+                        <tab-icon v-else-if="isDiaryEditorContentHasChanged" alt="确定-已变化"/>
                         <tab-icon v-else alt="确定-已保存"/>
                     </div>
                 </div>
@@ -141,10 +142,15 @@ export default {
 
             // toast
             isToastShowed: false,
+
+            isNewDiary: true, // 是否为新日记
+
         }
     },
     mounted() {
         this.location = window.location
+
+        this.isNewDiary = !(this.$route.params.id)
 
         // 绑定剪贴板操作方法
         this.clipboard = new ClipboardJS('.clipboard-trigger', {
@@ -155,6 +161,11 @@ export default {
         this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
             utility.popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
         })
+    },
+    watch: {
+        '$route'(newValue){
+            this.isNewDiary = !(newValue.params.id)
+        }
     },
     unmounted() {
         this.clipboard.destroy()
