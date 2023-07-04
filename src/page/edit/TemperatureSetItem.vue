@@ -58,21 +58,32 @@ export default {
             this.$emit('update:modelValue', String(this.temperatureLocal))
         },
         keyPressed(event){
-            if (this.temperatureLocal === ''){
-                this.temperatureLocal = 20 // 数值变化从 20 开始
-            }
             switch (event.key){
                 case 'ArrowUp':
-                    this.temperatureLocal = this.temperatureLocal + 1
+                    if (this.temperatureLocal === ''){
+                        this.temperatureLocal = 20 // 数值变化从 20 开始
+                    }
+                    if (event.metaKey || event.ctrlKey){
+                        this.temperatureLocal = this.temperatureLocal + 10
+                    } else {
+                        this.temperatureLocal = this.temperatureLocal + 1
+                    }
+                    event.preventDefault()
                     break;
                 case 'ArrowDown':
-                    this.temperatureLocal = this.temperatureLocal - 1
+                    if (this.temperatureLocal === ''){
+                        this.temperatureLocal = 20 // 数值变化从 20 开始
+                    }
+                    if (event.metaKey || event.ctrlKey){
+                        this.temperatureLocal = this.temperatureLocal - 10
+                    } else {
+                        this.temperatureLocal = this.temperatureLocal - 1
+                    }
+                    event.preventDefault()
                     break;
                 default: break
             }
-            console.log(this.temperatureLocal)
             this.$emit('update:modelValue', String(this.temperatureLocal))
-            event.preventDefault()
         }
     },
     watch:{
