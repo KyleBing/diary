@@ -12,7 +12,8 @@ function request(method, params, requestData = {}, url) {
     * */
     if (url !== 'user/login' && url !== 'user/register'){ // 注册和登录时不添加 Token 数据
         Object.assign(headers, {
-            'Diary-Token':  utility.getAuthorization() && utility.getAuthorization().token
+            'Diary-Token':  utility.getAuthorization() && utility.getAuthorization().token,
+            'Diary-Uid':  utility.getAuthorization() && utility.getAuthorization().uid
         })
     }
 
