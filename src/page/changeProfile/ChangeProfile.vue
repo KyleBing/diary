@@ -7,7 +7,8 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
-                        <img :src="formUser.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.changeAvatar" alt="Diary Logo">
+                        <img v-if="formUser.avatar" :src="formUser.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.changeAvatar" alt="Diary Logo">
+                        <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
                 </div>
