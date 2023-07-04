@@ -1,7 +1,8 @@
 <template>
     <div class="user-profile">
         <div class="avatar">
-            <img :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
+            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
+            <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
         </div>
         <div class="user-info mt-1 mb-4">
             <div class="user">
