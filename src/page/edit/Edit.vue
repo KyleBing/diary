@@ -486,7 +486,8 @@ export default {
                         }
                     })
             } else {
-                utility.popMessage('warning', '没有配置地域信息', null)
+                console.log('没有配置地域信息')
+                // utility.popMessage('warning', '没有配置地域信息', null)
             }
         },
 
