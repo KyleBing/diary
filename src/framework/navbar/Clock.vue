@@ -2,7 +2,7 @@
     <div class="clock">
         <div class="weekday">{{lunarObject.ncWeek}}</div>
 
-        <div class="date">{{lunarObject.cMonth}}/{{lunarObject.cDay}}</div>
+        <div class="date">{{lunarObject.cMonth}}月{{lunarObject.cDay}}日</div>
         <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
         <div>{{time}}</div>
     </div>
