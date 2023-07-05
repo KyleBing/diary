@@ -8,4 +8,6 @@ export default {
     detail(params){ return request('get',    params,null, 'diary/detail')},
     share(params) { return request('get',    params, null,'diary/share')},
     categoryAllGet(params) { return request('get',    null, null,'diary-category/list')},
+    // 导出用户所有日记
+    export()  { return request('get'   , null, null, 'diary/export')}  ,
 }

@@ -24,7 +24,7 @@
                     <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToStatisticPage" />
                     <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToBillPage" />
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToBankCard" />
-                    <menu-list-item menu-name="修改密码"  :icon="icons.tab.key"         @click="goToChangePassword" />
+                    <menu-list-item menu-name="其它"  :icon="icons.tab.invitation" @click="menuListClicked('others')" />
                     <menu-list-item  v-if="isAdmin"
                                      menu-name="邀请码"   :icon="icons.tab.invitation"         @click="goToInvitationList" />
                     <menu-list-item menu-name="关于"     :icon="icons.tab.about"        @click="menuListClicked('about')"
@@ -32,23 +32,28 @@
                 </div>
 
                 <!-- 用户信息 -->
-                <user-profile/>
+                <UserProfile/>
 
             </div>
 
             <!-- 页面 类别筛选 -->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
-                <menu-category-selector v-if="categoryShowed"/>
+                <MenuCategorySelector v-if="categoryShowed"/>
             </transition>
 
             <!-- 页面 年份筛选 -->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
-                <year-selector v-show="yearShowed"/>
+                <YearSelector v-show="yearShowed"/>
+            </transition>
+
+            <!-- 页面 其它功能 -->
+            <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
+                <MenuOtherFunction v-show="othersShowed"/>
             </transition>
 
             <!-- 页面 关于 -->
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
-                <about v-show="aboutShowed"/>
+                <About v-show="aboutShowed"/>
             </transition>
         </div>
     </transition>
@@ -67,10 +72,12 @@ import MenuCategoryIndicator from "./MenuCategoryIndicator"
 import svgIcons from "../../assets/img/SvgIcons"
 import projectConfig from "../../projectConfig";
 import UserProfile from "../../page/menu/UserProfile.vue";
+import MenuOtherFunction from "@/page/menu/MenuOtherFunction";
 
 export default {
     name: "NavMenu",
     components: {
+        MenuOtherFunction,
         UserProfile,
         MenuCategoryIndicator,
         MenuListItem,
@@ -81,10 +88,11 @@ export default {
     data(){
         return {
             // menu
-            menuListShowed: true,         // menu list
-            categoryShowed: false,        // category
-            yearShowed: false,            // year chooser
-            aboutShowed: false,           // about
+            menuListShowed: true,         // 菜单列表
+            categoryShowed: false,        // 类别菜单
+            yearShowed: false,            // 年份选择
+            othersShowed: false,          // 其它不常用功能
+            aboutShowed: false,           // 关于页面
 
             // menu - category
             categoriesSet: new Set(),
@@ -142,12 +150,6 @@ export default {
             this.$router.push({name: 'BankCard'})
         },
 
-        goToChangePassword(){
-            this.SET_MENU_SHOWED(false)
-            this.menuClose()
-            this.$router.push({name: 'ChangePassword'})
-        },
-
         goToInvitationList(){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
@@ -160,6 +162,7 @@ export default {
             this.menuListShowed = true          // menu list
             this.categoryShowed = false         // category
             this.yearShowed = false             // year
+            this.othersShowed = false           // others
             this.aboutShowed = false            // about
         },
         menuClose(){
@@ -171,6 +174,7 @@ export default {
                 this.menuListShowed = true        // menu list
                 this.categoryShowed = false       // category
                 this.yearShowed = false           // year
+                this.othersShowed = false         // others
                 this.aboutShowed = false          // about
             } else if (this.yearShowed) {
                 this.SET_IS_LIST_NEED_BE_RELOAD(true)
@@ -185,6 +189,7 @@ export default {
             this.menuListShowed = true      // menu list
             this.categoryShowed = false     // category
             this.yearShowed = false         // year
+            this.othersShowed = false       // others
             this.aboutShowed = false        // about
         },
         menuListClicked(menuName) {
@@ -201,6 +206,7 @@ export default {
                     this.menuListShowed = false // menu list
                     this.categoryShowed = true  // category
                     this.yearShowed = false     // year
+                    this.othersShowed = false   // others
                     this.aboutShowed = false    // about
                     break
                 case 'bankCard':
@@ -213,6 +219,15 @@ export default {
                     this.menuListShowed = false   // menu list
                     this.categoryShowed = false   // category
                     this.yearShowed = true        // year
+                    this.othersShowed = false     // others
+                    this.aboutShowed = false      // about
+                    break
+                case 'others':
+                    this.SET_MENU_SHOWED(true)    // menu panel
+                    this.menuListShowed = false   // menu list
+                    this.categoryShowed = false   // category
+                    this.yearShowed = false       // year
+                    this.othersShowed = true      // others
                     this.aboutShowed = false      // about
                     break
                 case 'about':
@@ -220,6 +235,7 @@ export default {
                     this.menuListShowed = false   // menu list
                     this.categoryShowed = false   // category
                     this.yearShowed = false       // year
+                    this.othersShowed = false     // others
                     this.aboutShowed = true       // about
                     break
                 default:
