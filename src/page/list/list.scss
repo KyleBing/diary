@@ -41,11 +41,11 @@
     @include border-radius();
     padding: 5px 10px;
     display: block;
-    border: 1px solid $color-border;
+    border: 1px solid $color-border-highlight;
     font-size: 1em;
     &:focus{
-      border-color: $color-main;
-      box-shadow: 1px 1px 5px transparentize($color-main, 0.7);
+      border-color: $color-border-search-bar;
+      box-shadow: 1px 1px 5px transparentize($color-border-search-bar, 0.7);
     }
   }
   .clear{
