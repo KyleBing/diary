@@ -28,7 +28,7 @@ export default createStore({
         isDiaryListShowedInFullStyle: false ,    // 日记列表是否显示为全部内容
         isListNeedBeReload: false ,              // 是否刷新列表
         isSavingDiary: false ,                   // 是否正在保存日记
-        isMenuShowed: false ,                    // 显示菜单
+        isMenuShowed: true ,                    // 显示菜单
 
         editLogoImg: svgIcons.logo ,             // 编辑页LOGO
         listOperation:{} ,                       // 列表页的操作，增删改操作，一般不再重新加载列表
