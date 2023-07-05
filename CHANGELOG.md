@@ -5,6 +5,7 @@
 - fix 隐藏内容的时候、详情、编辑均隐藏。
 - fix iPhone iPad 屏幕旋转之后内容无法全屏的问题
 - 网络请求中添加 Diary-Token / Diary-Uid 参数
+- fix 从移动端 List 页面切到 PC 端 List 时显示两个 List 的问题
 
 ### v8.42 `2023-06-16`
 - 编辑面板日期在最上

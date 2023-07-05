@@ -33,6 +33,15 @@ export default {
                 windowsWidth: document.documentElement.clientWidth,
                 heightPanel: document.documentElement.clientHeight - 45, // 除 navbar 的高度
             })
+            if (this.isInMobileMode){
+
+            } else {
+                if (this.$route.name === 'List'){
+                    this.$router.push({
+                        name: 'EditNew'
+                    })
+                }
+            }
         }
 
         // 旧版本数据清除
@@ -41,7 +50,8 @@ export default {
         }
     },
     computed: {
-        ...mapState(['categoryAll'])
+        ...mapState(['categoryAll']),
+        ...mapGetters(['isInMobileMode']),
     },
     methods: {
         ...mapMutations([

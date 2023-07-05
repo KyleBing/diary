@@ -63,7 +63,7 @@ $height-indicator: 8px;
     cursor: pointer;
     @extend .btn-like;
     height: $height-navbar;
-    padding: ($height-navbar - $height-indicator * 2 - 3)/2 0;
+    padding: math.div($height-navbar - $height-indicator * 2 - 3, 2) 0;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;

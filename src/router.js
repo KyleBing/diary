@@ -18,7 +18,7 @@ import Detail from "./page/detail/Detail"
 import Edit from "./page/edit/Edit"
 import NotFound_404 from "./fundation/NotFound_404";
 import ListHole from "./page/listHole/ListHole";
-
+import store from './store'
 const routes = [
     {
         name: 'Index',
@@ -60,20 +60,30 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' &&
-        to.name !== 'Register' &&
-        to.name !== 'Share' &&
-        to.name !== 'Invitation'
-    ){
-        if (utility.getAuthorization() && utility.getAuthorization().email){
+    switch (to.name){
+        case 'Login':
+        case 'Register':
+        case 'Share':
+        case 'Invitation':
             next()
-        } else {
-            next({
-                name: 'Login'
-            })
-        }
-    } else {
-        next()
+            break
+        default:
+            if (utility.getAuthorization() && utility.getAuthorization().email){
+                if (to.name === 'List'){
+                    if (store.getters.isInMobileMode){
+                        next()
+                    } else {
+                        next({name: 'EditNew'})
+                    }
+                } else {
+                    next()
+                }
+            } else {
+                next({
+                    name: 'Login'
+                })
+            }
+            break
     }
 })
 
