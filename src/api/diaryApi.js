@@ -9,5 +9,5 @@ export default {
     share(params) { return request('get',    params, null,'diary/share')},
     categoryAllGet(params) { return request('get',    null, null,'diary-category/list')},
     // 导出用户所有日记
-    export()  { return request('get'   , null, null, 'diary/export')}  ,
+    export()  { return request('get'   , null, null, 'diary/export', 120000)}  ,
 }

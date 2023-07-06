@@ -3,7 +3,7 @@ import utility from "./utility";
 const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../portal/'
 
 
-function request(method, params, requestData = {}, url) {
+function request(method, params, requestData = {}, url, timeout = 30000) {
 
     let headers = {}
     /*
@@ -24,6 +24,7 @@ function request(method, params, requestData = {}, url) {
             params,
             data: requestData,
             headers,
+            timeout,
             withCredentials: true
         })
             .then(res => {

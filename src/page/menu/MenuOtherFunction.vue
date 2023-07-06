@@ -16,9 +16,10 @@
            <div class="menu-section-subtitle">导出所有日记到指定格式的文件 </div>
            <div class="menu-section-content">
                <div class="btn-list">
-                   <div class="btn btn-active" @click="exportDiary('cvs')">cvs</div>
+                   <div class="btn btn-active" @click="exportDiary('csv')">csv</div>
                    <div class="btn btn-active" @click="exportDiary('json')">json</div>
                    <div class="btn btn-active" @click="exportDiary('text')">text</div>
+                   <div class="btn btn-active" @click="exportDiary('text')">sql</div>
                </div>
            </div>
        </div>
@@ -28,15 +29,27 @@
 
 <script>
 import projectConfig from "@/projectConfig";
-import {mapMutations} from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 import diaryApi from "@/api/diaryApi";
+import utility from "@/utility";
 
 export default {
     name: "MenuOtherFunction",
     data(){
         return {
-            projectConfig
+            projectConfig,
+            isDownloadingContent: false,
+            weatherMap: new Map(), // 天气 MAP
         }
+    },
+    computed: {
+        ...mapGetters(['categoryNameMap'])
+    },
+    mounted() {
+        this.weatherMap = new Map()
+        utility.WEATHER.forEach(weather => {
+            this.weatherMap.set(weather.title, weather.name)
+        })
     },
 
     methods: {
@@ -46,12 +59,53 @@ export default {
             this.$router.push({name: 'ChangePassword'})
         },
         exportDiary(fileFormat){
+            this.isDownloadingContent = true
             diaryApi
                 .export()
                 .then(res => {
+                    this.isDownloadingContent = false
                     let diaries = res.data
+                    console.log(diaries)
+                    let fileName = `日记导出-${utility.getAuthorization().nickname}-${utility.dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
+                    switch (fileFormat){
+                        case 'csv':
+                            this.downloadFile(`${fileName}.csv`, this.getCVSData(diaries))
+                            break;
+                        case 'json':
+                            this.downloadFile(`${fileName}.json`, JSON.stringify(diaries))
+                            break;
+                        case 'text': break;
+                        case 'sql': break;
+                    }
                 })
-        }
+        },
+
+        getCVSData(diaries){
+            let finalData = 'ID,编辑时间,创建时间,类别,天气,身处温度,外界气温,Markdown,标题,内容\n'
+            diaries.forEach(diary => {
+                let dateModify = utility.dateFormatter(new Date(diary.date_modify))
+                let dateCreate = utility.dateFormatter(new Date(diary.date_create))
+                let isMarkdown = diary.is_markdown === 0? '否': '是'
+                let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
+                let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
+                let weather = this.weatherMap.get(diary.weather)
+                let category = this.categoryNameMap.get(diary.category)
+                finalData =
+                    finalData.concat(`${diary.id},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${isMarkdown},${diary.title},${diary.content}\n`)
+            })
+            return finalData
+        },
+
+        downloadFile(fileName, data) { // 下载文件
+            let aLink = document.createElement('a')
+            let blob = new Blob([data]); //new Blob([content])
+            let evt = document.createEvent("HTMLEvents")
+            evt.initEvent("click", true, true); //initEvent 不加后两个参数在FF下会报错  事件类型，是否冒泡，是否阻止浏览器的默认行为
+            aLink.download = fileName
+            aLink.href = URL.createObjectURL(blob)
+            aLink.click()
+        },
+
     }
 }
 </script>
