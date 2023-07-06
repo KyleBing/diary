@@ -33,7 +33,7 @@ function request(method, params, requestData = {}, url, timeout = 30000) {
                         resolve(res.data)
                     } else {
                         console.log('request err: ', res.data) // 输出错误信息
-                        utility.popMessage('danger', res.data.message, null)
+                        utility.popMessage('danger', res.data.message, null, 5)
                         reject(res.data)
                     }
                 } else {

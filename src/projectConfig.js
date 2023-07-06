@@ -13,5 +13,4 @@ export default {
 
     // 注册说明 HTML 格式
     registerTip: ``
-
 }
