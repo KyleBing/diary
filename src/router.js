@@ -19,6 +19,8 @@ import Edit from "./page/edit/Edit"
 import NotFound_404 from "./fundation/NotFound_404";
 import ListHole from "./page/listHole/ListHole";
 import store from './store'
+import ClearDiary from "@/page/others/ClearDiary";
+import DestroyAccount from "@/page/others/DestroyAccount";
 const routes = [
     {
         name: 'Index',
@@ -40,12 +42,14 @@ const routes = [
         ]
     },
     {name: 'Register',       path: '/register',          component: Register},
-    {name: 'Share',          path: '/share/:id',         component: Share         },
+    {name: 'Share',          path: '/share/:id',         component: Share},
+    {name: 'ClearDiary',     path: '/clear-diary',       component: ClearDiary },
+    {name: 'DestroyAccount', path: '/destroy-account',   component: DestroyAccount },
     {name: 'ChangePassword', path: '/change-password',   component: ChangePassword },
     {name: 'ChangeProfile',  path: '/change-profile',    component: ChangeProfile },
-    {name: 'Login',          path: '/login',             component: Login          },
-    {name: 'Statistics',     path: '/statistics',        component: Statistics   },
-    {name: 'Bill',           path: '/bill',              component: Bill },
+    {name: 'Login',          path: '/login',             component: Login},
+    {name: 'Statistics',     path: '/statistics',        component: Statistics},
+    {name: 'Bill',           path: '/bill',              component: Bill},
     {name: 'BankCard',       path: '/bank-card',         component: BankCardList },
     {name: 'Invitation',     path: '/invitation',        component: InvitationList },
     {name: 'NotFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}

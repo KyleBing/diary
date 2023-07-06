@@ -24,6 +24,17 @@
 .show   {display: block !important;}
 
 
+.flex-start{
+  justify-content: flex-start !important;
+}
+.flex-end{
+  justify-content: flex-end !important;
+}
+.flex-center{
+  justify-content: center !important;
+}
+
+
 .link {
   @extend .btn-like;
   &:hover {

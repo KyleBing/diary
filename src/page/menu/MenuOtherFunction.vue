@@ -2,6 +2,7 @@
    <div class="menu-others-container">
        <div class="menu-section">
            <div class="menu-section-title">密码</div>
+           <div class="menu-section-subtitle"></div>
            <div class="menu-section-content">
                <div class="btn-list">
                    <div class="btn btn-active" @click="goToChangePassword">修改密码</div>
@@ -24,6 +25,17 @@
            </div>
            <div class="desc" v-if="isDownloadingContent">导出中，请耐心等待，勿进行其它操作...</div>
        </div>
+       <div class="menu-section">
+           <div class="menu-section-title">再见</div>
+           <div class="menu-section-subtitle">清空日记内容</div>
+           <div class="menu-section-content">
+               <div class="btn-list">
+                   <div class="btn btn-active" @click="clearDiary">清空日记</div>
+<!--                   <div class="btn btn-active" @click="destroyAccount">注销帐号</div>-->
+               </div>
+           </div>
+           <div class="desc" v-if="isDownloadingContent">导出中，请耐心等待，勿进行其它操作...</div>
+       </div>
    </div>
 
 </template>
@@ -33,6 +45,7 @@ import projectConfig from "@/projectConfig";
 import {mapGetters, mapMutations} from "vuex";
 import diaryApi from "@/api/diaryApi";
 import utility from "@/utility";
+import userApi from "@/api/userApi";
 
 export default {
     name: "MenuOtherFunction",
@@ -55,6 +68,19 @@ export default {
 
     methods: {
         ...mapMutations(['SET_MENU_SHOWED']),
+        clearDiary(){
+            this.$router.push({name: 'ClearDiary'})
+            return
+        },
+        destroyAccount(){
+            this.$router.push({name: 'DestroyAccount'})
+            return
+            userApi
+                .destroyAccount()
+                .then(res => {
+
+                })
+        },
         goToChangePassword(){
             this.SET_MENU_SHOWED(false)
             this.$router.push({name: 'ChangePassword'})

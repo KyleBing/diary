@@ -10,4 +10,5 @@ export default {
     categoryAllGet(params) { return request('get',    null, null,'diary-category/list')},
     // 导出用户所有日记
     export()  { return request('get'   , null, null, 'diary/export', 120000)}  ,
+    clear(requestData)  { return request('post'   , null, requestData, 'diary/clear')}  ,
 }
