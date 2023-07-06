@@ -88,10 +88,10 @@ export default {
     data(){
         return {
             // menu
-            menuListShowed: false,         // 菜单列表
+            menuListShowed: true,         // 菜单列表
             categoryShowed: false,        // 类别菜单
             yearShowed: false,            // 年份选择
-            othersShowed: true,          // 其它不常用功能
+            othersShowed: false,          // 其它不常用功能
             aboutShowed: false,           // 关于页面
 
             // menu - category
