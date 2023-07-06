@@ -74,7 +74,9 @@ export default {
                         case 'json':
                             this.downloadFile(`${fileName}.json`, JSON.stringify(diaries))
                             break;
-                        case 'text': break;
+                        case 'text':
+                            this.downloadFile(`${fileName}.txt`, this.getTextData(diaries))
+                            break;
                         case 'sql': break;
                     }
                 })
@@ -92,6 +94,41 @@ export default {
                 let category = this.categoryNameMap.get(diary.category)
                 finalData =
                     finalData.concat(`${diary.id},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${isMarkdown},${diary.title},${diary.content}\n`)
+            })
+            return finalData
+        },
+
+        getTextData(diaries){
+            let finalData = `※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+
+    导出日期：${utility.dateFormatter(new Date())}
+    用　　户：${utility.getAuthorization().nickname}
+    总　　计：${diaries.length} 条
+    Email：${utility.getAuthorization().email}
+    UID：${utility.getAuthorization().uid}
+
+※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+\n\n\n\n`
+            diaries.forEach(diary => {
+                let dateModify = utility.dateFormatter(new Date(diary.date_modify))
+                let dateCreate = utility.dateFormatter(new Date(diary.date_create))
+                let isMarkdown = diary.is_markdown === 0? '否': '是'
+                let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
+                let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
+                let weather = this.weatherMap.get(diary.weather)
+                let category = this.categoryNameMap.get(diary.category)
+                finalData =
+                    finalData.concat(`=== ${diary.id} =====================\n
+编辑日期：${dateModify}
+创建日期：${dateCreate}
+类　　别：${category}
+天　　气：${weather}
+身处温度：${temperature}
+室外温度：${temperature_outside}
+MarkDown：${isMarkdown}
+标　　题：${diary.title}
+内　　容：${diary.content}
+\n`)
             })
             return finalData
         },
