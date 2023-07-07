@@ -54,10 +54,11 @@ export default {
             userApi
                 .destroyAccount()
                 .then(res => {
-                    utility.popMessage('success', '注销成功', ()=>{
-                        utility.deleteAuthorization()
-                        utility.deleteDiaryConfig()
-                    })
+                    utility.deleteAuthorization()
+                    utility.deleteDiaryConfig()
+                    utility.popMessage('success', '注销成功，3 秒后跳转到登录页面', ()=>{
+                        this.$router.push({name: 'Login'})
+                    }, 3)
                 })
         }
     },

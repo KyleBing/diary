@@ -6,5 +6,5 @@ export default {
     changePassword(requestData){ return request('put' , {}, requestData, 'user/change-password')},
     setProfile(requestData)    { return request('put' , {}, requestData, 'user/set-profile')},
     // 注销帐户
-    destroyAccount()    { return request('post' , {}, requestData, 'user/destroy-account')}
+    destroyAccount()    { return request('delete' , {}, null, 'user/destroy-account')}
 }

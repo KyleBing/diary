@@ -24,7 +24,7 @@
                     <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToStatisticPage" />
                     <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToBillPage" />
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToBankCard" />
-                    <menu-list-item menu-name="其它"  :icon="icons.tab.invitation" @click="menuListClicked('others')" />
+                    <menu-list-item menu-name="其它"     :icon="icons.tab.invitation"   @click="menuListClicked('others')" />
                     <menu-list-item  v-if="isAdmin"
                                      menu-name="邀请码"   :icon="icons.tab.invitation"         @click="goToInvitationList" />
                     <menu-list-item menu-name="关于"     :icon="icons.tab.about"        @click="menuListClicked('about')"

@@ -31,7 +31,7 @@
            <div class="menu-section-content">
                <div class="btn-list">
                    <div class="btn btn-active" @click="clearDiary">清空日记</div>
-<!--                   <div class="btn btn-active" @click="destroyAccount">注销帐号</div>-->
+                   <div class="btn btn-active" @click="destroyAccount">注销帐号</div>
                </div>
            </div>
            <div class="desc" v-if="isDownloadingContent">导出中，请耐心等待，勿进行其它操作...</div>
@@ -69,17 +69,12 @@ export default {
     methods: {
         ...mapMutations(['SET_MENU_SHOWED']),
         clearDiary(){
+            this.SET_MENU_SHOWED(false)
             this.$router.push({name: 'ClearDiary'})
-            return
         },
         destroyAccount(){
+            this.SET_MENU_SHOWED(false)
             this.$router.push({name: 'DestroyAccount'})
-            return
-            userApi
-                .destroyAccount()
-                .then(res => {
-
-                })
         },
         goToChangePassword(){
             this.SET_MENU_SHOWED(false)
