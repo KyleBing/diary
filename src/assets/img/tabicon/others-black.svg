@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tabicon/ others-black</title>
+    <g id="tabicon/-others-black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M38,26 L38,38 L26,38 L26,26 L38,26 Z" id="Rectangle" stroke="#4A4A4A" stroke-width="2"></path>
+        <g id="Group" transform="translate(25.000000, 7.000000)" stroke="#4A4A4A" stroke-linecap="square" stroke-linejoin="round" stroke-width="2">
+            <line x1="0.461538462" y1="0.461538462" x2="11.5384615" y2="11.5384615" id="Line"></line>
+            <line x1="0.461538462" y1="0.461538462" x2="11.5384615" y2="11.5384615" id="Line" transform="translate(6.000000, 6.000000) scale(-1, 1) translate(-6.000000, -6.000000) "></line>
+        </g>
+        <polygon id="Triangle" stroke="#4A4A4A" stroke-width="2" points="13 26 19 38 7 38"></polygon>
+        <path d="M13.5,7 C15.2949254,7 16.9199254,7.72753728 18.0961941,8.90380592 C19.2724627,10.0800746 20,11.7050746 20,13.5 C20,15.2949254 19.2724627,16.9199254 18.0961941,18.0961941 C16.9199254,19.2724627 15.2949254,20 13.5,20 C11.7050746,20 10.0800746,19.2724627 8.90380592,18.0961941 C7.72753728,16.9199254 7,15.2949254 7,13.5 C7,11.7050746 7.72753728,10.0800746 8.90380592,8.90380592 C10.0800746,7.72753728 11.7050746,7 13.5,7 Z" id="Rectangle-Copy" stroke="#4A4A4A" stroke-width="2"></path>
+    </g>
+</svg>
