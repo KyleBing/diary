@@ -2,7 +2,7 @@
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>tabicon/ about</title>
     <g id="tabicon/-about" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Path" fill="#E5E5EA" fill-rule="nonzero" points="16 35 16 33 22 33 22 21 18 21 18 19 24 19 24 33 29 33 29 35"></polygon>
-        <ellipse id="Oval" fill="#E5E5EA" cx="22" cy="14" rx="2.5" ry="2"></ellipse>
+        <polygon id="Path" fill="#E5E5EA" fill-rule="nonzero" points="16 36 16 33 21 33 21 22 18 22 18 19 24 19 24 33 29 33 29 36"></polygon>
+        <circle id="Oval" fill="#E5E5EA" cx="22" cy="12.5" r="2.5"></circle>
     </g>
 </svg>
