@@ -9,9 +9,10 @@
                 <div id="reg">
                     <div class="logo-wrapper">
                         <div class="logo">
-                            <img :src="icons.logoIcon.changeAvatar" alt="Diary Logo">
+                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
+                            <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
                         </div>
-                        <!--                        <div class="project-name">清空所有日记</div>-->
+                        <div class="project-name">这是你最后反悔的机会</div>
                     </div>
                     <form id="regForm">
                         <button class="btn btn-active mt-8"
@@ -33,6 +34,7 @@ import {mapState} from "vuex"
 import SvgIcons from "../../assets/img/SvgIcons"
 import userApi from "@/api/userApi";
 import utility from "@/utility";
+import projectConfig from "@/projectConfig";
 
 export default {
     name: 'DestroyAccount',
@@ -40,6 +42,8 @@ export default {
         return {
             show: false,
             icons: SvgIcons,
+            userInfo: utility.getAuthorization(),
+            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix,
         }
     },
     mounted() {
