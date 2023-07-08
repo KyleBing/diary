@@ -11,9 +11,16 @@
   justify-content: space-between;
   align-items: center;
   .page-title{
-    flex-grow: 1;
+    flex-shrink: 0;
     font-size: $fz-title;
     font-weight: bold;
+    text-align: left;
+  }
+  .page-subtitle{
+    margin-left: 10px;
+    color: transparentize(white, 0.6);
+    flex-grow: 1;
+    font-size: $fz-main;
     text-align: left;
   }
   .page-back-btn{

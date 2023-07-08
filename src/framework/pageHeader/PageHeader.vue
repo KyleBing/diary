@@ -4,6 +4,7 @@
             <tab-icon alt="关闭"/>
         </div>
         <div class="page-title">{{ title }}</div>
+        <div class="page-subtitle">{{ subtitle }}</div>
         <slot/>
     </div>
 </template>
@@ -16,6 +17,10 @@ export default {
         title: {
             type: String,
             default: '标题'
+        },
+        subtitle: {
+            type: String,
+            default: ''
         }
     },
     components: {TabIcon}

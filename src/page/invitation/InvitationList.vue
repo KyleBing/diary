@@ -1,5 +1,5 @@
 <template>
-    <page-header title="邀请码（点击复制）">
+    <page-header title="邀请码" subtitle="点击邀请码可复制到剪贴板">
         <tab-icon v-if="isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
     </page-header>
 
