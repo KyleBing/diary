@@ -140,8 +140,9 @@ VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${d
                 let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
                 let weather = this.weatherMap.get(diary.weather)
                 let category = this.categoryNameMap.get(diary.category)
+                let content = diary.content.replace(/\"/g, '\"')
                 finalData =
-                    finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${isMarkdown},${diary.title},${diary.content}\n`)
+                    finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${isMarkdown},${diary.title},"${content}"\n`)
             })
             return finalData
         },
