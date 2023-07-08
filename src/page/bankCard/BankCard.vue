@@ -58,6 +58,7 @@ export default {
             tempMap.set('招商银行', svgIcons.bank.招商银行)
             tempMap.set('民生银行', svgIcons.bank.民生银行)
             tempMap.set('浦发银行', svgIcons.bank.浦发银行)
+            tempMap.set('银行', svgIcons.bank.银行)
             return tempMap
         },
 
@@ -83,7 +84,7 @@ export default {
             } else if (/浦发|浦发银行/g.test(cardName)) {
                 return this.mapBankIcon.get('浦发银行')
             } else {
-                return ''
+                return this.mapBankIcon.get('银行')
             }
         },
         getCardBgName(cardName){

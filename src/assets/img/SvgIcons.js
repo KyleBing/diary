@@ -117,5 +117,6 @@ export default {
         招商银行: require('./bankicon/招商银行.svg'),
         民生银行: require('./bankicon/民生银行.svg'),
         浦发银行: require('./bankicon/浦发银行.svg'),
+        银行: require('./bankicon/银行.svg'),
     }
 }
