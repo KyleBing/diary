@@ -15,6 +15,11 @@
 
 <img width="1920" alt="编辑页面" src="https://github.com/KyleBing/diary/assets/12215982/617f63a5-ec94-49f4-9c61-1761055e320c">
 
+
+iPad Pro 截图
+
+![主页](https://github.com/KyleBing/diary/assets/12215982/c2786d3c-f73e-4fb3-848a-089051ade2ea)
+
 ---
 
 ## 一、介绍
