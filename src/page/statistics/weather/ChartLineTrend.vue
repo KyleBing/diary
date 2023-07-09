@@ -36,8 +36,8 @@ export default {
                 grid: {
                     top: 20,
                     bottom: 120,
-                    left: 40,
-                    right: 20,
+                    left: 25,
+                    right: 30,
                 },
 
                 dataZoom: [

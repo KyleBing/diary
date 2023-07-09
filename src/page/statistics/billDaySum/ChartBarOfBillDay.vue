@@ -36,7 +36,7 @@ export default {
                 grid: {
                     top: 20,
                     bottom: 120,
-                    left: 40,
+                    left: 30,
                     right: 20,
                 },
 
@@ -76,7 +76,16 @@ export default {
                     type: 'value',
                     splitNumber: 3, // 显示的刻度数量
                     axisLabel: { // 坐标轴 label 样式
-                        fontSize: 10
+                        fontSize: 10,
+                        formatter: (value, index) => {
+                            let k = value / 1000
+                            let b = value % 1000
+                            if (k >= 1){
+                                return `${k.toFixed(0)}k`
+                            } else {
+                                return b
+                            }
+                        }
                     },
                     axisLine: {
                         show: true,
@@ -117,7 +126,7 @@ export default {
 
             this.option.series.push({
                 name: '收入',
-                barWidth: 5, // 柱子宽度
+                // barWidth: 5, // 柱子宽度
                 data: this.combineData.map(item => item.sumIncome),
                 lineStyle: {
                     width: 2,
@@ -134,7 +143,7 @@ export default {
 
             this.option.series.push({
                 name: '支出',
-                barWidth: 5, // 柱子宽度
+                // barWidth: 5, // 柱子宽度
                 data: this.combineData.map(item => item.sumOutput),
                 lineStyle: {
                     width: 2,

@@ -126,9 +126,9 @@ export default {
             this.option = {
                 grid: {
                     bottom: 40,
-                    right: 10,
+                    right: 20,
                     top: 10,
-                    left: 40
+                    left: 30
                 },
                 title: {
                     text: '',
@@ -153,7 +153,18 @@ export default {
                     }
                 }],
                 yAxis: [{
-                    type: 'value'
+                    type: 'value',
+                    axisLabel:{
+                        formatter: (value, index) => {
+                            let k = value / 1000
+                            let b = value % 1000
+                            if (k >= 1){
+                                return `${k}k`
+                            } else {
+                                return b
+                            }
+                        }
+                    }
                 }],
                 series: [{
                     name: '到访人员类型',

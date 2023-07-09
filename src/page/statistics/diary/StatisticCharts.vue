@@ -7,7 +7,7 @@
             <statistic-panel title="类别数据">
                 <div class="statistic-group">
                     <div class="info-list">
-                        <div class="info-item" v-for="year in dataArrayCategory">
+                        <div class="info-list-item" v-for="year in dataArrayCategory">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
@@ -19,7 +19,7 @@
             <statistic-panel title="年份数据">
                 <div class="statistic-group">
                     <div class="info-list">
-                        <div class="info-item" v-for="year in dataArrayYear">
+                        <div class="info-list-item" v-for="year in dataArrayYear">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>

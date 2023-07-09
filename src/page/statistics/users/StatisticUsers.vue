@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
-            <view class="user-list">
+            <div class="user-list">
                 <statistic-panel title="日记用户">
                     <table>
                         <thead>
@@ -16,6 +16,7 @@
                             <th>日记</th>
                             <th>码表</th>
                             <th>路书</th>
+                            <th>同步次数</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,11 +32,12 @@
                             <td class="number">{{ item.count_diary }}</td>
                             <td class="number">{{ item.count_dict }}</td>
                             <td class="number">{{ item.count_map_route }}</td>
+                            <td class="number">{{ item.sync_count }}</td>
                         </tr>
                         </tbody>
                     </table>
                 </statistic-panel>
-                <statistic-panel class="user-list" title="五笔码表用户">
+                <statistic-panel title="五笔码表用户">
                     <table>
                         <thead>
                         <tr>
@@ -67,7 +69,7 @@
                         </tbody>
                     </table>
                 </statistic-panel>
-                <statistic-panel class="user-list" title="路书用户">
+                <statistic-panel title="路书用户">
                     <table>
                         <thead>
                         <tr>
@@ -99,7 +101,7 @@
                         </tbody>
                     </table>
                 </statistic-panel>
-            </view>
+            </div>
             <statistic-panel title="用户日记数量">
                 <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
             </statistic-panel>

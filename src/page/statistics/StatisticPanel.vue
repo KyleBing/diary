@@ -1,7 +1,7 @@
 <template>
     <div class="statistic-panel-container">
+        <h3 v-if="title">{{title}}</h3>
         <div class="statistic-panel">
-            <h3 v-if="title">{{title}}</h3>
             <slot/>
         </div>
     </div>
@@ -26,18 +26,20 @@ export default {
     flex-shrink: 0;
     background-color: $bg-light;
     @include border-radius($radius-pc);
-    padding: 30px 30px;
+    padding: 30px;
 }
 h3{
+    margin-left: 10px;
     color: $text-title;
     font-size: $fz-title;
     line-height: 1;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 
+// mobile
 @media (max-width: $grid-separate-width-sm) {
     .statistic-panel-container{
-        padding: 5px;
+        padding: 20px 5px;
     }
     .statistic-panel{
         padding: 15px;
