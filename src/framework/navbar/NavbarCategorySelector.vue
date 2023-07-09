@@ -16,9 +16,8 @@
 
                 </div>
                 <div class="navbar-category-list-special">
-                    <div class="navbar-category-list-item special" @click="selectCategoryAll" >全选</div>
-                    <div class="navbar-category-list-item special" @click="selectCategoryNone" >清选</div>
                     <div class="navbar-category-list-item special" @click="reverseCategorySelect">反选</div>
+                    <div class="navbar-category-list-item special" @click="selectCategoryNone" >清选</div>
                 </div>
             </div>
 

@@ -21,8 +21,6 @@ export default {
 @import "../../scss/plugin";
 
 .list-header{
-    border-top: 1px solid $color-border;
-    border-bottom: 1px solid $color-border;
     font-size: $fz-list-header;
     text-align: left;
     padding: 0 20px;
@@ -37,7 +35,6 @@ export default {
     font-weight: bold;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
     &.big{
-        border-bottom: none;
         padding: 10px 20px;
         height: auto;
         font-size: $fz-big;
@@ -50,6 +47,7 @@ export default {
     }
 }
 
+// Mobile
 @media (max-width: $grid-separate-width-sm) {
     .list-header {
         font-size: $fz-list-header-mobile;
