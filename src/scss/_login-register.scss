@@ -30,8 +30,13 @@
         margin: 0 auto;
       }
     }
-
     .project-name {
+      margin-top: 20px;
+      text-align: center;
+      color: $color-main;
+      font-size: $fz-title;
+    }
+    .desc{
       margin-top: 20px;
       text-align: center;
       color: $color-main;

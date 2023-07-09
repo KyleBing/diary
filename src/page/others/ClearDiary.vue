@@ -12,7 +12,12 @@
                             <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
                             <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
                         </div>
-                        <div class="project-name">这是你最后反悔的机会</div>
+                        <div class="desc">
+                            <p>这是你最后反悔的机会</p>
+                            <p>你的所有日记都将被删除</p>
+                            <p class="mt-2">总计 <b>{{ statisticsCategory.amount }}</b> 篇，共享日记 <b>{{ statisticsCategory.shared }}</b> 篇</p>
+                            <p></p>
+                        </div>
                     </div>
                     <form id="regForm">
                         <button class="btn btn-active mt-8"
@@ -52,7 +57,7 @@ export default {
         document.title = '日记 - 清空日记' // 变更标题
     },
     computed: {
-        ...mapState(['insets']),
+        ...mapState(['insets', 'statisticsCategory']),
     },
     methods: {
         changePasswordSubmit() {

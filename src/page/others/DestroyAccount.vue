@@ -12,7 +12,10 @@
                             <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
                             <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
                         </div>
-                        <div class="project-name">这是你最后反悔的机会</div>
+                        <div class="desc">
+                            <p>这是你最后反悔的机会</p>
+                            <p>该帐号的所有内容都将被删除</p>
+                        </div>
                     </div>
                     <form id="regForm">
                         <button class="btn btn-active mt-8"
