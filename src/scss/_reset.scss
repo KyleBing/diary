@@ -1,3 +1,5 @@
+@import "plugin";
+
 * {
     padding: 0;
     margin: 0;
@@ -62,7 +64,7 @@ tt {
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-    background-color: #ddd;
+    background-color: $color-border-highlight;
     transition: all .2s;
     cursor: pointer;
 }

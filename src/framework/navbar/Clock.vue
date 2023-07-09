@@ -65,7 +65,7 @@ export default {
     align-items: center;
     justify-content: center;
     display: flex;
-    color: transparentize(white, 0.5);
+    color: transparentize(white, 0.4);
     font-size: $fz-main;
     > *{
         padding: 0 5px;
