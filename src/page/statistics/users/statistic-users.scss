@@ -3,7 +3,7 @@
 
 .user-list{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: row nowrap;
   flex-grow: 1;
   width: 100%;
