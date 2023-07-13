@@ -14,13 +14,13 @@
                         </div>
                         <div class="desc">
                             <p>这是你最后反悔的机会</p>
-                            <p>该帐号的所有内容都将被删除</p>
+                            <p>该账号的所有内容都将被删除</p>
                         </div>
                     </div>
                     <form id="regForm">
                         <button class="btn btn-active mt-8"
                                 type="button"
-                                @click.prevent="changePasswordSubmit">确认注销帐号
+                                @click.prevent="changePasswordSubmit">确认注销账号
                         </button>
                     </form>
                     <div class="footer flex-center">
@@ -51,7 +51,7 @@ export default {
     },
     mounted() {
         this.show = true
-        document.title = '日记 - 注销帐号' // 变更标题
+        document.title = '日记 - 注销账号' // 变更标题
     },
     computed: {
         ...mapState(['insets']),

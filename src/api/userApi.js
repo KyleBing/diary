@@ -5,6 +5,6 @@ export default {
     register(requestData)      { return request('post', {}, requestData, 'user/register')}       ,
     changePassword(requestData){ return request('put' , {}, requestData, 'user/change-password')},
     setProfile(requestData)    { return request('put' , {}, requestData, 'user/set-profile')},
-    // 注销帐户
+    // 注销账户
     destroyAccount()    { return request('delete' , {}, null, 'user/destroy-account')}
 }
