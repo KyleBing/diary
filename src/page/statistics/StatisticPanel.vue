@@ -48,11 +48,13 @@ h3{
 
 
 @media (prefers-color-scheme: dark) {
+    .statistic-panel-container{
+        h3{
+            color: $dark-text-title    !important;
+        }
+    }
     .statistic-panel {
         background-color: $dark-bg !important;
-        h3{
-            color: $dark-text-title !important;
-        }
     }
 }
 
