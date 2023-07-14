@@ -24,10 +24,11 @@
                                 type="button"
                                 @click.prevent="changePasswordSubmit">确认清空所有日记
                         </button>
+                        <button class="btn mt-5"
+                                type="button"
+                                @click.prevent="$router.go(-1)">取消
+                        </button>
                     </form>
-                    <div class="footer flex-center">
-                        <router-link to="/">返回</router-link>
-                    </div>
                 </div>
             </div>
         </transition>
