@@ -66,6 +66,11 @@
     }
   }
 
+  .bill-sum-label{
+    color: $text-content;
+    font-size: $fz-small;
+  }
+
   .bill-brief{
     font-family: 'JetBrainsMonoDiary';
     background-color: #fafafa;
@@ -84,23 +89,29 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: 100px;
-        height: 1px;
+        width: 120%;
+        border-bottom: 1px dashed $color-border-highlight;
         display: block;
-        background-color: $color-border;
       }
     }
     .brief-amount{
       letter-spacing: 1px;
-      align-items: flex-end;
+      align-items: stretch;
       flex-flow: column nowrap;
       display: flex;
       justify-content: space-between;
+      > * {
+        text-align: right;
+      }
     }
     .brief-food{
+      align-items: stretch;
       text-align: right;
       flex-flow: row nowrap;
       justify-content: center;
+      > * {
+        text-align: right;
+      }
     }
   }
 
@@ -113,7 +124,7 @@
         background-color: $bg-lighter;
       }
       th{
-        border-top: 1px solid $color-border-light;
+        border-top: 1px solid $color-border;
         border-bottom: 1px solid $color-border-light;
         text-align: right;
         font-weight: bold;
@@ -257,6 +268,7 @@
     background-color: $dark-bg-dark;
   }
 
+
   .income{
     color: $gradient-aqua;
   }
@@ -282,6 +294,10 @@
       color: $dark-text-title;
       background-color: $dark-bg-bill-brief;
       border-color: $dark-border-active;
+    }
+
+    .bill-sum-label{
+      color: $dark-text-title;
     }
     table {
       font-size: $fz-small;

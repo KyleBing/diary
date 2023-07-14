@@ -35,32 +35,31 @@
                         <div class="subtitle">{{month.month_id.substring(0,4)}}</div>
                     </div>
                     <div class="bill-brief">
-                        <div class="brief-food">
-                            <div class="number text-outcome breakfast">
-                                {{ month.food.breakfast.toFixed(moneyAccuracy) }} <span class="text-gray">早</span>
-                            </div>
-                            <div class="number text-outcome launch">
-                                {{ month.food.launch.toFixed(moneyAccuracy) }} <span class="text-gray">中</span>
-                            </div>
-                            <div class="number text-outcome dinner">
-                                {{ month.food.dinner.toFixed(moneyAccuracy) }} <span class="text-gray">晚</span>
-                            </div>
-                            <div class="number sum">
-                                {{ month.food.sum.toFixed(moneyAccuracy) }} <span class="text-gray">合</span>
-                            </div>
-                        </div>
                         <div class="brief-amount">
                             <div class="number text-income">
-                                +{{ month.sumIncome.toFixed(moneyAccuracy) }} <span class="text-gray">收</span>
+                                +{{ month.sumIncome.toFixed(moneyAccuracy) }} <span class="bill-sum-label">收入</span>
                             </div>
                             <div class="number text-outcome">
-                                {{ month.sumOutput.toFixed(moneyAccuracy) }} <span class="text-gray">支</span>
+                                {{ month.sumOutput.toFixed(moneyAccuracy) }} <span class="bill-sum-label">支出</span>
                             </div>
                             <div class="number sum text-black">
-                                {{ month.sum.toFixed(moneyAccuracy) }} <span class="text-gray">合</span>
+                                {{ month.sum.toFixed(moneyAccuracy) }} <span class="bill-sum-label">合计</span>
                             </div>
                         </div>
-
+                        <div class="brief-food">
+                            <div class="number text-outcome breakfast">
+                                {{ month.food.breakfast.toFixed(moneyAccuracy) }} <span class="bill-sum-label">早饭</span>
+                            </div>
+                            <div class="number text-outcome launch">
+                                {{ month.food.launch.toFixed(moneyAccuracy) }} <span class="bill-sum-label">中饭</span>
+                            </div>
+                            <div class="number text-outcome dinner">
+                                {{ month.food.dinner.toFixed(moneyAccuracy) }} <span class="bill-sum-label">晚饭</span>
+                            </div>
+                            <div class="number sum">
+                                {{ month.food.sum.toFixed(moneyAccuracy) }} <span class="bill-sum-label">合计</span>
+                            </div>
+                        </div>
                     </div>
                     <table>
                         <tr>
