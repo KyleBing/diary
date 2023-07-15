@@ -34,7 +34,7 @@ export default {
                     data: []
                 },
                 grid: {
-                    top: 20,
+                    top: 40,
                     bottom: 120,
                     left: 25,
                     right: 30,
