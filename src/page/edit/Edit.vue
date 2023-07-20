@@ -18,7 +18,7 @@
                     :style="insets.windowsWidth > 1366 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     class="content"/>
-                <div class="editor-float-btn">
+                <div class="editor-float-btn" v-if="diary.isMarkdown">
                     <button-small @click="toggleSpaceShow">显示空格</button-small>
                 </div>
             </div>
