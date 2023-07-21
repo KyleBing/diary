@@ -6,26 +6,26 @@
         <div class="statistic-charts" v-if="isShow">
             <statistic-panel title="类别数据">
                 <div class="statistic-group">
+                    <chart-bar :data="dataArrayCategory" title=""/>
+                    <chart-pie :data="dataArrayCategory" title=""/>
                     <div class="info-list">
                         <div class="info-list-item" v-for="year in dataArrayCategory">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
                     </div>
-                    <chart-pie :data="dataArrayCategory" title=""/>
-                    <chart-bar :data="dataArrayCategory" title=""/>
                 </div>
             </statistic-panel>
             <statistic-panel title="年份数据">
                 <div class="statistic-group">
+                    <chart-bar :data="dataArrayYear" title=""/>
+                    <chart-pie :data="dataArrayYear" title=""/>
                     <div class="info-list">
                         <div class="info-list-item" v-for="year in dataArrayYear">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
                     </div>
-                    <chart-pie :data="dataArrayYear" title=""/>
-                    <chart-bar :data="dataArrayYear" title=""/>
                 </div>
             </statistic-panel>
 
