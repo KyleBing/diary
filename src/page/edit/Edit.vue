@@ -239,13 +239,32 @@ export default {
                 if ((event.ctrlKey || event.metaKey) && event.key === 'x') {
                     let textarea = this.$refs.textarea // dom
                     let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+                    // 只有未选择任何内容的时候
                     if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd){
                         event.preventDefault()
+                        navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
+                            .then(_ => {
+                                console.log('✓ moved')
+                            })
                         textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
                         this.diary.content = textAreaInfo.textLineArray.join('\n')
                         this.$nextTick(_=>{
                             textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
                         })
+                    }
+                }
+
+                // CTRL + C 复制行
+                if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+                    let textarea = this.$refs.textarea // dom
+                    let textAreaInfo = this.getTextareaInfo(textarea, this.diary.content)
+
+                    // 只有未选择任何内容的时候
+                    if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd){
+                        navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
+                            .then(_ => {
+                                console.log('✓ copied')
+                            })
                     }
                 }
 
