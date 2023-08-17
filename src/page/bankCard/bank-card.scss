@@ -88,7 +88,6 @@ $card-bgs: (
       color: white;
       text-shadow: 0 0 2px transparentize(black, 0.5);
       @extend .btn-like;
-      @include transition(all 0.4s)
     }
   }
 }
