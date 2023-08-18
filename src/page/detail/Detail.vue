@@ -1,76 +1,32 @@
 <template>
-    <!--content-->
     <div class="diary-detail" id="diaryDetail" :style="`min-height: ${insets.heightPanel}px`">
-        <!-- meta MOBILE-->
-        <div class="diary-meta" v-if="isInMobileMode && !isLoading">
-            <div class="date-wrapper" v-if="diary.dateObj">
-                <span class="date">{{ diary.dateObj.dateFullSlash + ' ' + diary.dateObj.weekday }}</span>
-                <span class="time">{{ diary.dateObj.time }}</span>
-            </div>
 
-            <div class="weather-wrapper">
-                <div class="weather">
-                    <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
-                </div>
+            <DetailHeader
+                :isLoading="isLoading"
+                :diary="diary"
+                :lunar-object="lunarObject"
+            />
 
-                <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
-                    <span v-if="diary.temperature">{{ diary.temperature }}</span>
-                    <span v-if="diary.temperatureOutside && diary.temperature">/</span>
-                    <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
-                    <span> ℃</span>
+            <!-- pc 时不显示展示加载图标 -->
+            <loading :loading="isLoading" v-if="isInMobileMode"/>
+
+            <!--TITLE-->
+            <div class="diary-title" v-if="diary.title">
+                <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
+                <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
+                    <img :src="icons.clipboard" alt="clipboard">
                 </div>
             </div>
 
-            <div class="detail-category" :style="categoryBgColor">
-                <span>{{ diary.categoryString }}</span>
+            <!--CONTENT-->
+            <div class="diary-content" v-if="diary.content">
+                <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
+                <div v-else class="content" v-html="getContentHtml(diary.content)"/>
+                <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
+                    <img :src="icons.clipboard" alt="clipboard">
+                </div>
             </div>
         </div>
-
-        <!-- meta PC-->
-        <div class="diary-meta" v-else>
-            <div class="date-wrapper" v-if="diary.dateObj">
-                <span class="date">{{ diary.dateObj.dateFull + ' ' + diary.dateObj.weekday }}</span>
-                <span class="time">{{ diary.dateObj.timeLabel + ' ' + diary.dateObj.time }}</span>
-            </div>
-
-            <div class="weather-wrapper">
-                <div class="weather">
-                    <img v-if="diary.weather" :src="icons.weather[`${diary.weather}_active`]" :alt="diary.weather">
-                </div>
-
-                <div class="temperature" v-if="diary.temperature">
-                    身处 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperature))]">{{ diary.temperature }}</span> ℃
-                </div>
-                <div class="temperature" v-if="diary.temperatureOutside">
-                    室外 <span :class="['temperature-number', getTemperatureClassName(Number(diary.temperatureOutside))]">{{ diary.temperatureOutside }}</span> ℃
-                </div>
-            </div>
-
-            <div class="detail-category" :style="categoryBgColor">
-                <span>{{ diary.categoryString }}</span>
-            </div>
-        </div>
-
-        <!-- pc 时不显示展示加载图标 -->
-        <loading :loading="isLoading" v-if="isInMobileMode"/>
-
-        <!--TITLE-->
-        <div class="diary-title" v-if="diary.title">
-            <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
-            <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
-                <img :src="icons.clipboard" alt="clipboard">
-            </div>
-        </div>
-
-        <!--CONTENT-->
-        <div class="diary-content" v-if="diary.content">
-            <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
-            <div v-else class="content" v-html="getContentHtml(diary.content)"/>
-            <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
-                <img :src="icons.clipboard" alt="clipboard">
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>
@@ -81,10 +37,13 @@ import Loading from "../../components/Loading"
 import diaryApi from "../../api/diaryApi"
 import SvgIcons from "../../assets/img/SvgIcons"
 import {marked} from "marked"
+import calendar from "js-calendar-converter";
+import Moment from "moment";
+import DetailHeader from "@/page/detail/DetailHeader";
 
 export default {
     name: 'Detail',
-    components: {Loading},
+    components: {DetailHeader, Loading},
     data() {
         return {
             isShowToast: false,
@@ -92,6 +51,7 @@ export default {
             diary: {},
             icons: SvgIcons,
             clipboard: null, // clipboard obj
+            lunarObject: {}
         }
     },
     mounted() {
@@ -116,13 +76,7 @@ export default {
     computed:{
         ...mapState(['categoryAll', 'insets', 'isHideContent']),
         ...mapGetters(['isInMobileMode', 'categoryNameMap', 'categoryObjectMap']),
-        categoryBgColor(){
-            if (this.diary && this.diary.category){
-                return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
-            } else {
-                return ''
-            }
-        },
+
         contentMarkDownHtml(){
             return marked.parse(this.diary.content)
         }
@@ -139,21 +93,7 @@ export default {
             'SET_CURRENT_DIARY',
             'SET_CATEGORY_ALL',
         ]),
-        getTemperatureClassName(temperature){
-            if (temperature >= 35){
-                return 'temperature-35'
-            } else if (temperature < 35 && temperature >= 28){
-                return 'temperature-35-28'
-            } else if (temperature < 28 && temperature >= 22){
-                return 'temperature-28-22'
-            } else if (temperature < 22 && temperature >= 15) {
-                return 'temperature-22-15'
-            } else if (temperature < 15 && temperature >= 4) {
-                return 'temperature-15-4'
-            } else if (temperature < 4) {
-                return 'temperature-4'
-            }
-        },
+
         goBack() {
             this.$router.back()
         },
@@ -191,6 +131,8 @@ export default {
                     this.isLoading = false // loading off
                     let diary = res.data
                     this.diary = diary
+                    let dateMoment = new Moment(this.diary.date)
+                    this.lunarObject = calendar.solar2lunar(dateMoment.year(), dateMoment.month()+1, dateMoment.date())
                     this.SET_CURRENT_DIARY(diary) // 设置 store: currentDiary
                     let dateObj = utility.dateProcess(diary.date)
                     this.diary.dateObj = dateObj

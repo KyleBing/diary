@@ -1,61 +1,29 @@
 @import "../../scss/plugin";
 
-$height-meta: 30px;
 .diary-detail{
   background-color: white;
-}
-.diary-meta{
-  background-color: $bg-light;
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-
-  .weather-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .weather{
-      margin-right: 5px;
-      flex-grow: 1;
-      padding: 3px;
-      img{
-        height: $height-meta - 3*2;
-        display: block;
-      }
-    }
-    .temperature{
-      flex-shrink: 0;
-      font-size: $fz-note;
-      color: $text-date;
-      line-height: $height-meta;
-    }
-  }
-
-  .date-wrapper{
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0;
-    line-height: $height-meta;
-    color: $bg-main;
-    .date{
-
-    }
-    .time{
-      margin-left: 10px;
-    }
-  }
+  margin: 0 auto;
 }
 
 .diary-title{
   position: relative;
   margin: 0 20px;
-  padding: 20px 0;
+  padding: 30px 0;
+  &:hover{
+    .clipboard-btn{
+      transition: all 0.3s;
+      opacity: 1;
+    }
+  }
   h2{
-    font-weight: normal;
-    font-size: 1.1rem;
+    font-size: $fz-title;
+    font-weight: bold;
     word-break: break-all;
   }
+
   .clipboard-btn{
+    transition: all 0.3s;
+    opacity: 0;
     position: absolute;
     top: 20px;
     right: 10px;
@@ -63,7 +31,7 @@ $height-meta: 30px;
 }
 
 .diary-content{
-  border-top: 1px solid $color-border;
+  border-top: 2px dashed $color-border;
   position: relative;
   color: $bg-main;
   line-height: 1.6;
@@ -71,7 +39,15 @@ $height-meta: 30px;
   margin: 0 20px;
   padding: 20px 0 60px;
   overflow-y: auto;
+  &:hover{
+    .clipboard-btn{
+      transition: all 0.3s;
+      opacity: 1;
+    }
+  }
   .clipboard-btn{
+    transition: all 0.3s;
+    opacity: 0;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -108,15 +84,7 @@ $height-meta: 30px;
   @extend .btn-like;
 }
 
-.detail-category{
-  font-size: .8rem;
-  text-align: center;
-  margin: 3px 0;
-  padding: 2px 10px;
-  color: white;
-  @include border-radius(5px);
-  line-height: $height-meta - (2 + 3) * 2;
-}
+
 
 // PC
 @media (min-width: $grid-separate-width-big){
@@ -124,42 +92,36 @@ $height-meta: 30px;
     padding: 40px 10%;
     margin: 0 auto;
   }
-  .diary-meta{
-    margin: 0 0 30px;
-    padding: 10px 50px;
-    justify-content: space-between;
-    @include border-radius($radius-pc);
-
-    .weather-wrapper{
-      .weather{
-        margin-right: 15px;
-        img{
-        }
-      }
-      .temperature{
-        margin-right: 15px;
-      }
-    }
-
-    .date-wrapper{
-      .date{
-      }
-      .time{
-        margin-left: 20px;
-      }
-    }
-
-}
   .diary-title{
+    margin: 20px 20px 0;
+    padding: 30px 0;
+    h2{
+      font-size: $fz-header;
+      font-weight: bold;
+    }
+    .clipboard-btn{
+    }
   }
+
   .diary-content{
-    p{
-      //text-indent: 2rem;
-    }
-    .code{
-      font-size: 14px;
+    border-top: 2px dashed $color-border;
+    color: $bg-main;
+    font-size: 1rem;
+    margin: 0 20px;
+    padding: 20px 0 60px;
+
+    .content{
+      p{
+        margin-bottom: 0;
+        line-height: 1.5;
+      }
+      .code{
+        font-size: 12px;
+        line-height: 1.3;
+      }
     }
   }
+
 }
 
 // iPad
@@ -168,31 +130,7 @@ $height-meta: 30px;
     padding: 30px;
     margin: 0 auto;
   }
-  .diary-meta{
-    margin: 0 0 30px;
-    padding: 10px 50px;
-    justify-content: space-between;
-    @include border-radius($radius-mobile);
 
-    .weather-wrapper{
-      .weather{
-        margin-right: 15px;
-        img{
-        }
-      }
-      .temperature{
-        margin-right: 15px;
-      }
-    }
-
-    .date-wrapper{
-      .date{
-      }
-      .time{
-        margin-left: 20px;
-      }
-    }
-  }
   .diary-title{
   }
   .diary-content{
@@ -211,18 +149,7 @@ $height-meta: 30px;
 .diary-detail{
   background-color: $dark-bg;
 }
-  .diary-meta {
-    background-color: darken($dark-bg, 5%);
-    color: $dark-text;
-    .date {
-      color: $dark-text;
-    }
-    .weather-wrapper{
-      .temperature{
-        color: $dark-text;
-      }
-    }
-  }
+
   .diary-title{
     color: $dark-text-title;
   }
