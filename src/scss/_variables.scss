@@ -124,12 +124,15 @@ $dark-border           : lighten($dark-color, 26%) ;
 $dark-border-active    : lighten($dark-color, 35%) ;
 
 $dark-menu-border      : lighten($dark-color, 28%)  ;
-$dark-list-header-bg   : lighten($dark-color, 12%) ;
+$dark-list-header-bg   : lighten($dark-color, 14%) ;
 $dark-list-bg          : lighten($dark-color, 20%) ;
 $dark-list-bg-active   : lighten($dark-color, 23%) ;
 $dark-text-title       : lighten($dark-color, 85%) ;
 $dark-text             : lighten($dark-color, 70%) ;
-$dark-text-subtitle    : lighten($dark-color, 70%) ;
+$dark-text-subtitle    : lighten($dark-color, 60%) ;
+
+$dark-text-header-date: lighten($dark-color, 80%) ;
+$dark-text-header-lunar: lighten($dark-color, 60%) ;
 
 $dark-text-bill-price  : lighten($dark-color, 80%) ;
 

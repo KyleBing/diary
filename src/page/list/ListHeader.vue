@@ -54,6 +54,19 @@ export default {
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    .list-header{
+        border-color: $dark-border !important;
+        background-color: $dark-list-header-bg !important;
+        @include border-radius($radius-mobile);
+        color: white !important;
+        &.big{
+            margin: 0 10px;
+        }
+    }
+}
+
+
 
 
 </style>

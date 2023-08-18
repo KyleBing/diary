@@ -233,8 +233,14 @@ export default {
     .diary-header {
         background-color: darken($dark-bg, 5%);
         color: $dark-text;
-        .date {
-            color: $dark-text;
+        .date-wrapper {
+            color: $bg-main;
+            .date-time {
+                color: $dark-text-header-date;
+            }
+            .date-lunar {
+                color: $dark-text-header-lunar;
+            }
         }
         .weather-wrapper{
             .temperature{
