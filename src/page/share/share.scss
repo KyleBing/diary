@@ -88,6 +88,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     text-align: center;
   }
 }
+
 .share-title{
   font-size: 1.2rem;
   line-height: math.div($height-share-header, 2);
@@ -210,15 +211,41 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     margin: 0;
     padding: 30px 0;
   }
-
 }
 
 
 @media (prefers-color-scheme: dark) {
   .share{
-    color: $text-content;
+    color: $dark-text;
+    border-top-color: $dark-border;
+    border-left-color: $dark-border;
+    background-color: $dark-bg-dark;
     .markdown{
       color: $text-content;
+    }
+    .share-author{
+      color: $dark-text;
+      background-color: transparent;
+      .name{
+        .nickname{
+          color: $dark-text-title;
+        }
+      }
+    }
+    .share-category{
+    }
+    .share-title{
+      color: $dark-text-title;
+    }
+    .divider{
+      background-color: $dark-border-active;
+    }
+    .share-date{
+      border-color: $dark-border;
+      background-color: $dark-bg;
+    }
+    .share-meta {
+
     }
   }
 }
