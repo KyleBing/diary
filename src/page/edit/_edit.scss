@@ -58,10 +58,8 @@ textarea{
       overflow-y: scroll;
       resize: vertical;
       font-family: "JetBrainsMonoDiary", sans-serif;
-      height: 150px;
       font-size: 1rem;
       &:focus{
-        height: 260px;
         @include transition(all 0.3s);
       }
       &::-webkit-scrollbar {
@@ -206,6 +204,7 @@ textarea{
     }
     .editor-content{
       textarea{
+        height: 400px;
         padding-bottom: 0;
         @include border-radius(0)
       }
