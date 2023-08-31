@@ -13,6 +13,7 @@
 # 界面
 详细的截图在文章最后
 
+![2023-08-31 11 27 29](https://github.com/KyleBing/diary/assets/12215982/1c9e40d1-d175-42d6-aed6-266a18cbbe3b)
 ![2023-08-31 11 25 31](https://github.com/KyleBing/diary/assets/12215982/1c633aaa-e7a4-4417-864f-52706cf9b445)
 ![2023-08-31 11 24 39](https://github.com/KyleBing/diary/assets/12215982/4f38e4bd-e5d3-4b55-aaa4-05ae245f3600)
 ![2023-08-31 11 23 48](https://github.com/KyleBing/diary/assets/12215982/4f181e5e-ec20-4564-b76b-a0b6d90991dd)
