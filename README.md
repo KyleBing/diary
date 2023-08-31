@@ -13,7 +13,9 @@
 # 界面
 详细的截图在文章最后
 
-<img width="1920" alt="编辑页面" src="https://github.com/KyleBing/diary/assets/12215982/617f63a5-ec94-49f4-9c61-1761055e320c">
+![2023-08-31 11 25 31](https://github.com/KyleBing/diary/assets/12215982/1c633aaa-e7a4-4417-864f-52706cf9b445)
+![2023-08-31 11 24 39](https://github.com/KyleBing/diary/assets/12215982/4f38e4bd-e5d3-4b55-aaa4-05ae245f3600)
+![2023-08-31 11 23 48](https://github.com/KyleBing/diary/assets/12215982/4f181e5e-ec20-4564-b76b-a0b6d90991dd)
 
 
 iPad Pro 截图
