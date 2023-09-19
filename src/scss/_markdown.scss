@@ -43,7 +43,8 @@ $gap-small: 8px;
         margin: 20px 0;
     }
 
-    p{
+    > p{
+        text-indent: 2rem;
         line-height: 1.5;
         margin-bottom: 5px;
     }
