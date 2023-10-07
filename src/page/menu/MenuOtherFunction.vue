@@ -13,8 +13,8 @@
            </div>
        </div>
        <div class="menu-section">
-           <div class="menu-section-title">导出</div>
-           <div class="menu-section-subtitle">导出指定格式的文件</div>
+           <div class="menu-section-title">导出日记</div>
+           <div class="menu-section-subtitle">导出所有日记内容到指定格式的文件</div>
            <div class="menu-section-content">
                <div class="btn-list">
                    <div class="btn btn-active" @click="exportDiary('csv')">csv</div>
