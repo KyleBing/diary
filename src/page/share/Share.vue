@@ -146,16 +146,21 @@ export default {
                 })
         },
         getContentHtml(content){
+            let isInCodeMode = /\[ ?code ?\]/i.test(content)
             let contentArray = content.split('\n')
             let contentHtml = ""
-            contentArray.forEach(item => {
-                if (item === ''){
-                    contentHtml += '<br/>'
-                } else {
-                    contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}</p>`
-                }
-            })
-            return contentHtml
+            if (isInCodeMode){
+                return `<pre class="code">${this.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
+            } else {
+                contentArray.forEach(item => {
+                    if (item === '') {
+                        contentHtml += '<br/>'
+                    } else {
+                        contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}</p>`
+                    }
+                })
+                return contentHtml
+            }
         },
     },
     watch: {
@@ -166,6 +171,6 @@ export default {
 }
 
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./share";
 </style>
