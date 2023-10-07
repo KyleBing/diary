@@ -1,5 +1,5 @@
 export default {
-    adminEmail: 'kylebing@163.com', // 网站管理员邮箱账号，用于向其申请注册邀请码
+    adminEmail: 'kylebing@163.com', // 网站管理员邮箱账号，网站遇到错误时会显示这个邮箱账号
 
     // 七牛云
     // 地址： https://portal.qiniu.com/kodo/overview

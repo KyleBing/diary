@@ -79,7 +79,7 @@ export default {
         }),
         ...mapState(['insets', 'categoryAll']),
         isAdminUser(){
-            return utility.getAuthorization() && utility.getAuthorization().email === projectConfig.adminEmail
+            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
         }
     },
     methods: {
