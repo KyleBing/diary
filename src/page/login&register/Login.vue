@@ -25,12 +25,14 @@
                 <div class="footer">
                     <router-link to="/register">注册</router-link>
                     <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
-                    <a v-else target="_blank" href="https://kylebing.cn/diary/#/share/6766">这是啥？</a>
                 </div>
-                <div class="link-btn" v-if="isShowDemoAccount">
-                    <a target="_blank" href="https://kylebing.cn/diary/#/share/6766">这是啥？</a>
+                <div class="copyright">
+                    <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{packageInfo.nameZh}}</a>
+                    <div class="version">v{{packageInfo.version}}</div>
                 </div>
             </div>
+
+
         </transition>
     </div>
 </template>
@@ -41,6 +43,7 @@ import utility from "../../utility"
 import {mapState} from "vuex"
 import SvgIcons from "../../assets/img/SvgIcons"
 import projectConfig from "@/projectConfig";
+import packageInfo from "../../../package.json"
 export default {
     name: "Login",
     data() {
@@ -52,7 +55,8 @@ export default {
             email: "",
             password: "",
             loginLabel: '登录',
-            isShowDemoAccount: projectConfig.isShowDemoAccount
+            isShowDemoAccount: projectConfig.isShowDemoAccount,
+            packageInfo: packageInfo
         }
     },
     mounted() {
@@ -127,3 +131,30 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+@import "./src/scss/plugin";
+.copyright{
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $fz-small;
+    flex-flow: column nowrap;
+    color: $color-main;
+    a{
+        color: $color-main;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    .project-name{
+    }
+    .version{
+    }
+}
+</style>
+
+
