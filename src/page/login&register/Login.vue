@@ -24,10 +24,11 @@
                 </form>
                 <div class="footer">
                     <router-link to="/register">注册</router-link>
-                    <a @click="useTestAccount">试用演示账户</a>
+                    <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
+                    <a v-else target="_blank" href="https://kylebing.cn/diary/#/share/6766">这是啥？</a>
                 </div>
-                <div class="link-btn">
-                    <a target="_blank" href="https://kylebing.cn/diary/#/share/6766">这是个什么玩意？</a>
+                <div class="link-btn" v-if="isShowDemoAccount">
+                    <a target="_blank" href="https://kylebing.cn/diary/#/share/6766">这是啥？</a>
                 </div>
             </div>
         </transition>
@@ -39,7 +40,7 @@ import userApi from "../../api/userApi"
 import utility from "../../utility"
 import {mapState} from "vuex"
 import SvgIcons from "../../assets/img/SvgIcons"
-
+import projectConfig from "@/projectConfig";
 export default {
     name: "Login",
     data() {
@@ -50,7 +51,8 @@ export default {
             labelCheckPassword: "再次确认密码",
             email: "",
             password: "",
-            loginLabel: '登录'
+            loginLabel: '登录',
+            isShowDemoAccount: projectConfig.isShowDemoAccount
         }
     },
     mounted() {
