@@ -19,7 +19,7 @@
                     placeholder="日记详细内容，如果你有很多要写的"
                     class="content"/>
                 <div class="editor-float-btn" v-if="diary.isMarkdown">
-                    <button-small @click="toggleSpaceShow">显示空格</button-small>
+                    <button-small @click="toggleSpaceShow">切换空格显示</button-small>
                 </div>
             </div>
         </div>

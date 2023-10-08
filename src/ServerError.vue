@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import packageInfo from "../package.json"
+import projectConfig from "./projectConfig"
 
 export default {
     name: "ServerError",
     data(){
         return {
             height: 800,
-            adminEmail: packageInfo.adminEmail
+            adminEmail: projectConfig.adminEmail
         }
     },
     mounted() {
