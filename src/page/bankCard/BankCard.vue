@@ -6,11 +6,12 @@
                 <img :src="getBankcardIcon(card.cardName)" alt="BankCard Icon">
             </div>
             <div class="bankcard-main-info">
-                <div class="bankcard-no" :data-clipboard="card.cardNo.replaceAll(' ', '')">{{ card.cardNo }}</div>
                 <div class="bankcard-title">
                     <div class="bankcard-name">{{ card.cardName }}</div>
-                    <div class="bankcard-type">{{ card.cardType }}</div>
+<!--                    <div class="bankcard-type">{{ card.cardType }}</div>-->
                 </div>
+                <div class="bankcard-no" :data-clipboard="card.cardNo.replaceAll(' ', '')">{{ card.cardNo }}</div>
+
                 <div class="bankcard-note">{{card.note}}</div>
             </div>
         </div>

@@ -19,7 +19,7 @@
                <div class="btn-list">
                    <div class="btn btn-active" @click="exportDiary('csv')">csv</div>
                    <div class="btn btn-active" @click="exportDiary('json')">json</div>
-                   <div class="btn btn-active" @click="exportDiary('text')">text</div>
+                   <div class="btn btn-active" @click="exportDiary('text')">txt</div>
                    <div class="btn btn-active" @click="exportDiary('sql')">sql</div>
                </div>
            </div>

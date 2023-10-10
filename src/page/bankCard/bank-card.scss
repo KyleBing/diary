@@ -1,7 +1,7 @@
 $bank-card-gap: 20px;
 $card-bgs: (
         "green" : (#24b73d, #33c891),   // 农业
-        "red"   : (#ff556e, #fc7f59),   // 工商
+        "red"   : (#ff6c6c, #ff8c8c),   // 工商
         "blue"  : (#007ee0, #2e92ff),   // 建行
         "white" : (#abab97, #dadada),   // 招商
 );
@@ -16,9 +16,6 @@ $card-bgs: (
   display: flex;
   flex-flow: column nowrap;
   border-top: 1px solid transparentize(white, 0.7);
-  border-left: 1px solid transparentize(white, 0.7);
-  border-right: 1px solid transparentize(white, 0.9);
-  border-bottom: 1px solid transparentize(white, 0.9);
   overflow: hidden;
   @include border-radius($radius-pc);
   width: 430px;
@@ -30,17 +27,20 @@ $card-bgs: (
   margin-bottom: $bank-card-gap;
   margin-right: $bank-card-gap;
   &:hover{
+    .bankcard-index {
+      opacity: 1;
+    }
     .bankcard-no{
 
     }
   }
   .bankcard-index {
     font-family: Monaco;
-    font-size: 10px;
+    font-size: $fz-small;
     position: absolute;
     top: 8px;
     right: 10px;
-    color: white;
+    color: black;
     opacity: 0.5;
   }
   .bankcard-note{
@@ -61,23 +61,40 @@ $card-bgs: (
 }
 
 .bankcard-upper{
-  padding: 20px 20px 20px 20px;
+  padding: 20px 15px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
   .bankcard-logo{
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     @include border-radius(100px);
     flex-shrink: 0;
-    padding: 2px;
     img {
       display: block;
       width: 100%;
     }
   }
+  .bankcard-title{
+    display: flex;
+    justify-content: flex-start;
+    font-size: $fz-bankcard-header;
+    .bankcard-name{
+      font-weight: bold;
+      flex-shrink: 0;
+      color: white;
+      text-shadow: 1px 0 2px transparentize(black, 0.5);
+      @extend .btn-like;
+    }
+    .bankcard-type{
+      margin-left: 30px;
+      flex-shrink: 0;
+      color: white;
+      text-shadow: 1px 1px 0 transparentize(black, 0.7);
+    }
+  }
   .bankcard-main-info{
-    padding-top: 5px;
     padding-left: 15px;
     flex-grow: 1;
     .bankcard-no{
@@ -92,25 +109,7 @@ $card-bgs: (
   }
 }
 
-.bankcard-title{
-  font-size: $fz-title;
-  display: flex;
-  justify-content: flex-start;
-  .bankcard-name{
-    flex-shrink: 0;
-    font-size: $fz-list-content;
-    color: white;
-    text-shadow: 1px 0 2px transparentize(black, 0.5);
-    @extend .btn-like;
-  }
-  .bankcard-type{
-    margin-left: 30px;
-    flex-shrink: 0;
-    font-size: $fz-list-content;
-    color: white;
-    text-shadow: 1px 1px 0 transparentize(black, 0.7);
-  }
-}
+
 
 .bankcard-detail-list{
   flex-shrink: 0;
@@ -122,7 +121,7 @@ $card-bgs: (
   justify-content: flex-start;
   flex-flow: column nowrap;
   font-size: $fz-small;
-  background-color: transparentize(white, 0.6);
+  background-color: transparentize(white, 0.4);
   @include transition(all 0.5s);
   animation: card-move-up 0.5s;
 }
@@ -162,13 +161,16 @@ $card-bgs: (
     margin-right: 0;
     // upper
     .bankcard-upper{
-      padding: 10px;
+      padding: 10px 15px;
       .bankcard-logo {
         height: 42px;
         width: 42px;
       }
       .bankcard-main-info{
         padding-left: 15px;
+        .bankcard-title{
+          font-size: 20px;
+        }
         .bankcard-no{
           font-size: 22px;
         }

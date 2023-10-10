@@ -10,6 +10,7 @@
              v-if="cardListAll.length > 0"
              :style="'height:' + insets.heightPanel + 'px'"
         >
+            <h1 class="bank-card-list-header">存储卡</h1>
             <div class="bank-card-list">
                 <bank-card
                     :index="index"
@@ -17,6 +18,8 @@
                     v-for="(card, index) in cardListStore"
                     :key="index"/>
             </div>
+
+            <h1 class="bank-card-list-header">信用卡</h1>
             <div class="bank-card-list">
                 <bank-card
                     :index="index"
@@ -227,6 +230,13 @@ $bank-card-list-padding: 30px;
 .bank-card-container{
     overflow-y: auto;
     background-color: $bg-menu;
+}
+
+.bank-card-list-header{
+    padding: 20px $bank-card-list-padding 0;
+    font-size: $fz-big;
+    font-weight: bold;
+    color: white;
 }
 .bank-card-list{
     display: flex;
