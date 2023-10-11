@@ -22,7 +22,7 @@
                     </div>
                     <button class="btn mt-8" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{ loginLabel }}</button>
                 </form>
-                <div class="footer">
+                <div :class="['footer', {center: !isShowDemoAccount}]">
                     <router-link to="/register">注册</router-link>
                     <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
                 </div>

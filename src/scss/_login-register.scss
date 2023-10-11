@@ -49,6 +49,10 @@
     display: flex;
     justify-content: space-between;
 
+    &.center{
+      justify-content: center;
+    }
+
     > * {
       cursor: pointer;
       font-size: $fz-note;
