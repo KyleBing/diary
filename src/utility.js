@@ -26,7 +26,7 @@ function deleteAuthorization() {
 
 /**
  * Prompt 提示
- * @param type default warning success danger
+ * @param type default | warning | success | danger
  * @param title
  * @param callback
  * @param timeout

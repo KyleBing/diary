@@ -13,19 +13,29 @@
             <!--TITLE-->
             <div class="diary-title" v-if="diary.title">
                 <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
-                <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.title">
-                    <img :src="icons.clipboard" alt="clipboard">
+                <div class="toolbar">
+                    <ButtonNormal v-if="!isInMobileMode" :data-clipboard="diary.title">复制</ButtonNormal>
                 </div>
             </div>
 
             <!--CONTENT-->
             <div class="diary-content" v-if="diary.content">
-                <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
-                <div v-else class="content" v-html="getContentHtml(diary.content)"/>
-                <div class="clipboard clipboard-btn ml-1" v-if="!isInMobileMode" :data-clipboard="diary.content">
-                    <img :src="icons.clipboard" alt="clipboard">
+
+                <div class="toolbar">
+                    <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.content">复制</ButtonNormal>
+                    <ButtonNormal class="clipboard" @click="toggleContentType">炸词</ButtonNormal>
+                </div>
+
+                <div v-if="isShowExplode">
+                    <WordExplode v-if="diary.content" :content="diary.content"/>
+                </div>
+
+                <div v-else>
+                    <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
+                    <div v-else class="content" v-html="getContentHtml(diary.content)"/>
                 </div>
             </div>
+
         </div>
 </template>
 
@@ -40,10 +50,12 @@ import {marked} from "marked"
 import calendar from "js-calendar-converter";
 import Moment from "moment";
 import DetailHeader from "@/page/detail/DetailHeader";
+import WordExplode from "@/page/detail/WordExplode";
+import ButtonNormal from "@/components/ButtonNormal";
 
 export default {
     name: 'Detail',
-    components: {DetailHeader, Loading},
+    components: {ButtonNormal, WordExplode, DetailHeader, Loading},
     data() {
         return {
             isShowToast: false,
@@ -51,7 +63,9 @@ export default {
             diary: {},
             icons: SvgIcons,
             clipboard: null, // clipboard obj
-            lunarObject: {}
+            lunarObject: {},
+
+            isShowExplode: false,
         }
     },
     mounted() {
@@ -94,6 +108,9 @@ export default {
             'SET_CATEGORY_ALL',
         ]),
 
+        toggleContentType(){
+            this.isShowExplode = !this.isShowExplode
+        },
         goBack() {
             this.$router.back()
         },
