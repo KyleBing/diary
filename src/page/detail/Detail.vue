@@ -14,7 +14,7 @@
             <div class="diary-title" v-if="diary.title">
                 <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
-                    <ButtonNormal v-if="!isInMobileMode" :data-clipboard="diary.title">复制</ButtonNormal>
+                    <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.title">复制</ButtonNormal>
                 </div>
             </div>
 
