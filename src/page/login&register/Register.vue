@@ -46,7 +46,7 @@
                             @click.prevent="regSubmit">注册
                     </button>
                 </form>
-                <div class="footer flex-start">
+                <div :class="['footer', {center: !isShowDemoAccount}]">
                     <router-link to="/login">登录</router-link>
                 </div>
             </div>
@@ -70,6 +70,7 @@ export default {
         return {
             show: false,
 
+            isShowDemoAccount: projectConfig.isShowDemoAccount,
             adminEmail: projectConfig.adminEmail,
 
             icons: SvgIcons,
