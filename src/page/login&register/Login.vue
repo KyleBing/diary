@@ -27,9 +27,11 @@
                     <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
                 </div>
                 <div class="copyright">
-                    <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{packageInfo.nameZh}}</a>
-                    <div class="version">v{{packageInfo.version}}</div>
-                    <div class="valid-date">始于 {{packageInfo.dateInit}}</div>
+                    <p>
+                        <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{packageInfo.nameZh}}</a>
+                         <span> v{{packageInfo.version}}</span>
+                        <span> 始于 {{packageInfo.dateInit}}</span>
+                    </p>
                 </div>
             </div>
 
@@ -144,7 +146,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: $fz-tiny;
-    flex-flow: column nowrap;
+    line-height: 1;
     color: $text-subtitle;
     //color: $color-main;
     a{
