@@ -13,14 +13,7 @@
 详细的截图在文章最后
 
 ![2023-08-31 11 27 29](https://github.com/KyleBing/diary/assets/12215982/1c9e40d1-d175-42d6-aed6-266a18cbbe3b)
-![2023-08-31 11 25 31](https://github.com/KyleBing/diary/assets/12215982/1c633aaa-e7a4-4417-864f-52706cf9b445)
-![2023-08-31 11 24 39](https://github.com/KyleBing/diary/assets/12215982/4f38e4bd-e5d3-4b55-aaa4-05ae245f3600)
-![2023-08-31 11 23 48](https://github.com/KyleBing/diary/assets/12215982/4f181e5e-ec20-4564-b76b-a0b6d90991dd)
 
-
-iPad Pro 截图
-
-![主页](https://github.com/KyleBing/diary/assets/12215982/c2786d3c-f73e-4fb3-848a-089051ade2ea)
 
 ---
 
@@ -181,6 +174,11 @@ gzip_types  text/css application/javascript application/json;
 ## 十、界面截图 - 详细
 
 **PC**
+![2023-08-31 11 25 31](https://github.com/KyleBing/diary/assets/12215982/1c633aaa-e7a4-4417-864f-52706cf9b445)
+![2023-08-31 11 24 39](https://github.com/KyleBing/diary/assets/12215982/4f38e4bd-e5d3-4b55-aaa4-05ae245f3600)
+![2023-08-31 11 23 48](https://github.com/KyleBing/diary/assets/12215982/4f181e5e-ec20-4564-b76b-a0b6d90991dd)
+
+
 
 登录  
 <img width="1512" alt="登录" src="https://user-images.githubusercontent.com/12215982/185168128-ec2d092f-85f6-4ffd-a510-dfcff5daf926.png">
@@ -215,6 +213,10 @@ gzip_types  text/css application/javascript application/json;
 菜单  
 <img width="1920" alt="菜单" src="https://github.com/KyleBing/diary/assets/12215982/fd10285b-9ae6-493f-9321-940ad22fa052">
 
+
+iPad Pro 截图
+
+![主页](https://github.com/KyleBing/diary/assets/12215982/c2786d3c-f73e-4fb3-848a-089051ade2ea)
 
 
 **移动端**
