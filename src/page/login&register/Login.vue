@@ -29,6 +29,7 @@
                 <div class="copyright">
                     <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{packageInfo.nameZh}}</a>
                     <div class="version">v{{packageInfo.version}}</div>
+                    <div class="valid-date">始于 {{packageInfo.dateInit}}</div>
                 </div>
             </div>
 
@@ -133,6 +134,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "./src/scss/plugin";
+
 .copyright{
     left: 50%;
     transform: translateX(-50%);
@@ -141,16 +143,21 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: $fz-small;
+    font-size: $fz-tiny;
     flex-flow: column nowrap;
-    color: $color-main;
+    color: $text-subtitle;
+    //color: $color-main;
     a{
-        color: $color-main;
+        color: $text-subtitle;
         &:hover{
+            color: $color-main;
             text-decoration: underline;
         }
     }
     .project-name{
+        font-weight: bold;
+    }
+    .valid-date{
     }
     .version{
     }
