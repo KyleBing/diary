@@ -229,6 +229,15 @@ export default {
     }
 }
 
+@media (max-width: $grid-separate-width-md) {
+    .word-list {
+        .word {
+            padding: 2px 5px;
+            font-size: $fz-title;
+        }
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .word-list {
         .word {
