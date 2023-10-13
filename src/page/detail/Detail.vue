@@ -22,8 +22,9 @@
             <div class="diary-content" v-if="diary.content">
 
                 <div class="toolbar">
-                    <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.content">复制</ButtonNormal>
-                    <ButtonNormal class="clipboard" @click="toggleContentType">炸词</ButtonNormal>
+                    <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.content">全部复制</ButtonNormal>
+                    <ButtonNormal class="clipboard" v-if="isShowExplode" @click="toggleContentType">普通</ButtonNormal>
+                    <ButtonNormal class="clipboard" v-else @click="toggleContentType">炸词</ButtonNormal>
                 </div>
 
                 <div v-if="isShowExplode">
