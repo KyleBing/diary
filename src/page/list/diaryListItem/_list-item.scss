@@ -61,6 +61,10 @@
       line-height: $height-list;
       flex-grow: 1;
       text-align: right;
+      &.bill-in{
+        //font-weight: bold;
+        color: lighten(desaturate($magenta, 20%), 0%);
+      }
     }
     &:after{
       bottom: 0;
@@ -122,10 +126,16 @@
       .title{
         color: $dark-text-title;
       }
+      .bill-amount{
+        &.bill-in{
+          color: lighten(desaturate($magenta, 10%), 20%);
+        }
+      }
       &:after{
         border-bottom-color: $dark-border;
       }
     }
+
     &.active{
       .title, .date{
         color: white;
