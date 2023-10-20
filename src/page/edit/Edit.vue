@@ -603,7 +603,7 @@ export default {
                             .popMessage('danger', err.message, () => {
                                 this.SET_IS_SAVING_DIARY(false)
                                 this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
-                            })
+                            }, 3)
                     })
             } else {
                 diaryApi
@@ -614,7 +614,7 @@ export default {
                             .popMessage('danger', err.message, () => {
                                 this.SET_IS_SAVING_DIARY(false)
                                 this.SET_IS_DIARY_NEED_TO_BE_SAVED(false)
-                            })
+                            }, 3)
                     })
             }
         },

@@ -190,7 +190,7 @@ export default {
 
                 })
                 .catch(err => {
-                    utility.popMessage('danger', err.message)
+                    utility.popMessage('danger', err.message, null, 5)
                 })
         }
     },

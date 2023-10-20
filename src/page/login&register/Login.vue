@@ -110,7 +110,7 @@ export default {
                         this.loginLabel = '登录失败'
                         utility.popMessage('danger', err.message, () => {
                             this.loginLabel = '登录'
-                        })
+                        }, 5)
                     })
             } else {
 

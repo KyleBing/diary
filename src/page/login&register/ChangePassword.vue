@@ -91,7 +91,7 @@ export default {
                         }, 2)
                     })
                     .catch(err => {
-                        utility.popMessage('danger', `${err.message}`, () => {}, 2)
+                        utility.popMessage('danger', `${err.message}`, () => {}, 3)
                     })
             }
         }
