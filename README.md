@@ -1,4 +1,4 @@
-<img width="100px" src="https://user-images.githubusercontent.com/12215982/225367174-f967aa05-5f35-474e-8ae2-0ea0619bd5d8.svg"/>
+<img width="120px" src="https://user-images.githubusercontent.com/12215982/225367174-f967aa05-5f35-474e-8ae2-0ea0619bd5d8.svg"/>
 
 # 标题日记
 一个纯文本的日记 web 应用，专注记录生活琐事。
@@ -9,7 +9,7 @@
 
 
 
-# 界面
+## 界面
 详细的截图在文章最后
 
 ![2023-08-31 11 27 29](https://github.com/KyleBing/diary/assets/12215982/1c9e40d1-d175-42d6-aed6-266a18cbbe3b)

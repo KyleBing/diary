@@ -9,12 +9,15 @@
         <div class="detail">
             <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
-            <div
-                :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]"
-                v-if="diary.hasOwnProperty('billData')"
-            >
-                {{diary.billData.sum>0?'+ ':''}}{{diary.billData.sum.toFixed(moneyAccuracy)}}
-            </div>
+            <template v-if="diary.hasOwnProperty('billData')">
+                <div v-if="isHideContent" :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
+                    {{diary.billData.sum.toFixed(moneyAccuracy).replace(/[^，。 \n]/g, '*')}}
+                </div>
+                <div v-else :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
+                    {{diary.billData.sum>0?'+ ':''}}{{diary.billData.sum.toFixed(moneyAccuracy)}}
+                </div>
+            </template>
+
             <img alt="Content"
                  v-if="diary.content"
                  class="icon"
