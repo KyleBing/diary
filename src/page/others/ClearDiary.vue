@@ -69,6 +69,10 @@ export default {
                         this.$router.push({name: 'List'})
                     }, 2)
                 })
+                .catch(err => {
+                    utility.popMessage('danger', err.message, ()=>{
+                    }, 3)
+                })
         }
     },
 }

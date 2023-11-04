@@ -14,10 +14,6 @@
                         <div class="project-name">修改密码</div>
                     </div>
                     <form id="regForm">
-    <!--                    <div class="input-group">
-                            <label for="oldPassword">原密码</label>
-                            <input v-model.lazy="oldPassword" name="oldPassword" type="password" id="oldPassword">
-                        </div>-->
                         <div class="input-group">
                             <label for="password1">新密码</label>
                             <input v-model.lazy="password1" name="password1" type="password" id="password1">
@@ -91,7 +87,7 @@ export default {
                         }, 2)
                     })
                     .catch(err => {
-                        utility.popMessage('danger', `${err.message}`, () => {}, 3)
+                        utility.popMessage('danger', err.message, () => {}, 3)
                     })
             }
         }
