@@ -3,8 +3,9 @@
         <div class="id">{{fileInfo.id}}</div>
         <div class="file-info">
             <div class="name clipboard" :data-clipboard="`https://kylebing.cn/${fileInfo.name}`" >{{fileInfo.name_original}}</div>
-            <div class="size">{{(fileInfo.size/1024).toFixed(0)}}kb</div>
-            <div class="date-create">{{fileInfo.date_time}}</div>
+            <div class="size">{{(fileInfo.size/1024).toFixed(0)}} kb</div>
+            <div class="description">{{fileInfo.description}}</div>
+            <div class="date">{{fileInfo.date_time}}</div>
             <div :class="['file-type',
                 {image: fileInfo.type.indexOf('image') > -1},
             ]">{{fileInfo.type}}</div>

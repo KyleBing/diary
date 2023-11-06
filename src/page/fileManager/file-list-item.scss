@@ -29,6 +29,10 @@
     font-weight: bold;
   }
   .size{
+    font-family: 'JetBrains Mono', sans-serif;
+    color: $text-subtitle;
+  }
+  .description{
     color: $text-subtitle;
   }
   .file-type{
@@ -37,7 +41,7 @@
       color: $orange;
     }
   }
-  .date-create{}
+  .date{}
   .path{}
   .owner{}
 }

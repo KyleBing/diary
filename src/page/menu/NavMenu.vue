@@ -26,7 +26,7 @@
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToPage('BankCard')" />
                     <menu-list-item
                         v-if="isAdminUser"
-                        menu-name="文件管理" :icon="icons.tab.card"        @click="goToPage('FileManager')" />
+                        menu-name="文件管理" :icon="icons.tab.folder"        @click="goToPage('FileManager')" />
                     <menu-list-item menu-name="其它"     :icon="icons.tab.others"      @click="menuListClicked('others')" />
                     <menu-list-item
                         v-if="isAdminUser"
