@@ -1,0 +1,60 @@
+.file-list-item{
+  margin-left: 30px;
+  padding: 12px 20px;
+  background-color: $bg-light;
+  @include border-radius($radius-pc);
+  display: flex;
+  align-items: center;
+  font-size: $fz-small;
+}
+
+.id{
+  font-family: 'JetBrains Mono', sans-serif;
+  font-size: $fz-title;
+  @include border-radius(100px);
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+}
+
+.file-info{
+  min-width: 150px;
+  color: $text-label;
+  margin-left: 10px;
+  .name{
+    line-height: 1.5;
+    color: $text-title;
+    font-size: $fz-main;
+    font-weight: bold;
+  }
+  .size{
+    color: $text-subtitle;
+  }
+  .file-type{
+    color: $green;
+    &.image{
+      color: $orange;
+    }
+  }
+  .date-create{}
+  .path{}
+  .owner{}
+}
+
+
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .file-list-item{
+    margin-left: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .file-list-item{
+  }
+}
+

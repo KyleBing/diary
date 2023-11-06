@@ -21,6 +21,7 @@ import ListHole from "./page/listHole/ListHole";
 import store from './store'
 import ClearDiary from "@/page/others/ClearDiary";
 import DestroyAccount from "@/page/others/DestroyAccount";
+import FileManager from "./page/fileManager/FileManager.vue";
 const routes = [
     {
         name: 'Index',
@@ -49,6 +50,7 @@ const routes = [
     {name: 'ChangeProfile',  path: '/change-profile',    component: ChangeProfile },
     {name: 'Login',          path: '/login',             component: Login},
     {name: 'Statistics',     path: '/statistics',        component: Statistics},
+    {name: 'FileManager',    path: '/file-manager',      component: FileManager},
     {name: 'Bill',           path: '/bill',              component: Bill},
     {name: 'BankCard',       path: '/bank-card',         component: BankCardList },
     {name: 'Invitation',     path: '/invitation',        component: InvitationList },

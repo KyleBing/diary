@@ -21,14 +21,19 @@
                     <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"       @click="menuListClicked('year')"
                                     :add-on-text="dateFilter">
                     </menu-list-item>
-                    <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToStatisticPage" />
-                    <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToBillPage" />
-                    <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToBankCard" />
+                    <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToPage('Statistic')" />
+                    <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToPage('Bill')" />
+                    <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToPage('BankCard')" />
+                    <menu-list-item
+                        v-if="isAdminUser"
+                        menu-name="文件管理" :icon="icons.tab.card"        @click="goToPage('FileManager')" />
                     <menu-list-item menu-name="其它"     :icon="icons.tab.others"      @click="menuListClicked('others')" />
-                    <menu-list-item  v-if="isAdminUser"
-                                     menu-name="邀请码"   :icon="icons.tab.invitation"         @click="goToInvitationList" />
-                    <menu-list-item menu-name="关于"     :icon="icons.tab.about"        @click="menuListClicked('about')"
-                                    :add-on-text="`v${version}`"/>
+                    <menu-list-item
+                        v-if="isAdminUser"
+                        menu-name="邀请码"   :icon="icons.tab.invitation"         @click="goToPage('Invitation')" />
+                    <menu-list-item
+                        menu-name="关于"     :icon="icons.tab.about"        @click="menuListClicked('about')"
+                        :add-on-text="`v${version}`"/>
                 </div>
 
                 <!-- 用户信息 -->
@@ -131,29 +136,11 @@ export default {
             'SET_IS_SHOW_SEARCH_BAR',
             'SET_MENU_SHOWED'
         ]),
-        // 是否为管理员 管理员的组别为 1
-        goToStatisticPage(){
+        // 跳转到独立页面
+        goToPage(pageName){
             this.SET_MENU_SHOWED(false)
             this.menuClose()
-            this.$router.push({name: 'Statistics'})
-        },
-
-        goToBillPage(){
-            this.SET_MENU_SHOWED(false)
-            this.menuClose()
-            this.$router.push({name: 'Bill'})
-        },
-
-        goToBankCard(){
-            this.SET_MENU_SHOWED(false)
-            this.menuClose()
-            this.$router.push({name: 'BankCard'})
-        },
-
-        goToInvitationList(){
-            this.SET_MENU_SHOWED(false)
-            this.menuClose()
-            this.$router.push({name: 'Invitation'})
+            this.$router.push({name: pageName})
         },
 
         // MENU related
