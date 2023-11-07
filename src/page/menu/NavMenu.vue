@@ -21,7 +21,7 @@
                     <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"       @click="menuListClicked('year')"
                                     :add-on-text="dateFilter">
                     </menu-list-item>
-                    <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToPage('Statistic')" />
+                    <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToPage('Statistics')" />
                     <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToPage('Bill')" />
                     <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToPage('BankCard')" />
                     <menu-list-item
