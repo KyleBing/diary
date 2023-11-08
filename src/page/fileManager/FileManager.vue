@@ -26,9 +26,7 @@
             <div class="input-group">
                 <label for="file">文件</label>
                 <input onchange="handleFileInput" name="password" type="file" id="file">
-                <FilePreview
-                    file-data=""
-                    file-type=""/>
+                <FileSelector @fileChange="handleFileChange"/>
             </div>
             <button class="btn mt-8 btn-active" type="submit">上传</button>
         </form>
@@ -42,15 +40,14 @@ import utility from "../../utility"
 import ClipboardJS from "clipboard"
 import TabIcon from "../../components/TabIcon"
 import PageHeader from "../../framework/pageHeader/PageHeader"
-import diaryApi from "../../api/diaryApi"
 import fileManagerApi from "../../api/fileManagerApi";
 import FileListItem from "./FileListItem.vue";
 import Modal from "../../components/Modal.vue";
-import FilePreview from "../../components/FilePreview.vue";
+import FileSelector from "../../components/FileSelector.vue";
 
 export default {
     name: "FileManager",
-    components: {FilePreview, Modal, FileListItem, PageHeader, TabIcon, Loading},
+    components: {FileSelector, Modal, FileListItem, PageHeader, TabIcon, Loading},
     data() {
         return {
             isLoading: false,
@@ -95,21 +92,11 @@ export default {
         ...mapState(['insets', 'categoryAll'])
     },
     methods: {
-        handleFileInput(event){
-            if (event.target.files.length > 0){
-                this.currentFile = event.target.files[0]
-                /*                if (!/image\/.*!/.test(this.currentFile.type)){
-                                    event.target.value = '' // 清空 Input 内容
-                                    this.$message.warning('非图片文件')
-                                    this.currentFile = null
-                                    return
-                                }*/
-                /*                if (this.currentFile.size > 1024 * 1024 * 10){
-                                    event.target.value = '' // 清空 Input 内容
-                                    this.$message.warning('文件大小应小于10m')
-                                    this.currentFile = null
-                                    return
-                                }*/
+        handleFileChange(file){
+            console.log(file)
+            this.formUpload.file = file
+            if (!this.formUpload.name){
+                this.formUpload.name = file.name
             }
         },
 
@@ -118,25 +105,30 @@ export default {
         },
         // 新增
         uploadFile() {
+            if (!this.formUpload.name){
+                utility.popMessage('warning', '文件名未填写')
+                return
+            }
+            if (!this.formUpload.file){
+                utility.popMessage('warning', '未选择任何文件')
+                return
+            }
             let requestData = new FormData()
-            requestData.append('file', this.currentFile)
-            requestData.append('note', this.fileDescription)
+            requestData.append('file', this.formUpload.file)
+            requestData.append('note', this.formUpload.name)
             fileManagerApi
                 .upload(requestData)
                 .then(res => {
-                    this.$notify({
-                        title: res.message,
-                        position: 'top-right',
-                        type: 'success',
-                        onClose() {
-                        }
-                    })
-                    this.currentFile = null
-                    this.fileDescription = ''
+                    utility.popMessage('success', '上传成功')
                     this.getFileList()
+                    this.formUpload = {
+                        file: null,
+                        name: ''
+                    }
+                    this.modalUpload = false
                 })
                 .catch(err => {
-
+                    utility.popMessage('danger', err.message)
                 })
         },
         getFileList(){
@@ -166,11 +158,13 @@ export default {
 @import "../../scss/plugin";
 
 .file-list{
+    width: 100%;
     padding: 30px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-flow: row wrap;
+    align-content: flex-start;
     background-color: $bg-menu;
 }
 

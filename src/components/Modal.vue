@@ -13,7 +13,7 @@ export default {
 <style scoped lang="scss">
 @import "../scss/plugin";
 .modal{
-    background-color: $bg-menu;
+    background-color: $bg-main;
     z-index: 999;
     position: fixed;
     left: 0;

@@ -1,5 +1,6 @@
 .file-list-item{
-  margin-left: 30px;
+  margin-left: 20px;
+  margin-bottom: 20px;
   padding: 12px 20px;
   background-color: $bg-light;
   @include border-radius($radius-pc);
@@ -9,6 +10,7 @@
 }
 
 .id{
+  flex-shrink: 0;
   font-family: 'JetBrains Mono', sans-serif;
   font-size: $fz-title;
   @include border-radius(100px);
@@ -23,6 +25,9 @@
   color: $text-label;
   margin-left: 10px;
   .name{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     line-height: 1.5;
     color: $text-title;
     font-size: $fz-main;
@@ -33,6 +38,9 @@
     color: $text-subtitle;
   }
   .description{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     color: $text-subtitle;
   }
   .file-type{
