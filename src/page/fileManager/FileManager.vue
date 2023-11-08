@@ -14,6 +14,7 @@
                 :fileInfo="file"
                 v-for="file in fileListData"
                 :key="file.id"
+                @refresh-list="getFileList"
             />
         </div>
     </div>
@@ -29,6 +30,7 @@
                 <FileSelector @fileChange="handleFileChange"/>
             </div>
             <button class="btn mt-8 btn-active" type="submit">上传</button>
+            <button class="btn mt-2" @click="modalUpload = false" type="submit">取消</button>
         </form>
     </Modal>
 </template>

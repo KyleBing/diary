@@ -3,12 +3,12 @@
         <div class="id">{{fileInfo.id}}</div>
         <div class="file-meta">
             <tab-icon size="small" alt="黑色-编辑"/>
-            <tab-icon size="small" alt="黑色-删除"/>
+            <tab-icon @click="deleteFile(fileInfo.id)" size="small" alt="黑色-删除"/>
         </div>
         <div class="file-info">
             <div class="name">{{fileInfo.description}}</div>
             <div class="size">{{(fileInfo.size/1024).toFixed(0)}} kb</div>
-            <div class="description clipboard" :data-clipboard="`https://kylebing.cn/${fileInfo.name}`" >{{fileInfo.name_original}}</div>
+            <div class="description clipboard" :data-clipboard="`https://kylebing.cn/${fileInfo.path}`" >{{fileInfo.name_original}}</div>
             <div class="date">{{fileInfo.date_time}}</div>
             <div :class="['file-type',
                 {image: fileInfo.type.indexOf('image') > -1},
@@ -23,6 +23,7 @@ import svgIcons from "../../assets/img/SvgIcons"
 import ClipboardJS from "clipboard";
 import utility from "../../utility";
 import TabIcon from "../../components/TabIcon.vue";
+import fileManagerApi from "@/api/fileManagerApi";
 
 export default {
     name: "FileListItem",
@@ -33,7 +34,7 @@ export default {
             default:  {
                 // "id": 19,
                 // "name_original": "dog (1).gif",
-                // "name": "upload/dog (1).gif",
+                // "path": "upload/dog (1).gif",
                 // "description": "表情-狗-跳舞",
                 // "date_create": "2023-11-03T03:54:32.000Z",
                 // "date_time": "2023-11-03 03:54:32",
@@ -43,9 +44,24 @@ export default {
             }
         },
     },
+    emits: ['refreshList'],
     computed: {
     },
     methods: {
+        deleteFile(fileId){
+            fileManagerApi
+                .delete({
+                    fileId
+                })
+                .then(res => {
+                    console.log(res)
+                    utility.popMessage('success', res.message)
+                    this.$emit('refreshList')
+                })
+                .catch(err => {
+                    utility.popMessage('danger', err.message)
+                })
+        },
 
     },
 
