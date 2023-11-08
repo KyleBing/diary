@@ -6,7 +6,7 @@
 import {mapGetters, mapMutations, mapState} from "vuex"
 import utility from "./utility"
 import diaryApi from "./api/diaryApi"
-import ServerError from "./ServerError";
+import ServerError from "./fundation/ServerError.vue";
 export default {
     components: {ServerError},
     data(){
