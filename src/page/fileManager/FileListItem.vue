@@ -1,10 +1,14 @@
 <template>
     <div class="file-list-item">
         <div class="id">{{fileInfo.id}}</div>
+        <div class="file-meta">
+            <tab-icon size="small" alt="黑色-编辑"/>
+            <tab-icon size="small" alt="黑色-删除"/>
+        </div>
         <div class="file-info">
-            <div class="name clipboard" :data-clipboard="`https://kylebing.cn/${fileInfo.name}`" >{{fileInfo.name_original}}</div>
+            <div class="name">{{fileInfo.description}}</div>
             <div class="size">{{(fileInfo.size/1024).toFixed(0)}} kb</div>
-            <div class="description">{{fileInfo.description}}</div>
+            <div class="description clipboard" :data-clipboard="`https://kylebing.cn/${fileInfo.name}`" >{{fileInfo.name_original}}</div>
             <div class="date">{{fileInfo.date_time}}</div>
             <div :class="['file-type',
                 {image: fileInfo.type.indexOf('image') > -1},
@@ -18,9 +22,11 @@
 import svgIcons from "../../assets/img/SvgIcons"
 import ClipboardJS from "clipboard";
 import utility from "../../utility";
+import TabIcon from "../../components/TabIcon.vue";
 
 export default {
     name: "FileListItem",
+    components: {TabIcon},
     props: {
         fileInfo: {
             type: Object,

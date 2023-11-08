@@ -15,10 +15,18 @@
   font-size: $fz-title;
   @include border-radius(100px);
   text-align: center;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
 }
+
+.file-meta{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
 
 .file-info{
   min-width: 150px;
