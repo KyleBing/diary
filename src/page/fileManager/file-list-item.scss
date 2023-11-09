@@ -21,10 +21,11 @@
 }
 
 .file-meta{
+  width: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: column nowrap;
+  flex-flow: row wrap;
 }
 
 
@@ -52,9 +53,9 @@
     color: $text-subtitle;
   }
   .file-type{
-    color: $green;
+    color: $blue;
     &.image{
-      color: $orange;
+      color: $magenta;
     }
   }
   .date{}

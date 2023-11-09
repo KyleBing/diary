@@ -1,21 +1,35 @@
 <template>
     <div class="file-list-item">
         <div class="id">{{fileInfo.id}}</div>
+
         <div class="file-meta">
-            <tab-icon size="small" alt="黑色-编辑"/>
-            <tab-icon @click="deleteFile(fileInfo.id)" size="small" alt="黑色-删除"/>
+            <tab-icon @click="openFileInNewTab" size="small" alt="黑色-内容显示" />
+            <tab-icon @click="modalEditFileName = true" size="small" alt="黑色-编辑"/>
+            <tab-icon @click="deleteFile" size="small" alt="黑色-删除"/>
+            <tab-icon size="small" alt="黑色-分享" class="clipboard" :data-clipboard="filePath" />
         </div>
+
         <div class="file-info">
             <div class="name">{{fileInfo.description}}</div>
             <div class="size">{{(fileInfo.size/1024).toFixed(0)}} kb</div>
-            <div class="description clipboard" :data-clipboard="`https://kylebing.cn/${fileInfo.path}`" >{{fileInfo.name_original}}</div>
+            <div class="description">{{fileInfo.name_original}}</div>
             <div class="date">{{fileInfo.date_time}}</div>
             <div :class="['file-type',
                 {image: fileInfo.type.indexOf('image') > -1},
             ]">{{fileInfo.type}}</div>
         </div>
-
     </div>
+
+    <Modal v-if="modalEditFileName">
+        <form method="post" id="formModifyFileName" @submit.prevent="modifyFileNameConfirm">
+            <div class="input-group">
+                <label for="fileName">新文件名</label>
+                <input v-model.lazy="newFileName" type="text" name="fileName" id="fileName">
+            </div>
+            <button class="btn mt-8 btn-active" type="submit">确定</button>
+            <button class="btn mt-2" @click="modalEditFileName = false" type="submit">取消</button>
+        </form>
+    </Modal>
 </template>
 
 <script>
@@ -24,10 +38,11 @@ import ClipboardJS from "clipboard";
 import utility from "../../utility";
 import TabIcon from "../../components/TabIcon.vue";
 import fileManagerApi from "@/api/fileManagerApi";
+import Modal from "../../components/Modal.vue";
 
 export default {
     name: "FileListItem",
-    components: {TabIcon},
+    components: {Modal, TabIcon},
     props: {
         fileInfo: {
             type: Object,
@@ -46,12 +61,24 @@ export default {
     },
     emits: ['refreshList'],
     computed: {
+        filePath(){
+            return `https://kylebing.cn/${this.fileInfo.path}`
+        }
+    },
+    data(){
+        return {
+            modalEditFileName: false, // 文件名修改
+            newFileName: '', // 新文件名
+        }
     },
     methods: {
-        deleteFile(fileId){
+        openFileInNewTab(){
+            window.open(this.filePath, '_blank')
+        },
+        deleteFile(){
             fileManagerApi
                 .delete({
-                    fileId
+                    fileId: this.fileInfo.id
                 })
                 .then(res => {
                     console.log(res)
@@ -62,6 +89,21 @@ export default {
                     utility.popMessage('danger', err.message)
                 })
         },
+        modifyFileNameConfirm(){
+            fileManagerApi
+                .modifyFileName({
+                    fileId: this.fileInfo.id,
+                    description: this.newFileName
+                })
+                .then(res => {
+                    utility.popMessage('success', res.message)
+                    this.$emit('refreshList')
+                })
+                .catch(err => {
+                    utility.popMessage('danger', err.message)
+                })
+        },
+
 
     },
 

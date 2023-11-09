@@ -15,11 +15,12 @@
                 v-for="file in fileListData"
                 :key="file.id"
                 @refresh-list="getFileList"
+                @modifyFileName="showModalModifyFileName(fileId)"
             />
         </div>
     </div>
     <Modal v-if="modalUpload">
-        <form method="post" id="regForm" @submit.prevent="uploadFile">
+        <form method="post" id="formUpload" @submit.prevent="uploadFile">
             <div class="input-group">
                 <label for="name" >文件名称</label>
                 <input v-model.lazy="formUpload.name" type="text" name="name" id="name">
@@ -33,6 +34,8 @@
             <button class="btn mt-2" @click="modalUpload = false" type="submit">取消</button>
         </form>
     </Modal>
+
+
 </template>
 
 <script>
@@ -62,7 +65,7 @@ export default {
                 total: 0
             },
 
-            modalUpload: false, // modal
+            modalUpload: false, // 文件上传
 
             formUpload: {
                 name: '',
@@ -94,6 +97,7 @@ export default {
         ...mapState(['insets', 'categoryAll'])
     },
     methods: {
+
         handleFileChange(file){
             console.log(file)
             this.formUpload.file = file
@@ -101,7 +105,6 @@ export default {
                 this.formUpload.name = file.name
             }
         },
-
         showModalUpload(){
             this.modalUpload = true
         },

@@ -65,6 +65,10 @@ export default {
             iconMap.set('黑色-账单', ICONS.tabDark.bill)
             iconMap.set('黑色-其它', ICONS.tabDark.others)
             iconMap.set('黑色-银行卡', ICONS.tabDark.card)
+            iconMap.set('黑色-内容隐藏', ICONS.tabDark.contentHide)
+            iconMap.set('黑色-内容显示', ICONS.tabDark.contentShow)
+            iconMap.set('黑色-列表简洁', ICONS.tabDark.listSimple)
+            iconMap.set('黑色-列表详情', ICONS.tabDark.listDetail)
             return iconMap
         }
     },
