@@ -18,18 +18,19 @@
                 {image: fileInfo.type.indexOf('image') > -1},
             ]">{{fileInfo.type}}</div>
         </div>
+        <Modal v-if="modalEditFileName">
+            <form method="post" id="formModifyFileName" @submit.prevent="modifyFileNameConfirm">
+                <div class="input-group">
+                    <label for="fileName">新文件名</label>
+                    <input v-model.lazy="newFileName" type="text" name="fileName" id="fileName">
+                </div>
+                <button class="btn mt-8 btn-active" type="submit">确定</button>
+                <button class="btn mt-2" @click="modalEditFileName = false" type="submit">取消</button>
+            </form>
+        </Modal>
     </div>
 
-    <Modal v-if="modalEditFileName">
-        <form method="post" id="formModifyFileName" @submit.prevent="modifyFileNameConfirm">
-            <div class="input-group">
-                <label for="fileName">新文件名</label>
-                <input v-model.lazy="newFileName" type="text" name="fileName" id="fileName">
-            </div>
-            <button class="btn mt-8 btn-active" type="submit">确定</button>
-            <button class="btn mt-2" @click="modalEditFileName = false" type="submit">取消</button>
-        </form>
-    </Modal>
+
 </template>
 
 <script>

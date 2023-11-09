@@ -23,6 +23,7 @@
 .file-meta{
   width: 80px;
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
   flex-flow: row wrap;
@@ -75,7 +76,6 @@
 
 // DARK
 @media (prefers-color-scheme: dark) {
-  .file-list-item{
-  }
+
 }
 
