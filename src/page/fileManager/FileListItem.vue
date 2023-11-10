@@ -18,8 +18,13 @@
                 {image: fileInfo.type.indexOf('image') > -1},
             ]">{{fileInfo.type}}</div>
         </div>
+
         <Modal v-if="modalEditFileName">
-            <form method="post" id="formModifyFileName" @submit.prevent="modifyFileNameConfirm">
+            <form class="modal-form-panel" method="post" id="formModifyFileName" @submit.prevent="modifyFileNameConfirm">
+                <div class="input-group">
+                    <label for="fileNameOld">旧文件名</label>
+                    <input :value="this.fileInfo.description" type="text" name="fileNameOld" id="fileNameOld">
+                </div>
                 <div class="input-group">
                     <label for="fileName">新文件名</label>
                     <input v-model.lazy="newFileName" type="text" name="fileName" id="fileName">

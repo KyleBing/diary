@@ -20,7 +20,7 @@
         </div>
     </div>
     <Modal v-if="modalUpload">
-        <form method="post" id="formUpload" @submit.prevent="uploadFile">
+        <form class="modal-form-panel" method="post" id="formUpload" @submit.prevent="uploadFile">
             <div class="input-group">
                 <label for="name" >文件名称</label>
                 <input v-model.lazy="formUpload.name" type="text" name="name" id="name">
