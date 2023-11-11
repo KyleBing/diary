@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 @import "../../scss/plugin";
 $height-menu-list: 50px;
-$height-icon: 35px;
+$height-icon: 34px;
 .menu-list-item{
     padding: 0 10px;
     align-items: center;
@@ -54,6 +54,7 @@ $height-icon: 35px;
     }
 
     .menu-list-item-icon{
+        flex-shrink: 0;
         display: flex;
         justify-content: center;
         align-items: center;
