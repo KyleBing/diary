@@ -19,18 +19,22 @@
                     <tab-icon v-if="isHideContent" alt="内容隐藏"/>
                     <tab-icon v-else alt="内容显示"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
-                    <tab-icon alt="搜索"/>
-                </div>
+
                 <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
                     <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
                     <tab-icon v-else alt="列表详情"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToCard">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
+                    <tab-icon alt="搜索"/>
+                </div>
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('BankCard')">
                     <tab-icon alt="银行卡"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="routeToBill">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('Bill')">
                     <tab-icon alt="账单"/>
+                </div>
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('FileManager')">
+                    <tab-icon alt="文件"/>
                 </div>
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
                     <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
@@ -219,17 +223,10 @@ export default {
             this.SET_DATE_FILTER('')
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
-        routeToBill(){
-            this.$router.push({
-                name: 'Bill'
-            })
+        // 跳转到独立页面
+        goToPage(pageName){
+            this.$router.push({name: pageName})
         },
-        routeToCard(){
-            this.$router.push({
-                name: 'BankCard'
-            })
-        },
-
         // 菜单操作
         menuShow() {
             this.SET_MENU_SHOWED(true)
