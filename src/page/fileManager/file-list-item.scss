@@ -70,12 +70,15 @@
   .file-list-item{
     margin-left: 0;
     width: 100%;
-    margin-bottom: 20px;
+    line-height: 1.2;
+    margin-bottom: 10px;
   }
 }
 
 // DARK
 @media (prefers-color-scheme: dark) {
-
+  .file-list-item{
+    background: linear-gradient(white, darken(white, 20%));
+  }
 }
 

@@ -8,7 +8,7 @@
     <div v-else>
         <div class="file-list"
              v-if="fileListData.length > 0"
-             :style="'height:' + insets.heightPanel + 'px'"
+             :style="'min-height:' + insets.heightPanel + 'px'"
         >
             <FileListItem
                 :fileInfo="file"
@@ -164,7 +164,7 @@ export default {
 
 .file-list{
     width: 100%;
-    padding: 30px;
+    padding: 30px 30px 50px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -176,7 +176,8 @@ export default {
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .file-list{
-        padding: 20px;
+        padding: 15px 15px 50px;
+
         flex-flow: column nowrap;
     }
 }

@@ -127,6 +127,7 @@ $icon-padding-mobile: 3px;
     }
 
     &.black{
+        //background-color: darken(white, 60%);
         &:hover{
             img{
                 background-color: lighten(white, 0%);
