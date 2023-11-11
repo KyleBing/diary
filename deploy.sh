@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /usr/share/nginx/html &&
+cd /var/www/html &&
 if compgen -G "./diary*.zip" > /dev/null; then
     rm -Rf diary/* &&
     mv diary-* diary &&
