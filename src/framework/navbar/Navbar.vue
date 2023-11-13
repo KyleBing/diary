@@ -33,7 +33,7 @@
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('Bill')">
                     <tab-icon alt="账单"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('FileManager')">
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode && isAdminUser" @click="goToPage('FileManager')">
                     <tab-icon alt="文件"/>
                 </div>
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
@@ -191,6 +191,9 @@ export default {
             'isFilterShared'
         ]),
         ...mapGetters(['isInMobileMode']),
+        isAdminUser(){
+            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
+        },
         shareUrl(){
             return `${location.origin}/diary/#/share/${this.currentDiary.id}`
         },
