@@ -260,12 +260,14 @@
   .bill-filter-panel{
     @include border-radius($radius-pc);
     border: 1px solid $dark-border;
-    background-color: $dark-bg;
+    background-color: $dark-bg-dark;
+    textarea{
+    }
   }
 
   // BILL
   .bill-content{
-    background-color: $dark-bg-dark;
+    background-color: black;
   }
 
 
@@ -284,7 +286,7 @@
 
   .bill{
     border-color: $dark-border;
-    background-color: $dark-bg;
+    background-color: $dark-bg-dark;
     .bill-header{
       .title{
         color: $dark-text-title;

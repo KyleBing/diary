@@ -38,25 +38,27 @@ function popMessage(
     timeout = 0.8) {
    let popClass = 'pop-msg-' + type
    let msgEl = document.createElement('div')
-   msgEl.classList.add('pop-msg', 'animated-fast', 'slideInDown', popClass)
+   msgEl.classList.add('pop-msg', 'animated-fast', 'slideInDownPopMessage', popClass)
    let msgTitle = document.createElement('h3')
    msgTitle.innerText = title
    msgEl.append(msgTitle)
    $('body').append(msgEl)
 
+   setTimeout(_=>{
+      msgEl.classList.remove('slideInDownPopMessage')
+   }, 200)
    setTimeout(() => {
 
       // msgEl.classList.replace('slideInDown', 'slideOutUp')
-      msgEl.classList.remove('slideInDown')
-      msgEl.classList.add('slideOutUp')
+      msgEl.classList.add('slideOutUpPopMessage')
       setTimeout(() => {
          msgEl.remove()
-      }, 150); // 需要对应 css 中 .animated-fast 的动画过渡时间
+      }, 200); // 需要对应 css 中 .animated-fast 的动画过渡时间
 
       // 为了避免回调方法影响 动画的过程，将其异步处理
       setTimeout(() => {
          callback && callback()
-      }, 150)
+      }, 200)
 
    }, 1000 * timeout)
 }

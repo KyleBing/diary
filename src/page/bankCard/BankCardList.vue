@@ -248,7 +248,7 @@ $bank-card-list-padding: 30px;
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .bank-card-list{
-        padding: 20px;
+        padding: 10px;
         flex-flow: column nowrap;
     }
 }

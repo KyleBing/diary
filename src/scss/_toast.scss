@@ -70,20 +70,98 @@ $toast-border-color: $bg-menu;
 .pop-msg{
   z-index: 1000;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 12px 0 8px;
+  top: 100px;
+  width: 300px;
+  transform: translateX(-50%);
+  left: 50%;
+  padding: 20px 0;
   text-align: center;
-  background-color: $bg-menu;
-  border-bottom: 1px solid transparentize($color-border, 0.9);
+  //background-color: $color-main;
+  backdrop-filter: blur(20px) saturate(180%);
+  @include border-radius($radius-pc);
+  border: 1px solid transparentize($color-border, 0.9);
   h3{
+    color: white;
     line-height: 25px;
-    font-size: $fz-note;
+    font-size: $fz-label;
   }
-  &-default { h3{color: white;} }
-  &-warning { h3{color: $color-main;} }
-  &-success { h3{color: $green;} }
-  &-danger  { h3{color: $red;} }
+  &-default { background-color: transparentize(white,0.2); }
+  &-warning { background-color: transparentize($color-main,0.2); }
+  &-success { background-color: transparentize($green,0.2); }
+  &-danger  { background-color: transparentize($red,0.2); }
 }
+
+
+@-webkit-keyframes slideInDownPopMessage {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0) translateX(-50%);
+    transform: translate3d(0, -100%, 0) translateX(-50%);
+    visibility: visible;
+    opacity: 0;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0) translateX(-50%);
+    transform: translate3d(0, 0, 0) translateX(-50%);
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDownPopMessage {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0) translateX(-50%);
+    transform: translate3d(0, -100%, 0) translateX(-50%);
+    visibility: visible;
+    opacity: 0;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0) translateX(-50%);
+    transform: translate3d(0, 0, 0) translateX(-50%);
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.slideInDownPopMessage {
+  -webkit-animation-name: slideInDownPopMessage;
+  animation-name: slideInDownPopMessage;
+}
+
+
+@-webkit-keyframes slideOutUpPopMessage {
+  from {
+    -webkit-transform: translate3d(0, 0, 0) translateX(-50%);
+    transform: translate3d(0, 0, 0) translateX(-50%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0) translateX(-50%);
+    transform: translate3d(0, -100%, 0) translateX(-50%);
+  }
+}
+
+@keyframes slideOutUpPopMessage {
+  from {
+    -webkit-transform: translate3d(0, 0, 0) translateX(-50%);
+    transform: translate3d(0, 0, 0) translateX(-50%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0) translateX(-50%);
+    transform: translate3d(0, -100%, 0) translateX(-50%);
+  }
+}
+
+.slideOutUpPopMessage {
+  -webkit-animation-name: slideOutUpPopMessage;
+  animation-name: slideOutUpPopMessage;
+  animation-fill-mode: forwards;
+}
+
 
