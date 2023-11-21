@@ -237,9 +237,13 @@
       width: 100%;
       tr{
         td{
+          width: 40px;
           min-width: 40px;
-          width: 40px !important;
           padding: 2px 5px 2px ;
+          &.amount{
+            width: 30px !important;
+            min-width: 30px;
+          }
           &.label{
             max-width: 100px;
             white-space: nowrap;

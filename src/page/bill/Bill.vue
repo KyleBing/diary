@@ -73,12 +73,12 @@
                             <td class="center number link"  @click="goToDiaryDetail(item.id)">
                                 {{ dateProcess(item.date).dateShort }}
                                 <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
-                            <td class="number">
+                            <td class="amount number">
                                 <span v-if="item.sumIncome === 0" class="text-invalid">~</span>
                                 <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(moneyAccuracy) || '-' }}</span>
                                 <span v-else>{{ item.sumIncome.toFixed(moneyAccuracy) || '-' }}</span>
                             </td>
-                            <td class="number">
+                            <td class="amount number">
                                 <span v-if="item.sumOutput === 0" class="text-invalid">~</span>
                                 <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
                                 <span v-else>{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
