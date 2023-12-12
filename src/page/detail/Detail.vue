@@ -20,20 +20,25 @@
 
             <!--CONTENT-->
             <div class="diary-content" v-if="diary.content">
-
-                <div class="toolbar">
-                    <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.content">全部复制</ButtonNormal>
-                    <ButtonNormal class="clipboard" v-if="isShowExplode" @click="toggleContentType">普通</ButtonNormal>
-                    <ButtonNormal class="clipboard" v-else @click="toggleContentType">炸词</ButtonNormal>
-                </div>
-
-                <div v-if="isShowExplode">
-                    <WordExplode v-if="diary.content" :content="diary.content"/>
+                <div v-if="diary.category === 'todo'">
+                    <ToDo :readonly="true" :diary="diary"></ToDo>
                 </div>
 
                 <div v-else>
-                    <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
-                    <div v-else class="content" v-html="getContentHtml(diary.content)"/>
+                    <div class="toolbar">
+                        <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.content">全部复制</ButtonNormal>
+                        <ButtonNormal class="clipboard" v-if="isShowExplode" @click="toggleContentType">普通</ButtonNormal>
+                        <ButtonNormal class="clipboard" v-else @click="toggleContentType">炸词</ButtonNormal>
+                    </div>
+                    <div v-if="isShowExplode">
+                        <WordExplode v-if="diary.content" :content="diary.content"/>
+                    </div>
+
+                    <div v-else>
+                        <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
+                        <div v-else class="content" v-html="getContentHtml(diary.content)"/>
+                    </div>
+
                 </div>
             </div>
 
@@ -53,10 +58,11 @@ import Moment from "moment";
 import DetailHeader from "@/page/detail/DetailHeader";
 import WordExplode from "@/page/detail/WordExplode";
 import ButtonNormal from "@/components/ButtonNormal";
+import ToDo from "./ToDo.vue";
 
 export default {
     name: 'Detail',
-    components: {ButtonNormal, WordExplode, DetailHeader, Loading},
+    components: {ToDo, ButtonNormal, WordExplode, DetailHeader, Loading},
     data() {
         return {
             isShowToast: false,

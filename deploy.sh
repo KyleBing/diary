@@ -10,5 +10,3 @@ if compgen -G "./diary*.zip" > /dev/null; then
 else
     echo "diary-*.zip 不存在"
 fi
-
-
