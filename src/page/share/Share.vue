@@ -46,8 +46,11 @@
 
                     <!--CONTENT-->
                     <div class="share-content">
-                        <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
-                        <div v-else class="content" v-html="diary.contentHtml"/>
+                        <ToDo v-if="diary.category === 'todo'" :readonly="true" :diary="diary"/>
+                        <div v-else>
+                            <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
+                            <div v-else class="content" v-html="diary.contentHtml"/>
+                        </div>
                     </div>
 
                     <div class="share-author">
@@ -78,10 +81,11 @@ import Loading from "../../components/Loading"
 import diaryApi from "../../api/diaryApi"
 import SvgIcons from "../../assets/img/SvgIcons"
 import {marked} from "marked";
+import ToDo from "../detail/ToDo.vue";
 
 export default {
     name: 'Share',
-    components: {Loading},
+    components: {ToDo, Loading},
     data() {
         return {
             icons: SvgIcons,

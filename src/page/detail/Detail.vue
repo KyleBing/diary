@@ -21,7 +21,7 @@
             <!--CONTENT-->
             <div class="diary-content" v-if="diary.content">
                 <div v-if="diary.category === 'todo'">
-                    <ToDo :readonly="true" :diary="diary"></ToDo>
+                    <ToDo :readonly="false" :diary="diary"/>
                 </div>
 
                 <div v-else>

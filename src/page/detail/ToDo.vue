@@ -52,20 +52,22 @@ export default {
     },
     methods: {
         toggleDoneStatus(todoItem){
-            if (todoItem.isDone){
-                this.lastId = this.lastId + 1
-                todoItem.id = this.lastId
+            if (!this.readonly){
+                if (todoItem.isDone){
+                    this.lastId = this.lastId + 1
+                    todoItem.id = this.lastId
+                }
+                todoItem.isDone = !todoItem.isDone
+                // 拆分 标记 | 未标记的，并通过 id 排序，实现类似 iPhone todoList 的效果
+                let unfinished = this.todoList
+                    .filter(item => !item.isDone)
+                    .sort((a,b) => a.id - b.id)
+                let finished = this.todoList
+                    .filter(item => item.isDone)
+                    .sort((a,b) => a.id - b.id)
+                this.todoList = unfinished.concat(finished)
+                this.saveDiary()
             }
-            todoItem.isDone = !todoItem.isDone
-            // 拆分 标记 | 未标记的，并通过 id 排序，实现类似 iPhone todoList 的效果
-            let unfinished = this.todoList
-                .filter(item => !item.isDone)
-                .sort((a,b) => a.id - b.id)
-            let finished = this.todoList
-                .filter(item => item.isDone)
-                .sort((a,b) => a.id - b.id)
-            this.todoList = unfinished.concat(finished)
-            this.saveDiary()
         },
         processContent(diary){
             if (diary.content){
