@@ -191,7 +191,8 @@ textarea{
   }
   .diary-edit-container {
     flex-flow: column nowrap;
-    padding: 0 0 80px;
+    padding: 15px 10px 80px;
+
   }
   .diary-edit-content{
     margin-right: 0;
@@ -199,14 +200,14 @@ textarea{
     flex-grow: 0;
     .editor-title{
       textarea{
-        @include border-radius(0)
+        //@include border-radius(0)
       }
     }
     .editor-content{
       textarea{
         height: 400px;
         padding-bottom: 0;
-        @include border-radius(0)
+        //@include border-radius(0)
       }
       .editor-float-btn{
         display: none;
@@ -222,7 +223,7 @@ textarea{
     }
     .editor-form{
       width: 100%;
-      @include border-radius(0);
+      //@include border-radius(0);
     }
   }
 }

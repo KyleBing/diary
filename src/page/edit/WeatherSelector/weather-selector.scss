@@ -54,7 +54,7 @@ $height-weather: 30px;
 // sm
 @media (max-width: $grid-separate-width-md) {
   .weather-selector {
-    @include border-radius(0);
+    @include border-radius($radius-pc);
   }
 }
 

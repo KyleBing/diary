@@ -72,14 +72,14 @@
 
 @media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
   .edit-category-selector{
-    @include border-radius(0)
+    //@include border-radius(0)
   }
 }
 
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
   .edit-category-selector{
-    @include border-radius(0)
+    //@include border-radius(0)
   }
 }
 
