@@ -7,7 +7,7 @@
         >
             <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
-                    <div class="navbar-category-list-item"
+                    <div :class="['navbar-category-list-item', {active: categories.includes(item.name_en)}]"
                          v-for="(item, index) in categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
@@ -82,7 +82,7 @@ export default {
         },
         categoryMenuItemStyle(category){
             if (this.categories.indexOf(category.name_en) > -1){
-                return `color: ${category.color}; opacity: 1; font-weight: bold`
+                return `color: ${category.color}; opacity: 1; font-weight: bold;`
                 // return `color: rgba(255,255,255,0.8); font-weight: bold;`
             } else {
                 return ``
@@ -156,12 +156,13 @@ $nav-btn-height: 15px;
         color: white;
         font-weight: bold;
         &:hover{
-            color: white;
+            transform: translateY(-1px);
+            text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
     }
     &:hover{
         font-weight: bold;
-        color: rgba(255,255,255,0.8);
+        color: rgba(255,255,255,0.6);
         &.special{
             color: transparentize($color-main, 0.2);
         }

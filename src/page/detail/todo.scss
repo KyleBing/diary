@@ -38,6 +38,9 @@
 
   &:hover{
     background-color: $bg-light;
+    .content-wrapper{
+      border-bottom-color: transparent;
+    }
   }
 }
 
@@ -84,6 +87,9 @@ div.checkbox.checked{
       }
     }
     .checkbox-wrapper{
+    }
+    .content-wrapper{
+      border-bottom: 1px solid $dark-border;
     }
     .content{
       color: $dark-text-title;
