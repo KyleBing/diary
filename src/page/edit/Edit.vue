@@ -24,7 +24,7 @@
                     :style="insets.windowsWidth > 1366 ? `height: ${insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     @input="contentUpdate($event)"
-                    class="content"/>
+                    class="content"></textarea>
                 <div class="editor-float-btn" v-if="diary.isMarkdown">
                     <button-small @click="toggleSpaceShow">切换空格显示</button-small>
                 </div>
@@ -461,17 +461,16 @@ export default {
         // contentUpdate
         contentUpdate(event){
             if (this.diary.category === 'bill'){
-                console.log('rows: ',event.target.rows)
-                console.log('cols: ',event.target.cols)
-                console.log(event)
                 let content = event.target.value
                 if (content){
-                    let lineArray = content.split('\n').filter(item => item !== '')
-                    this.keysPanelPositionTop = lineArray.length * 30
+                    let lineArray = content.split('\n')
+                    this.keysPanelPositionTop = lineArray.length * 24 + 15
                     let lastWord = lineArray[lineArray.length - 1]
-                    this.keysPanelPositionLeft = lastWord.length * 30
+                    this.keysPanelPositionLeft = lastWord.length * 15 + 30
                     // this.possibleBillItems = this.billKeys.filter(item => item.item.indexOf(lastWord) === 0)
-                    this.possibleBillItems = this.billKeys.filter(item => item.item.indexOf(lastWord) > -1).splice(0,10)
+                    if (lastWord !== ''){
+                        this.possibleBillItems = this.billKeys.filter(item => item.item.indexOf(lastWord) > -1).splice(0,10)
+                    }
                     // console.log(this.possibleBillItems.map(item => item.item).join(','))
                 } else {
                     this.possibleBillItems = []

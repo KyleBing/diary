@@ -53,10 +53,9 @@ export default {
   z-index: 999;
   max-height: 600px;
   overflow-y: auto;
-  padding: 5px 0;
   background-color: white;
   border: 1px solid $color-border;
-  @include border-radius($radius-pc);
+  @include border-radius($radius-mobile);
   position: absolute;
   top: 20px;
   left: 250px;
@@ -65,9 +64,15 @@ export default {
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
+      font-size: $fz-main;
     border-bottom: 1px solid $color-border;
-    padding: 3px 30px 3px 15px;
+    padding: 4px 15px 4px 10px;
+      line-height: 1.2;
+      &:first-child{
+          padding-top: 6px;
+      }
     &:last-child{
+        padding-bottom: 6px;
       border: none;
     }
     &:hover{
@@ -77,7 +82,7 @@ export default {
     }
     .index{
       text-align: center;
-      width: 20px;
+      width: 10px;
       font-size: $fz-small;
       margin-right: 10px;
       color: $text-subtitle;
