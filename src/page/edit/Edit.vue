@@ -13,6 +13,8 @@
             <div class="editor-content">
                 <PossibleBillKeySelector
                     :possible-bill-items="possibleBillItems"
+                    :position-left="keysPanelPositionLeft"
+                    :position-top="keysPanelPositionTop"
                     @selectKey="insertNewBillKey"
                 />
                 <label class="hidden"></label>
@@ -166,6 +168,8 @@ export default {
 
             billKeys: [],
             possibleBillItems: [],
+            keysPanelPositionLeft: 150,
+            keysPanelPositionTop: 20,
         }
     },
     beforeUnmount() {
@@ -457,10 +461,15 @@ export default {
         // contentUpdate
         contentUpdate(event){
             if (this.diary.category === 'bill'){
+                console.log('rows: ',event.target.rows)
+                console.log('cols: ',event.target.cols)
+                console.log(event)
                 let content = event.target.value
                 if (content){
                     let lineArray = content.split('\n').filter(item => item !== '')
+                    this.keysPanelPositionTop = lineArray.length * 30
                     let lastWord = lineArray[lineArray.length - 1]
+                    this.keysPanelPositionLeft = lastWord.length * 30
                     // this.possibleBillItems = this.billKeys.filter(item => item.item.indexOf(lastWord) === 0)
                     this.possibleBillItems = this.billKeys.filter(item => item.item.indexOf(lastWord) > -1).splice(0,10)
                     // console.log(this.possibleBillItems.map(item => item.item).join(','))

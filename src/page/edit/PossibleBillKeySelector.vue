@@ -1,5 +1,7 @@
 <template>
-    <div class="possible-bill-key-list" v-if="possibleBillItems.length > 0">
+    <div class="possible-bill-key-list" v-if="possibleBillItems.length > 0"
+         :style="`left: ${positionLeft}px; top: ${positionTop}px`"
+    >
         <div class="possible-bill-key-list-item"
              v-for="(item, index) in possibleBillItems" :key="index"
              @click="$emit('selectKey', item.item)"
@@ -19,6 +21,14 @@ export default {
         possibleBillItems: {
             type: Array,
             default: []
+        },
+        positionLeft: {
+            type: Number,
+            default: 150
+        },
+        positionTop: {
+            type: Number,
+            default: 20
         },
     },
     mounted() {
