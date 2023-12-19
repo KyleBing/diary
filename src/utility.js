@@ -5,12 +5,36 @@ const global = {
 }
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
-
+const BILL_KEYS_NAME = 'BillKeys'
 // 设置 authorization
 function setAuthorization(nickname, uid, email, phone, avatar, token, group_id, city, geolocation) {
    localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
       nickname, uid, email, phone, avatar, token, group_id, city, geolocation
    }))
+}
+
+/**
+ * 保存账单常用项目列表
+ * @param keyArray
+ */
+function saveBillKeys(keyArray){
+   localStorage.setItem(BILL_KEYS_NAME, JSON.stringify(keyArray))
+}
+
+/**
+ * 获取账单常用项目列表
+ * @returns {any|*[]}
+ */
+function getBillKeys(){
+   let keysString = localStorage.getItem(BILL_KEYS_NAME)
+   if (keysString){
+      return JSON.parse(keysString)
+   } else {
+      return []
+   }
+}
+function removeBillKeys(){
+   localStorage.removeItem(BILL_KEYS_NAME)
 }
 
 // 获取 authorization
@@ -21,6 +45,7 @@ function getAuthorization() {
 // 删除 authorization
 function deleteAuthorization() {
    localStorage.removeItem(AUTHORIZATION_NAME)
+   removeBillKeys()
 }
 
 
@@ -194,5 +219,6 @@ export default {
    global,
    temperatureProcessSTC,
    temperatureProcessCTS,
-   getDiaryConfig, setDiaryConfig, deleteDiaryConfig
+   getDiaryConfig, setDiaryConfig, deleteDiaryConfig,
+   saveBillKeys,getBillKeys
 }

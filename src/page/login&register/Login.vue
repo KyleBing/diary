@@ -47,6 +47,7 @@ import {mapState} from "vuex"
 import SvgIcons from "../../assets/img/SvgIcons"
 import projectConfig from "@/projectConfig";
 import packageInfo from "../../../package.json"
+import billApi from "../../api/billApi";
 export default {
     name: "Login",
     data() {
@@ -101,6 +102,7 @@ export default {
                             res.data.city,
                             res.data.geolocation,
                         )
+                        this.getBillKeys()
                         utility.popMessage('success', res.message, () => {
                             this.$router.push({name: 'Index'})
                         })
@@ -115,6 +117,17 @@ export default {
             } else {
 
             }
+        },
+
+        getBillKeys(){
+            billApi
+                .keys()
+                .then(res => {
+                    utility.saveBillKeys(res.data)
+                })
+                .catch(err => {
+                    utility.popMessage('warning', err.message)
+                })
         },
         useTestAccount() {
             this.email = "test@163.com"

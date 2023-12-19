@@ -151,6 +151,7 @@ export default {
             ['12', '十二月'],
         ])
         this.getBillData()
+        this.getBillKeys()
     },
     methods: {
         goToDiaryDetail(diaryId){

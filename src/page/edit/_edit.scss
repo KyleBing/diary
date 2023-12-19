@@ -39,7 +39,10 @@ textarea{
   }
 }
 
+
+
 .diary-edit-content{
+  position: relative;
   margin-right: 20px;
   flex-grow: 1;
   .editor-title{
