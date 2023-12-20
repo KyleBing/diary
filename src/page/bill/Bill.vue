@@ -27,7 +27,8 @@
                         </div>
                     </div>
 
-                    <div class="btn btn-active" @click="getBillData">筛选</div>
+                    <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
+                    <div class="btn btn-active" @click="getBillKeys">获取最新账单类目</div>
                 </div>
 
                 <div class="bill" v-for="month in billYearData" :key="month.id">
@@ -151,9 +152,19 @@ export default {
             ['12', '十二月'],
         ])
         this.getBillData()
-        this.getBillKeys()
     },
     methods: {
+        getBillKeys(){
+            billApi
+                .keys()
+                .then(res => {
+                    utility.saveBillKeys(res.data)
+                    utility.popMessage('success', `更新成功 ${res.data.length} 个`, ()=>{}, 2)
+                })
+                .catch(err => {
+                    utility.popMessage('warning', err.message)
+                })
+        },
         goToDiaryDetail(diaryId){
             console.log(diaryId)
             this.$router.push({

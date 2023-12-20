@@ -60,7 +60,8 @@ function popMessage(
     type, // default | warning | danger | success
     title,
     callback = () => {},
-    timeout = 0.8) {
+    timeout = 0.8)
+{
    let popClass = 'pop-msg-' + type
    let msgEl = document.createElement('div')
    msgEl.classList.add('pop-msg', 'animated-fast', 'slideInDownPopMessage', popClass)
