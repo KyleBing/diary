@@ -13,7 +13,8 @@ export default {
         changeAvatar: require('./logo/logo_avatar.svg'),
     },
     // EOF
-    EOF: require('./logo/EOF.svg'),
+    EOF: require('./icons/EOF.svg'),
+    EOFDark: require('./icons/EOF-dark.svg'),
     // CONTENT
     content: require('./icons/content.svg'),
     content_white: require('./icons/content_white.svg'),

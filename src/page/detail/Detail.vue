@@ -14,7 +14,7 @@
             <div class="diary-title" v-if="diary.title">
                 <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
-                    <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.title">复制</ButtonNormal>
+                    <ButtonNormal class="clipboard" :data-clipboard="diary.title">复制</ButtonNormal>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
 
                 <div v-else>
                     <div class="toolbar">
-                        <ButtonNormal class="clipboard" v-if="!isInMobileMode" :data-clipboard="diary.content">全部复制</ButtonNormal>
+                        <ButtonNormal class="clipboard" type="confirm" :data-clipboard="diary.content">全部复制</ButtonNormal>
                         <ButtonNormal class="clipboard" v-if="isShowExplode" @click="toggleContentType">普通</ButtonNormal>
                         <ButtonNormal class="clipboard" v-else @click="toggleContentType">炸词</ButtonNormal>
                     </div>

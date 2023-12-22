@@ -32,7 +32,10 @@
 
         <div v-show="!isLoading && !isHasMore" class="end-of-diary">
             <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
-            <p><img :src="icons.EOF" alt="EOF"></p>
+            <p>
+                <img v-if="colorMode === 'light'" :src="icons.EOF" alt="EOF">
+                <img v-else :src="icons.EOFDark" alt="EOF">
+            </p>
         </div>
     </div>
 </template>
@@ -92,6 +95,7 @@ export default {
 
     computed: {
         ...mapState([
+            'colorMode',
             'keywords',
             'categoryAll',
             'isDiaryListShowedInFullStyle',

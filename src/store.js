@@ -9,6 +9,7 @@ export default createStore({
             windowsWidth: window.innerWidth,
             heightPanel: window.innerHeight - 45, // 除 navbar 的高度
         },
+        colorMode: 'light',
         statisticsCategory: {} ,                 // 统计信息
         statisticsYear: {} ,                     // 统计信息
 
@@ -71,6 +72,9 @@ export default createStore({
         },
     },
     mutations: {
+        SET_COLOR_MODE(state, payload){
+            state.colorMode = payload
+        },
         SET_CATEGORY_ALL(state, payload){
             state.categoryAll = payload
         },

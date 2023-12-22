@@ -17,6 +17,18 @@ export default {
     created() {
         // 日记项目载入后，隐藏 preloading
         document.querySelector('.preloading').style.display = 'none'
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            this.SET_COLOR_MODE('dark')
+        } else {
+            this.SET_COLOR_MODE('light')
+        }
+
+        // 颜色模式监听
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            const newColorScheme = event.matches ? "dark" : "light"
+            this.SET_COLOR_MODE('newColorScheme')
+        })
     },
     mounted() {
         this.getCategoryAll()
@@ -56,6 +68,7 @@ export default {
     methods: {
         ...mapMutations([
             'SET_INSETS',
+            'SET_COLOR_MODE',
             'SET_KEYWORD',
             'SET_DATE_FILTER',
             'SET_FILTERED_CATEGORIES',

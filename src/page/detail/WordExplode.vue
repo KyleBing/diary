@@ -203,7 +203,6 @@ export default {
     margin-bottom: 20px;
     display: flex;
     justify-content: flex-start;
-
 }
 
 .word-list{
