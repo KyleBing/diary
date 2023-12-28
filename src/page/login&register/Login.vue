@@ -6,8 +6,8 @@
         >
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper">
-                    <div class="logo">
-                        <img :src="icons.logoIcon.login" alt="Diary Logo">
+                    <div :class="['logo', {valid: avatarLink} ]">
+                        <img :src="avatarLink || icons.logoIcon.login" alt="Diary Logo">
                     </div>
                 </div>
 
@@ -60,7 +60,9 @@ export default {
             password: "",
             loginLabel: '登录',
             isShowDemoAccount: projectConfig.isShowDemoAccount,
-            packageInfo: packageInfo
+            packageInfo: packageInfo,
+
+            avatarLink: '',
         }
     },
     mounted() {
@@ -132,15 +134,27 @@ export default {
         useTestAccount() {
             this.email = "test@163.com"
             this.password = "test"
+        },
+        getAvatar(){
+            userApi
+                .getAvatar({
+                    email: this.email
+                })
+                .then(res => {
+                    this.avatarLink = res.data.avatar
+                })
         }
     },
     watch: {
         email() {
             if (this.email === ''){
                 this.labelEmail = '邮箱'
+                this.avatarLink = null
             } else if (this.emailVerified) {
                 this.labelEmail = '邮箱'
+                this.getAvatar()
             } else {
+                this.avatarLink = null
                 this.labelEmail = '输入的邮箱不正确，请重新输入'
             }
         }
@@ -149,7 +163,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "./src/scss/plugin";
-
 .copyright{
     left: 50%;
     transform: translateX(-50%);
