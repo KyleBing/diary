@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
-            <div class="user-list">
+            <div class="user-list" v-if="isAdminUser">
                 <statistic-panel title="日记用户">
                     <table>
                         <thead>
@@ -102,8 +102,10 @@
                     </table>
                 </statistic-panel>
             </div>
+
+            <!--用户日记数量柱状图-->
             <statistic-panel title="用户日记数量">
-                <chart-bar title="" width-init="100%" :data="chartDataDiary"/>
+                <chart-bar title="" :data="chartDataDiary"/>
             </statistic-panel>
         </div>
     </transition>
@@ -123,7 +125,9 @@ export default {
     components: {ChartBar, StatisticPanel},
     computed: {
         ...mapState(['statisticsCategory', 'statisticsYear', 'dataArrayCategory', 'dataArrayYear']),
-
+        isAdminUser(){
+            return utility.getAuthorization().email === projectConfig.adminEmail
+        }
     },
     data(){
         return {
@@ -138,10 +142,9 @@ export default {
             showUserStatisticInfo: false // 是否显示这个用户信息统计面板
         }
     },
+
     mounted() {
-        if (utility.getAuthorization().email === projectConfig.adminEmail){
-            this.getStatisticUsers()
-        }
+        this.getStatisticUsers()
     },
     methods: {
         // 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
@@ -178,6 +181,7 @@ export default {
                             }
                         })
                         .filter(item => item.value > 0) // 过滤日记数量为 0 的用户
+                        .sort((a,b) => b.value - a.value)
                     this.chartDataDict = res.data.map(item => {
                         return {
                             name: item.nickname,

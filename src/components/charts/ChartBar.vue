@@ -149,7 +149,7 @@ export default {
                     axisLabel: {
                         fontSize: 11,
                         color: '#666666',
-                        rotate: -30
+                        rotate: -45
                     }
                 }],
                 yAxis: [{
