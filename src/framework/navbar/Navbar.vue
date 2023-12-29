@@ -19,7 +19,6 @@
                     <tab-icon v-if="isHideContent" alt="内容隐藏"/>
                     <tab-icon v-else alt="内容显示"/>
                 </div>
-
                 <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
                     <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
                     <tab-icon v-else alt="列表详情"/>
@@ -35,6 +34,10 @@
                 </div>
                 <div v-show="!isMenuShowed" v-if="!isInMobileMode && isAdminUser" @click="goToPage('FileManager')">
                     <tab-icon alt="文件"/>
+                </div>
+                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleTodoList">
+                    <tab-icon alt="待办-显示" v-if="filteredCategories.length === 1 && filteredCategories[0] === 'todo'"/>
+                    <tab-icon alt="待办" v-else/>
                 </div>
                 <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
                     <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
@@ -210,7 +213,7 @@ export default {
             'SET_IS_LIST_NEED_BE_RELOAD',
             'SET_MENU_SHOWED',
             'SET_IS_FILTER_SHARED',
-            'SET_DATE_FILTER'
+            'SET_DATE_FILTER',
         ]),
         commitBack(){
             switch (this.$route.name){
@@ -246,6 +249,18 @@ export default {
         // SEARCH BAR
         toggleSearchbar() {
             this.SET_IS_SHOW_SEARCH_BAR(!this.isShowSearchBar)
+        },
+
+        toggleTodoList(){
+            let nextCategories = []
+            if (this.filteredCategories.length === 1 && this.filteredCategories[0] === 'todo'){
+                nextCategories = []
+            } else {
+                nextCategories = ['todo']
+            }
+            this.SET_IS_FILTER_SHARED(false)
+            this.SET_FILTERED_CATEGORIES(nextCategories)
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
 
         // show bill

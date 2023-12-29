@@ -56,10 +56,8 @@ export default {
                 return `
                       background-color: ${this.categoryObjectMap.get(this.diary.category).color};
                 `
-
             } else {
-                return `
-                `
+                return ''
             }
         },
         contentMarkDownHtml(){
