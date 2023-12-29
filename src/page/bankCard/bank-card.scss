@@ -1,33 +1,43 @@
-$bank-card-gap: 20px;
+$bank-card-gap: 30px;
 $card-bgs: (
-        "green" : (#24b73d, #33c891),   // 农业
-        "red"   : (#ff6c6c, #ff8c8c),   // 工商
-        "blue"  : (#007ee0, #2e92ff),   // 建行
-        "white" : (#abab97, #dadada),   // 招商
+        "green"      : (#24b73d, #33c891),   // 农业
+        "red"        : (#ff7575, #fd9898),   // 工商
+        "blue"       : (#209bfa, #93ddee),   // 建行
+        "white"      : (#abab97, #dadada),   // 招商
+        "zhaoshang"  : (#a2d96d, #69adff, #c060fc, #e8b28c),   // 招商
+        "jiaotong"   : (#86bafd, #64e89a ),   // 交通
 );
 
 @each $name, $colors in $card-bgs {
   .bank-bg-#{$name}{
-    background: linear-gradient(-15deg,$colors);
+    background: linear-gradient(-15deg, $colors);
   }
 }
 
 .bankcard{
   display: flex;
   flex-flow: column nowrap;
-  border-top: 1px solid transparentize(white, 0.7);
+  border-top: 1px solid transparentize(white, 0.5);
+  border-left: 1px solid transparentize(white, 0.5);
   overflow: hidden;
   @include border-radius($radius-pc);
   width: 430px;
   min-height: 200px;
   color: $text-title;
-  @include box-shadow(1px 2px 3px transparentize(black, 0.8));
   position: relative;
+  @include box-shadow(3px 3px 0px transparentize(black, 0.5));
   background-color: transparentize(white, 0.4);
   margin-bottom: $bank-card-gap;
   margin-right: $bank-card-gap;
+  @include transition(all 0.3s);
   &:hover{
+    //transform: translateX();
+    @include transform(translateY(-5px) translateX(-1px));
+
+    @include transition(all 0.2s);
+    @include box-shadow(15px 15px 0px transparentize(black, 0.5));
     .bankcard-index {
+      color: white;
       opacity: 1;
     }
     .bankcard-no{
@@ -35,19 +45,18 @@ $card-bgs: (
     }
   }
   .bankcard-index {
+    color: black;
     font-family: Monaco;
     font-size: $fz-small;
     position: absolute;
     top: 8px;
-    right: 10px;
-    color: black;
+    right: 12px;
     opacity: 0.5;
   }
   .bankcard-note{
     flex-shrink: 0;
     font-size: 12px;
-    text-shadow: -1px -1px 1px transparentize(white, 0.5),
-    1px 1px 0 transparentize(black, 0.7);
+    text-shadow: -1px -1px 1px transparentize(white, 0.5), 1px 1px 0 transparentize(black, 0.7);
   }
   .copy-btn{
     position: absolute;

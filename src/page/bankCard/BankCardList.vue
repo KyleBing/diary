@@ -77,14 +77,20 @@ export default {
                 {
                     cardName: '建设银行',
                     cardNo: '6226 2216 3456 0955',
-                    cardType: '储蓄卡',
-                    cardInitBank: '山东济南'
+                    cardType: '信用卡',
+                    extraInfos: [
+                        {key: '地址', value: '山东济南'},
+                        {key: '开户行', value: '山东济南财富广场分行'},
+                    ]
                 },
                 {
                     cardName: '中国银行',
                     cardNo: '4567 2216 3456 0955',
                     cardType: '储蓄卡',
-                    cardInitBank: '山东济南'
+                    extraInfos: [
+                        {key: '地址', value: '山东济南'},
+                        {key: '开户行', value: '山东济南财富广场分行'}
+                    ]
                 },
             ],
 
@@ -168,8 +174,7 @@ export default {
         },
         processCardInfo(allCardString){
             // card list
-            let tempStrArray = allCardString.split('\n\n')
-
+            let tempStrArray = allCardString.split('\n\n').filter(item => item.length > 0)
             // card item
             tempStrArray.forEach(cardStr => {
                 let cardMap = new Map(
