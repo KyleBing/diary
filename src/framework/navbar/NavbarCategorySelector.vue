@@ -7,7 +7,7 @@
         >
             <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
-                    <div :class="['navbar-category-list-item', {active: categories.includes(item.name_en)}]"
+                    <div :class="['navbar-category-list-item', {active: filteredCategories.includes(item.name_en)}]"
                          v-for="(item, index) in categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
@@ -37,20 +37,13 @@ export default {
     data(){
         return {
             filterShared: false, // 是否筛选已共享的日记
-            categories: [], // category
         }
     },
     computed: {
-        ...mapState([ 'categoryAll', 'isFilterShared'])
+        ...mapState([ 'categoryAll', 'isFilterShared', 'filteredCategories'])
     },
     mounted() {
         this.filterShared = utility.getDiaryConfig().isFilterShared
-        this.categories = utility.getDiaryConfig().filteredCategories
-        // 避免上面的触发 watch 所以在后面手动添加 watch
-        this.$watch('categories', newValue => {
-            this.SET_FILTERED_CATEGORIES(newValue)
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        }, {deep: true})
     },
     methods: {
         ...mapMutations([
@@ -65,15 +58,35 @@ export default {
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
         toggleCategory(category){
-            let index = this.categories.indexOf(category.name_en)
+            let index = this.filteredCategories.indexOf(category.name_en)
             if ( index > -1) {
-                this.categories.splice(index, 1)
+                this.filteredCategories.splice(index, 1)
             } else {
-                this.categories.push(category.name_en)
+                this.filteredCategories.push(category.name_en)
             }
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
+        selectCategoryAll() {
+            this.filteredCategories = this.categoryAll.map(item => item.name_en)
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+
+        },
+        selectCategoryNone() {
+            this.filteredCategories = []
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+        },
+        reverseCategorySelect() {
+            let tempCategories = [].concat(this.categoryAll.map(item => item.name_en))
+            this.filteredCategories.forEach(item => {
+                tempCategories.splice(tempCategories.indexOf(item), 1)
+            })
+            this.filteredCategories = tempCategories
+            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+        },
+
+        // style
         indicatorItemStyle(category){
-            if (this.categories.indexOf(category.name_en) > -1){
+            if (this.filteredCategories.indexOf(category.name_en) > -1){
                 return `background-color: ${category.color};`
                 // return `border-bottom: 1px solid ${category.color};`
             } else {
@@ -81,26 +94,14 @@ export default {
             }
         },
         categoryMenuItemStyle(category){
-            if (this.categories.indexOf(category.name_en) > -1){
+            if (this.filteredCategories.indexOf(category.name_en) > -1){
                 return `color: ${category.color}; opacity: 1; font-weight: bold;`
                 // return `color: rgba(255,255,255,0.8); font-weight: bold;`
             } else {
                 return ``
             }
         },
-        selectCategoryAll() {
-            this.categories = this.categoryAll.map(item => item.name_en)
-        },
-        selectCategoryNone() {
-            this.categories = []
-        },
-        reverseCategorySelect() {
-            let tempCategories = [].concat(this.categoryAll.map(item => item.name_en))
-            this.categories.forEach(item => {
-                tempCategories.splice(tempCategories.indexOf(item), 1)
-            })
-            this.categories = tempCategories
-        },
+
     },
 }
 </script>
