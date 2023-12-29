@@ -72,6 +72,26 @@ export default {
             width: 100%;
             display: block;
         }
+        @include box-shadow(0px 0px 0 transparentize(black, 0.6));
+        @include transition(all 0.3s);
+        &:hover{
+            @include transition(all 0.3s);
+            @include box-shadow(
+                3px 3px 0 transparentize(black, 0.6),
+                -5px -8px 3px transparentize($color-main, 0.3),
+                -15px 13px 4px transparentize($green, 0.3),
+                -45px 8px 10px transparentize($cyan, 0.5),
+                15px -15px 10px transparentize($blue, 0.1),
+                65px 65px 30px transparentize($yellow, 0.6),
+                20px 45px 15px transparentize($magenta, 0.2),
+                -20px -45px 15px transparentize($red, 0.6),
+                -105px 38px 20px transparentize($green, 0.5),
+                15px -105px 10px transparentize($blue, 0.6),
+                140px 45px 15px transparentize($magenta, 0.6),
+                -20px -145px 40px transparentize($yellow, 0.6),
+                60px -65px 40px transparentize($magenta, 0.2),
+            );
+        }
     }
     .user-info{
         margin: 0 auto;

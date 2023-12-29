@@ -1,7 +1,7 @@
 @import "variables";
 
 // box-shadow
-@mixin box-shadow($value){
+@mixin box-shadow($value ...){
   -webkit-box-shadow:  $value;
   -moz-box-shadow:  $value;
   box-shadow:  $value;
