@@ -14,9 +14,9 @@
 
 <script>
 import {mapState} from "vuex"
-import statisticApi from "../../../api/statisticApi";
+import statisticApi from "../../../api/statisticApi.js";
 import ChartLineTrend from "./ChartLineTrend";
-import utility from "../../../utility";
+import utility from "../../../utility.js";
 
 export default {
     name: "StatisticWeather",

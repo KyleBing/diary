@@ -1,14 +1,14 @@
 <template>
-    <page-header title="银行卡列表" subtitle="点击复制卡号">
-        <tab-icon @click="editCardInfo" alt="编辑"/>
-    </page-header>
+    <PageHeader title="银行卡列表" subtitle="点击复制卡号">
+        <TabIcon @click="editCardInfo" alt="编辑"/>
+    </PageHeader>
     <div v-if="isLoading" class="pt-8 pb-8">
-        <loading :loading="isLoading"/>
+        <Loading :loading="isLoading"/>
     </div>
     <div v-else>
         <div class="bank-card-container"
              v-if="cardListAll.length > 0"
-             :style="'height:' + insets.heightPanel + 'px'"
+             :style="'height:' + storeProject.insets.heightPanel + 'px'"
         >
             <h1 class="bank-card-list-header">存储卡</h1>
             <div class="bank-card-list">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div v-else class="bank-tip">
-            <loading v-if="isLoading" :loading="isLoading"/>
+            <Loading v-if="isLoading" :loading="isLoading"/>
             <template v-else>
                 <p>您目前没有添加任何银行卡</p>
                 <p>------------------------</p>
@@ -56,49 +56,42 @@
     </div>
 </template>
 
-<script>
-import {mapState, mapMutations} from 'vuex'
-import bankCardApi from "../../api/bankCardApi"
-import Loading from "../../components/Loading"
-import utility from "../../utility"
-import BankCard from "../../page/bankCard/BankCard"
+<script lang="ts" setup>
+import Loading from "../../components/Loading.vue"
+import BankCard from "../../page/bankCard/BankCard.vue"
+import TabIcon from "../../components/TabIcon.vue"
+import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+
 import ClipboardJS from "clipboard"
-import TabIcon from "../../components/TabIcon"
-import PageHeader from "../../framework/pageHeader/PageHeader"
-import diaryApi from "../../api/diaryApi"
+import bankCardApi from "../../api/bankCardApi.js"
 
-export default {
-    name: "BankCardList",
-    components: {PageHeader, TabIcon, BankCard, Loading},
-    data() {
-        return {
-            isLoading: false,
-            cardListExample: [
-                {
-                    cardName: '建设银行',
-                    cardNo: '6226 2216 3456 0955',
-                    cardType: '信用卡',
-                    extraInfos: [
-                        {key: '地址', value: '山东济南'},
-                        {key: '开户行', value: '山东济南财富广场分行'},
-                    ]
-                },
-                {
-                    cardName: '中国银行',
-                    cardNo: '4567 2216 3456 0955',
-                    cardType: '储蓄卡',
-                    extraInfos: [
-                        {key: '地址', value: '山东济南'},
-                        {key: '开户行', value: '山东济南财富广场分行'}
-                    ]
-                },
-            ],
+import diaryApi from "../../api/diaryApi.js"
+import {popMessage} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore()
+import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
 
-            cardListAll: [],
-            cardListStore: [],
-            cardListCredit: [],
-            clipboard: null, // clipboard obj
-            example: `银行：民生银行
+const cardListExample = [
+    {
+        cardName: '建设银行',
+        cardNo: '6226 2216 3456 0955',
+        cardType: '信用卡',
+        extraInfos: [
+            {key: '地址', value: '山东济南'},
+            {key: '开户行', value: '山东济南财富广场分行'},
+        ]
+    },
+    {
+        cardName: '中国银行',
+        cardNo: '4567 2216 3456 0955',
+        cardType: '储蓄卡',
+        extraInfos: [
+            {key: '地址', value: '山东济南'},
+            {key: '开户行', value: '山东济南财富广场分行'}
+        ]
+    },
+]
+const example = `银行：民生银行
 卡号：6226 2216 1178 4567
 类别：储蓄卡
 开户行：山东济南办卡
@@ -112,105 +105,98 @@ export default {
 验证码：123/4
 到期日：2029-08-10
 `
-        }
-    },
-    mounted() {
-        this.getBankCards()
 
-    },
-    beforeUnmount() {
-        this.clipboard && this.clipboard.destroy()
-    },
+const isLoading = ref(false)
+const cardListAll: Ref<BankCardEntity[]> = ref([])
+const cardListStore = ref([])
+const cardListCredit = ref([])
+const clipboard = ref(null) // clipboard obj
 
-    computed: {
-        ...mapState({
-            years: 'statisticsYear',
-        }),
-        ...mapState(['insets', 'categoryAll'])
-    },
-    methods: {
-        // 编辑银行卡信息
-        editCardInfo(){
-            let params = {
-                categories: JSON.stringify(this.categoryAll.map(item => item.name_en)),
-                keywords: JSON.stringify(['我的银行卡列表']),
-                pageSize: 100,
-                pageNo: 1
-            }
-            diaryApi
-                .list(params)
-                .then(res => {
-                    if (res.data.length === 1){
-                        this.$router.push({
-                            name: 'Edit',
-                            params: {
-                                id: res.data[0].id
-                            }
-                        })
-                    } else {
-                        utility.popMessage('warning', '未找到对应的日记内容')
-                    }
-                })
-                .catch(err => {
+onMounted(()=>{
+    getBankCards()
+})
+onBeforeUnmount(()=>{
+    clipboard.value && clipboard.value.destroy()
+})
 
-                })
-        },
-
-        getBankCards(){
-            this.isLoading = true // 请求的时候显示loading
-            bankCardApi
-                .getBankCard()
-                .then(res => {
-                    this.isLoading = false
-                    if (res.data) {
-                        this.processCardInfo(res.data.trim())
-                    } else {
-                        // 没有设置任何银行卡信息
-                    }
-                })
-                .catch(err => {
-                    this.isLoading = false
-                })
-        },
-        processCardInfo(allCardString){
-            // card list
-            let tempStrArray = allCardString.split('\n\n').filter(item => item.length > 0)
-            // card item
-            tempStrArray.forEach(cardStr => {
-                let cardMap = new Map(
-                    cardStr
-                        .split('\n')
-                        .map(cardItem => cardItem.split('：'))
-                )
-                let cardInfo = {}
-                let extraInfos = []
-                cardMap.forEach((value, key) => {
-                    switch (key){
-                        case '卡号': cardInfo.cardNo = value; break;
-                        case '银行': cardInfo.cardName = value; break;
-                        case '类别': cardInfo.cardType = value; break;
-                        default:
-                            extraInfos.push({key, value})
-                            break
-                    }
-                })
-                cardInfo['extraInfos'] = extraInfos
-                this.cardListAll.push(cardInfo)
-                this.cardListStore = this.cardListAll.filter(item => item.cardType.indexOf('储蓄卡') > -1)
-                this.cardListCredit = this.cardListAll.filter(item => item.cardType.indexOf('信用卡') > -1)
-            })
-
-            // 绑定剪贴板操作方法
-            this.clipboard = new ClipboardJS('.bankcard-no', {
-                text: trigger => {
-                    return trigger.getAttribute('data-clipboard')
-                },
-            })
-            this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-                utility.popMessage('success', '卡号已复制到剪贴板', null)
-            })
-        }
+// 编辑银行卡信息
+function editCardInfo(){
+    let params = {
+        categories: JSON.stringify(storeProject.categoryAll.map(item => item.name_en)),
+        keywords: JSON.stringify(['我的银行卡列表']),
+        pageSize: 100,
+        pageNo: 1
     }
+    diaryApi
+        .list(params)
+        .then(res => {
+            if (res.data.length === 1){
+                this.$router.push({
+                    name: 'Edit',
+                    params: {
+                        id: res.data[0].id
+                    }
+                })
+            } else {
+                popMessage('warning', '未找到对应的日记内容')
+            }
+        })
+        .catch(err => {
+
+        })
+}
+
+function getBankCards(){
+    isLoading.value = true // 请求的时候显示loading
+    bankCardApi
+        .getBankCard()
+        .then(res => {
+            isLoading.value = false
+            if (res.data) {
+                processCardInfo(res.data.trim())
+            } else {
+                // 没有设置任何银行卡信息
+            }
+        })
+        .catch(_ => {
+            isLoading.value = false
+        })
+}
+function processCardInfo(allCardString: string){
+    // card list
+    let tempStrArray = allCardString.split('\n\n').filter(item => item.length > 0)
+    // card item
+    tempStrArray.forEach(cardStr => {
+        let cardMap = new Map(
+            cardStr.split('\n').map(cardItem => cardItem.split('：'))
+        )
+        let cardInfo: BankCardEntity = {}
+        let extraInfos = []
+        cardMap.forEach((value: string, key: string) => {
+            switch (key){
+                case '卡号': cardInfo.cardNo = value; break;
+                case '银行': cardInfo.cardName = value; break;
+                case '类别': cardInfo.cardType = value; break;
+                default:
+                    extraInfos.push({key, value})
+                    break
+            }
+        })
+        cardInfo['extraInfos'] = extraInfos
+        cardListAll.value.push(cardInfo)
+        cardListStore.value = cardListAll.value.filter(item => item.cardType.indexOf('储蓄卡') > -1)
+        cardListCredit.value = cardListAll.value.filter(item => item.cardType.indexOf('信用卡') > -1)
+    })
+
+    // 绑定剪贴板操作方法
+    clipboard.value = new ClipboardJS('.bankcard-no', {
+        text: trigger => {
+            return trigger.getAttribute('data-clipboard')
+        },
+    })
+    clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+        popMessage('success', '卡号已复制到剪贴板', null)
+    })
 }
 </script>
 

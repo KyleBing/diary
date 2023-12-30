@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -7,11 +7,11 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper">
                     <div class="logo">
-                        <img :src="icons.logoIcon.register" alt="Diary Logo">
+                        <img :src="SVG_ICONS.logoIcon.register" alt="Diary Logo">
                     </div>
                     <div class="project-name">注册</div>
                 </div>
-                <register-tip/>
+                <RegisterTip/>
 
                 <form id="regForm">
                     <div class="input-group">
@@ -46,7 +46,7 @@
                             @click.prevent="regSubmit">注册
                     </button>
                 </form>
-                <div :class="['footer', {center: !isShowDemoAccount}]">
+                <div :class="['footer', {center: !projectConfig.isShowDemoAccount}]">
                     <router-link to="/login">登录</router-link>
                 </div>
             </div>
@@ -55,124 +55,115 @@
 </template>
 
 
-<script>
-import userApi from "../../api/userApi"
-import {mapState} from "vuex"
-import SvgIcons from "../../assets/img/SvgIcons"
-import utility from "../../utility"
-import projectConfig from "../../projectConfig";
-import RegisterTip from "./RegisterTip";
+<script lang="ts" setup>
+import userApi from "../../api/userApi.ts"
+import projectConfig from "../../projectConfig.ts";
+import RegisterTip from "./RegisterTip.vue";
 
-export default {
-    name: 'Register',
-    components: {RegisterTip},
-    data() {
-        return {
-            show: false,
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore()
+import {computed, onMounted, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import {popMessage} from "../../utility.ts";
 
-            isShowDemoAccount: projectConfig.isShowDemoAccount,
-            adminEmail: projectConfig.adminEmail,
+const route = useRoute()
+const router = useRouter()
 
-            icons: SvgIcons,
+const show = ref(false)
 
-            labelInvitation: '邀请码',
-            labelEmail: '邮箱',
-            labelPassword1: '密码',
-            labelPassword2: '再次确认密码',
-            labelUsername: '昵称',
-            nickname: '',
-            email: '',
-            password1: '',
-            password2: '',
-            invitationCode: '',
-            invitationVerified: false,
-            nicknameVerified: false,
-            emailVerified: false,
-            password1Verified: false,
-            password2Verified: false,
-            heightBg: 0
+const labelInvitation = ref('邀请码')
+const labelEmail = ref('邮箱')
+const labelPassword1 = ref('密码')
+const labelPassword2 = ref('再次确认密码')
+const labelUsername = ref('昵称')
+const nickname = ref('')
+const email = ref('')
+const password1 = ref('')
+const password2 = ref('')
+const invitationCode=  ref('')
+const invitationVerified=  ref(false)
+const nicknameVerified=  ref(false)
+const emailVerified=  ref(false)
+const password1Verified=  ref(false)
+const password2Verified=  ref(false)
+const heightBg =  ref(0)
+
+
+onMounted(()=>{
+    show.value = true
+    document.title = '日记 - 注册' // 变更标题
+})
+
+const verified = computed(()=> {
+    return emailVerified.value
+        && nicknameVerified.value
+        && password1Verified.value
+        && password2Verified.value
+})
+
+function  regSubmit() {
+    if (verified.value) {
+        let requestData = {
+            nickname: nickname.value,
+            invitationCode: invitationCode.value,
+            email: email.value,
+            password: password1.value,
         }
-    },
-    mounted() {
-        this.show = true
-        document.title = '日记 - 注册' // 变更标题
-    },
-    computed: {
-        ...mapState(['insets']),
-        verified() {
-            // return this.emailVerified && this.invitationVerified && this.nicknameVerified && this.password1Verified && this.password2Verified
-            return this.emailVerified && this.nicknameVerified && this.password1Verified && this.password2Verified
-        },
-    },
-    methods: {
-        regSubmit() {
-            if (this.verified) {
-                let requestData = {
-                    nickname: this.nickname,
-                    invitationCode: this.invitationCode,
-                    email: this.email,
-                    password: this.password1,
-                }
 
-                userApi
-                    .register(requestData)
-                    .then(res => {
-                        utility.popMessage('success', `${res.message}，正在前往登录`, () => {
-                            this.$router.push({name: 'Login'})
-                        })
-                    })
-                    .catch(err => {
-                        utility.popMessage('danger', err.message, null, 5)
-                    })
-            }
-        }
-    },
-    watch: {
-        invitation() {
-            if (this.invitationCode.length > 0) {
-                this.labelInvitation = "邀请码"
-                this.invitationVerified = true
-            } else {
-                this.labelInvitation = "邀请码不能为空"
-                this.invitationVerified = false
-            }
-        },
-        nickname() {
-            if (this.nickname.length > 0) {
-                this.labelUsername = "昵称"
-                this.nicknameVerified = true
-            } else {
-                this.labelUsername = "昵称不能为空"
-                this.nicknameVerified = false
-            }
-        },
-        email() {
-            if (/(\w|\d)+@(\w|\d)+\.\w+/i.test(this.email)) {
-                this.labelEmail = "邮箱"
-                this.emailVerified = true
-            } else {
-                this.labelEmail = "输入的邮箱不正确，请重新输入"
-                this.emailVerified = false
-            }
-        },
-        password1() {
-            if (this.password1.length > 0) {
-                this.labelPassword1 = "密码"
-                this.password1Verified = true
-            } else {
-                this.labelPassword1 = "密码不能为空"
-                this.password1Verified = false
-            }
-        },
-        password2() {
-            if (this.password1 === this.password2 && this.password1Verified) {
-                this.labelPassword2 = "再次确认密码"
-                this.password2Verified = true
-            } else {
-                this.labelPassword2 = "两次密码不一致"
-                this.password2Verified = false
-            }
-        }
+        userApi
+            .register(requestData)
+            .then(res => {
+                popMessage('success', `${res.message}，正在前往登录`, () => router.push({name: 'Login'}))})
+            .catch(err => {
+                popMessage('danger', err.message, null, 5)
+            })
     }
 }
+
+watch(invitationCode, () => {
+    if (invitationCode.value.length > 0) {
+        labelInvitation.value = "邀请码"
+        invitationVerified.value = true
+    } else {
+        labelInvitation.value = "邀请码不能为空"
+        invitationVerified.value = false
+    }
+})
+watch(nickname, () => {
+    if (nickname.value.length > 0) {
+        labelUsername.value = "昵称"
+        nicknameVerified.value = true
+    } else {
+        labelUsername.value = "昵称不能为空"
+        nicknameVerified.value = false
+    }
+})
+watch(email, () => {
+    if (/(\w|\d)+@(\w|\d)+\.\w+/i.test(email.value)) {
+        labelEmail.value = "邮箱"
+        emailVerified.value = true
+    } else {
+        labelEmail.value = "输入的邮箱不正确，请重新输入"
+        emailVerified.value = false
+    }
+})
+watch(password1, () => {
+    if (password1.value.length > 0) {
+        labelPassword1.value = "密码"
+        password1Verified.value = true
+    } else {
+        labelPassword1.value = "密码不能为空"
+        password1Verified.value = false
+    }
+})
+watch(password2, () => {
+    if (password1.value === password2.value && password1Verified.value) {
+        labelPassword2.value = "再次确认密码"
+        password2Verified.value = true
+    } else {
+        labelPassword2.value = "两次密码不一致"
+        password2Verified.value = false
+    }
+})
 </script>

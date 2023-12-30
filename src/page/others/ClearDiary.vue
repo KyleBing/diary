@@ -37,7 +37,7 @@
 
 <script>
 import {mapState} from "vuex"
-import SvgIcons from "../../assets/img/SvgIcons"
+import SvgIcons from "../../assets/img/SVG_ICONS.ts"
 import utility from "@/utility";
 import diaryApi from "@/api/diaryApi";
 import projectConfig from "@/projectConfig";

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import utility from "../../utility"
+import utility from "../../utility.js"
 import MenuCategorySelector from "../../page/menu/MenuCategorySelector"
 import YearSelector from "./YearSelector/YearSelector"
 import About from "../../page/about/About"
@@ -74,8 +74,8 @@ import {mapGetters, mapMutations, mapState} from "vuex"
 import packageInfo from "../../../package.json"
 import MenuListItem from "../../page/menu/MenuListItem"
 import MenuCategoryIndicator from "./MenuCategoryIndicator"
-import svgIcons from "../../assets/img/SvgIcons"
-import projectConfig from "../../projectConfig";
+import svgIcons from "../../assets/img/SVG_ICONS.ts"
+import projectConfig from "../../projectConfig.js";
 import UserProfile from "../../page/menu/UserProfile.vue";
 import MenuOtherFunction from "@/page/menu/MenuOtherFunction";
 

@@ -28,13 +28,13 @@
                         <div class="share-meta">
                             <div class="weather">
                                 <img v-if="diary.weather"
-                                     :src="icons.weather[`${diary.weather}_active`]"
+                                     :src="SVG_ICONS.weather[`${diary.weather}_active`]"
                                      :alt="diary.weather">
                             </div>
-                            <div class="temperature" v-if="diary.temperature || diary.temperatureOutside">
+                            <div class="temperature" v-if="diary.temperature || diary.temperature_outside">
                                 <span v-if="diary.temperature">{{ diary.temperature }}</span>
-                                <span v-if="diary.temperature && diary.temperatureOutside"> / </span>
-                                <span v-if="diary.temperatureOutside">{{ diary.temperatureOutside }}</span>
+                                <span v-if="diary.temperature && diary.temperature_outside"> / </span>
+                                <span v-if="diary.temperature_outside">{{ diary.temperature_outside }}</span>
                                 <span>℃</span>
                             </div>
                         </div>
@@ -74,105 +74,101 @@
     </div>
 </template>
 
-<script>
-import utility from "../../utility"
-import {mapGetters, mapMutations, mapState} from "vuex"
-import Loading from "../../components/Loading"
-import diaryApi from "../../api/diaryApi"
-import SvgIcons from "../../assets/img/SvgIcons"
+<script lang="ts" setup>
+import Loading from "../../components/Loading.vue"
+import diaryApi from "../../api/diaryApi.js"
+import SvgIcons from "../../assets/img/SVG_ICONS.ts"
 import {marked} from "marked";
 import ToDo from "../detail/ToDo.vue";
 
-export default {
-    name: 'Share',
-    components: {ToDo, Loading},
-    data() {
-        return {
-            icons: SvgIcons,
-            diary: {},
-            dateObj: {},
+import {popMessage, dateProcess, temperatureProcessSTC} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
 
-            isShowToast: false,
-            isLoadingDiary: false, // 日记请求中
-        }
-    },
-    computed:{
-        ...mapState(['categoryAll', 'insets']),
-        ...mapGetters(['categoryNameMap', 'categoryObjectMap']),
-        heightShare(){
-            return this.insets.windowsWidth > 375 ? this.insets.windowsHeight - 60 - 100 : this.insets.windowsHeight
-        },
-        shareCategoryStyle(){
-            return `background-color: ${this.categoryObjectMap.get(this.diary.category).color}`
-        },
-        contentMarkDownHtml(){
-            return marked.parse(this.diary.content)
-        }
-    },
-    mounted() {
-        this.getDiaryInfo(this.$route.params.id)
-    },
-    methods: {
-        ...mapMutations([ 'SET_CATEGORY_ALL']),
-        getDiaryInfo(diaryId){
-            this.isLoadingDiary = true
-            let requestData = {
-                'diaryId': this.$route.params.id
+const storeProject = useProjectStore();
+import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {DiaryEntity} from "../list/Diary.ts";
+import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+const router = useRouter()
+const route = useRoute()
+
+const diary: Ref<DiaryEntity> = ref({})
+const dateObj = ref({})
+const isShowToast = ref(false)
+const isLoadingDiary = ref(false) // 日记请求中
+
+
+const heightShare = computed(()=>{
+    return storeProject.insets.windowsWidth > 375 ? storeProject.insets.windowsHeight - 60 - 100 : storeProject.insets.windowsHeight
+})
+const shareCategoryStyle = computed(()=>{
+    return `background-color: ${storeProject.categoryObjectMap.get(diary.value.category).color}`
+})
+const contentMarkDownHtml = computed(()=>{
+    return marked.parse(diary.value.content)
+})
+
+onMounted(()=>{
+    getDiaryInfo(route.params.id)
+})
+
+
+function getDiaryInfo(diaryId: number){
+    isLoadingDiary.value = true
+    let requestData = {
+        'diaryId': route.params.id
+    }
+    diaryApi
+        .detail(requestData)
+        .then(res => {
+
+            // 日记信息
+            const tempDiary = res.data
+
+            isLoadingDiary.value = false
+            diary.value = tempDiary
+            dateObj.value = dateProcess(tempDiary.date)
+            document.title = '日记 - ' + dateObj.value.dateFull // 变更标题
+            if (diary.value.content) {
+                diary.value.contentHtml = getContentHtml(tempDiary.value.content)
             }
-            diaryApi
-                .detail(requestData)
-                .then(res => {
+            diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
+            diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
 
-                    // 日记信息
-                    const diary = res.data
+            // category map
+            let categoryNameMap = new Map()
+            storeProject.categoryAll.forEach(item => {
+                categoryNameMap.set(item.name_en, item.name)
+            })
+            diary.categoryString = categoryNameMap.get(tempDiary.category)
 
-                    this.isLoadingDiary = false
-                    this.diary = diary
-                    this.dateObj = utility.dateProcess(diary.date)
-                    document.title = '日记 - ' + this.dateObj.dateFull // 变更标题
-                    if (this.diary.content) {
-                        this.diary.contentHtml = this.getContentHtml(this.diary.content)
-                    }
-                    this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
-                    this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
-
-                    // category map
-                    let categoryNameMap = new Map()
-                    this.categoryAll.forEach(item => {
-                        categoryNameMap.set(item.name_en, item.name)
-                    })
-                    diary.categoryString = categoryNameMap.get(diary.category)
-
-                })
-                .catch(() => {
-                    this.isLoadingDiary = false
-                    this.diary = {}
-                })
-        },
-        getContentHtml(content){
-            let isInCodeMode = /\[ ?code ?\]/i.test(content)
-            let contentArray = content.split('\n')
-            let contentHtml = ""
-            if (isInCodeMode){
-                return `<pre class="code">${this.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
+        })
+        .catch(() => {
+            isLoadingDiary.value = false
+            diary.value = {}
+        })
+}
+function getContentHtml(content: string){
+    let isInCodeMode = /\[ ?code ?\]/i.test(content)
+    let contentArray = content.split('\n')
+    let contentHtml = ""
+    if (isInCodeMode){
+        return `<pre class="code">${storeProject.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
+    } else {
+        contentArray.forEach(item => {
+            if (item === '') {
+                contentHtml += '<br/>'
             } else {
-                contentArray.forEach(item => {
-                    if (item === '') {
-                        contentHtml += '<br/>'
-                    } else {
-                        contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}</p>`
-                    }
-                })
-                return contentHtml
+                contentHtml += `<p>${storeProject.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}</p>`
             }
-        },
-    },
-    watch: {
-        '$route.params.id'(newValue) {
-            this.getDiaryInfo(newValue)
-        },
+        })
+        return contentHtml
     }
 }
+
+watch('route.params.id', (newValue) => {
+    getDiaryInfo(newValue)
+})
 
 </script>
 <style lang="scss">

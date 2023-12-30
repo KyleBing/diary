@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import utility from "../../../utility"
-import SvgIcons from "../../../assets/img/SvgIcons";
+import utility from "../../../utility.js"
+import SvgIcons from "../../../assets/img/SVG_ICONS.ts";
 
 export default {
     name: "WeatherSelector",

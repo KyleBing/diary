@@ -1,9 +1,10 @@
-import { createStore } from 'vuex'
-import svgIcons from "./assets/img/SvgIcons";
-import utility from "./utility";
+import { defineStore } from "pinia";
+import SVG_ICONS from "../assets/img/SVG_ICONS.ts";
+import {getDiaryConfig, getAuthorization} from "../utility.ts";
+import {DiaryEntity} from "../page/list/Diary.ts";
 
-export default createStore({
-    state: {
+export const useProjectStore = defineStore('projectStore', {
+    state: ()=>({
         insets: {
             windowsHeight: window.innerHeight,
             windowsWidth: window.innerWidth,
@@ -21,7 +22,7 @@ export default createStore({
         isShowSearchBar: false ,                 // 搜索栏显示
         isHideContent: false ,                   // 是否显示列表内容
 
-        currentDiary: null ,                     // 当前日记
+        currentDiary: <DiaryEntity>{} ,          // 当前日记
 
         isDiaryNeedToBeSaved: false ,            // 日记需要被存储
         isDiaryNeedToBeRecovered: false ,        // 取消当前编辑的日记
@@ -31,21 +32,16 @@ export default createStore({
         isSavingDiary: false ,                   // 是否正在保存日记
         isMenuShowed: false ,                    // 显示菜单
 
-        editLogoImg: svgIcons.logo ,             // 编辑页LOGO
+        editLogoImg: SVG_ICONS.logo ,             // 编辑页LOGO
         listOperation:{} ,                       // 列表页的操作，增删改操作，一般不再重新加载列表
 
-
-        categoryAll : [
-            // {name: '生活', name_en: 'life', color: '#fff'},
-        ],
+        categoryAll : [],
         dataArrayYear: [],
         dataArrayCategory: [],
 
         // BILL
         moneyAccuracy: 1, // 展示的货币精度，小数位数
-
-
-    },
+    }),
     getters: {
         isInMobileMode(state){
             // console.log(state.insets)
@@ -61,7 +57,6 @@ export default createStore({
             })
             return categoryNameMap
         },
-
         // 类别对象字典
         categoryObjectMap(state){
             let categoryNameMap = new Map()
@@ -70,43 +65,29 @@ export default createStore({
             })
             return categoryNameMap
         },
+        isAdminUser(){
+            return getAuthorization() && getAuthorization().group_id === 1
+        },
     },
+    actions: {
+        initProjectConfig(){
+            // 初始化 LocalStorage 存储对象
+            let diaryConfig = getDiaryConfig()
+            this.filteredCategories = diaryConfig.filteredCategories
+            this.keywords = diaryConfig.keywords
+            this.dateFilter = diaryConfig.dateFilter
+            this.isFilterShared = diaryConfig.isFilterShared
+        }
+    }
+})
+
+const methos = {
     mutations: {
-        SET_COLOR_MODE(state, payload){
-            state.colorMode = payload
-        },
-        SET_CATEGORY_ALL(state, payload){
-            state.categoryAll = payload
-        },
-        SET_DATA_ARRAY_CATEGORY(state, payload){
-            state.dataArrayCategory = payload
-        },
-        SET_DATA_ARRAY_YEAR(state, payload){
-            state.dataArrayYear = payload
-        },
-        SET_MENU_SHOWED(state, payload){
-            state.isMenuShowed = payload
-        },
-        SET_IS_SAVING_DIARY(state, payload){
-            state.isSavingDiary = payload
-        },
-        SET_INSETS(state, payload){
-            state.insets = payload
-        },
-        SET_IS_HIDE_CONTENT(state, payload){
-            state.isHideContent = payload
-        },
-        SET_IS_SHOW_SEARCH_BAR (state, payload){
-            state.isShowSearchBar = payload
-        },
         SET_DATE_FILTER(state, payload){
             state.dateFilter = payload
             let diaryConfig = utility.getDiaryConfig()
             diaryConfig.dateFilter = payload
             utility.setDiaryConfig(diaryConfig)
-        },
-        SET_STATISTICS_CATEGORY(state, payload){
-            state.statisticsCategory = payload
         },
         SET_STATISTICS_YEAR(state, payload){
             // 如果没有任何年份数据，清除 dateFilter 数字
@@ -138,29 +119,7 @@ export default createStore({
             diaryConfig.keywords = payload
             utility.setDiaryConfig(diaryConfig)
         },
-        SET_CURRENT_DIARY (state, payload){
-            state.currentDiary = payload
-        },
-        SET_IS_DIARY_NEED_TO_BE_SAVED (state, payload){
-            state.isDiaryNeedToBeSaved = payload
-        },
-        SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE (state, payload){
-            state.isDiaryListShowedInFullStyle = payload
-        },
-        SET_IS_LIST_NEED_BE_RELOAD(state, payload){
-            state.isListNeedBeReload = payload
-        },
-        SET_EDIT_LOGO_IMG(state, payload){
-            state.editLogoImg = payload
-        },
-        SET_LIST_OPERATION(state, payload){
-            state.listOperation = payload
-        },
-        SET_IS_DIARY_NEED_TO_BE_RECOVERED(state, payload){
-            state.isDiaryNeedToBeRecovered = payload
-        },
-        SET_IS_DIARY_EDITOR_CONTENT_HAS_CHANGED(state, payload){
-            state.isDiaryEditorContentHasChanged = payload
-        },
     }
-})
+}
+
+

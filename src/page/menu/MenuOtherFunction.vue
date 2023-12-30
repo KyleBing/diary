@@ -115,7 +115,7 @@ export default {
                 let date = utility.dateFormatter(new Date(diary.date))
                 let dateModify = utility.dateFormatter(new Date(diary.date_modify))
                 let dateCreate = utility.dateFormatter(new Date(diary.date_create))
-                let isMarkdown = diary.is_markdown === 0? '否': '是'
+                let is_markdown = diary.is_markdown === 0? '否': '是'
                 let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
                 let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
                 let weather = this.weatherMap.get(diary.weather)
@@ -135,14 +135,14 @@ VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${d
                 let date = utility.dateFormatter(new Date(diary.date))
                 let dateModify = utility.dateFormatter(new Date(diary.date_modify))
                 let dateCreate = utility.dateFormatter(new Date(diary.date_create))
-                let isMarkdown = diary.is_markdown === 0? '否': '是'
+                let is_markdown = diary.is_markdown === 0? '否': '是'
                 let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
                 let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
                 let weather = this.weatherMap.get(diary.weather)
                 let category = this.categoryNameMap.get(diary.category)
                 let content = diary.content.replace(/\"/g, '\"')
                 finalData =
-                    finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${isMarkdown},${diary.title},"${content}"\n`)
+                    finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${is_markdown},${diary.title},"${content}"\n`)
             })
             return finalData
         },
@@ -162,7 +162,7 @@ VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${d
                 let date = utility.dateFormatter(new Date(diary.date))
                 let dateModify = utility.dateFormatter(new Date(diary.date_modify))
                 let dateCreate = utility.dateFormatter(new Date(diary.date_create))
-                let isMarkdown = diary.is_markdown === 0? '否': '是'
+                let is_markdown = diary.is_markdown === 0? '否': '是'
                 let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
                 let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
                 let weather = this.weatherMap.get(diary.weather)
@@ -176,7 +176,7 @@ VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${d
 天　　气：${weather}
 身处温度：${temperature}
 室外温度：${temperature_outside}
-MarkDown：${isMarkdown}
+MarkDown：${is_markdown}
 标　　题：${diary.title}
 内　　容：${diary.content}
 \n`)

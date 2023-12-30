@@ -23,7 +23,7 @@
         </div>
 
         <div class="pt-4 pb-4" v-if="isLoading">
-            <loading :loading="isLoading"/>
+            <Loading :loading="isLoading"/>
         </div>
 
         <div v-show="!isLoading && !isHasMore" class="end-of-diary">
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import utility from "../../utility"
+import utility from "../../utility.js"
 import {mapState, mapMutations, mapGetters} from 'vuex'
-import Loading from "../../components/Loading"
-import diaryApi from "../../api/diaryApi"
-import SvgIcons from "../../assets/img/SvgIcons"
+import Loading from "../../components/Loading.vue"
+import diaryApi from "../../api/diaryApi.js"
+import SvgIcons from "../../assets/img/SVG_ICONS.ts"
 import DiaryListHoleItem from "./DiaryListHoleItem";
 
 export default {

@@ -1,7 +1,7 @@
 <template>
     <div class="statistic-container">
-        <page-header title="账单"/>
-        <div class="bill-content" :style="`height:${insets.heightPanel}px`">
+        <PageHeader title="账单"/>
+        <div class="bill-content" :style="`height:${storeProject.insets.heightPanel}px`">
             <div class="bill-container" v-if="!isLoading">
 
                 <div class="bill-filter-panel">
@@ -17,7 +17,7 @@
                     <div class="input-group white">
                         <label for="invitation" >年份</label>
                         <div class="year-selector">
-                            <div :class="['year-selector-item', {checked: year.checked}]" v-for="year in avilableYears">
+                            <div :class="['year-selector-item', {checked: year.checked}]" v-for="year in availableYears">
                                 <label :for="year.value">{{year.value}}</label>
                                 <input v-model="year.checked"
                                        type="checkbox"
@@ -96,123 +96,119 @@
                     </table>
                 </div>
             </div>
-            <loading v-else :loading="isLoading"/>
+            <Loading v-else :loading="isLoading"/>
         </div>
     </div>
 </template>
 
-<script>
-import billApi from "../../api/billApi"
-import Loading from "../../components/Loading"
-import {mapState} from "vuex"
-import TabIcon from "../../components/TabIcon"
-import utility from "../../utility"
-import PageHeader from "../../framework/pageHeader/PageHeader"
+<script lang="ts" setup>
+import billApi from "../../api/billApi.js"
+import Loading from "../../components/Loading.vue"
+import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
-export default {
-    name: "Bill",
-    components: {PageHeader, TabIcon, Loading},
-    data() {
-        return {
-            billYearData: [],
-            isLoading: false,
-            monthMap: new Map(),
+import {popMessage, setAuthorization, getAuthorization, dateProcess, saveBillKeys} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
 
-            formSearch: {
-                year: new Date().getFullYear(),
-                keyword: ''
-            },
-            avilableYears: [], // 账单可选年份
+const storeProject = useProjectStore();
+import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
+const router = useRouter()
+import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+
+
+const billYearData = ref([])
+const isLoading = ref(false)
+let monthMap = ref(new Map())
+const formSearch = ref({
+    year: new Date().getFullYear(),
+    keyword: ''
+})
+const availableYears = ref([]) // 账单可选年份
+
+
+onMounted(()=>{
+    // 可选的年份，从 2022 开始
+    let yearNow = new Date().getFullYear()
+    for (let i=0; i<=yearNow - 2022; i++){
+        availableYears.value.push({
+            value: 2022 + i,
+            checked: true
+        })
+    }
+    monthMap.value = new Map([
+        ['01', '一月'],
+        ['02', '二月'],
+        ['03', '三月'],
+        ['04', '四月'],
+        ['05', '五月'],
+        ['06', '六月'],
+        ['07', '七月'],
+        ['08', '八月'],
+        ['09', '九月'],
+        ['10', '十月'],
+        ['11', '十一月'],
+        ['12', '十二月'],
+    ])
+    getBillData()
+})
+
+function getBillKeys(){
+    billApi
+        .keys()
+        .then(res => {
+            saveBillKeys(res.data)
+            popMessage('success', `更新成功 ${res.data.length} 个`, ()=>{}, 2)
+        })
+        .catch(err => {
+            popMessage('warning', err.message)
+        })
+}
+function goToDiaryDetail(diaryId: number){
+    console.log(diaryId)
+    router.push({
+        name: 'Detail',
+        params: {
+            id: diaryId
         }
-    },
-    computed: {
-        ...mapState(['insets', 'moneyAccuracy']),
-    },
-    mounted() {
-        // 可选的年份，从 2022 开始
-        let yearNow = new Date().getFullYear()
-        for (let i=0; i<=yearNow - 2022; i++){
-            this.avilableYears.push({
-                value: 2022 + i,
-                checked: true
-            })
-        }
-        this.monthMap = new Map([
-            ['01', '一月'],
-            ['02', '二月'],
-            ['03', '三月'],
-            ['04', '四月'],
-            ['05', '五月'],
-            ['06', '六月'],
-            ['07', '七月'],
-            ['08', '八月'],
-            ['09', '九月'],
-            ['10', '十月'],
-            ['11', '十一月'],
-            ['12', '十二月'],
-        ])
-        this.getBillData()
-    },
-    methods: {
-        getBillKeys(){
-            billApi
-                .keys()
-                .then(res => {
-                    utility.saveBillKeys(res.data)
-                    utility.popMessage('success', `更新成功 ${res.data.length} 个`, ()=>{}, 2)
-                })
-                .catch(err => {
-                    utility.popMessage('warning', err.message)
-                })
-        },
-        goToDiaryDetail(diaryId){
-            console.log(diaryId)
-            this.$router.push({
-                name: 'Detail',
-                params: {
-                    id: diaryId
-                }
-            })
-        },
-        tooltipContentWithoutReturn(billItemArray) {
-            return billItemArray
-                .map(item => {
-                    return `${item.item}`
-                })
-                .join('，')
-        },
-        tooltipContent(billItemArray) {
-            let listContent =  billItemArray.map(item => {
-                return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
-            }).join('')
-            return `
+    })
+}
+
+function tooltipContentWithoutReturn(billItemArray) {
+    return billItemArray
+        .map(item => {
+            return `${item.item}`
+        })
+        .join('，')
+}
+function tooltipContent(billItemArray) {
+    let listContent =  billItemArray.map(item => {
+        return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
+    }).join('')
+    return `
                     <table class="bill-detail-list">
                     <tbody>
                     ${listContent}
                     </tbody>
                     </table>`
-        },
-        getBillData() {
-            this.isLoading = true
-            billApi
-                .sorted({
-                    years: this.avilableYears
-                        .filter(item => item.checked)
-                        .map(item => item.value)
-                        .join(','), // 2022, 2023
-                    keyword: this.formSearch.keyword
-                })
-                .then(res => {
-                    this.isLoading = false
-                    this.billYearData = res.data
-                })
-                .catch(err => {
-                    utility.popMessage('warning', err.message)
-                    this.isLoading = false
-                })
-        },
-        dateProcess: utility.dateProcess
-    }
+}
+function getBillData() {
+    isLoading.value = true
+    billApi
+        .sorted({
+            years: availableYears.value
+                .filter(item => item.checked)
+                .map(item => item.value)
+                .join(','), // 2022, 2023
+            keyword: this.formSearch.keyword
+        })
+        .then(res => {
+            isLoading.value = false
+            billYearData.value = res.data
+        })
+        .catch(err => {
+            popMessage('warning', err.message)
+            isLoading.value = false
+        })
 }
 </script>
 

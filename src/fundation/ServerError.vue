@@ -1,32 +1,21 @@
 <template>
     <!-- 服务器错误 -->
-    <div class="server-error" :style="`height: ${height}px`">
+    <div class="server-error" :style="`height: ${storeProject.insets.windowsHeight}px`">
         <div class="logo-server-error">
             <img src="../assets/img/logo/logo_server_error.svg" alt="logo error">
         </div>
         <div class="server-error-title">遇到错误，请尝试刷新页面。如果还不行，请联系管理员</div>
         <div class="server-error-title">
-            <a :href="`mailto:${ adminEmail }`">{{ adminEmail }}</a>
+            <a :href="`mailto:${ projectConfig.adminEmail }`">{{ projectConfig.adminEmail }}</a>
         </div>
     </div>
 
 </template>
 
-<script>
-import projectConfig from "../projectConfig"
-
-export default {
-    name: "ServerError",
-    data(){
-        return {
-            height: 800,
-            adminEmail: projectConfig.adminEmail
-        }
-    },
-    mounted() {
-        this.height = innerHeight
-    }
-}
+<script lang="ts" setup>
+import projectConfig from "../projectConfig.js"
+import {useProjectStore} from "../pinia";
+const storeProject = useProjectStore()
 </script>
 
 <style scoped lang="scss">

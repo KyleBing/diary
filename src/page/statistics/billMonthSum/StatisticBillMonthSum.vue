@@ -14,7 +14,7 @@
 
 <script>
 import {mapState} from "vuex"
-import statisticApi from "../../../api/statisticApi";
+import statisticApi from "../../../api/statisticApi.js";
 import ChartBarOfBillMonth from "./ChartBarOfBillMonth";
 
 export default {

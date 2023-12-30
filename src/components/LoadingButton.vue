@@ -1,9 +1,9 @@
 <template>
     <div :class="[
             'btn',
-            {'btn-light': this.type === 'light'},
-            {'btn-active': this.type === 'active'},
-            {'btn-inactive': this.type === 'inactive'},
+            {'btn-light': props.type === 'light'},
+            {'btn-active': props.type === 'active'},
+            {'btn-inactive': props.type === 'inactive'},
         ]"
          @click="$emit('click')"
          @submit="$emit('submit')"
@@ -17,25 +17,20 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "LoadingButton",
-    props: {
-        isLoading: {
-            type: Boolean,
-            default: false
-        },
-        type: {
-            type: String,
-            default: 'active' // active | inactive | light
-        }
+<script lang="ts" setup>
+const props = defineProps({
+    isLoading: {
+        type: Boolean,
+        default: false
     },
-    emits: ['click', 'submit'],
-    data(){
-        return {
-        }
-    },
-}
+    type: {
+        type: String,
+        default: 'active' // active | inactive | light
+    }
+})
+// TODO: emits
+defineEmits()
+// emits: ['click', 'submit']
 </script>
 
 

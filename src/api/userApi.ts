@@ -1,4 +1,4 @@
-import request  from '../request.js'
+import request  from '../request.ts'
 
 export default {
     login(requestData)         { return request('post', {}, requestData, 'user/login')}          ,

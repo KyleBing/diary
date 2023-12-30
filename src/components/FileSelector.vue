@@ -8,7 +8,7 @@
 
 <script>
 
-import utility from "../utility";
+import utility from "../utility.js";
 
 export default {
     name: "FileSelector",

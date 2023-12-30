@@ -1,88 +1,61 @@
 <template>
     <div>
-        <navbar/>
+        <Navbar/>
         <!-- 横屏时 -->
         <div class="diary">
-            <div class="diary-hole-container" :style="`height:${insets.heightPanel}px`">
+            <div class="diary-hole-container" :style="`height:${storeProject.insets.heightPanel}px`">
                 <router-view/>
             </div>
         </div>
     </div>
 </template>
 
-<script>
-import Navbar from "./navbar/Navbar"
-import {mapGetters, mapMutations, mapState} from 'vuex'
-import statisticApi from "../api/statisticApi";
+<script lang="ts" setup>
+import statisticApi from "../api/statisticApi.js";
+import {useProjectStore} from "../pinia";
+const storeProject = useProjectStore()
+import { onMounted } from "vue";
+import Navbar from "./navbar/Navbar.vue";
 
-export default {
-    name: 'Hole',
-    components: {
-        Navbar,
-    },
-    computed: {
-        ...mapState(['insets', 'isShowSearchBar']),
-        ...mapGetters(['isInMobileMode', 'categoryNameMap'])
-    },
-    mounted() {
-        this.getStatistic() // 载入统计信息
-    },
-    watch: {
-        // 搜索按钮点击时，滚动到最顶部
-        isShowSearchBar(newValue){
-            if (newValue){
-                this.$refs.diaryList.scrollTo(0, 0)
-            } else {
+onMounted(()=>{
+    getStatistic()
+})
 
+
+// 获取日记统计信息
+function getStatistic() {
+    statisticApi
+        .category()
+        .then(res => {
+            storeProject.statisticsCategory = res.data
+            setDataArrayCategory(res.data)
+        })
+    statisticApi
+        .year()
+        .then(res => {
+            storeProject.statisticsYear = res.data
+            setDataArrayYear(res.data)
+        })
+}
+function setDataArrayYear(statisticsYear){
+    if (statisticsYear){
+        storeProject.dataArrayYear = statisticsYear.reverse().map(year => {
+            return {
+                name: year.year,
+                value: year.count
             }
-        },
-    },
-    methods: {
-        ...mapMutations([
-            'SET_STATISTICS_CATEGORY',
-            'SET_STATISTICS_YEAR',
-            'SET_DATA_ARRAY_CATEGORY',
-            'SET_DATA_ARRAY_YEAR',
-            'SET_CATEGORY_ALL',
-        ]),
-        // 获取日记统计信息
-        getStatistic() {
-            statisticApi
-                .category()
-                .then(res => {
-                    this.SET_STATISTICS_CATEGORY(res.data)
-                    this.setDataArrayCategory(res.data)
-                })
-            statisticApi
-                .year()
-                .then(res => {
-                    this.SET_STATISTICS_YEAR(res.data)
-                    this.setDataArrayYear(res.data)
-                })
-        },
-        setDataArrayYear(statisticsYear){
-            if (statisticsYear){
-                let data = statisticsYear.reverse().map(year => {
-                    return {
-                        name: year.year,
-                        value: year.count
-                    }
-                })
-                this.SET_DATA_ARRAY_YEAR(data)
-            }
-        },
-        setDataArrayCategory(statisticsCategory){
-            let keys = Object.keys(statisticsCategory)
-            keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-            let data =  keys.map(key => {
-                return {
-                    name: this.categoryNameMap.get(key),
-                    value: statisticsCategory[key]
-                }
-            })
-            this.SET_DATA_ARRAY_CATEGORY(data)
-        }
+        })
     }
+}
+function setDataArrayCategory(statisticsCategory){
+    let keys = Object.keys(statisticsCategory)
+    keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
+    storeProject.dataArrayCategory = keys.map(key => {
+        return {
+            name: storeProject.categoryNameMap.get(key),
+            value: statisticsCategory[key]
+        }
+    })
 }
 
 </script>

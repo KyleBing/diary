@@ -2,78 +2,76 @@
     <div :class="['article', {active: isActive},]">
         <router-link
             :style="diaryItemHeaderStyle"
-            :to="`/detail/${diary.id}`"
+            :to="`/detail/${props.diary.id}`"
             :class="['article-header']"
         >
-            <div class="date">{{ diary.dateString }}</div>
+            <div class="date">{{ props.diary.dateString }}</div>
             <div class="weather">
-                <img v-if="diary.weather"
-                     :src="icons.weather[diary.weather + suffix]"
-                     :alt="diary.weather">
+                <img v-if="props.diary.weather"
+                     :src="icons.weather[props.diary.weather + suffix]"
+                     :alt="props.diary.weather">
             </div>
-            <div class="week">{{ diary.weekday }}</div>
-            <div class="category" :style="diaryItemCategoryTextStyle" >{{ diary.categoryString }}</div>
+            <div class="week">{{ props.diary.weekday }}</div>
+            <div class="category" :style="diaryItemCategoryTextStyle" >{{ props.diary.categoryString }}</div>
         </router-link>
 
         <div class="article-body" v-if="isHideContent">
-            <div class="title">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</div>
-            <div class="content" v-html="diary.contentHtml.replace(/[^，。 \n]/g, '*')"/>
+            <div class="title">{{ props.diary.title.replace(/[^，。 \n]/g, '*') }}</div>
+            <div class="content" v-html="props.diary.contentHtml.replace(/[^，。 \n]/g, '*')"/>
         </div>
         <div class="article-body" v-else>
-            <div class="title">{{ diary.title }}</div>
-            <div class="markdown" v-if="diary.is_markdown === 1" v-html="contentMarkDownHtml"/>
-            <div class="content" v-else v-html="diary.contentHtml"/>
+            <div class="title">{{ props.diary.title }}</div>
+            <div class="markdown" v-if="props.diary.is_markdown === 1" v-html="contentMarkDownHtml"/>
+            <div class="content" v-else v-html="props.diary.contentHtml"/>
         </div>
     </div>
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex"
-import SvgIcons from "../../../assets/img/SvgIcons"
 import {marked} from "marked";
+import SVG_ICONS from "../../../assets/img/SVG_ICONS.ts"
+import {computed} from "vue";
+import {useProjectStore} from "../../../pinia";
+import {useRoute} from "vue-router";
+const storeProject = useProjectStore()
+const route = useRoute()
 
-export default {
-    name: "DiaryListItemLong",
-    props: {
-        diary: Object,
-    },
-    data() {
-        return {
-            icons: SvgIcons,
-        }
-    },
-    computed: {
-        ...mapState(['isHideContent']),
-        ...mapGetters(['categoryObjectMap']),
-        isActive() {
-            return Number(this.$route.params.id) === Number(this.diary.id)
-        },
-        suffix() {
-            return this.isActive ? '_white' : ''
-        },
-        diaryItemHeaderStyle(){
-            if (this.isActive){
-                return `
-                      background-color: ${this.categoryObjectMap.get(this.diary.category).color};
-                `
-            } else {
-                return ''
-            }
-        },
-        contentMarkDownHtml(){
-            return marked.parse(this.diary.content)
-        },
-        diaryItemCategoryTextStyle(){
-            if (this.isActive){
 
-            } else {
-                return `
-                      color:  ${this.categoryObjectMap.get(this.diary.category).color}
-                `
-            }
-        }
+const props = defineProps({
+    diary: {
+        type: Object,
+        required: true
     }
-}
+})
+
+const isActive = computed(() => {
+    return Number(route.params.id) === Number(props.diary.id)
+})
+const suffix = computed(()=> {
+    return isActive ? '_white' : ''
+})
+const diaryItemHeaderStyle = computed(()=>{
+    if (isActive){
+        return `
+                      background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+                `
+    } else {
+        return ''
+    }
+})
+const contentMarkDownHtml = computed(()=>{
+    return marked.parse(props.diary.content)
+})
+const diaryItemCategoryTextStyle = computed(()=>{
+    if (isActive){
+
+    } else {
+        return `
+                      color:  ${storeProject.categoryObjectMap.get(props.diary.category).color}
+                `
+    }
+})
+
 </script>
 
 <style lang="scss" scoped>

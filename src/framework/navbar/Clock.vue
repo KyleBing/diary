@@ -10,7 +10,7 @@
 
 <script>
 import calendar from "js-calendar-converter";
-import utility from "../../utility"
+import utility from "../../utility.js"
 
 
 

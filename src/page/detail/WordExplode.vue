@@ -25,7 +25,7 @@
 
 <script>
 import ClipboardJS from "clipboard"
-import utility from "../../utility"
+import utility from "../../utility.js"
 import {mapGetters, mapMutations, mapState} from "vuex"
 import ButtonSmall from "@/components/ButtonSmall";
 import ButtonNormal from "@/components/ButtonNormal";

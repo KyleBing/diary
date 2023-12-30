@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -7,7 +7,7 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
-                        <img v-if="formUser.avatar" :src="formUser.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.changeAvatar" alt="Diary Logo">
+                        <img v-if="formUser.avatar" :src="formUser.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logoIcon.changeAvatar" alt="Diary Logo">
                         <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
@@ -48,7 +48,7 @@
                     </button>
                 </form>
                 <div class="footer flex-start">
-                    <div class="link" @click="$router.go(-1)">返回</div>
+                    <div class="link" @click="router.go(-1)">返回</div>
                 </div>
             </div>
         </transition>
@@ -56,146 +56,136 @@
 </template>
 
 
-<script>
-import userApi from "../../api/userApi"
-import {mapState} from "vuex"
-import SvgIcons from "../../assets/img/SvgIcons"
-import utility from "../../utility"
-import fileApi from "../../api/fileApi";
+<script lang="ts" setup>
+import userApi from "../../api/userApi.js"
+import fileApi from "../../api/fileApi.js";
 import * as qiniu from 'qiniu-js'
-import projectConfig from "../../projectConfig";
+import projectConfig from "../../projectConfig.js";
 import axios from "axios";
 
-export default {
-    name: 'ChangeProfile',
-    data() {
-        return {
-            show: false,
-            icons: SvgIcons,
+import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
 
-            avatarFile: '', // 头像文件
-            formUser:{
-                nickname: '',
-                phone: '',
-                avatar: '',
-                city: '',
-                geolocation: '',
-            },
-            heightBg: 0,
+const storeProject = useProjectStore();
+import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
+import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
 
-            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix
-        }
-    },
-    mounted() {
-        this.show = true
-        document.title = '日记 - 资料修改' // 变更标题
-        this.formUser.nickname = utility.getAuthorization().nickname
-        this.formUser.phone = utility.getAuthorization().phone
-        this.formUser.avatar = utility.getAuthorization().avatar
-        this.formUser.city = utility.getAuthorization().city
-        this.formUser.geolocation = utility.getAuthorization().geolocation
+const router = useRouter()
 
-        // 在给 formUser.city 赋值之后再添加其 watcher
-        this.$watch('formUser.city', newValue => {
-            if (newValue.trim().length > 0){
-                this.formUser.city = newValue
-                // 根据城市名获取经纬度
-                axios
-                    .get('https://geoapi.qweather.com/v2/city/lookup',
-                        {
-                            params: {
-                                key: projectConfig.HefengWeatherKey,
-                                location: newValue, // 县区名
-                                number: 1, // 返回数据数量 1-20
-                            }
-                        })
-                    .then(res => {
-                        if (res.data.code === '200'){
-                            if (res.data.location.length > 0){
-                                this.formUser.geolocation = `${res.data.location[0].lon},${res.data.location[0].lat}`
-                            } else {
-                                this.formUser.geolocation = ''
-                            }
+
+const show = ref(false)
+const avatarFile = null // 头像文件
+const formUser = ref({
+    nickname: '',
+    phone: '',
+    avatar: '',
+    city: '',
+    geolocation: '',
+})
+
+onMounted(()=>{
+    show.value = true
+    document.title = '日记 - 资料修改' // 变更标题
+    formUser.value.nickname = getAuthorization().nickname
+    formUser.value.phone = getAuthorization().phone
+    formUser.value.avatar = getAuthorization().avatar
+    formUser.value.city = getAuthorization().city
+    formUser.value.geolocation = getAuthorization().geolocation
+
+    // 在给 formUser.city 赋值之后再添加其 watcher
+    this.$watch('formUser.city', newValue => {
+        if (newValue.trim().length > 0){
+            formUser.value.city = newValue
+            // 根据城市名获取经纬度
+            axios
+                .get('https://geoapi.qweather.com/v2/city/lookup',
+                    {
+                        params: {
+                            key: projectConfig.HefengWeatherKey,
+                            location: newValue, // 县区名
+                            number: 1, // 返回数据数量 1-20
                         }
                     })
-            }
-        })
-    },
-    computed: {
-        ...mapState(['insets']),
-    },
-    methods: {
-
-        uploadAvatar(event){
-            if (event.target.files.length > 0){
-                this.avatarFile = event.target.files[0]
-                if (!/image\/.*/.test(this.avatarFile.type)){
-                    utility.popMessage('warning', '请选择图片文件')
-                    event.target.value = '' // 清空 Input 内容
-                    return
-                }
-                if (this.avatarFile.size > 1024 * 1024 * 3){
-                    utility.popMessage('warning', '头像文件应小于 3M', null, 3)
-                    event.target.value = '' // 清空 Input 内容
-                    return
-                }
-
-                fileApi
-                    .getUploadToken({
-                        bucket: projectConfig.QiniuBucketName
-                    })
-                    .then(res => {
-                        console.log('get token success')
-                        // 上传文件
-                        const observer = {
-                            next: res => {
-                                console.log('next: ',res)
-                            },
-                            error: err => {
-                                console.log(err)
-                            },
-                            complete: res => {
-                                // res = {hash: 'hash', key: 'key'}
-                                console.log('complete: ',res)
-                                this.formUser.avatar = projectConfig.QiniuImgBaseURL + res.key
-                            }
-                        }
-                        const observable = qiniu.upload(this.avatarFile, null, res.data, {}, {})
-                        const subscription = observable.subscribe(observer) // 上传开始
-                        // subscription.unsubscribe() // 上传取消
-                    })
-                    .catch(err => {
-                        utility.popMessage('danger', '获取上传 token 失败', null, 3)
-                    })
-            }
-        },
-        changeProfileSubmit() {
-            userApi
-                .setProfile(this.formUser)
                 .then(res => {
-                    utility.setAuthorization(
-                        res.data.nickname,
-                        res.data.uid,
-                        res.data.email,
-                        res.data.phone,
-                        res.data.avatar,
-                        res.data.password,
-                        res.data.group_id,
-                        res.data.city,
-                        res.data.geolocation,
-                    )
-                    utility.popMessage('success', '修改成功', ()=>{
-                        this.$router.go(-1)
-                    }, 1)
-
-                })
-                .catch(err => {
-                    utility.popMessage('danger', err.message, null, 5)
+                    if (res.data.code === '200'){
+                        if (res.data.location.length > 0){
+                            formUser.value.geolocation = `${res.data.location[0].lon},${res.data.location[0].lat}`
+                        } else {
+                            formUser.value.geolocation = ''
+                        }
+                    }
                 })
         }
-    },
-    watch: {
+    })
+})
+
+function uploadAvatar(event){
+    if (event.target.files.length > 0){
+        avatarFile = event.target.files[0]
+        if (!/image\/.*/.test(avatarFile.type)){
+            popMessage('warning', '请选择图片文件')
+            event.target.value = '' // 清空 Input 内容
+            return
+        }
+        if (avatarFile.size > 1024 * 1024 * 3){
+            popMessage('warning', '头像文件应小于 3M', null, 3)
+            event.target.value = '' // 清空 Input 内容
+            return
+        }
+
+        fileApi
+            .getUploadToken({
+                bucket: projectConfig.QiniuBucketName
+            })
+            .then(res => {
+                console.log('get token success')
+                // 上传文件
+                const observer = {
+                    next: res => {
+                        console.log('next: ',res)
+                    },
+                    error: err => {
+                        console.log(err)
+                    },
+                    complete: res => {
+                        // res = {hash: 'hash', key: 'key'}
+                        console.log('complete: ',res)
+                        formUser.value.avatar = projectConfig.QiniuImgBaseURL + res.key
+                    }
+                }
+                const observable = qiniu.upload(avatarFile, null, res.data, {}, {})
+                const subscription = observable.subscribe(observer) // 上传开始
+                // subscription.unsubscribe() // 上传取消
+            })
+            .catch(err => {
+                popMessage('danger', '获取上传 token 失败', null, 3)
+            })
     }
+}
+function changeProfileSubmit() {
+    userApi
+        .setProfile(formUser.value)
+        .then(res => {
+            setAuthorization(
+                res.data.nickname,
+                res.data.uid,
+                res.data.email,
+                res.data.phone,
+                res.data.avatar,
+                res.data.password,
+                res.data.group_id,
+                res.data.city,
+                res.data.geolocation,
+            )
+            popMessage('success', '修改成功', ()=>{
+                router.go(-1)
+            }, 1)
+
+        })
+        .catch(err => {
+            popMessage('danger', err.message, null, 5)
+        })
 }
 </script>
 

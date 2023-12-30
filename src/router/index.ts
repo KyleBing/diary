@@ -1,28 +1,31 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Index from "./framework/Index";
-import Hole from "./framework/Hole";
-import utility from "./utility";
+import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
+import {useProjectStore} from "../pinia";
+const storeProject = useProjectStore()
 
-import Register from "./page/login&register/Register"
-import Login from "./page/login&register/Login.vue"
-import ChangePassword from "./page/login&register/ChangePassword.vue"
-import ChangeProfile from "./page/changeProfile/ChangeProfile.vue"
-import Bill from "./page/bill/Bill"
-import BankCardList from "./page/bankCard/BankCardList"
-import InvitationList from "./page/invitation/InvitationList.vue"
-import Share from "./page/share/Share"
-import Statistics from "./page/statistics/StatisticsMain"
 
-import List from "./page/list/List"
-import Detail from "./page/detail/Detail"
-import Edit from "./page/edit/Edit"
-import NotFound_404 from "./fundation/NotFound_404";
-import ListHole from "./page/listHole/ListHole";
-import store from './store'
-import ClearDiary from "@/page/others/ClearDiary";
-import DestroyAccount from "@/page/others/DestroyAccount";
-import FileManager from "./page/fileManager/FileManager.vue";
-const routes = [
+import Index from "../framework/Index.vue"
+import Hole from "../framework/Hole.vue"
+import Register from "../page/login&register/Register.vue"
+import Login from "../page/login&register/Login.vue"
+import ChangePassword from "../page/login&register/ChangePassword.vue"
+import ChangeProfile from "../page/changeProfile/ChangeProfile.vue"
+import Bill from "../page/bill/Bill.vue"
+import BankCardList from "../page/bankCard/BankCardList.vue"
+import InvitationList from "../page/invitation/InvitationList.vue"
+import Share from "../page/share/Share.vue"
+import Statistics from "../page/statistics/StatisticsMain.vue"
+
+import List from "../page/list/List.vue"
+import Detail from "../page/detail/Detail.vue"
+import Edit from "../page/edit/Edit.vue"
+import NotFound_404 from "../fundation/NotFound_404.vue";
+import ListHole from "../page/listHole/ListHole.vue";
+import ClearDiary from "../page/others/ClearDiary.vue";
+import DestroyAccount from "../page/others/DestroyAccount.vue";
+import FileManager from "../page/fileManager/FileManager.vue";
+import {getAuthorization} from "../utility.ts";
+
+const routes: RouteRecordRaw[] = [
     {
         name: 'Index',
         path: '/',
@@ -57,42 +60,37 @@ const routes = [
     {name: 'NotFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 
-
 const router = createRouter({
     history: createWebHashHistory(),
     routes
 })
 
-
-
-router.beforeEach((to, from, next) => {
-    switch (to.name){
+router.beforeEach((to, _) => {
+    switch (to.name) {
         case 'Login':
         case 'Register':
         case 'Share':
         case 'Invitation':
-            next()
-            break
+            return true
         default:
-            if (utility.getAuthorization() && utility.getAuthorization().email){
-                if (to.name === 'List'){
-                    if (store.getters.isInMobileMode){
-                        next()
+            if (getAuthorization() && getAuthorization().email) {
+                if (to.name === 'List') {
+                    if (storeProject.isInMobileMode) {
+                        return true
                     } else {
-                        next({name: 'EditNew'})
+                        return {name: 'EditNew'}
                     }
                 } else {
-                    next()
+                    return true
                 }
             } else {
-                next({
-                    name: 'Login'
-                })
+                return {name: 'Login'}
             }
-            break
     }
 })
 
 
-export default router
 
+export  {
+    router
+}

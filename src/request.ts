@@ -1,19 +1,19 @@
 import axios from "axios";
-import utility from "./utility";
+import {getAuthorization, popMessage} from "./utility";
+
 const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../portal/'
 
-
-function request(method, params, requestData = {}, url, timeout = 30000) {
+function request(method: 'post'|'get'|'patch'|'put'|'delete', params: {}|null, requestData: {}|null, url: string, timeout = 30000) {
 
     let headers = {}
-    /*
+    /**
     * 所有 requestData 都会自动添加  authorization 信息
     * 给 requestData 添加 authorization 内部的数据： username email uid 等等
-    * */
+    **/
     if (url !== 'user/login' && url !== 'user/register'){ // 注册和登录时不添加 Token 数据
         Object.assign(headers, {
-            'Diary-Token':  utility.getAuthorization() && utility.getAuthorization().token,
-            'Diary-Uid':  utility.getAuthorization() && utility.getAuthorization().uid
+            'Diary-Token':  getAuthorization() && getAuthorization().token,
+            'Diary-Uid':  getAuthorization() && getAuthorization().uid
         })
     }
 
@@ -33,7 +33,7 @@ function request(method, params, requestData = {}, url, timeout = 30000) {
                         resolve(res.data)
                     } else {
                         console.log('request err: ', res.data) // 输出错误信息
-                        // utility.popMessage('danger', res.data.message, null, 5)
+                        // popMessage('danger', res.data.message, null, 5)
                         reject(res.data)
                     }
                 } else {
@@ -53,6 +53,5 @@ function request(method, params, requestData = {}, url, timeout = 30000) {
             })
     })
 }
-
 
 export default request

@@ -10,7 +10,7 @@
 
 <script>
 import {mapGetters, mapState} from "vuex"
-import utility from "../../utility"
+import utility from "../../utility.js"
 
 export default {
     name: "MenuCategoryIndicator",

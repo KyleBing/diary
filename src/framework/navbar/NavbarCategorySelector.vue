@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import utility from "../../utility"
+import utility from "../../utility.js"
 import {mapMutations, mapState} from "vuex"
-import TabIcon from "../../components/TabIcon";
+import TabIcon from "../../components/TabIcon.vue";
 
 export default {
     name: "NavbarCategorySelector",

@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import utility from "../../utility"
+import utility from "../../utility.js"
 import {mapGetters, mapState} from "vuex"
-import diaryApi from "../../api/diaryApi"
+import diaryApi from "../../api/diaryApi.js"
 
 export default {
     name: 'ToDo',
@@ -107,8 +107,8 @@ export default {
                 temperature: utility.temperatureProcessCTS(this.diary.temperature),
                 temperatureOutside: utility.temperatureProcessCTS(this.diary.temperatureOutside),
                 weather: this.diary.weather,
-                isPublic: this.diary.isPublic ? 1 : 0,
-                isMarkdown: this.diary.isMarkdown ? 1 : 0,
+                is_public: this.diary.is_public ? 1 : 0,
+                is_markdown: this.diary.is_markdown ? 1 : 0,
                 date: utility.dateFormatter(new Date(this.diary.date)),
             }
             diaryApi

@@ -1,13 +1,11 @@
-import store from './store'
-
-const global = {
-   heightNavbar: 45,
-}
+import {useProjectStore} from "./pinia";
+const storeProject = useProjectStore()
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
-// 设置 authorization
-function setAuthorization(nickname, uid, email, phone, avatar, token, group_id, city, geolocation) {
+
+// 设置 authorization TODO: geolocation type uncertain
+function setAuthorization(nickname: string, uid: number, email: string, phone: string, avatar: string, token: string, group_id: number, city:string, geolocation: string | []) {
    localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
       nickname, uid, email, phone, avatar, token, group_id, city, geolocation
    }))
@@ -17,7 +15,7 @@ function setAuthorization(nickname, uid, email, phone, avatar, token, group_id, 
  * 保存账单常用项目列表
  * @param keyArray
  */
-function saveBillKeys(keyArray){
+function saveBillKeys(keyArray: string[]){
    localStorage.setItem(BILL_KEYS_NAME, JSON.stringify(keyArray))
 }
 
@@ -39,7 +37,7 @@ function removeBillKeys(){
 
 // 获取 authorization
 function getAuthorization() {
-   return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME))
+   return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME) || '')
 }
 
 // 删除 authorization
@@ -51,24 +49,24 @@ function deleteAuthorization() {
 
 /**
  * Prompt 提示
- * @param type default | warning | success | danger
+ * @param type
  * @param title
  * @param callback
  * @param timeout
  */
 function popMessage(
-    type, // default | warning | danger | success
-    title,
-    callback = () => {},
+    type: 'default' | 'warning' | 'success' | 'danger',
+    title: string,
+    callback =  () => {},
     timeout = 0.8)
 {
-   let popClass = 'pop-msg-' + type
+   let popClass = `pop-msg-${type}`
    let msgEl = document.createElement('div')
    msgEl.classList.add('pop-msg', 'animated-fast', 'slideInDownPopMessage', popClass)
    let msgTitle = document.createElement('h3')
    msgTitle.innerText = title
    msgEl.append(msgTitle)
-   $('body').append(msgEl)
+   $('body')?.append(msgEl)
 
    setTimeout(_=>{
       msgEl.classList.remove('slideInDownPopMessage')
@@ -89,7 +87,7 @@ function popMessage(
    }, 1000 * timeout)
 }
 
-function $(selector){
+function $(selector: string){
    return document.querySelector(selector)
 }
 
@@ -98,22 +96,10 @@ function $(selector){
 // CONST
 const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',}
 const WEEKDAY_SHORT = {0: '日', 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六',}
-const WEATHER = [
-    {title : 'sunny' ,        name : '晴'} ,
-    {title : 'cloudy' ,       name : '多云'} ,
-    {title : 'overcast' ,     name : '阴'} ,
-    {title : 'sprinkle' ,     name : '小雨'} ,
-    {title : 'rain' ,         name : '雨'} ,
-    {title : 'thunderstorm' , name : '暴雨'} ,
-    {title : 'snow' ,         name : '雪'} ,
-    {title : 'fog' ,          name : '雾'} ,
-    {title : 'tornado' ,      name : '龙卷风'} ,
-    {title : 'smog' ,         name : '雾霾'} ,
-    {title : 'sandstorm' ,    name : '沙尘暴'} ,
-]
+
 
 // 格式化时间，输出字符串
-function dateFormatter(date, formatString) {
+function dateFormatter(date: Date, formatString?: string|undefined|null) {
    formatString = formatString || 'yyyy-MM-dd hh:mm:ss'
    let dateRegArray = {
       "M+": date.getMonth() + 1,                      // 月份
@@ -135,7 +121,7 @@ function dateFormatter(date, formatString) {
    return formatString
 }
 
-function dateProcess(dateString) {
+function dateProcess(dateString: string) {
    let date = new Date(dateString)
    let year = date.getFullYear()
    let month = date.getMonth() + 1
@@ -174,15 +160,15 @@ function dateProcess(dateString) {
    }
 }
 
-function padNumberWith0(num){
+function padNumberWith0(num: number){
    return String(num).padStart(2, '0')
 }
 
-function temperatureProcessSTC(temperature){
+function temperatureProcessSTC(temperature: number|string){
    return temperature === -273 ? '' : String(temperature)
 }
 
-function temperatureProcessCTS(temperature){
+function temperatureProcessCTS(temperature: number|string){
    return temperature === '' ? -273 : String(temperature)
 }
 
@@ -195,29 +181,28 @@ function getDiaryConfig(){
       return {
          isFilterShared: false, // 是否筛选共享日记
          keywords: [], // 关键词
-         filteredCategories: store.state.categoryAll.map(item => item.name_en), // 筛选的日记类别
+         filteredCategories: storeProject.categoryAll.map(item => item.name_en), // 筛选的日记类别
          dateFilter: '' // 日记范围
       }
    }
 }
 
-function setDiaryConfig(newValue){
+function setDiaryConfig(newValue: string){
    localStorage.setItem('DiaryConfig', JSON.stringify(newValue))
 }
-function deleteDiaryConfig(newValue){
+function deleteDiaryConfig(){
    localStorage.removeItem('DiaryConfig')
 }
 
 
-export default {
-   WEEKDAY, WEATHER,
+export {
+   WEEKDAY,
    getAuthorization,
    setAuthorization,
    popMessage,
    dateProcess,
    dateFormatter,
    deleteAuthorization,
-   global,
    temperatureProcessSTC,
    temperatureProcessCTS,
    getDiaryConfig, setDiaryConfig, deleteDiaryConfig,

@@ -1,8 +1,8 @@
-import request  from '../request.js'
+import request  from '../request.ts'
 
 export default {
-    category(params){ return request('get', params, null,'statistic/category')},
-    year(params)   { return request('get', params, null,'statistic/year')}   ,
+    category(){ return request('get', null, null,'statistic/category')},
+    year()   { return request('get', null, null,'statistic/year')}   ,
     users(params)   { return request('get', params, null,'statistic/users')}   ,
     weather(params)   { return request('get', params, null,'statistic/weather')}   ,
     daySum(params)   { return request('get', params, null,'bill/day-sum')}   ,
