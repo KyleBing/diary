@@ -23,124 +23,101 @@
 
 </template>
 
-<script>
+<script lang="ts" setup>
 import calendar from "js-calendar-converter"
 import Moment from "moment/moment";
+import {nextTick, onMounted, Ref, ref, watch} from "vue";
+import {LunarDateEntity} from "../../entity/LunarDate.ts";
 
-export default {
-    name: "EditorDateSelector",
-    props: {
-        modelValue: {
-            type: Object,
-            default: new Date()
-        }
-    },
-    mounted() {
-        this.$nextTick(_=> {
-            this.dateLocal = this.modelValue
-        })
-    },
-    data(){
-        return {
-            dateLocal: new Date(),
-            lunarObject: {
-                // Animal: "兔",
-                // IDayCn: "初十",
-                // IMonthCn: "九月",
-                // Term: null,
-                // astro: "天蝎座",
-                // cDay: 1,
-                // cMonth: 11,
-                // cYear: 1987,
-                // gzDay: "甲寅",
-                // gzMonth: "庚戌",
-                // gzYear: "丁卯",
-                // isLeap: false,
-                // isTerm: false,
-                // isToday: false,
-                // lDay: 10,
-                // lMonth: 9,
-                // lYear: 1987,
-                // nWeek: 7,
-                // ncWeek: "星期日"
-            }
-        }
-    },
-    methods: {
-        mouseWheelScrolled(event){
-            event.preventDefault()
+const props = defineProps({
+    modelValue: {
+        type: Object,
+        default: new Date()
+    }
+})
 
-            if (event.ctrlKey){
-                if (event.deltaY > 10){
-                    this.dateMove(1)
-                } else if (event.deltaY < -10) {
-                    this.dateMove(-1)
-                }
-            } else {
-                if (event.deltaY > 10){
-                    this.dateTimeMove(1)
-                } else if (event.deltaY < -10) {
-                    this.dateTimeMove(-1)
-                }
-            }
-        },
-        // 日期前后移动
-        dateMove(step) {
-            switch (step) {
-                case -1:
-                case 1:
-                    let dateTemp = new Moment(this.dateLocal)
-                    dateTemp.add(step, 'day')
-                    this.dateLocal = dateTemp.toDate()
-                    this.$emit('update:modelValue', this.dateLocal)
-                    break;
-                case 0:
-                    this.dateLocal = new Date()
-                    this.$emit('update:modelValue', this.dateLocal)
-                    break;
-            }
-        },
-        // 日期前后移动
-        dateTimeMove(step) {
-            switch (step) {
-                case -1:
-                case 1:
-                    let dateTemp = new Moment(this.dateLocal)
-                    dateTemp.add(step, 'hour')
-                    this.dateLocal = dateTemp.toDate()
-                    this.$emit('update:modelValue', this.dateLocal)
-                    break;
-                case 0:
-                    this.dateLocal = new Date()
-                    this.$emit('update:modelValue', this.dateLocal)
-                    break;
-            }
-        }
-    },
-    watch: {
-        modelValue(newValue){
-            this.dateLocal = newValue
-        },
-        dateLocal(newValue, oldValue){
-            this.lunarObject = calendar.solar2lunar(
-                newValue.getFullYear(),
-                newValue.getMonth() + 1,
-                newValue.getDate()
-            )
-            this.$emit('update:modelValue', this.dateLocal)
+const emit = defineEmits(["dayChange", "update:modelValue"])
 
-            // 判断是否日期有变，day 有变，emit dayChange, 附带是否为今天的标识
-            let dateMomentDiary = new Moment(newValue)
-            let dateMomentDiaryOrigin = new Moment(oldValue)
-            if ( dateMomentDiary.isSame(dateMomentDiaryOrigin, 'day')){
-            } else {
-                if (dateMomentDiary.isSame(new Date(), 'day')){
-                    this.$emit('dayChange', true)
-                } else {
-                    this.$emit('dayChange', false)
-                }
-            }
+onMounted(()=>{
+    nextTick(()=> {
+        dateLocal.value = props.modelValue
+    })
+})
+
+const dateLocal = ref(new Date())
+const lunarObject: Ref<LunarDateEntity> = ref({})
+
+
+watch(props.modelValue, newValue => {
+    dateLocal.value = newValue
+})
+watch(dateLocal, (newValue, oldValue) => {
+    lunarObject.value = calendar.solar2lunar(
+        newValue.getFullYear(),
+        newValue.getMonth() + 1,
+        newValue.getDate()
+    )
+    emit('update:modelValue', dateLocal.value)
+
+    // 判断是否日期有变，day 有变，emit dayChange, 附带是否为今天的标识
+    let dateMomentDiary = new Moment(newValue)
+    let dateMomentDiaryOrigin = new Moment(oldValue)
+    if ( dateMomentDiary.isSame(dateMomentDiaryOrigin, 'day')){
+    } else {
+        if (dateMomentDiary.isSame(new Date(), 'day')){
+            emit('dayChange', true)
+        } else {
+            emit('dayChange', false)
         }
+    }
+})
+
+function mouseWheelScrolled(event){
+    event.preventDefault()
+    if (event.ctrlKey){
+        if (event.deltaY > 10){
+            dateMove(1)
+        } else if (event.deltaY < -10) {
+            dateMove(-1)
+        }
+    } else {
+        if (event.deltaY > 10){
+            dateTimeMove(1)
+        } else if (event.deltaY < -10) {
+            dateTimeMove(-1)
+        }
+    }
+}
+// 日期前后移动
+function dateMove(step: -1|0|1) {
+    switch (step) {
+        case -1:
+        case 1:
+            let dateTemp = new Moment(dateLocal.value)
+            dateTemp.add(step, 'day')
+            dateLocal.value = dateTemp.toDate()
+            emit('update:modelValue', dateLocal.value)
+            break;
+        case 0:
+            dateLocal.value = new Date()
+            emit('update:modelValue', dateLocal.value)
+            break;
+    }
+}
+// 日期前后移动
+function dateTimeMove(step: -1|0|1) {
+    switch (step) {
+        case -1:
+        case 1:
+            let dateTemp = new Moment(dateLocal.value)
+            dateTemp.add(step, 'hour')
+            dateLocal.value = dateTemp.toDate()
+            emit('update:modelValue', dateLocal.value)
+            break;
+        case 0:
+            dateLocal.value = new Date()
+            emit('update:modelValue', dateLocal.value)
+            break;
     }
 }
 </script>

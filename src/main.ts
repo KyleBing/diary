@@ -5,14 +5,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 const app = createApp(App)
 
+// ROUTER
+import {router} from "./router"
+app.use(router)
+
 // PINIA
 import {createPinia} from "pinia"
 const pinia = createPinia()
 app.use(pinia)
-
-// ROUTER
-import {router} from "./router"
-app.use(router)
 
 // TOOLTIP
 import FloatingVue from 'floating-vue'

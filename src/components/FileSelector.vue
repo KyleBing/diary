@@ -6,43 +6,32 @@
     </div>
 </template>
 
-<script>
+<script lang="ts" setup>
+const emit = defineEmits(['fileChange'])
 
-import utility from "../utility.js";
+import {ref} from "vue";
+import {popMessage} from "../utility.ts";
 
-export default {
-    name: "FileSelector",
-    props: {
+const avatarData = ref('')
+const isLoadingAvatar = ref(false) // 正在载入头像数据
+const currentFile = ref(null)
 
-    },
-    emits: ['fileChange'],
-    mounted() {
-    },
-    data(){
-        return {
-            avatarData: '',
-            isLoadingAvatar: false, // 正在载入头像数据
-            currentFile: null,
+function handleFiles(event: Event) {
+    // 从 input 元素中获取 files: FileList
+    let files = event.target!.files
+    console.log(files)
+    if (files.length > 0) {
+        let file = files[0]
+        if (file.size > 20 * 1024 * 1024){
+            popMessage('warning', '请选择小于200k的图片文件')
+        } else {
+            currentFile.value = file
+            emit('fileChange', file)
         }
-    },
-    methods: {
-        handleFiles(event) {
-            // 从 input 元素中获取 files: FileList
-            let files = event.target.files
-            console.log(files)
-            if (files.length > 0) {
-                let file = files[0]
-                if (file.size > 20 * 1024 * 1024){
-                    utility.popMessage('warning', '请选择小于200k的图片文件')
-                } else {
-                    this.currentFile = file
-                    this.$emit('fileChange', file)
-                }
-            }
-        },
-
-    },
+    }
 }
+
+
 </script>
 
 <style lang="scss" scoped>

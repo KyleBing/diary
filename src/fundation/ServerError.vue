@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../projectConfig.js"
+import projectConfig from "../projectConfig.ts"
 import {useProjectStore} from "../pinia";
 const storeProject = useProjectStore()
 </script>

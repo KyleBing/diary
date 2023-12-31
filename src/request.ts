@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getAuthorization, popMessage} from "./utility";
+import {getAuthorization} from "./utility";
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../portal/'
 

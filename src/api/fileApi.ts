@@ -1,4 +1,4 @@
-import request from "../request.js";
+import request from "../request.ts";
 
 export default {
     getUploadToken(params) {return request('get', params, null,  '/image-qiniu/')},

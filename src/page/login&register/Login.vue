@@ -47,7 +47,7 @@ import packageInfo from "../../../package.json"
 import userApi from "../../api/userApi.ts"
 import billApi from "../../api/billApi.ts";
 
-import {popMessage, setAuthorization, saveBillKeys} from "../../utility.js";
+import {popMessage, setAuthorization, saveBillKeys} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, Ref, ref, watch} from "vue";

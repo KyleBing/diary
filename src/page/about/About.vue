@@ -1,41 +1,28 @@
 <template>
-    <div class="about" :style="'height:' + insets.heightPanel + 'px'">
+    <div class="about" :style="'height:' + storeProject.insets.heightPanel + 'px'">
         <div class="logo">
             <img src="../../assets/img/logo/logo_login.svg" alt="LOGO">
         </div>
-        <h3 class="title">{{nameZh}}</h3>
-        <h4 class="subtitle">{{description}}</h4>
-        <div class="version">v{{version}}</div>
+        <h3 class="title">{{packageInfo.nameZh}}</h3>
+        <h4 class="subtitle">{{packageInfo.description}}</h4>
+        <div class="version">v{{packageInfo.version}}</div>
         <div class="author">
             <a href="http://kylebing.cn" class="social-link">🌖 开发者主页</a>
             <a href="mailto:kylebing@163.com">kylebing@163.com</a>
             <a>·</a>
             <a href="https://github.com/KyleBing/diary-vue"> github 开源仓库 </a>
             <a>·</a>
-            <a href="">{{dateInit}} ~ {{dateModify}}</a>
+            <a href="">{{packageInfo.dateInit}} ~ {{packageInfo.dateModify}}</a>
         </div>
     </div>
 </template>
 
-<script>
-import {mapState} from "vuex"
-import packageInfo from "../../../package.json"
+<script lang="ts" setup>
 
-export default {
-    name: "About",
-    computed: {
-        ...mapState(['insets'])
-    },
-    data(){
-        return {
-            version: packageInfo.version,
-            dateModify: packageInfo.dateModify,
-            dateInit: packageInfo.dateInit,
-            nameZh: packageInfo.nameZh,
-            description: packageInfo.description
-        }
-    }
-}
+import packageInfo from "../../../package.json"
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore()
+
 </script>
 
 <style lang="scss" scoped>

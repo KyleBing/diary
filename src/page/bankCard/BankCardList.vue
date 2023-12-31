@@ -63,9 +63,9 @@ import TabIcon from "../../components/TabIcon.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
 import ClipboardJS from "clipboard"
-import bankCardApi from "../../api/bankCardApi.js"
+import bankCardApi from "../../api/bankCardApi.ts"
 
-import diaryApi from "../../api/diaryApi.js"
+import diaryApi from "../../api/diaryApi.ts"
 import {popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()

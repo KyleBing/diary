@@ -44,16 +44,16 @@
 import DiaryListItem from "./diaryListItem/DiaryListItem.vue"
 import DiaryListItemLong from "./diaryListItemLong/DiaryListItemLong.vue"
 import Loading from "../../components/Loading.vue"
-import diaryApi from "../../api/diaryApi.js"
+import diaryApi from "../../api/diaryApi.ts"
 import ListHeader from "../../page/list/ListHeader.vue"
 import SVG_ICONS from "../../assets/img/SVG_ICONS.ts"
 
-import {popMessage, dateProcess, getDiaryConfig, dateFormatter} from "../../utility.ts";
+import {dateProcess, getDiaryConfig, dateFormatter} from "../../utility.ts";
 
 import {useProjectStore} from "../../pinia"
 
 const storeProject = useProjectStore()
-import {computed, nextTick, onMounted, onUnmounted, Ref, ref, watch} from "vue";
+import {nextTick, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {DiaryEntity, DiaryListOperation} from "./Diary.ts";
 const router = useRouter()

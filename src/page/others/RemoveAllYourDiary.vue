@@ -14,13 +14,15 @@
                         </div>
                         <div class="desc">
                             <p>这是你最后反悔的机会</p>
-                            <p>该账号的所有内容都将被删除</p>
+                            <p>你的所有日记都将被删除</p>
+                            <p class="mt-2">总计 <b>{{ storeProject.statisticsCategory.amount }}</b> 篇，共享日记 <b>{{ storeProject.statisticsCategory.shared }}</b> 篇</p>
+                            <p></p>
                         </div>
                     </div>
                     <form id="regForm">
                         <button class="btn btn-active mt-8"
                                 type="button"
-                                @click.prevent="changePasswordSubmit">确认注销账号
+                                @click.prevent="changePasswordSubmit">确认清空所有日记
                         </button>
                         <button class="btn mt-5"
                                 type="button"
@@ -34,12 +36,12 @@
 </template>
 
 <script lang="ts" setup>
+import diaryApi from "../../api/diaryApi.ts";
 import projectConfig from "../../projectConfig.ts";
-import {deleteAuthorization, deleteDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
+import {getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "../../pinia";
 import {useRouter} from "vue-router";
-import userApi from "../../api/userApi.ts";
 import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
 
 const storeProject = useProjectStore()
@@ -50,18 +52,16 @@ const userInfo = getAuthorization()
 
 onMounted(()=>{
     show.value = true
-    document.title = '日记 - 注销账号' // 变更标题
+    document.title = '日记 - 清空日记' // 变更标题
 })
 
 function changePasswordSubmit() {
-    userApi
-        .destroyAccount()
+    diaryApi
+        .clear()
         .then(res => {
-            deleteAuthorization()
-            deleteDiaryConfig()
-            popMessage('success', '注销成功，3 秒后跳转到登录页面', ()=>{
-                router.push({name: 'Login'})
-            }, 3)
+            popMessage('success', res.message, ()=>{
+                router.push({name: 'List'})
+            }, 2)
         })
         .catch(err => {
             popMessage('danger', err.message, ()=>{

@@ -4,36 +4,36 @@
         enter-active-class="animated-fast slideInLeft"
         leave-active-class="animated-fast slideOutLeft"
     >
-        <div class="menu-panel" id="menu-panel" v-if="isMenuShowed" :style="'height:' + insets.heightPanel + 'px'">
+        <div class="menu-panel" id="menu-panel" v-if="storeProject.isMenuShowed" :style="'height:' + storeProject.insets.heightPanel + 'px'">
 
             <!-- 菜单列表 -->
-            <div class="menu" v-show="menuListShowed" :style="'min-height:' + insets.heightPanel + 'px'">
+            <div class="menu" v-show="menuListShowed" :style="'min-height:' + storeProject.insets.heightPanel + 'px'">
                 <div class="menu-list">
                     <!-- 1. 搜索 -->
-                    <menu-list-item v-if="isInMobileMode"
-                                    menu-name="搜索"    :icon="icons.tab.search" @click="menuListClicked('search')"/>
+                    <MenuListItem v-if="storeProject.isInMobileMode"
+                                    menu-name="搜索"    :icon="SVG_ICONS.tab.search" @click="menuListClicked('search')"/>
                     <!-- 2. 类别筛选 -->
-                    <menu-list-item menu-name="类别筛选" :icon="icons.tab.category" @click="menuListClicked('category')">
-                        <menu-category-indicator/>
-                    </menu-list-item>
+                    <MenuListItem menu-name="类别筛选" :icon="SVG_ICONS.tab.category" @click="menuListClicked('category')">
+                        <MenuCategoryIndicator/>
+                    </MenuListItem>
 
                     <!-- 3. 年份筛选 -->
-                    <menu-list-item menu-name="年份筛选" :icon="icons.tab.year"       @click="menuListClicked('year')"
-                                    :add-on-text="dateFilter">
-                    </menu-list-item>
-                    <menu-list-item menu-name="统计数据"  :icon="icons.tab.statistics"  @click="goToPage('Statistics')" />
-                    <menu-list-item menu-name="账单"     :icon="icons.tab.bill"        @click="goToPage('Bill')" />
-                    <menu-list-item menu-name="银行卡"   :icon="icons.tab.card"        @click="goToPage('BankCard')" />
-                    <menu-list-item
-                        v-if="isAdminUser"
-                        menu-name="文件管理" :icon="icons.tab.folder"        @click="goToPage('FileManager')" />
-                    <menu-list-item menu-name="其它"     :icon="icons.tab.others"      @click="menuListClicked('others')" />
-                    <menu-list-item
-                        v-if="isAdminUser"
-                        menu-name="邀请码"   :icon="icons.tab.invitation"         @click="goToPage('Invitation')" />
-                    <menu-list-item
-                        menu-name="关于"     :icon="icons.tab.about"        @click="menuListClicked('about')"
-                        :add-on-text="`v${version}`"/>
+                    <MenuListItem menu-name="年份筛选" :icon="SVG_ICONS.tab.year"       @click="menuListClicked('year')"
+                                    :add-on-text="storeProject.dateFilter">
+                    </MenuListItem>
+                    <MenuListItem menu-name="统计数据"  :icon="SVG_ICONS.tab.statistics"  @click="goToPage('Statistics')" />
+                    <MenuListItem menu-name="账单"     :icon="SVG_ICONS.tab.bill"        @click="goToPage('Bill')" />
+                    <MenuListItem menu-name="银行卡"   :icon="SVG_ICONS.tab.card"        @click="goToPage('BankCard')" />
+                    <MenuListItem
+                        v-if="storeProject.isAdminUser"
+                        menu-name="文件管理" :icon="SVG_ICONS.tab.folder"        @click="goToPage('FileManager')" />
+                    <MenuListItem menu-name="其它"     :icon="SVG_ICONS.tab.others"      @click="menuListClicked('others')" />
+                    <MenuListItem
+                        v-if="storeProject.isAdminUser"
+                        menu-name="邀请码"   :icon="SVG_ICONS.tab.invitation"         @click="goToPage('Invitation')" />
+                    <MenuListItem
+                        menu-name="关于"     :icon="SVG_ICONS.tab.about"        @click="menuListClicked('about')"
+                        :add-on-text="`v${packageInfo.version}`"/>
                 </div>
 
                 <!-- 用户信息 -->
@@ -65,179 +65,136 @@
 
 </template>
 
-<script>
-import utility from "../../utility.js"
-import MenuCategorySelector from "../../page/menu/MenuCategorySelector"
-import YearSelector from "./YearSelector/YearSelector"
-import About from "../../page/about/About"
-import {mapGetters, mapMutations, mapState} from "vuex"
+<script lang="ts" setup>
+import MenuCategorySelector from "../menu/MenuCategorySelector.vue"
+import YearSelector from "./YearSelector/YearSelector.vue"
+import About from "../about/About.vue"
 import packageInfo from "../../../package.json"
-import MenuListItem from "../../page/menu/MenuListItem"
-import MenuCategoryIndicator from "./MenuCategoryIndicator"
-import svgIcons from "../../assets/img/SVG_ICONS.ts"
-import projectConfig from "../../projectConfig.js";
-import UserProfile from "../../page/menu/UserProfile.vue";
-import MenuOtherFunction from "@/page/menu/MenuOtherFunction";
+import MenuListItem from "../menu/MenuListItem.vue"
+import MenuCategoryIndicator from "./MenuCategoryIndicator.vue"
+import SVG_ICONS from "../../assets/img/SVG_ICONS.ts"
+import UserProfile from "../menu/UserProfile.vue";
+import MenuOtherFunction from "../menu/MenuOtherFunction.vue";
 
-export default {
-    name: "NavMenu",
-    components: {
-        MenuOtherFunction,
-        UserProfile,
-        MenuCategoryIndicator,
-        MenuListItem,
-        About,
-        YearSelector,
-        MenuCategorySelector
-    },
-    data(){
-        return {
-            // menu
-            menuListShowed: true,         // 菜单列表
-            categoryShowed: false,        // 类别菜单
-            yearShowed: false,            // 年份选择
-            othersShowed: false,          // 其它不常用功能
-            aboutShowed: false,           // 关于页面
+import {useProjectStore} from "../../pinia";
+import {nextTick, onMounted, ref, watch} from "vue";
+import {useRouter} from "vue-router";
 
-            // menu - category
-            categoriesSet: new Set(),
-            originCategories: [],
-            originFilterShared: false,
+const storeProject = useProjectStore()
+const router = useRouter()
 
-            version: packageInfo.version,
+onMounted(()=>{
+    categoriesSet.value = new Set(storeProject.filteredCategories)
+})
 
-            icons: svgIcons,
+// MENU
+const menuListShowed = ref(true)         // 菜单列表
+const categoryShowed = ref(false)        // 类别菜单
+const yearShowed = ref(false)            // 年份选择
+const othersShowed = ref(false)          // 其它不常用功能
+const aboutShowed = ref(false)           // 关于页面
 
-            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix
-        }
-    },
-    mounted() {
-        this.categoriesSet = new Set(this.filteredCategories)
-    },
-    computed:{
-        ...mapGetters(['isInMobileMode']),
-        ...mapState([
-            'insets',
-            'categoryAll',
-            'statisticsCategory',
-            'statisticsYear',
-            'dateFilter',
-            'isFilterShared',
-            'filteredCategories',
-            'isMenuShowed'
-        ]),
-        isAdminUser(){
-            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
-        },
-    },
-    methods: {
-        ...mapMutations([
-            'SET_IS_LIST_NEED_BE_RELOAD',
-            'SET_IS_SHOW_SEARCH_BAR',
-            'SET_MENU_SHOWED'
-        ]),
-        // 跳转到独立页面
-        goToPage(pageName){
-            this.SET_MENU_SHOWED(false)
-            this.menuClose()
-            this.$router.push({name: pageName})
-        },
+// menu - category
+const categoriesSet = ref(new Set())
 
-        // MENU related
-        menuShow() {
-            this.SET_MENU_SHOWED(true)  // menu panel
-            this.menuListShowed = true          // menu list
-            this.categoryShowed = false         // category
-            this.yearShowed = false             // year
-            this.othersShowed = false           // others
-            this.aboutShowed = false            // about
-        },
-        menuClose(){
-            if (this.categoryShowed) {
-                this.SET_IS_LIST_NEED_BE_RELOAD(true)
-                this.menuInit()
-            } else if (this.aboutShowed) {
-                this.SET_MENU_SHOWED(true) // menu panel
-                this.menuListShowed = true        // menu list
-                this.categoryShowed = false       // category
-                this.yearShowed = false           // year
-                this.othersShowed = false         // others
-                this.aboutShowed = false          // about
-            } else if (this.yearShowed) {
-                this.SET_IS_LIST_NEED_BE_RELOAD(true)
-                this.menuInit()
-                this.menuInit()
-            } else if (this.isMenuShowed) {
-                this.menuInit()
-            }
-        },
-        menuInit() {
-            this.SET_MENU_SHOWED(false)         // menu panel
-            this.menuListShowed = true      // menu list
-            this.categoryShowed = false     // category
-            this.yearShowed = false         // year
-            this.othersShowed = false       // others
-            this.aboutShowed = false        // about
-        },
-        menuListClicked(menuName) {
-            switch (menuName) {
-                case 'search':
-                    this.SET_IS_SHOW_SEARCH_BAR(true)
-                    this.menuInit()
-                    this.$nextTick(() => {
-                        document.querySelector('#keyword').focus()
-                    })
-                    break
-                case 'category':
-                    this.SET_MENU_SHOWED(true)  // menu panel
-                    this.menuListShowed = false // menu list
-                    this.categoryShowed = true  // category
-                    this.yearShowed = false     // year
-                    this.othersShowed = false   // others
-                    this.aboutShowed = false    // about
-                    break
-                case 'bankCard':
-                    this.$router.push({
-                        name: 'BankCard'
-                    })
-                    break
-                case 'year':
-                    this.SET_MENU_SHOWED(true)    // menu panel
-                    this.menuListShowed = false   // menu list
-                    this.categoryShowed = false   // category
-                    this.yearShowed = true        // year
-                    this.othersShowed = false     // others
-                    this.aboutShowed = false      // about
-                    break
-                case 'others':
-                    this.SET_MENU_SHOWED(true)    // menu panel
-                    this.menuListShowed = false   // menu list
-                    this.categoryShowed = false   // category
-                    this.yearShowed = false       // year
-                    this.othersShowed = true      // others
-                    this.aboutShowed = false      // about
-                    break
-                case 'about':
-                    this.SET_MENU_SHOWED(true)    // menu panel
-                    this.menuListShowed = false   // menu list
-                    this.categoryShowed = false   // category
-                    this.yearShowed = false       // year
-                    this.othersShowed = false     // others
-                    this.aboutShowed = true       // about
-                    break
-                default:
-                    break
-            }
-        },
-    },
-    watch: {
-        isMenuShowed(newValue){
-            if (newValue){
-                this.menuShow()
-            } else {
-               this.menuClose()
-            }
-        }
+watch(storeProject.isMenuShowed, newValue => {
+    if (newValue){
+        menuShow()
+    } else {
+        menuClose()
+    }
+})
+
+// 跳转到独立页面
+function goToPage(pageName: string){
+    storeProject.isMenuShowed = false
+    menuClose()
+    router.push({name: pageName})
+}
+
+// MENU related
+function menuShow() {
+    storeProject.isMenuShowed = true  // menu panel
+    menuListShowed.value = true          // menu list
+    categoryShowed.value = false         // category
+    yearShowed.value = false             // year
+    othersShowed.value = false           // others
+    aboutShowed.value = false            // about
+}
+function menuClose(){
+    if (categoryShowed.value) {
+        storeProject.isListNeedBeReload = true
+        menuInit()
+    } else if (aboutShowed.value) {
+        storeProject.isMenuShowed = true // menu panel
+        menuListShowed.value = true        // menu list
+        categoryShowed.value = false       // category
+        yearShowed.value = false           // year
+        othersShowed.value = false         // others
+        aboutShowed.value = false          // about
+    } else if (yearShowed.value) {
+        storeProject.isListNeedBeReload = true
+        menuInit()
+    } else if (storeProject.isMenuShowed) {
+        menuInit()
+    }
+}
+function menuInit() {
+    storeProject.isMenuShowed = false         // menu panel
+    menuListShowed.value = true      // menu list
+    categoryShowed.value = false     // category
+    yearShowed.value = false         // year
+    othersShowed.value = false       // others
+    aboutShowed.value = false        // about
+}
+function menuListClicked(menuName: string) {
+    switch (menuName) {
+        case 'search':
+            storeProject.isShowSearchBar = true
+            menuInit()
+            nextTick(() => {
+                (document.querySelector('#keyword') as HTMLInputElement).focus()
+            })
+            break
+        case 'category':
+            storeProject.isMenuShowed = true  // menu panel
+            menuListShowed.value = false // menu list
+            categoryShowed.value = true  // category
+            yearShowed.value = false     // year
+            othersShowed.value = false   // others
+            aboutShowed.value = false    // about
+            break
+        case 'bankCard':
+            router.push({
+                name: 'BankCard'
+            })
+            break
+        case 'year':
+            storeProject.isMenuShowed = true    // menu panel
+            menuListShowed.value = false   // menu list
+            categoryShowed.value = false   // category
+            yearShowed.value = true        // year
+            othersShowed.value = false     // others
+            aboutShowed.value = false      // about
+            break
+        case 'others':
+            storeProject.isMenuShowed = true    // menu panel
+            menuListShowed.value = false   // menu list
+            categoryShowed.value = false   // category
+            yearShowed.value = false       // year
+            othersShowed.value = true      // others
+            aboutShowed.value = false      // about
+            break
+        case 'about':
+            storeProject.isMenuShowed = true    // menu panel
+            menuListShowed.value = false   // menu list
+            categoryShowed.value = false   // category
+            yearShowed.value = false       // year
+            othersShowed.value = false     // others
+            aboutShowed.value = true       // about
+            break
+        default:
+            break
     }
 }
 </script>

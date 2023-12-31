@@ -57,10 +57,10 @@
 
 
 <script lang="ts" setup>
-import userApi from "../../api/userApi.js"
-import fileApi from "../../api/fileApi.js";
+import userApi from "../../api/userApi.ts"
+import fileApi from "../../api/fileApi.ts";
 import * as qiniu from 'qiniu-js'
-import projectConfig from "../../projectConfig.js";
+import projectConfig from "../../projectConfig.ts";
 import axios from "axios";
 
 import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";

@@ -76,7 +76,7 @@
 
 <script lang="ts" setup>
 import Loading from "../../components/Loading.vue"
-import diaryApi from "../../api/diaryApi.js"
+import diaryApi from "../../api/diaryApi.ts"
 import SvgIcons from "../../assets/img/SVG_ICONS.ts"
 import {marked} from "marked";
 import ToDo from "../detail/ToDo.vue";

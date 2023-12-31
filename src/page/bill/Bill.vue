@@ -102,7 +102,7 @@
 </template>
 
 <script lang="ts" setup>
-import billApi from "../../api/billApi.js"
+import billApi from "../../api/billApi.ts"
 import Loading from "../../components/Loading.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 

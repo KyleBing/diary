@@ -4,71 +4,64 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
-            <statistic-panel title="类别数据">
+            <StatisticPanel title="类别数据">
                 <div class="statistic-group">
-                    <chart-bar :data="dataArrayCategory" title=""/>
-                    <chart-pie :data="dataArrayCategory" title=""/>
+                    <ChartBar :data="storeProject.dataArrayCategory" title=""/>
+                    <ChartPie :data="storeProject.dataArrayCategory" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in dataArrayCategory">
+                        <div class="info-list-item" v-for="year in storeProject.dataArrayCategory">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
                     </div>
                 </div>
-            </statistic-panel>
-            <statistic-panel title="年份数据">
+            </StatisticPanel>
+            <StatisticPanel title="年份数据">
                 <div class="statistic-group">
-                    <chart-bar :data="dataArrayYear" title=""/>
-                    <chart-pie :data="dataArrayYear" title=""/>
+                    <ChartBar :data="storeProject.dataArrayYear" title=""/>
+                    <ChartPie :data="storeProject.dataArrayYear" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in dataArrayYear">
+                        <div class="info-list-item" v-for="year in storeProject.dataArrayYear">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
                     </div>
                 </div>
-            </statistic-panel>
+            </StatisticPanel>
 
-            <statistic-panel title="温度趋势">
-                <statistic-weather/>
-            </statistic-panel>
+            <StatisticPanel title="温度趋势">
+                <StatisticWeather/>
+            </StatisticPanel>
 
-            <statistic-panel title="账单趋势 - 日">
-                <statistic-bill-day-sum/>
-            </statistic-panel>
+            <StatisticPanel title="账单趋势 - 日">
+                <StatisticBillDaySum/>
+            </StatisticPanel>
 
-            <statistic-panel title="账单趋势 - 月">
-                <statistic-bill-month-sum/>
-            </statistic-panel>
+            <StatisticPanel title="账单趋势 - 月">
+                <StatisticBillMonthSum/>
+            </StatisticPanel>
 
         </div>
     </transition>
 </template>
 
-<script>
-import {mapState} from "vuex"
-import ChartPie from "../../../components/charts/ChartPie"
-import ChartBar from "../../../components/charts/ChartBar"
-import StatisticPanel from "../../../page/statistics/StatisticPanel"
-import StatisticWeather from "../weather/StatisticWeather";
-import StatisticBillDaySum from "../billDaySum/StatisticBillDaySum";
-import StatisticBillMonthSum from "../billMonthSum/StatisticBillMonthSum";
+<script lang="ts" setup>
+import ChartPie from "../../../components/charts/ChartPie.vue"
+import ChartBar from "../../../components/charts/ChartBar.vue"
+import StatisticPanel from "../../../page/statistics/StatisticPanel.vue"
+import StatisticWeather from "../weather/StatisticWeather.vue";
+import StatisticBillDaySum from "../billDaySum/StatisticBillDaySum.vue";
+import StatisticBillMonthSum from "../billMonthSum/StatisticBillMonthSum.vue";
+import {onMounted, ref} from "vue";
+import {useProjectStore} from "../../../pinia";
 
-export default {
-    name: "StatisticCharts",
-    components: {StatisticBillMonthSum, StatisticBillDaySum, StatisticWeather, StatisticPanel, ChartBar, ChartPie},
-    computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
-    },
-    data(){
-        return {
-            isShow: false
-        }
-    },
-    mounted() {
-        this.isShow = true
-    }
-}
+const storeProject = useProjectStore()
+
+const isShow = ref(false)
+onMounted(() => {
+    isShow.value = true
+})
+
 </script>
 
 <style scoped lang="scss">

@@ -70,7 +70,7 @@ const filePath = computed(()=>{
     return `https://kylebing.cn/${props.fileInfo.path}`
 })
 
-defineEmits(['refreshList'])
+const emit = defineEmits(['refreshList'])
 
 const modalEditFileName = ref(false) // 文件名修改
 const newFileName = ref('') // 新文件名
@@ -86,8 +86,7 @@ function deleteFile(){
         .then(res => {
             console.log(res)
             popMessage('success', res.message)
-            // TODO: emit
-            // this.$emit('refreshList')
+            emit('refreshList')
         })
         .catch(err => {
             popMessage('danger', err.message)
@@ -101,8 +100,7 @@ function modifyFileNameConfirm(){
         })
         .then(res => {
             popMessage('success', res.message)
-            // TODO: emit
-            // this.$emit('refreshList')
+            emit('refreshList')
         })
         .catch(err => {
             popMessage('danger', err.message)

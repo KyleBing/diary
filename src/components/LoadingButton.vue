@@ -5,8 +5,8 @@
             {'btn-active': props.type === 'active'},
             {'btn-inactive': props.type === 'inactive'},
         ]"
-         @click="$emit('click')"
-         @submit="$emit('submit')"
+         @click="emit('click')"
+         @submit="emit('submit')"
     >
         <slot/>
         <div v-if="isLoading" class="loading">
@@ -28,9 +28,7 @@ const props = defineProps({
         default: 'active' // active | inactive | light
     }
 })
-// TODO: emits
-defineEmits()
-// emits: ['click', 'submit']
+const emit = defineEmits( ['click', 'submit'])
 </script>
 
 

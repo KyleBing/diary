@@ -159,7 +159,7 @@ import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelecto
 
 import ClipboardJS from "clipboard"
 
-import {popMessage} from "../../utility.js";
+import {popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";

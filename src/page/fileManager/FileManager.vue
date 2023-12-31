@@ -43,7 +43,7 @@ import Loading from "../../components/Loading.vue"
 import ClipboardJS from "clipboard"
 import TabIcon from "../../components/TabIcon.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
-import fileManagerApi from "../../api/fileManagerApi.js";
+import fileManagerApi from "../../api/fileManagerApi.ts";
 import FileListItem from "./FileListItem.vue";
 import Modal from "../../components/Modal.vue";
 import FileSelector from "../../components/FileSelector.vue";

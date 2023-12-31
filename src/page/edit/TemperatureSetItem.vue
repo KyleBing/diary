@@ -12,93 +12,90 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "TemperatureSetItem",
+<script lang="ts" setup>
+import {nextTick, onMounted, Ref, ref, watch} from "vue";
 
-    props: {
-        label: {
-            type: String,
-            default: '温度'
-        },
-        modelValue: {
-            type: String,
-            default: '20'
-        },
-        unit: {
-            type: String,
-            default: '℃'
-        }
+const props = defineProps({
+    label: {
+        type: String,
+        default: '温度'
     },
-    mounted() {
-        this.$nextTick(_=> {
-            if (this.modelValue === ''){
-                this.temperatureLocal = ''
-            } else {
-                this.temperatureLocal = Number(this.modelValue)
-            }
-        })
+    modelValue: {
+        type: String,
+        default: '20'
     },
-    data(){
-        return {
-            temperatureLocal: ''
-        }
-    },
-    methods: {
-        mouseWheelScrolled(event){
-            event.preventDefault()
-            if (this.temperatureLocal === ''){
-                this.temperatureLocal = 20 // 数值变化从 20 开始
-            }
-            if (event.deltaY > 0){
-                this.temperatureLocal = this.temperatureLocal + 1
-            } else {
-                this.temperatureLocal = this.temperatureLocal - 1
-            }
-            this.$emit('update:modelValue', String(this.temperatureLocal))
-        },
-        keyPressed(event){
-            switch (event.key){
-                case 'ArrowUp':
-                    if (this.temperatureLocal === ''){
-                        this.temperatureLocal = 20 // 数值变化从 20 开始
-                    }
-                    if (event.metaKey || event.ctrlKey){
-                        this.temperatureLocal = this.temperatureLocal + 10
-                    } else {
-                        this.temperatureLocal = this.temperatureLocal + 1
-                    }
-                    event.preventDefault()
-                    break;
-                case 'ArrowDown':
-                    if (this.temperatureLocal === ''){
-                        this.temperatureLocal = 20 // 数值变化从 20 开始
-                    }
-                    if (event.metaKey || event.ctrlKey){
-                        this.temperatureLocal = this.temperatureLocal - 10
-                    } else {
-                        this.temperatureLocal = this.temperatureLocal - 1
-                    }
-                    event.preventDefault()
-                    break;
-                default: break
-            }
-            this.$emit('update:modelValue', String(this.temperatureLocal))
-        }
-    },
-    watch:{
-        modelValue(newValue){
-            if (newValue === ''){
-                this.temperatureLocal = ''
-            } else {
-                this.temperatureLocal = Number(newValue)
-            }
-        },
-        temperatureLocal(newValue){
-            this.$emit('update:modelValue', String(newValue))
-        }
+    unit: {
+        type: String,
+        default: '℃'
     }
+})
+const emit = defineEmits(['update:modelValue'])
+
+onMounted(()=>{
+    nextTick(() => {
+        if (props.modelValue === ''){
+            temperatureLocal.value = ''
+        } else {
+            temperatureLocal.value = Number(props.modelValue)
+        }
+    })
+})
+
+const temperatureLocal: Ref<null|number|''> = ref(null) // TODO: 确定类型
+
+watch(props.modelValue, newValue => {
+    if (newValue === ''){
+        temperatureLocal.value = ''
+    } else {
+        temperatureLocal.value = Number(newValue)
+    }
+})
+watch(temperatureLocal, newValue => {
+    emit('update:modelValue', String(newValue))
+})
+
+
+function mouseWheelScrolled(event){
+    event.preventDefault()
+    if (temperatureLocal.value === ''){
+        temperatureLocal.value = 20 // 数值变化从 20 开始
+    }
+    if (event.deltaY > 0){
+        temperatureLocal.value = temperatureLocal.value + 1
+    } else {
+        temperatureLocal.value = temperatureLocal.value - 1
+    }
+    emit('update:modelValue', String(temperatureLocal.value))
 }
+function keyPressed(event){
+    switch (event.key){
+        case 'ArrowUp':
+            if (temperatureLocal.value === ''){
+                temperatureLocal.value = 20 // 数值变化从 20 开始
+            }
+            if (event.metaKey || event.ctrlKey){
+                temperatureLocal.value = temperatureLocal.value + 10
+            } else {
+                temperatureLocal.value = temperatureLocal.value + 1
+            }
+            event.preventDefault()
+            break;
+        case 'ArrowDown':
+            if (temperatureLocal.value === ''){
+                temperatureLocal.value = 20 // 数值变化从 20 开始
+            }
+            if (event.metaKey || event.ctrlKey){
+                temperatureLocal.value = temperatureLocal.value - 10
+            } else {
+                temperatureLocal.value = temperatureLocal.value - 1
+            }
+            event.preventDefault()
+            break;
+        default: break
+    }
+    emit('update:modelValue', String(temperatureLocal.value))
+}
+
 </script>
 
 <style scoped lang="scss">

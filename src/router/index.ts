@@ -1,4 +1,5 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
+
 import {useProjectStore} from "../pinia";
 const storeProject = useProjectStore()
 
@@ -20,7 +21,7 @@ import Detail from "../page/detail/Detail.vue"
 import Edit from "../page/edit/Edit.vue"
 import NotFound_404 from "../fundation/NotFound_404.vue";
 import ListHole from "../page/listHole/ListHole.vue";
-import ClearDiary from "../page/others/ClearDiary.vue";
+import RemoveAllYourDiary from "../page/others/RemoveAllYourDiary.vue";
 import DestroyAccount from "../page/others/DestroyAccount.vue";
 import FileManager from "../page/fileManager/FileManager.vue";
 import {getAuthorization} from "../utility.ts";
@@ -47,7 +48,7 @@ const routes: RouteRecordRaw[] = [
     },
     {name: 'Register',       path: '/register',          component: Register},
     {name: 'Share',          path: '/share/:id',         component: Share},
-    {name: 'ClearDiary',     path: '/clear-diary',       component: ClearDiary },
+    {name: 'RemoveAllYourDiary',     path: '/clear-diary',       component: RemoveAllYourDiary },
     {name: 'DestroyAccount', path: '/destroy-account',   component: DestroyAccount },
     {name: 'ChangePassword', path: '/change-password',   component: ChangePassword },
     {name: 'ChangeProfile',  path: '/change-profile',    component: ChangeProfile },

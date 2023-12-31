@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import SVG_ICONS from "../assets/img/SVG_ICONS.ts";
-import {getDiaryConfig, getAuthorization} from "../utility.ts";
+import {getDiaryConfig, getAuthorization, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity} from "../page/list/Diary.ts";
 
 export const useProjectStore = defineStore('projectStore', {
@@ -81,45 +81,43 @@ export const useProjectStore = defineStore('projectStore', {
     }
 })
 
-const methos = {
-    mutations: {
-        SET_DATE_FILTER(state, payload){
-            state.dateFilter = payload
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.dateFilter = payload
-            utility.setDiaryConfig(diaryConfig)
-        },
-        SET_STATISTICS_YEAR(state, payload){
-            // 如果没有任何年份数据，清除 dateFilter 数字
-            let diaryConfig = utility.getDiaryConfig()
-            if (payload){
+const mutations = {
+    SET_DATE_FILTER(state, payload){
+        state.dateFilter = payload
+        let diaryConfig = getDiaryConfig()
+        diaryConfig.dateFilter = payload
+        setDiaryConfig(diaryConfig)
+    },
+    SET_STATISTICS_YEAR(state, payload){
+        // 如果没有任何年份数据，清除 dateFilter 数字
+        let diaryConfig = getDiaryConfig()
+        if (payload){
 
-            } else {
-                diaryConfig.dateFilter = ''
-                state.dateFilter = '' // 同时变更 state 中的数据
-            }
-            utility.setDiaryConfig(diaryConfig)
-            state.statisticsYear = payload
-        },
-        SET_IS_FILTER_SHARED (state, payload){
-            state.isFilterShared = payload
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.isFilterShared = payload
-            utility.setDiaryConfig(diaryConfig)
-        },
-        SET_FILTERED_CATEGORIES(state, payload){
-            state.filteredCategories = payload
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.filteredCategories = payload
-            utility.setDiaryConfig(diaryConfig)
-        },
-        SET_KEYWORD (state, payload){
-            state.keywords = payload
-            let diaryConfig = utility.getDiaryConfig()
-            diaryConfig.keywords = payload
-            utility.setDiaryConfig(diaryConfig)
-        },
-    }
+        } else {
+            diaryConfig.dateFilter = ''
+            state.dateFilter = '' // 同时变更 state 中的数据
+        }
+        setDiaryConfig(diaryConfig)
+        state.statisticsYear = payload
+    },
+    SET_IS_FILTER_SHARED (state, payload){
+        state.isFilterShared = payload
+        let diaryConfig = getDiaryConfig()
+        diaryConfig.isFilterShared = payload
+        setDiaryConfig(diaryConfig)
+    },
+    SET_FILTERED_CATEGORIES(state, payload){
+        state.filteredCategories = payload
+        let diaryConfig = getDiaryConfig()
+        diaryConfig.filteredCategories = payload
+        setDiaryConfig(diaryConfig)
+    },
+    SET_KEYWORD (state, payload){
+        state.keywords = payload
+        let diaryConfig = getDiaryConfig()
+        diaryConfig.keywords = payload
+        setDiaryConfig(diaryConfig)
+    },
 }
 
 

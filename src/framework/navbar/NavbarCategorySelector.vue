@@ -7,12 +7,12 @@
         >
             <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
-                    <div :class="['navbar-category-list-item', {active: filteredCategories.includes(item.name_en)}]"
-                         v-for="(item, index) in categoryAll" :key="index"
+                    <div :class="['navbar-category-list-item', {active: storeProject.filteredCategories.includes(item.name_en)}]"
+                         v-for="(item, index) in storeProject.categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
-                    <div :class="['navbar-category-list-item' ,'ml-3', {active: isFilterShared}]" @click="toggleFilterShared">共享</div>
+                    <div :class="['navbar-category-list-item' ,'ml-3', {active: storeProject.isFilterShared}]" @click="toggleFilterShared">共享</div>
 
                 </div>
                 <div class="navbar-category-list-special">
@@ -26,83 +26,68 @@
     </div>
 </template>
 
-<script>
-import utility from "../../utility.js"
-import {mapMutations, mapState} from "vuex"
-import TabIcon from "../../components/TabIcon.vue";
+<script lang="ts" setup>
+import {onMounted, ref} from "vue";
+import {getDiaryConfig} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
+import {CategoryEntity} from "../../entity/Category.ts";
 
-export default {
-    name: "NavbarCategorySelector",
-    components: {TabIcon},
-    data(){
-        return {
-            filterShared: false, // 是否筛选已共享的日记
-        }
-    },
-    computed: {
-        ...mapState([ 'categoryAll', 'isFilterShared', 'filteredCategories'])
-    },
-    mounted() {
-        this.filterShared = utility.getDiaryConfig().isFilterShared
-    },
-    methods: {
-        ...mapMutations([
-            'SET_IS_FILTER_SHARED',
-            'SET_FILTERED_CATEGORIES',
-            'SET_IS_FILTER_SHARED',
-            'SET_IS_LIST_NEED_BE_RELOAD'
-        ]),
-        toggleFilterShared(){
-            this.filterShared = !this.isFilterShared
-            this.SET_IS_FILTER_SHARED(this.filterShared)
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        },
-        toggleCategory(category){
-            let index = this.filteredCategories.indexOf(category.name_en)
-            if ( index > -1) {
-                this.filteredCategories.splice(index, 1)
-            } else {
-                this.filteredCategories.push(category.name_en)
-            }
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        },
-        selectCategoryAll() {
-            this.filteredCategories = this.categoryAll.map(item => item.name_en)
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
+const storeProject = useProjectStore()
 
-        },
-        selectCategoryNone() {
-            this.filteredCategories = []
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        },
-        reverseCategorySelect() {
-            let tempCategories = [].concat(this.categoryAll.map(item => item.name_en))
-            this.filteredCategories.forEach(item => {
-                tempCategories.splice(tempCategories.indexOf(item), 1)
-            })
-            this.filteredCategories = tempCategories
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        },
 
-        // style
-        indicatorItemStyle(category){
-            if (this.filteredCategories.indexOf(category.name_en) > -1){
-                return `background-color: ${category.color};`
-                // return `border-bottom: 1px solid ${category.color};`
-            } else {
-                return ``
-            }
-        },
-        categoryMenuItemStyle(category){
-            if (this.filteredCategories.indexOf(category.name_en) > -1){
-                return `color: ${category.color}; opacity: 1; font-weight: bold;`
-                // return `color: rgba(255,255,255,0.8); font-weight: bold;`
-            } else {
-                return ``
-            }
-        },
+const filterShared = ref(false) // 是否筛选已共享的日记
 
-    },
+onMounted(() => {
+    filterShared.value = getDiaryConfig().isFilterShared
+})
+
+function toggleFilterShared(){
+    filterShared.value = !storeProject.isFilterShared
+    storeProject.isFilterShared = filterShared.value
+    storeProject.isListNeedBeReload = true
+}
+function toggleCategory(category: CategoryEntity){
+    let index = storeProject.filteredCategories.indexOf(category.name_en)
+    if ( index > -1) {
+        storeProject.filteredCategories.splice(index, 1)
+    } else {
+        storeProject.filteredCategories.push(category.name_en)
+    }
+    storeProject.isListNeedBeReload = true
+}
+function selectCategoryAll() {
+    storeProject.filteredCategories = storeProject.categoryAll.map(item => item.name_en)
+    storeProject.isListNeedBeReload = true
+}
+function selectCategoryNone() {
+    storeProject.filteredCategories = []
+    storeProject.isListNeedBeReload = true
+}
+function reverseCategorySelect() {
+    let tempCategories = [].concat(storeProject.categoryAll.map(item => item.name_en))
+    storeProject.filteredCategories.forEach(item => {
+        tempCategories.splice(tempCategories.indexOf(item), 1)
+    })
+    storeProject.filteredCategories = tempCategories
+    storeProject.isListNeedBeReload = true
+}
+
+// STYLE
+function indicatorItemStyle(category: CategoryEntity){
+    if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
+        return `background-color: ${category.color};`
+        // return `border-bottom: 1px solid ${category.color};`
+    } else {
+        return ``
+    }
+}
+function categoryMenuItemStyle(category: CategoryEntity){
+    if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
+        return `color: ${category.color}; opacity: 1; font-weight: bold;`
+        // return `color: rgba(255,255,255,0.8); font-weight: bold;`
+    } else {
+        return ``
+    }
 }
 </script>
 

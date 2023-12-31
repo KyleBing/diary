@@ -1,4 +1,4 @@
-import request from "../request.js";
+import request from "../request.ts";
 
 export default {
     list(params) {return request('get', params, null,  '/file-manager/list')},

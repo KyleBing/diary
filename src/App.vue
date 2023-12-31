@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import {useProjectStore} from "./pinia";
 const storeProject = useProjectStore()
-import {onBeforeMount, onMounted} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
 

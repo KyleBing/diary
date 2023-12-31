@@ -1,56 +1,46 @@
 <template>
     <div class="indicator-list">
         <div class="indicator-list-item"
-             v-for="(item, index) in categoryAll" :key="index"
+             v-for="(item, index) in storeProject.categoryAll" :key="index"
              :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
         />
-        <div class="indicator-list-item" :style="isFilterShared? 'background-color: white':''"/>
+        <div class="indicator-list-item" :style="storeProject.isFilterShared? 'background-color: white':''"/>
     </div>
 </template>
 
-<script>
-import {mapGetters, mapState} from "vuex"
-import utility from "../../utility.js"
+<script lang="ts" setup>
+import {onMounted, ref} from "vue";
+import {CategoryEntity} from "../../entity/Category.ts";
+import {useProjectStore} from "../../pinia";
+import {getDiaryConfig} from "../../utility.ts";
+const storeProject = useProjectStore()
+const categories = ref([])
 
-export default {
-    name: "MenuCategoryIndicator",
-    data() {
-        return {
-            categories: [], // category
-        }
+const props = defineProps({
+    menuName:{
+        type: String,
+        default: '菜单'
     },
-    props: {
-        menuName:{
-            type: String,
-            default: '菜单'
-        },
-        addOnText:{
-            type: String,
-            default: ''
-        },
+    addOnText:{
+        type: String,
+        default: ''
     },
-    mounted() {
-        this.filterShared = utility.getDiaryConfig().isFilterShared
-        this.categories = utility.getDiaryConfig().filteredCategories
-    },
-    methods: {
-        indicatorItemStyle(category){
-            if (this.categories.indexOf(category.name_en) > -1){
-                return `background-color: ${category.color};`
-                // return `border-bottom: 1px solid ${category.color};`
-            } else {
-                return ``
-            }
-        },
-    },
-    computed: {
-        ...mapState([
-            'isFilterShared',
-            'filteredCategories',
-            'categoryAll'
-        ])
-    },
+})
+
+onMounted(()=>{
+    categories.value = getDiaryConfig().filteredCategories
+})
+
+function indicatorItemStyle(category: CategoryEntity): string{
+    if (categories.value.indexOf(category.name_en) > -1){
+        return `background-color: ${category.color};`
+        // return `border-bottom: 1px solid ${category.color};`
+    } else {
+        return ``
+    }
 }
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import statisticApi from "../../api/statisticApi.js"
+import statisticApi from "../../api/statisticApi.ts"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 import Loading from "../../components/Loading.vue"
 import StatisticUsers from "./users/StatisticUsers.vue";

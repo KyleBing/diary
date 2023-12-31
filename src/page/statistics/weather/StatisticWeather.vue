@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
-           <chart-line-trend
+           <ChartLineTrend
                v-if="weatherStatisticData.length > 0"
                :height="400"
                :combine-data="weatherStatisticData"/>
@@ -12,43 +12,32 @@
     </transition>
 </template>
 
-<script>
-import {mapState} from "vuex"
-import statisticApi from "../../../api/statisticApi.js";
-import ChartLineTrend from "./ChartLineTrend";
-import utility from "../../../utility.js";
+<script lang="ts" setup>
+import statisticApi from "../../../api/statisticApi.ts";
+import ChartLineTrend from "./ChartLineTrend.vue";
+import {onMounted, ref} from "vue";
+import {dateFormatter} from "../../../utility.ts";
 
-export default {
-    name: "StatisticWeather",
-    components: {ChartLineTrend},
-    computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
-    },
-    data(){
-        return {
-            isShow: false,
-            weatherStatisticData: []
-        }
-    },
-    mounted() {
-        this.isShow = true
-        this.getWeatherData()
-    },
-    methods: {
-        getWeatherData(){
-            statisticApi
-                .weather()
-                .then(res => {
-                    let tempData = res.data.map(item => {
-                        item.temperature = item.temperature === -273 ? null: item.temperature
-                        item.date = utility.dateFormatter(new Date(item.date), 'yyyy-MM-dd')
-                        item.temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
-                        return item
-                    })
-                    this.weatherStatisticData = tempData
-                })
-        }
-    }
+const isShow = ref(false)
+const weatherStatisticData = ref([])
+
+onMounted(()=>{
+    isShow.value = true
+    getWeatherData()
+})
+
+function getWeatherData(){
+    statisticApi
+        .weather()
+        .then(res => {
+            let tempData = res.data.map(item => {
+                item.temperature = item.temperature === -273 ? null: item.temperature
+                item.date = dateFormatter(new Date(item.date), 'yyyy-MM-dd')
+                item.temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
+                return item
+            })
+            weatherStatisticData.value = tempData
+        })
 }
 </script>
 

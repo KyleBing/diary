@@ -4,7 +4,7 @@
     >
         <div class="possible-bill-key-list-item"
              v-for="(item, index) in props.possibleBillItems" :key="index"
-             @click="$emit('selectKey', item.item)"
+             @click="emit('selectKey', item.item)"
         >
             <div class="index">{{index + 1}}</div>
             <div class="value">{{item.item}}</div>
@@ -29,7 +29,7 @@ const props = defineProps({
     },
 })
 
-// emits: ['selectKey'] // TODO: emit
+const emit = defineEmits(['selectKey'])
 </script>
 
 <style scoped lang="scss">

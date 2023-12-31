@@ -48,13 +48,13 @@
 <script lang="ts" setup>
 import ClipboardJS from "clipboard"
 import Loading from "../../components/Loading.vue"
-import diaryApi from "../../api/diaryApi.js"
+import diaryApi from "../../api/diaryApi.ts"
 import {marked} from "marked"
 import calendar from "js-calendar-converter";
 import Moment from "moment";
-import DetailHeader from "../detail/DetailHeader";
-import WordExplode from "../detail/WordExplode";
-import ButtonNormal from "../../components/ButtonNormal";
+import DetailHeader from "../detail/DetailHeader.vue";
+import WordExplode from "../detail/WordExplode.vue";
+import ButtonNormal from "../../components/ButtonNormal.vue";
 import ToDo from "./ToDo.vue";
 
 import {popMessage, dateProcess, temperatureProcessSTC} from "../../utility.ts";
@@ -112,15 +112,7 @@ watch('route.params.id', (newValue) => {
 function toggleContentType(){
     isShowExplode.value = !isShowExplode.value
 }
-function goBack() {
-    router.back()
-}
-function show() {
-    isShowToast.value = true
-}
-function hide() {
-    isShowToast.value = false
-}
+
 function getContentHtml(content: string){
     let isInCodeMode = /\[ ?code ?\]/i.test(content)
 
@@ -147,18 +139,18 @@ function  showDiary(id: number) {
         .detail(requestData)
         .then(res => {
             isLoading.value = false // loading off
-            let diary = res.data
-            diary.value = diary
+            let tempDiary = res.data
+            diary.value = tempDiary
             let dateMoment = new Moment(diary.value.date)
             lunarObject.value = calendar.solar2lunar(dateMoment.year(), dateMoment.month()+1, dateMoment.date())
-            storeProject.currentDiary = diary // 设置 store: currentDiary
-            let dateObj = dateProcess(diary.date)
+            storeProject.currentDiary = tempDiary// 设置 store: currentDiary
+            let dateObj = dateProcess(tempDiary.date)
             diary.value.dateObj = dateObj
             document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title
-            diary.value.temperature = temperatureProcessSTC(diary.temperature)
-            diary.value.temperatureOutside = temperatureProcessSTC(diary.temperature_outside)
+            diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
+            diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
 
-            diary.categoryString = storeProject.categoryNameMap.get(diary.category)
+            tempDiary.categoryString = storeProject.categoryNameMap.get(tempDiary.category)
         })
         .catch(() => {
             isLoading.value = false // loading off

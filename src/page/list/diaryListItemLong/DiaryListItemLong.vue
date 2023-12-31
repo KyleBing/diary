@@ -8,14 +8,14 @@
             <div class="date">{{ props.diary.dateString }}</div>
             <div class="weather">
                 <img v-if="props.diary.weather"
-                     :src="icons.weather[props.diary.weather + suffix]"
+                     :src="SVG_ICONS.weather[props.diary.weather + suffix]"
                      :alt="props.diary.weather">
             </div>
             <div class="week">{{ props.diary.weekday }}</div>
             <div class="category" :style="diaryItemCategoryTextStyle" >{{ props.diary.categoryString }}</div>
         </router-link>
 
-        <div class="article-body" v-if="isHideContent">
+        <div class="article-body" v-if="storeProject.isHideContent">
             <div class="title">{{ props.diary.title.replace(/[^，。 \n]/g, '*') }}</div>
             <div class="content" v-html="props.diary.contentHtml.replace(/[^，。 \n]/g, '*')"/>
         </div>
@@ -27,12 +27,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import {marked} from "marked";
-import SVG_ICONS from "../../../assets/img/SVG_ICONS.ts"
 import {computed} from "vue";
 import {useProjectStore} from "../../../pinia";
 import {useRoute} from "vue-router";
+import SVG_ICONS from "../../../assets/img/SVG_ICONS.ts";
 const storeProject = useProjectStore()
 const route = useRoute()
 

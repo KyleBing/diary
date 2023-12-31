@@ -7,8 +7,8 @@ export default {
     delete(requestData){ return request('delete', {}, requestData, 'diary/delete')},
     detail(params){ return request('get',    params,null, 'diary/detail')},
     share(params) { return request('get',    params, null,'diary/share')},
-    categoryAllGet(params) { return request('get',    null, null,'diary-category/list')},
+    categoryAllGet() { return request('get',    null, null,'diary-category/list')},
     // 导出用户所有日记
     export()  { return request('get'   , null, null, 'diary/export', 120000)}  ,
-    clear(requestData)  { return request('post'   , null, requestData, 'diary/clear')}  ,
+    clear()  { return request('post'   , null, null, 'diary/clear')}  ,
 }

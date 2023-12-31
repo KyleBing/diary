@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import userApi from "../../api/userApi.js"
+import userApi from "../../api/userApi.ts"
 
 import {deleteAuthorization, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";

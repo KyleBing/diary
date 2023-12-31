@@ -4,48 +4,38 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
-           <chart-bar-of-bill-month
-               v-if="weatherStatisticData.length > 0"
+           <ChartBarOfBillMonth
+               v-if="billMonthStatisticData.length > 0"
                :height="400"
-               :combine-data="weatherStatisticData"/>
+               :combine-data="billMonthStatisticData"/>
         </div>
     </transition>
 </template>
 
-<script>
-import {mapState} from "vuex"
-import statisticApi from "../../../api/statisticApi.js";
-import ChartBarOfBillMonth from "./ChartBarOfBillMonth";
+<script lang="ts" setup>
+import statisticApi from "../../../api/statisticApi.ts";
+import ChartBarOfBillMonth from "./ChartBarOfBillMonth.vue";
 
-export default {
-    name: "StatisticBillMonthSum",
-    components: {ChartBarOfBillMonth},
-    computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
-    },
-    data(){
-        return {
-            isShow: false,
-            weatherStatisticData: []
-        }
-    },
-    mounted() {
-        this.isShow = true
-        this.getWeatherData()
-    },
-    methods: {
-        getWeatherData(){
-            statisticApi
-                .monthSum()
-                .then(res => {
-                    this.weatherStatisticData = res.data.map(item => {
-                        item.sumOutput = Math.abs(item.sumOutput)
-                        item.date = item.month_id
-                        return item
-                    })
-                })
-        }
-    }
+import {onMounted, ref} from "vue";
+
+const isShow = ref(false)
+const billMonthStatisticData = ref([])
+
+onMounted(()=>{
+    isShow.value = true
+    getWeatherData()
+})
+
+function getWeatherData(){
+    statisticApi
+        .monthSum()
+        .then(res => {
+            billMonthStatisticData.value = res.data.map(item => {
+                item.sumOutput = Math.abs(item.sumOutput)
+                item.date = item.month_id
+                return item
+            })
+        })
 }
 </script>
 

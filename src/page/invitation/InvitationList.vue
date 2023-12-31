@@ -39,7 +39,7 @@ import TabIcon from "../../components/TabIcon.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
 import ClipboardJS from "clipboard"
-import invitationApi from "../../api/invitationApi.js";
+import invitationApi from "../../api/invitationApi.ts";
 import {popMessage, dateFormatter} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()

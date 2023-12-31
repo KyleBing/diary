@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import statisticApi from "../api/statisticApi.js";
+import statisticApi from "../api/statisticApi.ts";
 import {useProjectStore} from "../pinia";
 const storeProject = useProjectStore()
 import { onMounted } from "vue";

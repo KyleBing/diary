@@ -1,5 +1,5 @@
-import {useProjectStore} from "./pinia";
-const storeProject = useProjectStore()
+// import {useProjectStore} from "./pinia";
+// const storeProject = useProjectStore()
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
@@ -37,7 +37,7 @@ function removeBillKeys(){
 
 // 获取 authorization
 function getAuthorization() {
-   return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME) || '')
+   return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME) || '{}')
 }
 
 // 删除 authorization
@@ -181,7 +181,7 @@ function getDiaryConfig(){
       return {
          isFilterShared: false, // 是否筛选共享日记
          keywords: [], // 关键词
-         filteredCategories: storeProject.categoryAll.map(item => item.name_en), // 筛选的日记类别
+         // filteredCategories: storeProject.categoryAll.map(item => item.name_en), // 筛选的日记类别
          dateFilter: '' // 日记范围
       }
    }

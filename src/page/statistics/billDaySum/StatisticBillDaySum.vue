@@ -4,49 +4,38 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
-           <chart-bar-of-bill-day
-               v-if="weatherStatisticData.length > 0"
+           <ChartBarOfBillDay
+               v-if="billStatisticData.length > 0"
                :height="400"
-               :combine-data="weatherStatisticData"/>
+               :combine-data="billStatisticData"/>
         </div>
     </transition>
 </template>
 
-<script>
-import {mapState} from "vuex"
-import statisticApi from "../../../api/statisticApi.js";
-import utility from "../../../utility.js";
-import ChartBarOfBillDay from "./ChartBarOfBillDay";
+<script lang="ts" setup>
+import statisticApi from "../../../api/statisticApi.ts";
+import ChartBarOfBillDay from "./ChartBarOfBillDay.vue";
+import {onMounted, ref} from "vue";
+import {dateFormatter} from "../../../utility.ts";
 
-export default {
-    name: "StatisticBillDaySum",
-    components: {ChartBarOfBillDay},
-    computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear','dataArrayCategory', 'dataArrayYear']),
-    },
-    data(){
-        return {
-            isShow: false,
-            weatherStatisticData: []
-        }
-    },
-    mounted() {
-        this.isShow = true
-        this.getWeatherData()
-    },
-    methods: {
-        getWeatherData(){
-            statisticApi
-                .daySum()
-                .then(res => {
-                    this.weatherStatisticData = res.data.map(item => {
-                        item.sumOutput = Math.abs(item.sumOutput)
-                        item.date = utility.dateFormatter(new Date(item.date), 'yyyy-MM-dd')
-                        return item
-                    })
-                })
-        }
-    }
+const isShow = ref(false)
+const billStatisticData = ref([])
+
+onMounted(()=>{
+    isShow.value = true
+    getBillData()
+})
+
+function getBillData(){
+    statisticApi
+        .daySum()
+        .then(res => {
+            billStatisticData.value = res.data.map(item => {
+                item.sumOutput = Math.abs(item.sumOutput)
+                item.date = dateFormatter(new Date(item.date), 'yyyy-MM-dd')
+                return item
+            })
+        })
 }
 </script>
 
