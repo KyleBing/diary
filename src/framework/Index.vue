@@ -31,13 +31,13 @@ import {useProjectStore} from "../pinia";
 const storeProject = useProjectStore()
 import {onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
+import {storeToRefs} from "pinia";
 
 const route = useRoute()
 const router = useRouter()
 const refDiaryList = ref()
 
 onMounted(() => {
-    console.log('route.path: ',route.path)
     if(route.path === '/' || route.path === ""){ // TODO: 看是否会遇到
         if (storeProject.isInMobileMode){
             router.push({name: 'List'})
@@ -48,7 +48,8 @@ onMounted(() => {
     getStatistic() // 载入统计信息
 })
 
-watch(storeProject.isShowSearchBar, newValue => {
+const { isShowSearchBar } = storeToRefs(storeProject)
+watch(isShowSearchBar, newValue => {
     if (newValue){
         refDiaryList.value.scrollTo(0, 0)
     } else {

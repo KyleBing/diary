@@ -100,7 +100,7 @@ import Moment from 'moment'
 
 // components
 import EditCategorySelector from "./CategorySelector/EditorCategorySelector.vue"
-import weatherSelector from "./WeatherSelector/WeatherSelector.vue"
+import WeatherSelector from "./WeatherSelector/WeatherSelector.vue"
 import LoadingButton from "../../components/LoadingButton.vue"
 import EditorDateSelector from "./EditorDateSelector.vue";
 import ButtonSmall from "../../components/ButtonSmall.vue";
@@ -124,6 +124,7 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 // ENTITY
 import {DiaryEntity} from "../list/Diary.ts";
 import {CategoryEntity} from "../../entity/Category.ts";
+import {storeToRefs} from "pinia";
 
 const route = useRoute()
 const router = useRouter()
@@ -179,15 +180,13 @@ const possibleBillItems = ref([])
 const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
 
+const refDiaryContent = ref(null)
 
-const refDiaryContent = ref()
-
-
-onBeforeMount(()=>{
-    refDiaryContent.value.onkeydown = null // 去除按键绑定事件
+onBeforeMount(() => {
+    // console.log(refDiaryContent)
+    // (refDiaryContent.value as HTMLTextAreaElement).removeEventListener('keydown', ()=>{}) // 去除按键绑定事件
     window.onkeydown = null // 去除 edit 页面的绑定事件
 })
-
 
 onMounted(()=>{
     // 获取账单常用项目列表
@@ -395,22 +394,22 @@ watch(route, newValue => {
         createDiary()
     }
 })
-watch(diary, {
-    handler(newValue) {
+watch(diary, newValue => {
         updateDiaryIcon()
-        if(newValue.content === ''){
+        if (newValue.content === '') {
             possibleBillItems.value = []
         }
     },
-    deep: true
-})
-watch(storeProject.isDiaryNeedToBeSaved,() => {
-    if (storeProject.isDiaryNeedToBeSaved) {
+    {deep: true}
+)
+const {isDiaryNeedToBeSaved, isDiaryNeedToBeRecovered, isHideContent} = storeToRefs(storeProject)
+watch(isDiaryNeedToBeSaved,newValue => {
+    if (newValue) {
         saveDiary()
     }
 })
-watch(storeProject.isDiaryNeedToBeRecovered, () => {
-    if (storeProject.isDiaryNeedToBeRecovered) {
+watch(isDiaryNeedToBeRecovered, newValue => {
+    if (newValue) {
         recoverDiary()
     }
 })

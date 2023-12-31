@@ -30,7 +30,7 @@ const emit = defineEmits(['change'])
 
 const categorySelected = ref(props.category)
 
-watch(props.category, () => {
+watch(() => props.category, () => {
     categorySelected.value = props.category
 })
 watch(categorySelected, () => {

@@ -46,7 +46,7 @@ onMounted(()=>{
     processContent(props.diary as DiaryEntity)
 })
 
-watch(props.diary, newValue => {
+watch(() => props.diary, newValue => {
     processContent(newValue as DiaryEntity)
 })
 

@@ -1,5 +1,8 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 
+import {useProjectStore} from "../pinia";
+const storeProject = useProjectStore()
+
 import Index from "../framework/Index.vue"
 import Hole from "../framework/Hole.vue"
 import Register from "../page/login&register/Register.vue"
@@ -21,6 +24,7 @@ import RemoveAllYourDiary from "../page/others/RemoveAllYourDiary.vue";
 import DestroyAccount from "../page/others/DestroyAccount.vue";
 import FileManager from "../page/fileManager/FileManager.vue";
 import {getAuthorization} from "../utility.ts";
+
 
 const routes: RouteRecordRaw[] = [
     {
@@ -72,7 +76,11 @@ router.beforeEach((to, _) => {
         default:
             if (getAuthorization() && getAuthorization().email) {
                 if (to.name === 'List') {
-                    return {name: 'EditNew'}
+                    if (storeProject.isInMobileMode) {
+                        return true
+                    } else {
+                        return {name: 'EditNew'}
+                    }
                 } else {
                     return true
                 }

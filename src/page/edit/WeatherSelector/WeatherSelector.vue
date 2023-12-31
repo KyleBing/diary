@@ -24,7 +24,7 @@ const props = defineProps({
 
 const weatherSelected = ref(props.weather)
 
-watch(props.weather, () => {
+watch(() => props.weather, () => {
     weatherSelected.value = props.weather
 })
 watch(weatherSelected, () => {

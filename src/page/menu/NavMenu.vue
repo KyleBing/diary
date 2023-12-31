@@ -79,6 +79,7 @@ import MenuOtherFunction from "../menu/MenuOtherFunction.vue";
 import {useProjectStore} from "../../pinia";
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
+import {storeToRefs} from "pinia";
 
 const storeProject = useProjectStore()
 const router = useRouter()
@@ -97,7 +98,8 @@ const aboutShowed = ref(false)           // 关于页面
 // menu - category
 const categoriesSet = ref(new Set())
 
-watch(storeProject.isMenuShowed, newValue => {
+const { isMenuShowed } = storeToRefs(storeProject)
+watch(isMenuShowed, newValue => {
     if (newValue){
         menuShow()
     } else {

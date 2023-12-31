@@ -64,16 +64,6 @@ onMounted(()=> {
 })
 
 
-const emailVerified = computed(() => {
-    return /(\w|\d)+@(\w|\d)+\.\w+/i.test(email.value)
-})
-const passwordVerified = computed(() => {
-    return password.value.length > 0
-})
-const verified = computed(() => {
-    return emailVerified && passwordVerified
-})
-
 
 const labelEmail = ref("邮箱")
 const email = ref('')
@@ -88,7 +78,7 @@ watch(email, newValue => {
     if (newValue === ''){
         labelEmail.value = '邮箱'
         avatarLink.value = null
-    } else if (emailVerified) {
+    } else if (emailVerified.value) {
         labelEmail.value = '邮箱'
         getAvatar()
     } else {
@@ -97,8 +87,20 @@ watch(email, newValue => {
     }
 })
 
+
+const emailVerified = computed(() => {
+    return /(\w|\d)+@(\w|\d)+\.\w+/i.test(email.value)
+})
+const passwordVerified = computed(() => {
+    return password.value.length > 0
+})
+const verified = computed(() => {
+    return emailVerified && passwordVerified
+})
+
+
 function loginSubmit() {
-    if (verified){
+    if (verified.value){
         loginLabel.value = '登录中...'
         let requestData = {
             email: email.value,
@@ -152,7 +154,9 @@ function getAvatar(){
             email: email.value
         })
         .then(res => {
-            avatarLink.value = res.data.avatar
+            if (res.data){
+                avatarLink.value = res.data.avatar
+            }
         })
 }
 

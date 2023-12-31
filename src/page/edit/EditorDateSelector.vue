@@ -48,7 +48,7 @@ const dateLocal = ref(new Date())
 const lunarObject: Ref<LunarDateEntity> = ref({})
 
 
-watch(props.modelValue, newValue => {
+watch(() => props.modelValue, newValue => {
     dateLocal.value = newValue
 })
 watch(dateLocal, (newValue, oldValue) => {

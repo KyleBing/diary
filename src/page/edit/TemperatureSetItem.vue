@@ -43,7 +43,7 @@ onMounted(()=>{
 
 const temperatureLocal: Ref<null|number|''> = ref(null) // TODO: 确定类型
 
-watch(props.modelValue, newValue => {
+watch(() => props.modelValue, newValue => {
     if (newValue === ''){
         temperatureLocal.value = ''
     } else {

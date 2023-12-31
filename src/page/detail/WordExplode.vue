@@ -83,7 +83,7 @@ onBeforeUnmount(()=>{
     }
 })
 
-watch(props.content, newValue =>{
+watch(() => props.content, newValue =>{
     wordArray.value = splitSentence(newValue)
 })
 watch(indexMin, () => {
