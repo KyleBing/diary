@@ -64,7 +64,7 @@ import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {popMessage} from "../../utility.ts";
 
 const route = useRoute()

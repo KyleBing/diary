@@ -13,3 +13,9 @@ const props = defineProps({
 })
 
 </script>
+<style lang="scss">
+.icon{
+    width: 100px;
+    height: 100px;
+}
+</style>

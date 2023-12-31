@@ -69,7 +69,7 @@
             </div>
 
         </div>
-        <router-link class="back-link" to="/"><img src="../../assets/img/logo/logo.svg" alt="logo">标题日记</router-link>
+        <router-link class="back-link" to="/"><img src="../../assets/icons/logo/logo.svg" alt="logo">标题日记</router-link>
 
     </div>
 </template>
@@ -77,7 +77,7 @@
 <script lang="ts" setup>
 import Loading from "../../components/Loading.vue"
 import diaryApi from "../../api/diaryApi.ts"
-import SvgIcons from "../../assets/img/SVG_ICONS.ts"
+import SvgIcons from "../../assets/icons/SVG_ICONS.ts"
 import {marked} from "marked";
 import ToDo from "../detail/ToDo.vue";
 
@@ -88,7 +88,7 @@ const storeProject = useProjectStore();
 import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {DiaryEntity} from "../list/Diary.ts";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 const router = useRouter()
 const route = useRoute()
 

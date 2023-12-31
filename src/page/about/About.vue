@@ -1,7 +1,7 @@
 <template>
     <div class="about" :style="'height:' + storeProject.insets.heightPanel + 'px'">
         <div class="logo">
-            <img src="../../assets/img/logo/logo_login.svg" alt="LOGO">
+            <img src="../../assets/icons/logo/logo_login.svg" alt="LOGO">
         </div>
         <h3 class="title">{{packageInfo.nameZh}}</h3>
         <h4 class="subtitle">{{packageInfo.description}}</h4>

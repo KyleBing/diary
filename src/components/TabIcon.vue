@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import ICONS from "../assets/img/SVG_ICONS.ts";
+import ICONS from "../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
 
 const props = defineProps({

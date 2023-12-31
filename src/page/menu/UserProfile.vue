@@ -2,7 +2,7 @@
     <div class="user-profile">
         <div class="avatar">
             <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logoIcon.login" alt="Avatar">
-            <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
+            <img v-else src="../../assets/icons/logo/logo_avatar.svg" alt="Avatar">
         </div>
         <div class="user-info mt-1 mb-4">
             <div class="user">
@@ -27,7 +27,7 @@ import projectConfig from "../../projectConfig.ts";
 import {ref} from "vue";
 import {useProjectStore} from "../../pinia";
 import {deleteAuthorization, getAuthorization} from "../../utility.ts";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 
 const router = useRouter()

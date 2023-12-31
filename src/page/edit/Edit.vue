@@ -119,7 +119,7 @@ import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, nextTick, onBeforeMount, onMounted, Ref, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 // ENTITY
 import {DiaryEntity} from "../list/Diary.ts";

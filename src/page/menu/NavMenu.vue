@@ -72,7 +72,7 @@ import About from "../about/About.vue"
 import packageInfo from "../../../package.json"
 import MenuListItem from "../menu/MenuListItem.vue"
 import MenuCategoryIndicator from "./MenuCategoryIndicator.vue"
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts"
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 import UserProfile from "../menu/UserProfile.vue";
 import MenuOtherFunction from "../menu/MenuOtherFunction.vue";
 

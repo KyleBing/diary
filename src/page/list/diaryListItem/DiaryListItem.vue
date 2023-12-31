@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import SVG_ICONS from "../../../assets/img/SVG_ICONS.ts"
+import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts"
 import {computed} from "vue";
 import {useProjectStore} from "../../../pinia";
 const storeProject = useProjectStore()

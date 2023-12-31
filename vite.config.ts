@@ -13,7 +13,7 @@ export default defineConfig({
              * Input directory
              * @default 'src/assets/images/svg/*.svg'
              */
-            icons: 'src/assets/img/**/*.svg',
+            icons: 'src/assets/images/icons/weather/*.svg',
             /**
              * Output directory
              * @default 'src/public/images'
@@ -48,11 +48,11 @@ export default defineConfig({
     ],
     server: {
         proxy: {
-            '/api': {
+            '/dev': {
                 // target: 'http://localhost:3000',
                 target: 'http://kylebing.cn:3000',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '/api'),
+                rewrite: (path) => path.replace(/^\/dev/, '/'),
             },
         }
     }

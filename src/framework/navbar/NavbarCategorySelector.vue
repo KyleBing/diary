@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import {onMounted, ref} from "vue";
-import {getDiaryConfig} from "../../utility.ts";
+import {getDiaryConfigFromLocalStorage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 import {CategoryEntity} from "../../entity/Category.ts";
 
@@ -38,7 +38,7 @@ const storeProject = useProjectStore()
 const filterShared = ref(false) // 是否筛选已共享的日记
 
 onMounted(() => {
-    filterShared.value = getDiaryConfig().isFilterShared
+    filterShared.value = getDiaryConfigFromLocalStorage().isFilterShared
 })
 
 function toggleFilterShared(){

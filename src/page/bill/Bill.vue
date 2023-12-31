@@ -113,7 +113,7 @@ const storeProject = useProjectStore();
 import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 
 const billYearData = ref([])

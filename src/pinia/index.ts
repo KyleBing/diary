@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import SVG_ICONS from "../assets/img/SVG_ICONS.ts";
-import {getDiaryConfig, getAuthorization, setDiaryConfig} from "../utility.ts";
+import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
+import {getDiaryConfigFromLocalStorage, getAuthorization, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity} from "../page/list/Diary.ts";
 
 export const useProjectStore = defineStore('projectStore', {
@@ -72,7 +72,7 @@ export const useProjectStore = defineStore('projectStore', {
     actions: {
         initProjectConfig(){
             // 初始化 LocalStorage 存储对象
-            let diaryConfig = getDiaryConfig()
+            let diaryConfig = getDiaryConfigFromLocalStorage()
             this.filteredCategories = diaryConfig.filteredCategories
             this.keywords = diaryConfig.keywords
             this.dateFilter = diaryConfig.dateFilter
@@ -84,13 +84,13 @@ export const useProjectStore = defineStore('projectStore', {
 const mutations = {
     SET_DATE_FILTER(state, payload){
         state.dateFilter = payload
-        let diaryConfig = getDiaryConfig()
+        let diaryConfig = getDiaryConfigFromLocalStorage()
         diaryConfig.dateFilter = payload
         setDiaryConfig(diaryConfig)
     },
     SET_STATISTICS_YEAR(state, payload){
         // 如果没有任何年份数据，清除 dateFilter 数字
-        let diaryConfig = getDiaryConfig()
+        let diaryConfig = getDiaryConfigFromLocalStorage()
         if (payload){
 
         } else {
@@ -102,19 +102,19 @@ const mutations = {
     },
     SET_IS_FILTER_SHARED (state, payload){
         state.isFilterShared = payload
-        let diaryConfig = getDiaryConfig()
+        let diaryConfig = getDiaryConfigFromLocalStorage()
         diaryConfig.isFilterShared = payload
         setDiaryConfig(diaryConfig)
     },
     SET_FILTERED_CATEGORIES(state, payload){
         state.filteredCategories = payload
-        let diaryConfig = getDiaryConfig()
+        let diaryConfig = getDiaryConfigFromLocalStorage()
         diaryConfig.filteredCategories = payload
         setDiaryConfig(diaryConfig)
     },
     SET_KEYWORD (state, payload){
         state.keywords = payload
-        let diaryConfig = getDiaryConfig()
+        let diaryConfig = getDiaryConfigFromLocalStorage()
         diaryConfig.keywords = payload
         setDiaryConfig(diaryConfig)
     },

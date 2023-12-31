@@ -173,11 +173,12 @@ function temperatureProcessCTS(temperature: number|string){
 }
 
 
-function getDiaryConfig(){
+function getDiaryConfigFromLocalStorage(){
    let diaryConfigString = localStorage.getItem('DiaryConfig')
    if (diaryConfigString){
       return JSON.parse(diaryConfigString)
    } else {
+      // 如果不存在配置，生成一个新的
       return {
          isFilterShared: false, // 是否筛选共享日记
          keywords: [], // 关键词
@@ -205,6 +206,6 @@ export {
    deleteAuthorization,
    temperatureProcessSTC,
    temperatureProcessCTS,
-   getDiaryConfig, setDiaryConfig, deleteDiaryConfig,
+   getDiaryConfigFromLocalStorage, setDiaryConfig, deleteDiaryConfig,
    saveBillKeys,getBillKeys
 }

@@ -2,7 +2,7 @@
     <div class="bg" :style="`height: ${storeProject.insets.windowsHeight}px`">
         <div class="not-found">
             <div class="logo">
-                <img src="../assets/img/logo/logo_server_error.svg" alt="logo error">
+                <img src="../assets/icons/logo/logo_server_error.svg" alt="logo error">
             </div>
             <h1>访问的页面不存在</h1>
             <h1><router-link to="/">返回主页</router-link></h1>

@@ -21,14 +21,14 @@
 
 <script lang="ts" setup>
 import {onMounted, ref, watch} from "vue";
-import {getDiaryConfig} from "../../../utility.ts";
+import {getDiaryConfigFromLocalStorage} from "../../../utility.ts";
 import {useProjectStore} from "../../../pinia";
 
 const storeProject = useProjectStore()
 
 const monthChosen = ref('')
 onMounted(()=>{
-    monthChosen.value = getDiaryConfig().dateFilter || ''
+    monthChosen.value = getDiaryConfigFromLocalStorage().dateFilter || ''
 })
 
 watch(monthChosen, newValue => {

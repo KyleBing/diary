@@ -32,7 +32,7 @@ import {marked} from "marked";
 import {computed} from "vue";
 import {useProjectStore} from "../../../pinia";
 import {useRoute} from "vue-router";
-import SVG_ICONS from "../../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
 const storeProject = useProjectStore()
 const route = useRoute()
 

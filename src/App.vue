@@ -22,7 +22,7 @@ const isServerError = ref(false)
 
 onBeforeMount(() => {
     // 日记项目载入后，隐藏 preloading
-    document.querySelector('.preloading').style.display = 'none'
+    (document.querySelector('.preloading') as HTMLDivElement).style.display = 'none'
 
     // 获取当前颜色模式
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -65,7 +65,7 @@ onMounted(()=> {
 
 function getCategoryAll() {
     diaryApi
-        .categoryAllGet()
+        .getCategoryAll()
         .then(res => {
             storeProject.categoryAll = res.data
         })

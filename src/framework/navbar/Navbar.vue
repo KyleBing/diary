@@ -153,7 +153,7 @@ import TabIcon from "../../components/TabIcon.vue"
 import Loading from "../../components/Loading.vue";
 import diaryApi from "../../api/diaryApi.ts";
 import NavMenu from "../../page/menu/NavMenu.vue";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import Clock from "./Clock.vue";
 import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelector.vue";
 

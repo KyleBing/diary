@@ -1,7 +1,7 @@
 import axios from "axios";
 import {getAuthorization} from "./utility";
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? '': '../portal/'
+const BASE_URL = import.meta.env.MODE === 'development' ? '/dev/': '../portal/'
 
 function request(method: 'post'|'get'|'patch'|'put'|'delete', params: {}|null, requestData: {}|null, url: string, timeout = 30000) {
 

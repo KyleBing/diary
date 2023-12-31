@@ -1,9 +1,5 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 
-import {useProjectStore} from "../pinia";
-const storeProject = useProjectStore()
-
-
 import Index from "../framework/Index.vue"
 import Hole from "../framework/Hole.vue"
 import Register from "../page/login&register/Register.vue"
@@ -76,11 +72,7 @@ router.beforeEach((to, _) => {
         default:
             if (getAuthorization() && getAuthorization().email) {
                 if (to.name === 'List') {
-                    if (storeProject.isInMobileMode) {
-                        return true
-                    } else {
-                        return {name: 'EditNew'}
-                    }
+                    return {name: 'EditNew'}
                 } else {
                     return true
                 }

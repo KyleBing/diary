@@ -12,7 +12,7 @@
 import {onMounted, ref} from "vue";
 import {CategoryEntity} from "../../entity/Category.ts";
 import {useProjectStore} from "../../pinia";
-import {getDiaryConfig} from "../../utility.ts";
+import {getDiaryConfigFromLocalStorage} from "../../utility.ts";
 const storeProject = useProjectStore()
 const categories = ref([])
 
@@ -28,7 +28,7 @@ const props = defineProps({
 })
 
 onMounted(()=>{
-    categories.value = getDiaryConfig().filteredCategories
+    categories.value = getDiaryConfigFromLocalStorage().filteredCategories
 })
 
 function indicatorItemStyle(category: CategoryEntity): string{

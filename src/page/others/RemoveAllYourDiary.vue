@@ -10,7 +10,7 @@
                     <div class="logo-wrapper">
                         <div class="logo">
                             <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logoIcon.login" alt="Avatar">
-                            <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
+                            <img v-else src="../../assets/icons/logo/logo_avatar.svg" alt="Avatar">
                         </div>
                         <div class="desc">
                             <p>这是你最后反悔的机会</p>
@@ -42,7 +42,7 @@ import {getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "../../pinia";
 import {useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 const storeProject = useProjectStore()
 const router = useRouter()

@@ -40,12 +40,12 @@ import diaryApi from "../../api/diaryApi.ts"
 import Loading from "../../components/Loading.vue"
 import DiaryListHoleItem from "./DiaryListHoleItem.vue"
 
-import {dateProcess, getDiaryConfig} from "../../utility.ts";
+import {dateProcess, getDiaryConfigFromLocalStorage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntity} from "../list/Diary.ts";
 
 const route = useRoute()
@@ -77,7 +77,7 @@ const diaries:Ref<DiaryEntity[]> = ref([])
 onMounted(()=>{
     document.title = '日记' // 变更标题
     // init
-    keywordShow.value = getDiaryConfig().keywords && getDiaryConfig().keywords.join(' ')
+    keywordShow.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
     nextTick(()=>{
         addScrollEvent()
     })
@@ -175,9 +175,9 @@ function reload() {
 function loadMore() {
     isHasMore.value = false
     isLoading.value = true
-    params.value.categories = JSON.stringify(getDiaryConfig().filteredCategories)
-    params.value.dateFilter = getDiaryConfig().dateFilter
-    params.value.filterShared = getDiaryConfig().isFilterShared ? 1 : 0
+    params.value.categories = JSON.stringify(getDiaryConfigFromLocalStorage().filteredCategories)
+    params.value.dateFilter = getDiaryConfigFromLocalStorage().dateFilter
+    params.value.filterShared = getDiaryConfigFromLocalStorage().isFilterShared ? 1 : 0
     getDiaries(params.value)
 }
 function getDiaries(params: SearchParamsDiaryList) {

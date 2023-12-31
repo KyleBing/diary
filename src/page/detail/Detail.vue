@@ -67,7 +67,7 @@ import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
 const route = useRoute()
 
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntity} from "../list/Diary.ts";
 
 const isShowToast = ref(false)

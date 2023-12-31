@@ -27,7 +27,7 @@
 <script lang="ts" setup>
 
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
-import {getDiaryConfig} from "../../utility.ts";
+import {getDiaryConfigFromLocalStorage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 import {CategoryEntity} from "../../entity/Category.ts";
 
@@ -37,9 +37,9 @@ const filterShared = ref(false) // 是否筛选已共享的日记
 const categories: Ref<string[]> = ref([]) // category
 
 onMounted(()=>{
-    filterShared.value = getDiaryConfig().isFilterShared
+    filterShared.value = getDiaryConfigFromLocalStorage().isFilterShared
     nextTick(() => {
-        categories.value = getDiaryConfig().filteredCategories
+        categories.value = getDiaryConfigFromLocalStorage().filteredCategories
     })
 })
 

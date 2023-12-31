@@ -8,7 +8,7 @@
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
                         <img v-if="formUser.avatar" :src="formUser.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logoIcon.changeAvatar" alt="Diary Logo">
-                        <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
+                        <img v-else src="../../assets/icons/logo/logo_avatar.svg" alt="Avatar">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
                 </div>
@@ -69,7 +69,7 @@ import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore();
 import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/img/SVG_ICONS.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 const router = useRouter()
 

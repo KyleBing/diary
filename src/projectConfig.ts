@@ -1,6 +1,6 @@
 export default {
     adminEmail: 'xxxx@163.com', // 网站管理员邮箱账号，网站遇到错误时会显示这个邮箱账号
-    isShowDemoAccount: false, // 是否显示登录页右下角的 “演示账户”
+    isShowDemoAccount: true, // 是否显示登录页右下角的 “演示账户”
 
     // 七牛云
     // 地址： https://portal.qiniu.com/kodo/overview
