@@ -75,7 +75,7 @@ const router = useRouter()
 
 
 const show = ref(false)
-const avatarFile = null // 头像文件
+let avatarFile = null // 头像文件
 const formUser = ref({
     nickname: '',
     phone: '',
