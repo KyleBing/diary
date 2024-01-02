@@ -9,37 +9,18 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref} from "vue";
-import {CategoryEntity} from "../../entity/Category.ts";
-import {useProjectStore} from "../../pinia";
-import {getDiaryConfigFromLocalStorage} from "../../utility.ts";
+import {CategoryEntity} from "@/entity/Category.ts";
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
-const categories = ref([])
-
-const props = defineProps({
-    menuName:{
-        type: String,
-        default: '菜单'
-    },
-    addOnText:{
-        type: String,
-        default: ''
-    },
-})
-
-onMounted(()=>{
-    categories.value = getDiaryConfigFromLocalStorage().filteredCategories
-})
 
 function indicatorItemStyle(category: CategoryEntity): string{
-    if (categories.value.indexOf(category.name_en) > -1){
+    if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
         return `background-color: ${category.color};`
         // return `border-bottom: 1px solid ${category.color};`
     } else {
         return ``
     }
 }
-
 
 </script>
 

@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
 import {getDiaryConfigFromLocalStorage, getAuthorization, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity} from "../page/list/Diary.ts";
+import {CategoryEntity} from "../entity/Category.ts";
 
 console.log('pinia is loaded, inside pinia file')
 
@@ -35,7 +36,7 @@ export const useProjectStore = defineStore('projectStore', {
         isSavingDiary: false ,                   // 是否正在保存日记
         isMenuShowed: false ,                    // 显示菜单
 
-        editLogoImg: SVG_ICONS.logo ,             // 编辑页LOGO
+        editLogoImg: SVG_ICONS.logo_icons.logo , // 编辑页LOGO
         listOperation:{} ,                       // 列表页的操作，增删改操作，一般不再重新加载列表
 
         categoryAll : [],
@@ -73,54 +74,58 @@ export const useProjectStore = defineStore('projectStore', {
         },
     },
     actions: {
-        initProjectConfig(){
+        INIT_PROJECT_CONFIG(){
             // 初始化 LocalStorage 存储对象
             let diaryConfig = getDiaryConfigFromLocalStorage()
             this.filteredCategories = diaryConfig.filteredCategories
             this.keywords = diaryConfig.keywords
             this.dateFilter = diaryConfig.dateFilter
             this.isFilterShared = diaryConfig.isFilterShared
-        }
+        },
+        // 设置是否显示共享
+        SET_IS_FILTERED_SHARED (payload: boolean){
+            this.isFilterShared = payload
+            let diaryConfig = getDiaryConfigFromLocalStorage()
+            diaryConfig.isFilterShared = payload
+            setDiaryConfig(diaryConfig)
+        },
+        // 设置类别筛选
+        SET_FILTERED_CATEGORIES(payload: string[]){
+            this.filteredCategories = payload
+            let diaryConfig = getDiaryConfigFromLocalStorage()
+            diaryConfig.filteredCategories = payload
+            setDiaryConfig(diaryConfig)
+        },
+        SET_STATISTICS_YEAR(state, payload){
+            // 如果没有任何年份数据，清除 dateFilter 数字
+            let diaryConfig = getDiaryConfigFromLocalStorage()
+            if (payload){
+
+            } else {
+                diaryConfig.dateFilter = ''
+                state.dateFilter = '' // 同时变更 state 中的数据
+            }
+            setDiaryConfig(diaryConfig)
+            state.statisticsYear = payload
+        },
+        SET_DATE_FILTER(payload){
+            this.dateFilter = payload
+            let diaryConfig = getDiaryConfigFromLocalStorage()
+            diaryConfig.dateFilter = payload
+            setDiaryConfig(diaryConfig)
+        },
+
+        SET_KEYWORD (payload){
+            this.keywords = payload
+            let diaryConfig = getDiaryConfigFromLocalStorage()
+            diaryConfig.keywords = payload
+            setDiaryConfig(diaryConfig)
+        },
     }
 })
 
 const mutations = {
-    SET_DATE_FILTER(state, payload){
-        state.dateFilter = payload
-        let diaryConfig = getDiaryConfigFromLocalStorage()
-        diaryConfig.dateFilter = payload
-        setDiaryConfig(diaryConfig)
-    },
-    SET_STATISTICS_YEAR(state, payload){
-        // 如果没有任何年份数据，清除 dateFilter 数字
-        let diaryConfig = getDiaryConfigFromLocalStorage()
-        if (payload){
 
-        } else {
-            diaryConfig.dateFilter = ''
-            state.dateFilter = '' // 同时变更 state 中的数据
-        }
-        setDiaryConfig(diaryConfig)
-        state.statisticsYear = payload
-    },
-    SET_IS_FILTER_SHARED (state, payload){
-        state.isFilterShared = payload
-        let diaryConfig = getDiaryConfigFromLocalStorage()
-        diaryConfig.isFilterShared = payload
-        setDiaryConfig(diaryConfig)
-    },
-    SET_FILTERED_CATEGORIES(state, payload){
-        state.filteredCategories = payload
-        let diaryConfig = getDiaryConfigFromLocalStorage()
-        diaryConfig.filteredCategories = payload
-        setDiaryConfig(diaryConfig)
-    },
-    SET_KEYWORD (state, payload){
-        state.keywords = payload
-        let diaryConfig = getDiaryConfigFromLocalStorage()
-        diaryConfig.keywords = payload
-        setDiaryConfig(diaryConfig)
-    },
 }
 
 

@@ -27,23 +27,13 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref} from "vue";
-import {getDiaryConfigFromLocalStorage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
-import {CategoryEntity} from "../../entity/Category.ts";
+import {useProjectStore} from "@/pinia";
+import {CategoryEntity} from "@/entity/Category.ts";
 
 const storeProject = useProjectStore()
 
-
-const filterShared = ref(false) // 是否筛选已共享的日记
-
-onMounted(() => {
-    filterShared.value = getDiaryConfigFromLocalStorage().isFilterShared
-})
-
 function toggleFilterShared(){
-    filterShared.value = !storeProject.isFilterShared
-    storeProject.isFilterShared = filterShared.value
+    storeProject.SET_IS_FILTERED_SHARED(!storeProject.isFilterShared)
     storeProject.isListNeedBeReload = true
 }
 function toggleCategory(category: CategoryEntity){
@@ -55,12 +45,8 @@ function toggleCategory(category: CategoryEntity){
     }
     storeProject.isListNeedBeReload = true
 }
-function selectCategoryAll() {
-    storeProject.filteredCategories = storeProject.categoryAll.map(item => item.name_en)
-    storeProject.isListNeedBeReload = true
-}
 function selectCategoryNone() {
-    storeProject.filteredCategories = []
+    storeProject.SET_FILTERED_CATEGORIES([])
     storeProject.isListNeedBeReload = true
 }
 function reverseCategorySelect() {
@@ -68,19 +54,11 @@ function reverseCategorySelect() {
     storeProject.filteredCategories.forEach(item => {
         tempCategories.splice(tempCategories.indexOf(item), 1)
     })
-    storeProject.filteredCategories = tempCategories
+    storeProject.SET_FILTERED_CATEGORIES(tempCategories)
     storeProject.isListNeedBeReload = true
 }
 
 // STYLE
-function indicatorItemStyle(category: CategoryEntity){
-    if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
-        return `background-color: ${category.color};`
-        // return `border-bottom: 1px solid ${category.color};`
-    } else {
-        return ``
-    }
-}
 function categoryMenuItemStyle(category: CategoryEntity){
     if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
         return `color: ${category.color}; opacity: 1; font-weight: bold;`

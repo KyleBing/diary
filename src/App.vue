@@ -44,7 +44,7 @@ onMounted(()=> {
     getCategoryAll()
 
     // 从本地配置文件中载入配置
-    storeProject.initProjectConfig()
+    storeProject.INIT_PROJECT_CONFIG()
 
     window.onresize = () => {
         storeProject.insets = {
