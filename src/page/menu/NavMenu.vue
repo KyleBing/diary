@@ -19,7 +19,7 @@
 
                     <!-- 3. 年份筛选 -->
                     <MenuListItem menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
-                                    :add-on-text="storeProject.dateFilter">
+                                    :add-on-text="storeProject.dateFilterString">
                     </MenuListItem>
                     <MenuListItem menu-name="统计数据"  :icon="SVG_ICONS.tab_icons.statistics"  @click="goToPage('Statistics')" />
                     <MenuListItem menu-name="账单"     :icon="SVG_ICONS.tab_icons.bill"        @click="goToPage('Bill')" />

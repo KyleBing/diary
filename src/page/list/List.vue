@@ -74,7 +74,7 @@ interface SearchParams {
     pageSize: number, // 单页请求条数
     categories: string[],
     filterShared: 0|1, // 1 是筛选，0 是不筛选
-    dateFilter: string // 日记年月筛选
+    dateFilterString: string // 日记年月筛选
 }
 const params: Ref<SearchParams> = ref({
     keywords: [],
@@ -82,7 +82,7 @@ const params: Ref<SearchParams> = ref({
     pageSize: 100, // 单页请求条数
     categories: [],
     filterShared: 0, // 1 是筛选，0 是不筛选
-    dateFilter: '' // 日记年月筛选
+    dateFilterString: '' // 日记年月筛选
 })
 
 
@@ -166,7 +166,7 @@ function loadMore() {
     isHasMore.value = false
     isLoading.value = true
     params.value.categories = JSON.stringify(storeProject.filteredCategories)
-    params.value.dateFilter = storeProject.dateFilter
+    params.value.dateFilterString = storeProject.dateFilterString // TODO: portal change dateFilter -> dateFilterString
     params.value.filterShared = storeProject.isFilterShared ? 1 : 0
     getDiaries()
 }

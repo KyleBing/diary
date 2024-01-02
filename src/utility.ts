@@ -191,7 +191,7 @@ interface DiaryConfigEntity {
     isFilterShared: boolean, // 是否筛选共享日记
     keywords: string[], // 关键词
     filteredCategories: string[], // 筛选的日记类别
-    dateFilter: string // 日记范围
+    dateFilterString: string // 日记范围
 }
 
 function getDiaryConfigFromLocalStorage() {
@@ -204,7 +204,7 @@ function getDiaryConfigFromLocalStorage() {
             isFilterShared: false, // 是否筛选共享日记
             keywords: [], // 关键词
             filteredCategories: getCategoryAll().map(item => item.name_en), // 筛选的日记类别
-            dateFilter: '' // 日记范围
+            dateFilterString: '' // 日记范围
         }
         setDiaryConfig(newDiaryConfig)
         return newDiaryConfig

@@ -6,7 +6,7 @@
                 <sup class="count">{{ year.count }}</sup>
             </div>
             <div class="year-list">
-                <div :class="['year-month-item', {active: monthChosen === month.id}]"
+                <div :class="['year-month-item', {active: storeProject.dateFilterString === month.id}]"
                      v-for="(month, indexMonth) in year.months"
                      @click="monthClicked(month.id)"
                      :key="indexMonth">
@@ -20,26 +20,14 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref, watch} from "vue";
-import {getDiaryConfigFromLocalStorage} from "../../../utility.ts";
-import {useProjectStore} from "../../../pinia";
-
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 
-const monthChosen = ref('')
-onMounted(()=>{
-    monthChosen.value = getDiaryConfigFromLocalStorage().dateFilter || ''
-})
-
-watch(monthChosen, newValue => {
-    storeProject.dateFilter = newValue
-})
-
-function monthClicked(id) {
-    if (id === monthChosen.value) {
-        monthChosen.value = ''
+function monthClicked(monthId: string) {
+    if (monthId === storeProject.dateFilterString) {
+        storeProject.SET_DATE_FILTER_STRING('')
     } else {
-        monthChosen.value = id
+        storeProject.SET_DATE_FILTER_STRING(monthId)
     }
 }
 </script>

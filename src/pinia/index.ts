@@ -19,7 +19,7 @@ export const useProjectStore = defineStore('projectStore', {
 
         // LIST FILTER
         isFilterShared: false ,                  // 是否筛选共享的日记
-        dateFilter: '' ,                         // 日期筛选
+        dateFilterString: '' ,                         // 日期筛选
         keywords: [] ,                           // 搜索关键字
         filteredCategories: [] ,                 // 筛选的类别
 
@@ -79,7 +79,7 @@ export const useProjectStore = defineStore('projectStore', {
             let diaryConfig = getDiaryConfigFromLocalStorage()
             this.filteredCategories = diaryConfig.filteredCategories
             this.keywords = diaryConfig.keywords
-            this.dateFilter = diaryConfig.dateFilter
+            this.dateFilterString = diaryConfig.dateFilterString
             this.isFilterShared = diaryConfig.isFilterShared
         },
         // 设置是否显示共享
@@ -97,24 +97,23 @@ export const useProjectStore = defineStore('projectStore', {
             setDiaryConfig(diaryConfig)
         },
         SET_STATISTICS_YEAR(state, payload){
-            // 如果没有任何年份数据，清除 dateFilter 数字
+            // 如果没有任何年份数据，清除 dateFilterString 数字
             let diaryConfig = getDiaryConfigFromLocalStorage()
             if (payload){
 
             } else {
-                diaryConfig.dateFilter = ''
-                state.dateFilter = '' // 同时变更 state 中的数据
+                diaryConfig.dateFilterString = ''
+                state.dateFilterString = '' // 同时变更 state 中的数据
             }
             setDiaryConfig(diaryConfig)
             state.statisticsYear = payload
         },
-        SET_DATE_FILTER(payload){
-            this.dateFilter = payload
+        SET_DATE_FILTER_STRING(payload: string){
+            this.dateFilterString = payload
             let diaryConfig = getDiaryConfigFromLocalStorage()
-            diaryConfig.dateFilter = payload
+            diaryConfig.dateFilterString = payload
             setDiaryConfig(diaryConfig)
         },
-
         SET_KEYWORD (payload){
             this.keywords = payload
             let diaryConfig = getDiaryConfigFromLocalStorage()

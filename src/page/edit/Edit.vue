@@ -169,7 +169,7 @@ const requestData = ref({ // 请求本周日志的 requestData
     pageSize: 15, // 单页请求条数
     categories: JSON.stringify(['work']),
     filterShared: 0, // 1 是筛选，0 是不筛选
-    dateFilter: '' // 日记年月筛选
+    dateFilterString: '' // 日记年月筛选
 })
 
 /**

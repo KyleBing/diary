@@ -62,7 +62,7 @@ interface SearchParamsDiaryList {
     pageSize: number, // 单页请求条数
     categories: string[],
     filterShared: 0 | 1, // 1 是筛选，0 是不筛选
-    dateFilter: string // 日记年月筛选
+    dateFilterString: string // 日记年月筛选
 }
 const params: Ref<SearchParamsDiaryList> = ref({
     keywords: [], // TODO: confirm is string or array
@@ -70,7 +70,7 @@ const params: Ref<SearchParamsDiaryList> = ref({
     pageSize: 150, // 单页请求条数
     categories: [],
     filterShared: 0, // 1 是筛选，0 是不筛选
-    dateFilter: '' // 日记年月筛选
+    dateFilterString: '' // 日记年月筛选
 })
 const diaries:Ref<DiaryEntity[]> = ref([])
 
@@ -176,7 +176,7 @@ function loadMore() {
     isHasMore.value = false
     isLoading.value = true
     params.value.categories = JSON.stringify(getDiaryConfigFromLocalStorage().filteredCategories)
-    params.value.dateFilter = getDiaryConfigFromLocalStorage().dateFilter
+    params.value.dateFilterString = getDiaryConfigFromLocalStorage().dateFilterString
     params.value.filterShared = getDiaryConfigFromLocalStorage().isFilterShared ? 1 : 0
     getDiaries(params.value)
 }

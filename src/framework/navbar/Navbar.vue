@@ -57,8 +57,8 @@
                 </div>
                 <div class="btn-text-group"
                      v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode && storeProject.dateFilter">
-                    <div class="btn-text" @click="clearDateFilter">{{ storeProject.dateFilter }}</div>
+                     v-if="!storeProject.isInMobileMode && storeProject.dateFilterString">
+                    <div class="btn-text" @click="clearDateFilter">{{ storeProject.dateFilterString }}</div>
                 </div>
 
                 <NavbarCategorySelector
@@ -232,7 +232,7 @@ function commitBack(){
     }
 }
 function clearDateFilter(){
-    storeProject.dateFilter = ''
+    storeProject.dateFilterString = ''
     storeProject.isListNeedBeReload = true
 }
 
