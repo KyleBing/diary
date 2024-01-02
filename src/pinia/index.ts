@@ -123,8 +123,4 @@ export const useProjectStore = defineStore('projectStore', {
     }
 })
 
-const mutations = {
-
-}
-
 

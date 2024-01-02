@@ -64,9 +64,11 @@ const route = useRoute()
 const showDiaryList: Ref<DiaryEntity[]> = ref(true)
 const isHasMore = ref(true)
 const isLoading = ref(true)
-const keywordShow = ref('') // 关键词
 const diaries: Ref<DiaryEntity[]> = ref([])
 const diariesShow: Ref<DiaryEntity[]> = ref([])
+
+const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
+
 
 interface SearchParams {
     keywords: string[],
@@ -89,12 +91,12 @@ const params: Ref<SearchParams> = ref({
 onMounted(()=>{
     document.title = '日记' // 变更标题
     // init
-    keywordShow.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
+    keywordShow.value = storeProject.keywords && storeProject.keywords.join(' ')
     nextTick(()=>{
         addScrollEvent()
     })
     storeProject.isShowSearchBar = !!keywordShow.value
-    reload() // 载入日记列表
+    reloadDiaryList() // 载入日记列表
 })
 
 
@@ -144,18 +146,33 @@ function refreshDiariesShow(){
     diariesShow.value = tempShowArray
 }
 
-/* MENU 相关 */
+/* KEYWORD 相关 */
+const keywordShow = ref('') // 关键词
+
 function search() {
-    storeProject.keywords = keywordShow.value.split(' ')
-    reload()
+    reloadDiaryList()
 }
+
+watch(isShowSearchBar, newValue => {
+    if (newValue){
+        nextTick(() => {
+            document.querySelector('#keyword').focus()
+        })
+    }
+})
+watch(keywordShow, newValue => {
+    console.log(newValue, typeof newValue)
+    storeProject.SET_KEYWORD(newValue.split(' '))
+})
+// route 载入 `/` 路径时，重载日记列表：比如删除日记后
+
 function clearKeyword() {
     keywordShow.value = ''
     search()
 }
-function reload() {
+function reloadDiaryList() {
     params.value.pageNo = 1
-    params.value.keywords = JSON.stringify(storeProject.keywords.value)
+    params.value.keywords = JSON.stringify(storeProject.keywords)
     diaries.value = []
     diariesShow.value = []
     loadMore()
@@ -227,30 +244,16 @@ function addScrollEvent() {
 }
 
 
-const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
-
-watch(isShowSearchBar, newValue => {
-    if (newValue){
-        nextTick(() => {
-            document.querySelector('#keyword').focus()
-        })
-    }
-})
-// route 载入 `/` 路径时，重载日记列表：比如删除日记后
-
 
 watch(route, (newValue) => {
     if (newValue.path === '/') {
-        reload()
+        reloadDiaryList()
     }
-})
-watch(keywordShow, newValue => {
-    keywordShow.value = newValue.split(' ')
 })
 
 watch(isListNeedBeReload, newValue => {
     if (newValue) {
-        reload()
+        reloadDiaryList()
     }
 })
 
