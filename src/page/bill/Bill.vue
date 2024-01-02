@@ -10,7 +10,6 @@
                         <textarea rows="3"
                                   placeholder="多个关键字，空格间隔"
                                   v-model.trim="formSearch.keyword"
-                                  type="text"
                                   name="invitation"
                                   id="invitation"/>
                     </div>

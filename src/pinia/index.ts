@@ -114,7 +114,7 @@ export const useProjectStore = defineStore('projectStore', {
             diaryConfig.dateFilterString = payload
             setDiaryConfig(diaryConfig)
         },
-        SET_KEYWORD (payload){
+        SET_KEYWORD (payload: string[]){
             this.keywords = payload
             let diaryConfig = getDiaryConfigFromLocalStorage()
             diaryConfig.keywords = payload

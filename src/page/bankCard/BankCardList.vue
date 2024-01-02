@@ -66,10 +66,11 @@ import ClipboardJS from "clipboard"
 import bankCardApi from "../../api/bankCardApi.ts"
 
 import diaryApi from "../../api/diaryApi.ts"
-import {popMessage} from "../../utility.ts";
+import {getCategoryAll, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
+import {useRouter} from "vue-router";
 
 const cardListExample = [
     {
@@ -111,6 +112,7 @@ const cardListAll: Ref<BankCardEntity[]> = ref([])
 const cardListStore = ref([])
 const cardListCredit = ref([])
 const clipboard = ref(null) // clipboard obj
+const router = useRouter()
 
 onMounted(()=>{
     getBankCards()
@@ -122,7 +124,7 @@ onBeforeUnmount(()=>{
 // 编辑银行卡信息
 function editCardInfo(){
     let params = {
-        categories: JSON.stringify(storeProject.categoryAll.map(item => item.name_en)),
+        categories: JSON.stringify(getCategoryAll().map(item => item.name_en)),
         keywords: JSON.stringify(['我的银行卡列表']),
         pageSize: 100,
         pageNo: 1
@@ -131,18 +133,15 @@ function editCardInfo(){
         .list(params)
         .then(res => {
             if (res.data.length === 1){
-                this.$router.push({
+                router.push({
                     name: 'Edit',
                     params: {
                         id: res.data[0].id
                     }
                 })
             } else {
-                popMessage('warning', '未找到对应的日记内容')
+                popMessage('warning', '未找到名为 “我的银行卡列表” 的日记内容')
             }
-        })
-        .catch(err => {
-
         })
 }
 
