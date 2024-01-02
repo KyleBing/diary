@@ -246,7 +246,7 @@ function menuShow() {
     storeProject.isMenuShowed = true
 }
 function menuClose() {
-    storeProject.isMenuShowed = true
+    storeProject.isMenuShowed = false
 }
 function toggleListStyle() {
     if (!storeProject.isMenuShowed) {

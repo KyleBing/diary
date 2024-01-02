@@ -173,6 +173,12 @@ function temperatureProcessCTS(temperature: number | string) {
     return temperature === '' ? -273 : String(temperature)
 }
 
+interface DiaryConfigEntity {
+    isFilterShared: boolean, // 是否筛选共享日记
+    keywords: string[], // 关键词
+    filteredCategories: string[], // 筛选的日记类别
+    dateFilter: string // 日记范围
+}
 
 function getDiaryConfigFromLocalStorage() {
     let diaryConfigString = localStorage.getItem('DiaryConfig')
@@ -180,16 +186,18 @@ function getDiaryConfigFromLocalStorage() {
         return JSON.parse(diaryConfigString)
     } else {
         // 如果不存在配置，生成一个新的
-        return {
+        let newDiaryConfig: DiaryConfigEntity = {
             isFilterShared: false, // 是否筛选共享日记
             keywords: [], // 关键词
-            // filteredCategories: storeProject.categoryAll.map(item => item.name_en), // 筛选的日记类别
+            filteredCategories: getCategoryAll().map(item => item.name_en), // 筛选的日记类别
             dateFilter: '' // 日记范围
         }
+        setDiaryConfig(newDiaryConfig)
+        return newDiaryConfig
     }
 }
 
-function setDiaryConfig(newValue: string) {
+function setDiaryConfig(newValue: DiaryConfigEntity) {
     localStorage.setItem('DiaryConfig', JSON.stringify(newValue))
 }
 
@@ -198,10 +206,10 @@ function removeDiaryConfig() {
 }
 
 
-function getCategoryAll(newValue: string): CategoryEntity[] {
+function getCategoryAll(): CategoryEntity[] {
     let categoryAllString = localStorage.getItem('CategoryAll')
     if (categoryAllString) {
-        return JSON.parse(newValue) as CategoryEntity[]
+        return JSON.parse(categoryAllString) as CategoryEntity[]
     } else {
         return []
     }

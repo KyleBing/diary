@@ -16,6 +16,7 @@ export const useProjectStore = defineStore('projectStore', {
         statisticsCategory: {} ,                 // 统计信息
         statisticsYear: {} ,                     // 统计信息
 
+        // LIST FILTER
         isFilterShared: false ,                  // 是否筛选共享的日记
         dateFilter: '' ,                         // 日期筛选
         keywords: [] ,                           // 搜索关键字

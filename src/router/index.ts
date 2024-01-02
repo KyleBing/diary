@@ -27,7 +27,8 @@ const routes: RouteRecordRaw[] = [
     {
         name: 'Index',
         path: '/',
-        component: Index ,
+        component: Index,
+        redirect: "/list",
         children: [
             {name: 'List'   , path: 'list'      ,        component: List}, // mobile
             {name: 'Detail' , path: 'detail/:id',        component: Detail},

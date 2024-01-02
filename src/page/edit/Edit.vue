@@ -361,8 +361,8 @@ onMounted(()=>{
 
 onBeforeRouteLeave((to, from, next) => {
     // 在跳转到其它页面之前判断日记是否已保存
-    if (diaryHasChanged) {
-        popMessage('warning', '当前日记未保存', next(false))
+    if (diaryHasChanged.value) {
+        popMessage('warning', '当前日记未保存', ()=>{})
     } else {
         next()
     }

@@ -68,6 +68,7 @@ function getCategoryAll() {
     diaryApi
         .getCategoryAll()
         .then(res => {
+            storeProject.categoryAll = res.data
             setCategoryAll(res.data)
             console.log('app is loaded all categories')
         })

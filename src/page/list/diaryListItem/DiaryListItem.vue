@@ -7,14 +7,14 @@
         <i :class="['category']" :style="`background-color: ${storeProject.categoryObjectMap.get(diary.category).color}`"></i>
         <span class="date">{{ diary.date }}</span>
         <div class="detail">
-            <p class="title" v-if="isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
+            <p class="title" v-if="storeProject.isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
             <template v-if="diary.hasOwnProperty('billData')">
-                <div v-if="isHideContent" :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
-                    {{diary.billData.sum.toFixed(moneyAccuracy).replace(/[^，。 \n]/g, '*')}}
+                <div v-if="storeProject.isHideContent" :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
+                    {{diary.billData.sum.toFixed(storeProject.moneyAccuracy).replace(/[^，。 \n]/g, '*')}}
                 </div>
                 <div v-else :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
-                    {{diary.billData.sum>0?'+ ':''}}{{diary.billData.sum.toFixed(moneyAccuracy)}}
+                    {{diary.billData.sum>0?'+ ':''}}{{diary.billData.sum.toFixed(storeProject.moneyAccuracy)}}
                 </div>
             </template>
 

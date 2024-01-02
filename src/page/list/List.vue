@@ -56,6 +56,7 @@ const storeProject = useProjectStore()
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {DiaryEntity, DiaryListOperation} from "./Diary.ts";
+import {storeToRefs} from "pinia";
 const router = useRouter()
 const route = useRoute()
 
@@ -154,7 +155,7 @@ function clearKeyword() {
 }
 function reload() {
     params.value.pageNo = 1
-    params.value.keywords = JSON.stringify(keywords.value)
+    params.value.keywords = JSON.stringify(storeProject.keywords.value)
     diaries.value = []
     diariesShow.value = []
     loadMore()
@@ -164,14 +165,14 @@ function reload() {
 function loadMore() {
     isHasMore.value = false
     isLoading.value = true
-    params.value.categories = JSON.stringify(getDiaryConfigFromLocalStorage().filteredCategories)
-    params.value.dateFilter = getDiaryConfigFromLocalStorage().dateFilter
-    params.value.filterShared = getDiaryConfigFromLocalStorage().isFilterShared ? 1 : 0
-    getDiaries(params.value)
+    params.value.categories = JSON.stringify(storeProject.filteredCategories)
+    params.value.dateFilter = storeProject.dateFilter
+    params.value.filterShared = storeProject.isFilterShared ? 1 : 0
+    getDiaries()
 }
-function getDiaries(params) {
+function getDiaries() {
     diaryApi
-        .list(params)
+        .list(params.value)
         .then(res => {
             let newDiariesList = res.data.map(diary => {
                 if (diary.content) {
@@ -202,10 +203,10 @@ function getDiaries(params) {
         })
 }
 function addScrollEvent() {
-    document.querySelector('.diary-list-container').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
+    document.querySelector('.diary-list-container')!.addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
         /* 判断是否加载内容*/
         function needLoadContent() {
-            let lastNode = document.querySelector('.diary-list-group > div:last-child')
+            let lastNode = document.querySelector('.diary-list-group > div:last-child') as HTMLDivElement
             if (!lastNode) {
                 return false
             }
@@ -225,7 +226,10 @@ function addScrollEvent() {
     })
 }
 
-watch(storeProject.isShowSearchBar, newValue => {
+
+const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
+
+watch(isShowSearchBar, newValue => {
     if (newValue){
         nextTick(() => {
             document.querySelector('#keyword').focus()
@@ -241,16 +245,16 @@ watch(route, (newValue) => {
     }
 })
 watch(keywordShow, newValue => {
-    storeProject.keywords = newValue.split(' ')
+    keywordShow.value = newValue.split(' ')
 })
 
-watch(storeProject.isListNeedBeReload, () => {
-    if (storeProject.isListNeedBeReload) {
+watch(isListNeedBeReload, newValue => {
+    if (newValue) {
         reload()
     }
 })
 
-watch(storeProject.listOperation, ({type, diary, id}: DiaryListOperation) => {
+watch(listOperation, ({type, diary, id}: DiaryListOperation) => {
     // console.log('list operation: ', type,diary,id)
     switch (type) {
         case 'add':

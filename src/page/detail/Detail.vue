@@ -103,9 +103,9 @@ const contentMarkDownHtml = computed(()=>{
     return marked.parse(diary.value.content)
 })
 
-watch('route.params.id', (newValue) => {
+watch(() => route.params.id, (newValue) => {
     if (newValue){
-        showDiary(newValue)
+        showDiary(Number(newValue))
     }
 })
 

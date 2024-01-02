@@ -38,13 +38,6 @@ const router = useRouter()
 const refDiaryList = ref()
 
 onMounted(() => {
-    if(route.path === '/' || route.path === ""){ // TODO: 看是否会遇到
-        if (storeProject.isInMobileMode){
-            router.push({name: 'List'})
-        } else {
-            router.push({name: 'EditNew'})
-        }
-    }
     getStatistic() // 载入统计信息
 })
 
