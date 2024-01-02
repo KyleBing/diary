@@ -161,12 +161,12 @@ watch(isShowSearchBar, newValue => {
     }
 })
 watch(keywordShow, newValue => {
-    console.log(newValue, typeof newValue)
     storeProject.SET_KEYWORD(newValue.split(' '))
 })
 // route 载入 `/` 路径时，重载日记列表：比如删除日记后
 
 function clearKeyword() {
+    storeProject.SET_KEYWORD([])
     keywordShow.value = ''
     search()
 }
@@ -183,7 +183,7 @@ function loadMore() {
     isHasMore.value = false
     isLoading.value = true
     params.value.categories = JSON.stringify(storeProject.filteredCategories)
-    params.value.dateFilterString = storeProject.dateFilterString // TODO: portal change dateFilter -> dateFilterString
+    params.value.dateFilterString = storeProject.dateFilterString
     params.value.filterShared = storeProject.isFilterShared ? 1 : 0
     getDiaries()
 }

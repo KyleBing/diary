@@ -48,8 +48,8 @@ import packageInfo from "../../../package.json"
 import userApi from "../../api/userApi.ts"
 import billApi from "../../api/billApi.ts";
 
-import {popMessage, setAuthorization, setBillKeys} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
@@ -111,17 +111,17 @@ function loginSubmit() {
             .login(requestData)
             .then(res => {
                 // set authorization
-                setAuthorization(
-                    res.data.nickname,
-                    res.data.uid,
-                    res.data.email,
-                    res.data.phone,
-                    res.data.avatar,
-                    res.data.password,
-                    res.data.group_id,
-                    res.data.city,
-                    res.data.geolocation,
-                )
+                setAuthorization({
+                    nickname : res.data.nickname,
+                    uid : res.data.uid,
+                    email : res.data.email,
+                    phone : res.data.phone,
+                    avatar : res.data.avatar,
+                    token : res.data.password,
+                    group_id : res.data.group_id,
+                    city : res.data.city,
+                    geolocation : res.data.geolocation,
+                })
                 getBillKeys()
                 popMessage('success', res.message, () => router.push({name: 'Index'}))
                 loginLabel.value = '登录成功'

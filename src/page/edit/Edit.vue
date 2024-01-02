@@ -112,10 +112,10 @@ import {
     getBillKeys,
     getAuthorization,
     temperatureProcessSTC, temperatureProcessCTS, dateFormatter
-} from "../../utility.ts";
+} from "@/utility.ts";
 import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 import {computed, nextTick, onBeforeMount, onMounted, Ref, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
@@ -123,7 +123,7 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 // ENTITY
 import {DiaryEntity} from "../list/Diary.ts";
-import {CategoryEntity} from "../../entity/Category.ts";
+import {CategoryEntity} from "@/entity/Category.ts";
 import {storeToRefs} from "pinia";
 
 const route = useRoute()
@@ -135,7 +135,7 @@ const isNew = ref(true)
 const isLoading = ref(false)
 
 const diary: Ref<DiaryEntity> = ref({
-    id: "",
+    id: null,
     title: "",
     content: "",
     is_public: false,
@@ -147,7 +147,7 @@ const diary: Ref<DiaryEntity> = ref({
     temperature_outside: '',
 })
 const diaryOrigin: Ref<DiaryEntity> = ref({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
-    id: "",
+    id: null,
     title: "",
     content: "",
     is_public: false,
@@ -203,8 +203,7 @@ onMounted(()=>{
         // 新建日记
         createDiary()
     } else {
-        diary.value.id = route.params.id
-        getDiary(route.params.id)
+        getDiary(route.params.id as string)
     }
 
     // key binding
@@ -402,6 +401,7 @@ watch(diary, newValue => {
     },
     {deep: true}
 )
+
 const {isDiaryNeedToBeSaved, isDiaryNeedToBeRecovered, isHideContent} = storeToRefs(storeProject)
 watch(isDiaryNeedToBeSaved,newValue => {
     if (newValue) {
@@ -616,11 +616,12 @@ function getDiary(diaryId: string) {
                 diary.value.content = tempDiary.content
             }
 
+            diary.value.id = tempDiary.id
             diary.value.category = tempDiary.category
             diary.value.date = new Date(tempDiary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
             diary.value.weather = tempDiary.weather
-            diary.value.is_public = tempDiary.is_public === 1
-            diary.value.is_markdown = tempDiary.is_markdown === 1
+            diary.value.is_public = !!tempDiary.is_public
+            diary.value.is_markdown = !!tempDiary.is_markdown
             diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
             diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
             Object.assign(diaryOrigin.value, diary.value) // 不能直接赋值，赋值的是它的引用
@@ -636,16 +637,6 @@ function saveDiary() {
         diary.value.title = '' // clear content
         popMessage('warning', '内容未填写', null)
         storeProject.isDiaryNeedToBeSaved = false// 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
-        return
-    }
-    if (diary.value.temperature !== '' && !/^-?\d{1,2}$/.test(diary.value.temperature)) {
-        popMessage('warning', '室内温度格式不正确', null)
-        storeProject.isDiaryNeedToBeSaved = false
-        return
-    }
-    if (diary.value.temperature_outside !== '' && !/^-?\d{1,2}$/.test(diary.value.temperature_outside)) {
-        popMessage('warning', '室外温度格式不正确', null)
-        storeProject.isDiaryNeedToBeSaved = false
         return
     }
     let requestData = {
@@ -721,7 +712,7 @@ function createDiary() {
     }
     isNew.value = true
     diary.value = {
-        id: "",
+        id: null,
         title: "",
         content: "",
         is_public: 0,

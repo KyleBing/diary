@@ -2,14 +2,33 @@
 // const storeProject = useProjectStore()
 
 import {CategoryEntity} from "./entity/Category.ts";
+import {AuthorizationEntity} from "./entity/Authorization.ts";
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
 
-// 设置 authorization TODO: geolocation type uncertain
-function setAuthorization(nickname: string, uid: number, email: string, phone: string, avatar: string, token: string, group_id: number, city: string, geolocation: string | []) {
+/**
+ *  AUTHORIZATION
+ */
+function getAuthorization(): AuthorizationEntity | {} {
+    return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME) || '{}')
+}
+
+function deleteAuthorization() {
+    localStorage.removeItem(AUTHORIZATION_NAME)
+    removeBillKeys()
+}
+function setAuthorization(auth: AuthorizationEntity) {
     localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
-        nickname, uid, email, phone, avatar, token, group_id, city, geolocation
+        nickname: auth.nickname,
+        uid: auth.uid,
+        email: auth.email,
+        phone: auth.phone,
+        avatar: auth.avatar,
+        token: auth.token,
+        group_id: auth.group_id,
+        city: auth.city,
+        geolocation: auth.geolocation
     }))
 }
 
@@ -37,16 +56,7 @@ function removeBillKeys() {
     localStorage.removeItem(BILL_KEYS_NAME)
 }
 
-// 获取 authorization
-function getAuthorization() {
-    return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME) || '{}')
-}
 
-// 删除 authorization
-function deleteAuthorization() {
-    localStorage.removeItem(AUTHORIZATION_NAME)
-    removeBillKeys()
-}
 
 
 /**
@@ -100,8 +110,7 @@ const WEEKDAY_SHORT = {0: '日', 1: '一', 2: '二', 3: '三', 4: '四', 5: '五
 
 
 // 格式化时间，输出字符串
-function dateFormatter(date: Date, formatString?: string | undefined | null) {
-    formatString = formatString || 'yyyy-MM-dd hh:mm:ss'
+function dateFormatter(date: Date, formatString: string = 'yyyy-MM-dd hh:mm:ss') {
     let dateRegArray = {
         "M+": date.getMonth() + 1,                      // 月份
         "d+": date.getDate(),                           // 日
@@ -184,7 +193,7 @@ function temperatureProcessSTC(temperature: number | string) {
 }
 
 function temperatureProcessCTS(temperature: number | string) {
-    return temperature === '' ? -273 : String(temperature)
+    return temperature === '' ? -273 : Number(temperature)
 }
 
 interface DiaryConfigEntity {

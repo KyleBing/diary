@@ -43,12 +43,8 @@ import TabIcon from "../../components/TabIcon.vue";
 import fileManagerApi from "../../api/fileManagerApi";
 import Modal from "../../components/Modal.vue";
 
-import {popMessage} from "../../utility.ts";
-import {computed, onMounted, ref} from "vue";
-
-onMounted(()=>{
-    // TODO: clipboard init
-})
+import {popMessage} from "@/utility.ts";
+import {computed, ref} from "vue";
 
 const props = defineProps({
     fileInfo: {

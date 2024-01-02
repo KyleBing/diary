@@ -15,7 +15,7 @@ export default {
     // 和风天气开发 key
     // 官网地址：https://console.qweather.com/
     // API文档：https://dev.qweather.com/docs/api/weather/
-    HefengWeatherKey: '',
+    HefengWeatherKey: 'c5894aea6ce2495ca0f78a2963c04d57',
 
     // 注册说明 <HTML格式文本>
     registerTip: ``

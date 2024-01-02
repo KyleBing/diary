@@ -1,12 +1,10 @@
 <template>
     <div :class="['temperature-set-item',{active: !!temperatureLocal}]">
         <input placeholder="--"
-               @keydown="keyPressed"
-               @wheel="mouseWheelScrolled"
                class="temperature"
                name="temperature"
                id="temperature"
-               v-model="temperatureLocal"
+               v-model.lazy.trim="temperatureLocal"
         >
         <div class="unit">{{unit}}</div>
     </div>
@@ -31,70 +29,31 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
+// 最后一个正确的值，如果接下来的输入操作不正常，将回退到这个值
+// 初始值一定是正确的。
+const lastCorrectValue = ref('')
+
 onMounted(()=>{
     nextTick(() => {
-        if (props.modelValue === ''){
-            temperatureLocal.value = ''
-        } else {
-            temperatureLocal.value = Number(props.modelValue)
-        }
+        temperatureLocal.value = props.modelValue
+        lastCorrectValue.value = props.modelValue
     })
 })
 
-const temperatureLocal: Ref<null|number|''> = ref(null) // TODO: 确定类型
+const temperatureLocal: Ref<string> = ref('')
 
 watch(() => props.modelValue, newValue => {
-    if (newValue === ''){
-        temperatureLocal.value = ''
-    } else {
-        temperatureLocal.value = Number(newValue)
-    }
+    temperatureLocal.value = newValue
+
 })
 watch(temperatureLocal, newValue => {
-    emit('update:modelValue', String(newValue))
-})
-
-
-function mouseWheelScrolled(event){
-    event.preventDefault()
-    if (temperatureLocal.value === ''){
-        temperatureLocal.value = 20 // 数值变化从 20 开始
-    }
-    if (event.deltaY > 0){
-        temperatureLocal.value = temperatureLocal.value + 1
+    if (/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(newValue)){
+        lastCorrectValue.value = newValue
+        emit('update:modelValue', newValue)
     } else {
-        temperatureLocal.value = temperatureLocal.value - 1
+        temperatureLocal.value = lastCorrectValue.value
     }
-    emit('update:modelValue', String(temperatureLocal.value))
-}
-function keyPressed(event){
-    switch (event.key){
-        case 'ArrowUp':
-            if (temperatureLocal.value === ''){
-                temperatureLocal.value = 20 // 数值变化从 20 开始
-            }
-            if (event.metaKey || event.ctrlKey){
-                temperatureLocal.value = temperatureLocal.value + 10
-            } else {
-                temperatureLocal.value = temperatureLocal.value + 1
-            }
-            event.preventDefault()
-            break;
-        case 'ArrowDown':
-            if (temperatureLocal.value === ''){
-                temperatureLocal.value = 20 // 数值变化从 20 开始
-            }
-            if (event.metaKey || event.ctrlKey){
-                temperatureLocal.value = temperatureLocal.value - 10
-            } else {
-                temperatureLocal.value = temperatureLocal.value - 1
-            }
-            event.preventDefault()
-            break;
-        default: break
-    }
-    emit('update:modelValue', String(temperatureLocal.value))
-}
+})
 
 </script>
 

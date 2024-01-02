@@ -48,8 +48,8 @@ import FileListItem from "./FileListItem.vue";
 import Modal from "../../components/Modal.vue";
 import FileSelector from "../../components/FileSelector.vue";
 
-import {popMessage, dateFormatter} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {popMessage, dateFormatter} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 import {onMounted, onUnmounted, ref} from "vue";
 

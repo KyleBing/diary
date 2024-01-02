@@ -65,7 +65,7 @@ interface SearchParamsDiaryList {
     dateFilterString: string // 日记年月筛选
 }
 const params: Ref<SearchParamsDiaryList> = ref({
-    keywords: [], // TODO: confirm is string or array
+    keywords: [],
     pageNo: 1,
     pageSize: 150, // 单页请求条数
     categories: [],
