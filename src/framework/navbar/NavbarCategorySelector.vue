@@ -58,12 +58,14 @@ export default {
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
         toggleCategory(category){
+            let tempCategories = [...this.filteredCategories]
             let index = this.filteredCategories.indexOf(category.name_en)
             if ( index > -1) {
-                this.filteredCategories.splice(index, 1)
+                tempCategories.splice(index, 1)
             } else {
-                this.filteredCategories.push(category.name_en)
+                tempCategories.push(category.name_en)
             }
+            this.SET_FILTERED_CATEGORIES(tempCategories)
             this.SET_IS_LIST_NEED_BE_RELOAD(true)
         },
         selectCategoryAll() {
