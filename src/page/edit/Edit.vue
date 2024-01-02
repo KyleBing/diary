@@ -19,11 +19,11 @@
                 />
                 <label class="hidden"></label>
                 <textarea
-                    ref="refDiaryContent"
+                    ref="refDiaryContentTextArea"
                     v-model="diary.content"
                     :style="storeProject.insets.windowsWidth > 1366 ? `height: ${storeProject.insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
-                    @input="contentUpdate($event)"
+                    @input="contentUpdate($event as InputEvent)"
                     class="content"></textarea>
                 <div class="editor-float-btn" v-if="diary.is_markdown">
                     <ButtonSmall @click="toggleSpaceShow">切换空格显示</ButtonSmall>
@@ -180,11 +180,11 @@ const possibleBillItems = ref([])
 const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
 
-const refDiaryContent = ref(null)
+const refDiaryContentTextArea = ref(null)
 
 onBeforeMount(() => {
-    // console.log(refDiaryContent)
-    // (refDiaryContent.value as HTMLTextAreaElement).removeEventListener('keydown', ()=>{}) // 去除按键绑定事件
+    // console.log(refDiaryContentTextArea)
+    // (refDiaryContentTextArea.value as HTMLTextAreaElement).removeEventListener('keydown', ()=>{}) // 去除按键绑定事件
     window.onkeydown = null // 去除 edit 页面的绑定事件
 })
 
@@ -194,7 +194,7 @@ onMounted(()=>{
 
     // 网页标签关闭前提醒
     window.onbeforeunload = () => {
-        if (diaryHasChanged) {
+        if (diaryHasChanged.value) {
             return "日记内容已改变，显示提示框"
         }
     }
@@ -208,7 +208,7 @@ onMounted(()=>{
     }
 
     // key binding
-    nextTick( _=> {
+    nextTick( () => {
         // 页面快捷键
         window.onkeydown = event => {
             // CTRL + S 保存
@@ -218,7 +218,7 @@ onMounted(()=>{
             }
         }
         // 编辑器快捷键
-        refDiaryContent.value.onkeydown = event => {
+        refDiaryContentTextArea.value.onkeydown = event => {
             if (possibleBillItems.value.length > 0) {
                 switch (event.key) {
                     case 'Tab':
@@ -244,7 +244,7 @@ onMounted(()=>{
                 // CTRL + ArrowLeft 移到最左端
                 if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
                     event.preventDefault()
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
                     let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex)
                     let textBefore = linesBefore.join('\n')
@@ -262,7 +262,7 @@ onMounted(()=>{
                 // CTRL + ArrowRight 移到最右端
                 if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowRight') {
                     event.preventDefault()
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
                     let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex + 1)
                     let textBefore = linesBefore.join('\n')
@@ -275,7 +275,7 @@ onMounted(()=>{
                 // CTRL + D 复选行
                 if ((event.ctrlKey || event.metaKey) && event.key === 'd') {
                     event.preventDefault()
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
 
                     textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 0, textAreaInfo.cursorLineContent)
@@ -287,7 +287,7 @@ onMounted(()=>{
 
                 // CTRL + X 删除行
                 if ((event.ctrlKey || event.metaKey) && event.key === 'x') {
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
                     // 只有未选择任何内容的时候
                     if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
@@ -306,7 +306,7 @@ onMounted(()=>{
 
                 // CTRL + C 复制行
                 if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
 
                     // 只有未选择任何内容的时候
@@ -321,7 +321,7 @@ onMounted(()=>{
                 // shift + tab
                 if (event.shiftKey && event.key === 'Tab') {
                     event.preventDefault()
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
 
                     let tempLine = textAreaInfo.cursorLineContent
@@ -344,7 +344,7 @@ onMounted(()=>{
                 } else if (event.key === 'Tab') {
                     // tab
                     event.preventDefault()
-                    let textarea = refDiaryContent.value // dom
+                    let textarea = refDiaryContentTextArea.value // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
                     let contentBeforeCursor = diary.value.content.substring(0, textAreaInfo.cursorSelectionStart)
                     let contentAfterCursor = diary.value.content.substring(textAreaInfo.cursorSelectionStart)
@@ -387,9 +387,9 @@ const diaryHasChanged = computed(() => {
 })
 
 
-watch(route, newValue => {
-    if (newValue.params.id) {
-        getDiary(newValue.params.id)
+watch(() => route.params.id, newDiaryId => {
+    if (newDiaryId) {
+        getDiary(newDiaryId)
     } else {
         createDiary()
     }
@@ -443,7 +443,7 @@ function insertNewBillKey(billKey: string){
     lineArray.pop()
     lineArray.push(billKey + ' ')
     diary.value.content = lineArray.join('\n')
-    refDiaryContent.value.focus()
+    refDiaryContentTextArea.value.focus()
 }
 
 // contentUpdate
@@ -569,6 +569,9 @@ function getCurrentTemperature(){
                     diaryOrigin.value.weather =  getWeatherNameFromCode(res.data.now.icon)
                 }
             })
+            .catch(err => {
+                console.log(err)
+            })
     } else {
         console.log('没有配置地域信息')
         // popMessage('warning', '没有配置地域信息', null)
@@ -588,42 +591,43 @@ function setWeather(data) {
     diary.value.weather = data
 }
 function updateDiaryIcon() {
-    document.title = diaryHasChanged ? '日记 - 编辑中...' : '日记' // 变更标题
-    storeProject.isDiaryEditorContentHasChanged = diaryHasChanged
-    if (diaryHasChanged) {
-        storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_content: SVG_ICONS.logo_title
+    document.title = diaryHasChanged.value ? '日记 - 编辑中...' : '日记' // 变更标题
+    storeProject.isDiaryEditorContentHasChanged = diaryHasChanged.value
+    if (diaryHasChanged.value) {
+        storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content: SVG_ICONS.logo_icons.logo_title
     } else {
-        storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_content_saved: SVG_ICONS.logo_title_saved
+        storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content_saved: SVG_ICONS.logo_icons.logo_title_saved
     }
 }
-function getDiary(id: number) {
+function getDiary(diaryId: string) {
     // 编辑日记
     diaryApi
         .detail({
-            diaryId: id
+            diaryId: diaryId
         })
         .then(res => {
-            let diary = res.data
+            let tempDiary = res.data
 
             if (storeProject.isHideContent){
-                diary.value.title = diary.title.replace(/[^，。 \n]/g, '*')
-                diary.value.content = diary.content.replace(/[^，。 \n]/g, '*')
+                diary.value.title = tempDiary.title.replace(/[^，。 \n]/g, '*')
+                diary.value.content = tempDiary.content.replace(/[^，。 \n]/g, '*')
             } else {
-                diary.value.title = diary.title
-                diary.value.content = diary.content
+                diary.value.title = tempDiary.title
+                diary.value.content = tempDiary.content
             }
 
-            diary.value.category = diary.category
-            diary.value.date = new Date(diary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
-            diary.value.weather = diary.weather
-            diary.value.is_public = diary.is_public === 1
-            diary.value.is_markdown = diary.is_markdown === 1
-            diary.value.temperature = temperatureProcessSTC(diary.temperature)
-            diary.value.temperature_outside = temperatureProcessSTC(diary.temperature_outside)
+            diary.value.category = tempDiary.category
+            diary.value.date = new Date(tempDiary.date.replace(' ', 'T')) // safari 只识别 2020-10-27T14:35:33 格式的日期
+            diary.value.weather = tempDiary.weather
+            diary.value.is_public = tempDiary.is_public === 1
+            diary.value.is_markdown = tempDiary.is_markdown === 1
+            diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
+            diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
             Object.assign(diaryOrigin.value, diary.value) // 不能直接赋值，赋值的是它的引用
 
         })
-        .catch(() => {
+        .catch(err => {
+            console.log('EDIT: get diary info error: ', err)
             router.push({name: 'List'})
         })
 }
