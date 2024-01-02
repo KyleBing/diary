@@ -90,7 +90,7 @@ onMounted( () => {
     }
     nextTick(()=> {
         initChart()
-        resetData(props.data.value)
+        resetData(props.data)
     })
 })
 

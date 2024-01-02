@@ -63,7 +63,7 @@ const props = defineProps({
     },
 })
 
-watch( props.data, newValue => {
+watch( () => props.data, newValue => {
     if (newValue) {
         resetData(newValue)
     }
