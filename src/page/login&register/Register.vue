@@ -7,7 +7,7 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper">
                     <div class="logo">
-                        <img :src="SVG_ICONS.logoIcon.register" alt="Diary Logo">
+                        <img :src="SVG_ICONS.logo_icons.logo_register" alt="Diary Logo">
                     </div>
                     <div class="project-name">注册</div>
                 </div>

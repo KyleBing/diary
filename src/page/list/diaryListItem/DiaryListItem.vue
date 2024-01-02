@@ -49,12 +49,12 @@ const props = defineProps({
 
 const weatherIcon = computed(() => {
     if (props.isActive) {
-        return SVG_ICONS.weather[`${props.diary.weather}_white`]
+        return SVG_ICONS.weather_icons[`${props.diary.weather}_white`]
     } else {
         if (props.diary.is_public) {
-            return SVG_ICONS.weather[`${props.diary.weather}_active`]
+            return SVG_ICONS.weather_icons[`${props.diary.weather}_active`]
         } else {
-            return SVG_ICONS.weather[props.diary.weather]
+            return SVG_ICONS.weather_icons[props.diary.weather]
         }
     }
 })

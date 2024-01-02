@@ -7,7 +7,7 @@
 
         <div class="weather-wrapper">
             <div class="weather">
-                <img v-if="props.diary.weather" :src="SVG_ICONS.weather[`${props.diary.weather}_active`]" :alt="props.diary.weather">
+                <img v-if="props.diary.weather" :src="SVG_ICONS.weather_icons[`${props.diary.weather}_active`]" :alt="props.diary.weather">
             </div>
             <div class="temperatures">
                 <div class="temperature" v-if="props.diary.temperature">

@@ -1,21 +1,33 @@
 <template>
-    <svg class="icon" aria-hidden="true">
-        <use :xlink:href="`/images/sprite.svg#${props.icon}`"></use>
-    </svg>
+    <component
+        :viewBox="`0 0 ${size} ${size}`"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+        :is="svgIcon" />
 </template>
 
 <script lang="ts" setup>
+import {defineAsyncComponent} from "vue";
+
 const props = defineProps({
     icon: {
         type: String,
         required: true
+    },
+    size: {
+        type: Number,
+        default: 50,
+        required: true
     }
 })
 
+const svgIcon = defineAsyncComponent(() =>
+    import(`./${props.icon}.svg?url`)
+)
+
 </script>
+
 <style lang="scss">
-.icon{
-    width: 100px;
-    height: 100px;
-}
+
 </style>

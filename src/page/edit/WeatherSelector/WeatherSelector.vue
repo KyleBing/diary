@@ -1,10 +1,10 @@
 <template>
     <div class="weather-selector">
-        <div class="weather" @click="chooseWeather(item.title)" v-for="item in WeatherArray" :key="item.title">
+        <div class="weather" @click="chooseWeather(item.value)" v-for="item in WeatherArray" :key="item.value">
             <img
-                :src="weatherSelected === item.title? SVG_ICONS.weather[item.title + '_active'] :  SVG_ICONS.weather[item.title]"
-                :alt="item.name"
-                :title="item.name">
+                :src="weatherSelected === item.value? SVG_ICONS.weather_icons[item.value + '_active'] :  SVG_ICONS.weather_icons[item.value]"
+                :alt="item.label"
+                :title="item.label">
         </div>
     </div>
 </template>

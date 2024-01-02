@@ -9,7 +9,7 @@
                 <div id="reg">
                     <div class="logo-wrapper">
                         <div class="logo">
-                            <img :src="SVG_ICONS.logoIcon.changePassword" alt="Diary Logo">
+                            <img :src="SVG_ICONS.logo_icons.logo_change_password" alt="Diary Logo">
                         </div>
                         <div class="project-name">修改密码</div>
                     </div>

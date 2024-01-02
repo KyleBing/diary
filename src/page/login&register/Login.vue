@@ -7,7 +7,8 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper">
                     <div :class="['logo', {valid: avatarLink} ]">
-                        <img :src="avatarLink || SVG_ICONS.logoIcon.login" alt="Diary Logo">
+                        <img v-if="avatarLink" :src="avatarLink" alt="Diary Logo">
+                        <img v-else src="../../assets/icons/logo/logo_login.svg" alt="">
                     </div>
                 </div>
 

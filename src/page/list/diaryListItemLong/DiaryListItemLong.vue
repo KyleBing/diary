@@ -8,7 +8,7 @@
             <div class="date">{{ props.diary.dateString }}</div>
             <div class="weather">
                 <img v-if="props.diary.weather"
-                     :src="SVG_ICONS.weather[props.diary.weather + suffix]"
+                     :src="SVG_ICONS.weather_icons[props.diary.weather + suffix]"
                      :alt="props.diary.weather">
             </div>
             <div class="week">{{ props.diary.weekday }}</div>
