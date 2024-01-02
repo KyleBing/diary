@@ -50,18 +50,18 @@ interface BankCardFace {
 
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 const bankMap: Map<string, BankCardFace> = new Map([
-    ['中信银行', {icon: SVG_ICONS.bank['中信银行'], bgColorClass: 'bank-bg-white'}],
-    ['农业银行', {icon: SVG_ICONS.bank['农业银行'], bgColorClass: 'bank-bg-green'}],
-    ['工商银行', {icon: SVG_ICONS.bank['工商银行'], bgColorClass: 'bank-bg-red'}],
-    ['中国银行', {icon: SVG_ICONS.bank['中国银行'], bgColorClass: 'bank-bg-white'}],
-    ['建设银行', {icon: SVG_ICONS.bank['建设银行'], bgColorClass: 'bank-bg-blue'}],
-    ['招商银行', {icon: SVG_ICONS.bank['招商银行'], bgColorClass: 'bank-bg-zhaoshang'}],
-    ['民生银行', {icon: SVG_ICONS.bank['民生银行'], bgColorClass: 'bank-bg-white'}],
-    ['浦发银行', {icon: SVG_ICONS.bank['浦发银行'], bgColorClass: 'bank-bg-white'}],
-    ['广发银行', {icon: SVG_ICONS.bank['广发银行'], bgColorClass: 'bank-bg-white'}],
-    ['北京银行', {icon: SVG_ICONS.bank['北京银行'], bgColorClass: 'bank-bg-white'}],
-    ['交通银行', {icon: SVG_ICONS.bank['交通银行'], bgColorClass: 'bank-bg-jiaotong'}],
-    ['银行',    {icon: SVG_ICONS.bank['银行'], bgColorClass: 'bank-bg-white'}]
+    ['中信银行', {icon: SVG_ICONS.bank_icons['中信银行'], bgColorClass: 'bank-bg-white'}],
+    ['农业银行', {icon: SVG_ICONS.bank_icons['农业银行'], bgColorClass: 'bank-bg-green'}],
+    ['工商银行', {icon: SVG_ICONS.bank_icons['工商银行'], bgColorClass: 'bank-bg-red'}],
+    ['中国银行', {icon: SVG_ICONS.bank_icons['中国银行'], bgColorClass: 'bank-bg-white'}],
+    ['建设银行', {icon: SVG_ICONS.bank_icons['建设银行'], bgColorClass: 'bank-bg-blue'}],
+    ['招商银行', {icon: SVG_ICONS.bank_icons['招商银行'], bgColorClass: 'bank-bg-zhaoshang'}],
+    ['民生银行', {icon: SVG_ICONS.bank_icons['民生银行'], bgColorClass: 'bank-bg-white'}],
+    ['浦发银行', {icon: SVG_ICONS.bank_icons['浦发银行'], bgColorClass: 'bank-bg-white'}],
+    ['广发银行', {icon: SVG_ICONS.bank_icons['广发银行'], bgColorClass: 'bank-bg-white'}],
+    ['北京银行', {icon: SVG_ICONS.bank_icons['北京银行'], bgColorClass: 'bank-bg-white'}],
+    ['交通银行', {icon: SVG_ICONS.bank_icons['交通银行'], bgColorClass: 'bank-bg-jiaotong'}],
+    ['银行',    {icon: SVG_ICONS.bank_icons['银行'], bgColorClass: 'bank-bg-white'}]
 ])
 function  getBankInfo(cardName: string){
     if (/招商/g.test(cardName)){
