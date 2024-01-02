@@ -232,7 +232,7 @@ function commitBack(){
     }
 }
 function clearDateFilter(){
-    storeProject.dateFilterString = ''
+    storeProject.SET_DATE_FILTER_STRING('')
     storeProject.isListNeedBeReload = true
 }
 
