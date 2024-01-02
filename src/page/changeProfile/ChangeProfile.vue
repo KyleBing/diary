@@ -67,7 +67,7 @@ import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 
 const storeProject = useProjectStore();
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
@@ -94,7 +94,7 @@ onMounted(()=>{
     formUser.value.geolocation = getAuthorization().geolocation
 
     // 在给 formUser.city 赋值之后再添加其 watcher
-    this.$watch('formUser.city', newValue => {
+    watch(() => formUser.value.city, newValue => {
         if (newValue.trim().length > 0){
             formUser.value.city = newValue
             // 根据城市名获取经纬度
