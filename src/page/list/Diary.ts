@@ -10,7 +10,13 @@ interface DiaryEntity {
     temperature: string,
     temperature_outside: string,
     billData?: [],
-    dateObj?: any
+    dateObj?: any,
+
+    // add
+    categoryString? : string,
+    contentHtml? : string,
+    nickname?: string,
+    username?: string
 }
 
 interface DiaryListOperation {

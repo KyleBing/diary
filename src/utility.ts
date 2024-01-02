@@ -122,7 +122,21 @@ function dateFormatter(date: Date, formatString?: string | undefined | null) {
     return formatString
 }
 
-function dateProcess(dateString: string) {
+interface DateUtilityObject{
+    year: number,
+    day: number,
+    month: number,
+    weekday: string,
+    weekShort: string,
+    dateShort: string,
+    date: string,
+    dateFull: string,
+    dateFullSlash: string,
+    timeLabel: string,
+    time: string
+}
+
+function dateProcess(dateString: string): DateUtilityObject {
     let date = new Date(dateString)
     let year = date.getFullYear()
     let month = date.getMonth() + 1
@@ -243,5 +257,7 @@ export {
     setBillKeys, getBillKeys, removeBillKeys,
     getDiaryConfigFromLocalStorage, setDiaryConfig, removeDiaryConfig,
     getCategoryAll, setCategoryAll, removeCategoryAll,
-    isInMobileMode
+    isInMobileMode,
+
+    type DateUtilityObject
 }

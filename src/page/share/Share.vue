@@ -7,18 +7,18 @@
             </div>
 
             <div v-else>
-                <div v-if="diary.title">
+                <div v-if="currentDiary.title">
                     <!--CONTENT-->
                     <div class="share-head">
                         <!--head-->
                         <div class="share-title">
-                            <h2>{{ diary.title }}</h2>
+                            <h2>{{ currentDiary.title }}</h2>
                         </div>
                         <div class="share-date">
                             <div class="above">
                                 <h3>{{ dateObj.weekday }} </h3>
                                 <div class="share-category" :style="shareCategoryStyle">
-                                    <span>{{ diary.categoryString }}</span>
+                                    <span>{{ currentDiary.categoryString }}</span>
                                 </div>
                             </div>
                             <div class="bottom">{{ dateObj.dateFull }}</div>
@@ -27,14 +27,14 @@
                         <!--META-->
                         <div class="share-meta">
                             <div class="weather">
-                                <img v-if="diary.weather"
-                                     :src="SVG_ICONS.weather_icons[`${diary.weather}_active`]"
-                                     :alt="diary.weather">
+                                <img v-if="currentDiary.weather"
+                                     :src="SVG_ICONS.weather_icons[`${currentDiary.weather}_active`]"
+                                     :alt="currentDiary.weather">
                             </div>
-                            <div class="temperature" v-if="diary.temperature || diary.temperature_outside">
-                                <span v-if="diary.temperature">{{ diary.temperature }}</span>
-                                <span v-if="diary.temperature && diary.temperature_outside"> / </span>
-                                <span v-if="diary.temperature_outside">{{ diary.temperature_outside }}</span>
+                            <div class="temperature" v-if="currentDiary.temperature || currentDiary.temperature_outside">
+                                <span v-if="currentDiary.temperature">{{ currentDiary.temperature }}</span>
+                                <span v-if="currentDiary.temperature && currentDiary.temperature_outside"> / </span>
+                                <span v-if="currentDiary.temperature_outside">{{ currentDiary.temperature_outside }}</span>
                                 <span>℃</span>
                             </div>
                         </div>
@@ -42,22 +42,22 @@
                         <!--end of head-->
                     </div>
 
-                    <div class="divider" v-if="diary.content"></div>
+                    <div class="divider" v-if="currentDiary.content"></div>
 
                     <!--CONTENT-->
                     <div class="share-content">
-                        <ToDo v-if="diary.category === 'todo'" :readonly="true" :diary="diary"/>
+                        <ToDo v-if="currentDiary.category === 'todo'" :readonly="true" :diary="currentDiary"/>
                         <div v-else>
-                            <div v-if="diary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
-                            <div v-else class="content" v-html="diary.contentHtml"/>
+                            <div v-if="currentDiary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
+                            <div v-else class="content" v-html="currentDiary.contentHtml"/>
                         </div>
                     </div>
 
                     <div class="share-author">
                         <div class="line"></div>
                         <div class="name">
-                            <div class="nickname">{{diary.nickname}}</div>
-                            <div class="username">{{diary.username}}</div>
+                            <div class="nickname">{{ currentDiary.nickname }}</div>
+                            <div class="username">{{ currentDiary.username }}</div>
                         </div>
                     </div>
                 </div>
@@ -80,20 +80,23 @@ import diaryApi from "../../api/diaryApi.ts"
 import {marked} from "marked";
 import ToDo from "../detail/ToDo.vue";
 
-import {popMessage, dateProcess, temperatureProcessSTC} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {
+    dateProcess,
+    temperatureProcessSTC,
+    getCategoryAll,
+    DateUtilityObject
+} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
 
 const storeProject = useProjectStore();
-import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {computed, onMounted, Ref, ref, watch} from "vue";
+import {useRoute} from "vue-router";
 import {DiaryEntity} from "../list/Diary.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-const router = useRouter()
 const route = useRoute()
 
-const diary: Ref<DiaryEntity> = ref({})
-const dateObj = ref({})
-const isShowToast = ref(false)
+const currentDiary: Ref<DiaryEntity> = ref({})
+const dateObj: Ref<DateUtilityObject> = ref({})
 const isLoadingDiary = ref(false) // 日记请求中
 
 
@@ -101,21 +104,21 @@ const heightShare = computed(()=>{
     return storeProject.insets.windowsWidth > 375 ? storeProject.insets.windowsHeight - 60 - 100 : storeProject.insets.windowsHeight
 })
 const shareCategoryStyle = computed(()=>{
-    return `background-color: ${storeProject.categoryObjectMap.get(diary.value.category).color}`
+    return `background-color: ${storeProject.categoryObjectMap.get(currentDiary.value.category).color}`
 })
 const contentMarkDownHtml = computed(()=>{
-    return marked.parse(diary.value.content)
+    return marked.parse(currentDiary.value.content)
 })
 
 onMounted(()=>{
-    getDiaryInfo(route.params.id)
+    getDiaryInfo(route.params.id as string)
 })
 
 
-function getDiaryInfo(diaryId: number){
+function getDiaryInfo(diaryId: string){
     isLoadingDiary.value = true
     let requestData = {
-        'diaryId': route.params.id
+        'diaryId': diaryId
     }
     diaryApi
         .detail(requestData)
@@ -125,26 +128,26 @@ function getDiaryInfo(diaryId: number){
             const tempDiary = res.data
 
             isLoadingDiary.value = false
-            diary.value = tempDiary
+            currentDiary.value = tempDiary
             dateObj.value = dateProcess(tempDiary.date)
             document.title = '日记 - ' + dateObj.value.dateFull // 变更标题
-            if (diary.value.content) {
-                diary.value.contentHtml = getContentHtml(tempDiary.value.content)
+            if (currentDiary.value.content) {
+                currentDiary.value.contentHtml = getContentHtml(tempDiary.content)
             }
-            diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
-            diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
+            currentDiary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
+            currentDiary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
 
             // category map
             let categoryNameMap = new Map()
-            storeProject.categoryAll.forEach(item => {
+            getCategoryAll().forEach(item => {
                 categoryNameMap.set(item.name_en, item.name)
             })
-            diary.categoryString = categoryNameMap.get(tempDiary.category)
+            currentDiary.value.categoryString = categoryNameMap.get(tempDiary.category)
 
         })
         .catch(() => {
             isLoadingDiary.value = false
-            diary.value = {}
+            currentDiary.value = null
         })
 }
 function getContentHtml(content: string){
@@ -165,8 +168,9 @@ function getContentHtml(content: string){
     }
 }
 
-watch('route.params.id', (newValue) => {
-    getDiaryInfo(newValue)
+watch(() => route.params.id, newValue => {
+    console.log(newValue)
+    getDiaryInfo(newValue as string)
 })
 
 </script>
