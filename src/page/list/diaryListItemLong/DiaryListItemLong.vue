@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import {marked} from "marked";
 import {computed} from "vue";
-import {useProjectStore} from "../../../pinia";
+import {useProjectStore} from "@/pinia";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
 const storeProject = useProjectStore()
@@ -48,10 +48,10 @@ const isActive = computed(() => {
     return Number(route.params.id) === Number(props.diary.id)
 })
 const suffix = computed(()=> {
-    return isActive ? '_white' : ''
+    return isActive.value ? '_white' : ''
 })
 const diaryItemHeaderStyle = computed(()=>{
-    if (isActive){
+    if (isActive.value){
         return `
                       background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
                 `
@@ -63,7 +63,7 @@ const contentMarkDownHtml = computed(()=>{
     return marked.parse(props.diary.content)
 })
 const diaryItemCategoryTextStyle = computed(()=>{
-    if (isActive){
+    if (isActive.value){
 
     } else {
         return `

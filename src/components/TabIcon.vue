@@ -14,7 +14,6 @@
 <script lang="ts" setup>
 import ICONS from "../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
-import SVGIcon from "../assets/icons/SVGIcon.vue";
 
 const props = defineProps({
     alt: {

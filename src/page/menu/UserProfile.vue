@@ -26,7 +26,7 @@
 import projectConfig from "../../projectConfig.ts";
 import {ref} from "vue";
 import {useProjectStore} from "../../pinia";
-import {deleteAuthorization, getAuthorization} from "../../utility.ts";
+import {deleteAuthorization, getAuthorization, removeCategoryAll} from "../../utility.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 
@@ -40,6 +40,7 @@ function changeProfile(){
 }
 function logout() {
     deleteAuthorization()
+    removeCategoryAll()
     storeProject.isMenuShowed = false
     router.push({name: 'Login'})
 }

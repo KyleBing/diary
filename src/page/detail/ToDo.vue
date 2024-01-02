@@ -20,7 +20,6 @@ import {onMounted, Ref, ref, watch} from "vue";
 import {DiaryEntity} from "../list/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "../../utility.ts";
 
-
 interface TODOEntity {
     id: number,
     isDone: boolean,

@@ -85,6 +85,7 @@ const storeProject = useProjectStore()
 const router = useRouter()
 
 onMounted(()=>{
+    console.log(storeProject.isAdminUser)
     categoriesSet.value = new Set(storeProject.filteredCategories)
 })
 

@@ -96,7 +96,7 @@ const passwordVerified = computed(() => {
     return password.value.length > 0
 })
 const verified = computed(() => {
-    return emailVerified && passwordVerified
+    return emailVerified.value && passwordVerified.value
 })
 
 

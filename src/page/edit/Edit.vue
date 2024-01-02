@@ -330,14 +330,14 @@ onMounted(()=>{
                         tempLine = tempLine.substring(4)
                         deleteSpaceCount = 4
                     } else {
-                        let trimSpaceResult = this.removeSpaceBeforeLine(0, tempLine)
+                        let trimSpaceResult = removeSpaceBeforeLine(0, tempLine)
                         tempLine = trimSpaceResult.lineContent
                         deleteSpaceCount = trimSpaceResult.countSpace
                     }
                     textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1, tempLine)
                     diary.value.content = textAreaInfo.textLineArray.join('\n')
 
-                    nextTick(_ => {
+                    nextTick(() => {
                         textarea.setSelectionRange(textAreaInfo.cursorSelectionStart - deleteSpaceCount, textAreaInfo.cursorSelectionStart - deleteSpaceCount)
                     })
 
@@ -349,7 +349,7 @@ onMounted(()=>{
                     let contentBeforeCursor = diary.value.content.substring(0, textAreaInfo.cursorSelectionStart)
                     let contentAfterCursor = diary.value.content.substring(textAreaInfo.cursorSelectionStart)
                     diary.value.content = contentBeforeCursor + '    ' + contentAfterCursor
-                    nextTick(_ => {
+                    nextTick(() => {
                         textarea.setSelectionRange(textAreaInfo.cursorSelectionStart + 4, textAreaInfo.cursorSelectionStart + 4)
                     })
 
@@ -534,7 +534,7 @@ function loadCurrentWeekLogs() {
                 return diaryDate.isBetween(currentWeekStart, currentWeekEnd)
             })
             diary.value.title = '周报'
-            diary.value.content = this.combineWeekWorkLog(workList)
+            diary.value.content = combineWeekWorkLog(workList)
         })
         .catch(_ => {
             isLoading.value = false
@@ -774,7 +774,6 @@ function getWeatherNameFromCode(code: string){
         ['501', 'fog'],          // 雾
         ['507', 'sandstorm'],    // 沙尘暴
         ['502', 'smog'],         // 霾
-
     ])
     return weatherDict.get(code) || 'sunny'
 }
