@@ -17,6 +17,7 @@ import diaryApi from "./api/diaryApi.ts"
 
 // Server Error
 import ServerError from "./fundation/ServerError.vue";
+import {setCategoryAll} from "./utility.ts";
 const isServerError = ref(false)
 
 
@@ -67,7 +68,8 @@ function getCategoryAll() {
     diaryApi
         .getCategoryAll()
         .then(res => {
-            storeProject.categoryAll = res.data
+            setCategoryAll(res.data)
+            console.log('app is loaded all categories')
         })
         .catch(_ => {
             isServerError.value = true

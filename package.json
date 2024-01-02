@@ -15,7 +15,7 @@
   },
   "private": true,
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
@@ -33,7 +33,7 @@
     "pinia": "^2.1.7",
     "qiniu-js": "^3.4.1",
     "register-service-worker": "^1.7.2",
-    "vue": "^3.3.4",
+    "vue": "^3.4.3",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

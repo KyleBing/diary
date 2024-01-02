@@ -47,7 +47,7 @@ import packageInfo from "../../../package.json"
 import userApi from "../../api/userApi.ts"
 import billApi from "../../api/billApi.ts";
 
-import {popMessage, setAuthorization, saveBillKeys} from "../../utility.ts";
+import {popMessage, setAuthorization, setBillKeys} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, Ref, ref, watch} from "vue";
@@ -138,15 +138,15 @@ function getBillKeys() {
     billApi
         .keys()
         .then(res => {
-            saveBillKeys(res.data)
+            setBillKeys(res.data)
         })
         .catch(err => {
             popMessage('warning', err.message)
         })
 }
 function useTestAccount() {
-    email.value = "test@163.com"
-    password.value = "test"
+    email.value = projectConfig.demoAccount
+    password.value = projectConfig.demoAccountPassword
 }
 function getAvatar(){
     userApi

@@ -3,6 +3,8 @@ import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
 import {getDiaryConfigFromLocalStorage, getAuthorization, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity} from "../page/list/Diary.ts";
 
+console.log('pinia is loaded, inside pinia file')
+
 export const useProjectStore = defineStore('projectStore', {
     state: ()=>({
         insets: {

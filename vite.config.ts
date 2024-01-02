@@ -14,31 +14,36 @@ export default defineConfig({
              * @default 'src/assets/images/svg/*.svg'
              */
             icons: 'src/assets/images/icons/weather/*.svg',
+
             /**
              * Output directory
              * @default 'src/public/images'
              */
-            // outputDir? : string
+            outputDir: ''
 
             /**
              * sprite-svg {@link https://github.com/svg-sprite/svg-sprite/blob/main/docs/configuration.md#sprite-svg-options|options}
              */
             // sprite? : SVGSpriter.Config
+
             /**
              * Defines if a type should be generated
              * @default false
              */
             // generateType? : boolean
+
             /**
              * Name of the type to be used when generateType is set to true
              * @default 'SvgIcons'
              */
             // typeName? : string
+
             /**
              * File name of the generated type file
              * @default 'svg-icons'
              */
             // typeFileName? : string
+
             /**
              * Name of the output directory for generated type file
              * @default '{@link icons} directory'
@@ -47,6 +52,9 @@ export default defineConfig({
         }),
     ],
     server: {
+        host: '0.0.0.0',// 自定义主机名
+        port: 8080,// 自定义端口
+        https: false,
         proxy: {
             '/dev': {
                 // target: 'http://localhost:3000',

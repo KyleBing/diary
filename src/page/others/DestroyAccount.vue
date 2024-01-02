@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import projectConfig from "../../projectConfig.ts";
-import {deleteAuthorization, deleteDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
+import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "../../pinia";
 import {useRouter} from "vue-router";
@@ -58,7 +58,7 @@ function changePasswordSubmit() {
         .destroyAccount()
         .then(res => {
             deleteAuthorization()
-            deleteDiaryConfig()
+            removeDiaryConfig()
             popMessage('success', '注销成功，3 秒后跳转到登录页面', ()=>{
                 router.push({name: 'Login'})
             }, 3)

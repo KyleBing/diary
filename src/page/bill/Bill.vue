@@ -106,7 +106,7 @@ import billApi from "../../api/billApi.ts"
 import Loading from "../../components/Loading.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
-import {popMessage, setAuthorization, getAuthorization, dateProcess, saveBillKeys} from "../../utility.ts";
+import {popMessage, setAuthorization, getAuthorization, dateProcess, setBillKeys} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 
 const storeProject = useProjectStore();
@@ -156,7 +156,7 @@ function getBillKeys(){
     billApi
         .keys()
         .then(res => {
-            saveBillKeys(res.data)
+            setBillKeys(res.data)
             popMessage('success', `更新成功 ${res.data.length} 个`, ()=>{}, 2)
         })
         .catch(err => {
