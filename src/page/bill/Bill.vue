@@ -39,27 +39,27 @@
                     <div class="bill-brief">
                         <div class="brief-amount">
                             <div class="number text-income">
-                                +{{ month.sumIncome.toFixed(moneyAccuracy) }} <span class="bill-sum-label">收入</span>
+                                +{{ month.sumIncome.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">收入</span>
                             </div>
                             <div class="number text-outcome">
-                                {{ month.sumOutput.toFixed(moneyAccuracy) }} <span class="bill-sum-label">支出</span>
+                                {{ month.sumOutput.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">支出</span>
                             </div>
                             <div class="number sum text-black">
-                                {{ month.sum.toFixed(moneyAccuracy) }} <span class="bill-sum-label">合计</span>
+                                {{ month.sum.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">合计</span>
                             </div>
                         </div>
                         <div class="brief-food">
                             <div class="number text-outcome breakfast">
-                                {{ month.food.breakfast.toFixed(moneyAccuracy) }} <span class="bill-sum-label">早饭</span>
+                                {{ month.food.breakfast.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">早饭</span>
                             </div>
                             <div class="number text-outcome launch">
-                                {{ month.food.launch.toFixed(moneyAccuracy) }} <span class="bill-sum-label">中饭</span>
+                                {{ month.food.launch.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">中饭</span>
                             </div>
                             <div class="number text-outcome dinner">
-                                {{ month.food.dinner.toFixed(moneyAccuracy) }} <span class="bill-sum-label">晚饭</span>
+                                {{ month.food.dinner.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">晚饭</span>
                             </div>
                             <div class="number sum">
-                                {{ month.food.sum.toFixed(moneyAccuracy) }} <span class="bill-sum-label">合计</span>
+                                {{ month.food.sum.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">合计</span>
                             </div>
                         </div>
                     </div>
@@ -76,13 +76,13 @@
                                 <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
                             <td class="amount number">
                                 <span v-if="item.sumIncome === 0" class="text-invalid">~</span>
-                                <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(moneyAccuracy) || '-' }}</span>
-                                <span v-else>{{ item.sumIncome.toFixed(moneyAccuracy) || '-' }}</span>
+                                <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
+                                <span v-else>{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
                             </td>
                             <td class="amount number">
                                 <span v-if="item.sumOutput === 0" class="text-invalid">~</span>
-                                <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
-                                <span v-else>{{ item.sumOutput.toFixed(moneyAccuracy) || '-' }}</span>
+                                <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
+                                <span v-else>{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
                             </td>
                             <td class="label center"
                                 v-tooltip="{
@@ -110,11 +110,10 @@ import {popMessage, setAuthorization, getAuthorization, dateProcess, setBillKeys
 import {useProjectStore} from "../../pinia";
 
 const storeProject = useProjectStore();
-import {onMounted, ref} from "vue";
+import {onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-
 
 const billYearData = ref([])
 const isLoading = ref(false)
@@ -123,7 +122,9 @@ const formSearch = ref({
     year: new Date().getFullYear(),
     keyword: ''
 })
-const availableYears = ref([]) // 账单可选年份
+
+
+const availableYears: Ref<{value: Number, checked: boolean}[]> = ref([]) // 账单可选年份
 
 
 onMounted(()=>{
@@ -199,7 +200,7 @@ function getBillData() {
                 .filter(item => item.checked)
                 .map(item => item.value)
                 .join(','), // 2022, 2023
-            keyword: this.formSearch.keyword
+            keyword: formSearch.value.keyword
         })
         .then(res => {
             isLoading.value = false
