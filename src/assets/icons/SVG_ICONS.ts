@@ -69,16 +69,7 @@ import logo_register from "./logo/logo_register.svg?url"
 import logo_change_password from "./logo/logo_change_password.svg?url"
 import logo_avatar from "./logo/logo_avatar.svg?url"
 
-import EOF from  "./icons/EOF.svg?url"
-import EOF_dark from  "./icons/EOF_dark.svg?url"
-import content from  "./icons/content.svg?url"
-import content_white from  "./icons/content_white.svg?url"
-import content_md from  "./icons/content_md.svg?url"
-import content_md_white from  "./icons/content_md_white.svg?url"
-import clipboard from  "./icons/clipboard.svg?url"
-
 // Weather
-
 import weather_cloudy from "./weather/cloudy.svg?url"
 import weather_cloudy_active from "./weather/cloudy_active.svg?url"
 import weather_cloudy_white from "./weather/cloudy_white.svg?url"
