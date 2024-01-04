@@ -1,5 +1,3 @@
-import {dateFormatter, temperatureProcessCTS} from "../../utility.ts";
-
 interface DiaryEntity {
     id: number|null,
     title: string,

@@ -72,7 +72,7 @@ router.beforeEach((to, _) => {
         case 'Invitation':
             return true
         default:
-            if (getAuthorization() && getAuthorization().email) {
+            if (getAuthorization() && getAuthorization()!.email) {
                 if (to.name === 'List') {
                     if (isInMobileMode()) {
                         return true

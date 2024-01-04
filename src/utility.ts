@@ -85,7 +85,7 @@ function popMessage(
     msgEl.append(msgTitle)
     $('body')?.append(msgEl)
 
-    setTimeout(_ => {
+    setTimeout(() => {
         msgEl.classList.remove('slideInDownPopMessage')
     }, 200)
     setTimeout(() => {
@@ -110,8 +110,24 @@ function $(selector: string) {
 
 
 // CONST
-const WEEKDAY = {0: '周日', 1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六',}
-const WEEKDAY_SHORT = {0: '日', 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六',}
+const WEEKDAY_MAP = new Map([
+    [0, '周日'],
+    [1, '周一'],
+    [2, '周二'],
+    [3, '周三'],
+    [4, '周四'],
+    [5, '周五'],
+    [6, '周六'],
+])
+const WEEKDAY_SHORT_MAP = new Map([
+    [0, '日'],
+    [1, '一'],
+    [2, '二'],
+    [3, '三'],
+    [4, '四'],
+    [5, '五'],
+    [6, '六']
+])
 
 
 // 格式化时间，输出字符串
@@ -178,8 +194,8 @@ function dateProcess(dateString: string): DateUtilityObject {
         year,
         day,
         month,
-        weekday: WEEKDAY[week],
-        weekShort: WEEKDAY_SHORT[week],
+        weekday: WEEKDAY_MAP.get(week)!,
+        weekShort: WEEKDAY_SHORT_MAP.get(week)!,
         dateShort: `${padNumberWith0(month)}-${padNumberWith0(day)}`,
         date: `${padNumberWith0(month)}月${padNumberWith0(day)}日`,
         dateFull: `${year}年${month}月${day}日`,
@@ -259,7 +275,7 @@ function isInMobileMode(): boolean{
 }
 
 export {
-    WEEKDAY,
+    WEEKDAY_MAP,WEEKDAY_SHORT_MAP,
     getAuthorization,
     setAuthorization,
     popMessage,
@@ -272,6 +288,5 @@ export {
     getDiaryConfigFromLocalStorage, setDiaryConfig, removeDiaryConfig,
     getCategoryAll, setCategoryAll, removeCategoryAll,
     isInMobileMode,
-
     type DateUtilityObject
 }

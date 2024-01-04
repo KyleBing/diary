@@ -1,5 +1,6 @@
 import axios from "axios";
 import {getAuthorization} from "./utility";
+import {ResponseEntity} from "./entity/Response.ts";
 
 const BASE_URL = import.meta.env.MODE === 'development' ? '/dev/': '../portal/'
 
@@ -8,7 +9,7 @@ function request(
     params: {}|null,
     requestData: {}|null,
     url: string,
-    timeout = 30000) : Promise<{success: boolean, data: Array<any>|any, message: string}>
+    timeout = 30000) : Promise<ResponseEntity>
 {
 
     let headers = {}
@@ -44,7 +45,7 @@ function request(
                     }
                 } else {
                     reject(res.data)
-                    console.log('request err: ', res.message) // 输出错误信息
+                    console.log('request err: ', res.data.message) // 输出错误信息
                 }
             })
             .catch(err => {
