@@ -15,7 +15,7 @@
   },
   "private": true,
   "scripts": {
-    "dev": "tsc&vite",
+    "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },

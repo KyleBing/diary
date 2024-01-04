@@ -1,32 +1,48 @@
 interface DiaryEntity {
-    id: number|null,
+    id: number
     title: string,
     content: string,
-    is_public: 1|0,
-    is_markdown: 1|0,
+    is_public: boolean,
+    is_markdown: boolean,
     date: Date, // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
     weather: string,
     category: string,
     temperature: string,
     temperature_outside: string,
-    billData?: [],
-    dateObj?: any,
-
-    // add
-    categoryString? : string,
-    contentHtml? : string,
-    nickname?: string,
-    username?: string
-
-    // share
-    weekday?: string,
-    dateString? : string
 }
 
 interface DiaryListOperation {
     type: 'add' | 'delete' | 'change',
     diary: DiaryEntity,
     id: number
+}
+
+// 数据库 diary
+interface DiaryEntityDatabase{
+    id: number
+    title: string,
+    content: string,
+    is_public: 1|0,
+    is_markdown: 1|0,
+    date: string,
+    weather: string,
+    category: string,
+    temperature: string,
+    temperature_outside: string,
+
+    // bill
+    billData?: [],
+
+    // detail
+    dateObj?: any,
+
+    // share
+    categoryString? : string,
+    contentHtml? : string,
+    nickname?: string,
+    username?: string
+    weekday?: string,
+    dateString? : string
 }
 
 
@@ -53,9 +69,20 @@ interface DiarySubmitEntity{
     date: string,
 }
 
+// 日记添加的 response
+interface ResponseDiaryAdd{
+    success: boolean,
+    data: {
+        id: number
+    },
+    message: string
+}
+
 export {
     type DiaryEntity,
     type DiaryListOperation,
     type DiarySearchParams,
-    type DiarySubmitEntity
+    type DiarySubmitEntity,
+    type DiaryEntityDatabase,
+    type ResponseDiaryAdd
 }

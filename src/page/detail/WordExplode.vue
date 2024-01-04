@@ -110,7 +110,7 @@ function copySelectedWords(){
         navigator
             .clipboard
             .writeText(finalString)
-            .then(_ => {
+            .then(() => {
                 popMessage('success', '已复制到 剪贴板', ()=>{}, 1)
                 console.log('✓ copied')
             })

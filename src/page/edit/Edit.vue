@@ -23,7 +23,7 @@
                     v-model="diary.content"
                     :style="storeProject.insets.windowsWidth > 1366 ? `height: ${storeProject.insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
-                    @input="contentUpdate($event as InputEvent)"
+                    @input="contentUpdate($event)"
                     class="content"></textarea>
                 <div class="editor-float-btn" v-if="diary.is_markdown">
                     <ButtonSmall @click="toggleSpaceShow">切换空格显示</ButtonSmall>
@@ -122,9 +122,15 @@ import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 // ENTITY
-import {DiaryEntity, DiarySubmitEntity} from "../list/Diary.ts";
-import {CategoryEntity} from "@/entity/Category.ts";
+import {
+    DiaryEntity,
+    DiaryEntityDatabase,
+    DiarySearchParams,
+    DiarySubmitEntity,
+    ResponseDiaryAdd
+} from "../list/Diary.ts";
 import {storeToRefs} from "pinia";
+import {BillKeyEntity} from "@/entity/BillKey.ts";
 
 const route = useRoute()
 const router = useRouter()
@@ -135,7 +141,7 @@ const isNew = ref(true)
 const isLoading = ref(false)
 
 const diary: Ref<DiaryEntity> = ref({
-    id: null,
+    id: -1,
     title: "",
     content: "",
     is_public: false,
@@ -147,7 +153,7 @@ const diary: Ref<DiaryEntity> = ref({
     temperature_outside: '',
 })
 const diaryOrigin: Ref<DiaryEntity> = ref({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
-    id: null,
+    id: -1,
     title: "",
     content: "",
     is_public: false,
@@ -163,8 +169,8 @@ const recoverDiaryContent = ref({  // 编辑过程中点击了隐藏按钮，此
     content: ''
 })
 
-const requestData = ref({ // 请求本周日志的 requestData
-    keywords: '',
+const requestData: Ref<DiarySearchParams> = ref({ // 请求本周日志的 requestData
+    keywords: [],
     pageNo: 1,
     pageSize: 15, // 单页请求条数
     categories: JSON.stringify(['work']),
@@ -175,12 +181,12 @@ const requestData = ref({ // 请求本周日志的 requestData
 /**
  * Bill Keys
  */
-const billKeys = ref([])
-const possibleBillItems = ref([])
+const billKeys: Ref<BillKeyEntity[]> = ref([])
+const possibleBillItems: Ref<BillKeyEntity[]> = ref([])
 const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
 
-const refDiaryContentTextArea = ref(null)
+const refDiaryContentTextArea = ref()
 
 onBeforeMount(() => {
     // console.log(refDiaryContentTextArea)
@@ -203,7 +209,7 @@ onMounted(()=>{
         // 新建日记
         createDiary()
     } else {
-        getDiary(route.params.id as string)
+        getDiary(Number(route.params.id))
     }
 
     // key binding
@@ -243,7 +249,7 @@ onMounted(()=>{
                 // CTRL + ArrowLeft 移到最左端
                 if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
                     event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value // dom
+                    let textarea = refDiaryContentTextArea.value as HTMLTextAreaElement // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
                     let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex)
                     let textBefore = linesBefore.join('\n')
@@ -253,7 +259,7 @@ onMounted(()=>{
                     } else {
                         newCursorLocation = textBefore.length + 1  // -1行末尾 + 1
                     }
-                    nextTick(_ => {
+                    nextTick(() => {
                         textarea.setSelectionRange(newCursorLocation, newCursorLocation)
                     })
                 }
@@ -261,12 +267,12 @@ onMounted(()=>{
                 // CTRL + ArrowRight 移到最右端
                 if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowRight') {
                     event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value // dom
+                    let textarea = refDiaryContentTextArea.value as HTMLTextAreaElement // dom
                     let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
                     let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex + 1)
                     let textBefore = linesBefore.join('\n')
                     let newCursorLocation = textBefore.length
-                    nextTick(_ => {
+                    nextTick(() => {
                         textarea.setSelectionRange(newCursorLocation, newCursorLocation) // 定位光标
                     })
                 }
@@ -279,7 +285,7 @@ onMounted(()=>{
 
                     textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 0, textAreaInfo.cursorLineContent)
                     diary.value.content = textAreaInfo.textLineArray.join('\n')
-                    nextTick(_ => {
+                    nextTick(() => {
                         textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
                     })
                 }
@@ -292,12 +298,12 @@ onMounted(()=>{
                     if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
                         event.preventDefault()
                         navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
-                            .then(_ => {
+                            .then(() => {
                                 console.log('✓ moved')
                             })
                         textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
                         diary.value.content = textAreaInfo.textLineArray.join('\n')
-                        nextTick(_ => {
+                        nextTick(() => {
                             textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
                         })
                     }
@@ -311,7 +317,7 @@ onMounted(()=>{
                     // 只有未选择任何内容的时候
                     if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
                         navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
-                            .then(_ => {
+                            .then(() => {
                                 console.log('✓ copied')
                             })
                     }
@@ -358,7 +364,7 @@ onMounted(()=>{
     })
 })
 
-onBeforeRouteLeave((to, from, next) => {
+onBeforeRouteLeave((_, __, next) => {
     // 在跳转到其它页面之前判断日记是否已保存
     if (diaryHasChanged.value) {
         popMessage('warning', '当前日记未保存', ()=>{})
@@ -388,7 +394,7 @@ const diaryHasChanged = computed(() => {
 
 watch(() => route.params.id, newDiaryId => {
     if (newDiaryId) {
-        getDiary(newDiaryId)
+        getDiary(Number(newDiaryId))
     } else {
         createDiary()
     }
@@ -447,7 +453,7 @@ function insertNewBillKey(billKey: string){
 }
 
 // contentUpdate
-function contentUpdate(event: InputEvent){
+function contentUpdate(event: Event){
     if (diary.value.category === 'bill'){
         let content = event.target.value
         if (content){
@@ -527,21 +533,21 @@ function loadCurrentWeekLogs() {
         .list(requestData.value)
         .then(res => {
             isLoading.value = false
-            const currentWeekStart = new Moment(diary.value.date).startOf('week')
-            const currentWeekEnd = new Moment(diary.value.date).endOf('week')
+            const currentWeekStart = Moment(diary.value.date).startOf('week')
+            const currentWeekEnd = Moment(diary.value.date).endOf('week')
             let workList = res.data.filter(item => {
-                let diaryDate = new Moment(item.date)
+                let diaryDate = Moment(item.date)
                 return diaryDate.isBetween(currentWeekStart, currentWeekEnd)
             })
             diary.value.title = '周报'
             diary.value.content = combineWeekWorkLog(workList)
         })
-        .catch(_ => {
+        .catch(() => {
             isLoading.value = false
         })
 }
 
-function combineWeekWorkLog(workList: DiaryEntity[]){
+function combineWeekWorkLog(workList: DiaryEntityDatabase[]){
     let contentStr = ''
     workList.forEach(item => {
         contentStr = contentStr + item.title + '\n' + item.content + '\n'
@@ -578,17 +584,14 @@ function getCurrentTemperature(){
     }
 }
 
-function goBack() {
-    router.back()
-}
-function setCategory(data: CategoryEntity) {
-    diary.value.category = data
-    if (data === 'bill' && diary.value.title === ''){
+function setCategory(categoryNameEn: string) {
+    diary.value.category = categoryNameEn
+    if (categoryNameEn === 'bill' && diary.value.title === ''){
         diary.value.title = '账单'
     }
 }
-function setWeather(data) {
-    diary.value.weather = data
+function setWeather(weather: string) {
+    diary.value.weather = weather
 }
 function updateDiaryIcon() {
     document.title = diaryHasChanged.value ? '日记 - 编辑中...' : '日记' // 变更标题
@@ -599,7 +602,7 @@ function updateDiaryIcon() {
         storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content_saved: SVG_ICONS.logo_icons.logo_title_saved
     }
 }
-function getDiary(diaryId: string) {
+function getDiary(diaryId: number) {
     // 编辑日记
     diaryApi
         .detail({
@@ -642,7 +645,7 @@ function saveDiary() {
     let requestData: DiarySubmitEntity = {
         id: diary.value.id,
         title: diary.value.title,
-        content: diary.value.content || null,
+        content: diary.value.content,
         category: diary.value.category,
         temperature: temperatureProcessCTS(diary.value.temperature),
         temperature_outside: temperatureProcessCTS(diary.value.temperature_outside),
@@ -678,7 +681,7 @@ function saveDiary() {
 }
 
 // 保存日记后要操作的
-function processAfterSaveDiary(res){
+function processAfterSaveDiary(res: ResponseDiaryAdd){
     storeProject.isSavingDiary = false
     popMessage('success', res.message, () => {
         // 成功后更新 origin 字符串
@@ -712,11 +715,11 @@ function createDiary() {
     }
     isNew.value = true
     diary.value = {
-        id: null,
+        id: -1,
         title: "",
         content: "",
-        is_public: 0,
-        is_markdown: 0,
+        is_public: false,
+        is_markdown: false,
         date: diary.value.date || new Date(), // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
         weather: 'sunny',
         category: diary.value.category,

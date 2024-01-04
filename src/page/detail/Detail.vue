@@ -57,23 +57,20 @@ import WordExplode from "../detail/WordExplode.vue";
 import ButtonNormal from "../../components/ButtonNormal.vue";
 import ToDo from "./ToDo.vue";
 
-import {popMessage, dateProcess, temperatureProcessSTC} from "../../utility.ts";
+import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "@/pinia";
 
 const storeProject = useProjectStore();
 import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
 const route = useRoute()
+import {DiaryEntityDatabase} from "../list/Diary.ts";
 
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntity} from "../list/Diary.ts";
-
-const isShowToast = ref(false)
 const isLoading = ref(false) // loading
-const diary: Ref<DiaryEntity> = ref({})
-const clipboard = ref(null) // clipboard obj
+const diary: Ref<DiaryEntityDatabase> = ref({})
+const clipboard = ref() // clipboard obj
 const lunarObject = ref({})
 const isShowExplode = ref(false)
 
@@ -81,7 +78,7 @@ const isShowExplode = ref(false)
 onMounted(()=>{
     // 初始化时，载入第一次点击的 id 内容
     if (route.params.id){
-        showDiary(route.params.id)
+        showDiary(Number(route.params.id))
     }
 
     // 绑定剪贴板操作方法
@@ -132,18 +129,18 @@ function getContentHtml(content: string){
     }
 
 }
-function  showDiary(id: number) {
+function  showDiary(diaryId: number) {
     isLoading.value = true
-    let requestData = {diaryId: id}
+    let requestData = {diaryId: diaryId}
     diaryApi
         .detail(requestData)
         .then(res => {
             isLoading.value = false // loading off
             let tempDiary = res.data
             diary.value = tempDiary
-            let dateMoment = new Moment(diary.value.date)
+            let dateMoment = Moment(diary.value.date)
             lunarObject.value = calendar.solar2lunar(dateMoment.year(), dateMoment.month()+1, dateMoment.date())
-            storeProject.currentDiary = tempDiary// 设置 store: currentDiary
+            storeProject.currentDiary = tempDiary // 设置 store: currentDiary
             let dateObj = dateProcess(tempDiary.date)
             diary.value.dateObj = dateObj
             document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title

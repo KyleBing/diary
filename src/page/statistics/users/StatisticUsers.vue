@@ -139,8 +139,8 @@ const showUserStatisticInfo = ref(false) // 是否显示这个用户信息统计
 
 // 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
 function dateTextLevel(dateString: string){
-    let date = new Moment(dateString) // yyyy MM-dd  hh:mm 补全时间字符串
-    let now = new Moment()
+    let date = Moment(dateString) // yyyy MM-dd  hh:mm 补全时间字符串
+    let now = Moment()
     let distance =  now.diff(date, 'day')
     if ( distance < 7) {
         return `date-level-${distance}`
@@ -179,7 +179,7 @@ function getStatisticUsers(){
                 }
             })
         })
-        .catch(_ => {
+        .catch(() => {
             showUserStatisticInfo.value = false
         })
 }

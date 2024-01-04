@@ -113,7 +113,7 @@ function uploadFile() {
     requestData.append('note', formUpload.value.name)
     fileManagerApi
         .upload(requestData)
-        .then(_ => {
+        .then(() => {
             popMessage('success', '上传成功')
             getFileList()
             formUpload.value = {
@@ -141,7 +141,7 @@ function getFileList(){
             })
             isLoading.value = false
         })
-        .catch(_ => {
+        .catch(() => {
             isLoading.value = false
         })
 }

@@ -48,9 +48,9 @@ import diaryApi from "../../api/diaryApi.ts"
 import ListHeader from "../../page/list/ListHeader.vue"
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 
-import {dateProcess, getDiaryConfigFromLocalStorage, dateFormatter} from "../../utility.ts";
+import {dateProcess, dateFormatter} from "@/utility.ts";
 
-import {useProjectStore} from "../../pinia"
+import {useProjectStore} from "@/pinia"
 
 const storeProject = useProjectStore()
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
@@ -60,15 +60,11 @@ import {storeToRefs} from "pinia";
 const router = useRouter()
 const route = useRoute()
 
-
-const showDiaryList: Ref<DiaryEntity[]> = ref(true)
 const isHasMore = ref(true)
 const isLoading = ref(true)
 const diaries: Ref<DiaryEntity[]> = ref([])
 const diariesShow: Ref<DiaryEntity[]> = ref([])
-
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
-
 
 const params: Ref<DiarySearchParams> = ref({
     keywords: [],
@@ -78,7 +74,6 @@ const params: Ref<DiarySearchParams> = ref({
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
 })
-
 
 onMounted(()=>{
     document.title = '日记' // 变更标题
@@ -95,7 +90,7 @@ onMounted(()=>{
 // 刷新 diaries show
 function refreshDiariesShow(){
     console.log('diaries changed')
-    let tempShowArray = []
+    let tempShowArray: Array<DiaryEntity|{date: string}> = []
     if (diaries.value.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
         let lastDiary = diaries.value[0]
         let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
@@ -126,7 +121,7 @@ function refreshDiariesShow(){
                         date: currentDiaryDateString.substring(0, 7)
                     })
                 }
-                let tempDiary:DiaryEntity = {}
+                let tempDiary: DiaryEntity = {}
                 Object.assign(tempDiary, currentDiary)
                 tempDiary.is_public = currentDiary.is_public === 1
                 // 判断前一个日记和后一个日记的日期字符串是否一致，‘年月日’ 搜索的时候可能会有月份不同但天数相同的情况，就会导致下一条的日期不会显示。
@@ -148,7 +143,7 @@ function search() {
 watch(isShowSearchBar, newValue => {
     if (newValue){
         nextTick(() => {
-            document.querySelector('#keyword').focus()
+            (document.querySelector('#keyword') as HTMLInputElement).focus()
         })
     }
 })

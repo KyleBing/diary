@@ -72,7 +72,7 @@ function getCategoryAll() {
             setCategoryAll(res.data)
             console.log('app is loaded all categories')
         })
-        .catch(_ => {
+        .catch(() => {
             isServerError.value = true
             console.log('服务器错误，请联系管理员')
         })

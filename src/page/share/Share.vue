@@ -91,11 +91,11 @@ import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
 import {computed, onMounted, Ref, ref, watch} from "vue";
 import {useRoute} from "vue-router";
-import {DiaryEntity} from "../list/Diary.ts";
+import {DiaryEntityDatabase} from "../list/Diary.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 const route = useRoute()
 
-const currentDiary: Ref<DiaryEntity> = ref({})
+const currentDiary: Ref<DiaryEntityDatabase> = ref(null)
 const dateObj: Ref<DateUtilityObject> = ref({})
 const isLoadingDiary = ref(false) // 日记请求中
 
@@ -111,11 +111,11 @@ const contentMarkDownHtml = computed(()=>{
 })
 
 onMounted(()=>{
-    getDiaryInfo(route.params.id as string)
+    getDiaryInfo(Number(route.params.id))
 })
 
 
-function getDiaryInfo(diaryId: string){
+function getDiaryInfo(diaryId: number){
     isLoadingDiary.value = true
     let requestData = {
         diaryId: diaryId
@@ -170,7 +170,7 @@ function getContentHtml(content: string){
 
 watch(() => route.params.id, newValue => {
     console.log(newValue)
-    getDiaryInfo(newValue as string)
+    getDiaryInfo(Number(newValue))
 })
 
 </script>

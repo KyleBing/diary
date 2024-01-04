@@ -84,13 +84,13 @@ function getInvitationList(){
                 // 没有设置任何银行卡信息
             }
         })
-        .catch(_ => {
+        .catch(() => {
             isLoading.value = false
         })
 }
 // 生成新的邀请码
 function generateNewInvitationCode(){
-    invitationApi.generate().then(_ => getInvitationList())
+    invitationApi.generate().then(() => getInvitationList())
 }
 
 // 删除邀请码

@@ -52,10 +52,9 @@ import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, Ref, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-const route = useRoute()
 const router = useRouter()
 
 const show = ref(false)
@@ -72,7 +71,6 @@ const password = ref('')
 const loginLabel = ref('登录')
 const isShowDemoAccount = projectConfig.isShowDemoAccount
 const avatarLink: Ref<string | null> = ref(null)
-
 
 
 watch(email, newValue => {

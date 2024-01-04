@@ -157,7 +157,7 @@ function getBankCards(){
                 // 没有设置任何银行卡信息
             }
         })
-        .catch(_ => {
+        .catch(() => {
             isLoading.value = false
         })
 }

@@ -60,8 +60,8 @@ watch(dateLocal, (newValue, oldValue) => {
     emit('update:modelValue', dateLocal.value)
 
     // 判断是否日期有变，day 有变，emit dayChange, 附带是否为今天的标识
-    let dateMomentDiary = new Moment(newValue)
-    let dateMomentDiaryOrigin = new Moment(oldValue)
+    let dateMomentDiary = Moment(newValue)
+    let dateMomentDiaryOrigin = Moment(oldValue)
     if ( dateMomentDiary.isSame(dateMomentDiaryOrigin, 'day')){
     } else {
         if (dateMomentDiary.isSame(new Date(), 'day')){
@@ -93,7 +93,7 @@ function dateMove(step: -1|0|1) {
     switch (step) {
         case -1:
         case 1:
-            let dateTemp = new Moment(dateLocal.value)
+            let dateTemp = Moment(dateLocal.value)
             dateTemp.add(step, 'day')
             dateLocal.value = dateTemp.toDate()
             emit('update:modelValue', dateLocal.value)
@@ -109,7 +109,7 @@ function dateTimeMove(step: -1|0|1) {
     switch (step) {
         case -1:
         case 1:
-            let dateTemp = new Moment(dateLocal.value)
+            let dateTemp = Moment(dateLocal.value)
             dateTemp.add(step, 'hour')
             dateLocal.value = dateTemp.toDate()
             emit('update:modelValue', dateLocal.value)

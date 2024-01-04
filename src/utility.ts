@@ -1,6 +1,3 @@
-// import {useProjectStore} from "./pinia";
-// const storeProject = useProjectStore()
-
 import {CategoryEntity} from "./entity/Category.ts";
 import {AuthorizationEntity} from "./entity/Authorization.ts";
 
@@ -132,7 +129,7 @@ const WEEKDAY_SHORT_MAP = new Map([
 
 // 格式化时间，输出字符串
 function dateFormatter(date: Date, formatString: string = 'yyyy-MM-dd hh:mm:ss') {
-    let dateRegArray = {
+    let dateRegArray: Object = {
         "M+": date.getMonth() + 1,                      // 月份
         "d+": date.getDate(),                           // 日
         "h+": date.getHours(),                          // 小时
@@ -173,7 +170,7 @@ function dateProcess(dateString: string): DateUtilityObject {
     let day = date.getDate()
     let hour = date.getHours()
     let minutes = date.getMinutes()
-    let seconds = date.getSeconds()
+    // let seconds = date.getSeconds()
     let week = date.getDay()
     let timeLabel = ''
     if (hour >= 23 && hour < 24 || hour <= 3 && hour >= 0) {
@@ -259,7 +256,7 @@ function getCategoryAll(): CategoryEntity[] {
     }
 }
 
-function setCategoryAll(newValue: string) {
+function setCategoryAll(newValue: CategoryEntity[]) {
     localStorage.setItem('CategoryAll', JSON.stringify(newValue))
 }
 
