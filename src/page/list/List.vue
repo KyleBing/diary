@@ -55,7 +55,7 @@ import {useProjectStore} from "../../pinia"
 const storeProject = useProjectStore()
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {DiaryEntity, DiaryListOperation} from "./Diary.ts";
+import {DiaryEntity, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
 import {storeToRefs} from "pinia";
 const router = useRouter()
 const route = useRoute()
@@ -70,15 +70,7 @@ const diariesShow: Ref<DiaryEntity[]> = ref([])
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
 
 
-interface SearchParams {
-    keywords: string[],
-    pageNo: number,
-    pageSize: number, // 单页请求条数
-    categories: string,
-    filterShared: 0|1, // 1 是筛选，0 是不筛选
-    dateFilterString: string // 日记年月筛选
-}
-const params: Ref<SearchParams> = ref({
+const params: Ref<DiarySearchParams> = ref({
     keywords: [],
     pageNo: 1,
     pageSize: 100, // 单页请求条数

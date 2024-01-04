@@ -122,7 +122,7 @@ import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 // ENTITY
-import {DiaryEntity} from "../list/Diary.ts";
+import {DiaryEntity, DiarySubmitEntity} from "../list/Diary.ts";
 import {CategoryEntity} from "@/entity/Category.ts";
 import {storeToRefs} from "pinia";
 
@@ -639,7 +639,7 @@ function saveDiary() {
         storeProject.isDiaryNeedToBeSaved = false// 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
         return
     }
-    let requestData = {
+    let requestData: DiarySubmitEntity = {
         id: diary.value.id,
         title: diary.value.title,
         content: diary.value.content || null,

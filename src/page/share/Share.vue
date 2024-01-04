@@ -118,7 +118,7 @@ onMounted(()=>{
 function getDiaryInfo(diaryId: string){
     isLoadingDiary.value = true
     let requestData = {
-        'diaryId': diaryId
+        diaryId: diaryId
     }
     diaryApi
         .detail(requestData)

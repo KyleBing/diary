@@ -111,7 +111,7 @@ function markAsShared(invitationId: number | string){
             id: invitationId
         })
         .then(res => {
-            popMessage('success', res.message, null)
+            popMessage('success', res.message)
             getInvitationList()
         })
 }

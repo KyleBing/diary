@@ -67,16 +67,17 @@ import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 
 const storeProject = useProjectStore();
-import {onMounted, ref, watch} from "vue";
+import {onMounted, Ref, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import {UserProfileEntity} from "@/entity/User.ts";
 
 const router = useRouter()
 
 
 const show = ref(false)
 let avatarFile = null // 头像文件
-const formUser = ref({
+const formUser: Ref<UserProfileEntity> = ref({
     nickname: '',
     phone: '',
     avatar: '',

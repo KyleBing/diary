@@ -66,6 +66,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {popMessage} from "../../utility.ts";
+import {UserRegisterEntity} from "@/entity/User.ts";
 
 const route = useRoute()
 const router = useRouter()
@@ -104,7 +105,7 @@ const verified = computed(()=> {
 
 function  regSubmit() {
     if (verified.value) {
-        let requestData = {
+        let requestData: UserRegisterEntity = {
             nickname: nickname.value,
             invitationCode: invitationCode.value,
             email: email.value,
@@ -116,7 +117,7 @@ function  regSubmit() {
             .then(res => {
                 popMessage('success', `${res.message}，正在前往登录`, () => router.push({name: 'Login'}))})
             .catch(err => {
-                popMessage('danger', err.message, null, 5)
+                popMessage('danger', err.message, ()=>{}, 5)
             })
     }
 }
