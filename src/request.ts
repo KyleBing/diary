@@ -3,7 +3,13 @@ import {getAuthorization} from "./utility";
 
 const BASE_URL = import.meta.env.MODE === 'development' ? '/dev/': '../portal/'
 
-function request(method: 'post'|'get'|'patch'|'put'|'delete', params: {}|null, requestData: {}|null, url: string, timeout = 30000) {
+function request(
+    method: 'post'|'get'|'patch'|'put'|'delete',
+    params: {}|null,
+    requestData: {}|null,
+    url: string,
+    timeout = 30000) : Promise<{success: boolean, data: Array<any>|any, message: string}>
+{
 
     let headers = {}
     /**

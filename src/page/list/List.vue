@@ -74,7 +74,7 @@ interface SearchParams {
     keywords: string[],
     pageNo: number,
     pageSize: number, // 单页请求条数
-    categories: string[],
+    categories: string,
     filterShared: 0|1, // 1 是筛选，0 是不筛选
     dateFilterString: string // 日记年月筛选
 }
@@ -82,7 +82,7 @@ const params: Ref<SearchParams> = ref({
     keywords: [],
     pageNo: 1,
     pageSize: 100, // 单页请求条数
-    categories: [],
+    categories: '',
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
 })

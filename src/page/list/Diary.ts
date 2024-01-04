@@ -17,6 +17,10 @@ interface DiaryEntity {
     contentHtml? : string,
     nickname?: string,
     username?: string
+
+    // share
+    weekday?: string,
+    dateString? : string
 }
 
 interface DiaryListOperation {
