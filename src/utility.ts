@@ -10,8 +10,13 @@ const BILL_KEYS_NAME = 'BillKeys'
 /**
  *  AUTHORIZATION
  */
-function getAuthorization(): AuthorizationEntity | {} {
-    return JSON.parse(localStorage.getItem(AUTHORIZATION_NAME) || '{}')
+function getAuthorization(): AuthorizationEntity | null {
+    let authJsonString = localStorage.getItem(AUTHORIZATION_NAME)
+    if (authJsonString){
+        return JSON.parse(authJsonString)
+    } else {
+        return null
+    }
 }
 
 function deleteAuthorization() {
