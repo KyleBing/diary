@@ -12,7 +12,7 @@
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
-                    <div :class="['navbar-category-list-item' ,'ml-3', {active: storeProject.isFilterShared}]" @click="toggleFilterShared">共享</div>
+                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: storeProject.isFilterShared}]" @click="toggleFilterShared">共享</div>
 
                 </div>
                 <div class="navbar-category-list-special">
@@ -112,6 +112,7 @@ $nav-btn-height: 15px;
     line-height: $nav-btn-height;
     color: transparentize(white, 0.6);
     @extend .btn-like;
+
     &.special{
         font-weight: bold;
         color: transparentize($color-main, 0.4);
@@ -127,10 +128,14 @@ $nav-btn-height: 15px;
     &:hover{
         font-weight: bold;
         color: rgba(255,255,255,0.6);
+        &.active.share-item{
+            color: white;
+        }
         &.special{
             color: transparentize($color-main, 0.2);
         }
     }
+
 }
 
 $height-indicator: 8px;
