@@ -37,12 +37,13 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "vite-svg-loader": "^5.1.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-pwa": "^0.17.4",
+    "vite-svg-loader": "^5.1.0",
     "vue-tsc": "^1.8.5"
   }
 }
