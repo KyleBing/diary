@@ -2,12 +2,18 @@ import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from "vite-svg-loader"
 import { VitePWA } from 'vite-plugin-pwa'
-
 import { resolve } from 'path'
+import zipPack from "vite-plugin-zip-pack" // make dist.zip file
+import Moment from "moment";
+import {dateFormatter} from "./src/utility";
+
+const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd hh-mm-ss')
+
 
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: './',
     plugins: [
         vue(),
         svgLoader(),
@@ -42,6 +48,12 @@ export default defineConfig({
                     },
                 ],
             },
+        }),
+        zipPack({
+            inDir: 'dist',
+            outDir: 'archive',
+            outFileName: `diary-${timeStringNow}.zip`,
+            pathPrefix: ''
         })
     ],
     resolve: {
