@@ -704,6 +704,8 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
     })
 }
 function createDiary() {
+    isNew.value = true
+
     // 只有在当天写日记时，才自动获取实时天气
     if (Moment(diary.value.date).isSame(new Date(), 'day')){
         getCurrentTemperature()
@@ -713,10 +715,10 @@ function createDiary() {
         diaryOrigin.value.temperature = ''
         diaryOrigin.value.temperature_outside = ''
     }
-    isNew.value = true
+
     diary.value = {
         id: -1,
-        title: "",
+        title: diary.value.category === 'bill'? '账单': '', // 在账单类别下新建时，自动填充标题为 账单
         content: "",
         is_public: false,
         is_markdown: false,
