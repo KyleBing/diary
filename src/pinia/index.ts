@@ -24,7 +24,7 @@ export const useProjectStore = defineStore('projectStore', {
         isFilterShared: false ,                         // 是否筛选共享的日记
         dateFilterString: '' ,                          // 日期筛选
         keywords: [] as String[] ,                      // 搜索关键字
-        filteredCategories: [] as CategoryEntity[] ,    // 筛选的类别
+        filteredCategories: [] as string[] ,            // 筛选的类别 name_en[]
 
         isShowSearchBar: false ,                        // 搜索栏显示
         isHideContent: false ,                          // 是否显示列表内容
@@ -98,7 +98,7 @@ export const useProjectStore = defineStore('projectStore', {
             setDiaryConfig(diaryConfig)
         },
         // 设置类别筛选
-        SET_FILTERED_CATEGORIES(payload: CategoryEntity[]){
+        SET_FILTERED_CATEGORIES(payload: string[]){
             this.filteredCategories = payload
             let diaryConfig = getDiaryConfigFromLocalStorage()
             diaryConfig.filteredCategories = payload

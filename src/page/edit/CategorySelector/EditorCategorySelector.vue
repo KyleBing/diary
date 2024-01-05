@@ -33,8 +33,8 @@ const categorySelected = ref(props.category)
 watch(() => props.category, () => {
     categorySelected.value = props.category
 })
-watch(categorySelected, () => {
-    emit('change', categorySelected)
+watch(categorySelected, newValue => {
+    emit('change', newValue)
 })
 
 function itemStyle(active: boolean, category: CategoryEntity) {
