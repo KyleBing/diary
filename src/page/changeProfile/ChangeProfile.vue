@@ -8,7 +8,7 @@
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
                         <img v-if="formUser.avatar" :src="formUser.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_avatar" alt="Diary Logo">
-                        <img v-else src="../../assets/icons/logo/logo_avatar.svg" alt="Avatar">
+                        <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
                 </div>

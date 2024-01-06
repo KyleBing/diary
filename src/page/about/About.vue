@@ -1,7 +1,7 @@
 <template>
     <div class="about" :style="'height:' + storeProject.insets.heightPanel + 'px'">
         <div class="logo">
-            <img src="../../assets/icons/logo/logo_login.svg" alt="LOGO">
+            <img :src="SVG_ICONS.logo_icons.logo" alt="LOGO">
         </div>
         <h3 class="title">{{packageInfo.nameZh}}</h3>
         <h4 class="subtitle">{{packageInfo.description}}</h4>
@@ -21,6 +21,7 @@
 
 import packageInfo from "../../../package.json"
 import {useProjectStore} from "../../pinia";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const storeProject = useProjectStore()
 
 </script>

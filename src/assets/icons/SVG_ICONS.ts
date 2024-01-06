@@ -68,6 +68,7 @@ import logo_login from "./logo/logo_login.svg?url"
 import logo_register from "./logo/logo_register.svg?url"
 import logo_change_password from "./logo/logo_change_password.svg?url"
 import logo_avatar from "./logo/logo_avatar.svg?url"
+import logo_server_error from "./logo/logo_server_error.svg?url"
 
 // Weather
 import weather_cloudy from "./weather/cloudy.svg?url"
@@ -140,6 +141,7 @@ export default {
         logo_register: logo_register,
         logo_change_password: logo_change_password,
         logo_avatar: logo_avatar,
+        logo_server_error: logo_server_error,
     },
     // EOF
     EOF: EOF,

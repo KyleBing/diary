@@ -69,7 +69,7 @@
             </div>
 
         </div>
-        <router-link class="back-link" to="/"><img src="../../assets/icons/logo/logo.svg" alt="logo">标题日记</router-link>
+        <router-link class="back-link" to="/"><img :src="SVG_ICONS.logo_icons.logo" alt="logo">标题日记</router-link>
 
     </div>
 </template>
