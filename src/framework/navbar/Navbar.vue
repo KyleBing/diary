@@ -267,7 +267,7 @@ function toggleTodoList(){
         nextCategories = ['todo']
     }
     storeProject.isFilterShared = false
-    storeProject.filteredCategories = nextCategories
+    storeProject.SET_FILTERED_CATEGORIES(nextCategories)
     storeProject.isListNeedBeReload = true
 }
 
