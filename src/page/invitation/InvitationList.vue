@@ -24,7 +24,7 @@
 
                     </div>
                     <div class="operation-btns" v-if="storeProject.isAdminUser">
-                        <TabIcon alt="关闭" @click="deleteInvitationCode(item.id)"/>
+                        <TabIcon alt="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
                         <TabIcon v-if="item.is_shared === 0" alt="确定" @click="markAsShared(item.id)"/>
                     </div>
                 </div>
