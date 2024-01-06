@@ -1,6 +1,7 @@
 <template>
     <div :class="['temperature-set-item',{active: !!temperatureLocal}]">
         <input placeholder="--"
+               autocomplete="off"
                class="temperature"
                name="temperature"
                id="temperature"
