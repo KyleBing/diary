@@ -25,11 +25,11 @@
                     <MenuListItem menu-name="账单"     :icon="SVG_ICONS.tab_icons.bill"        @click="goToPage('Bill')" />
                     <MenuListItem menu-name="银行卡"   :icon="SVG_ICONS.tab_icons.card"        @click="goToPage('BankCard')" />
                     <MenuListItem
-                        v-if="storeProject.isAdminUser"
+                        v-if="isAdminUser"
                         menu-name="文件管理" :icon="SVG_ICONS.tab_icons.folder"        @click="goToPage('FileManager')" />
                     <MenuListItem menu-name="其它"     :icon="SVG_ICONS.tab_icons.others"      @click="menuListClicked('others')" />
                     <MenuListItem
-                        v-if="storeProject.isAdminUser"
+                        v-if="isAdminUser"
                         menu-name="邀请码"   :icon="SVG_ICONS.tab_icons.invitation"         @click="goToPage('Invitation')" />
                     <MenuListItem
                         menu-name="关于"     :icon="SVG_ICONS.tab_icons.about"        @click="menuListClicked('about')"
@@ -77,9 +77,10 @@ import UserProfile from "../menu/UserProfile.vue";
 import MenuOtherFunction from "../menu/MenuOtherFunction.vue";
 
 import {useProjectStore} from "../../pinia";
-import {nextTick, onMounted, ref, watch} from "vue";
+import {computed, nextTick, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
+import {getAuthorization} from "@/utility.ts";
 
 const storeProject = useProjectStore()
 const router = useRouter()
@@ -105,6 +106,10 @@ watch(isMenuShowed, newValue => {
     } else {
         menuClose()
     }
+})
+
+const isAdminUser = computed(()=>{
+    return getAuthorization().group_id === 1
 })
 
 // 跳转到独立页面

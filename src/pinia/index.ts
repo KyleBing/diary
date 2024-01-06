@@ -72,14 +72,6 @@ export const useProjectStore = defineStore('projectStore', {
             })
             return categoryNameMap
         },
-        isAdminUser(){
-            let auth = getAuthorization()
-            if (auth){
-                return auth.group_id === 1
-            } else {
-                return false
-            }
-        },
     },
     actions: {
         INIT_PROJECT_CONFIG(){

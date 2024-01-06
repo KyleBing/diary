@@ -44,7 +44,7 @@
                     <TabIcon alt="账单"/>
                 </div>
                 <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode && storeProject.isAdminUser"
+                     v-if="!storeProject.isInMobileMode && isAdminUser"
                      @click="goToPage('FileManager')">
                     <TabIcon alt="文件"/>
                 </div>
@@ -159,7 +159,7 @@ import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelecto
 
 import ClipboardJS from "clipboard"
 
-import {popMessage} from "../../utility.ts";
+import {getAuthorization, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
@@ -167,6 +167,11 @@ import {useRoute, useRouter} from "vue-router";
 
 const route = useRoute()
 const router = useRouter()
+
+
+const isAdminUser = computed(()=>{
+    return getAuthorization().group_id === 1
+})
 
 
 /**

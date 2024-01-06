@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
-            <div class="user-list" v-if="storeProject.isAdminUser">
+            <div class="user-list" v-if="isAdminUser">
                 <StatisticPanel title="日记用户">
                     <table>
                         <thead>
@@ -119,12 +119,17 @@ import Moment from "moment";
 
 import {computed, ComputedRef, onMounted, ref} from "vue";
 import {useProjectStore} from "../../../pinia";
-import {dateFormatter} from "../../../utility.ts";
+import {dateFormatter, getAuthorization} from "../../../utility.ts";
 const storeProject = useProjectStore()
 
 onMounted(()=>{
     getStatisticUsers()
 })
+
+const isAdminUser = computed(()=>{
+    return getAuthorization().group_id === 1
+})
+
 
 const users = ref([])
 const usersDiary = ref([]) // 日记用户

@@ -106,7 +106,8 @@ $nav-btn-height: 15px;
     height: $height-navbar;
 }
 .navbar-category-list-item{
-    font-size: $fz-small;
+    //font-size: $fz-small;
+    font-size: 13px;
     padding: 0 6px;
     height: $nav-btn-height;
     font-weight: normal;
