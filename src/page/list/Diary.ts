@@ -48,7 +48,7 @@ interface DiaryEntityDatabase{
 
 
 interface DiarySearchParams {
-    keywords: string[],
+    keywords: string, // 关键字 JSON string 后的内容 : string[]
     pageNo: number,
     pageSize: number, // 单页请求条数
     categories: string,

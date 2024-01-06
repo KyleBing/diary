@@ -66,8 +66,8 @@ const diaries: Ref<DiaryEntity[]> = ref([])
 const diariesShow: Ref<DiaryEntity[]> = ref([])
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
 
-const params: Ref<DiarySearchParams> = ref({
-    keywords: [],
+const formSearch: Ref<DiarySearchParams> = ref({
+    keywords: '',
     pageNo: 1,
     pageSize: 100, // 单页请求条数
     categories: '',
@@ -148,7 +148,11 @@ watch(isShowSearchBar, newValue => {
     }
 })
 watch(keywordShow, newValue => {
-    storeProject.SET_KEYWORD(newValue.split(' '))
+    if (newValue){ // 当有内容时才变化， '' 将不存储
+        storeProject.SET_KEYWORD(newValue.split(' '))
+    } else {
+        storeProject.SET_KEYWORD([])
+    }
 })
 // route 载入 `/` 路径时，重载日记列表：比如删除日记后
 
@@ -158,8 +162,8 @@ function clearKeyword() {
     search()
 }
 function reloadDiaryList() {
-    params.value.pageNo = 1
-    params.value.keywords = JSON.stringify(storeProject.keywords)
+    formSearch.value.pageNo = 1
+    formSearch.value.keywords = JSON.stringify(storeProject.keywords)
     diaries.value = []
     diariesShow.value = []
     loadMore()
@@ -169,14 +173,14 @@ function reloadDiaryList() {
 function loadMore() {
     isHasMore.value = false
     isLoading.value = true
-    params.value.categories = JSON.stringify(storeProject.filteredCategories)
-    params.value.dateFilterString = storeProject.dateFilterString
-    params.value.filterShared = storeProject.isFilterShared ? 1 : 0
+    formSearch.value.categories = JSON.stringify(storeProject.filteredCategories)
+    formSearch.value.dateFilterString = storeProject.dateFilterString
+    formSearch.value.filterShared = storeProject.isFilterShared ? 1 : 0
     getDiaries()
 }
 function getDiaries() {
     diaryApi
-        .list(params.value)
+        .list(formSearch.value)
         .then(res => {
             let newDiariesList = res.data.map(diary => {
                 if (diary.content) {
@@ -189,9 +193,9 @@ function getDiaries() {
             })
 
             // page operation
-            if (res.data.length === params.value.pageSize) {
+            if (res.data.length === formSearch.value.pageSize) {
                 isHasMore.value = true
-                params.value.pageNo++
+                formSearch.value.pageNo++
             } else {
                 isHasMore.value = false
             }
