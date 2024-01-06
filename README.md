@@ -5,12 +5,11 @@
 
 
 > [http://kylebing.cn/diary](http://kylebing.cn/diary)  
-在线项目，点击登录界面右下角的体验账号登录即可
+> _右下角，体验账号登录试用_
 
 
 
 ## 界面
-详细的截图在文章最后
 
 ![2023-08-31 11 27 29](https://github.com/KyleBing/diary/assets/12215982/1c9e40d1-d175-42d6-aed6-266a18cbbe3b)
 
@@ -52,12 +51,13 @@
   比如当前这篇日记的分享链接是：[http://kylebing.cn/diary/#/share/6766](http://kylebing.cn/diary/#/share/6766)
 - 自动切换黑白两种样式。
 - 日记统计
+- 日记导出，多种格式： `json`, `txt`, `json`, `csv`
 - 账单（需要指定格式书写）
    我一般每周整理一次账单，为了方便整理，建议你统一支付出口，只用一个作为主要支付手段：支付宝、微信，这样在统计的时候好统计，不然你还需要去多个地方统计。
 
-### 3. 支持平台
+### 3. 适配多端
 
-PC 和 移动端均能完美显示。
+有浏览器就能访问，电脑 + 移动端：都能完美显示
 
 ### 4. 文本编辑时支持 JetBrains 相关快捷键
 
@@ -70,10 +70,11 @@ PC 和 移动端均能完美显示。
 | <kbd>CTRL</kbd>+ <kbd>← </kbd> | 移动到行最左端|
 | <kbd>CTRL</kbd>+ <kbd>→ </kbd> | 移动到行最右端|
 
+
 ## 二、服务部署
 该项目包含两个部分，具体的部署方式在各个项目中都有介绍：  
 
-- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue`
+- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue3`+`ts`+`vite`
 - 后台：[https://github.com/KyleBing/diary-portal](https://github.com/KyleBing/diary-portal) `nodejs`
 
 ## 三、邀请码的使用
@@ -136,7 +137,9 @@ gzip_types  text/css application/javascript application/json;
 
 ## 六、用到的 npm 包
 
-- `vue3` + `vue-router` + `vuex` 
+- `vue3` + `ts` + `vite` 
+- `vue-router`
+- `pinia`
 - `axios` 
 - `clipboard` 
 - `moment`
@@ -153,22 +156,23 @@ gzip_types  text/css application/javascript application/json;
 2. 后来过了很久，到 2019 年的时候感觉自己前端技术差不多了，就想把它实现了，最初使用的是 `HTML` + `jQuery`。
 3. 后来对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，添加了 PC 版界面。
 4. 再后来就大改了，改成了纯 `Vue` 模式，此时的 PC 版和移动端还是在两个分支上的。
-5. 又过了好久，移动端和 PC 两个版本整合到一起，也就是现在的版本。
+5. 又过了好久，移动端和 PC 两个版本整合到一起。
+6. 2024年1月，改写成 `vite` + `ts` 版本
+
+
+## 八、项目周期
+
+`2017-09-27` ~ `现在`
+
+因为自己在用这个，也是自己最喜欢、使用频率最高的项目，所以只要我还健在，这个项目就会被一直维护下去。
 
 
 
-## 八、支持
+## 九、支持
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
-
-## 九、项目周期
-
-`2017-09-27` - `现在`
-
-只要我还健在。  
-提供了日记导出功能，如果不想记了，可以通过这个功能导出日记保存到自己的电脑上。
 
 
 ## 十、界面截图 - 详细
