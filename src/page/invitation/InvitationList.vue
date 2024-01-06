@@ -1,15 +1,15 @@
 <template>
-    <page-header title="邀请码" subtitle="点击可复制">
-        <tab-icon v-if="isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
-    </page-header>
+    <PageHeader title="邀请码" subtitle="点击可复制">
+        <TabIcon v-if="storeProject.isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
+    </PageHeader>
 
     <div class="invitation-container">
-        <div v-if="isLoading" class="pt-8 pb-8" :style="'height:' + insets.heightPanel + 'px'">
-            <loading :loading="isLoading"/>
+        <div v-if="isLoading" class="pt-8 pb-8" :style="'height:' + storeProject.insets.heightPanel + 'px'">
+            <Loading :loading="isLoading"/>
         </div>
 
         <div v-else
-             :style="'height:' + insets.heightPanel + 'px'">
+             :style="'height:' + storeProject.insets.heightPanel + 'px'">
             <div class="invitation-list" >
                 <div :class="['invitation-list-item', {shared: item.is_shared === 1}]"
                      v-for="(item,index) in invitationList" :key="item.id">
@@ -23,9 +23,9 @@
                         <div class="create-time">{{item.date_create}}</div>
 
                     </div>
-                    <div class="operation-btns" v-if="isAdminUser">
-                        <tab-icon alt="关闭" @click="deleteInvitationCode(item.id)"/>
-                        <tab-icon v-if="item.is_shared === 0" alt="确定" @click="markAsShared(item.id)"/>
+                    <div class="operation-btns" v-if="storeProject.isAdminUser">
+                        <TabIcon alt="关闭" @click="deleteInvitationCode(item.id)"/>
+                        <TabIcon v-if="item.is_shared === 0" alt="确定" @click="markAsShared(item.id)"/>
                     </div>
                 </div>
             </div>
@@ -33,112 +33,87 @@
     </div>
 </template>
 
-<script>
-import {mapState, mapMutations} from 'vuex'
-import Loading from "../../components/Loading"
-import utility from "../../utility"
-import BankCard from "../../page/bankCard/BankCard"
+<script lang="ts" setup>
+import Loading from "../../components/Loading.vue"
+import TabIcon from "../../components/TabIcon.vue"
+import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+
 import ClipboardJS from "clipboard"
-import TabIcon from "../../components/TabIcon"
-import PageHeader from "../../framework/pageHeader/PageHeader"
-import invitationApi from "../../api/invitationApi";
-import projectConfig from "../../projectConfig";
+import invitationApi from "../../api/invitationApi.ts";
+import {popMessage, dateFormatter} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore()
+import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
+import {InvitationEntity} from "./InvitationEntity.ts";
 
-export default {
-    name: "InvitationList",
-    components: {PageHeader, TabIcon, BankCard, Loading},
-    data() {
-        return {
-            isLoading: false,
-            invitationList: [],
-            clipboard: null, // clipboard obj
-        }
-    },
-    mounted() {
-        // 只在第一次请求的时候显示载入 loading
-        this.isLoading = true
-        this.getInvitationList()
+const isLoading = ref(false)
+const invitationList: Ref<InvitationEntity[]> = ref([])
+const clipboard = ref(null) // clipboard obj
 
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.invitation-code', {
-            text: trigger => {
-                return trigger.getAttribute('data-clipboard')
-            },
+
+
+onMounted(()=>{
+    // 只在第一次请求的时候显示载入 loading
+    isLoading.value = true
+    getInvitationList()
+    // 绑定剪贴板操作方法
+    clipboard.value = new ClipboardJS('.invitation-code', {
+        text: trigger => {
+            return trigger.getAttribute('data-clipboard')
+        },
+    })
+    clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+        popMessage('success', '邀请码已复制到剪贴板', null, 2)
+    })
+})
+onBeforeUnmount(()=>{
+    clipboard.value && clipboard.value.destroy()
+})
+
+function getInvitationList(){
+    invitationApi
+        .list()
+        .then(res => {
+            isLoading.value = false
+            if (res.data) {
+                invitationList.value = res.data.map(item => {
+                    item.date_create = dateFormatter(new Date(item.date_create))
+                    return item
+                })
+            } else {
+                // 没有设置任何银行卡信息
+            }
         })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '邀请码已复制到剪贴板', null, 2)
+        .catch(() => {
+            isLoading.value = false
         })
-    },
-    beforeUnmount() {
-        this.clipboard.destroy()
-    },
+}
+// 生成新的邀请码
+function generateNewInvitationCode(){
+    invitationApi.generate().then(() => getInvitationList())
+}
 
-    computed: {
-        ...mapState({
-            years: 'statisticsYear',
-        }),
-        ...mapState(['insets', 'categoryAll']),
-        isAdminUser(){
-            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
-        }
-    },
-    methods: {
-        getInvitationList(){
-            invitationApi
-                .list()
-                .then(res => {
-                    this.isLoading = false
-                    if (res.data) {
-                        this.invitationList = res.data.map(item => {
-                            item.date_create = utility.dateFormatter(new Date(item.date_create))
-                            return item
-                        })
-                    } else {
-                        // 没有设置任何银行卡信息
-                    }
-                })
-                .catch(err => {
-                    this.isLoading = false
-                })
-        },
-        // 生成新的邀请码
-        generateNewInvitationCode(){
-            invitationApi
-                .generate()
-                .then(res => {
-                    this.getInvitationList()
-                })
-                .catch(err => {
-                })
-        },
-
-        // 删除邀请码
-        deleteInvitationCode(invitationId){
-            invitationApi
-                .delete({
-                    id: invitationId
-                })
-                .then(res => {
-                    utility.popMessage('success', res.message, null)
-                    this.getInvitationList()
-                })
-                .catch(err => {
-                })
-        },
-        // 邀请码为已分享状态
-        markAsShared(invitationId){
-            invitationApi
-                .markAsShared({
-                    id: invitationId
-                })
-                .then(res => {
-                    utility.popMessage('success', res.message, null)
-                    this.getInvitationList()
-                })
-                .catch(err => {
-                })
-        },
-    }
+// 删除邀请码
+function deleteInvitationCode(invitationId: number | string){
+    invitationApi
+        .delete({
+            id: invitationId
+        })
+        .then(res => {
+            popMessage('success', res.message, null)
+            getInvitationList()
+        })
+}
+// 邀请码为已分享状态
+function markAsShared(invitationId: number | string){
+    invitationApi
+        .markAsShared({
+            id: invitationId
+        })
+        .then(res => {
+            popMessage('success', res.message)
+            getInvitationList()
+        })
 }
 </script>
 

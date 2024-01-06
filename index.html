@@ -13,22 +13,27 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- safari 背景色-->
+    <!-- theme color-->
     <meta name="theme-color" content="#373737" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
 
-    <link rel="shortcut icon" href="<%= BASE_URL %>favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="<%= BASE_URL %>appicon-apple.png">
+    <!-- fav icon -->
+    <link rel="shortcut icon" href="./favicon.png" type="image/png">
+
+    <!-- apple-touch-icon -->
+    <link rel="apple-touch-icon" href="./appicon-apple.png">
+    <!-- mask-icon 目前非必须 -->
+    <link rel="mask-icon" href="./appicon-apple.png">
 
     <title>日记</title>
-    <link rel="stylesheet" href="preloading.css">
+    <link rel="stylesheet" href="/preloading.css">
 </head>
 <body>
 
 <!--加载动画-->
 <div class="preloading">
     <div class="logo-preloading">
-        <img src="logo.svg" alt="LOGO">
+        <img src="/logo.svg" alt="LOGO">
     </div>
     <div class="preloading-title">载入中</div>
     <div class="preloading-loading">
@@ -43,6 +48,7 @@
     <strong>请开启JavaScript支持：未开启 JavaScript 支持的情况下，《标题日记》将无法正常工作</strong>
 </noscript>
 <div id="app"></div>
+<script type="module" src="/src/main.ts"></script>
 <script>
     setTimeout(() => {
         if (!/^http:\/\/(a\.kylebing\.cn|localhost|192\.168\.\d{1,3}\.\d{1,3})/i.test(location.href)) {

@@ -1,19 +1,16 @@
 <template>
-    <div :class="['btn-normal', type]">
+    <div :class="['btn-normal', props.type]">
         <slot/>
     </div>
 </template>
 
-<script>
-export default {
-    name: "ButtonNormal",
-    props: {
-        type: {
-            type: String,
-            default: ''
-        }
+<script lang="ts" setup>
+const props = defineProps({
+    type: {
+        type: String,
+        default: ''
     }
-}
+})
 </script>
 
 <style scoped lang="scss">

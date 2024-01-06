@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -7,7 +7,8 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper">
                     <div :class="['logo', {valid: avatarLink} ]">
-                        <img :src="avatarLink || icons.logoIcon.login" alt="Diary Logo">
+                        <img v-if="avatarLink" :src="avatarLink" alt="Diary Logo">
+                        <img v-else :src="SVG_ICONS.logo_icons.logo_login" alt="LOGIN-LOGO">
                     </div>
                 </div>
 
@@ -28,9 +29,9 @@
                 </div>
                 <div class="copyright">
                     <p>
-                        <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{packageInfo.nameZh}}</a>
-                         <span> v{{packageInfo.version}}</span>
-                        <span> 始于 {{packageInfo.dateInit}}</span>
+                        <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
+                        <span> v{{ packageInfo.version }}</span>
+                        <span> 始于 {{ packageInfo.dateInit }}</span>
                     </p>
                 </div>
             </div>
@@ -40,129 +41,127 @@
     </div>
 </template>
 
-<script>
-import userApi from "../../api/userApi"
-import utility from "../../utility"
-import {mapState} from "vuex"
-import SvgIcons from "../../assets/img/SvgIcons"
-import projectConfig from "@/projectConfig";
+<script lang="ts" setup>
+import projectConfig from "../../projectConfig.ts";
 import packageInfo from "../../../package.json"
-import billApi from "../../api/billApi";
-export default {
-    name: "Login",
-    data() {
-        return {
-            icons: SvgIcons,
-            show: false,
-            labelEmail: "邮箱",
-            labelCheckPassword: "再次确认密码",
-            email: "",
-            password: "",
-            loginLabel: '登录',
-            isShowDemoAccount: projectConfig.isShowDemoAccount,
-            packageInfo: packageInfo,
 
-            avatarLink: '',
-        }
-    },
-    mounted() {
-        this.show = true
-        document.title = '日记 - 登录' // 变更标题
-    },
-    computed: {
-        ...mapState(['insets']),
-        emailVerified() {
-            return /(\w|\d)+@(\w|\d)+\.\w+/i.test(this.email)
-        },
-        passwordVerified() {
-            return this.password.length > 0
-        },
-        verified() {
-            return this.emailVerified && this.passwordVerified
-        }
-    },
-    methods: {
-        loginSubmit() {
-            if (this.verified){
-                this.loginLabel = '登录中...'
-                let requestData = {
-                    email: this.email,
-                    password: this.password,
-                }
-                userApi
-                    .login(requestData)
-                    .then(res => {
-                        // set authorization
-                        utility.setAuthorization(
-                            res.data.nickname,
-                            res.data.uid,
-                            res.data.email,
-                            res.data.phone,
-                            res.data.avatar,
-                            res.data.password,
-                            res.data.group_id,
-                            res.data.city,
-                            res.data.geolocation,
-                        )
-                        this.getBillKeys()
-                        utility.popMessage('success', res.message, () => {
-                            this.$router.push({name: 'Index'})
-                        })
-                        this.loginLabel = '登录成功'
-                    })
-                    .catch(err => {
-                        this.loginLabel = '登录失败'
-                        utility.popMessage('danger', err.message, () => {
-                            this.loginLabel = '登录'
-                        }, 5)
-                    })
-            } else {
+import userApi from "../../api/userApi.ts"
+import billApi from "../../api/billApi.ts";
 
-            }
-        },
+import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
+const storeProject = useProjectStore()
+import {computed, onMounted, Ref, ref, watch} from "vue";
+import {useRouter} from "vue-router";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-        getBillKeys(){
-            billApi
-                .keys()
-                .then(res => {
-                    utility.saveBillKeys(res.data)
-                })
-                .catch(err => {
-                    utility.popMessage('warning', err.message)
-                })
-        },
-        useTestAccount() {
-            this.email = "test@163.com"
-            this.password = "test"
-        },
-        getAvatar(){
-            userApi
-                .getAvatar({
-                    email: this.email
-                })
-                .then(res => {
-                    this.avatarLink = res.data.avatar
-                })
+const router = useRouter()
+
+const show = ref(false)
+onMounted(()=> {
+    show.value = true
+    document.title = '日记 - 登录' // 变更标题
+})
+
+
+
+const labelEmail = ref("邮箱")
+const email = ref('')
+const password = ref('')
+const loginLabel = ref('登录')
+const isShowDemoAccount = projectConfig.isShowDemoAccount
+const avatarLink: Ref<string | null> = ref(null)
+
+
+watch(email, newValue => {
+    if (newValue === ''){
+        labelEmail.value = '邮箱'
+        avatarLink.value = null
+    } else if (emailVerified.value) {
+        labelEmail.value = '邮箱'
+        getAvatar()
+    } else {
+        avatarLink.value = null
+        labelEmail.value = '输入的邮箱不正确，请重新输入'
+    }
+})
+
+
+const emailVerified = computed(() => {
+    return /(\w|\d)+@(\w|\d)+\.\w+/i.test(email.value)
+})
+const passwordVerified = computed(() => {
+    return password.value.length > 0
+})
+const verified = computed(() => {
+    return emailVerified.value && passwordVerified.value
+})
+
+
+function loginSubmit() {
+    if (verified.value){
+        loginLabel.value = '登录中...'
+        let requestData = {
+            email: email.value,
+            password: password.value,
         }
-    },
-    watch: {
-        email() {
-            if (this.email === ''){
-                this.labelEmail = '邮箱'
-                this.avatarLink = null
-            } else if (this.emailVerified) {
-                this.labelEmail = '邮箱'
-                this.getAvatar()
-            } else {
-                this.avatarLink = null
-                this.labelEmail = '输入的邮箱不正确，请重新输入'
-            }
-        }
+        userApi
+            .login(requestData)
+            .then(res => {
+                // set authorization
+                setAuthorization({
+                    nickname : res.data.nickname,
+                    uid : res.data.uid,
+                    email : res.data.email,
+                    phone : res.data.phone,
+                    avatar : res.data.avatar,
+                    token : res.data.password,
+                    group_id : res.data.group_id,
+                    city : res.data.city,
+                    geolocation : res.data.geolocation,
+                })
+                getBillKeys()
+                popMessage('success', res.message, () => router.push({name: 'Index'}))
+                loginLabel.value = '登录成功'
+            })
+            .catch(err => {
+                loginLabel.value = '登录失败'
+                popMessage('danger', err.message, () => loginLabel.value = '登录', 5)
+            })
+    } else {
+
     }
 }
+
+function getBillKeys() {
+    billApi
+        .keys()
+        .then(res => {
+            setBillKeys(res.data)
+        })
+        .catch(err => {
+            popMessage('warning', err.message)
+        })
+}
+function useTestAccount() {
+    email.value = projectConfig.demoAccount
+    password.value = projectConfig.demoAccountPassword
+}
+function getAvatar(){
+    userApi
+        .getAvatar({
+            email: email.value
+        })
+        .then(res => {
+            if (res.data){
+                avatarLink.value = res.data.avatar
+            }
+        })
+}
+
 </script>
 <style lang="scss" scoped>
-@import "./src/scss/plugin";
+@import "../../scss/plugin";
 .copyright{
     left: 50%;
     transform: translateX(-50%);

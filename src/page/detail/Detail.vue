@@ -1,5 +1,5 @@
 <template>
-    <div class="diary-detail" id="diaryDetail" :style="`min-height: ${insets.heightPanel}px`">
+    <div class="diary-detail" id="diaryDetail" :style="`min-height: ${storeProject.insets.heightPanel}px`">
 
             <DetailHeader
                 :isLoading="isLoading"
@@ -8,11 +8,11 @@
             />
 
             <!-- pc 时不显示展示加载图标 -->
-            <loading :loading="isLoading" v-if="isInMobileMode"/>
+            <Loading :loading="isLoading" v-if="storeProject.isInMobileMode"/>
 
             <!--TITLE-->
             <div class="diary-title" v-if="diary.title">
-                <h2>{{ isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
+                <h2>{{ storeProject.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
                     <ButtonNormal class="clipboard" :data-clipboard="diary.title">复制</ButtonNormal>
                 </div>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div v-else>
-                        <div v-if="diary.is_markdown === 1 && !isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
+                        <div v-if="diary.is_markdown === 1 && !storeProject.isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
                         <div v-else class="content" v-html="getContentHtml(diary.content)"/>
                     </div>
 
@@ -45,133 +45,114 @@
         </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import ClipboardJS from "clipboard"
-import utility from "../../utility"
-import {mapGetters, mapMutations, mapState} from "vuex"
-import Loading from "../../components/Loading"
-import diaryApi from "../../api/diaryApi"
-import SvgIcons from "../../assets/img/SvgIcons"
+import Loading from "../../components/Loading.vue"
+import diaryApi from "../../api/diaryApi.ts"
 import {marked} from "marked"
 import calendar from "js-calendar-converter";
 import Moment from "moment";
-import DetailHeader from "@/page/detail/DetailHeader";
-import WordExplode from "@/page/detail/WordExplode";
-import ButtonNormal from "@/components/ButtonNormal";
+import DetailHeader from "../detail/DetailHeader.vue";
+import WordExplode from "../detail/WordExplode.vue";
+import ButtonNormal from "../../components/ButtonNormal.vue";
 import ToDo from "./ToDo.vue";
 
-export default {
-    name: 'Detail',
-    components: {ToDo, ButtonNormal, WordExplode, DetailHeader, Loading},
-    data() {
-        return {
-            isShowToast: false,
-            isLoading: false, // loading
-            diary: {},
-            icons: SvgIcons,
-            clipboard: null, // clipboard obj
-            lunarObject: {},
+import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
-            isShowExplode: false,
-        }
-    },
-    mounted() {
-        // 初始化时，载入第一次点击的 id 内容
-        if (this.$route.params.id){
-            this.showDiary(this.$route.params.id)
-        }
+import {useProjectStore} from "@/pinia";
 
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.clipboard', {
-            text: trigger => {
-                return trigger.getAttribute('data-clipboard')
-            },
-        })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '已复制到 剪贴板', null, 1)
-        })
-    },
-    beforeUnmount() {
-        this.clipboard.destroy()
-    },
-    computed:{
-        ...mapState(['categoryAll', 'insets', 'isHideContent']),
-        ...mapGetters(['isInMobileMode', 'categoryNameMap', 'categoryObjectMap']),
+const storeProject = useProjectStore();
+import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+const router = useRouter()
+const route = useRoute()
+import {DiaryEntityDatabase} from "../list/Diary.ts";
 
-        contentMarkDownHtml(){
-            return marked.parse(this.diary.content)
-        }
-    },
-    watch: {
-        '$route.params.id'(newValue){
-            if (newValue){
-                this.showDiary(newValue)
-            }
-        }
-    },
-    methods: {
-        ...mapMutations([
-            'SET_CURRENT_DIARY',
-            'SET_CATEGORY_ALL',
-        ]),
+const isLoading = ref(false) // loading
+const diary: Ref<DiaryEntityDatabase> = ref({})
+const clipboard = ref() // clipboard obj
+const lunarObject = ref({})
+const isShowExplode = ref(false)
 
-        toggleContentType(){
-            this.isShowExplode = !this.isShowExplode
-        },
-        goBack() {
-            this.$router.back()
-        },
-        show() {
-            this.isShowToast = true
-        },
-        hide() {
-            this.isShowToast = false
-        },
-        getContentHtml(content){
-            let isInCodeMode = /\[ ?code ?\]/i.test(content)
 
-            if (isInCodeMode){
-                return `<pre class="code">${this.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
-            } else {
-                let contentArray = content.split('\n')
-                let contentHtml = ""
-                contentArray.forEach(item => {
-                    if (item === ''){
-                        contentHtml += '<br/>'
-                    } else {
-                        contentHtml += `<p>${this.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}</p>`
-                    }
-                })
-                return contentHtml
-            }
-
-        },
-        showDiary(id) {
-            this.isLoading = true
-            let requestData = {diaryId: id}
-            diaryApi
-                .detail(requestData)
-                .then(res => {
-                    this.isLoading = false // loading off
-                    let diary = res.data
-                    this.diary = diary
-                    let dateMoment = new Moment(this.diary.date)
-                    this.lunarObject = calendar.solar2lunar(dateMoment.year(), dateMoment.month()+1, dateMoment.date())
-                    this.SET_CURRENT_DIARY(diary) // 设置 store: currentDiary
-                    let dateObj = utility.dateProcess(diary.date)
-                    this.diary.dateObj = dateObj
-                    document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title
-                    this.diary.temperature = utility.temperatureProcessSTC(diary.temperature)
-                    this.diary.temperatureOutside = utility.temperatureProcessSTC(diary.temperature_outside)
-
-                    diary.categoryString = this.categoryNameMap.get(diary.category)
-                })
-                .catch(() => {
-                    this.isLoading = false // loading off
-                    this.$router.push({name: 'List'})
-                })
-        },
+onMounted(()=>{
+    // 初始化时，载入第一次点击的 id 内容
+    if (route.params.id){
+        showDiary(Number(route.params.id))
     }
+
+    // 绑定剪贴板操作方法
+    clipboard.value = new ClipboardJS('.clipboard', {
+        text: trigger => {
+            return trigger.getAttribute('data-clipboard')
+        },
+    })
+    clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+        popMessage('success', '已复制到 剪贴板', null, 1)
+    })
+})
+
+onUnmounted(()=>{
+    clipboard.value.destroy()
+})
+
+const contentMarkDownHtml = computed(()=>{
+    return marked.parse(diary.value.content)
+})
+
+watch(() => route.params.id, (newValue) => {
+    if (newValue){
+        showDiary(Number(newValue))
+    }
+})
+
+function toggleContentType(){
+    isShowExplode.value = !isShowExplode.value
+}
+
+function getContentHtml(content: string){
+    let isInCodeMode = /\[ ?code ?\]/i.test(content)
+
+    if (isInCodeMode){
+        return `<pre class="code">${storeProject.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
+    } else {
+        let contentArray = content.split('\n')
+        let contentHtml = ""
+        contentArray.forEach(item => {
+            if (item === ''){
+                contentHtml += '<br/>'
+            } else {
+                contentHtml += `<p>${storeProject.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}</p>`
+            }
+        })
+        return contentHtml
+    }
+
+}
+function  showDiary(diaryId: number) {
+    isLoading.value = true
+    let requestData = {diaryId: diaryId}
+    diaryApi
+        .detail(requestData)
+        .then(res => {
+            isLoading.value = false // loading off
+            let tempDiary = res.data
+            diary.value = tempDiary
+            let dateMoment = Moment(diary.value.date)
+            lunarObject.value = calendar.solar2lunar(dateMoment.year(), dateMoment.month()+1, dateMoment.date())
+            storeProject.currentDiary = tempDiary // 设置 store: currentDiary
+            let dateObj = dateProcess(tempDiary.date)
+            diary.value.dateObj = dateObj
+            document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title
+            diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
+            diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
+
+            tempDiary.categoryString = storeProject.categoryNameMap.get(tempDiary.category)
+        })
+        .catch(() => {
+            isLoading.value = false // loading off
+            router.push({name: 'List'})
+        })
 }
 
 </script>

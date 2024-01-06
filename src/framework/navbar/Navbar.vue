@@ -4,105 +4,130 @@
         <nav class="navbar" id="navbar">
             <div class="nav-part-left">
                 <div @click="menuShow"
-                     v-if="(!isInMobileMode && !isMenuShowed)
-                     || isInMobileMode && $route.name === 'List' && !isMenuShowed">
-                    <tab-icon v-if="isInMobileMode" alt="菜单"/>
-                    <tab-icon v-else alt="LOGO"/>
+                     v-if="(!storeProject.isInMobileMode && !storeProject.isMenuShowed)
+                     || storeProject.isInMobileMode && $route.name === 'List' && !storeProject.isMenuShowed">
+                    <TabIcon v-if="storeProject.isInMobileMode" alt="菜单"/>
+                    <TabIcon v-else alt="LOGO"/>
                 </div>
-                <div @click="menuClose" v-if="isMenuShowed">
-                    <tab-icon alt="关闭"/>
+                <div @click="menuClose" v-if="storeProject.isMenuShowed">
+                    <TabIcon alt="关闭"/>
                 </div>
-                <div @click="commitBack" v-if="isInMobileMode && $route.name !== 'List'">
-                    <tab-icon alt="返回"/>
+                <div @click="commitBack"
+                     v-if="storeProject.isInMobileMode && $route.name !== 'List'">
+                    <TabIcon alt="返回"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleHideContent">
-                    <tab-icon v-if="isHideContent" alt="内容隐藏"/>
-                    <tab-icon v-else alt="内容显示"/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode"
+                     @click="toggleHideContent">
+                    <TabIcon v-if="storeProject.isHideContent" alt="内容隐藏"/>
+                    <TabIcon v-else alt="内容显示"/>
                 </div>
-                <div v-show="!isMenuShowed"  v-if="!isInMobileMode" @click="toggleListStyle">
-                    <tab-icon v-if="!isDiaryListShowedInFullStyle" alt="列表简洁"/>
-                    <tab-icon v-else alt="列表详情"/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode"
+                     @click="toggleListStyle">
+                    <TabIcon v-if="!storeProject.isDiaryListShowedInFullStyle" alt="列表简洁"/>
+                    <TabIcon v-else alt="列表详情"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleSearchbar">
-                    <tab-icon alt="搜索"/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode"
+                     @click="toggleSearchbar">
+                    <TabIcon alt="搜索"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('BankCard')">
-                    <tab-icon alt="银行卡"/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode"
+                     @click="goToPage('BankCard')">
+                    <TabIcon alt="银行卡"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="goToPage('Bill')">
-                    <tab-icon alt="账单"/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode"
+                     @click="goToPage('Bill')">
+                    <TabIcon alt="账单"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode && isAdminUser" @click="goToPage('FileManager')">
-                    <tab-icon alt="文件"/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode && storeProject.isAdminUser"
+                     @click="goToPage('FileManager')">
+                    <TabIcon alt="文件"/>
                 </div>
-                <div v-show="!isMenuShowed" v-if="!isInMobileMode" @click="toggleTodoList">
-                    <tab-icon alt="待办-显示" v-if="filteredCategories.length === 1 && filteredCategories[0] === 'todo'"/>
-                    <tab-icon alt="待办" v-else/>
+                <div v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode" @click="toggleTodoList">
+                    <TabIcon
+                        alt="待办-显示"
+                        v-if="storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'"/>
+                    <TabIcon alt="待办" v-else/>
                 </div>
-                <div class="btn-text-group" v-show="!isMenuShowed"  v-if="!isInMobileMode && dateFilter">
-                    <div class="btn-text" @click="clearDateFilter">{{ dateFilter }}</div>
+                <div class="btn-text-group"
+                     v-show="!storeProject.isMenuShowed"
+                     v-if="!storeProject.isInMobileMode && storeProject.dateFilterString">
+                    <div class="btn-text" @click="clearDateFilter">{{ storeProject.dateFilterString }}</div>
                 </div>
 
-
-                <NavbarCategorySelector v-if="!isInMobileMode && !isMenuShowed" class="ml-5"/>
+                <NavbarCategorySelector
+                    v-if="!storeProject.isInMobileMode && !storeProject.isMenuShowed"
+                    class="ml-5"/>
 
             </div>
 
             <div class="nav-part-right">
                 <!--时钟-->
-                <Clock class="pr-6" v-if="!isInMobileMode"/>
+                <Clock class="pr-6" v-if="!storeProject.isInMobileMode"/>
 
                 <!--详情按钮-->
-                <div class="nav-btn-wrapper" v-if="$route.name === 'Detail' && currentDiary">
+                <div class="nav-btn-wrapper" v-if="$route.name === 'Detail' && storeProject.currentDiary">
                     <div
-                        v-if="currentDiary && currentDiary.is_public === 1"
+                        v-if="storeProject.currentDiary && storeProject.currentDiary.is_public === 1"
                         class="clipboard-trigger"
-                        @click="copySharePath"
                         :data-clipboard="shareUrl">
-                        <tab-icon alt="分享"/>
+                        <TabIcon alt="分享"/>
                     </div>
                     <div @click="toastShow">
-                        <tab-icon alt="删除"/>
+                        <TabIcon alt="删除"/>
                     </div>
-                    <router-link :to="`/edit/${currentDiary.id}`">
-                        <tab-icon alt="编辑"/>
+                    <router-link :to="`/edit/${storeProject.currentDiary.id}`">
+                        <TabIcon alt="编辑"/>
                     </router-link>
                 </div>
 
                 <!--编辑按钮-->
                 <div class="nav-btn-wrapper" v-if="$route.name === 'Edit' || $route.name ==='EditNew'">
-                    <div @click="diaryRecover" v-if="isDiaryEditorContentHasChanged">
-                        <tab-icon alt="恢复"/>
+                    <div @click="diaryRecover" v-if="storeProject.isDiaryEditorContentHasChanged">
+                        <TabIcon alt="恢复"/>
                     </div>
-                    <div v-if="isSavingDiary">
+                    <div v-if="storeProject.isSavingDiary">
                         <Loading :height="50" :loading="true"/>
                     </div>
                     <div @click="diarySave" v-else>
-                        <tab-icon v-if="isNewDiary" alt="确定"/>
-                        <tab-icon v-else-if="isDiaryEditorContentHasChanged" alt="确定-已变化"/>
-                        <tab-icon v-else alt="确定-已保存"/>
+                        <TabIcon v-if="isNewDiary" alt="确定"/>
+                        <TabIcon v-else-if="storeProject.isDiaryEditorContentHasChanged" alt="确定-已变化"/>
+                        <TabIcon v-else alt="确定-已保存"/>
                     </div>
                 </div>
 
                 <router-link
-                    v-if="(isInMobileMode && $route.name !== 'Detail' && !isMenuShowed) || !isInMobileMode"
+                    v-if="(storeProject.isInMobileMode && $route.name !== 'Detail' && !storeProject.isMenuShowed)
+                    || !storeProject.isInMobileMode"
                     to="/edit"
                 >
-                    <tab-icon alt="添加"/>
+                    <TabIcon alt="添加"/>
                 </router-link>
             </div>
 
 
             <!--LOGO-->
-            <div class="brand" v-if="isInMobileMode" @click="toggleListStyle">
-                <img :src="editLogoImg" v-if="$route.name === 'Edit' || $route.name === 'EditNew'" alt="LOGO">
-                <a v-else-if="isDiaryListShowedInFullStyle"><img :src="icons.logo_content" alt="日记"></a>
-                <a v-else><img :src="icons.logo" alt="日记"></a>
+            <div class="brand" v-if="storeProject.isInMobileMode" @click="toggleListStyle">
+                <img :src="storeProject.editLogoImg"
+                     v-if="$route.name === 'Edit' || $route.name === 'EditNew'"
+                     alt="LOGO">
+                <a v-else-if="storeProject.isDiaryListShowedInFullStyle">
+                    <img :src="SVG_ICONS.logo_icons.logo_content" alt="日记">
+                </a>
+                <a v-else>
+                    <img :src="SVG_ICONS.logo_icons.logo" alt="日记">
+                </a>
             </div>
 
 
             <!-- MENU -->
-            <nav-menu/>
+            <NavMenu/>
 
         </nav>
 
@@ -122,194 +147,156 @@
 
 </template>
 
-<script>
-import utility from "../../utility"
+<script lang="ts" setup>
+// COMPONENTS
+import TabIcon from "../../components/TabIcon.vue"
+import Loading from "../../components/Loading.vue";
+import diaryApi from "../../api/diaryApi.ts";
+import NavMenu from "../../page/menu/NavMenu.vue";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import Clock from "./Clock.vue";
+import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelector.vue";
+
 import ClipboardJS from "clipboard"
-import {mapState, mapMutations, mapGetters} from 'vuex'
-import YearSelector from "../../page/menu/YearSelector/YearSelector"
-import TabIcon from "../../components/TabIcon"
-import About from "../../page/about/About"
-import MenuCategorySelector from "../../page/menu/MenuCategorySelector";
-import Loading from "../../components/Loading";
-import diaryApi from "../../api/diaryApi";
-import NavMenu from "../../page/menu/NavMenu";
-import ICONS from "../../assets/img/SvgIcons";
-import Clock from "./Clock";
-import NavbarCategorySelector from "@/framework/navbar/NavbarCategorySelector.vue";
+
+import {popMessage} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore()
+import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+
+const route = useRoute()
+const router = useRouter()
 
 
-export default {
-    name: "Navbar",
-    components: {NavbarCategorySelector, Clock, NavMenu, Loading, MenuCategorySelector, About, TabIcon, YearSelector},
-    data() {
-        return {
-            location: {}, // clipboard 使用
-            icons: ICONS,
-            clipboard: null,
+/**
+ * Clipboard
+ */
+const clipboard: Ref<ClipboardJS> = ref()
+let location = null
+onUnmounted(()=>{
+    clipboard.value.destroy()
+})
 
-            // toast
-            isToastShowed: false,
 
-            isNewDiary: true, // 是否为新日记
+onMounted(()=> {
+    location = window.location
 
-        }
-    },
-    mounted() {
-        this.location = window.location
+    isNewDiary.value = !(route.params.id)
 
-        this.isNewDiary = !(this.$route.params.id)
+    // 绑定剪贴板操作方法
+    clipboard.value = new ClipboardJS('.clipboard-trigger', {
+        text: trigger => {
+            return trigger.getAttribute('data-clipboard')
+        },
+    })
+    clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+        popMessage('success', '分享链接 已复制到 剪贴板', ()=>{}, 2)
+    })
+})
 
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.clipboard-trigger', {
-            text: trigger => {
-                return trigger.getAttribute('data-clipboard')
-            },
-        })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '分享链接 已复制到 剪贴板', null, 2)
-        })
-    },
-    watch: {
-        '$route'(newValue){
-            this.isNewDiary = !(newValue.params.id)
-        }
-    },
-    unmounted() {
-        this.clipboard.destroy()
-    },
-    computed: {
-        ...mapState([
-            'dateFilter',
-            'isMenuShowed', // 菜单是否显示
-            'isSavingDiary',
-            'isDiaryEditorContentHasChanged',
-            'currentDiary',
-            'isDiaryListShowedInFullStyle',
-            'insets',
-            'categoryAll',
-            'filteredCategories',
-            'isShowSearchBar',
-            'isHideContent',
-            'editLogoImg',
-            'isFilterShared'
-        ]),
-        ...mapGetters(['isInMobileMode']),
-        isAdminUser(){
-            return utility.getAuthorization() && utility.getAuthorization().group_id === 1
-        },
-        shareUrl(){
-            return `${location.origin}/diary/#/share/${this.currentDiary.id}`
-        },
-    },
-    methods: {
-        ...mapMutations([
-            'SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE',
-            'SET_IS_SHOW_SEARCH_BAR',
-            'SET_IS_HIDE_CONTENT',
-            'SET_IS_DIARY_NEED_TO_BE_SAVED',
-            'SET_IS_DIARY_NEED_TO_BE_RECOVERED',
-            'SET_LIST_OPERATION',
-            'SET_FILTERED_CATEGORIES',
-            'SET_IS_LIST_NEED_BE_RELOAD',
-            'SET_MENU_SHOWED',
-            'SET_IS_FILTER_SHARED',
-            'SET_DATE_FILTER',
-        ]),
-        commitBack(){
-            switch (this.$route.name){
-                case 'Edit':
-                case 'Detail':
-                    this.$router.push({name: 'List'});
-                    break
-                default:
-                    this.$router.push({name: 'List'})
-            }
-        },
-        clearDateFilter(){
-            this.SET_DATE_FILTER('')
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        },
-        // 跳转到独立页面
-        goToPage(pageName){
-            this.$router.push({name: pageName})
-        },
-        // 菜单操作
-        menuShow() {
-            this.SET_MENU_SHOWED(true)
-        },
-        menuClose() {
-            this.SET_MENU_SHOWED(false)
-        },
-        toggleListStyle() {
-            if (!this.isMenuShowed) {
-                this.SET_IS_DIARY_LIST_SHOWED_IN_FULL_STYLE(!this.isDiaryListShowedInFullStyle)
-            }
-        },
 
-        // SEARCH BAR
-        toggleSearchbar() {
-            this.SET_IS_SHOW_SEARCH_BAR(!this.isShowSearchBar)
-        },
 
-        toggleTodoList(){
-            let nextCategories = []
-            if (this.filteredCategories.length === 1 && this.filteredCategories[0] === 'todo'){
-                nextCategories = []
-            } else {
-                nextCategories = ['todo']
-            }
-            this.SET_IS_FILTER_SHARED(false)
-            this.SET_FILTERED_CATEGORIES(nextCategories)
-            this.SET_IS_LIST_NEED_BE_RELOAD(true)
-        },
+/**
+ * TOAST Show | Hide
+ */
+const isToastShowed = ref(false)
+function toastHide() {
+    isToastShowed .value= false
+}
+function toastShow() {
+    isToastShowed.value = true
+}
 
-        // show bill
-        showBillPanel(){
 
-        },
+/**
+ * 新日记
+ */
+const isNewDiary = ref(true) // 是否为新日记
+watch(route, newValue => {
+    isNewDiary.value = !(newValue.params.id)
+})
 
-        // show card
-        showCardPanel(){},
+const shareUrl = computed(() => {
+    return `${location.origin}/diary/#/share/${storeProject.currentDiary.id}`
+})
 
-        // HIDE CONTENT
-        toggleHideContent() {
-            this.SET_IS_HIDE_CONTENT(!this.isHideContent)
-        },
-        diarySave() {
-            this.SET_IS_DIARY_NEED_TO_BE_SAVED(true)
-        },
-        diaryRecover() {
-            this.SET_IS_DIARY_NEED_TO_BE_RECOVERED(true)
-        },
-
-        // 分享
-        copySharePath() {
-        },
-
-        /* DELETE */
-        diaryDelete() {
-            let that = this
-            let requestData = {
-                diaryId: this.currentDiary.id,
-            }
-            diaryApi
-                .delete(requestData)
-                .then(res => {
-                    that.toastHide()
-                    utility.popMessage('success', res.message, () => {
-                        this.SET_LIST_OPERATION({type: 'delete', dairy: null, id: this.currentDiary.id})
-                    }, 1) // 删除成功后等待时间不要太长
-                })
-        },
-        toastHide() {
-            this.isToastShowed = false
-        },
-        toastShow() {
-            this.isToastShowed = true
-        },
-
+function commitBack(){
+    switch (route.name){
+        case 'Edit':
+        case 'Detail':
+            router.push({name: 'List'});
+            break
+        default:
+            router.push({name: 'List'})
     }
 }
+function clearDateFilter(){
+    storeProject.SET_DATE_FILTER_STRING('')
+    storeProject.isListNeedBeReload = true
+}
+
+// 跳转到独立页面
+function goToPage(pageName: string){
+    router.push({name: pageName})
+}
+
+// 菜单操作
+function menuShow() {
+    storeProject.isMenuShowed = true
+}
+function menuClose() {
+    storeProject.isMenuShowed = false
+}
+function toggleListStyle() {
+    if (!storeProject.isMenuShowed) {
+        storeProject.isDiaryListShowedInFullStyle = !storeProject.isDiaryListShowedInFullStyle
+    }
+}
+
+// SEARCH BAR
+function toggleSearchbar() {
+    storeProject.isShowSearchBar = !storeProject.isShowSearchBar
+}
+
+function toggleTodoList(){
+    let nextCategories: string[] = []
+    if (storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'){
+        nextCategories = []
+    } else {
+        nextCategories = ['todo']
+    }
+    storeProject.isFilterShared = false
+    storeProject.SET_FILTERED_CATEGORIES(nextCategories)
+    storeProject.isListNeedBeReload = true
+}
+
+// HIDE CONTENT
+function toggleHideContent() {
+    storeProject.isHideContent = !storeProject.isHideContent
+}
+function diarySave() {
+    storeProject.isDiaryNeedToBeSaved = true
+}
+function diaryRecover() {
+    storeProject.isDiaryNeedToBeRecovered = true
+}
+
+/* DELETE */
+function diaryDelete() {
+    let requestData = {
+        diaryId: storeProject.currentDiary.id,
+    }
+    diaryApi
+        .delete(requestData)
+        .then(res => {
+            toastHide()
+            popMessage('success', res.message, () => {
+                storeProject.listOperation = {type: 'delete', dairy: null, id: storeProject.currentDiary.id}
+            }, 1) // 删除成功后等待时间不要太长
+        })
+}
+
 </script>
 
 <style lang="scss" scoped>

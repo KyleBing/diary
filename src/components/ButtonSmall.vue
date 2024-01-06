@@ -4,13 +4,7 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "ButtonSmall",
-    props: {
-
-    }
-}
+<script lang="ts" setup>
 </script>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -9,8 +9,8 @@
                 <div id="reg">
                     <div class="logo-wrapper">
                         <div class="logo">
-                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
-                            <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
+                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_login" alt="Avatar">
+                            <img v-else src="../../assets/icons/logo/logo_avatar.svg" alt="Avatar">
                         </div>
                         <div class="desc">
                             <p>这是你最后反悔的机会</p>
@@ -33,46 +33,39 @@
     </div>
 </template>
 
-<script>
-import {mapState} from "vuex"
-import SvgIcons from "../../assets/img/SvgIcons"
-import userApi from "@/api/userApi";
-import utility from "@/utility";
-import projectConfig from "@/projectConfig";
+<script lang="ts" setup>
+import projectConfig from "../../projectConfig.ts";
+import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
+import {onMounted, ref} from "vue";
+import {useProjectStore} from "../../pinia";
+import {useRouter} from "vue-router";
+import userApi from "../../api/userApi.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-export default {
-    name: 'DestroyAccount',
-    data() {
-        return {
-            show: false,
-            icons: SvgIcons,
-            userInfo: utility.getAuthorization(),
-            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix,
-        }
-    },
-    mounted() {
-        this.show = true
-        document.title = '日记 - 注销账号' // 变更标题
-    },
-    computed: {
-        ...mapState(['insets']),
-    },
-    methods: {
-        changePasswordSubmit() {
-            userApi
-                .destroyAccount()
-                .then(res => {
-                    utility.deleteAuthorization()
-                    utility.deleteDiaryConfig()
-                    utility.popMessage('success', '注销成功，3 秒后跳转到登录页面', ()=>{
-                        this.$router.push({name: 'Login'})
-                    }, 3)
-                })
-                .catch(err => {
-                    utility.popMessage('danger', err.message, ()=>{
-                    }, 3)
-                })
-        }
-    },
+const storeProject = useProjectStore()
+const router = useRouter()
+
+const show = ref(false)
+const userInfo = getAuthorization()
+
+onMounted(()=>{
+    show.value = true
+    document.title = '日记 - 注销账号' // 变更标题
+})
+
+function changePasswordSubmit() {
+    userApi
+        .destroyAccount()
+        .then(res => {
+            deleteAuthorization()
+            removeDiaryConfig()
+            popMessage('success', '注销成功，3 秒后跳转到登录页面', ()=>{
+                router.push({name: 'Login'})
+            }, 3)
+        })
+        .catch(err => {
+            popMessage('danger', err.message, ()=>{
+            }, 3)
+        })
 }
 </script>

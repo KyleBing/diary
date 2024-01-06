@@ -1,47 +1,41 @@
 <template>
     <div class="weather-selector">
-        <div class="weather" @click="chooseWeather(item.title)" v-for="item in weathers" :key="item.title">
+        <div class="weather" @click="chooseWeather(item.value)" v-for="item in WeatherArray" :key="item.value">
             <img
-                :src="weatherSelected === item.title? icons.weather[item.title + '_active'] :  icons.weather[item.title]"
-                :alt="item.name"
-                :title="item.name">
+                :src="weatherSelected === item.value?
+                        SVG_ICONS.weather_icons[item.value + '_active'] :
+                        SVG_ICONS.weather_icons[item.value]"
+                :alt="item.label"
+                :title="item.label">
         </div>
     </div>
 </template>
 
-<script>
-import utility from "../../../utility"
-import SvgIcons from "../../../assets/img/SvgIcons";
+<script lang="ts" setup>
+import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
+import {ref, watch} from "vue";
+import {WeatherArray} from "@/entity/Weather.ts";
 
-export default {
-    name: "WeatherSelector",
-    props: {
-        weather: {
-            type: String,
-            default: 'sunny'
-        }
-    },
-    emits: ['change'],
-    data() {
-        return {
-            weatherSelected: this.weather,
-            weathers: utility.WEATHER,
-            icons: SvgIcons
-        }
-    },
-    watch: {
-        weather() {
-            this.weatherSelected = this.weather
-        },
-        weatherSelected() {
-            this.$emit('change', this.weatherSelected)
-        }
-    },
-    methods: {
-        chooseWeather(weatherName) {
-            this.weatherSelected = weatherName
-        }
+const emit = defineEmits(['change'])
+const props = defineProps({
+    weather: {
+        type: String,
+        default: 'sunny'
     }
+})
+
+const weatherSelected = ref(props.weather)
+
+watch(() => props.weather, () => {
+    weatherSelected.value = props.weather
+})
+watch(weatherSelected, () => {
+    emit('change', weatherSelected.value)
+})
+
+
+function chooseWeather(weatherName: string) {
+    weatherSelected.value = weatherName
 }
 </script>
 

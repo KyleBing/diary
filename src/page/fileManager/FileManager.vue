@@ -1,14 +1,14 @@
 <template>
-    <page-header title="文件列表" subtitle="">
-        <tab-icon @click="showModalUpload" alt="添加"/>
-    </page-header>
+    <PageHeader title="文件列表" subtitle="">
+        <TabIcon @click="showModalUpload" alt="添加"/>
+    </PageHeader>
     <div v-if="isLoading" class="pt-8 pb-8">
-        <loading :loading="isLoading"/>
+        <Loading :loading="isLoading"/>
     </div>
     <div v-else>
         <div class="file-list"
              v-if="fileListData.length > 0"
-             :style="'min-height:' + insets.heightPanel + 'px'"
+             :style="'min-height:' + storeProject.insets.heightPanel + 'px'"
         >
             <FileListItem
                 :fileInfo="file"
@@ -38,124 +38,112 @@
 
 </template>
 
-<script>
-import {mapState, mapMutations} from 'vuex'
-import Loading from "../../components/Loading"
-import utility from "../../utility"
+<script lang="ts" setup>
+import Loading from "../../components/Loading.vue"
 import ClipboardJS from "clipboard"
-import TabIcon from "../../components/TabIcon"
-import PageHeader from "../../framework/pageHeader/PageHeader"
-import fileManagerApi from "../../api/fileManagerApi";
+import TabIcon from "../../components/TabIcon.vue"
+import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+import fileManagerApi from "../../api/fileManagerApi.ts";
 import FileListItem from "./FileListItem.vue";
 import Modal from "../../components/Modal.vue";
 import FileSelector from "../../components/FileSelector.vue";
 
-export default {
-    name: "FileManager",
-    components: {FileSelector, Modal, FileListItem, PageHeader, TabIcon, Loading},
-    data() {
-        return {
-            isLoading: false,
-            fileListData: [],
-            clipboard: null, // clipboard obj
+import {popMessage, dateFormatter} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
+const storeProject = useProjectStore()
+import {onMounted, onUnmounted, ref} from "vue";
 
-            pager: {
-                pageSize: 300,
-                pageNo: 1,
-                total: 0
-            },
+const isLoading = ref(false)
+const fileListData = ref([])
+const clipboard = ref(null) // clipboard obj
+const pager = ref({
+    pageSize: 300,
+    pageNo: 1,
+    total: 0
+})
 
-            modalUpload: false, // 文件上传
+const modalUpload = ref(false) // 文件上传
+const formUpload = ref({
+    name: '',
+    file: null
+})
 
-            formUpload: {
-                name: '',
-                file: null
-            }
-        }
-    },
-    mounted() {
-        this.getFileList()
-        // 绑定剪贴板操作方法
-        this.clipboard = new ClipboardJS('.clipboard', {
-            text: trigger => {
-                return trigger.getAttribute('data-clipboard')
-            },
-        })
-        this.clipboard.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-            utility.popMessage('success', '文件地址已复制到剪贴板', null)
-        })
-
-    },
-    beforeUnmount() {
-        this.clipboard && this.clipboard.destroy()
-    },
-
-    computed: {
-        ...mapState({
-            years: 'statisticsYear',
-        }),
-        ...mapState(['insets', 'categoryAll'])
-    },
-    methods: {
-
-        handleFileChange(file){
-            console.log(file)
-            this.formUpload.file = file
-            if (!this.formUpload.name){
-                this.formUpload.name = file.name
-            }
+onMounted(() => {
+    getFileList()
+    // 绑定剪贴板操作方法
+    clipboard.value = new ClipboardJS('.clipboard', {
+        text: trigger => {
+            return trigger.getAttribute('data-clipboard')
         },
-        showModalUpload(){
-            this.modalUpload = true
-        },
-        // 新增
-        uploadFile() {
-            if (!this.formUpload.name){
-                utility.popMessage('warning', '文件名未填写')
-                return
-            }
-            if (!this.formUpload.file){
-                utility.popMessage('warning', '未选择任何文件')
-                return
-            }
-            let requestData = new FormData()
-            requestData.append('file', this.formUpload.file)
-            requestData.append('note', this.formUpload.name)
-            fileManagerApi
-                .upload(requestData)
-                .then(res => {
-                    utility.popMessage('success', '上传成功')
-                    this.getFileList()
-                    this.formUpload = {
-                        file: null,
-                        name: ''
-                    }
-                    this.modalUpload = false
-                })
-                .catch(err => {
-                    utility.popMessage('danger', err.message)
-                })
-        },
-        getFileList(){
-            this.isLoading = true // 请求的时候显示loading
-            let params = {
-                pageNo: this.pager.pageNo,
-                pageSize: this.pager.pageSize
-            }
-            fileManagerApi
-                .list(params)
-                .then(res => {
-                    this.fileListData = res.data.map(item => {
-                        item.date_time = utility.dateFormatter(new Date(item.date_create))
-                        return item
-                    })
-                    this.isLoading = false
-                })
-                .catch(err => {
-                    this.isLoading = false
-                })
-        },
+    })
+    clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
+        popMessage('success', '文件地址已复制到剪贴板', null)
+    })
+})
+
+
+
+onUnmounted(()=>{
+    clipboard.value && clipboard.value.destroy()
+})
+
+
+function handleFileChange(file){
+    console.log(file)
+    formUpload.value.file = file
+    if (!formUpload.value.name){
+        formUpload.value.name = file.name
     }
+}
+function showModalUpload(){
+    modalUpload.value = true
+}
+// 新增
+function uploadFile() {
+    if (!formUpload.value.name){
+        popMessage('warning', '文件名未填写')
+        return
+    }
+    if (!formUpload.value.file){
+        popMessage('warning', '未选择任何文件')
+        return
+    }
+    let requestData = new FormData()
+    requestData.append('file', formUpload.value.file)
+    requestData.append('note', formUpload.value.name)
+    fileManagerApi
+        .upload(requestData)
+        .then(() => {
+            popMessage('success', '上传成功')
+            getFileList()
+            formUpload.value = {
+                file: null,
+                name: ''
+            }
+            modalUpload.value = false
+        })
+        .catch(err => {
+            popMessage('danger', err.message)
+        })
+}
+function getFileList(){
+    isLoading.value = true // 请求的时候显示loading
+    let params = {
+        pageNo: pager.value.pageNo,
+        pageSize: pager.value.pageSize
+    }
+    fileManagerApi
+        .list(params)
+        .then(res => {
+            fileListData.value = res.data.map(item => {
+                item.date_time = dateFormatter(new Date(item.date_create))
+                return item
+            })
+            isLoading.value = false
+        })
+        .catch(() => {
+            isLoading.value = false
+        })
 }
 </script>
 

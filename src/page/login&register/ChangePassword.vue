@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -9,7 +9,7 @@
                 <div id="reg">
                     <div class="logo-wrapper">
                         <div class="logo">
-                            <img :src="icons.logoIcon.changePassword" alt="Diary Logo">
+                            <img :src="SVG_ICONS.logo_icons.logo_change_password" alt="Diary Logo">
                         </div>
                         <div class="project-name">修改密码</div>
                     </div>
@@ -19,7 +19,7 @@
                             <input v-model.lazy="password1" name="password1" type="password" id="password1">
                         </div>
                         <div class="input-group">
-                            <label for="password2" :class="{red: (passwordVerified || password2<1)}">{{ labelCheckPassword }}</label>
+                            <label for="password2" :class="{red: (passwordVerified || password2.length < 1)}">{{ labelCheckPassword }}</label>
                             <input v-model="password2" type="password" name="password2" id="password2" class="focused">
                         </div>
 
@@ -39,67 +39,58 @@
     </div>
 </template>
 
-<script>
-import utility from "../../utility"
-import userApi from "../../api/userApi"
-import {mapState} from "vuex"
-import SvgIcons from "../../assets/img/SvgIcons"
+<script lang="ts" setup>
+import userApi from "../../api/userApi.ts"
 
-export default {
-    name: 'ChangePassword',
-    data() {
-        return {
-            show: false,
+import {deleteAuthorization, popMessage} from "../../utility.ts";
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore()
+import {computed, onMounted, ref, watch} from "vue";
+import {useRouter} from "vue-router";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-            icons: SvgIcons,
+const router = useRouter()
 
-            labelCheckPassword: "再次确认密码",
-            password1: "",
-            password2: "",
-        }
-    },
-    mounted() {
-        this.show = true
-        document.title = '日记 - 修改密码' // 变更标题
-    },
-    computed: {
-        ...mapState(['insets']),
-        verified() {
-            return (this.passwordVerified)
-        },
-        passwordVerified() {
-            return (this.password1.length > 0 && this.password1 === this.password2)
-        }
-    },
-    methods: {
-        changePasswordSubmit() {
-            if (this.passwordVerified) {
-                let requestData = {
-                    password: this.password1,
-                }
 
-                userApi
-                    .changePassword(requestData)
-                    .then(res => {
-                        utility.popMessage('success', `${res.message}，正在前往登录`, () => {
-                            utility.deleteAuthorization()
-                            this.$router.go(-1)
-                        }, 2)
-                    })
-                    .catch(err => {
-                        utility.popMessage('danger', err.message, () => {}, 3)
-                    })
-            }
+const show = ref(false)
+const labelCheckPassword = ref("再次确认密码")
+const password1 = ref("")
+const password2 = ref("")
+
+onMounted(()=>{
+    show.value = true
+    document.title = '日记 - 修改密码' // 变更标题
+})
+
+
+function changePasswordSubmit() {
+    if (passwordVerified) {
+        let requestData = {
+            password: password1.value,
         }
-    },
-    watch: {
-        password2() {
-            if (this.passwordVerified) {
-                this.labelCheckPassword = "再次确认密码"
-            } else {
-                this.labelCheckPassword = "两次密码不一致"
-            }
-        }
+        userApi
+            .changePassword(requestData)
+            .then(res => {
+                popMessage('success', `${res.message}，正在前往登录`, () => {
+                    deleteAuthorization()
+                    router.go(-1)
+                }, 2)
+            })
+            .catch(err => {
+                popMessage('danger', err.message, () => {}, 3)
+            })
     }
 }
+
+watch(password2, () => {
+    if (passwordVerified.value) {
+        labelCheckPassword.value = "再次确认密码"
+    } else {
+        labelCheckPassword.value = "两次密码不一致"
+    }
+})
+
+const passwordVerified  = computed(()=>{
+    return (password1.value.length > 0 && password1.value === password2.value)
+})
 </script>

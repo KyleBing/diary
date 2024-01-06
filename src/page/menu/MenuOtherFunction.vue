@@ -40,135 +40,130 @@
 
 </template>
 
-<script>
-import projectConfig from "@/projectConfig";
-import {mapGetters, mapMutations} from "vuex";
-import diaryApi from "@/api/diaryApi";
-import utility from "@/utility";
-import userApi from "@/api/userApi";
+<script lang="ts" setup>
+import projectConfig from "../../projectConfig.ts";
+import {onMounted, ref} from "vue";
+import {useProjectStore} from "../../pinia";
+import {useRouter} from "vue-router";
+import {WeatherArray} from "../../entity/Weather.ts";
+import {dateFormatter, getAuthorization, popMessage} from "../../utility.ts";
+import {DiaryEntity} from "../list/Diary.ts";
+import diaryApi from "../../api/diaryApi.ts";
 
-export default {
-    name: "MenuOtherFunction",
-    data(){
-        return {
-            projectConfig,
-            isDownloadingContent: false,
-            weatherMap: new Map(), // 天气 MAP
-        }
-    },
-    computed: {
-        ...mapGetters(['categoryNameMap'])
-    },
-    mounted() {
-        this.weatherMap = new Map()
-        utility.WEATHER.forEach(weather => {
-            this.weatherMap.set(weather.title, weather.name)
+const storeProject = useProjectStore()
+const router = useRouter()
+
+const isDownloadingContent = ref(false)
+const weatherMap = ref(new Map()) // 天气 MAP
+
+onMounted(()=>{
+    weatherMap.value = new Map()
+    WeatherArray.forEach(weather => {
+        weatherMap.value.set(weather.title, weather.name)
+    })
+})
+
+function clearDiary(){
+    storeProject.isMenuShowed = false
+    router.push({name: 'RemoveAllYourDiary'})
+}
+function destroyAccount(){
+    storeProject.isMenuShowed = false
+    router.push({name: 'DestroyAccount'})
+}
+function goToChangePassword(){
+    storeProject.isMenuShowed = false
+    router.push({name: 'ChangePassword'})
+}
+function exportDiary(fileFormat){
+    isDownloadingContent.value = true
+    diaryApi
+        .export()
+        .then(res => {
+            isDownloadingContent.value = false
+            let diaries = res.data
+            let fileName = `日记导出-${getAuthorization().nickname}-${dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
+            if (diaries.length > 0){
+                switch (fileFormat){
+                    case 'csv':
+                        downloadFile(`${fileName}.csv`, getCVSData(diaries))
+                        break;
+                    case 'json':
+                        downloadFile(`${fileName}.json`, JSON.stringify(diaries))
+                        break;
+                    case 'text':
+                        downloadFile(`${fileName}.txt`, getTextData(diaries))
+                        break;
+                    case 'sql':
+                        downloadFile(`${fileName}.sql`, getSqlData(diaries))
+                        break;
+                }
+            } else {
+                popMessage('warning', '日记为空')
+            }
         })
-    },
+}
 
-    methods: {
-        ...mapMutations(['SET_MENU_SHOWED']),
-        clearDiary(){
-            this.SET_MENU_SHOWED(false)
-            this.$router.push({name: 'ClearDiary'})
-        },
-        destroyAccount(){
-            this.SET_MENU_SHOWED(false)
-            this.$router.push({name: 'DestroyAccount'})
-        },
-        goToChangePassword(){
-            this.SET_MENU_SHOWED(false)
-            this.$router.push({name: 'ChangePassword'})
-        },
-        exportDiary(fileFormat){
-            this.isDownloadingContent = true
-            diaryApi
-                .export()
-                .then(res => {
-                    this.isDownloadingContent = false
-                    let diaries = res.data
-                    let fileName = `日记导出-${utility.getAuthorization().nickname}-${utility.dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
-                    if (diaries.length > 0){
-                        switch (fileFormat){
-                            case 'csv':
-                                this.downloadFile(`${fileName}.csv`, this.getCVSData(diaries))
-                                break;
-                            case 'json':
-                                this.downloadFile(`${fileName}.json`, JSON.stringify(diaries))
-                                break;
-                            case 'text':
-                                this.downloadFile(`${fileName}.txt`, this.getTextData(diaries))
-                                break;
-                            case 'sql':
-                                this.downloadFile(`${fileName}.sql`, this.getSqlData(diaries))
-                                break;
-                        }
-                    } else {
-                        utility.popMessage('warning', '日记为空')
-                    }
-                })
-        },
-
-        getSqlData(diaries){
-            let finalData = ''
-            diaries.forEach(diary => {
-                let date = utility.dateFormatter(new Date(diary.date))
-                let dateModify = utility.dateFormatter(new Date(diary.date_modify))
-                let dateCreate = utility.dateFormatter(new Date(diary.date_create))
-                let isMarkdown = diary.is_markdown === 0? '否': '是'
-                let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
-                let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
-                let weather = this.weatherMap.get(diary.weather)
-                let category = this.categoryNameMap.get(diary.category)
-                finalData =
-                    finalData.concat(`
+function getSqlData(diaries: DiaryEntity[]){
+    let finalData = ''
+    diaries.forEach(diary => {
+        let date = dateFormatter(new Date(diary.date))
+        let dateModify = dateFormatter(new Date(diary.date_modify))
+        let dateCreate = dateFormatter(new Date(diary.date_create))
+        let is_markdown = diary.is_markdown === 0? '否': '是'
+        let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
+        let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
+        let weather = weatherMap.value.get(diary.weather)
+        let category = storeProject.categoryNameMap.get(diary.category)
+        finalData =
+            finalData.concat(`
 INSERT INTO
 diaries(id, date, date_create, date_modify, category, is_markdown, is_public, temperature, temperature_outside, title, content, uid)
-VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${diary.is_markdown},${diary.is_public},${diary.temperature},${diary.temperature_outside}, '${diary.title}', '${diary.content}',${utility.getAuthorization().uid});\n`)
-            })
-            return finalData
-        },
+VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${diary.is_markdown},${diary.is_public},${diary.temperature},${diary.temperature_outside}, '${diary.title}', '${diary.content}',${getAuthorization().uid});\n`)
+    })
+    return finalData
+}
 
-        getCVSData(diaries){
-            let finalData = 'ID,日期,编辑时间,创建时间,类别,天气,身处温度,外界气温,Markdown,标题,内容\n'
-            diaries.forEach(diary => {
-                let date = utility.dateFormatter(new Date(diary.date))
-                let dateModify = utility.dateFormatter(new Date(diary.date_modify))
-                let dateCreate = utility.dateFormatter(new Date(diary.date_create))
-                let isMarkdown = diary.is_markdown === 0? '否': '是'
-                let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
-                let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
-                let weather = this.weatherMap.get(diary.weather)
-                let category = this.categoryNameMap.get(diary.category)
-                let content = diary.content.replace(/\"/g, '\"')
-                finalData =
-                    finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${isMarkdown},${diary.title},"${content}"\n`)
-            })
-            return finalData
-        },
+function getCVSData(diaries: DiaryEntity[]){
+    let finalData = 'ID,日期,编辑时间,创建时间,类别,天气,身处温度,外界气温,Markdown,标题,内容\n'
+    diaries.forEach(diary => {
+        let date = dateFormatter(new Date(diary.date))
+        let dateModify = dateFormatter(new Date(diary.date_modify))
+        let dateCreate = dateFormatter(new Date(diary.date_create))
+        let is_markdown = diary.is_markdown === 0? '否': '是'
+        let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
+        let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
+        let weather = weatherMap.value.get(diary.weather)
+        let category = storeProject.categoryNameMap.get(diary.category)
+        let content = diary.content.replace(/\"/g, '\"')
+        finalData =
+            finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${is_markdown},${diary.title},"${content}"\n`)
+    })
+    return finalData
+}
 
-        getTextData(diaries){
-            let finalData = `※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+function getTextData(diaries: DiaryEntity[]){
+    let finalData = `※※※※※※※※※※※※※※※※※※※※※※※※※※※※
 
-    导出日期：${utility.dateFormatter(new Date())}
-    用　　户：${utility.getAuthorization().nickname}
+    导出日期：${dateFormatter(new Date())}
+    用　　户：${getAuthorization().nickname}
     总　　计：${diaries.length} 条
-    Email：${utility.getAuthorization().email}
-    UID：${utility.getAuthorization().uid}
+    Email：${getAuthorization().email}
+    UID：${getAuthorization().uid}
 
 ※※※※※※※※※※※※※※※※※※※※※※※※※※※※
 \n\n\n\n`
-            diaries.forEach(diary => {
-                let date = utility.dateFormatter(new Date(diary.date))
-                let dateModify = utility.dateFormatter(new Date(diary.date_modify))
-                let dateCreate = utility.dateFormatter(new Date(diary.date_create))
-                let isMarkdown = diary.is_markdown === 0? '否': '是'
-                let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
-                let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
-                let weather = this.weatherMap.get(diary.weather)
-                let category = this.categoryNameMap.get(diary.category)
-                finalData =
-                    finalData.concat(`=== ${diary.id} =====================\n
+    diaries.forEach(diary => {
+        let date = dateFormatter(new Date(diary.date))
+        let dateModify = dateFormatter(new Date(diary.date_modify))
+        let dateCreate = dateFormatter(new Date(diary.date_create))
+        let is_markdown = diary.is_markdown === 0? '否': '是'
+        let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
+        let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
+        let weather = weatherMap.value.get(diary.weather)
+        let category = storeProject.categoryNameMap.get(diary.category)
+        finalData =
+            finalData.concat(`=== ${diary.id} =====================\n
 日　　期：${date}
 编辑日期：${dateModify}
 创建日期：${dateCreate}
@@ -176,25 +171,22 @@ VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${d
 天　　气：${weather}
 身处温度：${temperature}
 室外温度：${temperature_outside}
-MarkDown：${isMarkdown}
+MarkDown：${is_markdown}
 标　　题：${diary.title}
 内　　容：${diary.content}
 \n`)
-            })
-            return finalData
-        },
+    })
+    return finalData
+}
 
-        downloadFile(fileName, data) { // 下载文件
-            let aLink = document.createElement('a')
-            let blob = new Blob([data]); //new Blob([content])
-            let evt = document.createEvent("HTMLEvents")
-            evt.initEvent("click", true, true); //initEvent 不加后两个参数在FF下会报错  事件类型，是否冒泡，是否阻止浏览器的默认行为
-            aLink.download = fileName
-            aLink.href = URL.createObjectURL(blob)
-            aLink.click()
-        },
-
-    }
+function downloadFile(fileName: string, data: any) { // 下载文件
+    let aLink = document.createElement('a')
+    let blob = new Blob([data]); //new Blob([content])
+    let evt = document.createEvent("HTMLEvents")
+    evt.initEvent("click", true, true); //initEvent 不加后两个参数在FF下会报错  事件类型，是否冒泡，是否阻止浏览器的默认行为
+    aLink.download = fileName
+    aLink.href = URL.createObjectURL(blob)
+    aLink.click()
 }
 </script>
 

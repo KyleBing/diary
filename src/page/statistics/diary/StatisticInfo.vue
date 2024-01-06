@@ -1,23 +1,23 @@
 <template>
     <div class="statistic-info">
         <div class="info-list-group">
-            <statistic-panel title="年份统计">
+            <StatisticPanel title="年份统计">
                 <div class="info-list">
                     <div class="info-list-item" v-for="year in dataArrayYear">
                         <div class="key">{{ year.name }}</div>
                         <div class="value">{{ year.value }}</div>
                     </div>
                 </div>
-            </statistic-panel>
+            </StatisticPanel>
 
-            <statistic-panel title="类别统计">
+            <StatisticPanel title="类别统计">
                 <div class="info-list">
                     <div class="info-list-item" v-for="year in dataArrayCategory">
                         <div class="key">{{ year.name }}</div>
                         <div class="value">{{ year.value }}</div>
                     </div>
                 </div>
-            </statistic-panel>
+            </StatisticPanel>
         </div>
 
     </div>

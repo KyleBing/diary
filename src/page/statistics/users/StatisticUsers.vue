@@ -4,8 +4,8 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
-            <div class="user-list" v-if="isAdminUser">
-                <statistic-panel title="日记用户">
+            <div class="user-list" v-if="storeProject.isAdminUser">
+                <StatisticPanel title="日记用户">
                     <table>
                         <thead>
                         <tr>
@@ -36,8 +36,8 @@
                         </tr>
                         </tbody>
                     </table>
-                </statistic-panel>
-                <statistic-panel title="五笔码表用户">
+                </StatisticPanel>
+                <StatisticPanel title="五笔码表用户">
                     <table>
                         <thead>
                         <tr>
@@ -68,8 +68,8 @@
                         </tr>
                         </tbody>
                     </table>
-                </statistic-panel>
-                <statistic-panel title="路书用户">
+                </StatisticPanel>
+                <StatisticPanel title="路书用户">
                     <table>
                         <thead>
                         <tr>
@@ -100,100 +100,88 @@
                         </tr>
                         </tbody>
                     </table>
-                </statistic-panel>
+                </StatisticPanel>
             </div>
 
             <!--用户日记数量柱状图-->
-            <statistic-panel title="用户日记数量">
-                <chart-bar title="" :data="chartDataDiary"/>
-            </statistic-panel>
+            <StatisticPanel title="用户日记数量">
+                <ChartBar title="" :data="chartDataDiary"/>
+            </StatisticPanel>
         </div>
     </transition>
 </template>
 
-<script>
-import {mapState} from "vuex";
-import StatisticPanel from "../../../page/statistics/StatisticPanel";
-import statisticApi from "../../../api/statisticApi";
-import ChartBar from "../../../components/charts/ChartBar";
-import utility from "../../../utility";
+<script lang="ts" setup>
+import StatisticPanel from "../../../page/statistics/StatisticPanel.vue";
+import statisticApi from "../../../api/statisticApi.ts";
+import ChartBar from "../../../components/charts/ChartBar.vue";
 import Moment from "moment";
-import projectConfig from "../../../projectConfig";
 
-export default {
-    name: "StatisticUsers",
-    components: {ChartBar, StatisticPanel},
-    computed: {
-        ...mapState(['statisticsCategory', 'statisticsYear', 'dataArrayCategory', 'dataArrayYear']),
-        isAdminUser(){
-            return utility.getAuthorization().email === projectConfig.adminEmail
-        }
-    },
-    data(){
-        return {
-            users: [],
-            usersDiary: [], // 日记用户
-            usersDict: [], // 码表用户
-            usersMapRoute: [], // 路书用户
+import {computed, ComputedRef, onMounted, ref} from "vue";
+import {useProjectStore} from "../../../pinia";
+import {dateFormatter} from "../../../utility.ts";
+const storeProject = useProjectStore()
 
-            chartDataDiary: [],
-            chartDataDict: [],
+onMounted(()=>{
+    getStatisticUsers()
+})
 
-            showUserStatisticInfo: false // 是否显示这个用户信息统计面板
-        }
-    },
+const users = ref([])
+const usersDiary = ref([]) // 日记用户
+const usersDict = ref([]) // 码表用户
+const usersMapRoute = ref([]) // 路书用户
 
-    mounted() {
-        this.getStatisticUsers()
-    },
-    methods: {
-        // 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
-        dateTextLevel(dateString){
-            let date = new Moment(dateString) // yyyy MM-dd  hh:mm 补全时间字符串
-            let now = new Moment()
-            let distance =  now.diff(date, 'day')
-            if ( distance < 7) {
-                return `date-level-${distance}`
-            } else {
-                return `date-level-dead`
-            }
-        },
-        getStatisticUsers(){
-            statisticApi
-                .users()
-                .then(res => {
-                    this.showUserStatisticInfo = true
-                    this.users = res.data.map(item => {
-                        item.register_time_string = utility.dateFormatter(new Date(item.register_time), )
-                        item.last_visit_time_string = utility.dateFormatter(new Date(item.last_visit_time), )
-                        return item
-                    })
+const chartDataDiary = ref([])
+const chartDataDict = ref([])
 
-                    this.usersDiary = this.users.filter(user => user.count_diary > 0)
-                    this.usersDict = this.users.filter(user => user.count_dict > 0)
-                    this.usersMapRoute = this.users.filter(user => user.count_map_route > 0)
+const showUserStatisticInfo = ref(false) // 是否显示这个用户信息统计面板
 
-                    this.chartDataDiary = res.data
-                        .map(item => {
-                            return {
-                                name: item.nickname,
-                                value: item.count_diary
-                            }
-                        })
-                        .filter(item => item.value > 0) // 过滤日记数量为 0 的用户
-                        .sort((a,b) => b.value - a.value)
-                    this.chartDataDict = res.data.map(item => {
-                        return {
-                            name: item.nickname,
-                            value: item.count_dict
-                        }
-                    })
-                })
-                .catch(err => {
-                    this.showUserStatisticInfo = false
-                })
-        }
+
+// 根据最后访问的时间，对比现在的时间，生成对应的颜色 class
+function dateTextLevel(dateString: string){
+    let date = Moment(dateString) // yyyy MM-dd  hh:mm 补全时间字符串
+    let now = Moment()
+    let distance =  now.diff(date, 'day')
+    if ( distance < 7) {
+        return `date-level-${distance}`
+    } else {
+        return `date-level-dead`
     }
+}
+function getStatisticUsers(){
+    statisticApi
+        .users()
+        .then(res => {
+            showUserStatisticInfo.value = true
+            users.value = res.data.map(item => {
+                item.register_time_string = dateFormatter(new Date(item.register_time), )
+                item.last_visit_time_string = dateFormatter(new Date(item.last_visit_time), )
+                return item
+            })
+
+            usersDiary.value = users.value.filter(user => user.count_diary > 0)
+            usersDict.value = users.value.filter(user => user.count_dict > 0)
+            usersMapRoute.value = users.value.filter(user => user.count_map_route > 0)
+
+            chartDataDiary.value = res.data
+                .map(item => {
+                    return {
+                        name: item.nickname,
+                        value: item.count_diary
+                    }
+                })
+                .filter(item => item.value > 0) // 过滤日记数量为 0 的用户
+                .sort((a,b) => b.value - a.value)
+            chartDataDict.value = res.data.map(item => {
+                return {
+                    name: item.nickname,
+                    value: item.count_dict
+                }
+            })
+        })
+        .catch(() => {
+            showUserStatisticInfo.value = false
+        })
 }
 </script>
 

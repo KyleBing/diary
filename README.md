@@ -92,7 +92,7 @@ PC 和 移动端均能完美显示。
 ### 1. 图片存储配置 `[选配]`
 > 如若不配置：只是不能显示用户头像而已  
 头像文件是存储到 [七牛云](https://www.qiniu.com/) 上的，免费注册会有免费额度，够用。  
-需要修改 `/src/projectConfig.js` 文件内容，改成你的七牛云配置。
+需要修改 `/src/projectConfig.ts` 文件内容，改成你的七牛云配置。
 
 ```js
 export default {
@@ -105,7 +105,7 @@ export default {
 
 ### 2. 和风天气配置 `[选配]`
 > 如若不配置：只是不能自动获取当地天气和温度而已  
-用于从 [和风天气](https://www.qweather.com/) 中获取地域的天气和温度信息，也是在 `/src/projectConfig.js` 文件中
+用于从 [和风天气](https://www.qweather.com/) 中获取地域的天气和温度信息，也是在 `/src/projectConfig.ts` 文件中
 
 ```js
 export default {

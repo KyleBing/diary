@@ -3,7 +3,7 @@
         <div
             class="category-wrapper"
             @click="chooseCategory(category.name_en)"
-            v-for="category in categoryAll"
+            v-for="category in storeProject.categoryAll"
             :key="category.name_en">
             <div
                 class="category"
@@ -14,47 +14,38 @@
     </div>
 </template>
 
-<script>
-import {mapGetters, mapState} from "vuex"
+<script lang="ts" setup>
+import {ref, watch} from "vue";
+import {CategoryEntity} from "../../../entity/Category.ts";
+import {useProjectStore} from "../../../pinia";
+const storeProject = useProjectStore()
 
-export default {
-    name: "EditorCategorySelector",
-    props: {
-        category: {
-            default: 'life',
-            type: String
-        }
-    },
-    emits: ['change'],
-    data() {
-        return {
-            categorySelected: this.category
-        }
-    },
-    computed: {
-        ...mapState(['categoryAll']),
-        ...mapGetters(['categoryNameMap'])
-    },
-    watch: {
-        category() {
-            this.categorySelected = this.category
-        },
-        categorySelected() {
-            this.$emit('change', this.categorySelected)
-        }
-    },
-    methods: {
-        itemStyle(active, category) {
-            if (active) {
-                return `color: white; background-color: ${category.color}`
-            } else {
-                return `color: ${category.color}`
-            }
-        },
-        chooseCategory(categoryName) {
-            this.categorySelected = categoryName
-        }
+const props = defineProps({
+    category: {
+        default: 'life',
+        type: String
     }
+})
+const emit = defineEmits(['change'])
+
+const categorySelected = ref(props.category)
+
+watch(() => props.category, () => {
+    categorySelected.value = props.category
+})
+watch(categorySelected, newValue => {
+    emit('change', newValue)
+})
+
+function itemStyle(active: boolean, category: CategoryEntity) {
+    if (active) {
+        return `color: white; background-color: ${category.color}`
+    } else {
+        return `color: ${category.color}`
+    }
+}
+function chooseCategory(categoryName: string) {
+    categorySelected.value = categoryName
 }
 </script>
 

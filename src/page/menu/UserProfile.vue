@@ -1,8 +1,8 @@
 <template>
     <div class="user-profile">
         <div class="avatar">
-            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + QiniuStyleSuffix || icons.logoIcon.login" alt="Avatar">
-            <img v-else src="../../assets/img/logo/logo_avatar.svg" alt="Avatar">
+            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_login" alt="Avatar">
+            <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
         </div>
         <div class="user-info mt-1 mb-4">
             <div class="user">
@@ -14,46 +14,35 @@
                 </div>
             </div>
         </div>
-        <div v-if="statisticsCategory.shared > 0" class="statistics">
+        <div v-if="storeProject.statisticsCategory.shared > 0" class="statistics">
             <p>📍 {{userInfo.city}}</p>
-            <p>总计 <b>{{ statisticsCategory.amount }}</b> 篇</p>
-            <p>共享 <b>{{ statisticsCategory.shared }}</b> 篇</p>
+            <p>总计 <b>{{ storeProject.statisticsCategory.amount }}</b> 篇</p>
+            <p>共享 <b>{{ storeProject.statisticsCategory.shared }}</b> 篇</p>
         </div>
     </div>
 </template>
 
-<script>
-import projectConfig from "@/projectConfig";
-import utility from "@/utility";
-import {mapMutations, mapState} from "vuex";
-import svgIcons from "@/assets/img/SvgIcons";
+<script lang="ts" setup>
+import projectConfig from "../../projectConfig.ts";
+import {ref} from "vue";
+import {useProjectStore} from "../../pinia";
+import {deleteAuthorization, getAuthorization, removeCategoryAll} from "../../utility.ts";
+import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import {useRouter} from "vue-router";
 
-export default {
-    name: "UserProfile",
-    data(){
-        return {
-            QiniuStyleSuffix: projectConfig.QiniuStyleSuffix,
-            // menu - category
-            userInfo: utility.getAuthorization(),
-            icons: svgIcons,
-        }
-    },
-    computed: {
-        ...mapState([
-            'statisticsCategory',
-        ])
-    },
-    methods: {
-        ...mapMutations(['SET_MENU_SHOWED']),
-        changeProfile(){
-            this.$router.push({name: 'ChangeProfile'})
-        },
-        logout() {
-            utility.deleteAuthorization()
-            this.SET_MENU_SHOWED(false)
-            this.$router.push({name: 'Login'})
-        },
-    }
+const router = useRouter()
+const storeProject = useProjectStore()
+
+const userInfo = ref(getAuthorization())
+
+function changeProfile(){
+    router.push({name: 'ChangeProfile'})
+}
+function logout() {
+    deleteAuthorization()
+    removeCategoryAll()
+    storeProject.isMenuShowed = false
+    router.push({name: 'Login'})
 }
 </script>
 

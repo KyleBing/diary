@@ -1,10 +1,10 @@
 <template>
-    <div class="possible-bill-key-list" v-if="possibleBillItems.length > 0"
-         :style="`left: ${positionLeft}px; top: ${positionTop}px`"
+    <div class="possible-bill-key-list" v-if="props.possibleBillItems.length > 0"
+         :style="`left: ${props.positionLeft}px; top: ${props.positionTop}px`"
     >
         <div class="possible-bill-key-list-item"
-             v-for="(item, index) in possibleBillItems" :key="index"
-             @click="$emit('selectKey', item.item)"
+             v-for="(item, index) in props.possibleBillItems" :key="index"
+             @click="emit('selectKey', item.item)"
         >
             <div class="index">{{index + 1}}</div>
             <div class="value">{{item.item}}</div>
@@ -12,39 +12,24 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "PossibleBillKeySelector",
+<script lang="ts" setup>
 
-    emits: ['selectKey'],
-    props: {
-        possibleBillItems: {
-            type: Array,
-            default: []
-        },
-        positionLeft: {
-            type: Number,
-            default: 150
-        },
-        positionTop: {
-            type: Number,
-            default: 20
-        },
+const props = defineProps({
+    possibleBillItems: {
+        type: Array,
+        default: []
     },
-    mounted() {
+    positionLeft: {
+        type: Number,
+        default: 150
+    },
+    positionTop: {
+        type: Number,
+        default: 20
+    },
+})
 
-    },
-    data(){
-        return {
-        }
-    },
-    methods: {
-
-    },
-    watch:{
-
-    }
-}
+const emit = defineEmits(['selectKey'])
 </script>
 
 <style scoped lang="scss">
