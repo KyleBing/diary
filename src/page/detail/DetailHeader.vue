@@ -13,8 +13,8 @@
                 <div class="temperature" v-if="props.diary.temperature">
                     身处 <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature))]">{{ props.diary.temperature }}</span> ℃
                 </div>
-                <div class="temperature" v-if="props.diary.temperatureOutside">
-                    室外 <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperatureOutside))]">{{ props.diary.temperatureOutside }}</span> ℃
+                <div class="temperature" v-if="props.diary.temperature_outside">
+                    室外 <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature_outside))]">{{ props.diary.temperature_outside }}</span> ℃
                 </div>
             </div>
         </div>
