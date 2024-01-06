@@ -4,7 +4,6 @@ import svgLoader from "vite-svg-loader"
 import { VitePWA } from 'vite-plugin-pwa'
 import { resolve } from 'path'
 import zipPack from "vite-plugin-zip-pack" // make dist.zip file
-import Moment from "moment";
 import {dateFormatter} from "./src/utility";
 
 const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd hh-mm-ss')
