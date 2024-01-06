@@ -1,7 +1,7 @@
 <template>
     <div class="about" :style="'height:' + storeProject.insets.heightPanel + 'px'">
         <div class="logo">
-            <img :src="SVG_ICONS.logo_icons.logo" alt="LOGO">
+            <img :src="SVG_ICONS.logo_icons.logo_rounded" alt="LOGO">
         </div>
         <h3 class="title">{{packageInfo.nameZh}}</h3>
         <h4 class="subtitle">{{packageInfo.description}}</h4>
@@ -36,7 +36,7 @@ const storeProject = useProjectStore()
     color: $bg-light;
     padding-top: 60px;
     .logo{
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         display: flex;
         justify-content: center;
         img{

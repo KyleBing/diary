@@ -8,7 +8,7 @@
                 <div class="logo-wrapper">
                     <div :class="['logo', {valid: avatarLink} ]">
                         <img v-if="avatarLink" :src="avatarLink" alt="Diary Logo">
-                        <img v-else :src="SVG_ICONS.logo_icons.logo_login" alt="LOGIN-LOGO">
+                        <img v-else :src="SVG_ICONS.logo_icons.logo_rounded" alt="LOGIN-LOGO">
                     </div>
                 </div>
 

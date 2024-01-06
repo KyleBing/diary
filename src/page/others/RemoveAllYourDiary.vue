@@ -9,7 +9,7 @@
                 <div id="reg">
                     <div class="logo-wrapper">
                         <div class="logo">
-                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_login" alt="Avatar">
+                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_rounded" alt="Avatar">
                             <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
                         </div>
                         <div class="desc">
