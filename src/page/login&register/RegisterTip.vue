@@ -23,6 +23,10 @@ import projectConfig from "../../projectConfig.ts";
     background-color: $bg-menu;
     color: $dark-text-title;
     line-height: 1.3;
+    hr{
+        margin: 10px 0;
+        border-bottom: 1px solid $color-border-menu;
+    }
 
     h1,h2,h3,h4,h5,h6{
         text-align: center;

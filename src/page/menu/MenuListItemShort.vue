@@ -130,8 +130,9 @@ $gap: 16px;
 @media (prefers-color-scheme: dark) {
     .menu-list-item{
         color: $dark-text-title;
-        &:hover{
-            background-color: lighten($dark-bg, 0.9);
+        .menu-list-item-wrapper{
+            background-color: lighten($dark-bg-main, 3%);
+            border-color: $dark-menu-border;
         }
         .menu-list-item-content{
             &:after{
