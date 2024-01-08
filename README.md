@@ -75,7 +75,7 @@
 该项目包含两个部分，具体的部署方式在各个项目中都有介绍：  
 
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue3`+`ts`+`vite`
-- 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/diary-portal) `nodejs`
+- 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/portal) `nodejs`
 
 ## 三、邀请码的使用
 新用户注册需要邀请码，邀请码有两种：  
