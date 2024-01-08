@@ -77,7 +77,7 @@ $toast-border-color: $bg-menu;
   padding: 20px 0;
   text-align: center;
   //background-color: $color-main;
-  backdrop-filter: blur(20px) saturate(180%);
+  @include backdrop-filter(blur(20px) saturate(180%));
   @include border-radius($radius-pc);
   border: 1px solid transparentize($color-border, 0.9);
   h3{

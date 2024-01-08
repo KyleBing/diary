@@ -34,3 +34,9 @@
   font-size: $fz-small;
   color: $text-menu-second;
 }
+
+@media (max-width: $grid-separate-width-sm) {
+  .menu-section {
+    padding: 30px 20px;
+  }
+}

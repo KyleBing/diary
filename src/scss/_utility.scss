@@ -8,7 +8,7 @@
 }
 
 // border-radius
-@mixin border-radius($corner: 5px){
+@mixin border-radius($corner: $radius-mobile){
   -webkit-border-radius: $corner;
   -moz-border-radius: $corner;
   border-radius: $corner;

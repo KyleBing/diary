@@ -94,7 +94,7 @@ $gap: 16px;
 
 @media (max-width: $grid-separate-width-sm) {
     .menu-list-item{
-        padding: $gap/3 $gap/2;
+        padding: $gap * 2/5 $gap * 1/2;
         &:nth-child(odd){
             padding-left: 0;
         }
