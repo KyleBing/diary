@@ -5,7 +5,7 @@
                class="temperature"
                name="temperature"
                id="temperature"
-               v-model.lazy.trim="temperatureLocal"
+               v-model.trim="temperatureLocal"
         >
         <div class="unit">{{unit}}</div>
     </div>
@@ -48,12 +48,7 @@ watch(() => props.modelValue, newValue => {
 
 })
 watch(temperatureLocal, newValue => {
-    if (/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(newValue)){
-        lastCorrectValue.value = newValue
-        emit('update:modelValue', newValue)
-    } else {
-        temperatureLocal.value = lastCorrectValue.value
-    }
+    emit('update:modelValue', newValue)
 })
 
 </script>

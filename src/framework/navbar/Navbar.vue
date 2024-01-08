@@ -296,9 +296,9 @@ function diaryDelete() {
         .delete(requestData)
         .then(res => {
             toastHide()
-            popMessage('success', res.message, () => {
-                storeProject.listOperation = {type: 'delete', dairy: null, id: storeProject.currentDiary.id}
-            }, 1) // 删除成功后等待时间不要太长
+            popMessage('success', res.message, ()=>{
+                storeProject.listOperation = {type: 'delete', diary: null, id: storeProject.currentDiary.id}
+            }, 0.5)
         })
 }
 

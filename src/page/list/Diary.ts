@@ -13,7 +13,7 @@ interface DiaryEntity {
 
 interface DiaryListOperation {
     type: 'add' | 'delete' | 'change',
-    diary: DiaryEntity,
+    diary: DiaryEntity|null,
     id: number
 }
 

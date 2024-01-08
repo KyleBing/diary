@@ -636,7 +636,13 @@ function getDiary(diaryId: number) {
         })
 }
 function saveDiary() {
-    if (diary.value.title.trim().length === 0) {
+    if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
+        popMessage('warning', '身处温度填写错误，应为 23.45 这样', ()=>{}, 2)
+        return
+    } else if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
+        popMessage('warning', '室外温度填写错误，请检查 23.45 这样', ()=>{}, 2)
+        return
+    } else if  (diary.value.title.trim().length === 0) {
         diary.value.title = '' // clear content
         popMessage('warning', '内容未填写', null)
         storeProject.isDiaryNeedToBeSaved = false// 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
@@ -654,9 +660,6 @@ function saveDiary() {
         is_markdown: diary.value.is_markdown ? 1 : 0,
         date: dateFormatter(diary.value.date),
     }
-
-    storeProject.isDiaryNeedToBeSaved = true
-
     if (isNew.value){
         diaryApi
             .add(requestData)
@@ -693,15 +696,19 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
     if (isNew.value) { // 如果是新建日记，跳转到对应路由
         isNew.value = false
         diary.value.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
-        router.push({
-            name: 'Edit',
-            params: {
-                id: res.data.id
-            }
-        })
-        storeProject.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
+
     }
-    popMessage('success', res.message)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
+    popMessage('success', res.message, ()=>{
+        storeProject.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
+        nextTick(()=>{
+            router.push({
+                name: 'Edit',
+                params: {
+                    id: res.data.id
+                }
+            })
+        })
+    }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
 }
 function createDiary() {
     isNew.value = true
