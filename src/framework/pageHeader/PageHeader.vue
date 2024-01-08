@@ -1,6 +1,6 @@
 <template>
     <div class="page-header">
-        <div class="page-back-btn" @click="$router.back()">
+        <div class="page-back-btn" @click="router.back()">
             <TabIcon alt="关闭"/>
         </div>
         <div class="page-title">{{ props.title }}</div>
@@ -11,6 +11,8 @@
 
 <script lang="ts" setup>
 import TabIcon from "../../components/TabIcon.vue";
+import {useRouter} from "vue-router";
+const router = useRouter()
 
 const props = defineProps({
     title: {

@@ -24,7 +24,7 @@
                         </button>
                         <button class="btn mt-5"
                                 type="button"
-                                @click.prevent="$router.go(-1)">取消
+                                @click.prevent="router.go(-1)">取消
                         </button>
                     </form>
                 </div>

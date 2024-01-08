@@ -5,7 +5,7 @@
             <div class="nav-part-left">
                 <div @click="menuShow"
                      v-if="(!storeProject.isInMobileMode && !storeProject.isMenuShowed)
-                     || storeProject.isInMobileMode && $route.name === 'List' && !storeProject.isMenuShowed">
+                     || storeProject.isInMobileMode && route.name === 'List' && !storeProject.isMenuShowed">
                     <TabIcon v-if="storeProject.isInMobileMode" alt="菜单"/>
                     <TabIcon v-else alt="LOGO"/>
                 </div>
@@ -13,7 +13,7 @@
                     <TabIcon alt="关闭"/>
                 </div>
                 <div @click="commitBack"
-                     v-if="storeProject.isInMobileMode && $route.name !== 'List'">
+                     v-if="storeProject.isInMobileMode && route.name !== 'List'">
                     <TabIcon alt="返回"/>
                 </div>
                 <div v-show="!storeProject.isMenuShowed"
@@ -72,7 +72,7 @@
                 <Clock class="pr-6" v-if="!storeProject.isInMobileMode"/>
 
                 <!--详情按钮-->
-                <div class="nav-btn-wrapper" v-if="$route.name === 'Detail' && storeProject.currentDiary">
+                <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && storeProject.currentDiary">
                     <div
                         v-if="storeProject.currentDiary && storeProject.currentDiary.is_public === 1"
                         class="clipboard-trigger"
@@ -88,7 +88,7 @@
                 </div>
 
                 <!--编辑按钮-->
-                <div class="nav-btn-wrapper" v-if="$route.name === 'Edit' || $route.name ==='EditNew'">
+                <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew'">
                     <div @click="diaryRecover" v-if="storeProject.isDiaryEditorContentHasChanged">
                         <TabIcon alt="恢复"/>
                     </div>
@@ -103,7 +103,7 @@
                 </div>
 
                 <router-link
-                    v-if="(storeProject.isInMobileMode && $route.name !== 'Detail' && !storeProject.isMenuShowed)
+                    v-if="(storeProject.isInMobileMode && route.name !== 'Detail' && !storeProject.isMenuShowed)
                     || !storeProject.isInMobileMode"
                     to="/edit"
                 >
@@ -115,7 +115,7 @@
             <!--LOGO-->
             <div class="brand" v-if="storeProject.isInMobileMode" @click="toggleListStyle">
                 <img :src="storeProject.editLogoImg"
-                     v-if="$route.name === 'Edit' || $route.name === 'EditNew'"
+                     v-if="route.name === 'Edit' || route.name === 'EditNew'"
                      alt="LOGO">
                 <a v-else-if="storeProject.isDiaryListShowedInFullStyle">
                     <img :src="SVG_ICONS.logo_icons.logo_content" alt="日记">

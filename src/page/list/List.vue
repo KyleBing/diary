@@ -15,7 +15,7 @@
         <div class="diary-list-group" v-if="!storeProject.isDiaryListShowedInFullStyle">
             <div v-for="(item, index) in diariesShow" :key="index">
                 <ListHeader v-if="!item.title" size="" :title="item.date"/>
-                <DiaryListItem v-else :isActive="$route.params.id === String(item.id)" :category="item.category" :diary="item"/>
+                <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
             </div>
         </div>
 
