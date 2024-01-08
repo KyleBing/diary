@@ -52,6 +52,8 @@ function toggleCategory(category: CategoryEntity){
     } else {
         storeProject.filteredCategories.push(category.name_en)
     }
+    storeProject.SET_FILTERED_CATEGORIES(storeProject.filteredCategories)
+    storeProject.isListNeedBeReload = true
 }
 function categoryMenuItemStyle(category: CategoryEntity){
     if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
