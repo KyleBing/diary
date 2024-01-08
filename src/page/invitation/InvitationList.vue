@@ -25,7 +25,7 @@
                     </div>
                     <div class="operation-btns" v-if="isAdminUser">
                         <TabIcon alt="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
-                        <TabIcon v-if="item.is_shared === 0" alt="确定" @click="markAsShared(item.id)"/>
+                        <TabIcon v-if="item.is_shared === 0" alt="黑色-确定" @click="markAsShared(item.id)"/>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@ function markAsShared(invitationId: number | string){
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .invitation-container{
-        padding: 20px;
+        padding: 20px 15px;
     }
     .invitation-list-item{
         margin-right: 0;

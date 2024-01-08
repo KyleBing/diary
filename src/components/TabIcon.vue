@@ -53,6 +53,7 @@ const iconMap = computed(() => {
     iconMap.set('列表详情', ICONS.tab_icons.listDetail)
 
     iconMap.set('黑色-添加', ICONS.tab_icons_black.add)
+    iconMap.set('黑色-确定', ICONS.tab_icons_black.done)
     iconMap.set('黑色-关闭', ICONS.tab_icons_black.close)
     iconMap.set('黑色-返回', ICONS.tab_icons_black.back)
     iconMap.set('黑色-删除', ICONS.tab_icons_black.delete)
