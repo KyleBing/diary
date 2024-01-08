@@ -30,8 +30,8 @@
                 <div class="copyright">
                     <p>
                         <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
-                        <span> v{{ packageInfo.version }}</span>
-                        <span> 始于 {{ packageInfo.dateInit }}</span>
+                        <span class="version ml-1">v{{ packageInfo.version }}</span>
+                        <span class="ml-1">  始于 {{ packageInfo.dateInit }}</span>
                     </p>
                 </div>
             </div>
@@ -173,13 +173,16 @@ function getAvatar(){
     font-size: $fz-tiny;
     line-height: 1;
     color: $text-subtitle;
-    //color: $color-main;
     a{
-        color: $text-subtitle;
+        color: $dark-text-subtitle;
+
         &:hover{
             color: $color-main;
             text-decoration: underline;
         }
+    }
+    .version{
+        color: $dark-text-subtitle;
     }
     .project-name{
         font-weight: bold;
