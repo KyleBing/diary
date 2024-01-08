@@ -18,7 +18,9 @@ $menu-category-list-item-height: 40px;
 }
 
 .menu-list{
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
   list-style-type: none;
   padding: 30px 30px;
 }

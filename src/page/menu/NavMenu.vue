@@ -10,28 +10,26 @@
             <div class="menu" v-show="menuListShowed" :style="'min-height:' + storeProject.insets.heightPanel + 'px'">
                 <div class="menu-list">
                     <!-- 1. 搜索 -->
-                    <MenuListItem v-if="storeProject.isInMobileMode"
+                    <MenuListItemShort v-if="storeProject.isInMobileMode"
                                     menu-name="搜索"    :icon="SVG_ICONS.tab_icons.search" @click="menuListClicked('search')"/>
                     <!-- 2. 类别筛选 -->
-                    <MenuListItem menu-name="类别筛选" :icon="SVG_ICONS.tab_icons.category" @click="menuListClicked('category')">
-                        <MenuCategoryIndicator/>
-                    </MenuListItem>
+                    <MenuListItemShort menu-name="类别筛选" :icon="SVG_ICONS.tab_icons.category" @click="menuListClicked('category')"/>
 
                     <!-- 3. 年份筛选 -->
-                    <MenuListItem menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
+                    <MenuListItemShort menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
                                     :add-on-text="storeProject.dateFilterString">
-                    </MenuListItem>
-                    <MenuListItem menu-name="统计数据"  :icon="SVG_ICONS.tab_icons.statistics"  @click="goToPage('Statistics')" />
-                    <MenuListItem menu-name="账单"     :icon="SVG_ICONS.tab_icons.bill"        @click="goToPage('Bill')" />
-                    <MenuListItem menu-name="银行卡"   :icon="SVG_ICONS.tab_icons.card"        @click="goToPage('BankCard')" />
-                    <MenuListItem
+                    </MenuListItemShort>
+                    <MenuListItemShort menu-name="统计数据"  :icon="SVG_ICONS.tab_icons.statistics"  @click="goToPage('Statistics')" />
+                    <MenuListItemShort menu-name="账单"     :icon="SVG_ICONS.tab_icons.bill"        @click="goToPage('Bill')" />
+                    <MenuListItemShort menu-name="银行卡"   :icon="SVG_ICONS.tab_icons.card"        @click="goToPage('BankCard')" />
+                    <MenuListItemShort
                         v-if="isAdminUser"
                         menu-name="文件管理" :icon="SVG_ICONS.tab_icons.folder"        @click="goToPage('FileManager')" />
-                    <MenuListItem menu-name="其它"     :icon="SVG_ICONS.tab_icons.others"      @click="menuListClicked('others')" />
-                    <MenuListItem
+                    <MenuListItemShort menu-name="其它"     :icon="SVG_ICONS.tab_icons.others"      @click="menuListClicked('others')" />
+                    <MenuListItemShort
                         v-if="isAdminUser"
                         menu-name="邀请码"   :icon="SVG_ICONS.tab_icons.invitation"         @click="goToPage('Invitation')" />
-                    <MenuListItem
+                    <MenuListItemShort
                         menu-name="关于"     :icon="SVG_ICONS.tab_icons.about"        @click="menuListClicked('about')"
                         :add-on-text="`v${packageInfo.version}`"/>
                 </div>
@@ -70,7 +68,8 @@ import MenuCategorySelector from "../menu/MenuCategorySelector.vue"
 import YearSelector from "./YearSelector/YearSelector.vue"
 import About from "../about/About.vue"
 import packageInfo from "../../../package.json"
-import MenuListItem from "../menu/MenuListItem.vue"
+import MenuListItemLong from "../menu/MenuListItemLong.vue"
+import MenuListItemShort from "../menu/MenuListItemShort.vue"
 import MenuCategoryIndicator from "./MenuCategoryIndicator.vue"
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 import UserProfile from "../menu/UserProfile.vue";

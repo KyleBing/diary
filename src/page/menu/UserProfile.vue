@@ -19,6 +19,9 @@
             <p>总计 <b>{{ storeProject.statisticsCategory.amount }}</b> 篇</p>
             <p>共享 <b>{{ storeProject.statisticsCategory.shared }}</b> 篇</p>
         </div>
+        <div class="copyright">
+            <span class="version ml-1">v{{ packageInfo.version }}</span>
+        </div>
     </div>
 </template>
 
@@ -29,6 +32,7 @@ import {useProjectStore} from "../../pinia";
 import {deleteAuthorization, getAuthorization, removeCategoryAll} from "../../utility.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
+import packageInfo from "../../../package.json";
 
 const router = useRouter()
 const storeProject = useProjectStore()
@@ -134,6 +138,18 @@ function logout() {
         color: $text-about-subtitle;
     }
 }
+
+.copyright{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    font-size: $fz-tiny;
+    .version{
+        color: $dark-text-subtitle;
+    }
+
+}
+
 
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {

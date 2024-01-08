@@ -37,6 +37,7 @@ export default {
 $height-menu-list: 50px;
 $height-icon: 34px;
 .menu-list-item{
+    width: 100%;
     padding: 0 10px;
     align-items: center;
     display: flex;
