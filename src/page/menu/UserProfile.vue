@@ -155,7 +155,11 @@ function logout() {
 @media (max-width: $grid-separate-width-sm) {
     .user-profile{
         padding: 20px 40px 50px;
+        .statistics{
+            @include border-radius($radius-pc)
+        }
     }
+
 }
 
 

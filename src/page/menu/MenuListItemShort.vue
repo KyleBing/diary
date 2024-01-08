@@ -43,13 +43,12 @@ $gap: 16px;
     .menu-list-item-wrapper{
         padding: 0 5px 0 15px;
         background-color: lighten($bg-menu, 3%);
-
         border: 1px solid $color-border-menu;
         align-items: center;
         display: flex;
         justify-content: flex-start;
         @extend .unselectable;
-        @include border-radius($radius-pc);
+        @include border-radius($radius-mobile);
         overflow: hidden;
         &:hover{
             background-color: lighten($bg-menu, 8%);
@@ -95,8 +94,7 @@ $gap: 16px;
 
 @media (max-width: $grid-separate-width-sm) {
     .menu-list-item{
-        padding: $gap/2;
-
+        padding: $gap/3 $gap/2;
         &:nth-child(odd){
             padding-left: 0;
         }
@@ -105,6 +103,7 @@ $gap: 16px;
         }
         .menu-list-item-wrapper{
             padding: 0 5px 0 10px;
+            @include border-radius($radius-pc);
             .menu-list-item-icon{
                 margin-right: 5px;
                 width: $height-icon;
