@@ -691,24 +691,37 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
     Object.assign(diaryOrigin.value, diary.value)
     updateDiaryIcon() // 更新 navbar icon
     storeProject.isDiaryNeedToBeSaved = false
-    storeProject.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
 
     if (isNew.value) { // 如果是新建日记，跳转到对应路由
-        isNew.value = false
         diary.value.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
-
-    }
-    popMessage('success', res.message, ()=>{
-        storeProject.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
-        nextTick(()=>{
-            router.push({
-                name: 'Edit',
-                params: {
-                    id: res.data.id
-                }
+        popMessage('success', res.message, ()=>{
+            storeProject.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
+            nextTick(()=>{
+                router.push({
+                    name: 'Edit',
+                    params: {
+                        id: res.data.id
+                    }
+                })
             })
-        })
-    }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
+        }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
+    } else {
+        popMessage('success', res.message, ()=>{
+            storeProject.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
+            nextTick(()=>{
+                router.push({
+                    name: 'Edit',
+                    params: {
+                        id: res.data.id
+                    }
+                })
+            })
+        }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
+    }
+
+    isNew.value = false
+
+
 }
 function createDiary() {
     isNew.value = true
