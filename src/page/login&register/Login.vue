@@ -28,13 +28,11 @@
                     <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
                 </div>
                 <div class="copyright">
-                    <p>
-                        <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
-                        <span class="version ml-1">v{{ packageInfo.version }}</span>
-                        <span class="ml-1">  始于 {{ packageInfo.dateInit }}</span>
-                        <router-link class="ml-1 password" to="/fetch-password">找回密码</router-link>
-<!--                        <span class="ml-1 password" @click="routeToFetchPassword">找回密码</span>-->
-                    </p>
+                    <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
+                    <span class="version ml-1">v{{ packageInfo.version }}</span>
+                    <span class="ml-1">  始于 {{ packageInfo.dateInit }}</span>
+                    <router-link class="ml-1 password" to="/fetch-password">找回密码</router-link>
+                    <!--                        <span class="ml-1 password" @click="routeToFetchPassword">找回密码</span>-->
                 </div>
             </div>
 
@@ -169,8 +167,8 @@ function routeToFetchPassword(){
 <style lang="scss" scoped>
 @import "../../scss/plugin";
 .copyright{
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    width: 100%;
     position: fixed;
     bottom: 20px;
     display: flex;
