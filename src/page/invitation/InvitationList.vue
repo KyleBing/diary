@@ -3,7 +3,7 @@
         <TabIcon v-if="isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
     </PageHeader>
 
-    <div class="invitation-container" :style="`height:  ${storeProject.insets.heightPanel}px`">
+    <MenuPanelContainer>
         <div v-if="isLoading" class="pt-8 pb-8" :style="`height:  ${storeProject.insets.heightPanel}px`">
             <Loading :loading="isLoading"/>
         </div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </MenuPanelContainer>
 </template>
 
 <script lang="ts" setup>
@@ -42,6 +42,7 @@ import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onBeforeUnmount, onMounted, Ref, ref} from "vue";
 import {InvitationEntity} from "./InvitationEntity.ts";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const isLoading = ref(false)
 const invitationList: Ref<InvitationEntity[]> = ref([])

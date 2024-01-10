@@ -45,10 +45,6 @@ $menu-category-list-item-height: 40px;
 
 
 // MENU CATEGORY
-.menu-category {
-  padding: 20px;
-}
-
 .menu-category-list{
   display: flex;
   justify-content: space-between;
@@ -99,11 +95,8 @@ $menu-category-list-item-height: 40px;
   .menu-panel {
     width: $menu-panel-big;
   }
-  .menu-category {
-    padding: 30px;
-    .menu-category-item {
-      width: 40%;
-    }
+  .menu-category-item {
+    width: 40%;
   }
 }
 
@@ -115,11 +108,9 @@ $menu-category-list-item-height: 40px;
   .user-profile{
     padding: 30px 50px;
   }
-  .menu-category {
-    padding: 30px;
-    .menu-category-item {
-      width: 40%;
-    }
+
+  .menu-category-item {
+    width: 40%;
   }
 }
 

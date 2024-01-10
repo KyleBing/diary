@@ -1,6 +1,6 @@
 // Menu Section
 .menu-section{
-  padding: 30px;
+  padding: 0 0 30px;
   border-bottom: -1px solid $color-border-menu;
   .menu-section-title{
     font-size: $fz-title;
@@ -36,7 +36,5 @@
 }
 
 @media (max-width: $grid-separate-width-sm) {
-  .menu-section {
-    padding: 30px 20px;
-  }
+  .menu-section {}
 }

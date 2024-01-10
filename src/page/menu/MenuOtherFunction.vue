@@ -1,12 +1,12 @@
 <template>
-   <div class="menu-others-container">
+   <MenuPanelContainer>
        <div class="menu-section">
            <div class="menu-section-title">密码</div>
            <div class="menu-section-subtitle"></div>
            <div class="menu-section-content">
                <div class="btn-list">
                    <div class="btn btn-active" @click="goToChangePassword">修改密码</div>
-<!--                   <div class="btn btn-active" @click="goToChangePassword">找回密码</div>-->
+                   <!--                   <div class="btn btn-active" @click="goToChangePassword">找回密码</div>-->
                </div>
 
                <div class="desc">忘记密码，可以通过注册的邮箱给管理员 {{ projectConfig.adminEmail }} 发邮件重置密码</div>
@@ -36,19 +36,19 @@
            </div>
            <div class="desc" v-if="isDownloadingContent">导出中，请耐心等待，勿进行其它操作...</div>
        </div>
-   </div>
-
+   </MenuPanelContainer>
 </template>
 
 <script lang="ts" setup>
 import projectConfig from "../../projectConfig.ts";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "@/pinia";
 import {useRouter} from "vue-router";
-import {WeatherArray} from "../../entity/Weather.ts";
-import {dateFormatter, getAuthorization, popMessage} from "../../utility.ts";
+import {WeatherArray} from "@/entity/Weather.ts";
+import {dateFormatter, getAuthorization, popMessage} from "@/utility.ts";
 import {DiaryEntity} from "../list/Diary.ts";
 import diaryApi from "../../api/diaryApi.ts";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const storeProject = useProjectStore()
 const router = useRouter()

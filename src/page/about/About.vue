@@ -1,20 +1,22 @@
 <template>
-    <div class="about" :style="`height:  ${storeProject.insets.heightPanel}px`">
-        <div class="logo">
-            <img :src="SVG_ICONS.logo_icons.logo_rounded" alt="LOGO">
+    <MenuPanelContainer>
+        <div class="about">
+            <div class="logo">
+                <img :src="SVG_ICONS.logo_icons.logo_rounded" alt="LOGO">
+            </div>
+            <h3 class="title">{{packageInfo.nameZh}}</h3>
+            <h4 class="subtitle">{{packageInfo.description}}</h4>
+            <div class="version">v{{packageInfo.version}}</div>
+            <div class="author">
+                <a href="http://kylebing.cn" class="social-link">🌖 开发者主页</a>
+                <a href="mailto:kylebing@163.com">kylebing@163.com</a>
+                <a>·</a>
+                <a href="https://github.com/KyleBing/diary-vue"> github 开源仓库 </a>
+                <a>·</a>
+                <a href="">{{packageInfo.dateInit}} ~ {{packageInfo.dateModify}}</a>
+            </div>
         </div>
-        <h3 class="title">{{packageInfo.nameZh}}</h3>
-        <h4 class="subtitle">{{packageInfo.description}}</h4>
-        <div class="version">v{{packageInfo.version}}</div>
-        <div class="author">
-            <a href="http://kylebing.cn" class="social-link">🌖 开发者主页</a>
-            <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-            <a>·</a>
-            <a href="https://github.com/KyleBing/diary-vue"> github 开源仓库 </a>
-            <a>·</a>
-            <a href="">{{packageInfo.dateInit}} ~ {{packageInfo.dateModify}}</a>
-        </div>
-    </div>
+    </MenuPanelContainer>
 </template>
 
 <script lang="ts" setup>
@@ -22,6 +24,7 @@
 import packageInfo from "../../../package.json"
 import {useProjectStore} from "../../pinia";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 const storeProject = useProjectStore()
 
 </script>
@@ -34,7 +37,7 @@ const storeProject = useProjectStore()
     height: 100%;
     text-align: center;
     color: $bg-light;
-    padding-top: 60px;
+    padding-top: 40px;
     .logo{
         margin-bottom: 20px;
         display: flex;

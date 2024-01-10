@@ -2,58 +2,60 @@
     <PageHeader title="银行卡列表" subtitle="点击复制卡号">
         <TabIcon @click="editCardInfo" alt="编辑"/>
     </PageHeader>
-    <div v-if="isLoading" class="pt-8 pb-8">
-        <Loading :loading="isLoading"/>
-    </div>
-    <div v-else>
-        <div class="bank-card-container"
-             v-if="cardListAll.length > 0"
-             :style="`height:  ${storeProject.insets.heightPanel}px`"
-        >
-            <h1 class="bank-card-list-header">存储卡</h1>
-            <div class="bank-card-list">
-                <bank-card
-                    :index="index"
-                    :card="card"
-                    v-for="(card, index) in cardListStore"
-                    :key="index"/>
-            </div>
-
-            <h1 class="bank-card-list-header">信用卡</h1>
-            <div class="bank-card-list">
-                <bank-card
-                    :index="index"
-                    :card="card"
-                    v-for="(card, index) in cardListCredit"
-                    :key="index"/>
-            </div>
+    <MenuPanelContainer>
+        <div v-if="isLoading" class="pt-8 pb-8">
+            <Loading :loading="isLoading"/>
         </div>
-        <div v-else class="bank-tip">
-            <Loading v-if="isLoading" :loading="isLoading"/>
-            <template v-else>
-                <p>您目前没有添加任何银行卡</p>
-                <p>------------------------</p>
-                <p>请新建名为 "我的银行卡列表" 的日记</p>
-                <p>日记内容格式如下，</p>
-                <p>之后，将会在此显示银行卡列表</p>
-                <p>------------------------</p>
-                <div class="bank-card-example">
-                    <pre>{{ example }}</pre>
-                </div>
-
-                <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
-
-                <div class="bank-card-list p-0">
+        <div v-else>
+            <div class="bank-card-container"
+                 v-if="cardListAll.length > 0"
+            >
+                <h1 class="bank-card-list-header">存储卡</h1>
+                <div class="bank-card-list">
                     <bank-card
                         :index="index"
                         :card="card"
-                        v-for="(card, index) in cardListExample"
+                        v-for="(card, index) in cardListStore"
                         :key="index"/>
                 </div>
-            </template>
 
+                <h1 class="bank-card-list-header">信用卡</h1>
+                <div class="bank-card-list">
+                    <bank-card
+                        :index="index"
+                        :card="card"
+                        v-for="(card, index) in cardListCredit"
+                        :key="index"/>
+                </div>
+            </div>
+            <div v-else class="bank-tip">
+                <Loading v-if="isLoading" :loading="isLoading"/>
+                <template v-else>
+                    <p>您目前没有添加任何银行卡</p>
+                    <p>------------------------</p>
+                    <p>请新建名为 "我的银行卡列表" 的日记</p>
+                    <p>日记内容格式如下，</p>
+                    <p>之后，将会在此显示银行卡列表</p>
+                    <p>------------------------</p>
+                    <div class="bank-card-example">
+                        <pre>{{ example }}</pre>
+                    </div>
+
+                    <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
+
+                    <div class="bank-card-list p-0">
+                        <bank-card
+                            :index="index"
+                            :card="card"
+                            v-for="(card, index) in cardListExample"
+                            :key="index"/>
+                    </div>
+                </template>
+
+            </div>
         </div>
-    </div>
+    </MenuPanelContainer>
+
 </template>
 
 <script lang="ts" setup>
@@ -71,6 +73,7 @@ import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const cardListExample = [
     {
@@ -201,8 +204,6 @@ function processCardInfo(allCardString: string){
 
 <style scoped lang="scss">
 @import "../../scss/plugin";
-$bank-card-list-padding: 30px;
-
 .bank-tip{
     background-color: $bg-menu;
     padding: 30px;
@@ -218,12 +219,10 @@ $bank-card-list-padding: 30px;
 
 
 .bank-card-container{
-    overflow-y: auto;
-    background-color: $bg-menu;
 }
 
 .bank-card-list-header{
-    padding: 20px $bank-card-list-padding 0;
+    margin-bottom: 10px;
     font-size: $fz-big;
     font-weight: bold;
     color: white;
@@ -232,13 +231,11 @@ $bank-card-list-padding: 30px;
     display: flex;
     justify-content: flex-start;
     flex-flow: row wrap;
-    padding: $bank-card-list-padding;
 }
 
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .bank-card-list{
-        padding: 10px;
         flex-flow: column nowrap;
     }
 }

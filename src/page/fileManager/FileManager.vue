@@ -2,13 +2,14 @@
     <PageHeader title="文件列表" subtitle="">
         <TabIcon @click="showModalUpload" alt="添加"/>
     </PageHeader>
-    <div v-if="isLoading" class="pt-8 pb-8">
-        <Loading :loading="isLoading"/>
-    </div>
-    <div v-else>
-        <div class="file-list"
-             v-if="fileListData.length > 0"
-             :style="'min-height:' + storeProject.insets.heightPanel + 'px'"
+    <MenuPanelContainer>
+        <div v-if="isLoading" class="pt-8 pb-8">
+            <Loading :loading="isLoading"/>
+        </div>
+        <div
+            v-else
+            class="file-list"
+            v-if="fileListData.length > 0"
         >
             <FileListItem
                 :fileInfo="file"
@@ -18,7 +19,8 @@
                 @modifyFileName="showModalModifyFileName(fileId)"
             />
         </div>
-    </div>
+    </MenuPanelContainer>
+
     <Modal v-if="modalUpload">
         <form class="modal-form-panel" method="post" id="formUpload" @submit.prevent="uploadFile">
             <div class="input-group">
@@ -52,6 +54,7 @@ import {popMessage, dateFormatter} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 import {onMounted, onUnmounted, ref} from "vue";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const isLoading = ref(false)
 const fileListData = ref([])
@@ -152,7 +155,6 @@ function getFileList(){
 
 .file-list{
     width: 100%;
-    padding: 30px 30px 50px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -164,8 +166,6 @@ function getFileList(){
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .file-list{
-        padding: 15px 15px 50px;
-
         flex-flow: column nowrap;
     }
 }

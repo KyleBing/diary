@@ -1,6 +1,5 @@
 <template>
-    <!--category-->
-    <div class="menu-category" >
+    <MenuPanelContainer>
         <ul class="menu-category-list">
             <li class="menu-category-item" v-for="(item, index) in storeProject.categoryAll" :key="index"
                 :style="categoryMenuItemStyle(item)"
@@ -20,7 +19,7 @@
             <div @click="reverseCategorySelect" class="menu-btn">反选</div>
             <div @click="selectCategoryWork" class="menu-btn">周报</div>
         </div>
-    </div>
+    </MenuPanelContainer>
 </template>
 
 <script lang="ts" setup>
@@ -29,6 +28,7 @@ import {onMounted, ref, watch} from "vue";
 import {getCategoryAll, getDiaryConfigFromLocalStorage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 import {CategoryEntity} from "@/entity/Category.ts";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const storeProject = useProjectStore()
 
