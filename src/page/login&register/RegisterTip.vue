@@ -3,13 +3,17 @@
         enter-active-class="animated-fast fadeIn"
         leave-active-class="animated-fast faceOut"
     >
-        <div v-if="projectConfig.registerTip" class="register-tip mb-6" v-html="projectConfig.registerTip"/>
+        <div v-if="htmlContent" class="register-tip mb-6" v-html="htmlContent"/>
     </transition>
 </template>
 
 
 <script lang="ts" setup>
-import projectConfig from "../../projectConfig.ts";
+defineProps({
+    htmlContent: {
+        type: String,
+    }
+})
 
 </script>
 

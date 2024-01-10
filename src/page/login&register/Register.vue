@@ -11,7 +11,7 @@
                     </div>
                     <div class="project-name">注册</div>
                 </div>
-                <RegisterTip/>
+                <RegisterTip :html-content="projectConfig.registerTip"/>
 
                 <form id="regForm">
                     <div class="input-group">

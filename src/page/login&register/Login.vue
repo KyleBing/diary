@@ -32,6 +32,8 @@
                         <a class="project-name" target="_blank" href="https://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
                         <span class="version ml-1">v{{ packageInfo.version }}</span>
                         <span class="ml-1">  始于 {{ packageInfo.dateInit }}</span>
+                        <router-link class="ml-1 password" to="/fetch-password">找回密码</router-link>
+<!--                        <span class="ml-1 password" @click="routeToFetchPassword">找回密码</span>-->
                     </p>
                 </div>
             </div>
@@ -159,6 +161,10 @@ function getAvatar(){
         })
 }
 
+function routeToFetchPassword(){
+    router.push({name: 'FetchPassword'})
+}
+
 </script>
 <style lang="scss" scoped>
 @import "../../scss/plugin";
@@ -190,6 +196,13 @@ function getAvatar(){
     .valid-date{
     }
     .version{
+    }
+    .password{
+        color: $dark-text-subtitle;
+        @extend .btn-like;
+        &:hover{
+            color: $color-main;
+        }
     }
 }
 </style>

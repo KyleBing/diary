@@ -21,6 +21,7 @@ import RemoveAllYourDiary from "../page/others/RemoveAllYourDiary.vue";
 import DestroyAccount from "../page/others/DestroyAccount.vue";
 import FileManager from "../page/fileManager/FileManager.vue";
 import {getAuthorization, isInMobileMode} from "../utility.ts";
+import FetchPassword from "../page/login&register/FetchPassword.vue";
 
 
 const routes: RouteRecordRaw[] = [
@@ -44,19 +45,20 @@ const routes: RouteRecordRaw[] = [
             {name: 'ListHole'   , path: 'list'      ,        component: ListHole}, // mobile
         ]
     },
-    {name: 'Register',       path: '/register',          component: Register},
-    {name: 'Share',          path: '/share/:id',         component: Share},
-    {name: 'RemoveAllYourDiary',     path: '/clear-diary',       component: RemoveAllYourDiary },
-    {name: 'DestroyAccount', path: '/destroy-account',   component: DestroyAccount },
-    {name: 'ChangePassword', path: '/change-password',   component: ChangePassword },
-    {name: 'ChangeProfile',  path: '/change-profile',    component: ChangeProfile },
-    {name: 'Login',          path: '/login',             component: Login},
-    {name: 'Statistics',     path: '/statistics',        component: Statistics},
-    {name: 'FileManager',    path: '/file-manager',      component: FileManager},
-    {name: 'Bill',           path: '/bill',              component: Bill},
-    {name: 'BankCard',       path: '/bank-card',         component: BankCardList },
-    {name: 'Invitation',     path: '/invitation',        component: InvitationList },
-    {name: 'NotFound',       path: '/:pathMatch(.*)*',   component: NotFound_404}
+    {name: 'Register',             path: '/register',          component: Register},
+    {name: 'Share',                path: '/share/:id',         component: Share},
+    {name: 'RemoveAllYourDiary',   path: '/clear-diary',       component: RemoveAllYourDiary },
+    {name: 'DestroyAccount',       path: '/destroy-account',   component: DestroyAccount },
+    {name: 'ChangePassword',       path: '/change-password',   component: ChangePassword },
+    {name: 'ChangeProfile',        path: '/change-profile',    component: ChangeProfile },
+    {name: 'Login',                path: '/login',             component: Login},
+    {name: 'FetchPassword',        path: '/fetch-password',    component: FetchPassword},
+    {name: 'Statistics',           path: '/statistics',        component: Statistics},
+    {name: 'FileManager',          path: '/file-manager',      component: FileManager},
+    {name: 'Bill',                 path: '/bill',              component: Bill},
+    {name: 'BankCard',             path: '/bank-card',         component: BankCardList },
+    {name: 'Invitation',           path: '/invitation',        component: InvitationList },
+    {name: 'NotFound',             path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 
 const router = createRouter({
@@ -69,6 +71,7 @@ router.beforeEach((to, _) => {
         case 'Login':
         case 'Register':
         case 'Share':
+        case 'FetchPassword':
         case 'Invitation':
             return true
         default:
