@@ -29,6 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 @import "../../scss/plugin";
 $height-menu-list: 50px;
 $height-icon: 34px;
@@ -37,7 +38,7 @@ $gap: 16px;
 
 .menu-list-item{
     width: 50%;
-    padding: $gap/2;
+    padding: $gap * 0.5;
     color: white;
 
     .menu-list-item-wrapper{
@@ -94,7 +95,7 @@ $gap: 16px;
 
 @media (max-width: $grid-separate-width-sm) {
     .menu-list-item{
-        padding: $gap * 2/5 $gap * 1/2;
+        padding: $gap * 0.4 $gap * 0.5;
         &:nth-child(odd){
             padding-left: 0;
         }
