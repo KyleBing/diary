@@ -296,8 +296,12 @@ function diaryDelete() {
         .delete(requestData)
         .then(res => {
             toastHide()
-            popMessage('success', res.message, ()=>{
-                storeProject.listOperation = {type: 'delete', diary: null, id: storeProject.currentDiary.id}
+            popMessage('success', res.message, () => {
+                if (storeProject.isInMobileMode){
+                    router.back()
+                } else {
+                    storeProject.listOperation = {type: 'delete', diary: null, id: storeProject.currentDiary.id}
+                }
             }, 0.5)
         })
 }
