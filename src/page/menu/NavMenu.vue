@@ -4,7 +4,7 @@
         enter-active-class="animated-fast slideInLeft"
         leave-active-class="animated-fast slideOutLeft"
     >
-        <div class="menu-panel" id="menu-panel" v-if="storeProject.isMenuShowed" :style="'height:' + storeProject.insets.heightPanel + 'px'">
+        <div class="menu-panel" id="menu-panel" v-if="storeProject.isMenuShowed" :style="`height:  ${storeProject.insets.heightPanel}px`">
 
             <!-- 菜单列表 -->
             <div class="menu" v-show="menuListShowed" :style="'min-height:' + storeProject.insets.heightPanel + 'px'">

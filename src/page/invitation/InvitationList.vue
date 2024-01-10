@@ -3,30 +3,27 @@
         <TabIcon v-if="isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
     </PageHeader>
 
-    <div class="invitation-container">
-        <div v-if="isLoading" class="pt-8 pb-8" :style="'height:' + storeProject.insets.heightPanel + 'px'">
+    <div class="invitation-container" :style="`height:  ${storeProject.insets.heightPanel}px`">
+        <div v-if="isLoading" class="pt-8 pb-8" :style="`height:  ${storeProject.insets.heightPanel}px`">
             <Loading :loading="isLoading"/>
         </div>
 
-        <div v-else
-             :style="'height:' + storeProject.insets.heightPanel + 'px'">
-            <div class="invitation-list" >
-                <div :class="['invitation-list-item', {shared: item.is_shared === 1}]"
-                     v-for="(item,index) in invitationList" :key="item.id">
-                    <div class="index">{{ index + 1 }}</div>
-                    <div class="invitation-code-wrapper">
-                        <div
-                            class="invitation-code"
-                            :data-clipboard="`欢迎使用：\n\n${item.id}\n\n邀请码有效期：3天`"
-                        >{{ item.id }}
-                        </div>
-                        <div class="create-time">{{item.date_create}}</div>
+        <div v-else class="invitation-list" >
+            <div :class="['invitation-list-item', {shared: item.is_shared === 1}]"
+                 v-for="(item,index) in invitationList" :key="item.id">
+                <div class="index">{{ index + 1 }}</div>
+                <div class="invitation-code-wrapper">
+                    <div
+                        class="invitation-code"
+                        :data-clipboard="`欢迎使用：\n\n${item.id}\n\n邀请码有效期：3天`"
+                    >{{ item.id }}
+                    </div>
+                    <div class="create-time">{{item.date_create}}</div>
 
-                    </div>
-                    <div class="operation-btns" v-if="isAdminUser">
-                        <TabIcon alt="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
-                        <TabIcon v-if="item.is_shared === 0" alt="黑色-确定" @click="markAsShared(item.id)"/>
-                    </div>
+                </div>
+                <div class="operation-btns" v-if="isAdminUser">
+                    <TabIcon alt="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
+                    <TabIcon v-if="item.is_shared === 0" alt="黑色-确定" @click="markAsShared(item.id)"/>
                 </div>
             </div>
         </div>

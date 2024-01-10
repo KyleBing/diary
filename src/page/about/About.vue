@@ -1,5 +1,5 @@
 <template>
-    <div class="about" :style="'height:' + storeProject.insets.heightPanel + 'px'">
+    <div class="about" :style="`height:  ${storeProject.insets.heightPanel}px`">
         <div class="logo">
             <img :src="SVG_ICONS.logo_icons.logo_rounded" alt="LOGO">
         </div>

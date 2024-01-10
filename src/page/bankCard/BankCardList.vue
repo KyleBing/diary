@@ -8,7 +8,7 @@
     <div v-else>
         <div class="bank-card-container"
              v-if="cardListAll.length > 0"
-             :style="'height:' + storeProject.insets.heightPanel + 'px'"
+             :style="`height:  ${storeProject.insets.heightPanel}px`"
         >
             <h1 class="bank-card-list-header">存储卡</h1>
             <div class="bank-card-list">
