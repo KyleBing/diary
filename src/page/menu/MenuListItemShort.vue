@@ -44,7 +44,7 @@ $gap: 16px;
     .menu-list-item-wrapper{
         padding: 0 5px 0 15px;
         background-color: lighten($bg-menu, 4%);
-        //border: 1px solid $color-border-menu;
+        border: 1px solid lighten($bg-menu, 8%);
         align-items: center;
         display: flex;
         justify-content: flex-start;
@@ -52,6 +52,7 @@ $gap: 16px;
         @include border-radius($radius-mobile);
         overflow: hidden;
         &:hover{
+            border-color: lighten($bg-menu, 12%);
             background-color: lighten($bg-menu, 9%);
         }
         &:active{
