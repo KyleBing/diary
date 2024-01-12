@@ -43,8 +43,8 @@ $gap: 16px;
 
     .menu-list-item-wrapper{
         padding: 0 5px 0 15px;
-        background-color: lighten($bg-menu, 3%);
-        border: 1px solid $color-border-menu;
+        background-color: lighten($bg-menu, 4%);
+        //border: 1px solid $color-border-menu;
         align-items: center;
         display: flex;
         justify-content: flex-start;
@@ -52,10 +52,10 @@ $gap: 16px;
         @include border-radius($radius-mobile);
         overflow: hidden;
         &:hover{
-            background-color: lighten($bg-menu, 8%);
+            background-color: lighten($bg-menu, 9%);
         }
         &:active{
-            background-color: lighten($bg-menu,10%);
+            background-color: lighten($bg-menu,12%);
         }
         .menu-list-item-icon{
             flex-shrink: 0;
