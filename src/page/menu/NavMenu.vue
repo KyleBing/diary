@@ -9,15 +9,19 @@
             <!-- 菜单列表 -->
             <div class="menu" v-show="menuListShowed" :style="'min-height:' + storeProject.insets.heightPanel + 'px'">
                 <div class="menu-list">
-                    <!-- 1. 搜索 -->
                     <MenuListItemShort v-if="storeProject.isInMobileMode"
                                     menu-name="搜索"    :icon="SVG_ICONS.tab_icons.search" @click="menuListClicked('search')"/>
-                    <!-- 2. 类别筛选 -->
+
+                    <MenuListItemShort v-if="storeProject.isInMobileMode" menu-name="待办"
+                                       :icon="storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'?
+                                                                                                                    SVG_ICONS.tab_icons.todoActive:
+                                                                                                                    SVG_ICONS.tab_icons.todo"
+                                       @click="menuListClicked('todo')"/>
+
                     <MenuListItemShort menu-name="类别筛选" :icon="SVG_ICONS.tab_icons.category" @click="menuListClicked('category')">
                         <MenuCategoryIndicatorInline/>
                     </MenuListItemShort>
 
-                    <!-- 3. 年份筛选 -->
                     <MenuListItemShort menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
                                     :add-on-text="storeProject.dateFilterString">
                     </MenuListItemShort>
@@ -163,6 +167,18 @@ function menuListClicked(menuName: string) {
             nextTick(() => {
                 (document.querySelector('#keyword') as HTMLInputElement).focus()
             })
+            break
+        case 'todo':
+            let nextCategories: string[] = []
+            if (storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'){
+                nextCategories = []
+            } else {
+                nextCategories = ['todo']
+            }
+            storeProject.isFilterShared = false
+            storeProject.SET_FILTERED_CATEGORIES(nextCategories)
+            storeProject.isListNeedBeReload = true
+            menuInit()
             break
         case 'category':
             storeProject.isMenuShowed = true  // menu panel

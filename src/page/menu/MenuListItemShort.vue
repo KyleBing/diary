@@ -107,16 +107,16 @@ $gap: 16px;
             padding-right: 0;
         }
         .menu-list-item-wrapper{
-            padding: 0 5px 0 10px;
+            padding: 0 5px 0 12px;
             @include border-radius($radius-pc);
             .menu-list-item-icon{
-                margin-right: 5px;
+                margin-right: 10px;
                 width: $height-icon;
                 height: $height-icon;
             }
             .menu-list-item-content{
                 letter-spacing: 1px;
-                padding: 0 5px;
+                padding: 0;
                 width: 100%;
                 font-size: $fz-menu;
                 height: $height-menu-list;
