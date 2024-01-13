@@ -13,7 +13,9 @@
                     <MenuListItemShort v-if="storeProject.isInMobileMode"
                                     menu-name="搜索"    :icon="SVG_ICONS.tab_icons.search" @click="menuListClicked('search')"/>
                     <!-- 2. 类别筛选 -->
-                    <MenuListItemShort menu-name="类别筛选" :icon="SVG_ICONS.tab_icons.category" @click="menuListClicked('category')"/>
+                    <MenuListItemShort menu-name="类别筛选" :icon="SVG_ICONS.tab_icons.category" @click="menuListClicked('category')">
+                        <MenuCategoryIndicatorInline/>
+                    </MenuListItemShort>
 
                     <!-- 3. 年份筛选 -->
                     <MenuListItemShort menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
@@ -68,9 +70,7 @@ import MenuCategorySelector from "../menu/MenuCategorySelector.vue"
 import YearSelector from "./YearSelector/YearSelector.vue"
 import About from "../about/About.vue"
 import packageInfo from "../../../package.json"
-import MenuListItemLong from "../menu/MenuListItemLong.vue"
 import MenuListItemShort from "../menu/MenuListItemShort.vue"
-import MenuCategoryIndicator from "./MenuCategoryIndicator.vue"
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 import UserProfile from "../menu/UserProfile.vue";
 import MenuOtherFunction from "../menu/MenuOtherFunction.vue";
@@ -80,6 +80,8 @@ import {computed, nextTick, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 import {getAuthorization} from "@/utility.ts";
+import MenuCategoryIndicatorInline from "@/page/menu/MenuCategoryIndicatorInline.vue";
+import MenuCategoryIndicatorInlineVertical from "@/page/menu/MenuCategoryIndicatorInlineVertical.vue";
 
 const storeProject = useProjectStore()
 const router = useRouter()

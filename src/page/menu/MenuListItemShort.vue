@@ -7,6 +7,8 @@
             <div class="menu-list-item-content">
                 <div class="title">{{ menuName }}</div>
             </div>
+
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -42,6 +44,7 @@ $gap: 16px;
     color: white;
 
     .menu-list-item-wrapper{
+        position: relative;
         padding: 0 5px 0 15px;
         background-color: lighten($bg-menu, 4%);
         border: 1px solid lighten($bg-menu, 8%);
