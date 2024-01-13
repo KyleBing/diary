@@ -32,7 +32,6 @@
                     <span class="version ml-1">v{{ packageInfo.version }}</span>
                     <span class="ml-1">  始于 {{ packageInfo.dateInit }}</span>
                     <router-link class="ml-1 password" to="/fetch-password">找回密码</router-link>
-                    <!--                        <span class="ml-1 password" @click="routeToFetchPassword">找回密码</span>-->
                 </div>
             </div>
 
@@ -159,9 +158,6 @@ function getAvatar(){
         })
 }
 
-function routeToFetchPassword(){
-    router.push({name: 'FetchPassword'})
-}
 
 </script>
 <style lang="scss" scoped>
@@ -170,7 +166,7 @@ function routeToFetchPassword(){
     left: 0;
     width: 100%;
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
