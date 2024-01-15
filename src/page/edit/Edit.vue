@@ -463,7 +463,7 @@ function contentUpdate(event: Event){
             keysPanelPositionLeft.value = lastWord.length * 15 + 30
             // possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) === 0)
             if (lastWord !== ''){
-                possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) > -1).splice(0,10)
+                possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) > -1).splice(0,9)
             }
             // console.log(possibleBillItems.value.map(item => item.item).join(','))
         } else {
