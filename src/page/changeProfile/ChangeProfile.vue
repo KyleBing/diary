@@ -130,7 +130,7 @@ function uploadAvatar(event){
             return
         }
         if (avatarFile.size > 1024 * 1024 * 3){
-            popMessage('warning', '头像文件应小于 3M', null, 3)
+            popMessage('warning', '头像文件应小于 3M', ()=>{}, 3)
             event.target.value = '' // 清空 Input 内容
             return
         }
@@ -160,7 +160,7 @@ function uploadAvatar(event){
                 // subscription.unsubscribe() // 上传取消
             })
             .catch(err => {
-                popMessage('danger', '获取上传 token 失败', null, 3)
+                popMessage('danger', '获取上传 token 失败', ()=>{}, 3)
             })
     }
 }
@@ -168,24 +168,25 @@ function changeProfileSubmit() {
     userApi
         .setProfile(formUser.value)
         .then(res => {
+            // update auth
             setAuthorization(
-                res.data.nickname,
-                res.data.uid,
-                res.data.email,
-                res.data.phone,
-                res.data.avatar,
-                res.data.password,
-                res.data.group_id,
-                res.data.city,
-                res.data.geolocation,
+                {
+                    nickname: res.data.nickname,
+                    uid: res.data.uid,
+                    email: res.data.email,
+                    phone: res.data.phone,
+                    avatar: res.data.avatar,
+                    token: res.data.token,
+                    group_id: res.data.group_id,
+                    city: res.data.city,
+                    geolocation: res.data.geolocation,
+                }
             )
-            popMessage('success', '修改成功', ()=>{
-                router.go(-1)
-            }, 1)
+            popMessage('success', '修改成功', ()=>router.go(-1), 1)
 
         })
         .catch(err => {
-            popMessage('danger', err.message, null, 5)
+            popMessage('danger', err.message, ()=>{}, 5)
         })
 }
 </script>
