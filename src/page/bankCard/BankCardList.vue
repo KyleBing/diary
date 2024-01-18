@@ -222,7 +222,8 @@ function processCardInfo(allCardString: string){
 }
 
 .bank-card-list-header{
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     font-size: $fz-big;
     font-weight: bold;
     color: white;
@@ -235,6 +236,11 @@ function processCardInfo(allCardString: string){
 
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
+    .bank-card-list-header {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-left: 10px;
+    }
     .bank-card-list{
         flex-flow: column nowrap;
     }
