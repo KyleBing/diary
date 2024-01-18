@@ -63,7 +63,7 @@ const props = defineProps({
     },
 })
 const filePath = computed(()=>{
-    return `https://kylebing.cn/${props.fileInfo.path}`
+    return `http://kylebing.cn/${props.fileInfo.path}`
 })
 
 const emit = defineEmits(['refreshList'])
