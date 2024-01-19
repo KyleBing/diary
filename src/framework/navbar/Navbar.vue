@@ -69,7 +69,7 @@
 
             <div class="nav-part-right">
                 <!--时钟-->
-                <Clock class="pr-6" v-if="!storeProject.isInMobileMode"/>
+                <Clock class="pr-6" v-if="!storeProject.isInMobileMode && storeProject.insets.windowsWidth > 1352"/>
 
                 <!--详情按钮-->
                 <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && storeProject.currentDiary">
