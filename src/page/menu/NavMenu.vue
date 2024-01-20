@@ -6,9 +6,9 @@
     >
         <div class="menu-panel" id="menu-panel" v-if="storeProject.isMenuShowed" :style="`height:  ${storeProject.insets.heightPanel}px`">
 
-            <MenuPanelContainer v-show="menuListShowed" :style="`min-height: ${storeProject.insets.windowsHeight}`">
+            <MenuPanelContainer v-show="menuListShowed">
                 <!-- 菜单列表 -->
-                <div class="menu" >
+                <div class="menu" :style="`min-height: ${storeProject.insets.heightPanel - 60}px`">
                     <div class="menu-list">
                         <MenuListItemShort v-if="storeProject.isInMobileMode"
                                            menu-name="搜索"    :icon="SVG_ICONS.tab_icons.search" @click="menuListClicked('search')"/>
