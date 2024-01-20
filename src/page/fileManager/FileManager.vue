@@ -160,7 +160,6 @@ function getFileList(){
     justify-content: flex-start;
     flex-flow: row wrap;
     align-content: flex-start;
-    background-color: $bg-menu;
 }
 
 // MOBILE
@@ -173,7 +172,6 @@ function getFileList(){
 // DARK
 @media (prefers-color-scheme: dark) {
     .file-list{
-        background-color: $dark-bg;
     }
 }
 

@@ -11,7 +11,7 @@
 
         <div class="menu-category-list category-operations-container">
             <div :class="['menu-category-item', 'menu-category-shared', {active: storeProject.isFilterShared}]"
-                 @click="toggleFilterShared">过滤共享日记</div>
+                 @click="toggleFilterShared">共享日记</div>
         </div>
 
         <div class="menu-category-list category-operations-container">

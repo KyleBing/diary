@@ -2,13 +2,11 @@
 @import "../../../scss/plugin";
 
 .year-container{
-  background-color: $bg-menu;
-  padding: 20px;
   overflow-y: auto;
 }
 .year{
   padding: 20px 0;
-  border-bottom: 1px dashed $bg-main;
+  border-bottom: 1px dashed $color-border-menu;
 }
 .year-header{
   padding-bottom: 20px;
@@ -101,4 +99,12 @@
   padding: 30px;
   text-align: center;
   color: $color-main;
+}
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .year{
+    border-bottom-color: $dark-menu-border;
+  }
 }

@@ -27,8 +27,8 @@ const storeProject = useProjectStore()
 
 // DARK
 @media (prefers-color-scheme: dark) {
-    .invitation-conmenu-panel-containertainer {
-        background-color: $dark-bg;
+    .menu-panel-container{
+        background-color: $dark-bg-menu;
     }
 
 }

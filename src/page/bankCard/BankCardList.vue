@@ -205,7 +205,6 @@ function processCardInfo(allCardString: string){
 <style scoped lang="scss">
 @import "../../scss/plugin";
 .bank-tip{
-    background-color: $bg-menu;
     padding: 30px;
     color: $color-main;
 }
@@ -222,7 +221,6 @@ function processCardInfo(allCardString: string){
 }
 
 .bank-card-list-header{
-    margin-top: 30px;
     margin-bottom: 30px;
     font-size: $fz-big;
     font-weight: bold;
@@ -249,7 +247,6 @@ function processCardInfo(allCardString: string){
 // DARK
 @media (prefers-color-scheme: dark) {
     .bank-card-container{
-        background-color: $dark-bg;
     }
 }
 
