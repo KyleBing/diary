@@ -18,6 +18,13 @@ const storeProject = useProjectStore()
     background-color: $bg-menu;
 }
 
+// MacbookPro
+@media (min-width: $grid-separate-width-sm ) and (max-width: $grid-separate-width-big) {
+    .menu-panel-container {
+        padding: 20px 15px;
+    }
+}
+
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
     .menu-panel-container {

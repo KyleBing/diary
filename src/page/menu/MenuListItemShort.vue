@@ -42,7 +42,12 @@ $gap: 16px;
     width: 50%;
     padding: $gap * 0.5;
     color: white;
-
+    &:nth-child(odd){
+        padding-left: 3px;
+    }
+    &:nth-child(even){
+        padding-right: 3px;
+    }
     .menu-list-item-wrapper{
         position: relative;
         padding: 0 5px 0 15px;
@@ -61,6 +66,8 @@ $gap: 16px;
         &:active{
             background-color: lighten($bg-menu,12%);
         }
+
+
         .menu-list-item-icon{
             flex-shrink: 0;
             display: flex;

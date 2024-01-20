@@ -4,7 +4,7 @@
             <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_rounded" alt="Avatar">
             <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
         </div>
-        <div class="user-info mt-1 mb-4">
+        <div class="user-info mt-1 mb-2">
             <div class="user">
                 <div class="username">{{ userInfo.nickname }}</div>
                 <div class="email">{{ userInfo.email }}</div>
@@ -53,7 +53,7 @@ function logout() {
 <style scoped lang="scss">
 @import "../../scss/plugin";
 .user-profile{
-    padding: 30px 60px 50px;
+    padding: 40px 20px 10px;
     .avatar{
         margin: 0 auto;
         width: 60px;
