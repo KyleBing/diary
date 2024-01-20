@@ -297,15 +297,22 @@ onMounted(()=>{
                     // 只有未选择任何内容的时候
                     if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
                         event.preventDefault()
-                        navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
-                            .then(() => {
-                                console.log('✓ moved')
+                        // 只有在 localhost 或 https 的环境下才能使用 navigator.clipboard
+                        if (window.isSecureContext){
+                            navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
+                                .then(() => {
+                                    console.log('✓ moved')
+                                })
+                            textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
+                            diary.value.content = textAreaInfo.textLineArray.join('\n')
+                            nextTick(() => {
+                                textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
                             })
-                        textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
-                        diary.value.content = textAreaInfo.textLineArray.join('\n')
-                        nextTick(() => {
-                            textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
-                        })
+                        } else {
+                            // 照样删除
+                            textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
+                            diary.value.content = textAreaInfo.textLineArray.join('\n')
+                        }
                     }
                 }
 
@@ -316,10 +323,13 @@ onMounted(()=>{
 
                     // 只有未选择任何内容的时候
                     if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
-                        navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
-                            .then(() => {
-                                console.log('✓ copied')
-                            })
+                        // 只有在 localhost 或 https 的环境下才能使用 navigator.clipboard
+                        if (window.isSecureContext){
+                            navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
+                                .then(() => {
+                                    console.log('✓ copied')
+                                })
+                        }
                     }
                 }
 

@@ -77,6 +77,13 @@
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue3`+`ts`+`vite`
 - 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/portal) `nodejs`
 
+**部署环境对功能的影响**  
+这里需要注意，`ServiceWorker` 和  `navigator.clipboard` 只在环境是 `https` 或 `localhost` 的时候生效。
+
+影响的功能：
+- 编辑页面中，内容输入区在 <kbd>ctrl</kbd> + <kbd>x</kbd> 的时候无法将内容放置到剪贴板上。
+- 整个程序在打开的时候无法以 `ServiceWorker` 的形式快速载入，只有完整的从服务器再次载入。
+
 ## 三、邀请码的使用
 新用户注册需要邀请码，邀请码有两种：  
 - 一种是万能的，在后台系统的配置文件中配置；
