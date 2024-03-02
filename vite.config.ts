@@ -5,6 +5,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { resolve } from 'path'
 import zipPack from "vite-plugin-zip-pack" // make dist.zip file
 import {dateFormatter} from "./src/utility";
+import legacy from '@vitejs/plugin-legacy'
+
 
 const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd hh-mm-ss')
 
@@ -66,7 +68,12 @@ export default defineConfig({
             outDir: 'archive',
             outFileName: `diary-${timeStringNow}.zip`,
             pathPrefix: ''
-        })
+        }),
+        legacy({
+            targets: ['chrome 52'],
+            polyfills: ['es.promise.finally', 'es/map', 'es/set'],
+            modernPolyfills: ['es.promise.finally'],
+        }),
     ],
     resolve: {
         alias: {

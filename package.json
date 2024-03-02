@@ -37,6 +37,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^5.3.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.2",
