@@ -472,8 +472,11 @@ function contentUpdate(event: Event){
             let lastWord = lineArray[lineArray.length - 1]
             keysPanelPositionLeft.value = lastWord.length * 15 + 30
             // possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) === 0)
+            // console.log('lastWord:', lastWord, 'word length:', lastWord.length)
             if (lastWord !== ''){
                 possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) > -1).splice(0,9)
+            } else {
+                possibleBillItems.value = []
             }
             // console.log(possibleBillItems.value.map(item => item.item).join(','))
         } else {
