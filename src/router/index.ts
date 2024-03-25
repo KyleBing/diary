@@ -10,7 +10,7 @@ import Bill from "../page/bill/Bill.vue"
 import BankCardList from "../page/bankCard/BankCardList.vue"
 import InvitationList from "../page/invitation/InvitationList.vue"
 import Share from "../page/share/Share.vue"
-import Statistics from "../page/statistics/StatisticsMain.vue"
+import Statistics from "../page/statistics/StatisticsIndex.vue"
 
 import List from "../page/list/List.vue"
 import Detail from "../page/detail/Detail.vue"

@@ -6,6 +6,8 @@
 import * as echarts from 'echarts'
 import chartOption from "../chartOption";
 
+const labelShowingThresholdIncome = 10000
+const labelShowingThresholdOutcome = 5000
 export default {
     name: "ChartBarOfBillDay",
     props: {
@@ -132,6 +134,19 @@ export default {
                     width: 2,
                     opacity: 1,
                 },
+                label: {
+                    show: true,
+                    position: 'top',
+                    distance: 5,
+                    color: chartOption.COLOR.red,
+                    formatter: data => {
+                        if (data.value > labelShowingThresholdIncome){
+                            return `+${data.value}`
+                        } else {
+                            return ''
+                        }
+                    }
+                },
                 color: chartOption.COLOR.red,
                 type: 'bar',
             },)
@@ -148,6 +163,19 @@ export default {
                 lineStyle: {
                     width: 2,
                     opacity: 1,
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    distance: 5,
+                    color: chartOption.COLOR.green,
+                    formatter: data => {
+                        if (data.value > labelShowingThresholdOutcome){
+                            return `-${data.value}`
+                        } else {
+                            return ''
+                        }
+                    }
                 },
                 color: chartOption.COLOR.green,
                 type: 'bar',

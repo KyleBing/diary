@@ -29,17 +29,18 @@
                 </div>
             </StatisticPanel>
 
+            <StatisticPanel title="账单趋势 - 月">
+                <StatisticBillMonthSum/>
+            </StatisticPanel>
+
             <StatisticPanel title="温度趋势">
                 <StatisticWeather/>
             </StatisticPanel>
 
-            <StatisticPanel title="账单趋势 - 日">
-                <StatisticBillDaySum/>
-            </StatisticPanel>
 
-            <StatisticPanel title="账单趋势 - 月">
-                <StatisticBillMonthSum/>
-            </StatisticPanel>
+<!--            <StatisticPanel title="账单趋势 - 日">-->
+<!--                <StatisticBillDaySum/>-->
+<!--            </StatisticPanel>-->
 
         </div>
     </transition>
