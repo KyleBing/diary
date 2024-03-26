@@ -176,7 +176,7 @@ function changeProfileSubmit() {
                     email: res.data.email,
                     phone: res.data.phone,
                     avatar: res.data.avatar,
-                    token: res.data.token,
+                    token: res.data.password,
                     group_id: res.data.group_id,
                     city: res.data.city,
                     geolocation: res.data.geolocation,
