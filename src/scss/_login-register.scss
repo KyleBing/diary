@@ -28,7 +28,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      $timer: 0.1;
+      $timer: 0;
       @include transition(all 0.3s);
       @include box-shadow(
                       3px*$timer 3px*$timer 0 transparentize(black, 0.6),
@@ -46,7 +46,7 @@
                       60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),
       );
       &.valid{
-        $timer: 0.4;
+        $timer: 0.15;
         @include transition(all 0.3s);
         @include box-shadow(
                 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
