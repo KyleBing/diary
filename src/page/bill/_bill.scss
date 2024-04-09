@@ -44,11 +44,11 @@
   @include border-radius($radius-pc);
   border: 1px solid $color-border-bill;
   .bill-header{
+    justify-content: space-around;
     display: flex;
-    justify-content: center;
     flex-flow: row nowrap;
     align-items: center;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     padding: 20px;
     .title{
       text-align: center;
@@ -66,53 +66,16 @@
     }
   }
 
-  .bill-sum-label{
-    color: $text-content;
-    font-size: $fz-small;
-  }
-
   .bill-brief{
     font-family: 'JetBrainsMonoDiary';
     background-color: #fafafa;
     border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
     padding: 15px 40px 20px;
     font-size: $fz-list-content;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    .sum{
-      position: relative;
-      margin-top: 5px;
-      padding-top: 5px;
-      &:after{
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 120%;
-        border-bottom: 1px dashed $color-border-highlight;
-        display: block;
-      }
-    }
-    .brief-amount{
-      letter-spacing: 1px;
-      align-items: stretch;
-      flex-flow: column nowrap;
-      display: flex;
-      justify-content: space-between;
-      > * {
-        text-align: right;
-      }
-    }
-    .brief-food{
-      align-items: stretch;
-      text-align: right;
-      flex-flow: row nowrap;
-      justify-content: center;
-      > * {
-        text-align: right;
-      }
-    }
   }
 
 

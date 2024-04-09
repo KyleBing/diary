@@ -3,7 +3,6 @@
         <PageHeader title="账单"/>
         <div class="bill-content" :style="`height:${storeProject.insets.heightPanel}px`">
             <div class="bill-container" v-if="!isLoading">
-
                 <div class="bill-filter-panel">
                     <div class="input-group white">
                         <label for="invitation" >关键字</label>
@@ -32,36 +31,19 @@
 
                 <div class="bill" v-for="month in billYearData" :key="month.id">
                     <div class="bill-header">
-                        <div class="title">{{ monthMap.get(month.month) }}</div>
-                        <div class="subtitle">{{month.month_id.substring(0,4)}}</div>
-                    </div>
-                    <div class="bill-brief">
-                        <div class="brief-amount">
-                            <div class="number text-income">
-                                +{{ month.sumIncome.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">收入</span>
-                            </div>
-                            <div class="number text-outcome">
-                                {{ month.sumOutput.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">支出</span>
-                            </div>
-                            <div class="number sum text-black">
-                                {{ month.sum.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">合计</span>
-                            </div>
+                        <div>
+                            <div class="title">{{ monthMap.get(month.month) }}</div>
+                            <div class="subtitle">{{month.month_id.substring(0,4)}}</div>
                         </div>
-                        <div class="brief-food">
-                            <div class="number text-outcome breakfast">
-                                {{ month.food.breakfast.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">早饭</span>
-                            </div>
-                            <div class="number text-outcome launch">
-                                {{ month.food.launch.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">中饭</span>
-                            </div>
-                            <div class="number text-outcome dinner">
-                                {{ month.food.dinner.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">晚饭</span>
-                            </div>
-                            <div class="number sum">
-                                {{ month.food.sum.toFixed(storeProject.moneyAccuracy) }} <span class="bill-sum-label">合计</span>
-                            </div>
-                        </div>
+                        <BillMonthSummary :bill-month="month"/>
                     </div>
+
+                    <!-- FOOD -->
+                    <BillFoodSummary :bill-food="month.food"/>
+
+                    <!--  TOP INCOME & OUTCOME   -->
+                    <BillTop5 :bill-top5="getBillMonthTop5(month).outcome" title="支出单项 TOP 5"/>
+
                     <table>
                         <tr>
                             <th class="center">日期</th>
@@ -104,24 +86,25 @@
 import billApi from "../../api/billApi.ts"
 import Loading from "../../components/Loading.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+import {EntityBillItem, EntityBillMonth, MonthArray} from "@/page/bill/Bill.ts";
+import BillFoodSummary from "@/page/bill/BillFoodSummary.vue";
+import BillMonthSummary from "@/page/bill/BillMonthSummary.vue";
+import BillTop5 from "@/page/bill/BillTop5.vue";
 
-import {popMessage, setAuthorization, getAuthorization, dateProcess, setBillKeys} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
-
+import {popMessage, dateProcess, setBillKeys} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
 import {onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-const billYearData = ref([])
+const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)
 let monthMap = ref(new Map())
 const formSearch = ref({
     year: new Date().getFullYear(),
     keyword: ''
 })
-
 
 const availableYears: Ref<{value: Number, checked: boolean}[]> = ref([]) // 账单可选年份
 
@@ -135,20 +118,7 @@ onMounted(()=>{
             checked: true
         })
     }
-    monthMap.value = new Map([
-        ['01', '一月'],
-        ['02', '二月'],
-        ['03', '三月'],
-        ['04', '四月'],
-        ['05', '五月'],
-        ['06', '六月'],
-        ['07', '七月'],
-        ['08', '八月'],
-        ['09', '九月'],
-        ['10', '十月'],
-        ['11', '十一月'],
-        ['12', '十二月'],
-    ])
+    monthMap.value = new Map(MonthArray)
     getBillData()
 })
 
@@ -173,14 +143,14 @@ function goToDiaryDetail(diaryId: number){
     })
 }
 
-function tooltipContentWithoutReturn(billItemArray) {
+function tooltipContentWithoutReturn(billItemArray: Array<EntityBillItem>) {
     return billItemArray
         .map(item => {
             return `${item.item}`
         })
         .join('，')
 }
-function tooltipContent(billItemArray) {
+function tooltipContent(billItemArray: Array<EntityBillItem>) {
     let listContent =  billItemArray.map(item => {
         return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
     }).join('')
@@ -210,6 +180,39 @@ function getBillData() {
             isLoading.value = false
         })
 }
+
+
+// 获取每月账单最高的前5个消费项目
+function getBillMonthTop5(billMonth: EntityBillMonth): {
+    income: Array<EntityBillItem>,
+    outcome: Array<EntityBillItem>
+}{
+    let monthBillItems: Array<EntityBillItem> = []
+    billMonth.days.forEach(billDay => {
+        billDay.items.forEach(billItem => {
+            monthBillItems.push(billItem)
+        })
+    })
+    monthBillItems.sort((a,b) => a.price > b.price ? 1: -1)
+
+    let billItemsIncome = monthBillItems.filter(item => item.price > 0).sort((a,b) => a.price < b.price ? 1: -1)
+    return {
+        outcome: monthBillItems.splice(0,5),
+        income: billItemsIncome.splice(0,5)
+    }
+}
+// 获取每月吃饭账单统计
+function getBillMonthFood(billMonth: EntityBillMonth): Array<EntityBillItem>{
+    return [
+        {item: '早餐', price: billMonth.food.breakfast},
+        {item: '午餐', price: billMonth.food.launch},
+        {item: '晚餐', price: billMonth.food.dinner},
+        {item: '超市', price: billMonth.food.supermarket},
+        {item: '水果', price: billMonth.food.fruit},
+        {item: '总计', price: billMonth.food.sum},
+    ]
+}
+
 </script>
 
 <style lang="scss">
@@ -221,6 +224,7 @@ function getBillData() {
         padding: 10px;
         color: white;
         background: $bg-main;
+        border: 1px solid $dark-border-active;
         @include border-radius($radius-mobile)
     }
 

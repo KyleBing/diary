@@ -144,7 +144,7 @@ function logout() {
     margin-top: 10px;
     display: flex;
     justify-content: center;
-    font-size: $fz-tiny;
+    font-size: $fz-small;
     .version{
         color: $dark-text-subtitle;
     }
