@@ -115,7 +115,7 @@ $gap: 16px;
         }
         .menu-list-item-wrapper{
             padding: 0 5px 0 12px;
-            @include border-radius($radius-pc);
+            @include border-radius($radius-mobile);
             .menu-list-item-icon{
                 margin-right: 10px;
                 width: $height-icon;
