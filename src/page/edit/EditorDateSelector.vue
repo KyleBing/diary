@@ -1,6 +1,9 @@
 <template>
     <div class="date-selector">
         <div class="date-set-item">
+            <div class="button-date-change" @click="dateMove(-1)">
+                <div><</div>
+            </div>
             <Datepicker
                 @wheel="mouseWheelScrolled"
                 :editable="false"
@@ -14,6 +17,9 @@
                 input-class="date"
                 :clearable="false"
             />
+            <div class="button-date-change" @click="dateMove(1)">
+                <div>></div>
+            </div>
         </div>
         <div class="date-meta">
             <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
@@ -135,12 +141,32 @@ function dateTimeMove(step: -1|0|1) {
 
 $height: 40px;
 .date-set-item{
+    padding: 0 5px;
     box-sizing: content-box;
     height: $height;
     width: 100%;
     @include border-radius($radius-mobile);
     position: relative;
     margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button-date-change{
+        flex-shrink: 0;
+        @extend .btn-like;
+        @include border-radius(50px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+        &:hover{
+            color: $text-title;
+            background-color: $color-main;
+            border: 1px solid $orange;
+        }
+    }
     &:hover{
         background-color: $bg-light;
         border-color: $color-border-highlight;
