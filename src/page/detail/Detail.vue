@@ -67,11 +67,12 @@ import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
 const route = useRoute()
 import {DiaryEntityDatabase} from "../list/Diary.ts";
+import {LunarDateEntity} from "@/entity/LunarDate.ts";
 
 const isLoading = ref(false) // loading
 const diary: Ref<DiaryEntityDatabase> = ref({})
 const clipboard = ref() // clipboard obj
-const lunarObject = ref({})
+const lunarObject = ref<LunarDateEntity>({})
 const isShowExplode = ref(false)
 
 
@@ -84,7 +85,7 @@ onMounted(()=>{
     // 绑定剪贴板操作方法
     clipboard.value = new ClipboardJS('.clipboard', {
         text: trigger => {
-            return trigger.getAttribute('data-clipboard')
+            return trigger.getAttribute('data-clipboard') || ''
         },
     })
     clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示

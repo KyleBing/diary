@@ -69,8 +69,6 @@ import bankCardApi from "../../api/bankCardApi.ts"
 
 import diaryApi from "../../api/diaryApi.ts"
 import {getCategoryAll, popMessage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
-const storeProject = useProjectStore()
 import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
@@ -170,7 +168,9 @@ function processCardInfo(allCardString: string){
     // card item
     tempStrArray.forEach(cardStr => {
         let cardMap = new Map(
-            cardStr.split('\n').map(cardItem => cardItem.split('：'))
+            cardStr
+                .split('\n')
+                .map(cardItem => cardItem.split('：'))
         )
         let cardInfo: BankCardEntity = {}
         let extraInfos = []

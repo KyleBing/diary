@@ -1,8 +1,8 @@
 <template>
     <div class="clock">
-        <div class="weekday">{{lunarObject.ncWeek}}</div>
-        <div class="lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}</div>
-        <div class="date">{{lunarObject.cMonth}}.{{lunarObject.cDay}}</div>
+        <div class="weekday">{{lunarObject!.ncWeek}}</div>
+        <div class="lunar">{{lunarObject!.IMonthCn}}{{lunarObject!.IDayCn}}</div>
+        <div class="date">{{lunarObject!.cMonth}}.{{lunarObject!.cDay}}</div>
         <div>{{time}}</div>
     </div>
 
@@ -11,20 +11,34 @@
 <script lang="ts" setup>
 import calendar from "js-calendar-converter";
 import {onBeforeUnmount, onMounted, ref} from "vue";
-import {dateFormatter} from "../../utility.ts";
-
-let weekMap = new Map()
-weekMap.set('0', '周期日')
-weekMap.set('1', '周期一')
-weekMap.set('2', '周期二')
-weekMap.set('3', '周期三')
-weekMap.set('4', '周期四')
-weekMap.set('5', '周期五')
-weekMap.set('6', '周期六')
+import {dateFormatter} from "@/utility.ts";
 
 const time = ref('')
-const lunarObject = ref({})
-const intervalHandleClock = ref(null)
+const lunarObject = ref<LunarObject>()
+const intervalHandleClock = ref<null | number>()  // handle time out
+
+
+interface LunarObject {
+    Animal: string,  //  "兔"
+    IDayCn: string,  //  "初十"
+    IMonthCn: string,  //  "九月"
+    Term: null | string,  //  null
+    astro: string,  //  "天蝎座"
+    cDay: number,  //  1
+    cMonth: number,  //  11
+    cYear: number,  //  1987
+    gzDay: string,  //  "甲寅"
+    gzMonth: string,  //  "庚戌"
+    gzYear: string,  //  "丁卯"
+    isLeap: boolean,  //  false
+    isTerm: boolean,  //  false
+    isToday: boolean,  //  false
+    lDay: number,  //  10
+    lMonth: number,  //  9
+    lYear: number,  //  1987
+    nWeek: number,  //  7
+    ncWeek: string  //  星期日
+}
 
 onMounted(()=>{
     clockStart()

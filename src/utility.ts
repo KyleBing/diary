@@ -107,25 +107,25 @@ function $(selector: string) {
 
 
 // CONST
-const WEEKDAY_MAP = new Map([
-    [0, '周日'],
-    [1, '周一'],
-    [2, '周二'],
-    [3, '周三'],
-    [4, '周四'],
-    [5, '周五'],
-    [6, '周六'],
-])
-const WEEKDAY_SHORT_MAP = new Map([
-    [0, '日'],
-    [1, '一'],
-    [2, '二'],
-    [3, '三'],
-    [4, '四'],
-    [5, '五'],
-    [6, '六']
-])
+enum EnumWeekDay {
+    '周日' = 0,
+    '周一',
+    '周二',
+    '周三',
+    '周四',
+    '周五',
+    '周六',
+}
 
+enum EnumWeekDayShort {
+    '日' = 0,
+    '一',
+    '二',
+    '三',
+    '四',
+    '五',
+    '六',
+}
 
 // 格式化时间，输出字符串
 function dateFormatter(date: Date, formatString: string = 'yyyy-MM-dd hh:mm:ss') {
@@ -191,8 +191,8 @@ function dateProcess(dateString: string): DateUtilityObject {
         year,
         day,
         month,
-        weekday: WEEKDAY_MAP.get(week)!,
-        weekShort: WEEKDAY_SHORT_MAP.get(week)!,
+        weekday: EnumWeekDay[week],
+        weekShort: EnumWeekDayShort[week],
         dateShort: `${padNumberWith0(month)}-${padNumberWith0(day)}`,
         date: `${padNumberWith0(month)}月${padNumberWith0(day)}日`,
         dateFull: `${year}年${month}月${day}日`,
@@ -272,7 +272,6 @@ function isInMobileMode(): boolean{
 }
 
 export {
-    WEEKDAY_MAP,WEEKDAY_SHORT_MAP,
     getAuthorization,
     setAuthorization,
     popMessage,

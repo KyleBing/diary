@@ -55,15 +55,15 @@ import {useProjectStore} from "@/pinia"
 const storeProject = useProjectStore()
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {DiaryEntity, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
+import {DiaryEntity, DiaryEntityDatabase, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
 import {storeToRefs} from "pinia";
 const router = useRouter()
 const route = useRoute()
 
 const isHasMore = ref(true)
 const isLoading = ref(true)
-const diaries: Ref<DiaryEntity[]> = ref([])
-const diariesShow: Ref<DiaryEntity[]> = ref([])
+const diaries: Ref<DiaryEntityDatabase[]> = ref([])
+const diariesShow: Ref<Array<DiaryEntity>> = ref([])
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
 
 const formSearch: Ref<DiarySearchParams> = ref({
@@ -112,7 +112,7 @@ function refreshDiariesShow(){
                 let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
                 let currentDiaryDateString = dateFormatter(new Date(currentDiary.date), 'yyyy-MM-dd')
                 let lastDiaryMonth = lastDiaryDateString.substring(0, 7)
-                let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
+                // let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
                 let currentDiaryMonth = currentDiaryDateString.substring(0, 7)
                 let currentDiaryDay = Number(currentDiaryDateString.substring(8, 10))
                 // console.log(lastDiaryMonth, currentDiaryMonth)
