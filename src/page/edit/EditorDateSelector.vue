@@ -152,10 +152,13 @@ $height: 40px;
     justify-content: center;
     align-items: center;
     .button-date-change{
+        @include transition(opacity 0.3s);
+        display: flex;
+        opacity: 0;
+        color: $text-subtitle;
         flex-shrink: 0;
         @extend .btn-like;
         @include border-radius(50px);
-        display: flex;
         justify-content: center;
         align-items: center;
         height: 30px;
@@ -170,19 +173,22 @@ $height: 40px;
     &:hover{
         background-color: $bg-light;
         border-color: $color-border-highlight;
+        .button-date-change{
+            @include transition(opacity 0.3s);
+            opacity: 1;
+        }
         input{
             color: black;
         }
     }
     input{
+        font-family: 'SF UI Text';
         color: $text-content;
         text-align: center;
         background-color: transparent;
         display: block;
         width: 100%;
-        font-weight: bold;
-        font-size: 26px;
-        line-height: 40px;
+        font-size: 28px;
         padding: math.div($height - 40, 2) ;
         cursor: ns-resize;
     }
@@ -261,6 +267,23 @@ $height: 40px;
 // DARK
 @media (prefers-color-scheme: dark) {
     .date-set-item{
+        .button-date-change{
+            color: $dark-text-subtitle;
+            flex-shrink: 0;
+            @extend .btn-like;
+            @include border-radius(50px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+            &:hover{
+                color: $text-title;
+                background-color: $color-main;
+                border: 1px solid $orange;
+            }
+        }
         &:hover{
             background-color: $dark-bg;
             input{

@@ -78,11 +78,26 @@ interface ResponseDiaryAdd{
     message: string
 }
 
+
+enum EnumWeather{
+    'sunny' = 100,        // 晴
+    'cloudy' = 101,       // 多云
+    'overcast' = 104,     // 阴
+    'sprinkle' = 305,     // 小雨
+    'rain' = 306,         // 中雨
+    'thunderstorm' = 310, // 暴雨
+    'snow' = 499,         // 雪
+    'fog' = 501,          // 雾
+    'sandstorm' = 507,    // 沙尘暴
+    'smog' = 502,         // 霾
+}
+
 export {
     type DiaryEntity,
     type DiaryListOperation,
     type DiarySearchParams,
     type DiarySubmitEntity,
     type DiaryEntityDatabase,
-    type ResponseDiaryAdd
+    type ResponseDiaryAdd,
+    EnumWeather
 }

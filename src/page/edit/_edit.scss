@@ -48,6 +48,7 @@ textarea{
   .editor-title{
     margin-bottom: 15px;
     textarea{
+      height: 150px;
       resize: none;
       font-size: 1.1rem;
     }
@@ -208,9 +209,12 @@ textarea{
     }
     .editor-content{
       textarea{
-        height: 400px;
+        height: 100px;
         padding-bottom: 0;
         //@include border-radius(0)
+        &:focus{
+          height: 300px;
+        }
       }
       .editor-float-btn{
         display: none;

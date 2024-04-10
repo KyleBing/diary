@@ -5,7 +5,7 @@
             <div class="editor-title">
                 <label  class="hidden"></label>
                 <textarea ref="refDiaryTitle"
-                          class="title" style="height: 150px"
+                          class="title"
                           placeholder="一句话，概括你的一天"
                           v-model="diary.title"/>
             </div>
@@ -126,7 +126,7 @@ import {
     DiaryEntity,
     DiaryEntityDatabase,
     DiarySearchParams,
-    DiarySubmitEntity,
+    DiarySubmitEntity, EnumWeather,
     ResponseDiaryAdd
 } from "../list/Diary.ts";
 import {storeToRefs} from "pinia";
@@ -795,20 +795,8 @@ function convertToServerVersion() { // 转换为数据库格式的日记
 
 
 // 和风天气 API 天气图标对应： https://dev.qweather.com/docs/start/icons/
-function getWeatherNameFromCode(code: string){
-    let weatherDict = new Map([
-        ['100', 'sunny'],        // 晴
-        ['101', 'cloudy'],       // 多云
-        ['104', 'overcast'],     // 阴
-        ['305', 'sprinkle'],     // 小雨
-        ['306', 'rain'],         // 中雨
-        ['310', 'thunderstorm'], // 暴雨
-        ['499', 'snow'],         // 雪
-        ['501', 'fog'],          // 雾
-        ['507', 'sandstorm'],    // 沙尘暴
-        ['502', 'smog'],         // 霾
-    ])
-    return weatherDict.get(code) || 'sunny'
+function getWeatherNameFromCode(code: string): string{
+    return EnumWeather[Number(code)] || 'sunny'
 }
 </script>
 
