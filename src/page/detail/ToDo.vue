@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import diaryApi from "../../api/diaryApi.ts"
 import {onMounted, Ref, ref, watch} from "vue";
-import {DiaryEntity} from "../list/Diary.ts";
+import {DiaryEntity, DiarySubmitEntity} from "../list/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "../../utility.ts";
 
 interface TODOEntity {
@@ -67,6 +67,7 @@ function toggleDoneStatus(todoItem: TODOEntity){
         saveDiary()
     }
 }
+// 将日记内容转换成 TODOS
 function processContent(diary: DiaryEntity){
     if (diary.content){
         let todoStringList = diary.content.split('\n')
@@ -82,7 +83,9 @@ function processContent(diary: DiaryEntity){
                     note: content[1]? content[1].trim(): ''
                 }
             })
+            .sort((a) => a.isDone? 1: -1) // 初始将已完成的放到最后面
         lastId.value = todoList.value.length
+        saveDiary()
     }
 }
 function toDiaryString(todoList: TODOEntity[]){
@@ -97,7 +100,7 @@ function toDiaryString(todoList: TODOEntity[]){
     return finalString
 }
 function saveDiary(){
-    let requestData = {
+    let requestData: DiarySubmitEntity = {
         id: props.diary.id,
         title: props.diary.title,
         content: toDiaryString(todoList.value),
