@@ -21,53 +21,12 @@
                     <div class="btn btn-active" @click="getBillKeys">获取最新账单类目</div>
                 </div>
 
-                <div class="bill" v-for="month in billYearData" :key="month.id" v-if="!isLoading">
-                    <div class="bill-header">
-                        <div>
-                            <div class="title">{{ monthMap.get(month.month) }}</div>
-                            <div class="subtitle">{{month.month_id.substring(0,4)}}</div>
-                        </div>
-                        <BillMonthSummary :bill-month="month"/>
-                    </div>
 
-                    <!-- FOOD -->
-                    <BillFoodSummary :bill-food="month.food"/>
-
-                    <!--  TOP INCOME & OUTCOME   -->
-                    <BillTop5 :bill-top5="getBillMonthTop5(month).outcome" title="支出单项 TOP 5"/>
-
-                    <table>
-                        <tr>
-                            <th class="center">日期</th>
-                            <th>收入</th>
-                            <th>支出</th>
-                            <th class="label center">具体</th>
-                        </tr>
-                        <tr v-for="item in month.days" :key="item.date">
-                            <td class="center number link"  @click="goToDiaryDetail(item.id)">
-                                {{ dateProcess(item.date).dateShort }}
-                                <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
-                            <td class="amount number">
-                                <span v-if="item.sumIncome === 0" class="text-invalid">~</span>
-                                <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
-                                <span v-else>{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
-                            </td>
-                            <td class="amount number">
-                                <span v-if="item.sumOutput === 0" class="text-invalid">~</span>
-                                <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
-                                <span v-else>{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
-                            </td>
-                            <td class="label center"
-                                v-tooltip="{
-                                content: tooltipContent(item.items),
-                                html: true,
-                                theme: 'tooltip-bill'
-                            }">
-                                {{ tooltipContentWithoutReturn(item.items) }}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <BillItem
+                    v-if="!isLoading"
+                    :bill-month-data="month"
+                    v-for="month in billYearData" :key="month.id"
+                />
                 <Loading v-else :loading="isLoading"/>
 
             </div>
@@ -90,20 +49,19 @@ const storeProject = useProjectStore();
 import {onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
 import BillYearSelector from "@/page/bill/BillYearSelector.vue";
+import BillItem from "@/page/bill/BillItem.vue";
 const router = useRouter()
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)
-let monthMap = ref(new Map())
 const formSearch = ref({
     year: new Date().getFullYear(),
     keyword: ''
 })
 
-const yearNumberArray = ref<Array<number>>([])
+const yearNumberArray = ref<Array<number>>([new Date().getFullYear()])
 
 onMounted(()=>{
-    monthMap.value = new Map(MonthArray)
     getBillData()
 })
 
@@ -118,34 +76,8 @@ function getBillKeys(){
             popMessage('warning', err.message)
         })
 }
-function goToDiaryDetail(diaryId: number){
-    console.log(diaryId)
-    router.push({
-        name: 'Detail',
-        params: {
-            id: diaryId
-        }
-    })
-}
 
-function tooltipContentWithoutReturn(billItemArray: Array<EntityBillItem>) {
-    return billItemArray
-        .map(item => {
-            return `${item.item}`
-        })
-        .join('，')
-}
-function tooltipContent(billItemArray: Array<EntityBillItem>) {
-    let listContent =  billItemArray.map(item => {
-        return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
-    }).join('')
-    return `
-                    <table class="bill-detail-list">
-                    <tbody>
-                    ${listContent}
-                    </tbody>
-                    </table>`
-}
+
 function getBillData() {
     if (yearNumberArray.value.length === 0){
         popMessage('warning', '未选择年份')
@@ -167,37 +99,6 @@ function getBillData() {
         })
 }
 
-
-// 获取每月账单最高的前5个消费项目
-function getBillMonthTop5(billMonth: EntityBillMonth): {
-    income: Array<EntityBillItem>,
-    outcome: Array<EntityBillItem>
-}{
-    let monthBillItems: Array<EntityBillItem> = []
-    billMonth.days.forEach(billDay => {
-        billDay.items.forEach(billItem => {
-            monthBillItems.push(billItem)
-        })
-    })
-    monthBillItems.sort((a,b) => a.price > b.price ? 1: -1)
-
-    let billItemsIncome = monthBillItems.filter(item => item.price > 0).sort((a,b) => a.price < b.price ? 1: -1)
-    return {
-        outcome: monthBillItems.splice(0,5),
-        income: billItemsIncome.splice(0,5)
-    }
-}
-// 获取每月吃饭账单统计
-function getBillMonthFood(billMonth: EntityBillMonth): Array<EntityBillItem>{
-    return [
-        {item: '早餐', price: billMonth.food.breakfast},
-        {item: '午餐', price: billMonth.food.launch},
-        {item: '晚餐', price: billMonth.food.dinner},
-        {item: '超市', price: billMonth.food.supermarket},
-        {item: '水果', price: billMonth.food.fruit},
-        {item: '总计', price: billMonth.food.sum},
-    ]
-}
 
 </script>
 

@@ -1,4 +1,4 @@
-const MonthArray = [
+const MonthNameMap: Map<string, string> = new Map([
     ['01', '一月'],
     ['02', '二月'],
     ['03', '三月'],
@@ -11,7 +11,7 @@ const MonthArray = [
     ['10', '十月'],
     ['11', '十一月'],
     ['12', '十二月'],
-]
+])
 
 // 月份账单
 interface EntityBillMonth {
@@ -53,7 +53,7 @@ interface EntityBillItem{
 
 
 export {
-    MonthArray,
+    MonthNameMap,
     type EntityBillMonth,
     type EntityBillFood,
     type EntityBillDay,

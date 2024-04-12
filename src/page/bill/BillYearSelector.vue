@@ -1,7 +1,7 @@
 <template>
     <div class="year-selector">
         <div
-            :class="['year-selector-item', {checked: year.checked}]"
+            :class="['year-selector-item', {checked: model?.includes(year.value)}]"
             @click="toggleChecked(index)"
             v-for="(year, index) in availableYears" :key="index">
             {{year.value}}
@@ -15,7 +15,7 @@ import {onMounted, ref, Ref} from "vue";
 interface YearEntity {value: number, checked: boolean}
 const availableYears: Ref<Array<YearEntity>> = ref([]) // 账单可选年份
 
-const model = defineModel()
+const model = defineModel<Array<number>>()
 
 onMounted(()=>{
     // 可选的年份，从 2022 开始
