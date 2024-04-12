@@ -2,7 +2,7 @@
     <div class="statistic-container">
         <PageHeader title="账单"/>
         <div class="bill-content" :style="`height:${storeProject.insets.heightPanel}px`">
-            <div class="bill-container" v-if="!isLoading">
+            <div class="bill-container" >
                 <div class="bill-filter-panel">
                     <div class="input-group white">
                         <label for="invitation" >关键字</label>
@@ -14,22 +14,14 @@
                     </div>
                     <div class="input-group white">
                         <label for="invitation" >年份</label>
-                        <div class="year-selector">
-                            <div :class="['year-selector-item', {checked: year.checked}]" v-for="year in availableYears">
-                                <label :for="year.value">{{year.value}}</label>
-                                <input v-model="year.checked"
-                                       type="checkbox"
-                                       name="year"
-                                       :id="year.value"/>
-                            </div>
-                        </div>
+                        <BillYearSelector v-model="yearNumberArray"/>
                     </div>
 
                     <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
                     <div class="btn btn-active" @click="getBillKeys">获取最新账单类目</div>
                 </div>
 
-                <div class="bill" v-for="month in billYearData" :key="month.id">
+                <div class="bill" v-for="month in billYearData" :key="month.id" v-if="!isLoading">
                     <div class="bill-header">
                         <div>
                             <div class="title">{{ monthMap.get(month.month) }}</div>
@@ -76,8 +68,9 @@
                         </tr>
                     </table>
                 </div>
+                <Loading v-else :loading="isLoading"/>
+
             </div>
-            <Loading v-else :loading="isLoading"/>
         </div>
     </div>
 </template>
@@ -96,6 +89,7 @@ import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
 import {onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
+import BillYearSelector from "@/page/bill/BillYearSelector.vue";
 const router = useRouter()
 
 const billYearData = ref<Array<EntityBillMonth>>([])
@@ -106,18 +100,9 @@ const formSearch = ref({
     keyword: ''
 })
 
-const availableYears: Ref<{value: Number, checked: boolean}[]> = ref([]) // 账单可选年份
-
+const yearNumberArray = ref<Array<number>>([])
 
 onMounted(()=>{
-    // 可选的年份，从 2022 开始
-    let yearNow = new Date().getFullYear()
-    for (let i=0; i<=yearNow - 2022; i++){
-        availableYears.value.push({
-            value: 2022 + i,
-            checked: true
-        })
-    }
     monthMap.value = new Map(MonthArray)
     getBillData()
 })
@@ -162,13 +147,14 @@ function tooltipContent(billItemArray: Array<EntityBillItem>) {
                     </table>`
 }
 function getBillData() {
+    if (yearNumberArray.value.length === 0){
+        popMessage('warning', '未选择年份')
+        return
+    }
     isLoading.value = true
     billApi
         .sorted({
-            years: availableYears.value
-                .filter(item => item.checked)
-                .map(item => item.value)
-                .join(','), // 2022, 2023
+            years: yearNumberArray.value.join(','), // 2022, 2023
             keyword: formSearch.value.keyword
         })
         .then(res => {
