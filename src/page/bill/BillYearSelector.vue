@@ -1,7 +1,7 @@
 <template>
     <div class="year-selector">
         <div
-            :class="['year-selector-item', {checked: model?.includes(year.value)}]"
+            :class="['year-selector-item', {checked: year.checked}]"
             @click="toggleChecked(index)"
             v-for="(year, index) in availableYears" :key="index">
             {{year.value}}
@@ -20,10 +20,10 @@ const model = defineModel<Array<number>>()
 onMounted(()=>{
     // 可选的年份，从 2022 开始
     let yearNow = new Date().getFullYear()
-    for (let i=0; i<=yearNow - 2022; i++){
+    for (let i=0; i <= yearNow - 2022; i++){
         availableYears.value.push({
             value: 2022 + i,
-            checked: true
+            checked: model.value!.includes(2022 + i)
         })
     }
 })
