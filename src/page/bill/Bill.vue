@@ -21,15 +21,14 @@
                     <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
                     <div class="btn btn-active" @click="getBillKeys">获取最新账单类目</div>
                 </div>
-
-
-                <BillItem
+            </div>
+            <div>
+                <BillItemHorizontal
                     v-if="!isLoading"
                     :bill-month-data="month"
                     v-for="month in billYearData" :key="month.id"
                 />
                 <Loading v-else :loading="isLoading"/>
-
             </div>
         </div>
     </div>
@@ -48,6 +47,7 @@ import {onMounted, Ref, ref} from "vue";
 import {useRouter} from "vue-router";
 import BillYearSelector from "@/page/bill/BillYearSelector.vue";
 import BillItem from "@/page/bill/BillItem.vue";
+import BillItemHorizontal from "@/page/bill/horizontal/BillItemHorizontal.vue";
 const router = useRouter()
 
 const billYearData = ref<Array<EntityBillMonth>>([])

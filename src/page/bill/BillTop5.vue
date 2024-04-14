@@ -58,6 +58,7 @@ const props = defineProps<Props>()
             background-color: white;
         }
         .name{
+            white-space: nowrap;
             padding-right: 15px;
         }
         .price{

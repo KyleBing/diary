@@ -43,6 +43,16 @@
   padding-bottom: 25px;
   @include border-radius($radius-pc);
   border: 1px solid $color-border-bill;
+  &.bill-horizontal{
+    min-height: 350px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    table{
+      //border: none;
+    }
+  }
   .bill-header{
     justify-content: space-around;
     display: flex;
@@ -51,6 +61,7 @@
     flex-flow: row nowrap;
     padding: 20px;
     .title{
+      white-space: nowrap;
       text-align: center;
       font-family: serif;
       line-height: 1.3;
