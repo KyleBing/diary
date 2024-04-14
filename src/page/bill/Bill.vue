@@ -3,6 +3,7 @@
         <PageHeader title="账单"/>
         <div class="bill-content" :style="`height:${storeProject.insets.heightPanel}px`">
             <div class="bill-container" >
+
                 <div class="bill-filter-panel">
                     <div class="input-group white">
                         <label for="invitation" >关键字</label>
@@ -38,12 +39,9 @@
 import billApi from "../../api/billApi.ts"
 import Loading from "../../components/Loading.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
-import {EntityBillItem, EntityBillMonth, MonthArray} from "@/page/bill/Bill.ts";
-import BillFoodSummary from "@/page/bill/BillFoodSummary.vue";
-import BillMonthSummary from "@/page/bill/BillMonthSummary.vue";
-import BillTop5 from "@/page/bill/BillTop5.vue";
+import {EntityBillMonth} from "@/page/bill/Bill.ts";
 
-import {popMessage, dateProcess, setBillKeys} from "@/utility.ts";
+import {popMessage, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
 import {onMounted, Ref, ref} from "vue";
