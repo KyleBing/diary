@@ -18,7 +18,7 @@
 import diaryApi from "../../api/diaryApi.ts"
 import {onMounted, Ref, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "../list/Diary.ts";
-import {dateFormatter, popMessage, temperatureProcessCTS} from "../../utility.ts";
+import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 
 interface TODOEntity {
     id: number,
@@ -27,26 +27,21 @@ interface TODOEntity {
     note?: string
 }
 
-const props = defineProps({
-    readonly: {
-        type: Boolean,
-        default: false
-    },
-    diary: {
-        type: Object,
-        default: null
-    }
-})
+interface Props {
+    readonly: boolean,
+    diary: DiaryEntity
+}
+const props = defineProps<Props>()
 
 const todoList: Ref<TODOEntity[]> = ref([])
 const lastId = ref(0) // 最后一个修改后的 id，用于将最后一个标记的 todoItem 移到列表最后
 
 onMounted(()=>{
-    processContent(props.diary as DiaryEntity)
+    processContent(props.diary)
 })
 
 watch(() => props.diary, newValue => {
-    processContent(newValue as DiaryEntity)
+    processContent(newValue)
 })
 
 function toggleDoneStatus(todoItem: TODOEntity){
@@ -83,7 +78,6 @@ function processContent(diary: DiaryEntity){
                     note: content[1]? content[1].trim(): ''
                 }
             })
-            .sort((a) => a.isDone? 1: -1) // 初始将已完成的放到最后面
         lastId.value = todoList.value.length
         saveDiary()
     }
