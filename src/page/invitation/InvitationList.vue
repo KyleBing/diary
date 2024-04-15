@@ -37,8 +37,8 @@ import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
 import ClipboardJS from "clipboard"
 import invitationApi from "../../api/invitationApi.ts";
-import {popMessage, dateFormatter, getAuthorization} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {popMessage, dateFormatter, getAuthorization} from "@/utility.ts";
+import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
 import {computed, onBeforeUnmount, onMounted, Ref, ref} from "vue";
 import {InvitationEntity} from "./InvitationEntity.ts";

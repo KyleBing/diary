@@ -64,7 +64,7 @@ const storeProject = useProjectStore();
 interface Props {
     billMonthData: EntityBillMonth,
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 
 function goToDiaryDetail(diaryId: number){
     console.log(diaryId)

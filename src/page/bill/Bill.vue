@@ -44,11 +44,9 @@ import {EntityBillMonth} from "@/page/bill/Bill.ts";
 import {popMessage, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
-import {onMounted, Ref, ref} from "vue";
-import {useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
 import BillYearSelector from "@/page/bill/BillYearSelector.vue";
 import BillItem from "@/page/bill/BillItem.vue";
-const router = useRouter()
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)
