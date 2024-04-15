@@ -6,7 +6,7 @@
 
 .todo-list-item{
   @include border-radius(3px);
-  padding: 0 15px;
+  padding-left: 15px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;

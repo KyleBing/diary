@@ -114,6 +114,12 @@ function saveDiary(){
         })
 }
 
+// DELETE
+function deleteToDo(index: number){
+    todoList.value.splice(index, 1)
+    saveDiary()
+}
+
 </script>
 
 <style lang="scss">
