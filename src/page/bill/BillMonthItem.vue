@@ -12,7 +12,8 @@
         <BillFoodSummary :bill-food="billMonthData.food"/>
 
         <!--  TOP INCOME & OUTCOME   -->
-        <BillTop5 :bill-top5="getBillMonthTop5(billMonthData).outcome" title="支出单项 TOP 5"/>
+        <BillTop5 :bill-top5="billMonthData.outcomeTop5"
+                  title="支出单项 TOP 5"/>
 
         <table>
             <tr>
@@ -57,6 +58,7 @@ import BillMonthSummary from "@/page/bill/BillMonthSummary.vue";
 import BillTop5 from "@/page/bill/BillTop5.vue";
 import BillFoodSummary from "@/page/bill/BillFoodSummary.vue";
 import {useRouter} from "vue-router";
+import {ref} from "vue";
 
 const router = useRouter()
 const storeProject = useProjectStore();
@@ -76,26 +78,12 @@ function goToDiaryDetail(diaryId: number){
     })
 }
 
+const exceptAmount = ref(0) // 要去除的总和数
 
-// 获取每月账单最高的前5个消费项目
-function getBillMonthTop5(billMonth: EntityBillMonth): {
-    income: Array<EntityBillItem>,
-    outcome: Array<EntityBillItem>
-}{
-    let monthBillItems: Array<EntityBillItem> = []
-    billMonth.days.forEach(billDay => {
-        billDay.items.forEach(billItem => {
-            monthBillItems.push(billItem)
-        })
-    })
-    monthBillItems.sort((a,b) => a.price > b.price ? 1: -1)
-
-    let billItemsIncome = monthBillItems.filter(item => item.price > 0).sort((a,b) => a.price < b.price ? 1: -1)
-    return {
-        outcome: monthBillItems.splice(0,5),
-        income: billItemsIncome.splice(0,5)
-    }
+function exceptAmountValue(amount: number){
+    console.log(amount)
 }
+
 // 获取每月吃饭账单统计
 function getBillMonthFood(billMonth: EntityBillMonth): Array<EntityBillItem>{
     return [

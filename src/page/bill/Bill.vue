@@ -23,7 +23,7 @@
                 </div>
 
 
-                <BillItem
+                <BillMonthItem
                     v-if="!isLoading"
                     :bill-month-data="month"
                     v-for="month in billYearData" :key="month.id"
@@ -46,7 +46,7 @@ import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
 import {onMounted, ref} from "vue";
 import BillYearSelector from "@/page/bill/BillYearSelector.vue";
-import BillItem from "@/page/bill/BillItem.vue";
+import BillMonthItem from "@/page/bill/BillMonthItem.vue";
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)

@@ -23,6 +23,8 @@ interface EntityBillMonth {
     sum: number,
     sumIncome: number,
     sumOutput: number,
+    incomeTop5: Array<EntityBillItem>,
+    outcomeTop5: Array<EntityBillItem>,
 }
 
 // 日账单
