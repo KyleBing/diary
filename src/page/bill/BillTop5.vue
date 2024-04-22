@@ -2,7 +2,8 @@
     <div class="summary">
         <div class="title">{{props.title}}</div>
         <div class="bill-list">
-            <div class="bill-item" v-for="(item, index) in props.billTop5" :key="index">
+            <div :class="['bill-item', {filtered: item.isFiltered}]"
+                 v-for="(item, index) in modelTop5" :key="index" @click="changeCurrentState(item)">
                 <div class="name">{{item.item}}</div>
                 <div class="price">{{item.price.toFixed(storeProject.moneyAccuracy)}}</div>
             </div>
@@ -12,16 +13,21 @@
 
 
 <script setup lang="ts">
-import {EntityBillItem} from "@/page/bill/Bill.ts";
+import {EntityBillTop5Item} from "@/page/bill/Bill.ts";
 import {useProjectStore} from "@/pinia";
 
 const storeProject = useProjectStore();
 
+const modelTop5 = defineModel<Array<EntityBillTop5Item>>()
+
 interface Props {
-    billTop5: Array<EntityBillItem>,
     title: string
 }
 const props = defineProps<Props>()
+
+function changeCurrentState(billItem: EntityBillTop5Item){
+    billItem.isFiltered = !billItem.isFiltered
+}
 
 </script>
 
@@ -40,12 +46,17 @@ const props = defineProps<Props>()
 }
 .bill-list{
     .bill-item{
+        cursor: pointer;
+        @extend .btn-like;
         margin-bottom: 2px;
         font-size: $fz-small;
         display: flex;
         justify-content: space-between;
         align-items: center;
         position: relative;
+        &.filtered{
+            text-decoration: line-through;
+        }
         &:after{
             position: absolute;
             content: '';

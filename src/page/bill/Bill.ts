@@ -23,8 +23,8 @@ interface EntityBillMonth {
     sum: number,
     sumIncome: number,
     sumOutput: number,
-    incomeTop5: Array<EntityBillItem>,
-    outcomeTop5: Array<EntityBillItem>,
+    incomeTop5: Array<EntityBillTop5Item>,
+    outcomeTop5: Array<EntityBillTop5Item>,
 }
 
 // 日账单
@@ -52,6 +52,10 @@ interface EntityBillItem{
     price: number
 }
 
+// income top5 & outcome top5 item
+interface EntityBillTop5Item extends EntityBillItem{
+    isFiltered?: boolean
+}
 
 
 export {
@@ -60,4 +64,5 @@ export {
     type EntityBillFood,
     type EntityBillDay,
     type EntityBillItem,
+    type EntityBillTop5Item
 }

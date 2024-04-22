@@ -5,14 +5,18 @@
                 <div class="title">{{ MonthNameMap.get(billMonthData.month) }}</div>
                 <div class="subtitle">{{billMonthData.month_id.substring(0,4)}}</div>
             </div>
-            <BillMonthSummary :bill-month="billMonthData"/>
+            <BillMonthSummary
+                :bill-month="billMonthData"
+                :exceptSum="exceptSum"
+
+            />
         </div>
 
         <!-- FOOD -->
         <BillFoodSummary :bill-food="billMonthData.food"/>
 
         <!--  TOP INCOME & OUTCOME   -->
-        <BillTop5 :bill-top5="billMonthData.outcomeTop5"
+        <BillTop5 v-model="outcomeTop5"
                   title="支出单项 TOP 5"/>
 
         <table>
@@ -51,14 +55,14 @@
 
 
 <script setup lang="ts">
-import {EntityBillItem, EntityBillMonth, MonthNameMap} from "@/page/bill/Bill.ts";
+import {EntityBillItem, EntityBillMonth, EntityBillTop5Item, MonthNameMap} from "@/page/bill/Bill.ts";
 import {useProjectStore} from "@/pinia";
 import {dateProcess} from "@/utility.ts";
 import BillMonthSummary from "@/page/bill/BillMonthSummary.vue";
 import BillTop5 from "@/page/bill/BillTop5.vue";
 import BillFoodSummary from "@/page/bill/BillFoodSummary.vue";
 import {useRouter} from "vue-router";
-import {ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 const router = useRouter()
 const storeProject = useProjectStore();
@@ -66,7 +70,7 @@ const storeProject = useProjectStore();
 interface Props {
     billMonthData: EntityBillMonth,
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
 function goToDiaryDetail(diaryId: number){
     console.log(diaryId)
@@ -78,11 +82,28 @@ function goToDiaryDetail(diaryId: number){
     })
 }
 
-const exceptAmount = ref(0) // 要去除的总和数
+// 过滤排除的消费项目
+const outcomeTop5 = ref<Array<EntityBillTop5Item>>([])
+const exceptSum = ref(0)
 
-function exceptAmountValue(amount: number){
-    console.log(amount)
-}
+watch(outcomeTop5, newValue => {
+    exceptSum.value = 0
+    newValue.filter(item => item.isFiltered).forEach(item => {
+        exceptSum.value = exceptSum.value + item.price
+    })
+    return exceptSum.value
+}, {
+    deep: true
+})
+
+onMounted(()=> {
+    outcomeTop5.value = props.billMonthData.outcomeTop5.map(item => {
+        item.isFiltered = false
+        return item
+    })
+})
+
+
 
 // 获取每月吃饭账单统计
 function getBillMonthFood(billMonth: EntityBillMonth): Array<EntityBillItem>{
