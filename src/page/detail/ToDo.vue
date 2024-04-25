@@ -78,6 +78,9 @@ function processContent(diary: DiaryEntity){
                     note: content[1]? content[1].trim(): ''
                 }
             })
+        const todoDone = todoList.value.filter(item => item.isDone)
+        const todoUndone = todoList.value.filter(item => !item.isDone)
+        todoList.value = todoUndone.concat(todoDone)
         lastId.value = todoList.value.length
         saveDiary()
     }
