@@ -4,11 +4,18 @@
             <div class="button-date-change" @click="dateMove(-1)">
                 <div><</div>
             </div>
-            <DatePicker locale="zh" v-model="dateLocal" mode="dateTime" is24hr :attributes="attrs" >
+            <DatePicker
+                locale="zh"
+                v-model="modelDate"
+                mode="dateTime"
+                is24hr
+                :attributes="attrs"
+                :popover="popoverOptions"
+            >
                 <template #default="{ togglePopover }">
                     <div class="datetime" @click="togglePopover">
-                        <div class="date">{{dateFormatter(dateLocal, 'yyyy.MM.dd')}}</div>
-                        <div class="time">{{dateFormatter(dateLocal, 'hh:mm')}}</div>
+                        <div class="date">{{dateFormatter(modelDate, 'yyyy.MM.dd')}}</div>
+                        <div class="time">{{dateFormatter(modelDate, 'hh:mm')}}</div>
                     </div>
                 </template>
             </DatePicker>
@@ -34,6 +41,7 @@ import {LunarDateEntity} from "@/entity/LunarDate.ts";
 import {DatePicker} from 'v-calendar';
 import 'v-calendar/style.css';
 import {dateFormatter} from "@/utility.ts";
+import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
 
 const props = defineProps({
     modelValue: {
@@ -42,16 +50,29 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(["dayChange", "update:modelValue"])
+const emit = defineEmits(["dayChange"])
+const modelDate = defineModel<Date>()  // v-model value
 
+
+
+// 显示时获取当前时间的农历值
 onMounted(()=>{
-    nextTick(()=> {
-        dateLocal.value = props.modelValue
-    })
+    lunarObject.value = calendar.solar2lunar(
+        modelDate.value.getFullYear(),
+        modelDate.value.getMonth() + 1,
+        modelDate.value.getDate()
+    )
 })
 
-const dateLocal = ref(new Date())
+/**
+ *  Calendar option
+ */
+
 const lunarObject: Ref<LunarDateEntity> = ref({})
+const popoverOptions = ref<PopoverOptions>({
+    visibility: 'hover',
+    placement: "auto"
+})
 const attrs = ref([
     {
         key: 'today',
@@ -59,19 +80,18 @@ const attrs = ref([
         dot: true, // 点状
         dates: new Date(),
     },
-]);
+])
 
 
 watch(() => props.modelValue, newValue => {
-    dateLocal.value = newValue
+    modelDate.value = newValue
 })
-watch(dateLocal, (newValue, oldValue) => {
+watch(modelDate, (newValue, oldValue) => {
     lunarObject.value = calendar.solar2lunar(
         newValue.getFullYear(),
         newValue.getMonth() + 1,
         newValue.getDate()
     )
-    emit('update:modelValue', dateLocal.value)
 
     // 判断是否日期有变，day 有变，emit dayChange, 附带是否为今天的标识
     let dateMomentDiary = Moment(newValue)
@@ -107,14 +127,12 @@ function dateMove(step: -1|0|1) {
     switch (step) {
         case -1:
         case 1:
-            let dateTemp = Moment(dateLocal.value)
+            let dateTemp = Moment(modelDate.value)
             dateTemp.add(step, 'day')
-            dateLocal.value = dateTemp.toDate()
-            emit('update:modelValue', dateLocal.value)
+            modelDate.value = dateTemp.toDate()
             break;
         case 0:
-            dateLocal.value = new Date()
-            emit('update:modelValue', dateLocal.value)
+            modelDate.value = new Date()
             break;
     }
 }
@@ -123,14 +141,12 @@ function dateTimeMove(step: -1|0|1) {
     switch (step) {
         case -1:
         case 1:
-            let dateTemp = Moment(dateLocal.value)
+            let dateTemp = Moment(modelDate.value)
             dateTemp.add(step, 'hour')
-            dateLocal.value = dateTemp.toDate()
-            emit('update:modelValue', dateLocal.value)
+            modelDate.value = dateTemp.toDate()
             break;
         case 0:
-            dateLocal.value = new Date()
-            emit('update:modelValue', dateLocal.value)
+            modelDate.value = new Date()
             break;
     }
 }
