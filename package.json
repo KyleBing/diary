@@ -20,6 +20,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@vuepic/vue-datepicker": "^3.3.1",
     "axios": "^1.6.3",
     "clipboard": "^2.0.11",
@@ -33,6 +34,7 @@
     "pinia": "^2.1.7",
     "qiniu-js": "^3.4.1",
     "register-service-worker": "^1.7.2",
+    "v-calendar": "^3.1.2",
     "vue": "^3.4.3",
     "vue-router": "^4.2.5"
   },

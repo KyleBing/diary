@@ -34,7 +34,8 @@
             <!--  主参数区 -->
             <div class="editor-form">
                 <!-- 日期选择-->
-                <EditorDateSelector @dayChange="dayHasChanged" v-model="diary.date"/>
+                <EditorVCalendarSelector @dayChange="dayHasChanged" v-model="diary.date"/>
+
 
                 <div class="editor-meta-switches">
                     <div class="editor-form-item">
@@ -102,7 +103,6 @@ import Moment from 'moment'
 import EditCategorySelector from "./CategorySelector/EditorCategorySelector.vue"
 import WeatherSelector from "./WeatherSelector/WeatherSelector.vue"
 import LoadingButton from "../../components/LoadingButton.vue"
-import EditorDateSelector from "./EditorDateSelector.vue";
 import ButtonSmall from "../../components/ButtonSmall.vue";
 import TemperatureSetItem from "./TemperatureSetItem.vue";
 import PossibleBillKeySelector from "./PossibleBillKeySelector.vue";
@@ -131,6 +131,7 @@ import {
 } from "../list/Diary.ts";
 import {storeToRefs} from "pinia";
 import {BillKeyEntity} from "@/entity/BillKey.ts";
+import EditorVCalendarSelector from "@/page/edit/EditorVCalendarSelector.vue";
 
 const route = useRoute()
 const router = useRouter()

@@ -99,7 +99,6 @@ textarea{
     background-color: white;
     padding: 25px 25px;
     @include border-radius($radius-pc);
-    overflow: hidden;
     justify-content: space-between;
     display: flex;
     flex-flow: row wrap;

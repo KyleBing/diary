@@ -4,19 +4,15 @@
             <div class="button-date-change" @click="dateMove(-1)">
                 <div><</div>
             </div>
-            <Datepicker
-                @wheel="mouseWheelScrolled"
-                :editable="false"
-                :show-now-button="true"
-                v-model="dateLocal"
-                format="yyyy.MM.dd HH:mm"
-                selectText="确定"
-                cancelText="取消"
-                locale="zh-CN"
-                placeholder="----.--.-- --:--"
-                input-class="date"
-                :clearable="false"
-            />
+            <DatePicker locale="zh" v-model="dateLocal" mode="dateTime" is24hr :attributes="attrs" >
+                <template #default="{ togglePopover }">
+                    <div class="datetime" @click="togglePopover">
+                        <div class="date">{{dateFormatter(dateLocal, 'yyyy.MM.dd')}}</div>
+                        <div class="time">{{dateFormatter(dateLocal, 'hh:mm')}}</div>
+                    </div>
+                </template>
+            </DatePicker>
+
             <div class="button-date-change" @click="dateMove(1)">
                 <div>></div>
             </div>
@@ -30,10 +26,14 @@
 </template>
 
 <script lang="ts" setup>
-import calendar from "js-calendar-converter"
+import calendar from "js-calendar-converter" // 农历数据
 import Moment from "moment/moment";
 import {nextTick, onMounted, Ref, ref, watch} from "vue";
-import {LunarDateEntity} from "../../entity/LunarDate.ts";
+import {LunarDateEntity} from "@/entity/LunarDate.ts";
+
+import {DatePicker} from 'v-calendar';
+import 'v-calendar/style.css';
+import {dateFormatter} from "@/utility.ts";
 
 const props = defineProps({
     modelValue: {
@@ -52,6 +52,14 @@ onMounted(()=>{
 
 const dateLocal = ref(new Date())
 const lunarObject: Ref<LunarDateEntity> = ref({})
+const attrs = ref([
+    {
+        key: 'today',
+        // highlight: true,
+        dot: true, // 点状
+        dates: new Date(),
+    },
+]);
 
 
 watch(() => props.modelValue, newValue => {
@@ -132,7 +140,6 @@ function dateTimeMove(step: -1|0|1) {
 @use "sass:math";
 @import "../../scss/plugin";
 
-
 .date-selector{
     display: flex;
     width: 100%;
@@ -140,6 +147,27 @@ function dateTimeMove(step: -1|0|1) {
 }
 
 $height: 40px;
+
+.datetime{
+    align-items: flex-end;
+    display: flex;
+    justify-content: center;
+    font-family: 'SF UI Display', sans-serif;
+    color: $text-content;
+    text-align: center;
+    background-color: transparent;
+    width: 100%;
+    font-size: 28px;
+    padding: math.div($height - 40, 2) ;
+    cursor: ns-resize;
+    .date{
+    }
+    .time{
+        color: $text-label;
+        margin-left: 10px;
+    }
+}
+
 .date-set-item{
     padding: 0 5px;
     box-sizing: content-box;
@@ -181,34 +209,6 @@ $height: 40px;
             color: black;
         }
     }
-    input{
-        font-family: 'SF UI Text';
-        color: $text-content;
-        text-align: center;
-        background-color: transparent;
-        display: block;
-        width: 100%;
-        font-size: 28px;
-        padding: math.div($height - 40, 2) ;
-        cursor: ns-resize;
-    }
-    label{
-        padding: 3px 5px;
-        background-color: white;
-        z-index: $z-header;
-        top: -10px;
-        left: 10px;
-        font-size: $fz-small;
-        color: $text-label;
-        position: absolute;
-    }
-    .unit{
-        position: absolute;
-        right: 8px;
-        bottom: 8px;
-        font-size: $fz-list-content;
-        color: $text-label;
-    }
 }
 
 
@@ -227,24 +227,11 @@ $height: 40px;
 
 
 
-// Overwrite DatePicker Style
-// plugin style overwrite
-
-.dp__input{
-    border: none !important;
-}
-
-.dp__icon.dp__input_icon{ // date picker icon
-    display: none !important;
-}
-
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
     .date-selector{
         width: 50%;
         .date-set-item{
-            input{
-                text-align: left;
-            }
+
         }
         .date-meta{
             justify-content: flex-start;
@@ -266,6 +253,14 @@ $height: 40px;
 
 // DARK
 @media (prefers-color-scheme: dark) {
+    .datetime{
+        color: $dark-text-title;
+        .date{
+        }
+        .time{
+            color: $dark-text-subtitle;
+        }
+    }
     .date-set-item{
         .button-date-change{
             color: $dark-text-subtitle;
@@ -286,14 +281,9 @@ $height: 40px;
         }
         &:hover{
             background-color: $dark-bg;
-            input{
-                color: $dark-text-title;
-            }
+
         }
-        input{
-            color: $dark-text-title;
-            //color: white;
-        }
+
     }
 
     .date-meta{
