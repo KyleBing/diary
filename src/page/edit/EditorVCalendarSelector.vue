@@ -18,6 +18,11 @@
                         <div class="time">{{dateFormatter(modelDate, 'hh:mm')}}</div>
                     </div>
                 </template>
+                <template #footer>
+                    <div class="p-2">
+                        <div class="btn btn-active" @click="moveToday">今天</div>
+                    </div>
+                </template>
             </DatePicker>
 
             <div class="button-date-change" @click="dateMove(1)">
@@ -67,7 +72,6 @@ onMounted(()=>{
 /**
  *  Calendar option
  */
-
 const lunarObject: Ref<LunarDateEntity> = ref({})
 const popoverOptions = ref<PopoverOptions>({
     visibility: 'hover',
@@ -82,7 +86,15 @@ const attrs = ref([
     },
 ])
 
+function moveToday() {
+    // refCalendar.value.move(new Date())
+    modelDate.value = new Date()
+}
 
+
+/**
+ * Watches
+ */
 watch(() => props.modelValue, newValue => {
     modelDate.value = newValue
 })
