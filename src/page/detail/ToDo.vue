@@ -7,8 +7,8 @@
                      @click="toggleDoneStatus(item)"></div>
             </div>
             <div class="content-wrapper">
-                <div class="content">{{item.content}}</div>
-                <div class="note">{{item.note}}</div>
+                <div class="content">{{storeProject.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}</div>
+                <div class="note">{{storeProject.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}</div>
             </div>
         </div>
     </div>
@@ -19,6 +19,8 @@ import diaryApi from "../../api/diaryApi.ts"
 import {onMounted, Ref, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "../list/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
+import {useProjectStore} from "../../pinia";
+const storeProject = useProjectStore();
 
 interface TODOEntity {
     id: number,
