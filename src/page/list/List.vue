@@ -13,17 +13,17 @@
         </transition>
 
         <div class="diary-list-group" v-if="!storeProject.isDiaryListShowedInFullStyle">
-            <div v-for="(item, index) in diariesShow" :key="index">
+            <template v-for="(item, index) in diariesShow" :key="index">
                 <ListHeader v-if="!item.title" size="" :title="item.date"/>
                 <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
-            </div>
+            </template>
         </div>
 
         <div class="diary-list-group" v-else>
-            <div v-for="(item, index) in diariesShow" :key="index">
+            <template v-for="(item, index) in diariesShow" :key="index">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItemLong v-else :diary="item"/>
-            </div>
+            </template>
         </div>
 
         <div class="pt-4 pb-4" v-if="isLoading">
@@ -214,7 +214,7 @@ function addScrollEvent() {
     document.querySelector('.diary-list-container')!.addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
         /* 判断是否加载内容*/
         function needLoadContent() {
-            let lastNode = document.querySelector('.diary-list-group > div:last-child') as HTMLDivElement
+            let lastNode = document.querySelector('.diary-list-group > :last-child') as HTMLDivElement
             if (!lastNode) {
                 return false
             }

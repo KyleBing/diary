@@ -33,16 +33,14 @@ import {computed} from "vue";
 import {useProjectStore} from "@/pinia";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
+import {DiaryEntityDatabase} from "../Diary.ts";
 const storeProject = useProjectStore()
 const route = useRoute()
 
 
-const props = defineProps({
-    diary: {
-        type: Object,
-        required: true
-    }
-})
+const props = defineProps<{
+    diary: DiaryEntityDatabase
+}>()
 
 const isActive = computed(() => {
     return Number(route.params.id) === Number(props.diary.id)
@@ -53,7 +51,7 @@ const suffix = computed(()=> {
 const diaryItemHeaderStyle = computed(()=>{
     if (isActive.value){
         return `
-                      background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+              background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
                 `
     } else {
         return ''
@@ -67,7 +65,7 @@ const diaryItemCategoryTextStyle = computed(()=>{
 
     } else {
         return `
-                      color:  ${storeProject.categoryObjectMap.get(props.diary.category).color}
+              color:  ${storeProject.categoryObjectMap.get(props.diary.category).color}
                 `
     }
 })
