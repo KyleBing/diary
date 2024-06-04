@@ -7,8 +7,14 @@
                      @click="toggleDoneStatus(item)"></div>
             </div>
             <div class="content-wrapper">
-                <div class="content">{{storeProject.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}</div>
-                <div class="note">{{storeProject.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}</div>
+                <div contenteditable="true" @input="handleContentChange(item, $event)" class="content">
+                    {{storeProject.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}
+                </div>
+                <div
+                    v-if="item.note"
+                    contenteditable="true" @input="handleNoteChange(item, $event)" class="note">
+                    {{storeProject.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}
+                </div>
             </div>
         </div>
     </div>
@@ -16,7 +22,7 @@
 
 <script lang="ts" setup>
 import diaryApi from "../../api/diaryApi.ts"
-import {onMounted, Ref, ref, watch} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "../list/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "../../pinia";
@@ -35,11 +41,18 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const todoList: Ref<TODOEntity[]> = ref([])
+const todoList= ref<Array<TODOEntity>>([])
 const lastId = ref(0) // 最后一个修改后的 id，用于将最后一个标记的 todoItem 移到列表最后
 
 onMounted(()=>{
     processContent(props.diary)
+    window.onkeydown = event => {
+        // CTRL + S 保存
+        if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+            event.preventDefault()
+            saveDiary(true)
+        }
+    }
 })
 
 watch(() => props.diary, newValue => {
@@ -98,7 +111,7 @@ function toDiaryString(todoList: TODOEntity[]){
     }
     return finalString
 }
-function saveDiary(){
+function saveDiary(isShowNotification?: boolean){
     let requestData: DiarySubmitEntity = {
         id: props.diary.id,
         title: props.diary.title,
@@ -113,7 +126,11 @@ function saveDiary(){
     }
     diaryApi
         .modify(requestData)
-        .then()
+        .then(res => {
+            if (isShowNotification){
+                popMessage('success', res.message, ()=>{}, 1)
+            }
+        })
         .catch(err => {
             popMessage('danger', err.message, ()=>{},1)
         })
@@ -124,6 +141,21 @@ function deleteToDo(index: number){
     todoList.value.splice(index, 1)
     saveDiary()
 }
+
+
+/**
+ * 实时修改 todo 内容
+ * @param todoItem
+ * @param ev
+ */
+function handleContentChange(todoItem: TODOEntity, ev: Event){
+    todoItem.content = (ev.target as HTMLDivElement).innerText
+}
+function handleNoteChange(todoItem: TODOEntity, ev: Event){
+    todoItem.note =  (ev.target as HTMLDivElement).innerText
+}
+
+
 
 </script>
 
