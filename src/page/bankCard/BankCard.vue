@@ -32,16 +32,10 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-    card: {
-        type: Object,
-        default: {}
-    },
-    index: {
-        type: Number,
-        default: 0
-    }
-})
+const props = defineProps<{
+    card: BankCardEntity
+    index: number
+}>()
 
 interface BankCardFace {
     icon: any,

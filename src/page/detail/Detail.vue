@@ -112,7 +112,7 @@ function toggleContentType(){
 }
 
 function getContentHtml(content: string){
-    let isInCodeMode = /\[ ?code ?\]/i.test(content)
+    let isInCodeMode = /\[ ?code ?]/i.test(content)
 
     if (isInCodeMode){
         return `<pre class="code">${storeProject.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`

@@ -13,14 +13,14 @@
         </transition>
 
         <div class="diary-list-group" v-if="!storeProject.isDiaryListShowedInFullStyle">
-            <template v-for="(item, index) in diariesShow" :key="index">
+            <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="" :title="item.date"/>
                 <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
             </template>
         </div>
 
         <div class="diary-list-group" v-else>
-            <template v-for="(item, index) in diariesShow" :key="index">
+            <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItemLong v-else :diary="item"/>
             </template>
@@ -138,7 +138,7 @@ const keywordShow = ref('') // 关键词
 
 function search() {
     reloadDiaryList()
-}REF
+}
 
 watch(isShowSearchBar, newValue => {
     if (newValue){

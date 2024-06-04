@@ -88,11 +88,11 @@ const formUser = ref<UserProfileEntity>({
 onMounted(()=>{
     show.value = true
     document.title = '日记 - 资料修改' // 变更标题
-    formUser.value.nickname = getAuthorization().nickname
-    formUser.value.phone = getAuthorization().phone
-    formUser.value.avatar = getAuthorization().avatar
-    formUser.value.city = getAuthorization().city
-    formUser.value.geolocation = getAuthorization().geolocation
+    formUser.value.nickname = getAuthorization()?.nickname
+    formUser.value.phone = getAuthorization()?.phone
+    formUser.value.avatar = getAuthorization()?.avatar
+    formUser.value.city = getAuthorization()?.city
+    formUser.value.geolocation = getAuthorization()?.geolocation
 
     // 在给 formUser.city 赋值之后再添加其 watcher
     watch(() => formUser.value.city, newValue => {
@@ -121,17 +121,18 @@ onMounted(()=>{
     })
 })
 
-function uploadAvatar(event){
-    if (event.target.files.length > 0){
-        avatarFile = event.target.files[0]
+function uploadAvatar(event: Event){
+    let inputEl = event.target as HTMLInputElement
+    if (inputEl.files!.length > 0){
+        avatarFile = inputEl.files![0]
         if (!/image\/.*/.test(avatarFile.type)){
             popMessage('warning', '请选择图片文件')
-            event.target.value = '' // 清空 Input 内容
+            inputEl.value = '' // 清空 Input 内容
             return
         }
         if (avatarFile.size > 1024 * 1024 * 3){
             popMessage('warning', '头像文件应小于 3M', ()=>{}, 3)
-            event.target.value = '' // 清空 Input 内容
+            inputEl.value = '' // 清空 Input 内容
             return
         }
 

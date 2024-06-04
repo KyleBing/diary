@@ -466,7 +466,7 @@ function insertNewBillKey(billKey: string){
 // contentUpdate
 function contentUpdate(event: Event){
     if (diary.value.category === 'bill'){
-        let content = event.target.value
+        let content = (event.target as HTMLTextAreaElement).value
         if (content){
             let lineArray = content.split('\n')
             keysPanelPositionTop.value = lineArray.length * 24 + 15

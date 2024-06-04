@@ -46,14 +46,13 @@ interface DiaryEntityDatabase{
 }
 
 
-
 interface DiarySearchParams {
-    keywords: Array<string>, // 关键字 JSON string 后的内容 : string[]
+    keywords: Array<string> | string, // 关键字 JSON string 后的内容 : string[]
     pageNo: number,
     pageSize: number, // 单页请求条数
     categories: string,
-    filterShared: 0|1, // 1 是筛选，0 是不筛选
-    dateFilterString: string // 日记年月筛选
+    filterShared?: 0|1, // 1 是筛选，0 是不筛选
+    dateFilterString?: string // 日记年月筛选
 }
 
 interface DiarySubmitEntity{
