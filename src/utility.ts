@@ -71,9 +71,9 @@ function removeBillKeys() {
 function popMessage(
     type: 'default' | 'warning' | 'success' | 'danger',
     title: string,
-    callback = () => {
-    },
-    timeout = 0.8) {
+    callback = () => {},
+    timeout = 0.8
+) {
     let popClass = `pop-msg-${type}`
     let msgEl = document.createElement('div')
     msgEl.classList.add('pop-msg', 'animated-fast', 'slideInDownPopMessage', popClass)

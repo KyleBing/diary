@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+
+    "baseUrl": "/src",
+    "paths": {
+      "@/*": ["*"]
+    },
+
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -22,6 +28,6 @@
     "allowSyntheticDefaultImports": true
   },
   "files": ["custom.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
