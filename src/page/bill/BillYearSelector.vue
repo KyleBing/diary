@@ -11,9 +11,9 @@
 
 
 <script setup lang="ts">
-import {onMounted, ref, Ref} from "vue";
+import {onMounted, ref} from "vue";
 interface YearEntity {value: number, checked: boolean}
-const availableYears: Ref<Array<YearEntity>> = ref([]) // 账单可选年份
+const availableYears = ref<Array<YearEntity>>([]) // 账单可选年份
 
 const model = defineModel<Array<number>>()
 

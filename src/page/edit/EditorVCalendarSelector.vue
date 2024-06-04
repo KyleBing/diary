@@ -40,7 +40,7 @@
 <script lang="ts" setup>
 import calendar from "js-calendar-converter" // 农历数据
 import Moment from "moment/moment";
-import {nextTick, onMounted, Ref, ref, watch} from "vue";
+import { onMounted, ref, watch} from "vue";
 import {LunarDateEntity} from "@/entity/LunarDate.ts";
 
 import {DatePicker} from 'v-calendar';
@@ -72,7 +72,7 @@ onMounted(()=>{
 /**
  *  Calendar option
  */
-const lunarObject: Ref<LunarDateEntity> = ref({})
+const lunarObject = ref<LunarDateEntity>({})
 const popoverOptions = ref<PopoverOptions>({
     visibility: 'hover',
     placement: "auto"

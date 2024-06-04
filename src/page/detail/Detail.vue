@@ -62,7 +62,7 @@ import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 
 const storeProject = useProjectStore();
-import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
 const route = useRoute()
@@ -70,7 +70,7 @@ import {DiaryEntityDatabase} from "../list/Diary.ts";
 import {LunarDateEntity} from "@/entity/LunarDate.ts";
 
 const isLoading = ref(false) // loading
-const diary: Ref<DiaryEntityDatabase> = ref({})
+const diary = ref<DiaryEntityDatabase>({})
 const clipboard = ref() // clipboard obj
 const lunarObject = ref<LunarDateEntity>({})
 const isShowExplode = ref(false)

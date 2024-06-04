@@ -117,7 +117,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
-import {computed, nextTick, onBeforeMount, onMounted, Ref, ref, watch} from "vue";
+import {computed, nextTick, onBeforeMount, onMounted, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
@@ -141,7 +141,7 @@ const spaceIdentifier = ref('✎') // 为了判断目前是否处于空格显示
 const isNew = ref(true)
 const isLoading = ref(false)
 
-const diary: Ref<DiaryEntity> = ref({
+const diary = ref<DiaryEntity>({
     id: -1,
     title: "",
     content: "",
@@ -153,7 +153,7 @@ const diary: Ref<DiaryEntity> = ref({
     temperature: '',
     temperature_outside: '',
 })
-const diaryOrigin: Ref<DiaryEntity> = ref({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
+const diaryOrigin = ref<DiaryEntity>({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
     id: -1,
     title: "",
     content: "",
@@ -170,7 +170,7 @@ const recoverDiaryContent = ref({  // 编辑过程中点击了隐藏按钮，此
     content: ''
 })
 
-const requestData: Ref<DiarySearchParams> = ref({ // 请求本周日志的 requestData
+const requestData = ref<DiarySearchParams>({ // 请求本周日志的 requestData
     keywords: [],
     pageNo: 1,
     pageSize: 15, // 单页请求条数
@@ -182,8 +182,8 @@ const requestData: Ref<DiarySearchParams> = ref({ // 请求本周日志的 reque
 /**
  * Bill Keys
  */
-const billKeys: Ref<BillKeyEntity[]> = ref([])
-const possibleBillItems: Ref<BillKeyEntity[]> = ref([])
+const billKeys = ref<Array<BillKeyEntity>>([])
+const possibleBillItems = ref<Array<BillKeyEntity>>([])
 const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
 

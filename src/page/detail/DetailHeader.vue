@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {computed, ComputedRef} from "vue";
+import {computed} from "vue";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 
@@ -49,7 +49,7 @@ const props = defineProps({
     },
 })
 
-const categoryBgColor: ComputedRef<string> = computed( () => {
+const categoryBgColor = computed<string>( () => {
     if (props.diary && props.diary.category){
         return `background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
     } else {

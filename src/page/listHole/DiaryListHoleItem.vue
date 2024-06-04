@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import {marked} from "marked";
-import {computed, ComputedRef} from "vue";
+import {computed} from "vue";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 
@@ -34,13 +34,13 @@ const props = defineProps({
     diary: Object
 })
 
-const backgroundColor: ComputedRef<string> = computed(() => {
+const backgroundColor = computed<string>(() => {
     return `background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
 })
-const textColor: ComputedRef<string> = computed(() => {
+const textColor = computed<string>(() => {
     return `color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
 })
-const contentMarkDownHtml: ComputedRef<string> = computed(() => {
+const contentMarkDownHtml = computed<string>(() => {
     return marked.parse(props.diary.content)
 })
 

@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import {nextTick, onMounted, Ref, ref, watch} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 
 const props = defineProps({
     label: {
@@ -41,7 +41,7 @@ onMounted(()=>{
     })
 })
 
-const temperatureLocal: Ref<string> = ref('')
+const temperatureLocal = ref('')
 
 watch(() => props.modelValue, newValue => {
     temperatureLocal.value = newValue

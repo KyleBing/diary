@@ -53,7 +53,7 @@ import {dateProcess, dateFormatter} from "@/utility.ts";
 import {useProjectStore} from "@/pinia"
 
 const storeProject = useProjectStore()
-import {nextTick, onMounted, Ref, ref, watch} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {DiaryEntity, DiaryEntityDatabase, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
 import {storeToRefs} from "pinia";
@@ -62,11 +62,11 @@ const route = useRoute()
 
 const isHasMore = ref(true)
 const isLoading = ref(true)
-const diaries: Ref<DiaryEntityDatabase[]> = ref([])
-const diariesShow: Ref<Array<DiaryEntity>> = ref([])
+const diaries = ref<Array<DiaryEntityDatabase>>([])
+const diariesShow = ref<Array<DiaryEntity>>([])
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
 
-const formSearch: Ref<DiarySearchParams> = ref({
+const formSearch = ref<DiarySearchParams>({
     keywords: '',
     pageNo: 1,
     pageSize: 100, // 单页请求条数
@@ -138,7 +138,7 @@ const keywordShow = ref('') // 关键词
 
 function search() {
     reloadDiaryList()
-}
+}REF
 
 watch(isShowSearchBar, newValue => {
     if (newValue){

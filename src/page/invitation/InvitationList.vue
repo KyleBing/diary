@@ -40,12 +40,12 @@ import invitationApi from "../../api/invitationApi.ts";
 import {popMessage, dateFormatter, getAuthorization} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
-import {computed, onBeforeUnmount, onMounted, Ref, ref} from "vue";
+import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {InvitationEntity} from "./InvitationEntity.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const isLoading = ref(false)
-const invitationList: Ref<InvitationEntity[]> = ref([])
+const invitationList = ref<Array<InvitationEntity>>([])
 const clipboard = ref(null) // clipboard obj
 
 const isAdminUser = computed(()=>{

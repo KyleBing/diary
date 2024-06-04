@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import ButtonNormal from "../../components/ButtonNormal.vue";
-import {nextTick, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";
+import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {popMessage} from "../../utility.ts";
 
 const props = defineProps({
@@ -41,7 +41,7 @@ interface WordExplodeEntity {
 }
 
 const refWordList = ref()
-const wordArray: Ref<WordExplodeEntity[]> = ref([])
+const wordArray = ref<Array<WordExplodeEntity>>([])
 const indexMin = ref(0)
 const indexMax = ref(0)
 

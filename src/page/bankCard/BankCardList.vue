@@ -69,7 +69,7 @@ import bankCardApi from "../../api/bankCardApi.ts"
 
 import diaryApi from "../../api/diaryApi.ts"
 import {getCategoryAll, popMessage} from "../../utility.ts";
-import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
@@ -109,7 +109,7 @@ const example = `银行：民生银行
 `
 
 const isLoading = ref(false)
-const cardListAll: Ref<BankCardEntity[]> = ref([])
+const cardListAll = ref<Array<BankCardEntity>>([])
 const cardListStore = ref([])
 const cardListCredit = ref([])
 const clipboard = ref(null) // clipboard obj

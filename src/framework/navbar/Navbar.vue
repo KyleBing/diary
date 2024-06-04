@@ -162,7 +162,7 @@ import ClipboardJS from "clipboard"
 import {getAuthorization, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
-import {computed, onMounted, onUnmounted, Ref, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
 const route = useRoute()
@@ -177,7 +177,7 @@ const isAdminUser = computed(()=>{
 /**
  * Clipboard
  */
-const clipboard: Ref<ClipboardJS> = ref()
+const clipboard= ref<ClipboardJS>()
 let location = null
 onUnmounted(()=>{
     clipboard.value.destroy()

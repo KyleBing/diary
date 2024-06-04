@@ -117,7 +117,7 @@ import statisticApi from "../../../api/statisticApi.ts";
 import ChartBar from "../../../components/charts/ChartBar.vue";
 import Moment from "moment";
 
-import {computed, ComputedRef, onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useProjectStore} from "../../../pinia";
 import {dateFormatter, getAuthorization} from "../../../utility.ts";
 const storeProject = useProjectStore()

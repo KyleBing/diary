@@ -43,7 +43,7 @@ import DiaryListHoleItem from "./DiaryListHoleItem.vue"
 import {dateProcess, getDiaryConfigFromLocalStorage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
-import {nextTick, onMounted, Ref, ref, watch} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntity} from "../list/Diary.ts";
@@ -64,7 +64,7 @@ interface SearchParamsDiaryList {
     filterShared: 0 | 1, // 1 是筛选，0 是不筛选
     dateFilterString: string // 日记年月筛选
 }
-const params: Ref<SearchParamsDiaryList> = ref({
+const params = ref<SearchParamsDiaryList>({
     keywords: [],
     pageNo: 1,
     pageSize: 150, // 单页请求条数
@@ -72,7 +72,7 @@ const params: Ref<SearchParamsDiaryList> = ref({
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
 })
-const diaries:Ref<DiaryEntity[]> = ref([])
+const diaries = ref<Array<DiaryEntity>>([])
 
 onMounted(()=>{
     document.title = '日记' // 变更标题

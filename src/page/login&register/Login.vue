@@ -50,7 +50,7 @@ import billApi from "../../api/billApi.ts";
 import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore()
-import {computed, onMounted, Ref, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
@@ -69,7 +69,7 @@ const email = ref('')
 const password = ref('')
 const loginLabel = ref('登录')
 const isShowDemoAccount = projectConfig.isShowDemoAccount
-const avatarLink: Ref<string | null> = ref(null)
+const avatarLink = ref<string | null>(null)
 
 
 watch(email, newValue => {
