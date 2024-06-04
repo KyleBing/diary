@@ -650,7 +650,10 @@ function getDiary(diaryId: number) {
         })
 }
 function saveDiary() {
-    if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
+    if (storeProject.isHideContent) {
+        popMessage('warning', '请退出当前隐藏模式，再进行保存操作', ()=>{}, 2)
+        return
+    } else if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
         popMessage('warning', '身处温度填写错误，应为 23.45 这样', ()=>{}, 2)
         return
     } else if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
