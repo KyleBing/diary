@@ -19,7 +19,8 @@
                     </div>
 
                     <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
-                    <div class="btn btn-active" @click="getBillKeys">获取最新账单类目</div>
+                    <div class="btn btn-active mb-2" @click="getBillKeys">获取最新账单类目</div>
+                    <div class="btn btn-active mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</div>
                 </div>
 
 
@@ -39,7 +40,7 @@
 import billApi from "../../api/billApi.ts"
 import Loading from "../../components/Loading.vue"
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
-import {EntityBillMonth} from "@/page/bill/Bill.ts";
+import {EntityBillItem, EntityBillMonth} from "@/page/bill/Bill.ts";
 
 import {popMessage, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
@@ -93,6 +94,33 @@ function getBillData() {
             popMessage('warning', err.message)
             isLoading.value = false
         })
+}
+
+
+/**
+ * 临时隐藏收入条目
+ */
+const isShowSalaryButton = ref(true)
+function hideBigIncome(){
+    billYearData.value.forEach(monthData => {
+        let salaryAmountMonth = 0 // 工资收入总合
+        monthData.days.forEach(dayItem => {
+            // 带有工资的账单条目
+            let salaryArray: Array<EntityBillItem> = dayItem.items.filter(item => item.item.indexOf('工资') > 1)
+            // 获取工资收入条目总合：日
+            let salaryAmountDay = salaryArray.reduce((sum,nextItem) => sum + nextItem.price, 0)
+            // 过滤工资条目
+            dayItem.items = dayItem.items.filter(item => item.item.indexOf('工资') < 0)
+            // 日收入
+            dayItem.sumIncome = dayItem.sumIncome - salaryAmountDay
+            // 汇总到月收入总合上，供外层月份数据使用
+            salaryAmountMonth = salaryAmountMonth + salaryAmountDay
+        })
+        // 月收入
+        monthData.sumIncome = monthData.sumIncome - salaryAmountMonth
+        monthData.sum = monthData.sumIncome - salaryAmountMonth
+    })
+    isShowSalaryButton.value = false
 }
 
 
