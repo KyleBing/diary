@@ -71,10 +71,10 @@ $toast-border-color: $bg-menu;
   z-index: 1000;
   position: fixed;
   top: 100px;
-  width: 300px;
+  min-width: 300px;
   transform: translateX(-50%);
   left: 50%;
-  padding: 20px 0;
+  padding: 20px 30px;
   text-align: center;
   //background-color: $color-main;
   @include backdrop-filter(blur(20px) saturate(180%));
@@ -86,7 +86,7 @@ $toast-border-color: $bg-menu;
     font-size: $fz-label;
   }
   &-default { background-color: transparentize(white,0.2); }
-  &-warning { background-color: transparentize($color-main,0.2); }
+  &-warning { background-color: transparentize($orange,0.2); }
   &-success { background-color: transparentize($green,0.2); }
   &-danger  { background-color: transparentize($red,0.2); }
 }
