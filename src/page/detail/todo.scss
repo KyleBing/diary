@@ -79,6 +79,14 @@ div.checkbox.checked{
   }
 }
 
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .todo-list-item{
+    padding-left: 0;
+  }
+}
+
+
 @media (prefers-color-scheme: dark) {
   .todo-list-item{
     &.done{
