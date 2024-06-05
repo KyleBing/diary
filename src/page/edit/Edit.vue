@@ -33,9 +33,18 @@
         <div class="diary-edit-meta">
             <!--  主参数区 -->
             <div class="editor-form">
-                <!-- 日期选择-->
                 <EditorVCalendarSelector @dayChange="dayHasChanged" v-model="diary.date"/>
 
+                <!-- 日期选择-->
+<!--                <DatePicker
+                    expanded
+                    locale="zh"
+                    v-model="diary.date"
+                    mode="dateTime"
+                    is24hr
+                    :attributes="attrs"
+                    :popover="popoverOptions"
+                />-->
 
                 <div class="editor-meta-switches">
                     <div class="editor-form-item">
@@ -131,7 +140,8 @@ import {
 } from "../list/Diary.ts";
 import {storeToRefs} from "pinia";
 import {BillKeyEntity} from "@/entity/BillKey.ts";
-import EditorVCalendarSelector from "@/page/edit/EditorVCalendarSelector.vue";
+
+import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
 
 const route = useRoute()
 const router = useRouter()
@@ -178,6 +188,26 @@ const requestData = ref<DiarySearchParams>({ // 请求本周日志的 requestDat
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
 })
+
+/**
+ * Date Picker
+ */
+import {DatePicker} from "v-calendar";
+import 'v-calendar/style.css';
+import EditorVCalendarSelector from "@/page/edit/EditorVCalendarSelector.vue";
+const popoverOptions = ref<PopoverOptions>({
+    visibility: 'click',
+    placement: "auto"
+})
+const attrs = ref([
+    {
+        key: 'today',
+        // highlight: true,
+        dot: true, // 点状
+        dates: new Date(),
+    },
+])
+
 
 /**
  * Bill Keys

@@ -2,7 +2,7 @@
     <div class="date-selector">
         <div class="date-set-item">
             <div class="button-date-change" @click="dateMove(-1)">
-                <div><</div>
+                <div>&lt;</div>
             </div>
             <DatePicker
                 locale="zh"
@@ -26,7 +26,7 @@
             </DatePicker>
 
             <div class="button-date-change" @click="dateMove(1)">
-                <div>></div>
+                <div>&gt;</div>
             </div>
         </div>
         <div class="date-meta">
@@ -48,16 +48,10 @@ import 'v-calendar/style.css';
 import {dateFormatter} from "@/utility.ts";
 import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
 
-const props = defineProps({
-    modelValue: {
-        type: Object,
-        default: new Date()
-    }
-})
-
 const emit = defineEmits(["dayChange"])
-const modelDate = defineModel<Date>()  // v-model value
-
+const modelDate = defineModel<Date>({ // v-model value
+    required: true
+})
 
 
 // 显示时获取当前时间的农历值
@@ -74,7 +68,7 @@ onMounted(()=>{
  */
 const lunarObject = ref<LunarDateEntity>({})
 const popoverOptions = ref<PopoverOptions>({
-    visibility: 'hover',
+    visibility: 'click',
     placement: "auto"
 })
 const attrs = ref([
@@ -91,13 +85,10 @@ function moveToday() {
     modelDate.value = new Date()
 }
 
-
 /**
  * Watches
  */
-watch(() => props.modelValue, newValue => {
-    modelDate.value = newValue
-})
+
 watch(modelDate, (newValue, oldValue) => {
     lunarObject.value = calendar.solar2lunar(
         newValue.getFullYear(),
