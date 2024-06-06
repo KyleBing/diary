@@ -1,10 +1,10 @@
 <template>
-    <div class="diary-list-group-container" :style="`min-height: ${insets.heightPanel}px`">
+    <div class="diary-list-group-container" :style="`min-height: ${storeProject.insets.heightPanel}px`">
         <transition
             enter-active-class="animated-fast slideInDown"
             leave-active-class="animated-fast slideOutUp"
         >
-            <div class="search-bar" v-if="isShowSearchBar">
+            <div class="search-bar" v-if="storeProject.isShowSearchBar">
                 <form @submit.prevent="search">
                     <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
                     <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
@@ -14,10 +14,10 @@
 
         <div class="diary-list-hole">
             <div class="diary-list-hole-col"
-                 :style="`width:${((insets.windowsWidth - 3) / 10)}px`"
+                 :style="`width:${((storeProject.insets.windowsWidth - 3) / 10)}px`"
                  v-for="colIndex in 10" :key="colIndex"
             >
-                <diary-list-hole-item v-for="diary in diaries.filter((item, index) => index % 10 === colIndex - 1)" :key="diary.id" :diary="diary"/>
+                <diary-list-hole-item v-for="diary in diaries.filter((_, index) => index % 10 === colIndex - 1)" :key="diary.id" :diary="diary"/>
             </div>
 
         </div>
@@ -79,7 +79,7 @@ onMounted(()=>{
     // init
     keywordShow.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
     nextTick(()=>{
-        addScrollEvent()
+        // addScrollEvent()
     })
     storeProject.isShowSearchBar = !!keywordShow.value
 
@@ -87,7 +87,7 @@ onMounted(()=>{
 })
 
 
-watch(storeProject.isShowSearchBar, newValue => {
+watch(()=> storeProject.isShowSearchBar, newValue => {
     if (newValue){
         nextTick(() => {
             document.querySelector('#keyword').focus()
@@ -103,54 +103,9 @@ watch(route, newValue => {
 watch(keywordShow, newValue => {
     storeProject.keywords = newValue.split((' '))
 })
-watch(storeProject.isListNeedBeReload, ()=> {
+watch(() => storeProject.isListNeedBeReload, ()=> {
     if (storeProject.isListNeedBeReload) {
         reload()
-    }
-})
-watch(storeProject.listOperation, ({type, diary, id}) => {
-    // console.log('list operation: ', type,diary,id)
-    switch (type) {
-        case 'add':
-            let posInsert = 0
-            for (let i = 0; i < diaries.value.length; i++) {
-                let currentDiary = diaries.value[i]
-                if (diary.date > currentDiary.date) {
-                    posInsert = i
-                    break
-                }
-            }
-            diaries.value.splice(posInsert, 0, diary)
-            break
-        case 'delete':
-            diaries.value.map((item, index) => {
-                if (item.id === id) {
-                    diaries.value.splice(index, 1)
-                    if (diaries.value[index]) {
-                        // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
-                        router.push({
-                            name: 'Detail',
-                            params: {
-                                id: diaries.value[index].id
-                            }
-                        })
-                    } else {
-                        // 如果没有，就跳转到主页
-                        router.push({
-                            name: 'Index'
-                        })
-                    }
-                }
-            })
-            break
-        case 'change':
-            // TODO: 修改日记的日期时排序调整位置
-            diaries.value.map((item, index) => {
-                if (Number(item.id) === Number(diary.id)) {
-                    diaries.value.splice(index, 1, diary)
-                }
-            })
-            break
     }
 })
 

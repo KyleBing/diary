@@ -40,6 +40,7 @@ const routes: RouteRecordRaw[] = [
     {
         name: 'Hole',
         path: '/hole',
+        redirect: '/hole/list',
         component: Hole ,
         children: [
             {name: 'ListHole'   , path: 'list'      ,        component: ListHole}, // mobile

@@ -46,7 +46,7 @@ onMounted(()=> {
     // 从本地配置文件中载入配置
     storeProject.INIT_PROJECT_CONFIG()
 
-    window.onresize = () => {
+    window.addEventListener('resize', () => {
         storeProject.insets = {
             windowsHeight: document.documentElement.clientHeight,
             windowsWidth: document.documentElement.clientWidth,
@@ -61,7 +61,7 @@ onMounted(()=> {
                 })
             }
         }
-    }
+    })
 })
 
 function getCategoryAll() {
