@@ -45,6 +45,14 @@ interface DiaryEntityDatabase{
     dateString? : string
 }
 
+interface DiaryEntityHole extends DiaryEntityDatabase{
+    position: {
+        top: number,
+        left: number,
+        col: number
+    }
+}
+
 
 interface DiarySearchParams {
     keywords: Array<string> | string, // 关键字 JSON string 后的内容 : string[]
@@ -98,5 +106,6 @@ export {
     type DiarySubmitEntity,
     type DiaryEntityDatabase,
     type ResponseDiaryAdd,
+    type DiaryEntityHole,
     EnumWeather
 }

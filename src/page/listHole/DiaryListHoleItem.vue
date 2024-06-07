@@ -1,44 +1,53 @@
 <template>
-    <router-link ref="listItem"
-                 :class="['diary-list-item', {active: props.isActive}]"
-                 :to="`/detail/${props.diary.id}`"
-                 :style="backgroundColor"
+    <div class="diary-list-hole-item"
+         :data-col="props.diary.position.col"
+         :style="`
+         left: ${props.diary.position.left}px;
+         top: ${props.diary.position.top}px;
+         width: ${props.width}px;
+         ${borderColor}
+         `"
     >
-        <div class="diary-list-hole-item">
-            <div class="title">{{props.diary.title}}</div>
-            <div class="content markdown small" v-if="props.diary.is_markdown === 1" v-html="contentMarkDownHtml"></div>
-            <div class="content" v-else v-html="props.diary.contentHtml"></div>
-            <div class="meta" :style="backgroundColor">
-                <div class="date">{{props.diary.dateString}}</div>
-                <div class="week">{{props.diary.weekday}}</div>
-                <div class="category">{{props.diary.categoryString}}</div>
-            </div>
-            <div :style="backgroundColor" class="marker left"></div>
-            <div :style="backgroundColor" class="marker right"></div>
-            <div :style="backgroundColor" class="marker bottom"></div>
+        <router-link
+            :to="`/detail/${props.diary.id}`"
+            :style="backgroundColor"
+        >
+            <div class="title">{{ props.diary.title }}</div>
+        </router-link>
+        <div class="content markdown small" v-if="props.diary.is_markdown === 1" v-html="contentMarkDownHtml"></div>
+        <div class="content" v-else v-html="props.diary.contentHtml"></div>
+        <div class="meta" :style="backgroundColor">
+            <div class="date">{{ props.diary.dateString }}</div>
+            <div class="week">{{ props.diary.weekday }}</div>
+            <div class="category">{{ props.diary.categoryString }}</div>
         </div>
-    </router-link>
+        <div :style="backgroundColor" class="marker left"></div>
+        <div :style="backgroundColor" class="marker right"></div>
+        <div :style="backgroundColor" class="marker bottom"></div>
+    </div>
 </template>
 
 <script lang="ts" setup>
 import {marked} from "marked";
 import {computed} from "vue";
 import {useProjectStore} from "../../pinia";
+import {DiaryEntityHole} from "@/page/list/Diary.ts";
 const storeProject = useProjectStore()
 
-const props = defineProps({
-    isActive: {
-        type: Boolean,
-        default: false
-    },
-    diary: Object
+const props = withDefaults(defineProps<{
+    width: number,
+    // isActive: boolean,
+    diary: DiaryEntityHole
+}>(), {
+    width: 200,
+    // isActive: false
 })
 
 const backgroundColor = computed<string>(() => {
     return `background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
 })
-const textColor = computed<string>(() => {
-    return `color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
+const borderColor = computed<string>(() => {
+    return `border-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
 })
 const contentMarkDownHtml = computed<string>(() => {
     return marked.parse(props.diary.content)
@@ -52,18 +61,19 @@ const contentMarkDownHtml = computed<string>(() => {
 $animate-width: 5px;
 
 .diary-list-hole-item{
-    position: relative;
+    position: absolute;
     margin-right: 1px;
     margin-bottom: 1px;
     color: $text-content;
     padding: 5px 10px;
     font-size: $fz-list-content;
     background-color: $bg-light;
+    border: 1px solid $color-border;
 
     .title{
         padding: 2px;
         font-weight: bold;
-        //color: $text-title;
+        color: $text-title;
     }
     .content{
         max-height: 300px;

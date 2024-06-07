@@ -13,13 +13,10 @@
         </transition>
 
         <div class="diary-list-hole">
-            <div class="diary-list-hole-col"
-                 :style="`width:${((storeProject.insets.windowsWidth - 3) / 10)}px`"
-                 v-for="colIndex in 10" :key="colIndex"
-            >
-                <diary-list-hole-item v-for="diary in diaries.filter((_, index) => index % 10 === colIndex - 1)" :key="diary.id" :diary="diary"/>
-            </div>
-
+            <diary-list-hole-item
+                v-for="diary in diariesShow" :key="diary.id"
+                :width="colWidth"
+                :diary="diary"/>
         </div>
 
         <div class="pt-4 pb-4" v-if="isLoading">
@@ -46,7 +43,8 @@ const storeProject = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntity} from "../list/Diary.ts";
+import {DiaryEntity, DiaryEntityDatabase, DiaryEntityHole} from "../list/Diary.ts";
+import {last} from "v-calendar/dist/types/src/utils/helpers";
 
 const route = useRoute()
 const router = useRouter()
@@ -67,12 +65,13 @@ interface SearchParamsDiaryList {
 const params = ref<SearchParamsDiaryList>({
     keywords: [],
     pageNo: 1,
-    pageSize: 150, // 单页请求条数
+    pageSize: 30, // 单页请求条数
     categories: [],
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
 })
-const diaries = ref<Array<DiaryEntity>>([])
+const diaries = ref<Array<DiaryEntityDatabase>>([])
+const diariesShow = ref<Array<DiaryEntityHole>>([])
 
 onMounted(()=>{
     document.title = '日记' // 变更标题
@@ -149,6 +148,8 @@ function getDiaries(params: SearchParamsDiaryList) {
                 return diary
             })
 
+            renderingHoleList(newDiariesList, 0)
+
             // page operation
             if (res.data.length === params.pageSize) {
                 isHasMore.value = true
@@ -166,6 +167,124 @@ function getDiaries(params: SearchParamsDiaryList) {
             isLoading.value = false
         })
 }
+
+
+/**
+ * 列表渲染
+ */
+const colCount = 10 // 列数
+let lastDiaryIndex = 1    // 最后一个日记的 index
+let lastTopPos = 0  // 最后一个日记的末尾位置： 距离 TOP
+let lastCol = 0  // 下次该放置的 col index，哪一列
+let colWidth = storeProject.insets.windowsWidth / colCount  // 每个元素的宽度
+
+function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number){
+    // 1. 转成 DiaryEntityHole 对象
+    let diary = newDiaries[index] as DiaryEntityHole
+    diary.position = {
+        top:  lastTopPos,
+        left: lastCol * colWidth,
+        col: lastCol
+    }
+    // 2. 添加到展示的列表中
+    diariesShow.value.push(diary)
+
+    nextTick(()=>{
+        // 3. 待其渲染完成后再去处理下一个
+        let domItems = Array.from((document.querySelector('.diary-list-hole') as HTMLDivElement).children) // Elements 转成数组
+
+        // 3.1 第一排，前 colCount 个是不需要知道位置的，因为 top 都为 0
+        if (lastDiaryIndex < colCount){
+            lastCol = lastCol + 1
+            lastTopPos = 0
+        }
+        // 3.2 第二排第一个
+        else if (lastDiaryIndex === colCount) {
+            // 获取前 colCount 个元素的高度数组，合成一个 Map [number, number]
+            let domItemsHeightColArray = domItems.slice(0,10)
+                .map(item => {
+                    let col = Number(item.getAttribute('data-col'))
+                    let height = (item as HTMLDivElement).offsetHeight
+                    return {
+                        height,
+                        col
+                    }
+                })
+            // 排序
+            domItemsHeightColArray
+                .sort((a,b) => a.col - b.col) //  让 col 从小到大
+                .sort((a,b) => a.height - b.height) // 让 height 从小到大
+
+            lastTopPos = domItemsHeightColArray[0].height
+            lastCol = domItemsHeightColArray[0].col
+            console.log('11:', lastTopPos, lastCol)
+
+        }
+        // 3.3 以后其它的
+        else {
+            // 取后 colCount 个元素的 lastTopPos
+            let domItemsHeightColArray = domItems
+                .slice(domItems.length - colCount)
+                .map(item => {
+                    let dom = item as HTMLDivElement
+                    let col = Number(dom.getAttribute('data-col'))
+                    let posTop = dom.offsetTop + dom.offsetHeight
+                    return {
+                        posTop,
+                        col
+                    }
+                })
+
+            // 使唯一：每个 col 只有一个最大的值存在
+            let everyColLastPosMap = new Map()
+
+            domItemsHeightColArray.forEach(item => {
+                // 获取已经存在的 lastPos
+                let existColPos = everyColLastPosMap.get(item.col)
+                if (existColPos === undefined){
+                    everyColLastPosMap.set(item.col, item.posTop)
+                } else {
+                    if (item.posTop >= existColPos){ // 如果有更大的，使用最大的
+                        everyColLastPosMap.set(item.col, item.posTop)
+                    }
+                }
+            })
+
+            // 取高度最值作为 lastTopPos 的初始值
+            lastTopPos = Math.min(...everyColLastPosMap.values())
+
+            let everyColLastPosArray: Array<{posTop: number, col: number}> = []
+            everyColLastPosMap.forEach((value, key) => {
+                everyColLastPosArray.push({
+                    posTop: value,
+                    col: key
+                })
+            })
+            everyColLastPosArray.sort((a,b) => b.col - a.col)
+
+            lastCol = everyColLastPosArray.filter(item => item.posTop === lastTopPos)[0].col
+            console.log(`${lastDiaryIndex}: `, lastTopPos, lastCol,  everyColLastPosArray, domItemsHeightColArray)
+        }
+
+        // 4. index + 1
+        index = index + 1
+        lastDiaryIndex = lastDiaryIndex + 1
+
+        // 5. 退出递归条件
+        if (index < newDiaries.length){
+            setTimeout(()=>{
+                renderingHoleList(newDiaries, index)
+            }, 100)
+            // renderingHoleList(newDiaries, index)
+
+        } else {
+
+        }
+    })
+}
+
+
+
 function addScrollEvent() {
     document.querySelector('.diary-list-container').addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
         /* 判断是否加载内容*/
@@ -195,15 +314,8 @@ function addScrollEvent() {
 <style lang="scss" scoped>
 
 .diary-list-hole{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-flow: row wrap;
+    position: relative;
 }
-.diary-list-hole-col {
-    width: 200px;
-    display: flex;
-    flex-flow: column nowrap;
-}
+
 
 </style>
