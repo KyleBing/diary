@@ -47,7 +47,10 @@ const backgroundColor = computed<string>(() => {
     return `background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
 })
 const borderColor = computed<string>(() => {
-    return `border-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
+    return `
+        border-bottom-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+        border-right-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+    `
 })
 const contentMarkDownHtml = computed<string>(() => {
     return marked.parse(props.diary.content)
@@ -68,7 +71,7 @@ $animate-width: 5px;
     padding: 5px 10px;
     font-size: $fz-list-content;
     background-color: $bg-light;
-    border: 1px solid $color-border;
+    border: 1px solid transparent;
 
     .title{
         padding: 2px;
