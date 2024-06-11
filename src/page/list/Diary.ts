@@ -1,3 +1,5 @@
+import {DateUtilityObject} from "@/utility.ts";
+
 interface DiaryEntity {
     id: number
     title: string,
@@ -34,7 +36,7 @@ interface DiaryEntityDatabase{
     billData?: [],
 
     // detail
-    dateObj?: any,
+    dateObj?: DateUtilityObject,
 
     // share
     categoryString? : string,

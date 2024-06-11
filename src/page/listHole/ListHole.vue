@@ -1,23 +1,21 @@
 <template>
-    <div class="diary-list-group-container" :style="`min-height: ${storeProject.insets.heightPanel}px`">
-        <transition
-            enter-active-class="animated-fast slideInDown"
-            leave-active-class="animated-fast slideOutUp"
-        >
-            <div class="search-bar" v-if="storeProject.isShowSearchBar">
-                <form @submit.prevent="search">
-                    <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
-                    <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
-                </form>
-            </div>
-        </transition>
-
-        <div class="diary-list-hole">
-            <diary-list-hole-item
-                v-for="diary in diariesShow" :key="diary.id"
-                :width="colWidth"
-                :diary="diary"/>
+    <transition
+        enter-active-class="animated-fast slideInDown"
+        leave-active-class="animated-fast slideOutUp"
+    >
+        <div class="search-bar" v-if="storeProject.isShowSearchBar">
+            <form @submit.prevent="search">
+                <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
+                <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
+            </form>
         </div>
+    </transition>
+
+    <div class="diary-list-hole" :style="`width: ${storeProject.insets.windowsWidth}px; height: ${storeProject.insets.heightPanel}px`">
+        <diary-list-hole-item
+            v-for="diary in diariesShow" :key="diary.id"
+            :width="colWidth"
+            :diary="diary"/>
 
         <div class="pt-4 pb-4" v-if="isLoading">
             <Loading :loading="isLoading"/>
@@ -43,8 +41,7 @@ const storeProject = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntity, DiaryEntityDatabase, DiaryEntityHole} from "../list/Diary.ts";
-import {last} from "v-calendar/dist/types/src/utils/helpers";
+import {DiaryEntityDatabase, DiaryEntityHole} from "../list/Diary.ts";
 
 const route = useRoute()
 const router = useRouter()
@@ -53,7 +50,6 @@ const isHasMore = ref(true)
 const isLoading = ref(true)
 
 const keywordShow = ref('') // 关键词
-const showDiaryList = ref(true)
 interface SearchParamsDiaryList {
     keywords: string[],
     pageNo: number,
@@ -186,7 +182,7 @@ function getDiaries(params: SearchParamsDiaryList) {
  * 列表渲染
  */
 const diariesShow = ref<Array<DiaryEntityHole>>([])  // 列表展示的日记
-const loadGap = 20 // 卡片加载间隔时长，单位 ms
+const loadGap = 10 // 卡片加载间隔时长，单位 ms
 const isShowLoadProcess = true // 是否显示卡片加载的过程
 
 
@@ -292,7 +288,6 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
 function addScrollEvent() {
     (document.querySelector('.diary-list-hole') as HTMLDivElement)
         .addEventListener('scroll', event => {
-            console.log(event)
             // 判断是否加载内容
             function needLoadContent() {
                 let lastNode = document.querySelector('.diary-list-hole > div:last-child') as HTMLDivElement
@@ -318,8 +313,11 @@ function addScrollEvent() {
 </script>
 
 <style lang="scss" scoped>
+@import "../../scss/plugin";
 
 .diary-list-hole{
+    width: 100%;
+    overflow-x: hidden;
     position: relative;
 }
 

@@ -17,7 +17,7 @@
         <div class="content markdown small" v-if="props.diary.is_markdown === 1" v-html="contentMarkDownHtml"></div>
         <div class="content" v-else v-html="props.diary.contentHtml"></div>
         <div class="meta" :style="backgroundColor">
-            <div class="date">{{ props.diary.dateString }}</div>
+            <div class="date">{{ props.diary.dateObj?.dateFull}}</div>
             <div class="week">{{ props.diary.weekday }}</div>
             <div class="category">{{ props.diary.categoryString }}</div>
         </div>
@@ -86,7 +86,7 @@ $animate-width: 5px;
     .marker{
         background-color: $green;
         position: absolute;
-        z-index: 999;
+        z-index: $z-hole;
         opacity: 0;
         @include transition(all 0.3s);
         &.left  { @include border-radius($radius-pc 0 0 $radius-pc ); left: 0  ; top:0 ; bottom: 0; width: $animate-width}
@@ -94,7 +94,7 @@ $animate-width: 5px;
         &.bottom{ @include border-radius(0 0 $radius-pc $radius-pc ); bottom: 0; left:0; right:0  ; height: $animate-width}
     }
     .meta{
-        z-index: 999;
+        z-index: $z-hole;
         @include border-radius($radius-pc $radius-pc 0 0 );
         padding: 5px;
         background-color: $green;
