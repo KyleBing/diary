@@ -224,29 +224,7 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
             lastCol = lastCol + 1
             lastTopPos = 0
         }
-        // 3.2 第二排第一个
-        else if (lastDiaryIndex === colCount) {
-            // 获取前 colCount 个元素的高度数组，合成一个 Map [number, number]
-            let domItemsHeightColArray = domItems.slice(0,10)
-                .map(item => {
-                    let col = Number(item.getAttribute('data-col'))
-                    let height = (item as HTMLDivElement).offsetHeight
-                    return {
-                        height,
-                        col
-                    }
-                })
-            // 排序
-            domItemsHeightColArray
-                .sort((a,b) => a.col - b.col) //  让 col 从小到大
-                .sort((a,b) => a.height - b.height) // 让 height 从小到大
-
-            lastTopPos = domItemsHeightColArray[0].height
-            lastCol = domItemsHeightColArray[0].col
-            console.log('11:', lastTopPos, lastCol)
-
-        }
-        // 3.3 以后其它的
+        // 3.2 以后其它的
         else {
             // 取后 colCount 个元素的 lastTopPos
             let countInDomItems = domItems.length > 50? domItems.slice(domItems.length - 50):domItems
