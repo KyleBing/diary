@@ -151,6 +151,7 @@ function getDiaries(params: SearchParamsDiaryList) {
                 if (diary.content) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
+                diary.dateObj = dateProcess(diary.date)
                 diary.categoryString = storeProject.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.dateString = dateProcess(diary.date).date
@@ -318,6 +319,7 @@ function addScrollEvent() {
 .diary-list-hole{
     width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 

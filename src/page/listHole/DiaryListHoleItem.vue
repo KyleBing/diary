@@ -94,6 +94,7 @@ $animate-width: 5px;
         &.bottom{ @include border-radius(0 0 $radius-pc $radius-pc ); bottom: 0; left:0; right:0  ; height: $animate-width}
     }
     .meta{
+        font-size: $fz-small;
         z-index: $z-hole;
         @include border-radius($radius-pc $radius-pc 0 0 );
         padding: 5px;
@@ -107,7 +108,7 @@ $animate-width: 5px;
         height: 30px;
         opacity: 0;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-around;
         line-height: 20px;
         > *{
             margin-right: 5px;
@@ -117,6 +118,7 @@ $animate-width: 5px;
     &:hover{
         background-color: white;
         .meta{
+            z-index: $z-hole-hover;
             opacity: 1;
             top: -30px;
             @include transition(all 0.1s);
