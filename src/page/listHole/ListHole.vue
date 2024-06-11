@@ -186,7 +186,7 @@ function getDiaries(params: SearchParamsDiaryList) {
  * 列表渲染
  */
 const diariesShow = ref<Array<DiaryEntityHole>>([])  // 列表展示的日记
-const loadGap = 100 // 卡片加载间隔时长，单位 ms
+const loadGap = 20 // 卡片加载间隔时长，单位 ms
 const isShowLoadProcess = true // 是否显示卡片加载的过程
 
 
@@ -220,7 +220,7 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
         let domItems = Array.from((document.querySelector('.diary-list-hole') as HTMLDivElement).children) // Elements 转成数组
 
         // 3.1 第一排，前 colCount 个是不需要知道位置的，因为 top 都为 0
-        if (lastDiaryIndex < colCount){
+        if (lastDiaryIndex < colCount - 1){
             lastCol = lastCol + 1
             lastTopPos = 0
         }
