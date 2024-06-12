@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
 import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
-import {getDiaryConfigFromLocalStorage, getAuthorization, setDiaryConfig} from "../utility.ts";
+import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity, DiaryListOperation} from "../page/list/Diary.ts";
 import {CategoryEntity} from "../entity/Category.ts";
 import {StatisticYearEntity} from "../entity/StatisticYear.ts";
+import {EnumListStyle} from "@/listStyle.ts";
 
 console.log('pinia is loaded, inside pinia file')
 
@@ -31,10 +32,12 @@ export const useProjectStore = defineStore('projectStore', {
 
         currentDiary: {} as DiaryEntity,                // 当前日记
 
+        listStyle: EnumListStyle.list ,                 // 日记列表是否显示为全部内容
+
+
         isDiaryNeedToBeSaved: false ,                   // 日记需要被存储
         isDiaryNeedToBeRecovered: false ,               // 取消当前编辑的日记
         isDiaryEditorContentHasChanged: false ,         // 日记内容已经变化
-        isDiaryListShowedInFullStyle: false ,           // 日记列表是否显示为全部内容
         isListNeedBeReload: false ,                     // 是否刷新列表
         isSavingDiary: false ,                          // 是否正在保存日记
         isMenuShowed: false ,                           // 显示菜单

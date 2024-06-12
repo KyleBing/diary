@@ -25,8 +25,9 @@
                 <div v-show="!storeProject.isMenuShowed"
                      v-if="!storeProject.isInMobileMode"
                      @click="toggleListStyle">
-                    <TabIcon v-if="!storeProject.isDiaryListShowedInFullStyle" alt="列表简洁"/>
-                    <TabIcon v-else alt="列表详情"/>
+                    <TabIcon v-if="storeProject.listStyle === EnumListStyle.list" alt="列表简洁"/>
+                    <TabIcon v-if="storeProject.listStyle === EnumListStyle.detail" alt="列表详情"/>
+                    <TabIcon v-if="storeProject.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
                 </div>
                 <div v-show="!storeProject.isMenuShowed"
                      v-if="!storeProject.isInMobileMode"
@@ -117,7 +118,7 @@
                 <img :src="storeProject.editLogoImg"
                      v-if="route.name === 'Edit' || route.name === 'EditNew'"
                      alt="LOGO">
-                <a v-else-if="storeProject.isDiaryListShowedInFullStyle">
+                <a v-else-if="storeProject.listStyle === EnumListStyle.list">
                     <img :src="SVG_ICONS.logo_icons.logo_content" alt="日记">
                 </a>
                 <a v-else>
@@ -164,6 +165,7 @@ import {useProjectStore} from "../../pinia";
 const storeProject = useProjectStore()
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
+import {EnumListStyle} from "@/listStyle.ts";
 
 const route = useRoute()
 const router = useRouter()
@@ -254,8 +256,24 @@ function menuClose() {
     storeProject.isMenuShowed = false
 }
 function toggleListStyle() {
-    if (!storeProject.isMenuShowed) {
-        storeProject.isDiaryListShowedInFullStyle = !storeProject.isDiaryListShowedInFullStyle
+    switch (storeProject.listStyle){
+        case EnumListStyle.list:
+            storeProject.listStyle = EnumListStyle.detail
+
+            break;
+        case EnumListStyle.detail:
+            storeProject.listStyle = EnumListStyle.waterfall
+            router.push({
+                name: 'ListHole'
+            })
+            break;
+        case EnumListStyle.waterfall:
+            storeProject.listStyle = EnumListStyle.list
+            router.push({
+                name: 'List'
+            })
+            break;
+
     }
 }
 

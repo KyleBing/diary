@@ -51,6 +51,7 @@ const iconMap = computed(() => {
     iconMap.set('内容显示', ICONS.tab_icons.contentShow)
     iconMap.set('列表简洁', ICONS.tab_icons.listSimple)
     iconMap.set('列表详情', ICONS.tab_icons.listDetail)
+    iconMap.set('列表瀑布', ICONS.tab_icons.listWaterfall)
 
     iconMap.set('黑色-添加', ICONS.tab_icons_black.add)
     iconMap.set('黑色-确定', ICONS.tab_icons_black.done)
@@ -72,6 +73,7 @@ const iconMap = computed(() => {
     iconMap.set('黑色-内容显示', ICONS.tab_icons_black.contentShow)
     iconMap.set('黑色-列表简洁', ICONS.tab_icons_black.listSimple)
     iconMap.set('黑色-列表详情', ICONS.tab_icons_black.listDetail)
+    iconMap.set('黑色-列表瀑布', ICONS.tab_icons_black.listWaterfall)
     return iconMap
 })
 </script>

@@ -42,6 +42,7 @@ import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntityDatabase, DiaryEntityHole} from "../list/Diary.ts";
+import {EnumListStyle} from "@/listStyle.ts";
 
 const route = useRoute()
 const router = useRouter()
@@ -61,7 +62,7 @@ interface SearchParamsDiaryList {
 const params = ref<SearchParamsDiaryList>({
     keywords: [],
     pageNo: 1,
-    pageSize: 150, // 单页请求条数
+    pageSize: 100, // 单页请求条数
     categories: [],
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
@@ -74,14 +75,19 @@ const diaries = ref<Array<DiaryEntityDatabase>>([])  // 实际日记
 
 onMounted(()=>{
     document.title = '日记' // 变更标题
+
     // init
     keywordShow.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
     nextTick(()=>{
+        // 页面刷新的时候，当前页肯定是 waterfall 这个页面
+        storeProject.listStyle = EnumListStyle.waterfall
+
         addScrollEvent()
     })
     storeProject.isShowSearchBar = !!keywordShow.value
 
-    reload() // 载入日记列表
+    // 载入日记列表
+    reload()
 })
 
 
@@ -183,7 +189,7 @@ function getDiaries(params: SearchParamsDiaryList) {
  * 列表渲染
  */
 const diariesShow = ref<Array<DiaryEntityHole>>([])  // 列表展示的日记
-const loadGap = 10 // 卡片加载间隔时长，单位 ms
+const loadGap = 30 // 卡片加载间隔时长，单位 ms
 const isShowLoadProcess = true // 是否显示卡片加载的过程
 
 

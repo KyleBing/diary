@@ -12,14 +12,14 @@
             </div>
         </transition>
 
-        <div class="diary-list-group" v-if="!storeProject.isDiaryListShowedInFullStyle">
+        <div class="diary-list-group" v-if="storeProject.listStyle === EnumListStyle.list">
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="" :title="item.date"/>
                 <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
             </template>
         </div>
 
-        <div class="diary-list-group" v-else>
+        <div class="diary-list-group" v-if="storeProject.listStyle === EnumListStyle.detail">
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItemLong v-else :diary="item"/>
@@ -48,15 +48,16 @@ import diaryApi from "../../api/diaryApi.ts"
 import ListHeader from "../../page/list/ListHeader.vue"
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 
-import {dateProcess, dateFormatter} from "@/utility.ts";
+import {dateFormatter, dateProcess} from "@/utility.ts";
 
 import {useProjectStore} from "@/pinia"
-
-const storeProject = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {DiaryEntity, DiaryEntityDatabase, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
 import {storeToRefs} from "pinia";
+import {EnumListStyle} from "@/listStyle.ts";
+
+const storeProject = useProjectStore()
 const router = useRouter()
 const route = useRoute()
 

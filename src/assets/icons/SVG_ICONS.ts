@@ -19,6 +19,7 @@ import tab_eye_close from "./tab/eye_close.svg?url"
 import tab_eye_open from "./tab/eye_open.svg?url"
 import tab_list_simple from "./tab/list_simple.svg?url"
 import tab_list_detail from "./tab/list_detail.svg?url"
+import tab_list_waterfall from "./tab/waterfall.svg?url"
 import tab_statistics from "./tab/statistics.svg?url"
 import tab_key from "./tab/key.svg?url"
 import tab_folder from "./tab/folder.svg?url"
@@ -48,6 +49,7 @@ import tab_eye_close_black from "./tab/eye_close_black.svg?url"
 import tab_eye_open_black from "./tab/eye_open_black.svg?url"
 import tab_list_simple_black from "./tab/list_simple_black.svg?url"
 import tab_list_detail_black from "./tab/list_detail_black.svg?url"
+import tab_list_waterfall_black from "./tab/waterfall_black.svg?url"
 import tab_statistics_black from "./tab/statistics_black.svg?url"
 import tab_key_black from "./tab/key_black.svg?url"
 import tab_folder_black from "./tab/folder_black.svg?url"
@@ -174,6 +176,7 @@ export default {
         contentShow: tab_eye_open,
         listSimple: tab_list_simple,
         listDetail: tab_list_detail,
+        listWaterfall: tab_list_waterfall,
         statistics: tab_statistics,
         key: tab_key,
         folder: tab_folder,
@@ -203,6 +206,7 @@ export default {
         contentShow: tab_eye_open_black,
         listSimple: tab_list_simple_black,
         listDetail: tab_list_detail_black,
+        listWaterfall: tab_list_waterfall_black,
         statistics: tab_statistics_black,
         key: tab_key_black,
         folder: tab_folder_black,
