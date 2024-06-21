@@ -214,6 +214,7 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
     }
     // 2. 添加到展示的列表中
     diariesShow.value.push(diary)
+    storeProject.waterFallItemCount = diariesShow.value.length  // 更新瀑布流日记数量
 
     nextTick(()=>{
         // 3. 待其渲染完成后再去处理下一个

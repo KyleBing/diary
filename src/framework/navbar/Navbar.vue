@@ -29,6 +29,8 @@
                     <TabIcon v-if="storeProject.listStyle === EnumListStyle.detail" alt="列表详情"/>
                     <TabIcon v-if="storeProject.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
                 </div>
+
+                <div class="waterfall-count" v-if="storeProject.listStyle === EnumListStyle.waterfall">{{storeProject.waterFallItemCount}}</div>
                 <div v-show="!storeProject.isMenuShowed"
                      v-if="!storeProject.isInMobileMode"
                      @click="toggleSearchbar">

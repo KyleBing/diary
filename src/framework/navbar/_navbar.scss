@@ -13,6 +13,16 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+  .waterfall-count{
+    width: 50px;
+    font-family: "JetBrainsMonoDiary", sans-serif;
+    text-align: center;
+    padding: 0 5px;
+    font-size: $fz-label;
+    height: $height-navbar;
+    line-height: $height-navbar;
+    color: $text-menu-second;
+  }
 
   .brand{
     left: 50%;

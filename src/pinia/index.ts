@@ -33,6 +33,7 @@ export const useProjectStore = defineStore('projectStore', {
         currentDiary: {} as DiaryEntity,                // 当前日记
 
         listStyle: EnumListStyle.list ,                 // 日记列表是否显示为全部内容
+        waterFallItemCount: 0, // 瀑布流展示的日记数量
 
 
         isDiaryNeedToBeSaved: false ,                   // 日记需要被存储
