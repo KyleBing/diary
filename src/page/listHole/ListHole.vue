@@ -5,8 +5,8 @@
     >
         <div class="search-bar" v-if="storeProject.isShowSearchBar">
             <form @submit.prevent="search">
-                <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
-                <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
+                <input id="keyword" type="text" placeholder="搜索内容" v-model="isShowKeyword">
+                <span v-show="isShowKeyword.length > 0" @click="clearKeyword" class="clear">✕</span>
             </form>
         </div>
     </transition>
@@ -41,7 +41,7 @@ const storeProject = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntityDatabase, DiaryEntityHole} from "../list/Diary.ts";
+import {DiaryEntityDatabase, DiaryEntityHole, DiarySearchParams} from "../list/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 
 const route = useRoute()
@@ -50,16 +50,9 @@ const router = useRouter()
 const isHasMore = ref(true)
 const isLoading = ref(true)
 
-const keywordShow = ref('') // 关键词
-interface SearchParamsDiaryList {
-    keywords: string[],
-    pageNo: number,
-    pageSize: number, // 单页请求条数
-    categories: string[],
-    filterShared: 0 | 1, // 1 是筛选，0 是不筛选
-    dateFilterString: string // 日记年月筛选
-}
-const params = ref<SearchParamsDiaryList>({
+const isShowKeyword = ref('') // 关键词
+
+const params = ref<DiarySearchParams>({
     keywords: [],
     pageNo: 1,
     pageSize: 100, // 单页请求条数
@@ -77,14 +70,14 @@ onMounted(()=>{
     document.title = '日记' // 变更标题
 
     // init
-    keywordShow.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
+    isShowKeyword.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
     nextTick(()=>{
         // 页面刷新的时候，当前页肯定是 waterfall 这个页面
         storeProject.listStyle = EnumListStyle.waterfall
 
         addScrollEvent()
     })
-    storeProject.isShowSearchBar = !!keywordShow.value
+    storeProject.isShowSearchBar = !!isShowKeyword.value
 
     // 载入日记列表
     reload()
@@ -94,7 +87,7 @@ onMounted(()=>{
 watch(()=> storeProject.isShowSearchBar, newValue => {
     if (newValue){
         nextTick(() => {
-            document.querySelector('#keyword').focus()
+            (document.querySelector('#keyword')! as HTMLInputElement).focus()
         })
     }
 })
@@ -104,7 +97,7 @@ watch(route, newValue => {
         reload()
     }
 })
-watch(keywordShow, newValue => {
+watch(isShowKeyword, newValue => {
     storeProject.keywords = newValue.split((' '))
 })
 watch(() => storeProject.isListNeedBeReload, ()=> {
@@ -116,11 +109,11 @@ watch(() => storeProject.isListNeedBeReload, ()=> {
 
 /* MENU 相关 */
 function search() {
-    storeProject.keywords = keywordShow.value.split(' ')
+    storeProject.keywords = isShowKeyword.value.split(' ')
     reload()
 }
 function clearKeyword() {
-    keywordShow.value = ''
+    isShowKeyword.value = ''
     search()
 }
 function reload() {
@@ -149,7 +142,7 @@ function loadMore() {
     params.value.filterShared = getDiaryConfigFromLocalStorage().isFilterShared ? 1 : 0
     getDiaries(params.value)
 }
-function getDiaries(params: SearchParamsDiaryList) {
+function getDiaries(params: DiarySearchParams) {
     diaryApi
         .list(params)
         .then(res => {
@@ -189,8 +182,12 @@ function getDiaries(params: SearchParamsDiaryList) {
  * 列表渲染
  */
 const diariesShow = ref<Array<DiaryEntityHole>>([])  // 列表展示的日记
-const loadGap = 30 // 卡片加载间隔时长，单位 ms
-const isShowLoadProcess = true // 是否显示卡片加载的过程
+const loadGap = 10 // 卡片加载间隔时长，单位 ms
+const isShowLoadProcess = true // 是否显示卡片加载的过程，不显示的话会很卡。
+
+// 是否在渲染进程中
+// 目的是为了在滚动的时候判断是否需要加载下一段，列表渲染过程中不应该加载下一段的内容
+const isInRenderProcess = ref(false)
 
 
 const colCount = 10 // 列数
@@ -280,6 +277,7 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
 
         // 5. 退出递归条件
         if (index < newDiaries.length){
+            isInRenderProcess.value = true
             if (isShowLoadProcess){
                 loadTimeOutHandle.value = setTimeout(()=>{
                     renderingHoleList(newDiaries, index)
@@ -287,6 +285,8 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
             } else {
                 renderingHoleList(newDiaries, index)
             }
+        } else {
+            isInRenderProcess.value = false
         }
     })
 }
@@ -294,7 +294,7 @@ function renderingHoleList(newDiaries: Array<DiaryEntityDatabase>, index: number
 
 function addScrollEvent() {
     (document.querySelector('.diary-list-hole') as HTMLDivElement)
-        .addEventListener('scroll', event => {
+        .addEventListener('scroll', () => {
             // 判断是否加载内容
             function needLoadContent() {
                 let lastNode = document.querySelector('.diary-list-hole > div:last-child') as HTMLDivElement
@@ -311,7 +311,7 @@ function addScrollEvent() {
                 return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
             }
 
-            if (isHasMore.value && needLoadContent()) {
+            if (isHasMore.value && needLoadContent() && !isInRenderProcess.value) {
                 loadMore()
             }
         })

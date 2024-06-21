@@ -17,7 +17,7 @@
 
         <div class="article-body" v-if="storeProject.isHideContent">
             <div class="title">{{ props.diary.title.replace(/[^，。 \n]/g, '*') }}</div>
-            <div class="content" v-html="props.diary.contentHtml.replace(/[^，。 \n]/g, '*')"/>
+            <div class="content" v-html="props.diary.contentHtml?.replace(/[^，。 \n]/g, '*')"/>
         </div>
         <div class="article-body" v-else>
             <div class="title">{{ props.diary.title }}</div>
