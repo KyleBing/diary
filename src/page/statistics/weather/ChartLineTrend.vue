@@ -5,6 +5,8 @@
 <script>
 import * as echarts from 'echarts'
 import chartOption from "../chartOption";
+import {dateFormatter} from "@/utility.ts";
+import Moment from "moment";
 
 export default {
     name: "ChartLineTrend",
@@ -42,7 +44,8 @@ export default {
 
                 dataZoom: [
                     {
-                        startValue: '2021-06-01'
+                        start: 0,
+                        end: 50
                     },
                     {
                         type: 'inside'
@@ -120,15 +123,24 @@ export default {
                 data: this.combineData.map(item => item.temperature),
                 lineStyle: {
                     width: 2,
-                    opacity: 0,
+                    opacity: 1,
                 },
                 color: chartOption.COLOR.orange,
                 type: 'line',
                 smooth: true,
                 label: {
+                    position: 'top',
+                    distance: 5,
                     show: true,
-                    fontSize: 10
-                }
+                    fontSize: 10,
+                    formatter: (data) => {
+                        if (data.dataIndex % 5 === 0){
+                            return data.data.value
+                        } else {
+                            return ''
+                        }
+                    }
+                },
             },)
             this.option.xAxis.data =
                 this.combineData
@@ -140,15 +152,24 @@ export default {
                 data: this.combineData.map(item => item.temperature_outside),
                 lineStyle: {
                     width: 2,
-                    opacity: 0,
+                    opacity: 1,
                 },
                 color: chartOption.COLOR.blue,
                 type: 'line',
                 smooth: true,
                 label: {
+                    position: 'top',
+                    distance: 5,
                     show: true,
-                    fontSize: 10
-                }
+                    fontSize: 10,
+                    formatter: (data) => {
+                        if (data.dataIndex % 5 === 0){
+                            return data.data.value
+                        } else {
+                            return ''
+                        }
+                    }
+                },
             },)
             this.option.xAxis.data =
                 this.combineData

@@ -35,7 +35,7 @@ function getWeatherData(){
                 item.date = dateFormatter(new Date(item.date), 'yyyy-MM-dd')
                 item.temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
                 return item
-            })
+            }).reverse()
             weatherStatisticData.value = tempData
         })
 }
