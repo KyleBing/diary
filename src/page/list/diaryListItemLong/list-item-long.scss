@@ -99,8 +99,10 @@ $fz-md-article: 14px;      // Markdown 内容的基础字体大小
 
 @media (prefers-color-scheme: dark) {
   .article{
+    border-color: $dark-border-active;
     background-color: $dark-list-bg;
     .article-header{
+      border-bottom-color: $dark-border-active;
       //background-color: $dark-list-bg;
       color: $dark-text-title;
     }
