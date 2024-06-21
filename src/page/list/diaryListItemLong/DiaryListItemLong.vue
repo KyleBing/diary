@@ -1,5 +1,5 @@
 <template>
-    <div :class="['article', {active: isActive},]">
+    <div :class="['article', {active: isActive},]" :style="diaryArticleItemStyle">
         <router-link
             :style="diaryItemHeaderStyle"
             :to="`/detail/${props.diary.id}`"
@@ -52,6 +52,15 @@ const diaryItemHeaderStyle = computed(()=>{
     if (isActive.value){
         return `
               background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+                `
+    } else {
+        return ''
+    }
+})
+const diaryArticleItemStyle = computed(()=>{
+    if (isActive.value){
+        return `
+              border-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
                 `
     } else {
         return ''
