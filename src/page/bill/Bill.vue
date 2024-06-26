@@ -21,6 +21,10 @@
                     <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
                     <div class="btn btn-active mb-2" @click="getBillKeys">获取最新账单类目</div>
                     <div class="btn btn-active mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</div>
+
+                    <div class="borrow-list" v-if="borrowContent">
+                        <p>{{borrowContent}}</p>
+                    </div>
                 </div>
 
 
@@ -60,7 +64,24 @@ const yearNumberArray = ref<Array<number>>([new Date().getFullYear()])
 
 onMounted(()=>{
     getBillData()
+    getBorrowInfo()
 })
+
+
+/**
+ * 借还记录
+ */
+const borrowContent = ref('')
+function getBorrowInfo(){
+    billApi
+        .getBorrowList()
+        .then(res => {
+            borrowContent.value = res.data
+        })
+}
+
+
+
 
 function getBillKeys(){
     billApi
