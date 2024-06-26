@@ -134,12 +134,7 @@ function refreshDiariesShow(){
                 // 判断前一个日记和后一个日记的日期字符串是否一致
                 // 这里需要判断完整的日期字符串，列表执行搜索的时候可能会有 month 不同但 day 相同的情况，就会导致下一条的日期不会显示。
                 if(currentDiaryDateString === lastDiaryDateString){
-                    sameDayIndex = sameDayIndex + 1
-                    if (sameDayIndex === 1){  // 当前日记处于重复第二个位置时，显示星期
-                        tempDiary.isShowItemWeekDayShort = true
-                    } else {
-                        tempDiary.date = ''
-                    }
+                    tempDiary.date = ''
                 } else {
                     sameDayIndex = 0
                     tempDiary.date = currentDiaryDay

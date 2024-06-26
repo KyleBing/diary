@@ -6,8 +6,7 @@
     >
         <i :class="['category']" :style="`background-color: ${storeProject.categoryObjectMap.get(diary.category).color}`"></i>
 
-        <span class="date weekday-short" v-if="diary.isShowItemWeekDayShort">{{ diary.weekdayShort }}</span>
-        <span class="date" v-else>{{ diary.date }}</span>
+        <span class="date">{{ diary.date }}</span>
 
         <div class="detail">
             <p class="title" v-if="storeProject.isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
