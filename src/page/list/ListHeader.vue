@@ -2,19 +2,13 @@
     <div :class="['list-header', {big: size === 'big'}, {medium: size === 'medium'}]">{{ title }}</div>
 </template>
 
-<script>
-export default {
-    name: "ListHeader",
-    props: {
-        title: {
-            type: String,
-            require: true
-        },
-        size: {
-            type: String
-        }
-    }
-}
+<script lang="ts" setup>
+
+defineProps<{
+    title: string,
+    size?: string
+}>()
+
 </script>
 
 <style scoped lang="scss">
@@ -23,10 +17,10 @@ export default {
 .list-header{
     font-size: $fz-list-header;
     text-align: left;
-    padding: 0 20px;
+    padding: 3px 20px;
     //color: $text-date;
     background-color: $bg-light;
-    height: $height-header;
+    //height: $height-header;
     line-height: $height-header;
     //letter-spacing: -0.5px;
     font-family: "Galvji", sans-serif;

@@ -6,7 +6,7 @@ interface DiaryEntity {
     content: string,
     is_public: boolean,
     is_markdown: boolean,
-    date: Date, // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
+    date: Date|string|number, // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
     weather: string,
     category: string,
     temperature: string,
@@ -26,7 +26,7 @@ interface DiaryEntityDatabase{
     content: string,
     is_public: 1|0,
     is_markdown: 1|0,
-    date: string,
+    date: Date|string|number,
     weather: string,
     category: string,
     temperature: string,
@@ -44,7 +44,10 @@ interface DiaryEntityDatabase{
     nickname?: string,
     username?: string
     weekday?: string,
+    weekdayShort?: string,
     dateString? : string
+
+    isShowItemWeekDayShort?: boolean, // 是否显示缩写星期，列表的时候用
 }
 
 interface DiaryEntityHole extends DiaryEntityDatabase{

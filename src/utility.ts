@@ -284,5 +284,8 @@ export {
     getDiaryConfigFromLocalStorage, setDiaryConfig, removeDiaryConfig,
     getCategoryAll, setCategoryAll, removeCategoryAll,
     isInMobileMode,
-    type DateUtilityObject
+    type DateUtilityObject,
+
+    EnumWeekDay,
+    EnumWeekDayShort
 }

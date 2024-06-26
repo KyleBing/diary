@@ -12,6 +12,7 @@
             </div>
         </transition>
 
+        <!-- 普通列表 -->
         <div class="diary-list-group" v-if="storeProject.listStyle === EnumListStyle.list">
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="" :title="item.date"/>
@@ -19,6 +20,7 @@
             </template>
         </div>
 
+        <!-- 详情列表 -->
         <div class="diary-list-group" v-if="storeProject.listStyle === EnumListStyle.detail">
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
@@ -48,7 +50,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import ListHeader from "../../page/list/ListHeader.vue"
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 
-import {dateFormatter, dateProcess} from "@/utility.ts";
+import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility.ts";
 
 import {useProjectStore} from "@/pinia"
 import {nextTick, onMounted, ref, watch} from "vue";
@@ -106,6 +108,8 @@ function refreshDiariesShow(){
         // 添加当前日记内容
         tempShowArray.push(tempDiary)
 
+        let sameDayIndex = 0 // 连续相同日期的日记 index
+
         if (diaries.value.length > 1) {  // 再判断第二个日记与第一个的关系
             for (let i = 1; i < diaries.value.length; i++) {
                 lastDiary = diaries.value[i - 1] // 更新上一条日记指向
@@ -113,21 +117,36 @@ function refreshDiariesShow(){
                 let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
                 let currentDiaryDateString = dateFormatter(new Date(currentDiary.date), 'yyyy-MM-dd')
                 let lastDiaryMonth = lastDiaryDateString.substring(0, 7)
-                // let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
+                let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
                 let currentDiaryMonth = currentDiaryDateString.substring(0, 7)
                 let currentDiaryDay = Number(currentDiaryDateString.substring(8, 10))
-                // console.log(lastDiaryMonth, currentDiaryMonth)
+
+                // 添加年月标题
                 if (lastDiaryMonth !== currentDiaryMonth) {
-                    tempShowArray.push({ // 添加年月
+                    tempShowArray.push({
                         date: currentDiaryDateString.substring(0, 7)
                     })
                 }
-                let tempDiary: DiaryEntity = {}
+                let tempDiary: DiaryEntityDatabase = {}
                 Object.assign(tempDiary, currentDiary)
                 tempDiary.is_public = currentDiary.is_public === 1
-                // 判断前一个日记和后一个日记的日期字符串是否一致，‘年月日’ 搜索的时候可能会有月份不同但天数相同的情况，就会导致下一条的日期不会显示。
-                tempDiary.date = currentDiaryDateString === lastDiaryDateString ? '' : currentDiaryDay
-                tempShowArray.push(tempDiary) // 添加当前日记内容
+
+                // 判断前一个日记和后一个日记的日期字符串是否一致
+                // 这里需要判断完整的日期字符串，列表执行搜索的时候可能会有 month 不同但 day 相同的情况，就会导致下一条的日期不会显示。
+                if(currentDiaryDateString === lastDiaryDateString){
+                    sameDayIndex = sameDayIndex + 1
+                    if (sameDayIndex === 1){  // 当前日记处于重复第二个位置时，显示星期
+                        tempDiary.isShowItemWeekDayShort = true
+                    } else {
+                        tempDiary.date = ''
+                    }
+                } else {
+                    sameDayIndex = 0
+                    tempDiary.date = currentDiaryDay
+                }
+
+                // 添加当前日记内容
+                tempShowArray.push(tempDiary)
             }
         }
     }
@@ -189,6 +208,7 @@ function getDiaries() {
                 }
                 diary.categoryString = storeProject.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
+                diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
                 diary.dateString = dateProcess(diary.date).date
                 return diary
             })

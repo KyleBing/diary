@@ -30,6 +30,11 @@
     font-size: $fz-list-content;
     font-weight: bold;
     color: $text-date;
+    &.weekday-short{
+      font-weight: normal;
+      font-size: $fz-small;
+      color: $text-label;
+    }
   }
   .detail{
     position: relative;

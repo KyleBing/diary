@@ -5,7 +5,10 @@
                  :style="diaryItemStyle"
     >
         <i :class="['category']" :style="`background-color: ${storeProject.categoryObjectMap.get(diary.category).color}`"></i>
-        <span class="date">{{ diary.date }}</span>
+
+        <span class="date weekday-short" v-if="diary.isShowItemWeekDayShort">{{ diary.weekdayShort }}</span>
+        <span class="date" v-else>{{ diary.date }}</span>
+
         <div class="detail">
             <p class="title" v-if="storeProject.isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
@@ -34,17 +37,14 @@
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts"
 import {computed} from "vue";
 import {useProjectStore} from "@/pinia";
+import {DiaryEntityDatabase} from "@/page/list/Diary.ts";
 const storeProject = useProjectStore()
 
-const props = defineProps({
-    isActive: {
-        type: Boolean,
-        default: false
-    },
-    diary: {
-        type: Object,
-        required: true
-    }
+const props = withDefaults(defineProps<{
+    isActive: boolean,
+    diary: DiaryEntityDatabase
+}>(), {
+    isActive: false
 })
 
 const weatherIcon = computed(() => {
