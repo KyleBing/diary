@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
 import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
-import {DiaryEntity, DiaryListOperation} from "../page/list/Diary.ts";
+import {DiaryEntity, DiaryListOperation} from "@/view/DiaryList/Diary.ts";
 import {CategoryEntity} from "../entity/Category.ts";
 import {StatisticYearEntity} from "../entity/StatisticYear.ts";
 import {EnumListStyle} from "@/listStyle.ts";

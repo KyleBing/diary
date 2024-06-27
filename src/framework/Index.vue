@@ -6,7 +6,7 @@
         <div class="diary" v-if="storeProject.isInMobileMode" :style="`height:${storeProject.insets.heightPanel}px`">
             <div ref="refDiaryList" class="diary-list-container diary-list-container-mobile"
                  :style="`height:${storeProject.insets.heightPanel}px`">
-                <router-view/>
+                <RouterView/>
             </div>
         </div>
 
@@ -16,14 +16,14 @@
                 <List/>
             </div>
             <div class="diary-container" :style="`height:${storeProject.insets.heightPanel}px`">
-                <router-view/>
+                <RouterView/>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import List from "../page/list/List.vue"
+import List from "@/view/DiaryList/List.vue"
 import Navbar from "./navbar/Navbar.vue"
 import statisticApi from "../api/statisticApi.ts";
 

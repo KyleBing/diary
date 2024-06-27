@@ -85,9 +85,9 @@
                     <div @click="toastShow">
                         <TabIcon alt="删除"/>
                     </div>
-                    <router-link :to="`/edit/${storeProject.currentDiary.id}`">
+                    <RouterLink :to="`/edit/${storeProject.currentDiary.id}`">
                         <TabIcon alt="编辑"/>
-                    </router-link>
+                    </RouterLink>
                 </div>
 
                 <!--编辑按钮-->
@@ -105,13 +105,13 @@
                     </div>
                 </div>
 
-                <router-link
+                <RouterLink
                     v-if="(storeProject.isInMobileMode && route.name !== 'Detail' && !storeProject.isMenuShowed)
                     || !storeProject.isInMobileMode"
                     to="/edit"
                 >
                     <TabIcon alt="添加"/>
-                </router-link>
+                </RouterLink>
             </div>
 
 
@@ -155,7 +155,7 @@
 import TabIcon from "../../components/TabIcon.vue"
 import Loading from "../../components/Loading.vue";
 import diaryApi from "../../api/diaryApi.ts";
-import NavMenu from "../../page/menu/NavMenu.vue";
+import NavMenu from "@/view/Menu/NavMenu.vue";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import Clock from "./Clock.vue";
 import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelector.vue";
@@ -266,7 +266,7 @@ function toggleListStyle() {
         case EnumListStyle.detail:
             storeProject.listStyle = EnumListStyle.waterfall
             router.push({
-                name: 'ListHole'
+                name: 'Waterfall'
             })
             break;
         case EnumListStyle.waterfall:

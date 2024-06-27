@@ -4,7 +4,7 @@ import {
     DiarySearchParams,
     DiarySubmitEntity,
     ResponseDiaryAdd
-} from "../page/list/Diary.ts";
+} from "@/view/DiaryList/Diary.ts";
 import {CategoryEntity} from "../entity/Category.ts";
 
 export default {

@@ -5,7 +5,7 @@
                 <img :src="SVG_ICONS.logo_icons.logo_server_error" alt="logo error">
             </div>
             <h1>访问的页面不存在</h1>
-            <h1><router-link to="/">返回主页</router-link></h1>
+            <h1><RouterLink to="/">返回主页</RouterLink></h1>
         </div>
     </div>
 </template>

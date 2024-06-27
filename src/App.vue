@@ -1,6 +1,6 @@
 <template>
-    <router-view v-if="storeProject.categoryAll.length > 0"/>
-    <server-error v-if="isServerError"/>
+    <RouterView v-if="storeProject.categoryAll.length > 0"/>
+    <ServerError v-if="isServerError"/>
 </template>
 <script lang="ts" setup>
 import {useProjectStore} from "./pinia";

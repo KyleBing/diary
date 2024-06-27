@@ -1,27 +1,27 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 
 import Index from "../framework/Index.vue"
-import Hole from "../framework/Hole.vue"
-import Register from "../page/login&register/Register.vue"
-import Login from "../page/login&register/Login.vue"
-import ChangePassword from "../page/login&register/ChangePassword.vue"
-import ChangeProfile from "../page/changeProfile/ChangeProfile.vue"
-import Bill from "../page/bill/Bill.vue"
-import BankCardList from "../page/bankCard/BankCardList.vue"
-import InvitationList from "../page/invitation/InvitationList.vue"
-import Share from "../page/share/Share.vue"
-import Statistics from "../page/statistics/StatisticsIndex.vue"
+import Waterfall from "../framework/Waterfall.vue"
+import Register from "@/view/Login&Register/Register.vue"
+import Login from "@/view/Login&Register/Login.vue"
+import ChangePassword from "@/view/Login&Register/ChangePassword.vue"
+import ChangeProfile from "@/view/ChangeProfile/ChangeProfile.vue"
+import Bill from "@/view/Bill/Bill.vue"
+import BankCardList from "@/view/BankCard/BankCardList.vue"
+import InvitationList from "@/view/Invitation/InvitationList.vue"
+import Share from "@/view/Share/Share.vue"
+import Statistics from "@/view/Statistics/StatisticsIndex.vue"
 
-import List from "../page/list/List.vue"
-import Detail from "../page/detail/Detail.vue"
-import Edit from "../page/edit/Edit.vue"
+import List from "@/view/DiaryList/List.vue"
+import Detail from "@/view/Detail/Detail.vue"
+import Edit from "@/view/Edit/Edit.vue"
 import NotFound_404 from "../fundation/NotFound_404.vue";
-import ListHole from "../page/listHole/ListHole.vue";
-import RemoveAllYourDiary from "../page/others/RemoveAllYourDiary.vue";
-import DestroyAccount from "../page/others/DestroyAccount.vue";
-import FileManager from "../page/fileManager/FileManager.vue";
+import WaterfallList from "@/view/DiaryListWaterfall/WaterfallList.vue";
+import RemoveAllYourDiary from "@/view/Util/RemoveAllYourDiary.vue";
+import DestroyAccount from "@/view/Util/DestroyAccount.vue";
+import FileManager from "@/view/FileManager/FileManager.vue";
 import {getAuthorization, isInMobileMode} from "../utility.ts";
-import FetchPassword from "../page/login&register/FetchPassword.vue";
+import FetchPassword from "@/view/Login&Register/FetchPassword.vue";
 
 
 const routes: RouteRecordRaw[] = [
@@ -38,12 +38,12 @@ const routes: RouteRecordRaw[] = [
         ]
     },
     {
-        name: 'Hole',
-        path: '/hole',
-        redirect: '/hole/list',
-        component: Hole ,
+        name: 'Waterfall',
+        path: '/waterfall',
+        redirect: '/waterfall/list',
+        component: Waterfall ,
         children: [
-            {name: 'ListHole'   , path: 'list'      ,        component: ListHole}, // mobile
+            {name: 'WaterfallList'   , path: 'list'      ,        component: WaterfallList},
         ]
     },
     {name: 'Register',             path: '/register',          component: Register},
