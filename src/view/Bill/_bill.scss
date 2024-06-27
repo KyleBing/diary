@@ -155,17 +155,6 @@
   }
 }
 
-.bill-filter-panel{
-  flex-shrink: 0;
-  margin-right: 20px;
-  width: 300px;
-  //height: 500px;
-  padding: 30px 20px;
-  @include border-radius($radius-pc);
-  border: 1px solid $color-border;
-  background-color: white;
-}
-
 // mobile
 @media (max-width: $grid-separate-width-sm) {
   .bill-content{
@@ -174,11 +163,7 @@
   .bill-container{
     flex-flow: column nowrap;
   }
-
-  .bill-filter-panel{
-    height: auto;
-    margin-right: 0;
-    margin-bottom: 20px;
+  .filter-panel{
     width: 100%;
   }
 
@@ -224,14 +209,6 @@
 
 
 @media (prefers-color-scheme: dark) {
-  .bill-filter-panel{
-    @include border-radius($radius-pc);
-    border: 1px solid $dark-border;
-    background-color: $dark-bg-dark;
-    textarea{
-    }
-  }
-
   // BILL
   .bill-content{
     background-color: black;

@@ -1,0 +1,67 @@
+<template>
+    <div class="bill-panel">
+        <div class="bill-panel-title">{{ title }}</div>
+        <div class="bill-panel-content"
+             :style="`padding: ${padding}`"
+        >
+            <slot/>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+
+withDefaults(defineProps<{
+    title: string,
+    padding?: string  // 10px 10px
+}>(),{
+    padding: '0 0 10px 0'
+})
+
+</script>
+
+<style scoped lang="scss">
+@import "../../scss/plugin";
+
+.bill-panel{
+    flex-shrink: 0;
+    overflow: hidden;
+    margin-right: 20px;
+    width: 300px;
+    @include border-radius($radius-pc);
+    border: 1px solid $color-border;
+    background-color: white;
+    .bill-panel-title{
+
+        background: linear-gradient(to bottom, white, $bg-lighter);
+        padding: 10px 20px;
+        //background-color: $bg-lighter;
+        font-weight: bold;
+        font-size: $fz-title;
+        text-align: center;
+        border-bottom: 1px solid $color-border-light;
+    }
+    .bill-panel-content{
+        padding-bottom: 10px;
+    }
+}
+
+// mobile
+@media (max-width: $grid-separate-width-sm) {
+    .bill-panel {
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .bill-panel {
+        @include border-radius($radius-pc);
+        border: 1px solid $dark-border;
+        background-color: $dark-bg-dark;
+    }
+}
+
+</style>

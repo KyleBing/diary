@@ -4,3 +4,7 @@ interface BankCardEntity{
     cardType: string,
     extraInfos: any[]
 }
+
+export {
+    BankCardEntity
+}

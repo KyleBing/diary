@@ -32,6 +32,8 @@
 </template>
 
 <script lang="ts" setup>
+import {BankCardEntity} from "./BankCard.ts"
+
 const props = defineProps<{
     card: BankCardEntity
     index: number

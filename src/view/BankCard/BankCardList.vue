@@ -72,6 +72,7 @@ import {getCategoryAll, popMessage} from "../../utility.ts";
 import {onBeforeUnmount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
+import {BankCardEntity} from "@/view/BankCard/BankCard.ts";
 
 const cardListExample = [
     {
@@ -174,7 +175,7 @@ function processCardInfo(allCardString: string){
         )
         let cardInfo: BankCardEntity = {}
         let extraInfos = []
-        cardMap.forEach((value: string, key: string) => {
+        cardMap.forEach((value, key) => {
             switch (key){
                 case '卡号': cardInfo.cardNo = value; break;
                 case '银行': cardInfo.cardName = value; break;

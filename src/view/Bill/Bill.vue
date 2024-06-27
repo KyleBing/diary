@@ -3,30 +3,28 @@
         <PageHeader title="账单"/>
         <div class="bill-content" :style="`height:${storeProject.insets.heightPanel}px`">
             <div class="bill-container" >
+                <div class="filter-panel">
+                    <BillPanel title="账单筛选" padding="20px">
+                        <div class="input-group white">
+                            <label for="invitation" >关键字</label>
+                            <textarea rows="3"
+                                      placeholder="多个关键字，空格间隔"
+                                      v-model.trim="formSearch.keyword"
+                                      name="invitation"
+                                      id="invitation"/>
+                        </div>
+                        <div class="input-group white">
+                            <label for="invitation" >年份</label>
+                            <BillYearSelector v-model="yearNumberArray"/>
+                        </div>
 
-                <div class="bill-filter-panel">
-                    <div class="input-group white">
-                        <label for="invitation" >关键字</label>
-                        <textarea rows="3"
-                                  placeholder="多个关键字，空格间隔"
-                                  v-model.trim="formSearch.keyword"
-                                  name="invitation"
-                                  id="invitation"/>
-                    </div>
-                    <div class="input-group white">
-                        <label for="invitation" >年份</label>
-                        <BillYearSelector v-model="yearNumberArray"/>
-                    </div>
+                        <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
+                        <div class="btn btn-active mb-2" @click="getBillKeys">获取最新账单类目</div>
+                        <div class="btn btn-active mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</div>
+                    </BillPanel>
 
-                    <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
-                    <div class="btn btn-active mb-2" @click="getBillKeys">获取最新账单类目</div>
-                    <div class="btn btn-active mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</div>
-
-                    <div class="borrow-list" v-if="borrowContent">
-                        <p>{{borrowContent}}</p>
-                    </div>
+                    <BorrowInfo class="mt-2"/>
                 </div>
-
 
                 <BillMonthItem
                     v-if="!isLoading"
@@ -52,6 +50,8 @@ const storeProject = useProjectStore();
 import {onMounted, ref} from "vue";
 import BillYearSelector from "@/view/Bill/BillYearSelector.vue";
 import BillMonthItem from "@/view/Bill/BillMonthItem.vue";
+import BorrowInfo from "@/view/Bill/BorrowInfo/BorrowInfo.vue";
+import BillPanel from "@/view/Bill/BillPanel.vue";
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)
@@ -64,24 +64,7 @@ const yearNumberArray = ref<Array<number>>([new Date().getFullYear()])
 
 onMounted(()=>{
     getBillData()
-    getBorrowInfo()
 })
-
-
-/**
- * 借还记录
- */
-const borrowContent = ref('')
-function getBorrowInfo(){
-    billApi
-        .getBorrowList()
-        .then(res => {
-            borrowContent.value = res.data
-        })
-}
-
-
-
 
 function getBillKeys(){
     billApi
