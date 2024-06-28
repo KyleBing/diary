@@ -32,9 +32,8 @@ withDefaults(defineProps<{
     border: 1px solid $color-border;
     background-color: white;
     .bill-panel-title{
-
-        background: linear-gradient(to bottom, white, $bg-lighter);
-        padding: 10px 20px;
+        background: linear-gradient(to bottom, white, #f1f1f1);
+        padding: 8px 20px;
         //background-color: $bg-lighter;
         font-weight: bold;
         font-size: $fz-title;

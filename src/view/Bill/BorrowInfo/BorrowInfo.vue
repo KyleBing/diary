@@ -1,6 +1,6 @@
 <template>
-    <BillPanel title="借还记录">
-        <div class="borrow-list" v-if="borrowInfoList && borrowInfoList.length > 0">
+    <BillPanel title="借还记录" v-if="borrowInfoList && borrowInfoList.length > 0">
+        <div class="borrow-list">
             <div class="borrow-list-item" v-for="(item, index) in borrowInfoList" :key="index">
                 <div class="total">{{item.total}}</div>
                 <div class="lender">{{item.lender}}</div>
