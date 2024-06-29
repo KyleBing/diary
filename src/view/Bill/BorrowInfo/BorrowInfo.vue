@@ -127,4 +127,25 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    .borrow-list-item{
+        border-bottom-color: $dark-border;
+        &:hover{
+            background-color: black;
+        }
+        &:last-child{
+        }
+        .total{
+        }
+        .lender{
+        }
+        .section-note{
+            color: $dark-text-subtitle;
+            .date-loan{
+
+            }
+        }
+    }
+}
+
 </style>

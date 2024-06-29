@@ -60,6 +60,10 @@ withDefaults(defineProps<{
         @include border-radius($radius-pc);
         border: 1px solid $dark-border;
         background-color: $dark-bg-dark;
+        .bill-panel-title {
+            border-color: $dark-border;
+            background: linear-gradient(to bottom, lighten($dark-bg-dark, 5%), $dark-bg);
+        }
     }
 }
 

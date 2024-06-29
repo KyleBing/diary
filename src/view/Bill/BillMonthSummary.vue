@@ -33,6 +33,7 @@ const props = defineProps<Props>()
 @import "../../scss/plugin";
 
 .brief-amount{
+    font-weight: bold;
     font-size: $fz-main;
     letter-spacing: 1px;
     align-items: stretch;

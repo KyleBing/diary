@@ -19,7 +19,7 @@ defineProps<{
     padding: 8px 15px;
     text-align: center;
     background: linear-gradient(to bottom, lighten($bg-light, 20%), $bg-light);
-
+    font-weight: bold;
     width: 100%;
     display: block;
     font-size: $fz-title;
