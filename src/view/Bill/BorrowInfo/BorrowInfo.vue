@@ -103,7 +103,7 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
         background-color: $bg-light;
     }
     &:last-child{
-        border-bottom: none;
+        //border-bottom: none;
     }
     .total{
         text-align: right;

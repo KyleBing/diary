@@ -20,7 +20,7 @@ import {CategoryEntity} from "../../../entity/Category.ts";
 import {useProjectStore} from "../../../pinia";
 const storeProject = useProjectStore()
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
     category: string
 }>(), {
     category: 'life'
