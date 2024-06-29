@@ -1,16 +1,13 @@
 <template>
-    <div :class="['btn-normal', props.type]">
+    <div :class="['btn-normal', type]">
         <slot/>
     </div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-    type: {
-        type: String,
-        default: ''
-    }
-})
+defineProps<{
+    type?: string
+}>()
 </script>
 
 <style scoped lang="scss">

@@ -28,6 +28,6 @@
     "allowSyntheticDefaultImports": true
   },
   "files": ["custom.d.ts"],
-  "include": ["src"],
+  "include": ["src/**"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

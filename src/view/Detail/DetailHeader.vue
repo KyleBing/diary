@@ -1,20 +1,29 @@
 <template>
     <div class="diary-header">
         <div class="date-wrapper" v-if="props.diary.dateObj">
-            <div class="date-time">{{ props.diary.dateObj.dateFull }}  {{props.diary.dateObj.time}}</div>
-            <div class="date-lunar">{{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}  {{props.diary.dateObj.weekday}}</div>
+            <div class="date-time">
+                {{ props.diary.dateObj.dateFull }}  {{props.diary.dateObj.time}}
+            </div>
+            <div class="date-lunar">
+                {{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}  {{props.diary.dateObj.weekday}}
+            </div>
         </div>
 
         <div class="weather-wrapper">
             <div class="weather">
-                <img v-if="props.diary.weather" :src="SVG_ICONS.weather_icons[`${props.diary.weather}_active`]" :alt="props.diary.weather">
+                <img v-if="props.diary.weather" :src="SVG_ICONS.weather_icons[`${props.diary.weather}_active`]"
+                     :alt="props.diary.weather">
             </div>
             <div class="temperatures">
-                <div class="temperature" v-if="props.diary.temperature">
-                    身处 <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature))]">{{ props.diary.temperature }}</span> ℃
+                <div class="temperature"
+                     v-if="props.diary.temperature">
+                    身处
+                    <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature))]">{{ props.diary.temperature }}</span> ℃
                 </div>
-                <div class="temperature" v-if="props.diary.temperature_outside">
-                    室外 <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature_outside))]">{{ props.diary.temperature_outside }}</span> ℃
+                <div class="temperature"
+                     v-if="props.diary.temperature_outside">
+                    室外
+                    <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature_outside))]">{{ props.diary.temperature_outside }}</span> ℃
                 </div>
             </div>
         </div>

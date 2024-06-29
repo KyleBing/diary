@@ -85,10 +85,10 @@ $toast-border-color: $bg-menu;
     line-height: 25px;
     font-size: $fz-label;
   }
-  &-default { background-color: transparentize(white,0.2); }
-  &-warning { background-color: transparentize($orange,0.2); }
-  &-success { background-color: transparentize($green,0.2); }
-  &-danger  { background-color: transparentize($red,0.2); }
+  &.pop-msg-default { background-color: transparentize(white,0.2); }
+  &.pop-msg-warning { background-color: transparentize($yellow,0.2); }
+  &.pop-msg-success { background-color: transparentize($green,0.2); }
+  &.pop-msg-danger  { background-color: transparentize($red,0.2); }
 }
 
 

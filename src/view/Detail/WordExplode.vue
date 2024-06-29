@@ -1,9 +1,9 @@
 <template>
     <div class="word-explode">
         <div class="operation-list">
-            <ButtonNormal @click="selectNone">取消选择</ButtonNormal>
-            <ButtonNormal @click="selectAll">全选</ButtonNormal>
-            <ButtonNormal type="confirm" @click="copySelectedWords">复制</ButtonNormal>
+            <ButtonSmall class="mr-1" @click="selectNone">取消选择</ButtonSmall>
+            <ButtonSmall class="mr-1" @click="selectAll">全选</ButtonSmall>
+            <ButtonSmall class="mr-1" type="confirm" @click="copySelectedWords">复制</ButtonSmall>
         </div>
         <div class="word-list" ref="refWordList">
             <template  v-for="(item, index) in wordArray"
@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts" setup>
-import ButtonNormal from "../../components/ButtonNormal.vue";
 import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {popMessage} from "../../utility.ts";
+import ButtonSmall from "@/components/ButtonSmall.vue";
 
 const props = defineProps({
     content: {

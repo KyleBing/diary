@@ -14,7 +14,7 @@
             <div class="diary-title" v-if="diary.title">
                 <h2>{{ storeProject.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
-                    <ButtonNormal class="clipboard" :data-clipboard="diary.title">复制</ButtonNormal>
+                    <ButtonSmall class="clipboard" :data-clipboard="diary.title">复制</ButtonSmall>
                 </div>
             </div>
 
@@ -26,9 +26,9 @@
 
                 <div v-else>
                     <div class="toolbar">
-                        <ButtonNormal class="clipboard" type="confirm" :data-clipboard="diary.content">全部复制</ButtonNormal>
-                        <ButtonNormal class="clipboard" v-if="isShowExplode" @click="toggleContentType">普通</ButtonNormal>
-                        <ButtonNormal class="clipboard" v-else @click="toggleContentType">炸词</ButtonNormal>
+                        <ButtonSmall class="clipboard" type="confirm" :data-clipboard="diary.content">全部复制</ButtonSmall>
+                        <ButtonSmall class="clipboard" v-if="isShowExplode" @click="toggleContentType">普通</ButtonSmall>
+                        <ButtonSmall class="clipboard" v-else @click="toggleContentType">炸词</ButtonSmall>
                     </div>
                     <div v-if="isShowExplode">
                         <WordExplode v-if="diary.content" :content="diary.content"/>
@@ -56,6 +56,9 @@ import DetailHeader from "@/view/Detail/DetailHeader.vue";
 import WordExplode from "@/view/Detail/WordExplode.vue";
 import ButtonNormal from "../../components/ButtonNormal.vue";
 import ToDo from "./ToDo.vue";
+import {DiaryEntityDatabase} from "@/view/DiaryList/Diary.ts";
+import {LunarDateEntity} from "@/entity/LunarDate.ts";
+import ButtonSmall from "@/components/ButtonSmall.vue";
 
 import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
@@ -66,8 +69,7 @@ import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
 const route = useRoute()
-import {DiaryEntityDatabase} from "@/view/DiaryList/Diary.ts";
-import {LunarDateEntity} from "@/entity/LunarDate.ts";
+
 
 const isLoading = ref(false) // loading
 const diary = ref<DiaryEntityDatabase>({})

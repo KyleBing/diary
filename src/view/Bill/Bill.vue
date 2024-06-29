@@ -18,9 +18,9 @@
                             <BillYearSelector v-model="yearNumberArray"/>
                         </div>
 
-                        <div class="btn btn-active mb-2" @click="getBillData">筛选</div>
-                        <div class="btn btn-active mb-2" @click="getBillKeys">获取最新账单类目</div>
-                        <div class="btn btn-active mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</div>
+                        <Button class="mb-2" @click="getBillData">筛选</Button>
+                        <ButtonSmall class="mb-2" @click="getBillKeys">获取最新账单类目</ButtonSmall>
+                        <ButtonSmall class="mb-2"  @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</ButtonSmall>
                     </BillPanel>
 
                     <BorrowInfo class="mt-2"/>
@@ -52,6 +52,8 @@ import BillYearSelector from "@/view/Bill/BillYearSelector.vue";
 import BillMonthItem from "@/view/Bill/BillMonthItem.vue";
 import BorrowInfo from "@/view/Bill/BorrowInfo/BorrowInfo.vue";
 import BillPanel from "@/view/Bill/BillPanel.vue";
+import Button from "@/components/Button.vue";
+import ButtonSmall from "@/components/ButtonSmall.vue";
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)
