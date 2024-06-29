@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import diaryApi from "../../api/diaryApi.ts"
-import {nextTick, onMounted, ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "../../pinia";
@@ -35,11 +35,10 @@ interface TODOEntity {
     note?: string
 }
 
-interface Props {
+const props = defineProps<{
     readonly: boolean,
     diary: DiaryEntity
-}
-const props = defineProps<Props>()
+}>()
 
 const todoList= ref<Array<TODOEntity>>([])
 const lastId = ref(0) // 最后一个修改后的 id，用于将最后一个标记的 todoItem 移到列表最后

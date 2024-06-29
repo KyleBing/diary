@@ -1,6 +1,6 @@
 <template>
     <!--加载动画-->
-    <div v-if="props.loading" class="loading">
+    <div v-if="loading" class="loading">
         <div class="loading-1 loading-item"></div>
         <div class="loading-2 loading-item"></div>
         <div class="loading-3 loading-item"></div>
@@ -8,11 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-    loading: {
-        type: Boolean,
-        default: false
-    }
+withDefaults(defineProps<{
+    loading: boolean
+}>(), {
+    loading: false
 })
 </script>
 

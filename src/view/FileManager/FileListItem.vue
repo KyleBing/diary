@@ -45,23 +45,11 @@ import Modal from "../../components/Modal.vue";
 
 import {popMessage} from "@/utility.ts";
 import {computed, ref} from "vue";
+import {EntityFile} from "@/src/view/FileManager/File.ts";
 
-const props = defineProps({
-    fileInfo: {
-        type: Object,
-        default:  {
-            // "id": 19,
-            // "name_original": "dog (1).gif",
-            // "path": "upload/dog (1).gif",
-            // "description": "表情-狗-跳舞",
-            // "date_create": "2023-11-03T03:54:32.000Z",
-            // "date_time": "2023-11-03 03:54:32",
-            // "type": "image/gif",
-            // "uid": 3,
-            // "size": 1757080
-        }
-    },
-})
+const props = defineProps<{
+    fileInfo: EntityFile
+}>()
 const filePath = computed(()=>{
     return `http://kylebing.cn/${props.fileInfo.path}`
 })

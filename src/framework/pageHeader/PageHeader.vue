@@ -3,8 +3,8 @@
         <div class="page-back-btn" @click="router.back()">
             <TabIcon alt="关闭"/>
         </div>
-        <div class="page-title">{{ props.title }}</div>
-        <div class="page-subtitle">{{ props.subtitle }}</div>
+        <div class="page-title">{{ title }}</div>
+        <div class="page-subtitle">{{ subtitle }}</div>
         <slot/>
     </div>
 </template>
@@ -14,15 +14,11 @@ import TabIcon from "../../components/TabIcon.vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
 
-const props = defineProps({
-    title: {
-        type: String,
-        default: '标题'
-    },
-    subtitle: {
-        type: String,
-        default: ''
-    }
+withDefaults(defineProps<{
+    title: string,
+    subtitle?: string
+}>(), {
+    title: "标题"
 })
 </script>
 

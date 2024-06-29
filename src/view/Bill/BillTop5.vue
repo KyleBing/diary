@@ -1,6 +1,6 @@
 <template>
     <div class="summary">
-        <div class="title">{{props.title}}</div>
+        <div class="title">{{title}}</div>
         <div class="bill-list">
             <div :class="['bill-item', {filtered: item.isFiltered}]"
                  v-for="(item, index) in modelTop5" :key="index" @click="changeCurrentState(item)">
@@ -20,10 +20,9 @@ const storeProject = useProjectStore();
 
 const modelTop5 = defineModel<Array<EntityBillTop5Item>>()
 
-interface Props {
+defineProps<{
     title: string
-}
-const props = defineProps<Props>()
+}>()
 
 function changeCurrentState(billItem: EntityBillTop5Item){
     billItem.isFiltered = !billItem.isFiltered

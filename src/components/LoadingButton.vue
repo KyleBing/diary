@@ -18,15 +18,12 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-    isLoading: {
-        type: Boolean,
-        default: false
-    },
-    type: {
-        type: String,
-        default: 'active' // active | inactive | light
-    }
+const props = withDefaults(defineProps<{
+    isLoading: boolean,
+    type: 'active' | 'inactive' | 'light'
+}>(), {
+    isLoading: false,
+    type: 'active'
 })
 const emit = defineEmits( ['click', 'submit'])
 </script>

@@ -20,12 +20,12 @@ import {CategoryEntity} from "../../../entity/Category.ts";
 import {useProjectStore} from "../../../pinia";
 const storeProject = useProjectStore()
 
-const props = defineProps({
-    category: {
-        default: 'life',
-        type: String
-    }
+withDefaults(defineProps<{
+    category: string
+}>(), {
+    category: 'life'
 })
+
 const emit = defineEmits(['change'])
 
 const categorySelected = ref(props.category)

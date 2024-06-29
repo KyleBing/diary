@@ -8,6 +8,7 @@
             <BillMonthSummary
                 :bill-month="billMonthData"
                 :exceptSum="exceptSum"
+
             />
         </div>
 
