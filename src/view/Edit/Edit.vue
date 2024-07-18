@@ -10,7 +10,11 @@
                           v-model="diary.title"/>
             </div>
             <!-- CONTENT -->
-            <div class="editor-content">
+            <StageScriptEditor
+                v-if="diary.category === 'play'"
+                v-model="diary.content"/>
+
+            <div class="editor-content" v-else>
                 <PossibleBillKeySelector
                     :possible-bill-items="possibleBillItems"
                     :position-left="keysPanelPositionLeft"
@@ -29,6 +33,7 @@
                     <ButtonSmall @click="toggleSpaceShow">切换空格显示</ButtonSmall>
                 </div>
             </div>
+
         </div>
         <div class="diary-edit-meta">
             <!--  主参数区 -->
@@ -195,6 +200,7 @@ const requestData = ref<DiarySearchParams>({ // 请求本周日志的 requestDat
 import {DatePicker} from "v-calendar";
 import 'v-calendar/style.css';
 import EditorVCalendarSelector from "@/view/Edit/EditorVCalendarSelector.vue";
+import StageScriptEditor from "@/view/Edit/Script/StageScriptEditor.vue";
 const popoverOptions = ref<PopoverOptions>({
     visibility: 'click',
     placement: "auto"
