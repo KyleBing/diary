@@ -5,7 +5,7 @@
             <div class="editor-title">
                 <label  class="hidden"></label>
                 <textarea ref="refDiaryTitle"
-                          class="title"
+                          class="title editor"
                           placeholder="一句话，概括你的一天"
                           v-model="diary.title"/>
             </div>
@@ -28,7 +28,7 @@
                     :style="storeProject.insets.windowsWidth > 1366 ? `height: ${storeProject.insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     @input="contentUpdate($event)"
-                    class="content"></textarea>
+                    class="content editor"></textarea>
                 <div class="editor-float-btn" v-if="diary.is_markdown">
                     <ButtonSmall @click="toggleSpaceShow">切换空格显示</ButtonSmall>
                 </div>

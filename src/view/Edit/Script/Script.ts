@@ -9,7 +9,7 @@ interface EntityMovieScene {
 
 // 对话
 interface EntityDialogue {
-    character: EntityCharacter,
+    character: string,
     content: string
     sceneDescription: string,
 }

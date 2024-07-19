@@ -15,15 +15,11 @@
 import ICONS from "../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
 
-const props = defineProps({
-    alt: {
-        type: String,
-        require: true
-    },
-    size: {
-        type: String,
-        default: '', // small normal big
-    }
+const props = withDefaults(defineProps<{
+    alt: string,
+    size: 'small'|'normal'|'big'
+}>(), {
+    size: 'normal'
 })
 const iconMap = computed(() => {
     let iconMap = new Map()
