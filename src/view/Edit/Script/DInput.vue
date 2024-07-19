@@ -1,19 +1,23 @@
 <template>
     <textarea
-        :class="[{header: isHeader}]"
+        :placeholder="placeholder"
+        :class="[{header: isHeader}, {bold: isBold}]"
         :rows="rows"
-        v-model="text"/>
+        v-model="modelText"/>
 </template>
 
 <script setup lang="ts">
-const text = defineModel()
+const modelText = defineModel()
 
 withDefaults(defineProps<{
-    isHeader: boolean
+    isHeader?: boolean,
+    isBold?: boolean,
+    placeholder: string,
     rows: number
 }>(), {
     rows: 5,
-    isHeader: false
+    isHeader: false,
+    isBold: false,
 })
 </script>
 
@@ -21,18 +25,28 @@ withDefaults(defineProps<{
 <style scoped lang="scss">
 @import "../../../scss/plugin";
 textarea{
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
     display: block;
-    border: 1px solid $color-border;
-    border-left-width: 2px;
+    border: 1px solid $color-border-light;
+    border-left-width: 5px;
     width: 100%;
-    @include border-radius(0);
-    padding: 8px 15px;
+    padding: 6px 15px;
     &.header{
         background-color: $bg-light-td;
+    }
+    &.bold{
+        font-weight: bold;
     }
     &:focus{
         border-left-color: $color-main;
     }
+
+}
+
+::-webkit-input-placeholder{
+    color: $text-comment;
 }
 
 </style>

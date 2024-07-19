@@ -17,7 +17,7 @@ import {computed} from "vue";
 
 const props = withDefaults(defineProps<{
     alt: string,
-    size: 'small'|'normal'|'big'
+    size?: 'small'|'normal'|'big'
 }>(), {
     size: 'normal'
 })

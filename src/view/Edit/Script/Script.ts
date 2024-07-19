@@ -1,8 +1,8 @@
 // 场景
 interface EntityMovieScene {
     id?: number,
-    isDone: boolean, // 是否已经录制
     sceneTitle: string,  // 场景
+    isDone?: boolean, // 是否已经录制
     desc: string, // 场景说明
     dialogues?: Array<EntityDialogue> // 对话
 }
