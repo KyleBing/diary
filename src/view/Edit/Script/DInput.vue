@@ -12,7 +12,7 @@ const modelText = defineModel()
 withDefaults(defineProps<{
     isHeader?: boolean,
     isBold?: boolean,
-    placeholder: string,
+    placeholder?: string,
     rows: number
 }>(), {
     rows: 5,

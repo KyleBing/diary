@@ -1,17 +1,10 @@
 <template>
     <div class="scene-container">
-
-        <div
-            v-if="formScenes.length === 0"
-            class="operation-group"
-        >
+        <div v-if="formScenes.length === 0" class="operation-group">
             <div class="operation" @click="addScene()">+ 场景</div>
         </div>
 
-        <div
-            v-else
-            class="scene" v-for="(scene, index) in formScenes" :key="index"
-        >
+        <div v-else class="scene" v-for="(scene, index) in formScenes" :key="index">
             <div class="scene-index">{{index + 1}}.</div>
             <div class="scene-wrapper">
                 <div class="operation-group up">
@@ -20,7 +13,6 @@
                 <div class="scene-header">
                     <DInput
                         is-bold is-header
-                        placeholder="场次"
                         :rows="1"
                         v-model="scene.sceneTitle"/>
                 </div>
@@ -78,10 +70,18 @@
 
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {EntityMovieScene} from "@/view/Edit/Script/Script.ts";
 import DInput from "@/view/Edit/Script/DInput.vue";
+import Button from "@/components/Button.vue";
 
+onMounted(()=>{
+    console.log(model.value)
+    // formScenes.value = JSON.parse(model.value)
+})
+
+
+const model = defineModel()
 
 const formScenes = ref<Array<EntityMovieScene>>([
     {
@@ -144,13 +144,20 @@ function addScene(index?: number) {
            desc: '',
        })
     }
-
 }
 
 function deleteScene(index: number) {
     formScenes.value.splice(index, 1 )
 }
 
+
+watch(formScenes, newValue => {
+    model.value = JSON.stringify(newValue)
+}, {deep: true})
+
+// watch(model, newValue => {
+//     formScenes.value = JSON.parse(newValue.value)
+// })
 
 </script>
 
@@ -263,7 +270,7 @@ $stretch-out-line-length: 30px;
         font-size: $fz-small;
         @extend .btn-like;
         line-height: 1;
-        padding: 5px 10px;
+        padding: 5px 20px;
         display: flex;
         align-items: center;
         &+.operation{
