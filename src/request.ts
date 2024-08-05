@@ -9,8 +9,8 @@ function request(
     params: {}|null,
     requestData: {}|null,
     url: string,
-    timeout = 30000) : Promise<ResponseEntity>
-{
+    timeout = 30000
+) : Promise<ResponseEntity> {
 
     let headers = {}
     /**

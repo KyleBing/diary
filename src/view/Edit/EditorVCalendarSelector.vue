@@ -13,14 +13,14 @@
                 :popover="popoverOptions"
             >
                 <template #default="{ togglePopover }">
-                    <div class="datetime" @click="togglePopover">
+                    <div class="datetime" @click="() => togglePopover()">
                         <div class="date">{{dateFormatter(modelDate, 'yyyy.MM.dd')}}</div>
                         <div class="time">{{dateFormatter(modelDate, 'hh:mm')}}</div>
                     </div>
                 </template>
                 <template #footer>
                     <div class="p-2">
-                        <div class="btn btn-active" @click="moveToday">今天</div>
+                        <ButtonSmall @click="moveToday">转到今天</ButtonSmall>
                     </div>
                 </template>
             </DatePicker>
@@ -47,6 +47,7 @@ import {DatePicker} from 'v-calendar';
 import 'v-calendar/style.css';
 import {dateFormatter} from "@/utility.ts";
 import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
+import ButtonSmall from "@/components/ButtonSmall.vue";
 
 const emit = defineEmits(["dayChange"])
 const modelDate = defineModel<Date>({ // v-model value
@@ -68,6 +69,15 @@ onMounted(()=>{
  */
 const lunarObject = ref<LunarDateEntity>({})
 const popoverOptions = ref<PopoverOptions>({
+    autoHide: true,
+    data: undefined,
+    force: false,
+    hideDelay: 0,
+    id: undefined,
+    isInteractive: false,
+    modifiers: undefined,
+    showDelay: 0,
+    target: undefined,
     visibility: 'click',
     placement: "auto"
 })
