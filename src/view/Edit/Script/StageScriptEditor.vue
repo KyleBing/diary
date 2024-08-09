@@ -57,8 +57,8 @@
                 </div>
                 <div class="operation-group down">
                     <div class="operation" @click="addScene(index+1)">+ 场景</div>
-                    <div class="operation" @click="deleteScene(index)">× 场景</div>
                     <div class="operation" @click="addDialogue(scene)">+ 对话</div>
+                    <div class="operation" @click="deleteScene(index)">× 场景</div>
                 </div>
 
             </div>
