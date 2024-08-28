@@ -43,7 +43,6 @@ export default {
     background: $gradient-linear-blue;
 }
 .month-year{
-    font-family: "Galvji", sans-serif;
     align-items: flex-end;
     margin-right: 5px;
     display: flex;

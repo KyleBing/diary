@@ -67,7 +67,6 @@ function clockStop(){
 <style scoped lang="scss">
 @import "../../scss/plugin";
 .clock{
-    font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
     height: $height-navbar;
     align-items: center;
     justify-content: center;

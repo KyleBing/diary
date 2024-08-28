@@ -109,7 +109,6 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
         text-align: right;
         width: 80px;
         font-size: $fz-title;
-        font-family: "JetBrainsMonoDiary", sans-serif;
     }
     .lender{
         width: 100px;

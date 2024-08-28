@@ -130,6 +130,7 @@ function markAsShared(invitationId: number | string){
     justify-content: flex-start;
     flex-flow: row wrap;
     &-item{
+        font-family: "JetBrainsMonoDiary", "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
         @include transition(all 0.3s);
         align-items: center;
         margin-right: 15px;
@@ -139,7 +140,6 @@ function markAsShared(invitationId: number | string){
         @include border-radius($radius-pc);
         border: 1px solid white;
         display: flex;
-        font-family: 'JetBrainsMonoDiary', sans-serif;
         flex-flow: row nowrap;
         .index{
             flex-shrink: 0;

@@ -11,7 +11,6 @@
 
 .id{
   flex-shrink: 0;
-  font-family: 'JetBrains Mono', sans-serif;
   font-size: $fz-title;
   @include border-radius(100px);
   text-align: center;
@@ -44,7 +43,7 @@
     font-weight: bold;
   }
   .size{
-    font-family: 'JetBrains Mono', sans-serif;
+    font-family: "JetBrainsMonoDiary", "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
     color: $text-subtitle;
   }
   .description{

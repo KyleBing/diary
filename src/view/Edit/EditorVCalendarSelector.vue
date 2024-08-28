@@ -178,10 +178,10 @@ function dateTimeMove(step: -1|0|1) {
 $height: 40px;
 
 .datetime{
+    font-family: "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
     align-items: flex-end;
     display: flex;
     justify-content: center;
-    font-family: 'SF UI Display', sans-serif;
     color: $text-content;
     text-align: center;
     background-color: transparent;

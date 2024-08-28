@@ -7,6 +7,7 @@
   background-color: $bg-light;
   display: flex;
   flex-flow: row nowrap;
+  font-family: "JetBrainsMonoDiary", "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
 }
 
 .temperature-wrapper{
@@ -22,7 +23,6 @@ textarea{
   display: block;
   line-height: 1.5;
   padding: 15px 20px;
-  font-family: "JetBrainsMonoDiary", sans-serif;
   border: 1px solid $color-border;
   @include transition(box-shadow 0.5s);
   @include transition(-webkit-box-shadow 0.5s);
@@ -61,7 +61,6 @@ textarea{
       overflow-x: hidden;
       overflow-y: scroll;
       resize: vertical;
-      font-family: "JetBrainsMonoDiary", sans-serif;
       font-size: 1rem;
       &:focus{
         @include transition(all 0.3s);

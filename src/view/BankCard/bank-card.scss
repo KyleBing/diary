@@ -46,7 +46,7 @@ $card-bgs: (
   }
   .bankcard-index {
     color: black;
-    font-family: Monaco;
+    font-family: "JetBrainsMonoDiary";
     font-size: $fz-small;
     position: absolute;
     top: 8px;
@@ -121,6 +121,7 @@ $card-bgs: (
 
 
 .bankcard-detail-list{
+  font-family: "JetBrainsMonoDiary", "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
   flex-shrink: 0;
   flex-grow: 1;
   border-top: 1px solid transparentize(white, 0.9);

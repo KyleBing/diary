@@ -42,6 +42,7 @@
   margin: 0 20px;
   padding: 20px 0 60px;
   overflow-y: auto;
+  font-family: "JetBrainsMonoDiary", "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
   &:hover{
     .toolbar{
       transition: all 0.3s;
@@ -65,14 +66,11 @@
   .content{
     white-space: pre-wrap;
     p{
-      font-family: "JetBrainsMonoDiary", sans-serif;
       margin-bottom: 0;
       line-height: 1.5;
       word-break: break-all;
     }
-
     .code{
-      font-family: "JetBrainsMonoDiary", sans-serif;
       font-size: 12px;
       line-height: 1.3;
     }
