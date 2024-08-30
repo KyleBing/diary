@@ -2,7 +2,9 @@ interface BankCardEntity{
     cardNo: string,
     cardName: string,
     cardType: string,
-    extraInfos: any[]
+    extraInfos: any[],
+    '开户行'?: string,
+    note?: string
 }
 
 export {
