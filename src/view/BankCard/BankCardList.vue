@@ -10,21 +10,11 @@
             <div class="bank-card-container"
                  v-if="cardListAll.length > 0"
             >
-                <h1 class="bank-card-list-header">存储卡</h1>
                 <div class="bank-card-list">
                     <BankCard
                         :index="index"
                         :card="card"
-                        v-for="(card, index) in cardListStore"
-                        :key="index"/>
-                </div>
-
-                <h1 class="bank-card-list-header">信用卡</h1>
-                <div class="bank-card-list">
-                    <BankCard
-                        :index="index"
-                        :card="card"
-                        v-for="(card, index) in cardListCredit"
+                        v-for="(card, index) in cardListAll"
                         :key="index"/>
                 </div>
             </div>

@@ -33,7 +33,6 @@ $card-bgs: (
   &:hover{
     //transform: translateX();
     @include transform(translateY(-5px) translateX(-1px));
-
     @include transition(all 0.2s);
     @include box-shadow(15px 15px 0px transparentize(black, 0.5));
     .bankcard-index {
@@ -168,7 +167,13 @@ $card-bgs: (
 @media (max-width: $grid-separate-width-sm) {
   .bankcard{
     width: 100%;
+    margin-bottom: 15px;
     margin-right: 0;
+    &:hover{
+      @include transform(translateY(-5px) translateX(-1px));
+      @include transition(all 0.2s);
+      @include box-shadow(5px 5px 0px transparentize(black, 0.5));
+    }
     // upper
     .bankcard-upper{
       padding: 10px 15px;
