@@ -121,10 +121,10 @@
                      v-if="route.name === 'Edit' || route.name === 'EditNew'"
                      alt="LOGO">
                 <a v-else-if="storeProject.listStyle === EnumListStyle.list">
-                    <img :src="SVG_ICONS.logo_icons.logo_content" alt="日记">
+                    <img :src="SVG_ICONS.logo_icons.logo" alt="日记">
                 </a>
                 <a v-else>
-                    <img :src="SVG_ICONS.logo_icons.logo" alt="日记">
+                    <img :src="SVG_ICONS.logo_icons.logo_content" alt="日记">
                 </a>
             </div>
 
