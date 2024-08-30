@@ -1,5 +1,5 @@
 <template>
-    <div :class="['bankcard', getBankInfo(props.card.cardName)!.bgColorClass]">
+    <div :class="['bankcard', getBankInfo(props.card.cardName)!.bgColorClass, {active: props.index === props.chosenCardIndex}]">
         <div class="bankcard-index">{{index + 1}}</div>
         <div class="bankcard-upper">
             <div class="bankcard-logo">
@@ -35,8 +35,9 @@
 import {BankCardEntity} from "./BankCard.ts"
 
 const props = defineProps<{
-    card: BankCardEntity
     index: number
+    chosenCardIndex: number,
+    card: BankCardEntity
 }>()
 
 interface BankCardFace {

@@ -10,23 +10,15 @@
             <div class="bank-card-container"
                  v-if="cardListAll.length > 0"
             >
-                <h1 class="bank-card-list-header">存储卡</h1>
                 <div class="bank-card-list">
                     <BankCard
+                        @click="chosenCurrentCard(index)"
+                        :chosenCardIndex="currentCardIndex"
                         :index="index"
                         :card="card"
-                        v-for="(card, index) in cardListStore"
-                        :key="index"/>
+                        v-for="(card, index) in cardListAll" :key="index"/>
                 </div>
 
-                <h1 class="bank-card-list-header">信用卡</h1>
-                <div class="bank-card-list">
-                    <BankCard
-                        :index="index"
-                        :card="card"
-                        v-for="(card, index) in cardListCredit"
-                        :key="index"/>
-                </div>
             </div>
             <div v-else class="bank-tip">
                 <Loading v-if="isLoading" :loading="isLoading"/>
@@ -73,6 +65,9 @@ import {onBeforeUnmount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 import {BankCardEntity} from "@/view/BankCard/BankCard.ts";
+import {useProjectStore} from "@/pinia";
+
+const projectStore = useProjectStore()
 
 const cardListExample = [
     {
@@ -108,13 +103,15 @@ const example = `银行：民生银行
 验证码：123/4
 到期日：2029-08-10
 `
+const clipboard = ref(null) // clipboard obj
+const router = useRouter()
 
 const isLoading = ref(false)
 const cardListAll = ref<Array<BankCardEntity>>([])
 const cardListStore = ref([])
 const cardListCredit = ref([])
-const clipboard = ref(null) // clipboard obj
-const router = useRouter()
+
+const currentCardIndex = ref<number | undefined>(undefined)
 
 onMounted(()=>{
     getBankCards()
@@ -122,6 +119,14 @@ onMounted(()=>{
 onBeforeUnmount(()=>{
     clipboard.value && clipboard.value.destroy()
 })
+
+function chosenCurrentCard(index: number){
+    if (currentCardIndex.value === index){
+        currentCardIndex.value = undefined
+    } else {
+        currentCardIndex.value = index
+    }
+}
 
 // 编辑银行卡信息
 function editCardInfo(){
@@ -168,11 +173,11 @@ function processCardInfo(allCardString: string){
     let tempStrArray = allCardString.split('\n\n').filter(item => item.length > 0)
     // card item
     tempStrArray.forEach(cardStr => {
-        let cardMap = new Map(
-            cardStr
-                .split('\n')
-                .map(cardItem => cardItem.split('：'))
-        )
+        let keyValueArray = cardStr
+                                .split('\n')
+                                .map(cardItem => cardItem.split('：'))
+        console.log(keyValueArray)
+        let cardMap = new Map(keyValueArray)
         let cardInfo: BankCardEntity = {}
         let extraInfos = []
         cardMap.forEach((value, key) => {
@@ -213,7 +218,7 @@ function processCardInfo(allCardString: string){
     padding: 20px 0;
     text-align: left;
     pre{
-        font-family: "JetBrainsMonoDiary";
+        font-family: "JetBrainsMonoDiary", sans-serif;
     }
 }
 
@@ -241,6 +246,8 @@ function processCardInfo(allCardString: string){
         padding-left: 10px;
     }
     .bank-card-list{
+        //padding-top: 100px;
+        padding-bottom: 100px;
         flex-flow: column nowrap;
     }
 }

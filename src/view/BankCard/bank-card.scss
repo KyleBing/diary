@@ -44,6 +44,9 @@ $card-bgs: (
 
     }
   }
+  &.active{
+    z-index: 999;
+  }
   .bankcard-index {
     color: black;
     font-family: "JetBrainsMonoDiary";
@@ -167,8 +170,23 @@ $card-bgs: (
 // mobile
 @media (max-width: $grid-separate-width-sm) {
   .bankcard{
+    z-index: 0;
+    transform-origin: top;
+    transform: perspective(1600px) rotate3d(-1, 0, 0,10deg);
+    @include box-shadow(3px -5px 14px rgba(0,0,0,0.5) !important);
     width: 100%;
     margin-right: 0;
+    margin-bottom: -120px;
+    &:hover{
+      z-index: 999;
+      @include transform(none);
+      @include box-shadow(none);
+    }
+    &.active{
+      z-index: 999;
+      transform: translateY(-20px);
+      @include box-shadow(3px 0px 24px rgba(0,0,0,0.9) !important);
+    }
     // upper
     .bankcard-upper{
       padding: 10px 15px;
