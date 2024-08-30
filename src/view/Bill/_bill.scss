@@ -103,6 +103,10 @@
         &.center{
           text-align: center;
         }
+        &.date{}
+        &.income{
+        }
+        &.output{}
       }
       td.label{
         @extend .text-gray;
@@ -186,12 +190,19 @@
           width: 40px;
           min-width: 40px;
           padding: 2px 5px 2px ;
-          &.amount{
+          &.date{
+            min-width: 50px;
+          }
+          &.income{
+            width: 30px !important;
+            min-width: 30px;
+          }
+          &.output{
             width: 30px !important;
             min-width: 30px;
           }
           &.label{
-            max-width: 100px;
+            max-width: 160px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

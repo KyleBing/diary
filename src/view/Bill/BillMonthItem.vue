@@ -27,15 +27,15 @@
                 <th class="label center">具体</th>
             </tr>
             <tr v-for="item in billMonthData.days" :key="item.date">
-                <td class="center number link"  @click="goToDiaryDetail(item.id)">
-                    {{ dateProcess(item.date).dateShort }}
+                <td class="date center number link"  @click="goToDiaryDetail(item.id)">
+                    {{ dateProcess(item.date).day }}
                     <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
-                <td class="amount number">
+                <td class="income amount number">
                     <span v-if="item.sumIncome === 0" class="text-invalid">~</span>
                     <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
                     <span v-else>{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
                 </td>
-                <td class="amount number">
+                <td class="output amount number">
                     <span v-if="item.sumOutput === 0" class="text-invalid">~</span>
                     <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
                     <span v-else>{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
