@@ -88,7 +88,7 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
 <style scoped lang="scss">
 @import "../../../scss/plugin";
 .borrow-list{
-
+    padding-top: 10px;
 }
 .borrow-list-item{
     border-bottom: 1px solid $color-border;
@@ -103,20 +103,23 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
         background-color: $bg-light;
     }
     &:last-child{
-        //border-bottom: none;
+        border-bottom: none;
     }
     .total{
+        font-weight: bold;
+        font-family: "JetBrainsMonoDiary", sans-serif;
+        min-width: 70px;
         text-align: right;
-        width: 80px;
-        font-size: $fz-title;
+        flex-shrink: 0;
+        font-size: $fz-main;
     }
     .lender{
-        width: 100px;
+        min-width: 80px;
+        flex-shrink: 0;
         text-align: center;
-        flex-grow: 1;
-
     }
     .section-note{
+        flex-grow: 1;
         width: 100px;
         font-size: $fz-tiny;
         color: $text-content;
