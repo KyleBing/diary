@@ -9,7 +9,7 @@
 
 
 线上地址：[http://kylebing.cn/diary](http://kylebing.cn/diary)  
-体验账号：`test@163.com` | `test`
+
 
 
 
