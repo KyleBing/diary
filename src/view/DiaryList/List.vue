@@ -55,7 +55,7 @@ import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility.ts";
 import {useProjectStore} from "@/pinia"
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {DiaryEntity, DiaryEntityDatabase, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
+import {DiaryEntity, DiaryEntityFromServer, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
 import {storeToRefs} from "pinia";
 import {EnumListStyle} from "@/listStyle.ts";
 
@@ -65,7 +65,7 @@ const route = useRoute()
 
 const isHasMore = ref(true)
 const isLoading = ref(true)
-const diaries = ref<Array<DiaryEntityDatabase>>([])
+const diaries = ref<Array<DiaryEntityFromServer>>([])
 const diariesShow = ref<Array<DiaryEntity>>([])
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
 
@@ -127,7 +127,7 @@ function refreshDiariesShow(){
                         date: currentDiaryDateString.substring(0, 7)
                     })
                 }
-                let tempDiary: DiaryEntityDatabase = {}
+                let tempDiary: DiaryEntityFromServer = {}
                 Object.assign(tempDiary, currentDiary)
                 tempDiary.is_public = currentDiary.is_public === 1
 
@@ -271,12 +271,12 @@ watch(listOperation, ({type, diary, id}: DiaryListOperation) => {
             let posInsert = 0
             for (let i = 0; i < diaries.value.length; i++) {
                 let currentDiary = diaries.value[i]
-                if (diary.date > currentDiary.date) {
+                if (diary!.date > currentDiary.date) {
                     posInsert = i
                     break
                 }
             }
-            diaries.value.splice(posInsert, 0, diary)
+            diaries.value.splice(posInsert, 0, diary!)
             refreshDiariesShow()
             break
         case 'delete':
@@ -304,8 +304,8 @@ watch(listOperation, ({type, diary, id}: DiaryListOperation) => {
         case 'change':
             // TODO: 修改日记的日期时排序调整位置
             diaries.value.map((item, index) => {
-                if (Number(item.id) === Number(diary.id)) {
-                    diaries.value.splice(index, 1, diary)
+                if (Number(item.id) === Number(diary!.id)) {
+                    diaries.value.splice(index, 1, diary!)
                 }
             })
             refreshDiariesShow()

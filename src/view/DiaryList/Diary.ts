@@ -15,12 +15,12 @@ interface DiaryEntity {
 
 interface DiaryListOperation {
     type: 'add' | 'delete' | 'change',
-    diary: DiaryEntity|null,
+    diary: DiaryEntity|undefined,
     id: number
 }
 
 // 数据库 diary
-interface DiaryEntityDatabase{
+interface DiaryEntityFromServer{
     id: number
     title: string,
     content: string,
@@ -50,7 +50,7 @@ interface DiaryEntityDatabase{
     isShowItemWeekDayShort?: boolean, // 是否显示缩写星期，列表的时候用
 }
 
-interface DiaryEntityWaterfall extends DiaryEntityDatabase{
+interface DiaryEntityWaterfall extends DiaryEntityFromServer{
     position: {
         top: number,
         left: number,
@@ -63,7 +63,7 @@ interface DiarySearchParams {
     keywords: Array<string> | string, // 关键字 JSON string 后的内容 : string[]
     pageNo: number,
     pageSize: number, // 单页请求条数
-    categories: Array<string>,
+    categories: string,
     filterShared?: 0|1, // 1 是筛选，0 是不筛选
     dateFilterString?: string // 日记年月筛选
 }
@@ -109,7 +109,7 @@ export {
     type DiaryListOperation,
     type DiarySearchParams,
     type DiarySubmitEntity,
-    type DiaryEntityDatabase,
+    type DiaryEntityFromServer,
     type ResponseDiaryAdd,
     type DiaryEntityWaterfall,
     EnumWeather

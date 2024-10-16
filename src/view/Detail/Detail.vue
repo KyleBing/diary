@@ -56,7 +56,7 @@ import DetailHeader from "@/view/Detail/DetailHeader.vue";
 import WordExplode from "@/view/Detail/WordExplode.vue";
 import ButtonNormal from "../../components/ButtonNormal.vue";
 import ToDo from "./ToDo.vue";
-import {DiaryEntityDatabase} from "@/view/DiaryList/Diary.ts";
+import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
 import {LunarDateEntity} from "@/entity/LunarDate.ts";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 
@@ -72,7 +72,7 @@ const route = useRoute()
 
 
 const isLoading = ref(false) // loading
-const diary = ref<DiaryEntityDatabase>({})
+const diary = ref<DiaryEntityFromServer>({})
 const clipboard = ref() // clipboard obj
 const lunarObject = ref<LunarDateEntity>({})
 const isShowExplode = ref(false)

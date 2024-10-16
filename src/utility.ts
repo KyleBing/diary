@@ -7,12 +7,12 @@ const BILL_KEYS_NAME = 'BillKeys'
 /**
  *  AUTHORIZATION
  */
-function getAuthorization(): AuthorizationEntity | null {
+function getAuthorization(): AuthorizationEntity | undefined {
     let authJsonString = localStorage.getItem(AUTHORIZATION_NAME)
     if (authJsonString){
         return JSON.parse(authJsonString)
     } else {
-        return null
+        return undefined
     }
 }
 

@@ -33,13 +33,13 @@ import {computed} from "vue";
 import {useProjectStore} from "@/pinia";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntityDatabase} from "../Diary.ts";
+import {DiaryEntityFromServer} from "../Diary.ts";
 const storeProject = useProjectStore()
 const route = useRoute()
 
 
 const props = defineProps<{
-    diary: DiaryEntityDatabase
+    diary: DiaryEntityFromServer
 }>()
 
 const isActive = computed(() => {

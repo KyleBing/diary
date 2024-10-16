@@ -40,7 +40,7 @@ const storeProject = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntityDatabase, DiaryEntityWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
+import {DiaryEntityFromServer, DiaryEntityWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 import DiaryListWaterfallItem from "@/view/DiaryListWaterfall/DiaryListWaterfallItem.vue";
 
@@ -63,7 +63,7 @@ const params = ref<DiarySearchParams>({
 
 
 
-const diaries = ref<Array<DiaryEntityDatabase>>([])  // 实际日记
+const diaries = ref<Array<DiaryEntityFromServer>>([])  // 实际日记
 
 
 onMounted(()=>{
@@ -199,7 +199,7 @@ let colWidth = storeProject.insets.windowsWidth / colCount  // 每个元素的�
 const loadTimeOutHandle = ref()  // 载入过程的 timeOut handle
 const isNeedLoadNextTimeout = true  // 是否要打断 timeout 的载入过程
 
-function renderingWaterfallList(newDiaries: Array<DiaryEntityDatabase>, index: number){
+function renderingWaterfallList(newDiaries: Array<DiaryEntityFromServer>, index: number){
     // 如果不需要载入下面的内容，在 reload 的时候会遇到这种情况
     if (!isNeedLoadNextTimeout){
         return

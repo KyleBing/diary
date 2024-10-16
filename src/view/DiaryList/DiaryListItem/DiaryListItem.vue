@@ -36,12 +36,12 @@
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts"
 import {computed} from "vue";
 import {useProjectStore} from "@/pinia";
-import {DiaryEntityDatabase} from "@/view/DiaryList/Diary.ts";
+import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
 const storeProject = useProjectStore()
 
 const props = withDefaults(defineProps<{
     isActive: boolean,
-    diary: DiaryEntityDatabase
+    diary: DiaryEntityFromServer
 }>(), {
     isActive: false
 })

@@ -133,7 +133,7 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 // ENTITY
 import {
     DiaryEntity,
-    DiaryEntityDatabase,
+    DiaryEntityFromServer,
     DiarySearchParams,
     DiarySubmitEntity, EnumWeather,
     ResponseDiaryAdd
@@ -591,7 +591,7 @@ function loadCurrentWeekLogs() {
         })
 }
 
-function combineWeekWorkLog(workList: DiaryEntityDatabase[]){
+function combineWeekWorkLog(workList: DiaryEntityFromServer[]){
     let contentStr = ''
     workList.forEach(item => {
         contentStr = contentStr + item.title + '\n' + item.content + '\n'

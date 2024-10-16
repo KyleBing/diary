@@ -91,11 +91,11 @@ import {useProjectStore} from "@/pinia";
 const storeProject = useProjectStore();
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute} from "vue-router";
-import {DiaryEntityDatabase} from "@/view/DiaryList/Diary.ts";
+import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 const route = useRoute()
 
-const currentDiary = ref<DiaryEntityDatabase>(null)
+const currentDiary = ref<DiaryEntityFromServer>(null)
 const dateObj = ref<DateUtilityObject>({})
 const isLoadingDiary = ref(false) // 日记请求中
 

@@ -174,7 +174,7 @@ const router = useRouter()
 
 
 const isAdminUser = computed(()=>{
-    return getAuthorization().group_id === 1
+    return getAuthorization()?.group_id === 1
 })
 
 
@@ -182,7 +182,8 @@ const isAdminUser = computed(()=>{
  * Clipboard
  */
 const clipboard= ref<ClipboardJS>()
-let location = null
+let location = window.location
+
 onUnmounted(()=>{
     clipboard.value.destroy()
 })
