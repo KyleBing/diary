@@ -26,6 +26,8 @@
                     <BorrowInfo class="mt-2"/>
                 </div>
 
+                <BillSummary :monthDataOfBill="billYearData"/>
+
                 <BillMonthItem
                     v-if="!isLoading"
                     :bill-month-data="month"
@@ -54,6 +56,7 @@ import BorrowInfo from "@/view/Bill/BorrowInfo/BorrowInfo.vue";
 import BillPanel from "@/view/Bill/BillPanel.vue";
 import Button from "@/components/Button.vue";
 import ButtonSmall from "@/components/ButtonSmall.vue";
+import BillSummary from "@/view/Bill/BillSummary.vue";
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)

@@ -3,7 +3,7 @@
         <div class="number text-income">
             +{{ (billMonth.sumIncome).toFixed(storeProject.moneyAccuracy)  }} <span class="bill-sum-label">收入</span>
         </div>
-        <div class="number text-outcome">
+        <div class="number text-expense">
             {{ (billMonth.sumOutput - exceptSum ).toFixed(storeProject.moneyAccuracy)}} <span class="bill-sum-label">支出</span>
         </div>
         <div class="number sum text-black">

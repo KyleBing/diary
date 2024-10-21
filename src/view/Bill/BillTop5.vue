@@ -2,7 +2,7 @@
     <div class="summary">
         <div class="title">{{title}}</div>
         <div class="bill-list">
-            <div :class="['bill-item', {filtered: item.isFiltered}]"
+            <div :class="['bill-list-item', {filtered: item.isFiltered}]"
                  v-for="(item, index) in modelTop5" :key="index" @click="changeCurrentState(item)">
                 <div class="name">{{item.item}}</div>
                 <div class="price">{{item.price.toFixed(storeProject.moneyAccuracy)}}</div>
@@ -44,7 +44,7 @@ function changeCurrentState(billItem: EntityBillTop5Item){
     font-weight: bold;
 }
 .bill-list{
-    .bill-item{
+    .bill-list-item{
         cursor: pointer;
         @extend .btn-like;
         margin-bottom: 2px;
@@ -85,7 +85,7 @@ function changeCurrentState(billItem: EntityBillTop5Item){
         color: $dark-text;
     }
     .bill-list{
-        .bill-item{
+        .bill-list-item{
             &:after{
                 border-bottom: 1px dashed $dark-border;
             }
