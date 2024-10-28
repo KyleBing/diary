@@ -15,7 +15,7 @@
 
 ## 一、界面
 
-![2023-08-31 11 27 29](https://github.com/KyleBing/diary/assets/12215982/1c9e40d1-d175-42d6-aed6-266a18cbbe3b)
+<img width="2032" alt="list-diary" src="https://github.com/user-attachments/assets/4c3efa8f-322c-41ae-bb0d-0b20c6143bea">
 
 
 ## 二、日记的使用
@@ -74,7 +74,27 @@
 | <kbd>CTRL</kbd>+ <kbd>→ </kbd>    | 移动到行最右端                            |
 
 
-## 三、部署自己的日记系统
+
+
+## 三、项目历程
+
+1. 2017 年的时候学 iOS 顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 `iCloud` 中，有了 app 的界面样子，但并不能很完美的使用。
+2. 后来到 2019 年的时候感觉自己前端技术差不多了，就想以前端的方式实现它，最初用的是 `HTML` + `jQuery`。
+3. 之后对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，添加了 PC 版界面。
+4. 再后来就大改了，改成了纯 `Vue` 模式，此时的 PC 版和移动端还是在两个分支上。
+5. 又过了好久，总算把移动端和 PC 两个版本融合到了一起。
+6. 2024年1月，改写成 `vite` + `ts` 版本
+
+
+## 四、项目周期
+
+`2017-09-27` ~ `现在`
+
+因为自己在用这个，也是自己最喜欢、使用频率最高的项目，所以只要我还健在，这个项目就会被一直维护下去。
+
+
+
+## 五、部署自己的日记系统
 前后端完全开源，你可以部署一套自己的日记系统。
 
 该项目包含两个部分：
@@ -90,7 +110,7 @@
 - `ServiceWorker` 和  `navigator.clipboard` 只在环境是 `https` 或 `localhost` 的时候生效。
 
 
-## 四、邀请码系统
+## 六、邀请码系统
 
 新用户注册需要邀请码，邀请码分为两种：  
 - 一种是万能的，在后台系统的配置文件中配置
@@ -103,7 +123,7 @@
 > 目前初始化的过程还不是很好，还是代码层面的，所以先手动修改数据吧
 
 
-## 五、项目配置
+## 七、项目配置
 
 ### 1. 图片存储配置 `[选配]`
 > 如若不配置：只是不能显示用户头像而已  
@@ -143,17 +163,17 @@ gzip_comp_level 9;
 gzip_types  text/css application/javascript application/json;
 ```
 
-## 六、开发说明
+## 八、开发说明
 
 所有配置信息都保存在 `LocalStorage` 中
 - `DiaryConfig`: 用户的配置信息（类别筛选，日期筛选，关键字）
 - `Authorization`: 用户信息（`avatar`,`city`,`email`,`geolocation`,`group_id`,`nickname`,`phone`,`token`,`uid`）
 
-## 七、用到的 npm 包
+## 九、用到的 npm 包
 
 - `vue3` + `ts` + `vite` 
-- `vue-router`
-- `pinia`
+  - `vue-router`
+  - `pinia`
 - `axios` 
 - `clipboard` 剪贴板
 - `moment` 时间处理
@@ -165,79 +185,21 @@ gzip_types  text/css application/javascript application/json;
 - `js-base64` base64 处理
 
 
-## 八、项目历程
-
-1. 2017 年的时候学 iOS 顺便做了个不太成熟的 iOS 版 app，当时日记是存储在 `iCloud` 中，有了 app 的界面样子，但并不能很完美的使用。
-2. 后来到 2019 年的时候感觉自己前端技术差不多了，就想以前端的方式实现它，最初用的是 `HTML` + `jQuery`。
-3. 之后对 `Vue` 了解的足够多之后，就改成了 `HTML` + `Vue`。最初只有移动端的，添加了 PC 版界面。
-4. 再后来就大改了，改成了纯 `Vue` 模式，此时的 PC 版和移动端还是在两个分支上。
-5. 又过了好久，总算把移动端和 PC 两个版本融合到了一起。
-6. 2024年1月，改写成 `vite` + `ts` 版本
-
-
-## 九、项目周期
-
-`2017-09-27` ~ `现在`
-
-因为自己在用这个，也是自己最喜欢、使用频率最高的项目，所以只要我还健在，这个项目就会被一直维护下去。
-
-
-
 ## 十、支持
+
 感谢 [JetBrains](https://www.jetbrains.com/?from=diary-vue@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
 
-
 ## 十一、界面截图 - 详细
 
-**PC**
-![2023-08-31 11 25 31](https://github.com/KyleBing/diary/assets/12215982/1c633aaa-e7a4-4417-864f-52706cf9b445)
-![2023-08-31 11 24 39](https://github.com/KyleBing/diary/assets/12215982/4f38e4bd-e5d3-4b55-aaa4-05ae245f3600)
-![2023-08-31 11 23 48](https://github.com/KyleBing/diary/assets/12215982/4f181e5e-ec20-4564-b76b-a0b6d90991dd)
-
-
-
-登录  
-<img width="1512" alt="登录" src="https://user-images.githubusercontent.com/12215982/185168128-ec2d092f-85f6-4ffd-a510-dfcff5daf926.png">
-
-编辑页面  
-<img width="1920" alt="编辑页面" src="https://github.com/KyleBing/diary/assets/12215982/617f63a5-ec94-49f4-9c61-1761055e320c">
-
-日记详情  
-<img width="1920" alt="日记详情" src="https://github.com/KyleBing/diary/assets/12215982/69de00a4-d689-4a2f-9e89-92bdf78a89c8">
-
-统计  
-<img width="1512" alt="统计" src="https://user-images.githubusercontent.com/12215982/185168085-bb97e434-132c-44be-b3f8-db55e25816e5.png">
-
-银行卡列表  
-<img width="1920" alt="银行卡列表" src="https://user-images.githubusercontent.com/12215982/225222928-9bf993ef-39aa-4708-ba20-13f5f2b5f398.png">
-
-共享日记  
-<img width="1920" alt="共享日记" src="https://github.com/KyleBing/diary/assets/12215982/0143c6e2-e6fd-48dc-92ea-94d37c4afd67">
-
-资料编辑  
-<img width="1920" alt="资料编辑" src="https://github.com/KyleBing/diary/assets/12215982/ecffb47f-e114-46f6-8455-403d77fcfe9b">
-
-一键隐藏所有内容  
-<img width="1920" alt="一键隐藏所有内容" src="https://github.com/KyleBing/diary/assets/12215982/fb54c8b7-0abb-4490-9ecb-b3d7fd0c95bc">
-
-账单  
-<img width="1920" alt="账单" src="https://github.com/KyleBing/diary/assets/12215982/473093a7-f83e-422d-b32c-84f65fc9f9e8">
-
-类别筛选  
-<img width="1920" alt="类别筛选" src="https://github.com/KyleBing/diary/assets/12215982/6ad0596e-86a4-42f6-ab19-86465716fc0a">
-
-菜单  
-<img width="1920" alt="菜单" src="https://github.com/KyleBing/diary/assets/12215982/fd10285b-9ae6-493f-9321-940ad22fa052">
-
-
-iPad Pro 截图
-
-![主页](https://github.com/KyleBing/diary/assets/12215982/c2786d3c-f73e-4fb3-848a-089051ade2ea)
-
-
-**移动端**
-
-<img src="https://user-images.githubusercontent.com/12215982/185166461-4696dc21-89b5-4c54-ad1f-8657bf9e3106.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166481-bbf95e76-1d5b-4054-98ee-2bd3b5603094.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166500-1817f0eb-7f65-420f-bd81-9afede94dc87.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166509-03df6525-0ddb-4f71-be8c-004599a10b4d.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166519-984f993c-783e-4b78-9cb0-3628af10935a.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166526-ae43b775-4eac-4c5a-a6b0-dc428500806c.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166532-a123b897-882e-4ff5-8df1-4f24f0cf8cb4.PNG" alt="" width="240"/> <img src="https://user-images.githubusercontent.com/12215982/185166549-a90a5091-7b35-4ad9-ac62-f22515e6a8d8.PNG" alt="" width="240"/>
+<img width="2032" alt="login" src="https://github.com/user-attachments/assets/234429c0-4d86-4969-ac8f-60013a1e970a">
+<img width="2032" alt="list-diary" src="https://github.com/user-attachments/assets/4c3efa8f-322c-41ae-bb0d-0b20c6143bea">
+<img width="2032" alt="detail" src="https://github.com/user-attachments/assets/e702f377-fd4f-4b15-ae88-17b9971b8bd3">
+<img width="2032" alt="todo-list" src="https://github.com/user-attachments/assets/5064f46f-c0ee-4e80-bb50-b04d7a6c516a">
+<img width="2032" alt="diary-filter" src="https://github.com/user-attachments/assets/52a64cf6-512f-4338-bd3f-de208652b996">
+<img width="2032" alt="bill" src="https://github.com/user-attachments/assets/c1ba8b28-a201-422e-bcda-063aa506f852">
+<img width="2032" alt="bill-filter" src="https://github.com/user-attachments/assets/3511c0aa-85e0-4df0-84ed-a0f8960ecc26">
+<img width="2032" alt="function" src="https://github.com/user-attachments/assets/f315c3e8-5498-4cd4-afd1-1a6deb3910c8">
+<img width="2032" alt="statistic" src="https://github.com/user-attachments/assets/3bb1e1e8-8d5b-4253-bd5c-29e33ca3b763">
