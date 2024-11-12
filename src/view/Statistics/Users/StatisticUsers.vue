@@ -104,7 +104,7 @@
             </div>
 
             <!--用户日记数量柱状图-->
-            <StatisticPanel title="用户日记数量" v-if="isAdminUser">
+            <StatisticPanel title="用户日记数量">
                 <ChartBar title="" :data="chartDataDiary"/>
             </StatisticPanel>
         </div>
