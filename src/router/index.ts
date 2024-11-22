@@ -22,6 +22,7 @@ import DestroyAccount from "@/view/Util/DestroyAccount.vue";
 import FileManager from "@/view/FileManager/FileManager.vue";
 import {getAuthorization, isInMobileMode} from "../utility.ts";
 import FetchPassword from "@/view/Login&Register/FetchPassword.vue";
+import Calendar from "@/view/Calendar/Calendar.vue";
 
 
 const routes: RouteRecordRaw[] = [
@@ -45,6 +46,11 @@ const routes: RouteRecordRaw[] = [
         children: [
             {name: 'WaterfallList'   , path: 'list'      ,        component: WaterfallList},
         ]
+    },
+    {
+        name: 'Calendar',
+        path: '/calendar',
+        component: Calendar ,
     },
     {name: 'Register',             path: '/register',          component: Register},
     {name: 'Share',                path: '/share/:id',         component: Share},
