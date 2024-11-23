@@ -15,8 +15,8 @@
                 :columns="4"/>
 
             <div class="operation-panel">
-                <ButtonSmall @click="loadCalendarPeriod">日历1</ButtonSmall>
-                <ButtonSmall>日历2</ButtonSmall>
+                <ButtonSmall @click="loadCalendarPeriod" class="mb-2">日历 - 经期</ButtonSmall>
+                <ButtonSmall @click="getDiaries">日历 - 日记</ButtonSmall>
             </div>
         </div>
 
@@ -56,7 +56,7 @@ const diaries = ref<Array<DiaryEntity>>([])
 const formSearch = ref<DiarySearchParams>({
     keywords: '',
     pageNo: 1,
-    pageSize: 200, // 单页请求条数
+    pageSize: 500, // 单页请求条数
     categories: '',
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选

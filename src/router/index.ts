@@ -40,7 +40,7 @@ const routes: RouteRecordRaw[] = [
         ]
     },
     {
-        name: 'Calendar',
+        name: 'CalendarFramework',
         path: '/calendar',
         component: CalendarFramework,
         redirect: "/calendar/calendar",

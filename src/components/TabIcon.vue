@@ -15,16 +15,13 @@
 import ICONS from "../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
 
-const props = defineProps({
-    alt: {
-        type: String,
-        require: true
-    },
-    size: {
-        type: String,
-        default: '', // small normal big
-    }
+const props = withDefaults(defineProps<{
+    alt: string,
+    size?: string
+}>(), {
+    size: ''
 })
+
 const iconMap = computed(() => {
     let iconMap = new Map()
     iconMap.set('LOGO', ICONS.logo_icons.logo)
@@ -49,6 +46,7 @@ const iconMap = computed(() => {
     iconMap.set('待办-显示', ICONS.tab_icons.todoActive)
     iconMap.set('内容隐藏', ICONS.tab_icons.contentHide)
     iconMap.set('内容显示', ICONS.tab_icons.contentShow)
+    iconMap.set('日历展示', ICONS.tab_icons.calendar)
     iconMap.set('列表简洁', ICONS.tab_icons.listSimple)
     iconMap.set('列表详情', ICONS.tab_icons.listDetail)
     iconMap.set('列表瀑布', ICONS.tab_icons.listWaterfall)
@@ -71,6 +69,7 @@ const iconMap = computed(() => {
     iconMap.set('黑色-待办-显示', ICONS.tab_icons_black.todoActive)
     iconMap.set('黑色-内容隐藏', ICONS.tab_icons_black.contentHide)
     iconMap.set('黑色-内容显示', ICONS.tab_icons_black.contentShow)
+    iconMap.set('黑色-日历展示', ICONS.tab_icons_black.calendar)
     iconMap.set('黑色-列表简洁', ICONS.tab_icons_black.listSimple)
     iconMap.set('黑色-列表详情', ICONS.tab_icons_black.listDetail)
     iconMap.set('黑色-列表瀑布', ICONS.tab_icons_black.listWaterfall)

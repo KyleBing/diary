@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tabicon/ calendar</title>
+    <g id="tabicon/-calendar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M38,13 L38,33 C38,33.8284271 37.6642136,34.5784271 37.1213203,35.1213203 C36.5784271,35.6642136 35.8284271,36 35,36 L35,36 L11,36 C10.1715729,36 9.42157288,35.6642136 8.87867966,35.1213203 C8.33578644,34.5784271 8,33.8284271 8,33 L8,33 L8,13 L38,13 Z" id="Rectangle" stroke="#E5E5EA" stroke-width="2"></path>
+        <rect id="Rectangle-Copy" fill="#E5E5EA" x="13" y="9" width="2" height="8"></rect>
+        <rect id="Rectangle-Copy-2" fill="#E5E5EA" x="19" y="9" width="2" height="8"></rect>
+        <rect id="Rectangle-Copy-4" fill="#E5E5EA" x="25" y="9" width="2" height="8"></rect>
+        <rect id="Rectangle-Copy-3" fill="#E5E5EA" x="31" y="9" width="2" height="8"></rect>
+    </g>
+</svg>

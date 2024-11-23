@@ -4,8 +4,10 @@
         <nav class="navbar" id="navbar">
             <div class="nav-part-left">
                 <div @click="menuShow"
-                     v-if="(!projectStore.isInMobileMode && !projectStore.isMenuShowed)
-                     || projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed">
+                     v-if="
+                         (!projectStore.isInMobileMode && !projectStore.isMenuShowed)
+                         || projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed
+                    ">
                     <TabIcon v-if="projectStore.isInMobileMode" alt="菜单"/>
                     <TabIcon v-else alt="LOGO"/>
                 </div>
@@ -16,21 +18,25 @@
                      v-if="projectStore.isInMobileMode && route.name !== 'List'">
                     <TabIcon alt="返回"/>
                 </div>
+
                 <div v-show="!projectStore.isMenuShowed"
                      v-if="!projectStore.isInMobileMode"
                      @click="toggleHideContent">
                     <TabIcon v-if="projectStore.isHideContent" alt="内容隐藏"/>
                     <TabIcon v-else alt="内容显示"/>
                 </div>
+
                 <div v-show="!projectStore.isMenuShowed"
                      v-if="!projectStore.isInMobileMode"
                      @click="toggleListStyle">
                     <TabIcon v-if="projectStore.listStyle === EnumListStyle.list" alt="列表简洁"/>
                     <TabIcon v-if="projectStore.listStyle === EnumListStyle.detail" alt="列表详情"/>
                     <TabIcon v-if="projectStore.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
+                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.calendar" alt="日历展示"/>
                 </div>
 
                 <div class="waterfall-count" v-if="projectStore.listStyle === EnumListStyle.waterfall">{{projectStore.waterFallItemCount}}</div>
+
                 <div v-show="!projectStore.isMenuShowed"
                      v-if="!projectStore.isInMobileMode"
                      @click="toggleSearchbar">
@@ -192,6 +198,10 @@ onUnmounted(()=>{
 onMounted(()=> {
     location = window.location
 
+    if (route.name === 'Calendar'){
+        projectStore.listStyle = EnumListStyle.calendar
+    }
+
     isNewDiary.value = !(route.params.id)
 
     // 绑定剪贴板操作方法
@@ -204,8 +214,6 @@ onMounted(()=> {
         popMessage('success', '分享链接 已复制到 剪贴板', ()=>{}, 2)
     })
 })
-
-
 
 /**
  * TOAST Show | Hide
@@ -261,8 +269,10 @@ function menuClose() {
 function toggleListStyle() {
     switch (projectStore.listStyle){
         case EnumListStyle.list:
-            projectStore.listStyle = EnumListStyle.detail
-
+            projectStore.listStyle = EnumListStyle.detail  // 点击时切换到下一个展示类别
+            router.push({
+                name: 'List'
+            })
             break;
         case EnumListStyle.detail:
             projectStore.listStyle = EnumListStyle.waterfall
@@ -271,6 +281,12 @@ function toggleListStyle() {
             })
             break;
         case EnumListStyle.waterfall:
+            projectStore.listStyle = EnumListStyle.calendar
+            router.push({
+                name: 'Calendar'
+            })
+            break;
+        case EnumListStyle.calendar:
             projectStore.listStyle = EnumListStyle.list
             router.push({
                 name: 'List'
