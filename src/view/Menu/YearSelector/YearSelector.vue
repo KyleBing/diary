@@ -1,13 +1,13 @@
 <template>
     <MenuPanelContainer>
-        <div class="year-container" v-if="storeProject.statisticsYear.length > 0">
-            <div class="year" v-for="(year,indexYear) in storeProject.statisticsYear" :key="indexYear">
+        <div class="year-container" v-if="projectStore.statisticsYear.length > 0">
+            <div class="year" v-for="(year,indexYear) in projectStore.statisticsYear" :key="indexYear">
                 <div class="year-header">
                     <span>{{ year.year }}</span>
                     <sup class="count">{{ year.count }}</sup>
                 </div>
                 <div class="year-list">
-                    <div :class="['year-month-item', {active: storeProject.dateFilterString === month.id}]"
+                    <div :class="['year-month-item', {active: projectStore.dateFilterString === month.id}]"
                          v-for="(month, indexMonth) in year.months"
                          @click="monthClicked(month.id)"
                          :key="indexMonth">
@@ -24,13 +24,13 @@
 <script lang="ts" setup>
 import {useProjectStore} from "@/pinia";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 function monthClicked(monthId: string) {
-    if (monthId === storeProject.dateFilterString) {
-        storeProject.SET_DATE_FILTER_STRING('')
+    if (monthId === projectStore.dateFilterString) {
+        projectStore.SET_DATE_FILTER_STRING('')
     } else {
-        storeProject.SET_DATE_FILTER_STRING(monthId)
+        projectStore.SET_DATE_FILTER_STRING(monthId)
     }
 }
 </script>

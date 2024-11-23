@@ -4,7 +4,7 @@
     </PageHeader>
 
     <MenuPanelContainer>
-        <div v-if="isLoading" class="pt-8 pb-8" :style="`height:  ${storeProject.insets.heightPanel}px`">
+        <div v-if="isLoading" class="pt-8 pb-8" :style="`height:  ${projectStore.insets.heightPanel}px`">
             <Loading :loading="isLoading"/>
         </div>
 
@@ -39,7 +39,7 @@ import ClipboardJS from "clipboard"
 import invitationApi from "../../api/invitationApi.ts";
 import {popMessage, dateFormatter, getAuthorization} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import {InvitationEntity} from "./InvitationEntity.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";

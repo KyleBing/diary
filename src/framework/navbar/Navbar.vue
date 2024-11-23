@@ -4,80 +4,80 @@
         <nav class="navbar" id="navbar">
             <div class="nav-part-left">
                 <div @click="menuShow"
-                     v-if="(!storeProject.isInMobileMode && !storeProject.isMenuShowed)
-                     || storeProject.isInMobileMode && route.name === 'List' && !storeProject.isMenuShowed">
-                    <TabIcon v-if="storeProject.isInMobileMode" alt="菜单"/>
+                     v-if="(!projectStore.isInMobileMode && !projectStore.isMenuShowed)
+                     || projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed">
+                    <TabIcon v-if="projectStore.isInMobileMode" alt="菜单"/>
                     <TabIcon v-else alt="LOGO"/>
                 </div>
-                <div @click="menuClose" v-if="storeProject.isMenuShowed">
+                <div @click="menuClose" v-if="projectStore.isMenuShowed">
                     <TabIcon alt="关闭"/>
                 </div>
                 <div @click="commitBack"
-                     v-if="storeProject.isInMobileMode && route.name !== 'List'">
+                     v-if="projectStore.isInMobileMode && route.name !== 'List'">
                     <TabIcon alt="返回"/>
                 </div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode"
                      @click="toggleHideContent">
-                    <TabIcon v-if="storeProject.isHideContent" alt="内容隐藏"/>
+                    <TabIcon v-if="projectStore.isHideContent" alt="内容隐藏"/>
                     <TabIcon v-else alt="内容显示"/>
                 </div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode"
                      @click="toggleListStyle">
-                    <TabIcon v-if="storeProject.listStyle === EnumListStyle.list" alt="列表简洁"/>
-                    <TabIcon v-if="storeProject.listStyle === EnumListStyle.detail" alt="列表详情"/>
-                    <TabIcon v-if="storeProject.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
+                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.list" alt="列表简洁"/>
+                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.detail" alt="列表详情"/>
+                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
                 </div>
 
-                <div class="waterfall-count" v-if="storeProject.listStyle === EnumListStyle.waterfall">{{storeProject.waterFallItemCount}}</div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode"
+                <div class="waterfall-count" v-if="projectStore.listStyle === EnumListStyle.waterfall">{{projectStore.waterFallItemCount}}</div>
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode"
                      @click="toggleSearchbar">
                     <TabIcon alt="搜索"/>
                 </div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode"
                      @click="goToPage('BankCard')">
                     <TabIcon alt="银行卡"/>
                 </div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode"
                      @click="goToPage('Bill')">
                     <TabIcon alt="账单"/>
                 </div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode && isAdminUser"
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode && isAdminUser"
                      @click="goToPage('FileManager')">
                     <TabIcon alt="文件"/>
                 </div>
-                <div v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode" @click="toggleTodoList">
+                <div v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode" @click="toggleTodoList">
                     <TabIcon
                         alt="待办-显示"
-                        v-if="storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'"/>
+                        v-if="projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'"/>
                     <TabIcon alt="待办" v-else/>
                 </div>
                 <div class="btn-text-group"
-                     v-show="!storeProject.isMenuShowed"
-                     v-if="!storeProject.isInMobileMode && storeProject.dateFilterString">
-                    <div class="btn-text" @click="clearDateFilter">{{ storeProject.dateFilterString }}</div>
+                     v-show="!projectStore.isMenuShowed"
+                     v-if="!projectStore.isInMobileMode && projectStore.dateFilterString">
+                    <div class="btn-text" @click="clearDateFilter">{{ projectStore.dateFilterString }}</div>
                 </div>
 
                 <NavbarCategorySelector
-                    v-if="!storeProject.isInMobileMode && !storeProject.isMenuShowed"
+                    v-if="!projectStore.isInMobileMode && !projectStore.isMenuShowed"
                     class="ml-5"/>
 
             </div>
 
             <div class="nav-part-right">
                 <!--时钟-->
-                <Clock class="pr-6" v-if="!storeProject.isInMobileMode && storeProject.insets.windowsWidth > 1352"/>
+                <Clock class="pr-6" v-if="!projectStore.isInMobileMode && projectStore.insets.windowsWidth > 1352"/>
 
                 <!--详情按钮-->
-                <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && storeProject.currentDiary">
+                <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && projectStore.currentDiary">
                     <div
-                        v-if="storeProject.currentDiary && storeProject.currentDiary.is_public === 1"
+                        v-if="projectStore.currentDiary && projectStore.currentDiary.is_public === 1"
                         class="clipboard-trigger"
                         :data-clipboard="shareUrl">
                         <TabIcon alt="分享"/>
@@ -85,29 +85,29 @@
                     <div @click="toastShow">
                         <TabIcon alt="删除"/>
                     </div>
-                    <RouterLink :to="`/edit/${storeProject.currentDiary.id}`">
+                    <RouterLink :to="`/edit/${projectStore.currentDiary.id}`">
                         <TabIcon alt="编辑"/>
                     </RouterLink>
                 </div>
 
                 <!--编辑按钮-->
                 <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew'">
-                    <div @click="diaryRecover" v-if="storeProject.isDiaryEditorContentHasChanged">
+                    <div @click="diaryRecover" v-if="projectStore.isDiaryEditorContentHasChanged">
                         <TabIcon alt="恢复"/>
                     </div>
-                    <div v-if="storeProject.isSavingDiary">
+                    <div v-if="projectStore.isSavingDiary">
                         <Loading :height="50" :loading="true"/>
                     </div>
                     <div @click="diarySave" v-else>
                         <TabIcon v-if="isNewDiary" alt="确定"/>
-                        <TabIcon v-else-if="storeProject.isDiaryEditorContentHasChanged" alt="确定-已变化"/>
+                        <TabIcon v-else-if="projectStore.isDiaryEditorContentHasChanged" alt="确定-已变化"/>
                         <TabIcon v-else alt="确定-已保存"/>
                     </div>
                 </div>
 
                 <RouterLink
-                    v-if="(storeProject.isInMobileMode && route.name !== 'Detail' && !storeProject.isMenuShowed)
-                    || !storeProject.isInMobileMode"
+                    v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
+                    || !projectStore.isInMobileMode"
                     to="/edit"
                 >
                     <TabIcon alt="添加"/>
@@ -116,11 +116,11 @@
 
 
             <!--LOGO-->
-            <div class="brand" v-if="storeProject.isInMobileMode" @click="toggleListStyle">
-                <img :src="storeProject.editLogoImg"
+            <div class="brand" v-if="projectStore.isInMobileMode" @click="toggleListStyle">
+                <img :src="projectStore.editLogoImg"
                      v-if="route.name === 'Edit' || route.name === 'EditNew'"
                      alt="LOGO">
-                <a v-else-if="storeProject.listStyle === EnumListStyle.list">
+                <a v-else-if="projectStore.listStyle === EnumListStyle.list">
                     <img :src="SVG_ICONS.logo_icons.logo" alt="日记">
                 </a>
                 <a v-else>
@@ -164,7 +164,7 @@ import ClipboardJS from "clipboard"
 
 import {getAuthorization, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {EnumListStyle} from "@/listStyle.ts";
@@ -228,7 +228,7 @@ watch(route, newValue => {
 })
 
 const shareUrl = computed(() => {
-    return `${location.origin}/diary/#/share/${storeProject.currentDiary.id}`
+    return `${location.origin}/diary/#/share/${projectStore.currentDiary.id}`
 })
 
 function commitBack(){
@@ -242,8 +242,8 @@ function commitBack(){
     }
 }
 function clearDateFilter(){
-    storeProject.SET_DATE_FILTER_STRING('')
-    storeProject.isListNeedBeReload = true
+    projectStore.SET_DATE_FILTER_STRING('')
+    projectStore.isListNeedBeReload = true
 }
 
 // 跳转到独立页面
@@ -253,25 +253,25 @@ function goToPage(pageName: string){
 
 // 菜单操作
 function menuShow() {
-    storeProject.isMenuShowed = true
+    projectStore.isMenuShowed = true
 }
 function menuClose() {
-    storeProject.isMenuShowed = false
+    projectStore.isMenuShowed = false
 }
 function toggleListStyle() {
-    switch (storeProject.listStyle){
+    switch (projectStore.listStyle){
         case EnumListStyle.list:
-            storeProject.listStyle = EnumListStyle.detail
+            projectStore.listStyle = EnumListStyle.detail
 
             break;
         case EnumListStyle.detail:
-            storeProject.listStyle = EnumListStyle.waterfall
+            projectStore.listStyle = EnumListStyle.waterfall
             router.push({
                 name: 'Waterfall'
             })
             break;
         case EnumListStyle.waterfall:
-            storeProject.listStyle = EnumListStyle.list
+            projectStore.listStyle = EnumListStyle.list
             router.push({
                 name: 'List'
             })
@@ -282,46 +282,46 @@ function toggleListStyle() {
 
 // SEARCH BAR
 function toggleSearchbar() {
-    storeProject.isShowSearchBar = !storeProject.isShowSearchBar
+    projectStore.isShowSearchBar = !projectStore.isShowSearchBar
 }
 
 function toggleTodoList(){
     let nextCategories: string[] = []
-    if (storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'){
+    if (projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'){
         nextCategories = []
     } else {
         nextCategories = ['todo']
     }
-    storeProject.isFilterShared = false
-    storeProject.SET_FILTERED_CATEGORIES(nextCategories)
-    storeProject.isListNeedBeReload = true
+    projectStore.isFilterShared = false
+    projectStore.SET_FILTERED_CATEGORIES(nextCategories)
+    projectStore.isListNeedBeReload = true
 }
 
 // HIDE CONTENT
 function toggleHideContent() {
-    storeProject.isHideContent = !storeProject.isHideContent
+    projectStore.isHideContent = !projectStore.isHideContent
 }
 function diarySave() {
-    storeProject.isDiaryNeedToBeSaved = true
+    projectStore.isDiaryNeedToBeSaved = true
 }
 function diaryRecover() {
-    storeProject.isDiaryNeedToBeRecovered = true
+    projectStore.isDiaryNeedToBeRecovered = true
 }
 
 /* DELETE */
 function diaryDelete() {
     let requestData = {
-        diaryId: storeProject.currentDiary.id,
+        diaryId: projectStore.currentDiary.id,
     }
     diaryApi
         .delete(requestData)
         .then(res => {
             toastHide()
             popMessage('success', res.message, () => {
-                if (storeProject.isInMobileMode){
+                if (projectStore.isInMobileMode){
                     router.back()
                 } else {
-                    storeProject.listOperation = {type: 'delete', diary: null, id: storeProject.currentDiary.id}
+                    projectStore.listOperation = {type: 'delete', diary: null, id: projectStore.currentDiary.id}
                 }
             }, 0.5)
         })

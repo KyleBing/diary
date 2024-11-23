@@ -32,7 +32,7 @@ import {marked} from "marked";
 import {computed} from "vue";
 import {useProjectStore} from "../../pinia";
 import {DiaryEntityWaterfall} from "@/view/DiaryList/Diary.ts";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 const props = withDefaults(defineProps<{
     width: number,
@@ -44,12 +44,12 @@ const props = withDefaults(defineProps<{
 })
 
 const backgroundColor = computed<string>(() => {
-    return `background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
+    return `background-color: ${projectStore.categoryObjectMap.get(props.diary.category).color}`
 })
 const borderColor = computed<string>(() => {
     return `
-        border-bottom-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
-        border-right-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+        border-bottom-color: ${projectStore.categoryObjectMap.get(props.diary.category).color};
+        border-right-color: ${projectStore.categoryObjectMap.get(props.diary.category).color};
     `
 })
 const contentMarkDownHtml = computed<string>(() => {

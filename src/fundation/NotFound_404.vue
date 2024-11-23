@@ -1,5 +1,5 @@
 <template>
-    <div class="bg" :style="`height: ${storeProject.insets.windowsHeight}px`">
+    <div class="bg" :style="`height: ${projectStore.insets.windowsHeight}px`">
         <div class="not-found">
             <div class="logo">
                 <img :src="SVG_ICONS.logo_icons.logo_server_error" alt="logo error">
@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import {useProjectStore} from "../pinia";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 </script>
 
 <style scoped lang="scss">

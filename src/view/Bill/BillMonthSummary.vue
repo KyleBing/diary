@@ -1,13 +1,13 @@
 <template>
     <div class="brief-amount">
         <div class="number text-income">
-            +{{ (billMonth.sumIncome).toFixed(storeProject.moneyAccuracy)  }} <span class="bill-sum-label">收入</span>
+            +{{ (billMonth.sumIncome).toFixed(projectStore.moneyAccuracy)  }} <span class="bill-sum-label">收入</span>
         </div>
         <div class="number text-expense">
-            {{ (billMonth.sumOutput - exceptSum ).toFixed(storeProject.moneyAccuracy)}} <span class="bill-sum-label">支出</span>
+            {{ (billMonth.sumOutput - exceptSum ).toFixed(projectStore.moneyAccuracy)}} <span class="bill-sum-label">支出</span>
         </div>
         <div class="number sum text-black">
-            {{ (billMonth.sum - exceptSum ).toFixed(storeProject.moneyAccuracy)}} <span class="bill-sum-label">合计</span>
+            {{ (billMonth.sum - exceptSum ).toFixed(projectStore.moneyAccuracy)}} <span class="bill-sum-label">合计</span>
         </div>
     </div>
 </template>
@@ -18,7 +18,7 @@
 import {useProjectStore} from "@/pinia";
 import {EntityBillMonth} from "@/view/Bill/Bill.ts";
 
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 defineProps<{
     billMonth: EntityBillMonth,
     exceptSum: number // 排除的消费项目总和，如果除去这些消费，显示能在总结余里剩余多少

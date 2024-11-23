@@ -52,7 +52,7 @@ import FileSelector from "../../components/FileSelector.vue";
 
 import {popMessage, dateFormatter} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {onMounted, onUnmounted, ref} from "vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 

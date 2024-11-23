@@ -1,5 +1,5 @@
 <template>
-    <div class="diary-edit-container" :style="`min-height: ${storeProject.insets.heightPanel}px`">
+    <div class="diary-edit-container" :style="`min-height: ${projectStore.insets.heightPanel}px`">
         <div class="diary-edit-content">
             <!-- TITLE -->
             <div class="editor-title">
@@ -21,7 +21,7 @@
                 <textarea
                     ref="refDiaryContentTextArea"
                     v-model="diary.content"
-                    :style="storeProject.insets.windowsWidth > 1366 ? `height: ${storeProject.insets.heightPanel - 150 - 40 - 20}px`: ''"
+                    :style="projectStore.insets.windowsWidth > 1366 ? `height: ${projectStore.insets.heightPanel - 150 - 40 - 20}px`: ''"
                     placeholder="日记详细内容，如果你有很多要写的"
                     @input="contentUpdate($event)"
                     class="content"></textarea>
@@ -125,7 +125,7 @@ import {
 import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {computed, nextTick, onBeforeMount, onMounted, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
@@ -449,7 +449,7 @@ watch(diary, newValue => {
     {deep: true}
 )
 
-const {isDiaryNeedToBeSaved, isDiaryNeedToBeRecovered, isHideContent} = storeToRefs(storeProject)
+const {isDiaryNeedToBeSaved, isDiaryNeedToBeRecovered, isHideContent} = storeToRefs(projectStore)
 watch(isDiaryNeedToBeSaved,newValue => {
     if (newValue) {
         saveDiary()
@@ -462,7 +462,7 @@ watch(isDiaryNeedToBeRecovered, newValue => {
 })
 watch(isHideContent, newValue => {
     if (newValue){ // 保存当前未保存的日记内容
-        if (storeProject.isDiaryEditorContentHasChanged){
+        if (projectStore.isDiaryEditorContentHasChanged){
             recoverDiaryContent.value = {
                 title: diary.value.title,
                 content: diary.value.content
@@ -639,11 +639,11 @@ function setWeather(weather: string) {
 }
 function updateDiaryIcon() {
     document.title = diaryHasChanged.value ? '日记 - 编辑中...' : '日记' // 变更标题
-    storeProject.isDiaryEditorContentHasChanged = diaryHasChanged.value
+    projectStore.isDiaryEditorContentHasChanged = diaryHasChanged.value
     if (diaryHasChanged.value) {
-        storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content: SVG_ICONS.logo_icons.logo_title
+        projectStore.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content: SVG_ICONS.logo_icons.logo_title
     } else {
-        storeProject.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content_saved: SVG_ICONS.logo_icons.logo_title_saved
+        projectStore.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content_saved: SVG_ICONS.logo_icons.logo_title_saved
     }
 }
 function getDiary(diaryId: number) {
@@ -655,7 +655,7 @@ function getDiary(diaryId: number) {
         .then(res => {
             let tempDiary = res.data
 
-            if (storeProject.isHideContent){
+            if (projectStore.isHideContent){
                 diary.value.title = tempDiary.title.replace(/[^，。 \n]/g, '*')
                 diary.value.content = tempDiary.content.replace(/[^，。 \n]/g, '*')
             } else {
@@ -680,7 +680,7 @@ function getDiary(diaryId: number) {
         })
 }
 function saveDiary() {
-    if (storeProject.isHideContent) {
+    if (projectStore.isHideContent) {
         popMessage('warning', '请退出当前隐藏模式，再进行保存操作', ()=>{}, 2)
         return
     } else if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
@@ -692,7 +692,7 @@ function saveDiary() {
     } else if  (diary.value.title.trim().length === 0) {
         diary.value.title = '' // clear content
         popMessage('warning', '内容未填写', null)
-        storeProject.isDiaryNeedToBeSaved = false// 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
+        projectStore.isDiaryNeedToBeSaved = false// 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
         return
     }
     let requestData: DiarySubmitEntity = {
@@ -713,8 +713,8 @@ function saveDiary() {
             .then(processAfterSaveDiary)
             .catch(err => {
                 popMessage('danger', err.message, () => {
-                    storeProject.isSavingDiary = false
-                    storeProject.isDiaryNeedToBeSaved = false
+                    projectStore.isSavingDiary = false
+                    projectStore.isDiaryNeedToBeSaved = false
                 }, 3)
             })
     } else {
@@ -723,8 +723,8 @@ function saveDiary() {
             .then(processAfterSaveDiary)
             .catch(err => {
                 popMessage('danger', err.message, () => {
-                    storeProject.isSavingDiary = false
-                    storeProject.isDiaryNeedToBeSaved = false
+                    projectStore.isSavingDiary = false
+                    projectStore.isDiaryNeedToBeSaved = false
                 }, 3)
             })
     }
@@ -732,17 +732,17 @@ function saveDiary() {
 
 // 保存日记后要操作的
 function processAfterSaveDiary(res: ResponseDiaryAdd){
-    storeProject.isSavingDiary = false
+    projectStore.isSavingDiary = false
 
     // 成功后更新 origin 字符串
     Object.assign(diaryOrigin.value, diary.value)
     updateDiaryIcon() // 更新 navbar icon
-    storeProject.isDiaryNeedToBeSaved = false
+    projectStore.isDiaryNeedToBeSaved = false
 
     if (isNew.value) { // 如果是新建日记，跳转到对应路由
         diary.value.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
         popMessage('success', res.message, ()=>{
-            storeProject.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
+            projectStore.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
             nextTick(()=>{
                 router.push({
                     name: 'Edit',
@@ -754,7 +754,7 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
         }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
     } else {
         popMessage('success', res.message, ()=>{
-            storeProject.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
+            projectStore.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
             nextTick(()=>{
                 router.push({
                     name: 'Edit',
@@ -806,7 +806,7 @@ function recoverDiary() {
         title: '',
         content: ''
     }
-    storeProject.isDiaryNeedToBeRecovered = false
+    projectStore.isDiaryNeedToBeRecovered = false
 }
 
 function convertToServerVersion() { // 转换为数据库格式的日记

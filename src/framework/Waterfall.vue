@@ -3,7 +3,7 @@
         <Navbar/>
         <!-- 横屏时 -->
         <div class="diary">
-            <div class="diary-waterfall-container" :style="`height:${storeProject.insets.heightPanel}px`">
+            <div class="diary-waterfall-container" :style="`height:${projectStore.insets.heightPanel}px`">
                 <RouterView/>
             </div>
         </div>
@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import statisticApi from "../api/statisticApi.ts";
 import {useProjectStore} from "../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import { onMounted } from "vue";
 import Navbar from "./navbar/Navbar.vue";
 
@@ -27,19 +27,19 @@ function getStatistic() {
     statisticApi
         .category()
         .then(res => {
-            storeProject.statisticsCategory = res.data
+            projectStore.statisticsCategory = res.data
             setDataArrayCategory(res.data)
         })
     statisticApi
         .year()
         .then(res => {
-            storeProject.statisticsYear = res.data
+            projectStore.statisticsYear = res.data
             setDataArrayYear(res.data)
         })
 }
 function setDataArrayYear(statisticsYear){
     if (statisticsYear){
-        storeProject.dataArrayYear = statisticsYear.reverse().map(year => {
+        projectStore.dataArrayYear = statisticsYear.reverse().map(year => {
             return {
                 name: year.year,
                 value: year.count
@@ -50,9 +50,9 @@ function setDataArrayYear(statisticsYear){
 function setDataArrayCategory(statisticsCategory){
     let keys = Object.keys(statisticsCategory)
     keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-    storeProject.dataArrayCategory = keys.map(key => {
+    projectStore.dataArrayCategory = keys.map(key => {
         return {
-            name: storeProject.categoryNameMap.get(key),
+            name: projectStore.categoryNameMap.get(key),
             value: statisticsCategory[key]
         }
     })

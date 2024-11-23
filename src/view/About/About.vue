@@ -25,7 +25,7 @@ import packageInfo from "../../../package.json"
 import {useProjectStore} from "../../pinia";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 </script>
 

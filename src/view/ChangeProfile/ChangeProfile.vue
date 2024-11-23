@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${projectStore.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -66,7 +66,7 @@ import axios from "axios";
 import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 import {onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";

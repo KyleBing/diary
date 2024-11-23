@@ -5,7 +5,7 @@
             <div :class="['bill-list-item', {filtered: item.isFiltered}]"
                  v-for="(item, index) in modelTop5" :key="index" @click="changeCurrentState(item)">
                 <div class="name">{{item.item}}</div>
-                <div class="price">{{item.price.toFixed(storeProject.moneyAccuracy)}}</div>
+                <div class="price">{{item.price.toFixed(projectStore.moneyAccuracy)}}</div>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
 import {EntityBillTop5Item} from "@/view/Bill/Bill.ts";
 import {useProjectStore} from "@/pinia";
 
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 
 const modelTop5 = defineModel<Array<EntityBillTop5Item>>()
 

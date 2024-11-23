@@ -23,7 +23,7 @@ interface DiaryListOperation {
 interface DiaryEntityFromServer{
     id: number
     title: string,
-    content: string,
+    content?: string,
     is_public: 1|0,
     is_markdown: 1|0,
     date: Date|string|number,

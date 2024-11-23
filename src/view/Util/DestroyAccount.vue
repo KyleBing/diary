@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${projectStore.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -42,7 +42,7 @@ import {useRouter} from "vue-router";
 import userApi from "../../api/userApi.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 const router = useRouter()
 
 const show = ref(false)

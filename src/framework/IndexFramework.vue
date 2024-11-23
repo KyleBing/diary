@@ -3,19 +3,19 @@
         <Navbar/>
 
         <!-- 竖屏时 -->
-        <div class="diary" v-if="storeProject.isInMobileMode" :style="`height:${storeProject.insets.heightPanel}px`">
+        <div class="diary" v-if="projectStore.isInMobileMode" :style="`height:${projectStore.insets.heightPanel}px`">
             <div ref="refDiaryList" class="diary-list-container diary-list-container-mobile"
-                 :style="`height:${storeProject.insets.heightPanel}px`">
+                 :style="`height:${projectStore.insets.heightPanel}px`">
                 <RouterView/>
             </div>
         </div>
 
         <!-- 横屏时 -->
         <div class="diary" v-else>
-            <div ref="refDiaryList" class="diary-list-container" :style="`height:${storeProject.insets.heightPanel}px`">
+            <div ref="refDiaryList" class="diary-list-container" :style="`height:${projectStore.insets.heightPanel}px`">
                 <List/>
             </div>
-            <div class="diary-container" :style="`height:${storeProject.insets.heightPanel}px`">
+            <div class="diary-container" :style="`height:${projectStore.insets.heightPanel}px`">
                 <RouterView/>
             </div>
         </div>
@@ -28,7 +28,7 @@ import Navbar from "./navbar/Navbar.vue"
 import statisticApi from "../api/statisticApi.ts";
 
 import {useProjectStore} from "../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
@@ -41,7 +41,7 @@ onMounted(() => {
     getStatistic() // 载入统计信息
 })
 
-const { isShowSearchBar } = storeToRefs(storeProject)
+const { isShowSearchBar } = storeToRefs(projectStore)
 watch(isShowSearchBar, newValue => {
     if (newValue){
         refDiaryList.value.scrollTo(0, 0)
@@ -54,19 +54,19 @@ function getStatistic() {
     statisticApi
         .category()
         .then(res => {
-            storeProject.statisticsCategory = res.data
+            projectStore.statisticsCategory = res.data
             setDataArrayCategory(res.data)
         })
     statisticApi
         .year()
         .then(res => {
-            storeProject.statisticsYear = res.data
+            projectStore.statisticsYear = res.data
             setDataArrayYear(res.data)
         })
 }
 function setDataArrayYear(statisticsYear){
     if (statisticsYear){
-        storeProject.dataArrayYear = statisticsYear.reverse()
+        projectStore.dataArrayYear = statisticsYear.reverse()
                                                     .map(year => {
                                                         return {
                                                             name: year.year,
@@ -78,9 +78,9 @@ function setDataArrayYear(statisticsYear){
 function setDataArrayCategory(statisticsCategory){
     let keys = Object.keys(statisticsCategory)
     keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-    storeProject.dataArrayCategory = keys.map(key => {
+    projectStore.dataArrayCategory = keys.map(key => {
                                             return {
-                                                name: storeProject.categoryNameMap.get(key),
+                                                name: projectStore.categoryNameMap.get(key),
                                                 value: statisticsCategory[key]
                                             }
                                         })

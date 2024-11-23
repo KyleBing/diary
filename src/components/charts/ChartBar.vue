@@ -20,7 +20,7 @@ import { CanvasRenderer } from 'echarts/renderers';
 import {nextTick, onMounted, ref, watch} from "vue";
 
 import {useProjectStore} from "../../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {useRoute, useRouter} from "vue-router";
 
 const route = useRoute()
@@ -101,7 +101,7 @@ function resetData(newValue) {
     newValue.forEach(item => {
         seriesData.push(item.value)
         xAxisData.push(item.name)
-        let color = storeProject.categoryNameMap.get(item.key) && storeProject.categoryObjectMap.get(item.key).color
+        let color = projectStore.categoryNameMap.get(item.key) && projectStore.categoryObjectMap.get(item.key).color
         if (color){
             colorArray.push(color)
         }

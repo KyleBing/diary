@@ -2,27 +2,27 @@
     <div class="brief-food">
            <div class="food-item number breakfast">
                <div class="bill-sum-label">早饭</div>
-               <div class="price">{{ billFood.breakfast.toFixed(storeProject.moneyAccuracy) }}</div>
+               <div class="price">{{ billFood.breakfast.toFixed(projectStore.moneyAccuracy) }}</div>
            </div>
            <div class="food-item number launch">
                <div class="bill-sum-label">中饭</div>
-               <div class="price">{{ billFood.launch.toFixed(storeProject.moneyAccuracy) }}</div>
+               <div class="price">{{ billFood.launch.toFixed(projectStore.moneyAccuracy) }}</div>
            </div>
            <div class="food-item number dinner">
                <div class="bill-sum-label">晚饭</div>
-               <div class="price">{{ billFood.dinner.toFixed(storeProject.moneyAccuracy) }}</div>
+               <div class="price">{{ billFood.dinner.toFixed(projectStore.moneyAccuracy) }}</div>
            </div>
             <div class="food-item number supermarket">
                 <div class="bill-sum-label">超市</div>
-                <div class="price">{{ billFood.supermarket.toFixed(storeProject.moneyAccuracy) }}</div>
+                <div class="price">{{ billFood.supermarket.toFixed(projectStore.moneyAccuracy) }}</div>
             </div>
             <div class="food-item number fruit">
                 <div class="bill-sum-label">水果</div>
-                <div class="price">{{ billFood.fruit.toFixed(storeProject.moneyAccuracy) }}</div>
+                <div class="price">{{ billFood.fruit.toFixed(projectStore.moneyAccuracy) }}</div>
             </div>
             <div class="food-item number sum">
                 <div class="bill-sum-label">合计</div>
-                <div class="price">{{ billFood.sum.toFixed(storeProject.moneyAccuracy) }}</div>
+                <div class="price">{{ billFood.sum.toFixed(projectStore.moneyAccuracy) }}</div>
             </div>
     </div>
 </template>
@@ -32,7 +32,7 @@
 
 import {useProjectStore} from "@/pinia";
 import {EntityBillFood} from "@/view/Bill/Bill.ts";
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 
 defineProps<{
     billFood: EntityBillFood

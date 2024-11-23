@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${projectStore.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -15,7 +15,7 @@
                         <div class="desc">
                             <p>这是你最后反悔的机会</p>
                             <p>你的所有日记都将被删除</p>
-                            <p class="mt-2">总计 <b>{{ storeProject.statisticsCategory.amount }}</b> 篇，共享日记 <b>{{ storeProject.statisticsCategory.shared }}</b> 篇</p>
+                            <p class="mt-2">总计 <b>{{ projectStore.statisticsCategory.amount }}</b> 篇，共享日记 <b>{{ projectStore.statisticsCategory.shared }}</b> 篇</p>
                             <p></p>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ import {useProjectStore} from "../../pinia";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 const router = useRouter()
 
 const show = ref(false)

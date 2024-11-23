@@ -3,7 +3,7 @@
         <div
             class="category-wrapper"
             @click="chooseCategory(category.name_en)"
-            v-for="category in storeProject.categoryAll"
+            v-for="category in projectStore.categoryAll"
             :key="category.name_en">
             <div
                 class="category"
@@ -18,7 +18,7 @@
 import {ref, watch} from "vue";
 import {CategoryEntity} from "../../../entity/Category.ts";
 import {useProjectStore} from "../../../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 const props = withDefaults(defineProps<{
     category: string

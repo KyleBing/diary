@@ -120,7 +120,7 @@ import Moment from "moment";
 import {computed, onMounted, ref} from "vue";
 import {useProjectStore} from "../../../pinia";
 import {dateFormatter, getAuthorization} from "../../../utility.ts";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 onMounted(()=>{
     getStatisticUsers()

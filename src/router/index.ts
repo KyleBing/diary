@@ -1,6 +1,6 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 
-import Index from "../framework/Index.vue"
+import IndexFramework from "../framework/IndexFramework.vue"
 import Waterfall from "../framework/Waterfall.vue"
 import Register from "@/view/Login&Register/Register.vue"
 import Login from "@/view/Login&Register/Login.vue"
@@ -23,19 +23,29 @@ import FileManager from "@/view/FileManager/FileManager.vue";
 import {getAuthorization, isInMobileMode} from "../utility.ts";
 import FetchPassword from "@/view/Login&Register/FetchPassword.vue";
 import Calendar from "@/view/Calendar/Calendar.vue";
+import CalendarFramework from "@/framework/CalendarFramework.vue";
 
 
 const routes: RouteRecordRaw[] = [
     {
         name: 'Index',
         path: '/',
-        component: Index,
+        component: IndexFramework,
         redirect: "/list",
         children: [
             {name: 'List'   , path: 'list'      ,        component: List}, // mobile
             {name: 'Detail' , path: 'detail/:id',        component: Detail},
             {name: 'EditNew', path: 'edit'      ,        component: Edit},
-            {name: 'Edit'   , path: 'edit/:id'  ,        component: Edit}
+            {name: 'Edit'   , path: 'edit/:id'  ,        component: Edit},
+        ]
+    },
+    {
+        name: 'Calendar',
+        path: '/calendar',
+        component: CalendarFramework,
+        redirect: "/calendar/calendar",
+        children: [
+            {name: 'Calendar', path: 'calendar'  ,   component: Calendar}
         ]
     },
     {
@@ -46,11 +56,6 @@ const routes: RouteRecordRaw[] = [
         children: [
             {name: 'WaterfallList'   , path: 'list'      ,        component: WaterfallList},
         ]
-    },
-    {
-        name: 'Calendar',
-        path: '/calendar',
-        component: Calendar ,
     },
     {name: 'Register',             path: '/register',          component: Register},
     {name: 'Share',                path: '/share/:id',         component: Share},

@@ -88,7 +88,7 @@ import {
 } from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
 
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
@@ -101,10 +101,10 @@ const isLoadingDiary = ref(false) // 日记请求中
 
 
 const heightShare = computed(()=>{
-    return storeProject.insets.windowsWidth > 375 ? storeProject.insets.windowsHeight - 60 - 100 : storeProject.insets.windowsHeight
+    return projectStore.insets.windowsWidth > 375 ? projectStore.insets.windowsHeight - 60 - 100 : projectStore.insets.windowsHeight
 })
 const shareCategoryStyle = computed(()=>{
-    return `background-color: ${storeProject.categoryObjectMap.get(currentDiary.value.category).color}`
+    return `background-color: ${projectStore.categoryObjectMap.get(currentDiary.value.category).color}`
 })
 const contentMarkDownHtml = computed(()=>{
     return marked.parse(currentDiary.value.content)
@@ -155,13 +155,13 @@ function getContentHtml(content: string){
     let contentArray = content.split('\n')
     let contentHtml = ""
     if (isInCodeMode){
-        return `<pre class="code">${storeProject.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
+        return `<pre class="code">${projectStore.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
     } else {
         contentArray.forEach(item => {
             if (item === '') {
                 contentHtml += '<br/>'
             } else {
-                contentHtml += `<p>${storeProject.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}</p>`
+                contentHtml += `<p>${projectStore.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}</p>`
             }
         })
         return contentHtml

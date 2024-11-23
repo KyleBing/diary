@@ -32,13 +32,13 @@
                     <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span></td>
                 <td class="income amount number">
                     <span v-if="item.sumIncome === 0" class="text-invalid">~</span>
-                    <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
-                    <span v-else>{{ item.sumIncome.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
+                    <span v-else-if="item.sumIncome > 0" class="text-income">+{{ item.sumIncome.toFixed(projectStore.moneyAccuracy) || '-' }}</span>
+                    <span v-else>{{ item.sumIncome.toFixed(projectStore.moneyAccuracy) || '-' }}</span>
                 </td>
                 <td class="output amount number">
                     <span v-if="item.sumOutput === 0" class="text-invalid">~</span>
-                    <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
-                    <span v-else>{{ item.sumOutput.toFixed(storeProject.moneyAccuracy) || '-' }}</span>
+                    <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(projectStore.moneyAccuracy) || '-' }}</span>
+                    <span v-else>{{ item.sumOutput.toFixed(projectStore.moneyAccuracy) || '-' }}</span>
                 </td>
                 <td class="label center"
                     v-tooltip="{
@@ -65,7 +65,7 @@ import {useRouter} from "vue-router";
 import {onMounted, ref, watch} from "vue";
 
 const router = useRouter()
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 
 interface Props {
     billMonthData: EntityBillMonth,

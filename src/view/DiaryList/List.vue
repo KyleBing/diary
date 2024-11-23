@@ -1,10 +1,10 @@
 <template>
-    <div class="diary-list-group-container" :style="`min-height: ${storeProject.insets.heightPanel}px`">
+    <div class="diary-list-group-container" :style="`min-height: ${projectStore.insets.heightPanel}px`">
         <transition
             enter-active-class="animated-fast slideInDown"
             leave-active-class="animated-fast slideOutUp"
         >
-            <div class="search-bar" v-if="storeProject.isShowSearchBar">
+            <div class="search-bar" v-if="projectStore.isShowSearchBar">
                 <form @submit.prevent="search">
                     <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
                     <span v-show="keywordShow.length > 0" @click="clearKeyword" class="clear">✕</span>
@@ -13,7 +13,7 @@
         </transition>
 
         <!-- 普通列表 -->
-        <div class="diary-list-group" v-if="storeProject.listStyle === EnumListStyle.list">
+        <div class="diary-list-group" v-if="projectStore.listStyle === EnumListStyle.list">
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="" :title="item.date"/>
                 <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
@@ -21,7 +21,7 @@
         </div>
 
         <!-- 详情列表 -->
-        <div class="diary-list-group" v-if="storeProject.listStyle === EnumListStyle.detail">
+        <div class="diary-list-group" v-if="projectStore.listStyle === EnumListStyle.detail">
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItemLong v-else :diary="item"/>
@@ -35,7 +35,7 @@
         <div v-show="!isLoading && !isHasMore" class="end-of-diary">
             <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
             <p>
-                <img v-if="storeProject.colorMode === 'light'" :src="SVG_ICONS.EOF" alt="EOF">
+                <img v-if="projectStore.colorMode === 'light'" :src="SVG_ICONS.EOF" alt="EOF">
                 <img v-else :src="SVG_ICONS.EOFDark" alt="EOF">
             </p>
         </div>
@@ -59,7 +59,7 @@ import {DiaryEntity, DiaryEntityFromServer, DiaryListOperation, DiarySearchParam
 import {storeToRefs} from "pinia";
 import {EnumListStyle} from "@/listStyle.ts";
 
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -67,7 +67,7 @@ const isHasMore = ref(true)
 const isLoading = ref(true)
 const diaries = ref<Array<DiaryEntityFromServer>>([])
 const diariesShow = ref<Array<DiaryEntity>>([])
-const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(storeProject)
+const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(projectStore)
 
 const formSearch = ref<DiarySearchParams>({
     keywords: '',
@@ -81,11 +81,11 @@ const formSearch = ref<DiarySearchParams>({
 onMounted(()=>{
     document.title = '日记' // 变更标题
     // init
-    keywordShow.value = storeProject.keywords && storeProject.keywords.join(' ')
+    keywordShow.value = projectStore.keywords && projectStore.keywords.join(' ')
     nextTick(()=>{
         addScrollEvent()
     })
-    storeProject.isShowSearchBar = !!keywordShow.value
+    projectStore.isShowSearchBar = !!keywordShow.value
     reloadDiaryList() // 载入日记列表
 })
 
@@ -164,21 +164,21 @@ watch(isShowSearchBar, newValue => {
 })
 watch(keywordShow, newValue => {
     if (newValue){ // 当有内容时才变化， '' 将不存储
-        storeProject.SET_KEYWORD(newValue.split(' '))
+        projectStore.SET_KEYWORD(newValue.split(' '))
     } else {
-        storeProject.SET_KEYWORD([])
+        projectStore.SET_KEYWORD([])
     }
 })
 // route 载入 `/` 路径时，重载日记列表：比如删除日记后
 
 function clearKeyword() {
-    storeProject.SET_KEYWORD([])
+    projectStore.SET_KEYWORD([])
     keywordShow.value = ''
     search()
 }
 function reloadDiaryList() {
     formSearch.value.pageNo = 1
-    formSearch.value.keywords = JSON.stringify(storeProject.keywords)
+    formSearch.value.keywords = JSON.stringify(projectStore.keywords)
     diaries.value = []
     diariesShow.value = []
     loadMore()
@@ -188,9 +188,9 @@ function reloadDiaryList() {
 function loadMore() {
     isHasMore.value = false
     isLoading.value = true
-    formSearch.value.categories = JSON.stringify(storeProject.filteredCategories)
-    formSearch.value.dateFilterString = storeProject.dateFilterString
-    formSearch.value.filterShared = storeProject.isFilterShared ? 1 : 0
+    formSearch.value.categories = JSON.stringify(projectStore.filteredCategories)
+    formSearch.value.dateFilterString = projectStore.dateFilterString
+    formSearch.value.filterShared = projectStore.isFilterShared ? 1 : 0
     getDiaries()
 }
 function getDiaries() {
@@ -201,7 +201,7 @@ function getDiaries() {
                 if (diary.content) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
-                diary.categoryString = storeProject.categoryNameMap.get(diary.category)
+                diary.categoryString = projectStore.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
                 diary.dateString = dateProcess(diary.date).date
@@ -222,7 +222,7 @@ function getDiaries() {
         })
         .finally(() => {
             // 列表加载完成后设置列表重载： false
-            storeProject.isListNeedBeReload = false
+            projectStore.isListNeedBeReload = false
             isLoading.value = false
         })
 }

@@ -1,6 +1,6 @@
 <template>
     <!-- 服务器错误 -->
-    <div class="server-error" :style="`height: ${storeProject.insets.windowsHeight}px`">
+    <div class="server-error" :style="`height: ${projectStore.insets.windowsHeight}px`">
         <div class="logo-server-error">
             <img :src="SVG_ICONS.logo_icons.logo_server_error" alt="logo error">
         </div>
@@ -16,7 +16,7 @@
 import projectConfig from "../projectConfig.ts"
 import {useProjectStore} from "../pinia";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 </script>
 
 <style scoped lang="scss">

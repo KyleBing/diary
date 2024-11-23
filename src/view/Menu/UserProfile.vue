@@ -14,10 +14,10 @@
                 </div>
             </div>
         </div>
-        <div v-if="storeProject.statisticsCategory.shared > 0" class="statistics">
+        <div v-if="projectStore.statisticsCategory.shared > 0" class="statistics">
             <p>📍 {{userInfo.city}}</p>
-            <p>总计 <b>{{ storeProject.statisticsCategory.amount }}</b> 篇</p>
-            <p>共享 <b>{{ storeProject.statisticsCategory.shared }}</b> 篇</p>
+            <p>总计 <b>{{ projectStore.statisticsCategory.amount }}</b> 篇</p>
+            <p>共享 <b>{{ projectStore.statisticsCategory.shared }}</b> 篇</p>
         </div>
         <div class="copyright">
             <span class="version ml-1">v{{ packageInfo.version }}</span>
@@ -35,7 +35,7 @@ import {useRouter} from "vue-router";
 import packageInfo from "../../../package.json";
 
 const router = useRouter()
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 const userInfo = ref(getAuthorization())
 
@@ -45,7 +45,7 @@ function changeProfile(){
 function logout() {
     deleteAuthorization()
     removeCategoryAll()
-    storeProject.isMenuShowed = false
+    projectStore.isMenuShowed = false
     router.push({name: 'Login'})
 }
 </script>

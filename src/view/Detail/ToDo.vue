@@ -8,12 +8,12 @@
             </div>
             <div class="content-wrapper">
                 <div contenteditable="true" @input="handleContentChange(item, $event)" class="content">
-                    {{storeProject.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}
+                    {{projectStore.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}
                 </div>
                 <div
                     v-if="item.note"
                     contenteditable="true" @input="handleNoteChange(item, $event)" class="note">
-                    {{storeProject.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}
+                    {{projectStore.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@ import {onMounted, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "../../pinia";
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 
 interface TODOEntity {
     id: number,

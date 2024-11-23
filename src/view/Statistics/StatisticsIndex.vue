@@ -1,14 +1,14 @@
 <template>
-    <div class="statistic-container" :style="`height: ${storeProject.insets.windowsHeight}px`">
+    <div class="statistic-container" :style="`height: ${projectStore.insets.windowsHeight}px`">
 
         <!-- Header -->
         <PageHeader title="统计数据">
             <div class="main-statistic">
                 <div class="main-statistic-item">
-                    <div class="label">共享</div> <div class="number value">{{ storeProject.statisticsCategory.shared}}</div>
+                    <div class="label">共享</div> <div class="number value">{{ projectStore.statisticsCategory.shared}}</div>
                 </div>
                 <div class="main-statistic-item">
-                    <div class="label">总计</div> <div class="number value">{{ storeProject.statisticsCategory.amount }}</div>
+                    <div class="label">总计</div> <div class="number value">{{ projectStore.statisticsCategory.amount }}</div>
                 </div>
             </div>
         </PageHeader>
@@ -16,7 +16,7 @@
         <div v-if="isLoading" class="pt-8 pb-8">
             <Loading :loading="isLoading"/>
         </div>
-        <div v-else class="statistic-content" :style="`height:${storeProject.insets.heightPanel}px`">
+        <div v-else class="statistic-content" :style="`height:${projectStore.insets.heightPanel}px`">
 
             <div class="statistic-user">
                 <StatisticUsers/>
@@ -38,7 +38,7 @@ import StatisticUsers from "@/view/Statistics/Users/StatisticUsers.vue";
 import StatisticCharts from "@/view/Statistics/Diary/StatisticCharts.vue";
 
 import {useProjectStore} from "../../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {onMounted, ref} from "vue";
 
 
@@ -53,12 +53,12 @@ function getStatistic() {
     statisticApi
         .category()
         .then(res => {
-            storeProject.statisticsCategory = res.data
+            projectStore.statisticsCategory = res.data
             let keys = Object.keys(res.data)
             keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-            storeProject.dataArrayCategory =  keys.map(key => {
+            projectStore.dataArrayCategory =  keys.map(key => {
                 return {
-                    name: storeProject.categoryNameMap.get(key),
+                    name: projectStore.categoryNameMap.get(key),
                     key: key,
                     value: res.data[key]
                 }
@@ -67,9 +67,9 @@ function getStatistic() {
     statisticApi
         .year()
         .then(res => {
-            storeProject.statisticsYear = res.data
+            projectStore.statisticsYear = res.data
             if (res.data){
-                storeProject.dataArrayYear = res.data.reverse().map(year => {
+                projectStore.dataArrayYear = res.data.reverse().map(year => {
                     return {
                         name: year.year,
                         value: year.count

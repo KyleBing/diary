@@ -1,7 +1,7 @@
 <template>
     <div class="statistic-container">
         <PageHeader title="账单"/>
-        <div class="bill-content" :style="`height:${storeProject.insets.heightPanel}px`">
+        <div class="bill-content" :style="`height:${projectStore.insets.heightPanel}px`">
             <div class="bill-container" >
                 <div class="filter-panel">
                     <BillPanel title="账单筛选" padding="20px">
@@ -48,7 +48,7 @@ import {EntityBillItem, EntityBillMonth} from "@/view/Bill/Bill.ts";
 
 import {popMessage, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 import {onMounted, ref} from "vue";
 import BillYearSelector from "@/view/Bill/BillYearSelector.vue";
 import BillMonthItem from "@/view/Bill/BillMonthItem.vue";

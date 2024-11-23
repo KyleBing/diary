@@ -15,7 +15,7 @@
             <div class="category" :style="diaryItemCategoryTextStyle" >{{ props.diary.categoryString }}</div>
         </RouterLink>
 
-        <div class="article-body" v-if="storeProject.isHideContent">
+        <div class="article-body" v-if="projectStore.isHideContent">
             <div class="title">{{ props.diary.title.replace(/[^，。 \n]/g, '*') }}</div>
             <div class="content" v-html="props.diary.contentHtml?.replace(/[^，。 \n]/g, '*')"/>
         </div>
@@ -34,7 +34,7 @@ import {useProjectStore} from "@/pinia";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntityFromServer} from "../Diary.ts";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 const route = useRoute()
 
 
@@ -51,7 +51,7 @@ const suffix = computed(()=> {
 const diaryItemHeaderStyle = computed(()=>{
     if (isActive.value){
         return `
-              background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+              background-color: ${projectStore.categoryObjectMap.get(props.diary.category).color};
                 `
     } else {
         return ''
@@ -60,7 +60,7 @@ const diaryItemHeaderStyle = computed(()=>{
 const diaryArticleItemStyle = computed(()=>{
     if (isActive.value){
         return `
-              border-color: ${storeProject.categoryObjectMap.get(props.diary.category).color};
+              border-color: ${projectStore.categoryObjectMap.get(props.diary.category).color};
                 `
     } else {
         return ''
@@ -74,7 +74,7 @@ const diaryItemCategoryTextStyle = computed(()=>{
 
     } else {
         return `
-              color:  ${storeProject.categoryObjectMap.get(props.diary.category).color}
+              color:  ${projectStore.categoryObjectMap.get(props.diary.category).color}
                 `
     }
 })

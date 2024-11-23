@@ -4,17 +4,17 @@
         enter-active-class="animated-fast slideInLeft"
         leave-active-class="animated-fast slideOutLeft"
     >
-        <div class="menu-panel" id="menu-panel" v-if="storeProject.isMenuShowed" :style="`height:  ${storeProject.insets.heightPanel}px`">
+        <div class="menu-panel" id="menu-panel" v-if="projectStore.isMenuShowed" :style="`height:  ${projectStore.insets.heightPanel}px`">
 
             <MenuPanelContainer v-show="menuListShowed">
                 <!-- 菜单列表 -->
-                <div class="menu" :style="`min-height: ${storeProject.insets.heightPanel - 60}px`">
+                <div class="menu" :style="`min-height: ${projectStore.insets.heightPanel - 60}px`">
                     <div class="menu-list">
-                        <MenuListItemShort v-if="storeProject.isInMobileMode"
+                        <MenuListItemShort v-if="projectStore.isInMobileMode"
                                            menu-name="搜索"    :icon="SVG_ICONS.tab_icons.search" @click="menuListClicked('search')"/>
 
-                        <MenuListItemShort v-if="storeProject.isInMobileMode" menu-name="待办"
-                                           :icon="storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'?
+                        <MenuListItemShort v-if="projectStore.isInMobileMode" menu-name="待办"
+                                           :icon="projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'?
                                                                                                                     SVG_ICONS.tab_icons.todoActive:
                                                                                                                     SVG_ICONS.tab_icons.todo"
                                            @click="menuListClicked('todo')"/>
@@ -24,7 +24,7 @@
                         </MenuListItemShort>
 
                         <MenuListItemShort menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
-                                           :add-on-text="storeProject.dateFilterString">
+                                           :add-on-text="projectStore.dateFilterString">
                         </MenuListItemShort>
                         <MenuListItemShort menu-name="统计数据"  :icon="SVG_ICONS.tab_icons.statistics"  @click="goToPage('Statistics')" />
                         <MenuListItemShort menu-name="账单"     :icon="SVG_ICONS.tab_icons.bill"        @click="goToPage('Bill')" />
@@ -91,11 +91,11 @@ import MenuCategoryIndicatorInline from "@/view/Menu/MenuCategoryIndicatorInline
 import MenuCategoryIndicatorInlineVertical from "@/view/Menu/MenuCategoryIndicatorInlineVertical.vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 const router = useRouter()
 
 onMounted(()=>{
-    categoriesSet.value = new Set(storeProject.filteredCategories)
+    categoriesSet.value = new Set(projectStore.filteredCategories)
 })
 
 // MENU
@@ -108,7 +108,7 @@ const aboutShowed = ref(false)           // 关于页面
 // menu - category
 const categoriesSet = ref(new Set())
 
-const { isMenuShowed } = storeToRefs(storeProject)
+const { isMenuShowed } = storeToRefs(projectStore)
 watch(isMenuShowed, newValue => {
     if (newValue){
         menuShow()
@@ -123,14 +123,14 @@ const isAdminUser = computed(()=>{
 
 // 跳转到独立页面
 function goToPage(pageName: string){
-    storeProject.isMenuShowed = false
+    projectStore.isMenuShowed = false
     menuClose()
     router.push({name: pageName})
 }
 
 // MENU related
 function menuShow() {
-    storeProject.isMenuShowed = true  // menu panel
+    projectStore.isMenuShowed = true  // menu panel
     menuListShowed.value = true          // menu list
     categoryShowed.value = false         // category
     yearShowed.value = false             // year
@@ -139,24 +139,24 @@ function menuShow() {
 }
 function menuClose(){
     if (categoryShowed.value) {
-        storeProject.isListNeedBeReload = true
+        projectStore.isListNeedBeReload = true
         menuInit()
     } else if (aboutShowed.value) {
-        storeProject.isMenuShowed = true // menu panel
+        projectStore.isMenuShowed = true // menu panel
         menuListShowed.value = true        // menu list
         categoryShowed.value = false       // category
         yearShowed.value = false           // year
         othersShowed.value = false         // others
         aboutShowed.value = false          // about
     } else if (yearShowed.value) {
-        storeProject.isListNeedBeReload = true
+        projectStore.isListNeedBeReload = true
         menuInit()
-    } else if (storeProject.isMenuShowed) {
+    } else if (projectStore.isMenuShowed) {
         menuInit()
     }
 }
 function menuInit() {
-    storeProject.isMenuShowed = false         // menu panel
+    projectStore.isMenuShowed = false         // menu panel
     menuListShowed.value = true      // menu list
     categoryShowed.value = false     // category
     yearShowed.value = false         // year
@@ -166,7 +166,7 @@ function menuInit() {
 function menuListClicked(menuName: string) {
     switch (menuName) {
         case 'search':
-            storeProject.isShowSearchBar = true
+            projectStore.isShowSearchBar = true
             menuInit()
             nextTick(() => {
                 (document.querySelector('#keyword') as HTMLInputElement).focus()
@@ -174,18 +174,18 @@ function menuListClicked(menuName: string) {
             break
         case 'todo':
             let nextCategories: string[] = []
-            if (storeProject.filteredCategories.length === 1 && storeProject.filteredCategories[0] === 'todo'){
+            if (projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'){
                 nextCategories = []
             } else {
                 nextCategories = ['todo']
             }
-            storeProject.isFilterShared = false
-            storeProject.SET_FILTERED_CATEGORIES(nextCategories)
-            storeProject.isListNeedBeReload = true
+            projectStore.isFilterShared = false
+            projectStore.SET_FILTERED_CATEGORIES(nextCategories)
+            projectStore.isListNeedBeReload = true
             menuInit()
             break
         case 'category':
-            storeProject.isMenuShowed = true  // menu panel
+            projectStore.isMenuShowed = true  // menu panel
             menuListShowed.value = false // menu list
             categoryShowed.value = true  // category
             yearShowed.value = false     // year
@@ -198,7 +198,7 @@ function menuListClicked(menuName: string) {
             })
             break
         case 'year':
-            storeProject.isMenuShowed = true    // menu panel
+            projectStore.isMenuShowed = true    // menu panel
             menuListShowed.value = false   // menu list
             categoryShowed.value = false   // category
             yearShowed.value = true        // year
@@ -206,7 +206,7 @@ function menuListClicked(menuName: string) {
             aboutShowed.value = false      // about
             break
         case 'others':
-            storeProject.isMenuShowed = true    // menu panel
+            projectStore.isMenuShowed = true    // menu panel
             menuListShowed.value = false   // menu list
             categoryShowed.value = false   // category
             yearShowed.value = false       // year
@@ -214,7 +214,7 @@ function menuListClicked(menuName: string) {
             aboutShowed.value = false      // about
             break
         case 'about':
-            storeProject.isMenuShowed = true    // menu panel
+            projectStore.isMenuShowed = true    // menu panel
             menuListShowed.value = false   // menu list
             categoryShowed.value = false   // category
             yearShowed.value = false       // year

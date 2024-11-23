@@ -3,7 +3,7 @@
         enter-active-class="animated-fast slideInDown"
         leave-active-class="animated-fast slideOutUp"
     >
-        <div class="search-bar" v-if="storeProject.isShowSearchBar">
+        <div class="search-bar" v-if="projectStore.isShowSearchBar">
             <form @submit.prevent="search">
                 <input id="keyword" type="text" placeholder="搜索内容" v-model="isShowKeyword">
                 <span v-show="isShowKeyword.length > 0" @click="clearKeyword" class="clear">✕</span>
@@ -11,7 +11,7 @@
         </div>
     </transition>
 
-    <div class="diary-list-waterfall" :style="`width: ${storeProject.insets.windowsWidth}px; height: ${storeProject.insets.heightPanel}px`">
+    <div class="diary-list-waterfall" :style="`width: ${projectStore.insets.windowsWidth}px; height: ${projectStore.insets.heightPanel}px`">
         <DiaryListWaterfallItem
             v-for="diary in diariesShow" :key="diary.id"
             :width="colWidth"
@@ -36,7 +36,7 @@ import Loading from "../../components/Loading.vue"
 
 import {dateProcess, getDiaryConfigFromLocalStorage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
@@ -73,18 +73,18 @@ onMounted(()=>{
     isShowKeyword.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
     nextTick(()=>{
         // 页面刷新的时候，当前页肯定是 waterfall 这个页面
-        storeProject.listStyle = EnumListStyle.waterfall
+        projectStore.listStyle = EnumListStyle.waterfall
 
         addScrollEvent()
     })
-    storeProject.isShowSearchBar = !!isShowKeyword.value
+    projectStore.isShowSearchBar = !!isShowKeyword.value
 
     // 载入日记列表
     reload()
 })
 
 
-watch(()=> storeProject.isShowSearchBar, newValue => {
+watch(()=> projectStore.isShowSearchBar, newValue => {
     if (newValue){
         nextTick(() => {
             (document.querySelector('#keyword')! as HTMLInputElement).focus()
@@ -98,10 +98,10 @@ watch(route, newValue => {
     }
 })
 watch(isShowKeyword, newValue => {
-    storeProject.keywords = newValue.split((' '))
+    projectStore.keywords = newValue.split((' '))
 })
-watch(() => storeProject.isListNeedBeReload, ()=> {
-    if (storeProject.isListNeedBeReload) {
+watch(() => projectStore.isListNeedBeReload, ()=> {
+    if (projectStore.isListNeedBeReload) {
         reload()
     }
 })
@@ -109,7 +109,7 @@ watch(() => storeProject.isListNeedBeReload, ()=> {
 
 /* MENU 相关 */
 function search() {
-    storeProject.keywords = isShowKeyword.value.split(' ')
+    projectStore.keywords = isShowKeyword.value.split(' ')
     reload()
 }
 function clearKeyword() {
@@ -118,7 +118,7 @@ function clearKeyword() {
 }
 function reload() {
     params.value.pageNo = 1
-    params.value.keywords = JSON.stringify(storeProject.keywords)
+    params.value.keywords = JSON.stringify(projectStore.keywords)
     diaries.value = []
     diariesShow.value = []
 
@@ -151,7 +151,7 @@ function getDiaries(params: DiarySearchParams) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
                 diary.dateObj = dateProcess(diary.date)
-                diary.categoryString = storeProject.categoryNameMap.get(diary.category)
+                diary.categoryString = projectStore.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.dateString = dateProcess(diary.date).date
                 return diary
@@ -172,7 +172,7 @@ function getDiaries(params: DiarySearchParams) {
         })
         .finally(() => {
             // 列表加载完成后设置列表重载： false
-            storeProject.isListNeedBeReload = false
+            projectStore.isListNeedBeReload = false
             isLoading.value = false
         })
 }
@@ -194,7 +194,7 @@ const colCount = 10 // 列数
 let lastDiaryIndex = 1  // 最后一个日记的 index
 let lastTopPos = 0  // 最后一个日记的末尾位置： 距离 TOP
 let lastCol = 0  // 下次该放置的 col index，哪一列
-let colWidth = storeProject.insets.windowsWidth / colCount  // 每个元素的宽度
+let colWidth = projectStore.insets.windowsWidth / colCount  // 每个元素的宽度
 
 const loadTimeOutHandle = ref()  // 载入过程的 timeOut handle
 const isNeedLoadNextTimeout = true  // 是否要打断 timeout 的载入过程
@@ -214,7 +214,7 @@ function renderingWaterfallList(newDiaries: Array<DiaryEntityFromServer>, index:
     }
     // 2. 添加到展示的列表中
     diariesShow.value.push(diary)
-    storeProject.waterFallItemCount = diariesShow.value.length  // 更新瀑布流日记数量
+    projectStore.waterFallItemCount = diariesShow.value.length  // 更新瀑布流日记数量
 
     nextTick(()=>{
         // 3. 待其渲染完成后再去处理下一个

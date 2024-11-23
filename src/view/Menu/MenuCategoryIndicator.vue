@@ -1,20 +1,20 @@
 <template>
     <div class="indicator-list">
         <div class="indicator-list-item"
-             v-for="(item, index) in storeProject.categoryAll" :key="index"
+             v-for="(item, index) in projectStore.categoryAll" :key="index"
              :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
         />
-        <div class="indicator-list-item" :style="storeProject.isFilterShared? 'background-color: white':''"/>
+        <div class="indicator-list-item" :style="projectStore.isFilterShared? 'background-color: white':''"/>
     </div>
 </template>
 
 <script lang="ts" setup>
 import {CategoryEntity} from "@/entity/Category.ts";
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 function indicatorItemStyle(category: CategoryEntity): string{
-    if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
+    if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
         return `background-color: ${category.color};`
         // return `border-bottom: 1px solid ${category.color};`
     } else {

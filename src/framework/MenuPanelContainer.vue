@@ -1,12 +1,12 @@
 <template>
-    <div class="menu-panel-container" :style="`height:  ${storeProject.insets.heightPanel}px`">
+    <div class="menu-panel-container" :style="`height:  ${projectStore.insets.heightPanel}px`">
         <slot/>
     </div>
 </template>
 
 <script lang="ts" setup>
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 </script>
 

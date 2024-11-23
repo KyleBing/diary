@@ -7,12 +7,12 @@
         >
             <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
-                    <div :class="['navbar-category-list-item', {active: storeProject.filteredCategories.includes(item.name_en)}]"
-                         v-for="(item, index) in storeProject.categoryAll" :key="index"
+                    <div :class="['navbar-category-list-item', {active: projectStore.filteredCategories.includes(item.name_en)}]"
+                         v-for="(item, index) in projectStore.categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
-                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: storeProject.isFilterShared}]" @click="toggleFilterShared">共享</div>
+                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">共享</div>
 
                 </div>
                 <div class="navbar-category-list-special">
@@ -30,38 +30,38 @@
 import {useProjectStore} from "@/pinia";
 import {CategoryEntity} from "@/entity/Category.ts";
 
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 function toggleFilterShared(){
-    storeProject.SET_IS_FILTERED_SHARED(!storeProject.isFilterShared)
-    storeProject.isListNeedBeReload = true
+    projectStore.SET_IS_FILTERED_SHARED(!projectStore.isFilterShared)
+    projectStore.isListNeedBeReload = true
 }
 function toggleCategory(category: CategoryEntity){
-    let index = storeProject.filteredCategories.indexOf(category.name_en)
+    let index = projectStore.filteredCategories.indexOf(category.name_en)
     if ( index > -1) {
-        storeProject.filteredCategories.splice(index, 1)
+        projectStore.filteredCategories.splice(index, 1)
     } else {
-        storeProject.filteredCategories.push(category.name_en)
+        projectStore.filteredCategories.push(category.name_en)
     }
-    storeProject.SET_FILTERED_CATEGORIES(storeProject.filteredCategories)
-    storeProject.isListNeedBeReload = true
+    projectStore.SET_FILTERED_CATEGORIES(projectStore.filteredCategories)
+    projectStore.isListNeedBeReload = true
 }
 function selectCategoryNone() {
-    storeProject.SET_FILTERED_CATEGORIES([])
-    storeProject.isListNeedBeReload = true
+    projectStore.SET_FILTERED_CATEGORIES([])
+    projectStore.isListNeedBeReload = true
 }
 function reverseCategorySelect() {
-    let tempCategories = [].concat(storeProject.categoryAll.map(item => item.name_en))
-    storeProject.filteredCategories.forEach(item => {
+    let tempCategories = [].concat(projectStore.categoryAll.map(item => item.name_en))
+    projectStore.filteredCategories.forEach(item => {
         tempCategories.splice(tempCategories.indexOf(item), 1)
     })
-    storeProject.SET_FILTERED_CATEGORIES(tempCategories)
-    storeProject.isListNeedBeReload = true
+    projectStore.SET_FILTERED_CATEGORIES(tempCategories)
+    projectStore.isListNeedBeReload = true
 }
 
 // STYLE
 function categoryMenuItemStyle(category: CategoryEntity){
-    if (storeProject.filteredCategories.indexOf(category.name_en) > -1){
+    if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
         return `color: ${category.color}; opacity: 1; font-weight: bold;`
         // return `color: rgba(255,255,255,0.8); font-weight: bold;`
     } else {

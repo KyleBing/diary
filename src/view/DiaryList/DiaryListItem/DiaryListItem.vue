@@ -4,19 +4,19 @@
                  :to="`/detail/${diary.id}`"
                  :style="diaryItemStyle"
     >
-        <i :class="['category']" :style="`background-color: ${storeProject.categoryObjectMap.get(diary.category).color}`"></i>
+        <i :class="['category']" :style="`background-color: ${projectStore.categoryObjectMap.get(diary.category).color}`"></i>
 
         <span class="date">{{ diary.date }}</span>
 
         <div class="detail">
-            <p class="title" v-if="storeProject.isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
+            <p class="title" v-if="projectStore.isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>
             <p class="title" v-else>{{ diary.title }}</p>
             <template v-if="diary.hasOwnProperty('billData')">
-                <div v-if="storeProject.isHideContent" :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
-                    {{diary.billData.sum.toFixed(storeProject.moneyAccuracy).replace(/[^，。 \n]/g, '*')}}
+                <div v-if="projectStore.isHideContent" :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
+                    {{diary.billData.sum.toFixed(projectStore.moneyAccuracy).replace(/[^，。 \n]/g, '*')}}
                 </div>
                 <div v-else :class="['bill-amount', {'bill-in': diary.billData.sum > 0}]">
-                    {{diary.billData.sum>0?'+ ':''}}{{diary.billData.sum.toFixed(storeProject.moneyAccuracy)}}
+                    {{diary.billData.sum>0?'+ ':''}}{{diary.billData.sum.toFixed(projectStore.moneyAccuracy)}}
                 </div>
             </template>
 
@@ -37,7 +37,7 @@ import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts"
 import {computed} from "vue";
 import {useProjectStore} from "@/pinia";
 import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 const props = withDefaults(defineProps<{
     isActive: boolean,
@@ -59,7 +59,7 @@ const weatherIcon = computed(() => {
 })
 const diaryItemStyle = computed(() => {
     if (props.isActive){
-        return `background-color: ${storeProject.categoryObjectMap.get(props.diary.category).color}`
+        return `background-color: ${projectStore.categoryObjectMap.get(props.diary.category).color}`
     }
 })
 const contentIcon = computed(() => {

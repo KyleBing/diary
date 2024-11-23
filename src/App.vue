@@ -1,10 +1,10 @@
 <template>
-    <RouterView v-if="storeProject.categoryAll.length > 0"/>
+    <RouterView v-if="projectStore.categoryAll.length > 0"/>
     <ServerError v-if="isServerError"/>
 </template>
 <script lang="ts" setup>
 import {useProjectStore} from "./pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import {onBeforeMount, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
@@ -27,14 +27,14 @@ onBeforeMount(() => {
 
     // 获取当前颜色模式
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        storeProject.colorMode=  'dark'
+        projectStore.colorMode=  'dark'
     } else {
-        storeProject.colorMode=  'dark'
+        projectStore.colorMode=  'dark'
     }
 
     // 颜色模式监听
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        storeProject.colorMode = event.matches ? "dark" : "light"
+        projectStore.colorMode = event.matches ? "dark" : "light"
     })
 })
 
@@ -44,15 +44,15 @@ onMounted(()=> {
     getCategoryAll()
 
     // 从本地配置文件中载入配置
-    storeProject.INIT_PROJECT_CONFIG()
+    projectStore.INIT_PROJECT_CONFIG()
 
     window.addEventListener('resize', () => {
-        storeProject.insets = {
+        projectStore.insets = {
             windowsHeight: document.documentElement.clientHeight,
             windowsWidth: document.documentElement.clientWidth,
             heightPanel: document.documentElement.clientHeight - 45, // 除 navbar 的高度
         }
-        if (storeProject.isInMobileMode){
+        if (projectStore.isInMobileMode){
 
         } else {
             if (route.name === 'List'){
@@ -68,7 +68,7 @@ function getCategoryAll() {
     diaryApi
         .getCategoryAll()
         .then(res => {
-            storeProject.categoryAll = res.data
+            projectStore.categoryAll = res.data
             setCategoryAll(res.data)
             console.log('app is loaded all categories')
         })

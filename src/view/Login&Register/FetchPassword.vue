@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${storeProject.insets.windowsHeight}px`">
+    <div class="body-login-bg" :style="`min-height: ${projectStore.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -25,7 +25,7 @@
 import RegisterTip from "./RegisterTip.vue";
 
 import {useProjectStore} from "@/pinia";
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import projectConfig from "../../projectConfig.ts"
 

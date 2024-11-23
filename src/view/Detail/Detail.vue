@@ -1,5 +1,5 @@
 <template>
-    <div class="diary-detail" id="diaryDetail" :style="`min-height: ${storeProject.insets.heightPanel}px`">
+    <div class="diary-detail" id="diaryDetail" :style="`min-height: ${projectStore.insets.heightPanel}px`">
 
             <DetailHeader
                 :isLoading="isLoading"
@@ -8,11 +8,11 @@
             />
 
             <!-- pc 时不显示展示加载图标 -->
-            <Loading :loading="isLoading" v-if="storeProject.isInMobileMode"/>
+            <Loading :loading="isLoading" v-if="projectStore.isInMobileMode"/>
 
             <!--TITLE-->
             <div class="diary-title" v-if="diary.title">
-                <h2>{{ storeProject.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
+                <h2>{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
                     <ButtonSmall class="clipboard" :data-clipboard="diary.title">复制</ButtonSmall>
                 </div>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div v-else>
-                        <div v-if="diary.is_markdown === 1 && !storeProject.isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
+                        <div v-if="diary.is_markdown === 1 && !projectStore.isHideContent" class="markdown" v-html="contentMarkDownHtml"/>
                         <div v-else class="content" v-html="getContentHtml(diary.content)"/>
                     </div>
 
@@ -64,7 +64,7 @@ import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
 import {useProjectStore} from "@/pinia";
 
-const storeProject = useProjectStore();
+const projectStore = useProjectStore();
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
@@ -117,7 +117,7 @@ function getContentHtml(content: string){
     let isInCodeMode = /\[ ?code ?]/i.test(content)
 
     if (isInCodeMode){
-        return `<pre class="code">${storeProject.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
+        return `<pre class="code">${projectStore.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
     } else {
         let contentArray = content.split('\n')
         let contentHtml = ""
@@ -125,7 +125,7 @@ function getContentHtml(content: string){
             if (item === ''){
                 contentHtml += '<br/>'
             } else {
-                contentHtml += `<p>${storeProject.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}</p>`
+                contentHtml += `<p>${projectStore.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}</p>`
             }
         })
         return contentHtml
@@ -143,14 +143,14 @@ function  showDiary(diaryId: number) {
             diary.value = tempDiary
             let dateMoment = Moment(diary.value.date)
             lunarObject.value = calendar.solar2lunar(dateMoment.year(), dateMoment.month()+1, dateMoment.date())
-            storeProject.currentDiary = tempDiary // 设置 store: currentDiary
+            projectStore.currentDiary = tempDiary // 设置 store: currentDiary
             let dateObj = dateProcess(tempDiary.date)
             diary.value.dateObj = dateObj
             document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title
             diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
             diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
 
-            tempDiary.categoryString = storeProject.categoryNameMap.get(tempDiary.category)
+            tempDiary.categoryString = projectStore.categoryNameMap.get(tempDiary.category)
         })
         .catch(() => {
             isLoading.value = false // loading off

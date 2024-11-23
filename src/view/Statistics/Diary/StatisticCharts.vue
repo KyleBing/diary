@@ -6,10 +6,10 @@
         <div class="statistic-charts" v-if="isShow">
             <StatisticPanel title="类别数据">
                 <div class="statistic-group">
-                    <ChartBar :data="storeProject.dataArrayCategory" title=""/>
-                    <ChartPie :data="storeProject.dataArrayCategory" title=""/>
+                    <ChartBar :data="projectStore.dataArrayCategory" title=""/>
+                    <ChartPie :data="projectStore.dataArrayCategory" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in storeProject.dataArrayCategory">
+                        <div class="info-list-item" v-for="year in projectStore.dataArrayCategory">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
@@ -18,10 +18,10 @@
             </StatisticPanel>
             <StatisticPanel title="年份数据">
                 <div class="statistic-group">
-                    <ChartBar :data="storeProject.dataArrayYear" title=""/>
-                    <ChartPie :data="storeProject.dataArrayYear" title=""/>
+                    <ChartBar :data="projectStore.dataArrayYear" title=""/>
+                    <ChartPie :data="projectStore.dataArrayYear" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in storeProject.dataArrayYear">
+                        <div class="info-list-item" v-for="year in projectStore.dataArrayYear">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
@@ -56,7 +56,7 @@ import StatisticBillMonthSum from "@/view/Statistics/BillMonthSum/StatisticBillM
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "../../../pinia";
 
-const storeProject = useProjectStore()
+const projectStore = useProjectStore()
 
 const isShow = ref(false)
 onMounted(() => {
