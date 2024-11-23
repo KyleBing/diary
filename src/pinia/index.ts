@@ -69,7 +69,7 @@ export const useProjectStore = defineStore('projectStore', {
             return categoryNameMap
         },
         // 类别对象字典
-        categoryObjectMap(state){
+        categoryObjectMap(state): Map<string, CategoryEntity>{
             let categoryNameMap = new Map()
             state.categoryAll.forEach(item => {
                 categoryNameMap.set(item.name_en, item)
