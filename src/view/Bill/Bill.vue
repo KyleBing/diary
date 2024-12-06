@@ -4,7 +4,7 @@
         <div class="bill-content" :style="`height:${projectStore.insets.heightPanel}px`">
             <div class="bill-container" >
                 <div class="filter-panel">
-                    <BillPanel title="账单筛选" padding="20px">
+                    <BillPanel :width="450" title="账单筛选" padding="20px">
                         <div class="input-group white">
                             <label for="invitation" >关键字</label>
                             <textarea rows="3"

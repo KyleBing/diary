@@ -1,5 +1,5 @@
 <template>
-    <div class="bill-panel">
+    <div class="bill-panel" :style="`width: ${width}px`">
         <div class="bill-panel-title">{{ title }}</div>
         <div class="bill-panel-content"
              :style="`padding: ${padding}`"
@@ -14,8 +14,10 @@
 withDefaults(defineProps<{
     title: string,
     padding?: string  // 10px 10px
+    width: number
 }>(),{
-    padding: '0 0 10px 0'
+    padding: '0 0 10px 0',
+    width: 300
 })
 
 </script>
