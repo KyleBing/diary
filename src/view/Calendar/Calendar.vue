@@ -2,23 +2,28 @@
     <div class="statistic-container">
         <PageHeader title="日历"/>
 
-        <div class="calendar" :style="`height:${projectStore.insets.heightPanel}px`">
-            <Calendar
-                timezone="Asia/Hong_Kong"
-                show-weeknumbers
-                title-position="center"
-                :initial-page="initPage"
-                :attributes="attributes"
-                locale="zh"
-                :first-day-of-week="1"
-                :rows="3"
-                :columns="4"/>
+        <div class="calendar-container" :style="`height:${projectStore.insets.heightPanel}px`">
+
+            <div class="calendar" :style="`height:${projectStore.insets.heightPanel - 40}px`">
+                <Calendar
+                    timezone="Asia/Hong_Kong"
+                    show-weeknumbers
+                    title-position="center"
+                    :initial-page="initPage"
+                    :attributes="attributes"
+                    locale="zh"
+                    :first-day-of-week="1"
+                    :rows="3"
+                    :columns="4"/>
+
+            </div>
 
             <div class="operation-panel">
                 <ButtonSmall @click="loadCalendarPeriod" class="mb-2">日历 - 经期</ButtonSmall>
                 <ButtonSmall @click="getDiaries">日历 - 日记</ButtonSmall>
             </div>
         </div>
+
 
     </div>
 </template>
@@ -28,7 +33,7 @@ import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
 import {useProjectStore} from "@/pinia";
 const projectStore = useProjectStore();
-import {onMounted, ref, watch} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
 import diaryApi from "@/api/diaryApi.ts";
 import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
@@ -87,6 +92,7 @@ function getDiaries() {
                 return diary
             })
 
+            attributes.value = []
 
             attributes.value = [{
                 key: '今天',
@@ -134,7 +140,10 @@ onMounted(() => {
 const {isListNeedBeReload} = storeToRefs(projectStore)
 watch(isListNeedBeReload, newValue => {
     if (newValue) {
-        getDiaries()
+        attributes.value = []
+        nextTick(()=>{
+            getDiaries()
+        })
     }
 })
 
@@ -153,49 +162,64 @@ const attributes = ref([{
     }
 },])
 
-function loadCalendarPeriod(){
-    attributes.value = configPeriod
-}
-const configPeriod = [
-    {
-        key: '今天',
-        highlight: {
-            fillMode: 'solid',
-            color: EnumCalendarColor.red
-        },
-        dates: new Date(),
-        popover: {
-            label: '今天',
-            visibility: 'hover',
-            hideIndicator: true, // 隐藏不同类别标识
-        }
-    },
-    {
-        key: 'period',
-        highlight: {
 
-            start: {fillMode: 'light', color: EnumCalendarColor.red,},
-            base: {fillMode: 'light', color: EnumCalendarColor.red,},
-            end: {fillMode: 'light', color: EnumCalendarColor.red,},
-        },
-        dates: [
-            {start: new Date('2024-10-01'), end: new Date('2024-10-07')},
-            {start: new Date('2024-10-23'), end: new Date('2024-10-31')},
-            {start: new Date('2024-09-06'), end: new Date('2024-09-12')},
-            {start: new Date('2024-08-11'), end: new Date('2024-08-17')},
-            {start: new Date('2024-07-20'), end: new Date('2024-07-26')},
-            {start: new Date('2024-06-25'), end: new Date('2024-07-01')},
-            {start: new Date('2024-05-04'), end: new Date('2024-05-10')},
-            {start: new Date('2024-04-09'), end: new Date('2024-04-14')},
-            {start: new Date('2024-03-13'), end: new Date('2024-03-19')},
-            {start: new Date('2024-02-15'), end: new Date('2024-02-21')},
-            {start: new Date('2024-01-20'), end: new Date('2024-01-26')},
-        ],
-        popover: {
-            label: '过往',
-            visibility: 'focus',
-        }
-    },
+/**
+ * 经期数据
+ */
+function loadCalendarPeriod(){
+    diaryApi
+        .getDiaryWithTitleKeyword({keyword: '经期记录'})
+        .then(res => {
+            if (res.data.content){
+                let periodConfig = {
+                    key: 'period',
+                    highlight: {
+
+                        start: {fillMode: 'light', color: EnumCalendarColor.red,},
+                        base: {fillMode: 'light', color: EnumCalendarColor.red,},
+                        end: {fillMode: 'light', color: EnumCalendarColor.red,},
+                    },
+                    dates: [
+                        // {start: new Date('2024-12-20'), end: new Date('2024-12-27')},
+                    ],
+                    popover: {
+                        label: '过往',
+                        visibility: 'focus',
+                    }
+                }
+
+                periodConfig.dates = res.data.content
+                    .split('\n')
+                    .map((item: string) => {
+                        let tempDataArray = item.split(',')
+                        return {
+                            start: new Date(tempDataArray[0]),
+                            end: new Date(tempDataArray[1]),
+                        }
+                    })
+                attributes.value = CONFIG_PERIOD
+                    .concat(periodConfig)
+                    .concat( {
+                        key: '今天',
+                        highlight: {
+                            fillMode: 'solid',
+                            color: EnumCalendarColor.red
+                        },
+                        dates: new Date(),
+                        popover: {
+                            label: '今天',
+                            visibility: 'hover',
+                            hideIndicator: true, // 隐藏不同类别标识
+                        }
+                    },)
+            }
+        })
+        .catch(err => {
+            attributes.value = []
+        })
+}
+
+const CONFIG_PERIOD = [
     {
         key: 'period-next',
         highlight: {
@@ -205,8 +229,7 @@ const configPeriod = [
             end: {fillMode: 'outline', color: EnumCalendarColor.purple,},
         },
         dates: [
-            {start: new Date('2024-11-24'), end: new Date('2024-11-30')},
-            {start: new Date('2024-12-18'), end: new Date('2024-12-25')},
+            {start: new Date('2025-01-17'), end: new Date('2025-01-24')},
         ],
         popover: {
             label: '将来',
@@ -222,7 +245,8 @@ const configPeriod = [
             end: {fillMode: 'light', color: EnumCalendarColor.green,},
         },
         dates: [
-            {start: new Date('2024-12-01'), end: new Date('2024-12-03')},
+            {start: new Date('2024-12-02'), end: new Date('2024-12-03')},
+            {start: new Date('2025-01-02'), end: new Date('2025-01-03')},
         ],
         popover: {
             label: '🥰',
@@ -239,11 +263,16 @@ onMounted(()=>{
 <style lang="scss">
 @import "../../scss/plugin";
 
-.calendar{
+.calendar-container{
     padding: 20px;
     flex-shrink: 0;
     display: flex;
     justify-content: flex-start;
+    overflow-y: auto;
+}
+.calendar{
+    overflow-y: auto;
+
 }
 .operation-panel{
     margin-left: 30px;

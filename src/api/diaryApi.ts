@@ -23,6 +23,7 @@ export default {
         message: string
     }>  {
         return request('get'   , params, null, 'diary/list')}  ,
+
     listTitleOnly(params: DiarySearchParams): Promise<{
         success: boolean,
         data: Array<DiaryEntityFromServer>,
@@ -41,6 +42,14 @@ export default {
         message: string
     }>{
         return request('get',    params,null, 'diary/detail')},
+    getDiaryWithTitleKeyword(
+        params: { keyword: string }): Promise<{
+        success: boolean,
+        data: DiaryEntityFromServer,
+        message: string
+    }> {
+        return request('get', params, null, 'diary/get-diary-content-with-keyword')
+    },
     share(params: {diaryId: number}): Promise<{
         success: boolean,
         data: DiaryEntityFromServer,

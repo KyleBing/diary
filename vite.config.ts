@@ -14,7 +14,7 @@ const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd hh-mm-ss')
 export default defineConfig({
     server: {
         host: '0.0.0.0',// 自定义主机名
-        port: 8080,// 自定义端口
+        port: 1021,// 自定义端口
         https: false,
         proxy: {
             '/dev': {
