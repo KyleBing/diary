@@ -14,7 +14,18 @@
                     locale="zh"
                     :first-day-of-week="1"
                     :rows="3"
-                    :columns="4"/>
+                    :columns="4">
+                    <template #day-popover="{ day, dayTitle, attributes, format, masks}">
+                        <div class="popover-list">
+                            <div
+                                class="popover-list-item"
+                                v-for="(item, index) in attributes as Array<CalendarAttribute>" :key="index">
+                                <div class="indicator" :style="`background-color:${item.color || item.highlight.color}`"></div>
+                                <span >{{item.popover.label}}</span>
+                            </div>
+                        </div>
+                    </template>
+                </Calendar>
 
             </div>
 
@@ -40,6 +51,7 @@ import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
 import {DiaryEntity, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
+import {CalendarAttribute} from "@/view/Calendar/VCalendar.ts";
 
 enum EnumCalendarColor {
     'gray' = 'gray',
@@ -116,11 +128,12 @@ function getDiaries() {
                             backgroundColor: projectStore.categoryObjectMap.get(item.category).color
                         }
                     },
+                    color: projectStore.categoryObjectMap.get(item.category).color,
                     dates: new Date(item.date),
                     popover: {
                         label: item.title,
                         visibility: 'click',
-                        hideIndicator: false, // 隐藏不同类别标识
+                        hideIndicator: false, // 隐藏弹窗中不同条目的类别标识，在条目前面的标识
                     }
                 },)
             })
@@ -148,7 +161,7 @@ watch(isListNeedBeReload, newValue => {
 })
 
 const initPage = ref({year: 2024, month: 1, day: 1})
-const attributes = ref([{
+const attributes = ref<Array<CalendarAttribute>>([{
     key: '今天',
     highlight: {
         fillMode: 'solid',
@@ -276,6 +289,25 @@ onMounted(()=>{
 }
 .operation-panel{
     margin-left: 30px;
+}
+
+.popover-list{
+    padding: 5px;
+    font-size: $fz-small;
+
+    .popover-list-item{
+        padding: 1px 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .indicator{
+            margin-right: 5px;
+            display: block;
+            @include border-radius(10px);
+            width: 12px;
+            height: 4px;
+        }
+    }
 }
 
 </style>
