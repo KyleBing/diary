@@ -9,6 +9,16 @@
                     <div class="date-loan">{{item.dateLoan}}</div>
                 </div>
             </div>
+            <div class="borrow-list-item">
+                <div class="total">{{borrowSum}}</div>
+                <div class="lender">总计</div>
+            </div>
+
+            <div class="borrow-list-item" v-for="(key) in borrowPersonMap.keys()" :key="key">
+                <div class="total">{{borrowPersonMap.get(key)}}</div>
+                <div class="lender">{{key}}</div>
+                <div class="section-note"></div>
+            </div>
         </div>
     </BillPanel>
 </template>
@@ -27,12 +37,24 @@ onMounted(()=>{
  * 借还记录
  */
 const borrowInfoList = ref<Array<EntityBorrow>>([])
+const borrowSum = ref(0)
+const borrowPersonMap = new Map<string, number>()   // 人员贷款统计 map
 function getBorrowInfo(){
     billApi
         .getBorrowList()
         .then(res => {
             if (res.data){
                 borrowInfoList.value = processBorrowInfo(res.data)
+                borrowInfoList.value.forEach(item => {
+                    if (borrowPersonMap.has(item.lender)){
+                        let sum = borrowPersonMap.get(item.lender)
+                        borrowPersonMap.set(item.lender, sum + item.total)
+                    } else {
+                        borrowPersonMap.set(item.lender, item.total)
+                    }
+
+                    borrowSum.value = borrowSum.value + item.total
+                })
             }
         })
 }
@@ -41,7 +63,7 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
     // card list
     let tempStrArray = borrowInfoString.split('\n\n').filter(item => item.length > 0)
 
-    // temp borrowinfo array
+    // temp borrowInfo array
     let tempBorrowArray:Array<EntityBorrow> = []
 
     // card item
@@ -68,7 +90,7 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
                     tempBorrowInfo.usage = value;
                     break;
                 case '总额':
-                    tempBorrowInfo.total = value;
+                    tempBorrowInfo.total = Number(value);
                     break;
                 case '类型':
                     tempBorrowInfo.type = value;
