@@ -53,7 +53,8 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 }
 
 .share-date{
-  border: 1px solid $color-border;
+  @include border-radius(5px);
+  border: 1px solid $color-border-light;
   padding: $meta-padding 15px;
   background-color: white;
   flex-shrink: 0;
@@ -84,6 +85,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     }
   }
   .temperature{
+    font-size: $fz-small;
     line-height: $height-temperature;
     text-align: center;
   }
@@ -187,6 +189,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 // Mobile
 @media (max-width: $grid-separate-width-sm){
   .share-container{
+    background-image: none;
     padding: 0;
   }
   .share{
@@ -195,18 +198,36 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     @include border-radius(0);
   }
   .share-head{
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
+    align-items: flex-start;
     .share-title{
       margin-bottom: 10px;
       margin-right: 0;
+      line-height: 1.5;
     }
     .share-meta{
       margin-right: 0;
       margin-bottom: 10px;
     }
     .share-date{
+      font-size: $fz-small;
+      padding: 8px 20px;
       margin-right: 0;
-      margin-bottom: 10px;
+      .above{
+        margin-bottom: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h3{
+          line-height: 1.5
+        }
+        .share-category{
+          margin: 0;
+        }
+      }
+      .bottom{
+        line-height: 1.5;
+      }
     }
   }
   .divider{
@@ -217,6 +238,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
     display: none;
   }
   .back-link{
+    display: none;
     margin: 0;
     padding: 30px 0;
   }

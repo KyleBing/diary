@@ -7,7 +7,7 @@
             </div>
 
             <div v-else>
-                <div v-if="currentDiary.title">
+                <div v-if="currentDiary && currentDiary.title">
                     <!--CONTENT-->
                     <div class="share-head">
                         <!--head-->
@@ -69,7 +69,11 @@
             </div>
 
         </div>
-        <RouterLink class="back-link" to="/"><img :src="SVG_ICONS.logo_icons.logo" alt="logo">标题日记</RouterLink>
+
+        <RouterLink class="back-link" to="/">
+            <img :src="SVG_ICONS.logo_icons.logo" alt="logo">
+            标题日记
+        </RouterLink>
 
     </div>
 </template>
@@ -101,7 +105,9 @@ const isLoadingDiary = ref(false) // 日记请求中
 
 
 const heightShare = computed(()=>{
-    return projectStore.insets.windowsWidth > 375 ? projectStore.insets.windowsHeight - 60 - 100 : projectStore.insets.windowsHeight
+    return projectStore.insets.windowsWidth > 400 ?
+        projectStore.insets.windowsHeight - 60 - 100
+        : projectStore.insets.windowsHeight
 })
 const shareCategoryStyle = computed(()=>{
     return `background-color: ${projectStore.categoryObjectMap.get(currentDiary.value.category).color}`
