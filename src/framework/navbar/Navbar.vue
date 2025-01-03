@@ -14,59 +14,59 @@
                 <div @click="menuClose" v-if="projectStore.isMenuShowed">
                     <TabIcon alt="关闭"/>
                 </div>
-                <div @click="commitBack"
-                     v-if="projectStore.isInMobileMode && route.name !== 'List'">
+                <div @click="commitBack" v-if="projectStore.isInMobileMode && route.name !== 'List'">
                     <TabIcon alt="返回"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleHideContent">
                     <TabIcon v-if="projectStore.isHideContent" alt="内容隐藏"/>
                     <TabIcon v-else alt="内容显示"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleListStyle">
                     <TabIcon v-if="projectStore.listStyle === EnumListStyle.list" alt="列表简洁"/>
                     <TabIcon v-if="projectStore.listStyle === EnumListStyle.detail" alt="列表详情"/>
                     <TabIcon v-if="projectStore.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
-                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.calendar" alt="日历展示"/>
+                </div>
+                <div class="waterfall-count"
+                     v-if="projectStore.listStyle === EnumListStyle.waterfall">
+                    {{projectStore.waterFallItemCount}}
                 </div>
 
-                <div class="waterfall-count" v-if="projectStore.listStyle === EnumListStyle.waterfall">{{projectStore.waterFallItemCount}}</div>
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
+                     @click="goToPage('Calendar')">
+                    <TabIcon alt="日历"/>
+                </div>
 
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleSearchbar">
                     <TabIcon alt="搜索"/>
                 </div>
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="goToPage('BankCard')">
                     <TabIcon alt="银行卡"/>
                 </div>
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="goToPage('Bill')">
                     <TabIcon alt="账单"/>
                 </div>
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode && isAdminUser"
+
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode && isAdminUser"
                      @click="goToPage('FileManager')">
                     <TabIcon alt="文件"/>
                 </div>
-                <div v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode" @click="toggleTodoList">
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
+                     @click="toggleTodoList">
                     <TabIcon
                         alt="待办-显示"
                         v-if="projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'"/>
                     <TabIcon alt="待办" v-else/>
                 </div>
-                <div class="btn-text-group"
+                <div v-if="!projectStore.isInMobileMode && projectStore.dateFilterString"
                      v-show="!projectStore.isMenuShowed"
-                     v-if="!projectStore.isInMobileMode && projectStore.dateFilterString">
+                     class="btn-text-group">
                     <div class="btn-text" @click="clearDateFilter">{{ projectStore.dateFilterString }}</div>
                 </div>
 
@@ -198,10 +198,6 @@ onUnmounted(()=>{
 onMounted(()=> {
     location = window.location
 
-    if (route.name === 'Calendar'){
-        projectStore.listStyle = EnumListStyle.calendar
-    }
-
     isNewDiary.value = !(route.params.id)
 
     // 绑定剪贴板操作方法
@@ -269,10 +265,20 @@ function menuClose() {
 function toggleListStyle() {
     switch (projectStore.listStyle){
         case EnumListStyle.list:
-            projectStore.listStyle = EnumListStyle.detail  // 点击时切换到下一个展示类别
-            router.push({
-                name: 'List'
-            })
+            if (route.name === 'List'){
+                projectStore.listStyle = EnumListStyle.detail  // 点击时切换到下一个展示类别
+                router.push({
+                    name: 'List'
+                })
+            } else {
+                // 如果不是列表显示，进入列表显示
+                // 比如 日历显示时 点击进入列表模式
+                projectStore.listStyle = EnumListStyle.list
+                router.push({
+                    name: 'List'
+                })
+            }
+
             break;
         case EnumListStyle.detail:
             projectStore.listStyle = EnumListStyle.waterfall
@@ -281,18 +287,11 @@ function toggleListStyle() {
             })
             break;
         case EnumListStyle.waterfall:
-            projectStore.listStyle = EnumListStyle.calendar
-            router.push({
-                name: 'Calendar'
-            })
-            break;
-        case EnumListStyle.calendar:
             projectStore.listStyle = EnumListStyle.list
             router.push({
                 name: 'List'
             })
             break;
-
     }
 }
 

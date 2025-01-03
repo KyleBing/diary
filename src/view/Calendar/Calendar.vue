@@ -52,6 +52,7 @@ import {DiaryEntity, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import {CalendarAttribute} from "@/view/Calendar/VCalendar.ts";
+import Moment from "moment";
 
 enum EnumCalendarColor {
     'gray' = 'gray',
@@ -160,7 +161,11 @@ watch(isListNeedBeReload, newValue => {
     }
 })
 
-const initPage = ref({year: 2024, month: 1, day: 1})
+const initPage = ref({
+    year: Moment().add(-5, 'month').get('years'),
+    month: Moment().add(-5, 'month').get('months'),
+    day: 1
+})
 const attributes = ref<Array<CalendarAttribute>>([{
     key: '今天',
     highlight: {
