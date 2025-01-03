@@ -265,7 +265,7 @@ function menuClose() {
 function toggleListStyle() {
     switch (projectStore.listStyle){
         case EnumListStyle.list:
-            if (route.name === 'List'){
+            if (route.name === 'List' || route.name === 'Detail' || route.name === 'Edit' || route.name === 'EditNew'){
                 projectStore.listStyle = EnumListStyle.detail  // 点击时切换到下一个展示类别
                 router.push({
                     name: 'List'

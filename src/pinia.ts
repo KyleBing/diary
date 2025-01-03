@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
-import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
+import SVG_ICONS from "./assets/icons/SVG_ICONS.ts";
+import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "./utility.ts";
 import {DiaryEntity, DiaryListOperation} from "@/view/DiaryList/Diary.ts";
-import {CategoryEntity} from "../entity/Category.ts";
-import {StatisticYearEntity} from "../entity/StatisticYear.ts";
+import {CategoryEntity} from "./entity/Category.ts";
+import {StatisticYearEntity} from "./entity/StatisticYear.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 
 console.log('pinia is loaded, inside pinia file')

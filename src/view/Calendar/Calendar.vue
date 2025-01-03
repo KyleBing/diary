@@ -74,7 +74,7 @@ const diaries = ref<Array<DiaryEntity>>([])
 const formSearch = ref<DiarySearchParams>({
     keywords: '',
     pageNo: 1,
-    pageSize: 500, // 单页请求条数
+    pageSize: 1000, // 单页请求条数
     categories: '',
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选

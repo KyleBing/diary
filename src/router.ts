@@ -1,7 +1,7 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 
-import IndexFramework from "../framework/IndexFramework.vue"
-import Waterfall from "../framework/Waterfall.vue"
+import IndexFramework from "./framework/IndexFramework.vue"
+import Waterfall from "./framework/Waterfall.vue"
 import Register from "@/view/Login&Register/Register.vue"
 import Login from "@/view/Login&Register/Login.vue"
 import ChangePassword from "@/view/Login&Register/ChangePassword.vue"
@@ -15,12 +15,12 @@ import Statistics from "@/view/Statistics/StatisticsIndex.vue"
 import List from "@/view/DiaryList/List.vue"
 import Detail from "@/view/Detail/Detail.vue"
 import Edit from "@/view/Edit/Edit.vue"
-import NotFound_404 from "../fundation/NotFound_404.vue";
+import NotFound_404 from "./fundation/NotFound_404.vue";
 import WaterfallList from "@/view/DiaryListWaterfall/WaterfallList.vue";
 import RemoveAllYourDiary from "@/view/Util/RemoveAllYourDiary.vue";
 import DestroyAccount from "@/view/Util/DestroyAccount.vue";
 import FileManager from "@/view/FileManager/FileManager.vue";
-import {getAuthorization, isInMobileMode} from "../utility.ts";
+import {getAuthorization, isInMobileMode} from "./utility.ts";
 import FetchPassword from "@/view/Login&Register/FetchPassword.vue";
 import Calendar from "@/view/Calendar/Calendar.vue";
 import CalendarFramework from "@/framework/CalendarFramework.vue";
