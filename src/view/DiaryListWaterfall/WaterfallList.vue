@@ -45,7 +45,6 @@ import {EnumListStyle} from "@/listStyle.ts";
 import DiaryListWaterfallItem from "@/view/DiaryListWaterfall/DiaryListWaterfallItem.vue";
 
 const route = useRoute()
-const router = useRouter()
 
 const isHasMore = ref(true)
 const isLoading = ref(true)
@@ -65,6 +64,9 @@ const params = ref<DiarySearchParams>({
 
 const diaries = ref<Array<DiaryEntityFromServer>>([])  // 实际日记
 
+let colCount = 10 // 列数
+let colWidth = projectStore.insets.windowsWidth / colCount  // 每个元素的宽度
+const minColWidth = 200
 
 onMounted(()=>{
     document.title = '日记' // 变更标题
@@ -157,6 +159,11 @@ function getDiaries(params: DiarySearchParams) {
                 return diary
             })
 
+            // calculate proper width and cols
+            colCount = Math.round(innerWidth / minColWidth)
+            colWidth = projectStore.insets.windowsWidth / colCount  // 每个元素的宽度
+
+
             renderingWaterfallList(newDiariesList, 0)
 
             // page operation
@@ -190,11 +197,11 @@ const isShowLoadProcess = true // 是否显示卡片加载的过程，不显示�
 const isInRenderProcess = ref(false)
 
 
-const colCount = 10 // 列数
+
 let lastDiaryIndex = 1  // 最后一个日记的 index
 let lastTopPos = 0  // 最后一个日记的末尾位置： 距离 TOP
 let lastCol = 0  // 下次该放置的 col index，哪一列
-let colWidth = projectStore.insets.windowsWidth / colCount  // 每个元素的宽度
+
 
 const loadTimeOutHandle = ref()  // 载入过程的 timeOut handle
 const isNeedLoadNextTimeout = true  // 是否要打断 timeout 的载入过程
@@ -325,6 +332,8 @@ function addScrollEvent() {
 
 .diary-list-waterfall{
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 
