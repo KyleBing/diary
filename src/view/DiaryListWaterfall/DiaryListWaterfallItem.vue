@@ -116,6 +116,7 @@ $animate-width: 5px;
     }
     outline: 0 solid transparentize(black, 0.6);
     &:hover{
+        z-index: 999;
         background-color: white;
         .meta{
             z-index: $z-waterfall-hover;

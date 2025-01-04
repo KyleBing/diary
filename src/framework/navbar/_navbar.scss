@@ -9,6 +9,7 @@
 }
 .navbar{
   height: $height-navbar;
+  overflow: hidden;
   padding: 0 5px 0 0;
   background-color: $bg-main;
   display: flex;

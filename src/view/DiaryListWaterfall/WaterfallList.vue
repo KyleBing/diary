@@ -325,8 +325,6 @@ function addScrollEvent() {
 
 .diary-list-waterfall{
     width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
     position: relative;
 }
 
