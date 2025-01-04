@@ -18,8 +18,8 @@ export default defineConfig({
         https: false,
         proxy: {
             '/dev': {
-                target: 'http://localhost:3000',
-                // target: 'http://kylebing.cn:3000',
+                // target: 'http://localhost:3000',
+                target: 'http://kylebing.cn:3000',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/dev/, '/'),
             },

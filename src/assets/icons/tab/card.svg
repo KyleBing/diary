@@ -3,6 +3,6 @@
     <title>tab/card</title>
     <g id="tab/card" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Rectangle-Copy-3" stroke="#E5E5EA" stroke-width="1.5" x="8.25" y="11.25" width="29.5" height="22.5" rx="3"></rect>
-        <rect id="Rectangle" fill="#E5E5EA" x="8" y="17" width="30" height="5"></rect>
+        <rect id="Rectangle" fill="#E5E5EA" x="8" y="17" width="30" height="4"></rect>
     </g>
 </svg>

@@ -19,6 +19,11 @@
                 </div>
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
+                     @click="toggleSearchbar">
+                    <TabIcon alt="搜索"/>
+                </div>
+
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleHideContent">
                     <TabIcon v-if="projectStore.isHideContent" alt="内容隐藏"/>
                     <TabIcon v-else alt="内容显示"/>
@@ -40,10 +45,7 @@
                     <TabIcon alt="日历"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
-                     @click="toggleSearchbar">
-                    <TabIcon alt="搜索"/>
-                </div>
+
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="goToPage('BankCard')">
                     <TabIcon alt="银行卡"/>
