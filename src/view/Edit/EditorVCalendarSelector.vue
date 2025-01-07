@@ -9,6 +9,7 @@
                 v-model="modelDate"
                 mode="dateTime"
                 is24hr
+                hide-time-header
                 :attributes="attrs"
                 :popover="popoverOptions"
             >
