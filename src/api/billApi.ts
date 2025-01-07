@@ -1,5 +1,4 @@
 import request  from '../request.ts'
-import {CategoryEntity} from "@/entity/Category.ts";
 
 export default {
     sorted(params: {years: string, keyword: string})  { return request('get'   , params, null, 'bill/sorted')}  ,

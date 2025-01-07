@@ -58,11 +58,18 @@ interface EntityBillTop5Item extends EntityBillItem{
 }
 
 
+interface  BillKey {
+    key: string, // 账单条目
+    count: number, // 数量
+    sort?: number, // 排序
+}
+
 export {
     MonthNameMap,
     type EntityBillMonth,
     type EntityBillFood,
     type EntityBillDay,
     type EntityBillItem,
-    type EntityBillTop5Item
+    type EntityBillTop5Item,
+    type BillKey
 }

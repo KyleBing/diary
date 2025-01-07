@@ -1,5 +1,6 @@
 import {CategoryEntity} from "./entity/Category.ts";
 import {AuthorizationEntity} from "./entity/Authorization.ts";
+import {BillKey} from "@/view/Bill/Bill.ts";
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
@@ -45,7 +46,7 @@ function setBillKeys(keyArray: string[]) {
 /**
  * 获取账单常用项目列表
  */
-function getBillKeys() {
+function getBillKeys(): Array<BillKey> {
     let keysString = localStorage.getItem(BILL_KEYS_NAME)
     if (keysString) {
         return JSON.parse(keysString)

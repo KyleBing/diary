@@ -139,7 +139,6 @@ import {
     ResponseDiaryAdd
 } from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
-import {BillKeyEntity} from "@/entity/BillKey.ts";
 
 import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
 
@@ -195,6 +194,7 @@ const requestData = ref<DiarySearchParams>({ // 请求本周日志的 requestDat
 import {DatePicker} from "v-calendar";
 import 'v-calendar/style.css';
 import EditorVCalendarSelector from "@/view/Edit/EditorVCalendarSelector.vue";
+import {BillKey} from "@/view/Bill/Bill.ts";
 const popoverOptions = ref<PopoverOptions>({
     visibility: 'click',
     placement: "auto"
@@ -212,8 +212,8 @@ const attrs = ref([
 /**
  * Bill Keys
  */
-const billKeys = ref<Array<BillKeyEntity>>([])
-const possibleBillItems = ref<Array<BillKeyEntity>>([])
+const billKeys = ref<Array<BillKey>>([])
+const possibleBillItems = ref<Array<BillKey>>([])
 const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
 
@@ -258,7 +258,7 @@ onMounted(()=>{
             if (possibleBillItems.value.length > 0) {
                 switch (event.key) {
                     case 'Tab':
-                        insertNewBillKey(possibleBillItems.value[0].item)
+                        insertNewBillKey(possibleBillItems.value[0].key)
                         event.preventDefault()
                         break;
                     case '1':
@@ -270,7 +270,7 @@ onMounted(()=>{
                     case '7':
                     case '8':
                     case '9':
-                        insertNewBillKey(possibleBillItems.value[Number(event.key) - 1].item)
+                        insertNewBillKey(possibleBillItems.value[Number(event.key) - 1].key)
                         event.preventDefault()
                         break;
                     default:
@@ -505,7 +505,7 @@ function contentUpdate(event: Event){
             // possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) === 0)
             // console.log('lastWord:', lastWord, 'word length:', lastWord.length)
             if (lastWord !== ''){
-                possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) > -1).splice(0,9)
+                possibleBillItems.value = billKeys.value.filter(item => item.key.indexOf(lastWord) > -1).splice(0,9)
             } else {
                 possibleBillItems.value = []
             }

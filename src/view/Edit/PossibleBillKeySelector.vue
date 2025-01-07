@@ -4,29 +4,25 @@
     >
         <div class="possible-bill-key-list-item"
              v-for="(item, index) in props.possibleBillItems" :key="index"
-             @click="emit('selectKey', item.item)"
+             @click="emit('selectKey', item.key)"
         >
             <div class="index">{{index + 1}}</div>
-            <div class="value">{{item.item}}</div>
+            <div class="value">{{item.key}}</div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 
-const props = defineProps({
-    possibleBillItems: {
-        type: Array,
-        default: []
-    },
-    positionLeft: {
-        type: Number,
-        default: 150
-    },
-    positionTop: {
-        type: Number,
-        default: 20
-    },
+import {BillKey} from "@/view/Bill/Bill.ts";
+
+const props = withDefaults(defineProps<{
+    possibleBillItems: Array<BillKey>,
+    positionLeft: number,
+    positionTop: number,
+}>(), {
+    positionLeft: 150,
+    positionTop: 20,
 })
 
 const emit = defineEmits(['selectKey'])
