@@ -28,30 +28,26 @@ withDefaults(defineProps<{
     justify-content: center;
     .loading-item{
         width: 3px;
-        margin-right: 5px;
+        margin-right: 4px;
         &:last-child{
             margin-right: 0;
         }
     }
     .loading-1{
         @include animation(load-frame-1 1.2s infinite linear 0s);
-        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
         background-color: $red;
     }
     .loading-2{
         @include animation(load-frame-2 1.2s infinite linear 0s);
-        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
-        background-color: $yellow;
+        background-color: $color-main;
     }
     .loading-3{
         @include animation(load-frame-3 1.2s infinite linear 0s);
-        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
         background-color: $green;
 
     }
     .loading-4{
         @include animation(load-frame-4 1.2s infinite linear 0s);
-        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
         background-color: $blue;
     }
 }
