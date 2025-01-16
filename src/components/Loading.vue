@@ -4,6 +4,7 @@
         <div class="loading-1 loading-item"></div>
         <div class="loading-2 loading-item"></div>
         <div class="loading-3 loading-item"></div>
+        <div class="loading-4 loading-item"></div>
     </div>
 </template>
 
@@ -32,34 +33,56 @@ withDefaults(defineProps<{
             margin-right: 0;
         }
     }
-    &-1{
-        height: $height-loading * 1;
-        @include animation(load-frame-1 1s infinite linear 0s);
+    .loading-1{
+        @include animation(load-frame-1 1.2s infinite linear 0s);
+        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
         background-color: $red;
     }
-    &-2{
-        height: $height-loading * 0.5;
-        @include animation(load-frame-2 1s infinite linear 0s);
-        background-color: $color-main;
+    .loading-2{
+        @include animation(load-frame-2 1.2s infinite linear 0s);
+        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
+        background-color: $yellow;
     }
-    &-3{
-        height: $height-loading * 0.25;
-        @include animation(load-frame-1 1s infinite linear 0s);
+    .loading-3{
+        @include animation(load-frame-3 1.2s infinite linear 0s);
+        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
         background-color: $green;
+
+    }
+    .loading-4{
+        @include animation(load-frame-4 1.2s infinite linear 0s);
+        @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
+        background-color: $blue;
     }
 }
 
 @keyframes load-frame-1 {
-    0% {height: $height-loading * .25}
+    0% {height: $height-loading * .15}
+    25% {height: $height-loading * .65}
     50% {height: $height-loading * 1}
-    100% {height: $height-loading * .25}
+    75% {height: $height-loading * .65}
+    100% {height: $height-loading * .15}
 }
-
 @keyframes load-frame-2 {
+    0% {height: $height-loading * .65}
+    25% {height: $height-loading * 1}
+    50% {height: $height-loading * .65}
+    75% {height: $height-loading * .15}
+    100% {height: $height-loading * .65}
+}
+@keyframes load-frame-3 {
     0% {height: $height-loading * 1}
-    50% {height: $height-loading * .25}
+    25% {height: $height-loading * .65}
+    50% {height: $height-loading * .15}
+    75% {height: $height-loading * .65}
     100% {height: $height-loading * 1}
 }
-
+@keyframes load-frame-4 {
+    0% {height: $height-loading * .65}
+    25% {height: $height-loading * .15}
+    50% {height: $height-loading * .65}
+    75% {height: $height-loading * 1}
+    100% {height: $height-loading * .65}
+}
 
 </style>
