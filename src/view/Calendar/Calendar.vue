@@ -30,8 +30,10 @@
             </div>
 
             <div class="operation-panel">
+                <ButtonSmall @click="getDiaries" class="mb-2">日历 - 日记</ButtonSmall>
                 <ButtonSmall @click="loadCalendarPeriod" class="mb-2">日历 - 经期</ButtonSmall>
-                <ButtonSmall @click="getDiaries">日历 - 日记</ButtonSmall>
+                <ButtonSmall v-if="periodDiary?.id" @click="router.push({name: 'Edit', params: {id: periodDiary.id}})" class="mb-2">编辑经期日历</ButtonSmall>
+
             </div>
         </div>
 
@@ -53,6 +55,9 @@ import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import {CalendarAttribute} from "@/view/Calendar/VCalendar.ts";
 import Moment from "moment";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 enum EnumCalendarColor {
     'gray' = 'gray',
@@ -184,10 +189,12 @@ const attributes = ref<Array<CalendarAttribute>>([{
 /**
  * 经期数据
  */
+const periodDiary = ref<DiaryEntity>()
 function loadCalendarPeriod(){
     diaryApi
         .getDiaryWithTitleKeyword({keyword: '经期记录'})
         .then(res => {
+            periodDiary.value = res.data
             if (res.data.content){
                 let periodConfig = {
                     key: 'period',
@@ -239,22 +246,6 @@ function loadCalendarPeriod(){
 
 const CONFIG_PERIOD = [
     {
-        key: 'period-next',
-        highlight: {
-
-            start: {fillMode: 'outline', color: EnumCalendarColor.purple,},
-            base: {fillMode: 'light', color: EnumCalendarColor.purple,},
-            end: {fillMode: 'outline', color: EnumCalendarColor.purple,},
-        },
-        dates: [
-            {start: new Date('2025-01-17'), end: new Date('2025-01-24')},
-        ],
-        popover: {
-            label: '将来',
-            visibility: 'focus',
-        }
-    },
-    {
         key: 'vacation',
         highlight: {
 
@@ -264,7 +255,6 @@ const CONFIG_PERIOD = [
         },
         dates: [
             {start: new Date('2024-12-02'), end: new Date('2024-12-03')},
-            {start: new Date('2025-01-02'), end: new Date('2025-01-03')},
         ],
         popover: {
             label: '🥰',
