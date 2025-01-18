@@ -186,6 +186,11 @@
     table {
       width: 100%;
       tr{
+        th{
+          padding: 10px 5px ;
+          &.center{
+          }
+        }
         td{
           width: 40px;
           min-width: 40px;

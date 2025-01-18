@@ -145,8 +145,41 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
         width: 100px;
         font-size: $fz-tiny;
         color: $text-content;
+        .usage{
+
+        }
         .date-loan{
 
+        }
+    }
+}
+
+// mobile
+@media (max-width: $grid-separate-width-sm) {
+    .borrow-list-item{
+
+        &:hover{
+        }
+        &:last-child{
+        }
+        .total{
+            width: 50px;
+            font-weight: normal;
+        }
+        .lender{
+            width: 50px;
+            font-weight: bold;
+            font-size: $fz-small;
+        }
+        .section-note{
+            width: auto;
+            .usage{
+                text-wrap: auto;
+
+            }
+            .date-loan{
+
+            }
         }
     }
 }

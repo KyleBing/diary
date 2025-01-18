@@ -53,7 +53,7 @@ withDefaults(defineProps<{
         height: auto;
         margin-right: 0;
         margin-bottom: 20px;
-        width: 100%;
+        width: 100% !important;
     }
 }
 
