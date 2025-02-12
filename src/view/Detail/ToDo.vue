@@ -143,7 +143,7 @@ function deleteToDo(index: number){
 
 
 /**
- * 实时修改 todo 内容
+ * 实时修改 to-do 内容
  * @param todoItem
  * @param ev
  */
