@@ -1,14 +1,23 @@
 <template>
     <div class="diary-header">
+
+        <!-- 日期 -->
         <div class="date-wrapper" v-if="props.diary.dateObj">
             <div class="date-time">
                 {{ props.diary.dateObj.dateFull }}  {{props.diary.dateObj.time}}
             </div>
             <div class="date-lunar">
                 {{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}  {{props.diary.dateObj.weekday}}
+                <span
+                    v-if="Moment().diff(props.diary.date, 'days') > 0"
+                    class="date-diff"
+                >
+                    {{Moment().diff(props.diary.date, 'days')}}天前
+                </span>
             </div>
         </div>
 
+        <!-- 天气 -->
         <div class="weather-wrapper">
             <div class="weather">
                 <img v-if="props.diary.weather" :src="SVG_ICONS.weather_icons[`${props.diary.weather}_active`]"
@@ -28,6 +37,7 @@
             </div>
         </div>
 
+        <!-- 类别 -->
         <div class="category-wrapper">
             <div class="detail-category" :style="categoryBgColor">
                 <span>{{ props.diary.categoryString }}</span>
@@ -41,6 +51,7 @@
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
 import {useProjectStore} from "../../pinia";
+import Moment from "moment";
 const projectStore = useProjectStore()
 
 const props = defineProps({
@@ -124,6 +135,10 @@ function getTemperatureClassName(temperature: number): string{
         .date-lunar{
             font-size: $fz-small;
             margin-top: 3px;
+            .date-diff{
+                color: $text-label;
+                margin-left: 10px;
+            }
         }
     }
     .category-wrapper{
@@ -240,6 +255,9 @@ function getTemperatureClassName(temperature: number): string{
             }
             .date-lunar {
                 color: $dark-text-header-lunar;
+                .date-diff{
+                    color: $dark-text-label;
+                }
             }
         }
         .weather-wrapper{
