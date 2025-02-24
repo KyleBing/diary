@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="editor-form-item">
-                        <label for="markdown">MD</label>
+                        <label for="markdown">MarkDown</label>
                         <div class="input">
                             <input class="share"
                                    type="checkbox"
