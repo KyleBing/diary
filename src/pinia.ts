@@ -52,6 +52,8 @@ export const useProjectStore = defineStore('projectStore', {
 
         // BILL
         moneyAccuracy: 1, // 展示的货币精度，小数位数
+
+        cacheDiary: undefined as (DiaryEntity | undefined),                // 缓存日记，目前只用于屏幕变换时，恢复日记内容
     }),
     getters: {
         isInMobileMode(state){

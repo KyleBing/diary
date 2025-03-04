@@ -126,7 +126,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
 import {useProjectStore} from "@/pinia";
 const projectStore = useProjectStore()
-import {computed, nextTick, onBeforeMount, onMounted, ref, watch} from "vue";
+import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
@@ -223,6 +223,12 @@ onBeforeMount(() => {
     // console.log(refDiaryContentTextArea)
     // (refDiaryContentTextArea.value as HTMLTextAreaElement).removeEventListener('keydown', ()=>{}) // 去除按键绑定事件
     window.onkeydown = null // 去除 edit 页面的绑定事件
+
+    // 如果存在缓存日记内容，载入它
+    if (projectStore.cacheDiary){
+        diary.value = projectStore.cacheDiary
+        projectStore.cacheDiary = undefined
+    }
 })
 
 onMounted(()=>{
@@ -235,12 +241,18 @@ onMounted(()=>{
             return "日记内容已改变，显示提示框"
         }
     }
-    isNew.value = !(route.params.id)
-    if (isNew.value) {
-        // 新建日记
-        createDiary()
+
+    // 如果已经存在日记内容，不需要重新获取日记、新建日记
+    if (diary.value.title || diary.value.content){
+
     } else {
-        getDiary(Number(route.params.id))
+        isNew.value = !(route.params.id)
+        if (isNew.value) {
+            // 新建日记
+            createDiary()
+        } else {
+            getDiary(Number(route.params.id))
+        }
     }
 
     // key binding
@@ -403,6 +415,15 @@ onMounted(()=>{
             }
         }
     })
+})
+
+onBeforeUnmount(() => {
+    // 退出 Edit 之前，如果存在日记内容，缓存它。
+    // 目前只有一个场景用到，就是屏幕窗口大小变化时， Edit 会消失再出现，结果就是
+    // 会选择用户在这期间写的内容，这是极不应该的。
+    if (diary.value.title || diary.value.content){
+        projectStore.cacheDiary = diary.value
+    }
 })
 
 onBeforeRouteLeave((_, __, next) => {
