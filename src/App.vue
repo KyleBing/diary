@@ -43,6 +43,8 @@ onMounted(()=> {
     // 获取所有类别数据
     getCategoryAll()
 
+    projectStore.cacheDiary = undefined // 每次刷新页面，清空缓存日记内容
+
     // 从本地配置文件中载入配置
     projectStore.INIT_PROJECT_CONFIG()
 

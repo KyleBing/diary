@@ -113,13 +113,13 @@
                     </div>
                 </div>
 
-                <RouterLink
+                <div
                     v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
                     || !projectStore.isInMobileMode"
-                    to="/edit"
+                    @click="addNewDiary"
                 >
                     <TabIcon alt="添加"/>
-                </RouterLink>
+                </div>
             </div>
 
 
@@ -185,6 +185,16 @@ const isAdminUser = computed(()=>{
     return getAuthorization()?.group_id === 1
 })
 
+
+// 新建日记
+function addNewDiary() {
+
+    // 新建日记时，如果存在缓存日记内容，清除它
+    if (projectStore.cacheDiary){
+        projectStore.cacheDiary = undefined
+    }
+    router.push('/edit')
+}
 
 /**
  * Clipboard
