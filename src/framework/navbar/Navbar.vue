@@ -93,9 +93,9 @@
                     <div @click="toastShow">
                         <TabIcon alt="删除"/>
                     </div>
-                    <RouterLink :to="`/edit/${projectStore.currentDiary.id}`">
+                    <div @click="editDiary">
                         <TabIcon alt="编辑"/>
-                    </RouterLink>
+                    </div>
                 </div>
 
                 <!--编辑按钮-->
@@ -188,12 +188,19 @@ const isAdminUser = computed(()=>{
 
 // 新建日记
 function addNewDiary() {
-
     // 新建日记时，如果存在缓存日记内容，清除它
     if (projectStore.cacheDiary){
         projectStore.cacheDiary = undefined
     }
     router.push('/edit')
+}
+// 编辑日记
+function editDiary() {
+    // 新建日记时，如果存在缓存日记内容，清除它
+    if (projectStore.cacheDiary){
+        projectStore.cacheDiary = undefined
+    }
+    router.push(`/edit/${projectStore.currentDiary.id}`)
 }
 
 /**
