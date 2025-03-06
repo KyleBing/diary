@@ -1,16 +1,22 @@
 #!/bin/bash
+cd /var/www/html
 
-file_pattern="diary-*.zip"
-folder_html="/var/www/html/"
-if ls "${folder_html}${file_pattern}" 1> /dev/null 2>&1; then
-    rm -Rf diary/* &&
-    mv ${file_pattern} diary &&
-    cd diary &&
-    unzip ${file_pattern} &&
-    rm -f ${file_pattern}
-    echo 'Diary deployed'
+# 尝试列出匹配的文件，并将错误信息重定向到 /dev/null
+file_list=$(ls diary-*.zip 2>/dev/null)
+
+# 判断获取到的文件名列表是否为空
+if [ -n "$file_list" ]; then
+    echo "存在匹配 diary-*.zip 的文件，开始解压..."
+
+    # 清空 ./diary 目录
+    rm -Rf ./diary/*
+
+    # 遍历匹配到的文件并解压
+    for file in $file_list; do
+        unzip -o "$file" -d ./diary
+    done
+    echo "解压完成。"
+    rm -f "${file}"
 else
-    echo "文件 ${file_pattern} 不存在"
+    echo "不存在匹配 diary-*.zip 的文件。"
 fi
-
-# 仅供我自己使用，并不通用
