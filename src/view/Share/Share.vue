@@ -167,7 +167,7 @@ function getContentHtml(content: string){
             if (item === '') {
                 contentHtml += '<br/>'
             } else {
-                contentHtml += `<p>${projectStore.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}</p>`
+                contentHtml += `${projectStore.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}<br/>`
             }
         })
         return contentHtml
