@@ -6,7 +6,7 @@ import { resolve } from 'path'
 import zipPack from "vite-plugin-zip-pack" // make dist.zip file
 import {dateFormatter} from "./src/utility";
 
-const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd hh-mm-ss')
+const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd-hh-mm-ss')
 
 
 
