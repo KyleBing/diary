@@ -5,8 +5,6 @@
 <script>
 import * as echarts from 'echarts'
 import chartOption from "../chartOption";
-import {dateFormatter} from "@/utility.ts";
-import Moment from "moment";
 
 export default {
     name: "ChartLineTrend",
@@ -44,8 +42,8 @@ export default {
 
                 dataZoom: [
                     {
-                        start: 0,
-                        end: 50
+                        start: 80,
+                        end: 100
                     },
                     {
                         type: 'inside'
@@ -62,12 +60,13 @@ export default {
                     }
                 },
                 xAxis: { // 横坐标轴
-                    type: 'category',
+                    type: 'time',
+                    inverse: true,
                     data: [],
                     // data: [], // 横轴数据
                     axisLabel: {
-                        fontSize: 10,
-                        rotate: -70, // 角度值：Number
+                        fontSize: 12,
+                        rotate: 0, // 角度值：Number
                     },
                     axisLine: {
                         lineStyle: {
@@ -75,8 +74,14 @@ export default {
                         },  // 线的颜色
                     },
                 },
-                yAxis: { // 纵
+                yAxis: [{ // 纵
                     type: 'value',
+                    min: function (value) {
+                        return value.min - 10;
+                    },
+                    max: function (value) {
+                        return value.max + 10;
+                    },
                     splitNumber: 3, // 显示的刻度数量
                     axisLabel: { // 坐标轴 label 样式
                         fontSize: 10
@@ -95,10 +100,7 @@ export default {
                             type: 'solid'       // 样式
                         },
                     },
-                    max: function (value) {
-                        return value.max + 10
-                    }
-                },
+                }],
                 series: []
             }
         }
@@ -120,9 +122,11 @@ export default {
 
             this.option.series.push({
                 name: '身处温度',
-                data: this.combineData.map(item => item.temperature),
+                data: this.combineData.map(info => {
+                    return [info[0], info[1]]
+                }),
                 lineStyle: {
-                    width: 2,
+                    width: 0,
                     opacity: 1,
                 },
                 color: chartOption.COLOR.orange,
@@ -134,12 +138,33 @@ export default {
                     show: true,
                     fontSize: 10,
                     formatter: (data) => {
-                        if (data.dataIndex % 5 === 0){
+                        if (data.dataIndex % 10 === 0){
                             return data.data.value
                         } else {
                             return ''
                         }
                     }
+                },
+                markPoint: {
+                    symbol: 'pin',
+                    offset: [0, 20],
+                    label: {
+                        color: 'white',
+                        show: true,
+                        fontSize: 12,
+                        padding: 4,
+                        shadowColor: 'black',
+                        shadowOffsetX: 10,
+                        shadowOffsetY: 10,
+                    },
+                    data: [
+                        {
+                            type: 'max'
+                        },
+                        {
+                            type: 'min'
+                        }
+                    ]
                 },
             },)
             this.option.xAxis.data =
@@ -149,9 +174,11 @@ export default {
 
             this.option.series.push({
                 name: '室外温度',
-                data: this.combineData.map(item => item.temperature_outside),
+                data: this.combineData.map(info => {
+                    return [info[0], info[2]]
+                }),
                 lineStyle: {
-                    width: 2,
+                    width: 0,
                     opacity: 1,
                 },
                 color: chartOption.COLOR.blue,
@@ -163,12 +190,33 @@ export default {
                     show: true,
                     fontSize: 10,
                     formatter: (data) => {
-                        if (data.dataIndex % 5 === 0){
+                        if (data.dataIndex % 10 === 0){
                             return data.data.value
                         } else {
                             return ''
                         }
                     }
+                },
+                markPoint: {
+                    symbol: 'pin',
+                    offset: [0, 20],
+                    label: {
+                        color: 'white',
+                        show: true,
+                        fontSize: 12,
+                        padding: 4,
+                        shadowColor: 'black',
+                        shadowOffsetX: 10,
+                        shadowOffsetY: 10,
+                    },
+                    data: [
+                        {
+                            type: 'max'
+                        },
+                        {
+                            type: 'min'
+                        }
+                    ]
                 },
             },)
             this.option.xAxis.data =

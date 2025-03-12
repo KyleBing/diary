@@ -31,11 +31,11 @@ function getWeatherData(){
         .weather()
         .then(res => {
             let tempData = res.data.map(item => {
-                item.temperature = item.temperature === -273 ? null: item.temperature
-                item.date = dateFormatter(new Date(item.date), 'yyyy-MM-dd')
-                item.temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
-                return item
-            }).reverse()
+                let temperature = item.temperature === -273 ? null: item.temperature
+                let date = dateFormatter(new Date(item.date), 'yyyy-MM-dd')
+                let temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
+                return [date, temperature, temperature_outside]
+            })
             weatherStatisticData.value = tempData
         })
 }
