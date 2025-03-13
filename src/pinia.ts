@@ -54,6 +54,7 @@ export const useProjectStore = defineStore('projectStore', {
         moneyAccuracy: 1, // 展示的货币精度，小数位数
 
         cacheDiary: undefined as (DiaryEntity | undefined),                // 缓存日记，目前只用于屏幕变换时，恢复日记内容
+        cacheDiaryOrigin: undefined as (DiaryEntity | undefined),          // 跟上面同步使用：用于恢复用户之前的编辑状态，同时恢复当时的原日记内容，恢复 “日记已被编辑” 的状态
     }),
     getters: {
         isInMobileMode(state){

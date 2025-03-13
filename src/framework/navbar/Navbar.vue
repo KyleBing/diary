@@ -191,6 +191,7 @@ function addNewDiary() {
     // 新建日记时，如果存在缓存日记内容，清除它
     if (projectStore.cacheDiary){
         projectStore.cacheDiary = undefined
+        projectStore.cacheDiaryOrigin = undefined
     }
     router.push('/edit')
 }
@@ -199,6 +200,7 @@ function editDiary() {
     // 新建日记时，如果存在缓存日记内容，清除它
     if (projectStore.cacheDiary){
         projectStore.cacheDiary = undefined
+        projectStore.cacheDiaryOrigin = undefined
     }
     router.push(`/edit/${projectStore.currentDiary.id}`)
 }

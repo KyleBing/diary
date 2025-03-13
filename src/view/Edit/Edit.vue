@@ -34,18 +34,6 @@
             <!--  主参数区 -->
             <div class="editor-form">
                 <EditorVCalendarSelector @dayChange="dayHasChanged" v-model="diary.date"/>
-
-                <!-- 日期选择-->
-<!--                <DatePicker
-                    expanded
-                    locale="zh"
-                    v-model="diary.date"
-                    mode="dateTime"
-                    is24hr
-                    :attributes="attrs"
-                    :popover="popoverOptions"
-                />-->
-
                 <div class="editor-meta-switches">
                     <div class="editor-form-item">
                         <label for="markdown">身处</label>
@@ -126,7 +114,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
 import {useProjectStore} from "@/pinia";
 const projectStore = useProjectStore()
-import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, ref, watch} from "vue";
+import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
@@ -139,8 +127,6 @@ import {
     ResponseDiaryAdd
 } from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
-
-import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
 
 const route = useRoute()
 const router = useRouter()
@@ -191,22 +177,9 @@ const requestData = ref<DiarySearchParams>({ // 请求本周日志的 requestDat
 /**
  * Date Picker
  */
-import {DatePicker} from "v-calendar";
 import 'v-calendar/style.css';
 import EditorVCalendarSelector from "@/view/Edit/EditorVCalendarSelector.vue";
 import {BillKey} from "@/view/Bill/Bill.ts";
-const popoverOptions = ref<PopoverOptions>({
-    visibility: 'click',
-    placement: "auto"
-})
-const attrs = ref([
-    {
-        key: 'today',
-        // highlight: true,
-        dot: true, // 点状
-        dates: new Date(),
-    },
-])
 
 
 /**
@@ -227,6 +200,7 @@ onBeforeMount(() => {
     // 如果存在缓存日记内容，载入它
     if (projectStore.cacheDiary){
         diary.value = projectStore.cacheDiary
+        diaryOrigin.value = projectStore.cacheDiaryOrigin
         projectStore.cacheDiary = undefined
     }
 })
@@ -423,6 +397,7 @@ onBeforeUnmount(() => {
     // 会选择用户在这期间写的内容，这是极不应该的。
     if (diary.value.title || diary.value.content){
         projectStore.cacheDiary = diary.value
+        projectStore.cacheDiaryOrigin = diaryOrigin.value
     }
 })
 
@@ -455,6 +430,7 @@ const diaryHasChanged = computed(() => {
 
 
 watch(() => route.params.id, newDiaryId => {
+    console.log('edit: watch: diary-id: triggered.', newDiaryId)
     if (newDiaryId) {
         getDiary(Number(newDiaryId))
     } else {
