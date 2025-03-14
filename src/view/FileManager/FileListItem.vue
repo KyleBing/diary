@@ -45,7 +45,7 @@ import Modal from "../../components/Modal.vue";
 
 import {popMessage} from "@/utility.ts";
 import {computed, ref} from "vue";
-import {EntityFile} from "@/src/view/FileManager/File.ts";
+import {EntityFile} from "@/view/FileManager/File.ts";
 
 const props = defineProps<{
     fileInfo: EntityFile
