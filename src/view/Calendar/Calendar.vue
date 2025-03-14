@@ -53,9 +53,10 @@ import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
 import {DiaryEntity, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
-import {CalendarAttribute} from "@/view/Calendar/VCalendar.ts";
+import {CalendarAttribute, CalendarEntity} from "@/view/Calendar/VCalendar.ts";
 import Moment from "moment";
 import {useRouter} from "vue-router";
+import jsYaml from "js-yaml"
 
 const router = useRouter()
 
@@ -196,34 +197,33 @@ function loadCalendarPeriod(){
         .then(res => {
             periodDiary.value = res.data
             if (res.data.content){
-                let periodConfig = {
-                    key: 'period',
-                    highlight: {
 
-                        start: {fillMode: 'light', color: EnumCalendarColor.red,},
-                        base: {fillMode: 'light', color: EnumCalendarColor.red,},
-                        end: {fillMode: 'light', color: EnumCalendarColor.red,},
-                    },
-                    dates: [
-                        // {start: new Date('2024-12-20'), end: new Date('2024-12-27')},
-                    ],
-                    popover: {
-                        label: '过往',
-                        visibility: 'focus',
-                    }
-                }
-
-                periodConfig.dates = res.data.content
-                    .split('\n')
-                    .map((item: string) => {
-                        let tempDataArray = item.split(',')
-                        return {
-                            start: new Date(tempDataArray[0]),
-                            end: new Date(tempDataArray[1]),
+                let calendars = jsYaml.load(res.data.content).calendars as Array<CalendarEntity>
+                console.log(calendars)
+                let calendarConfigArray = calendars.map(calendar => {
+                    return {
+                        key: calendar.name,
+                        highlight: {
+                            start: {fillMode: 'light', color: EnumCalendarColor[calendar.color],},
+                            base: {fillMode: 'light', color: EnumCalendarColor[calendar.color],},
+                            end: {fillMode: 'light', color: EnumCalendarColor[calendar.color],},
+                        },
+                        dates: calendar.dates.map(dates => {
+                            return {
+                                start: dates[0],
+                                end: dates[1],
+                            }
+                        }),
+                        popover: {
+                            label: calendar.name,
+                            visibility: 'hover',
                         }
-                    })
-                attributes.value = CONFIG_PERIOD
-                    .concat(periodConfig)
+                    }
+                })
+
+                console.log(calendarConfigArray)
+                attributes.value = []
+                    .concat(calendarConfigArray)
                     .concat( {
                         key: '今天',
                         highlight: {
@@ -239,31 +239,18 @@ function loadCalendarPeriod(){
                     },)
             }
         })
-        .catch(err => {
+        .catch(() => {
             attributes.value = []
         })
 }
 
-const CONFIG_PERIOD = [
-    {
-        key: 'vacation',
-        highlight: {
-
-            start: {fillMode: 'light', color: EnumCalendarColor.green,},
-            base: {fillMode: 'light', color: EnumCalendarColor.green,},
-            end: {fillMode: 'light', color: EnumCalendarColor.green,},
-        },
-        dates: [
-            {start: new Date('2024-12-02'), end: new Date('2024-12-03')},
-        ],
-        popover: {
-            label: '🥰',
-            visibility: 'hover',
-        }
-    },]
 
 onMounted(()=>{
+
 })
+
+
+
 
 
 </script>

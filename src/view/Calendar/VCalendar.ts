@@ -18,6 +18,13 @@ interface CalendarAttribute {
     }
 }
 
+interface CalendarEntity {
+    name: string,
+    color: string,
+    dates: Array<[Array<Date>]>
+}
+
 export {
-    type CalendarAttribute
+    type CalendarAttribute,
+    type CalendarEntity
 }

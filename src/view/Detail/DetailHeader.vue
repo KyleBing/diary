@@ -97,7 +97,7 @@ function getTemperatureClassName(temperature: number): string{
 </script>
 
 <style scoped lang="scss">
-@import "src/scss/plugin";
+@import "/src/scss/plugin";
 
 .diary-header{
     background-color: $bg-light;
