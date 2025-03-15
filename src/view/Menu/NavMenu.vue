@@ -27,7 +27,7 @@
                                            :add-on-text="projectStore.dateFilterString">
                         </MenuListItemShort>
                         <MenuListItemShort menu-name="统计数据"  :icon="SVG_ICONS.tab_icons.statistics"  @click="goToPage('Statistics')" />
-                        <MenuListItemShort menu-name="账单"     :icon="SVG_ICONS.tab_icons.bill"        @click="goToPage('Bill')" />
+                        <MenuListItemShort menu-name="账单"     :icon="SVG_ICONS.tab_icons.billSimple"        @click="goToPage('Bill')" />
                         <MenuListItemShort menu-name="银行卡"   :icon="SVG_ICONS.tab_icons.card"        @click="goToPage('BankCard')" />
                         <MenuListItemShort
                             v-if="isAdminUser"

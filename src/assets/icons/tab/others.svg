@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>tabicon/ others</title>
-    <g id="tabicon/-others" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <title>tab/ others</title>
+    <g id="tab/-others" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <path d="M36,26 L36,37 L25,37 L25,26 L36,26 Z" id="Rectangle" stroke="#E5E5EA" stroke-width="2"></path>
         <g id="Group" transform="translate(25.000000, 9.000000)" stroke="#E5E5EA" stroke-linecap="square" stroke-linejoin="round" stroke-width="2">
             <line x1="0.423076923" y1="0.423076923" x2="10.5769231" y2="10.5769231" id="Line"></line>

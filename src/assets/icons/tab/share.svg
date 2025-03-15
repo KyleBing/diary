@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>tabicon /  share</title>
-    <g id="tabicon-/--share" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+    <title>tab /  share</title>
+    <g id="tab-/--share" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
         <path d="M32,28.7391304 L32,27.173913 L32,32.6521739 C32,33.9488425 30.9488425,35 29.6521739,35 L15.3478261,35 C14.0511575,35 13,33.9488425 13,32.6521739 L13,17.3478261 C13,16.0511575 14.0511575,15 15.3478261,15 L20.826087,15" id="Path" stroke="#E5E5EA" stroke-width="2" stroke-linejoin="round"></path>
         <line x1="33.6071429" y1="14.3928571" x2="23.3928571" y2="24.6071429" id="Line" stroke="#E5E5EA" stroke-width="2"></line>
         <path d="M35,21 C34.0518519,21 32.1851852,21 29.4,21 L27,21 L27,18.6 C27,15.8148148 27,13.9481481 27,13" id="Path" stroke="#E5E5EA" stroke-width="2" stroke-linejoin="round" transform="translate(31.000000, 17.000000) scale(-1, -1) translate(-31.000000, -17.000000) "></path>

@@ -41,7 +41,7 @@
                 </div>
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
-                     @click="goToPage('Calendar')">
+                     @click="calendarTaped">
                     <TabIcon alt="日历"/>
                 </div>
 
@@ -269,6 +269,14 @@ function commitBack(){
 function clearDateFilter(){
     projectStore.SET_DATE_FILTER_STRING('')
     projectStore.isListNeedBeReload = true
+}
+
+function calendarTaped(){
+    if (route.name === 'Calendar'){
+        goToPage('List')
+    } else {
+        goToPage('Calendar')
+    }
 }
 
 // 跳转到独立页面

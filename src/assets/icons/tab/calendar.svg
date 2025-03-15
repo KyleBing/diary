@@ -3,6 +3,20 @@
     <title>tab/ calendar</title>
     <g id="tab/-calendar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <path d="M38,12 L38,31 C38,31.8284271 37.6642136,32.5784271 37.1213203,33.1213203 C36.5784271,33.6642136 35.8284271,34 35,34 L35,34 L11,34 C10.1715729,34 9.42157288,33.6642136 8.87867966,33.1213203 C8.33578644,32.5784271 8,31.8284271 8,31 L8,31 L8,12 L38,12 Z" id="Rectangle" stroke="#E5E5EA" stroke-width="2"></path>
+        <rect id="Rectangle" fill="#E5E5EA" x="14" y="19" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-10" fill="#E5E5EA" x="14" y="23" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-5" fill="#E5E5EA" x="18" y="19" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-12" fill="#E5E5EA" x="18" y="23" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-6" fill="#E5E5EA" x="22" y="19" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-13" fill="#E5E5EA" x="22" y="23" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-7" fill="#E5E5EA" x="26" y="19" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-14" fill="#E5E5EA" x="26" y="23" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-8" fill="#E5E5EA" x="30" y="19" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-15" fill="#E5E5EA" x="30" y="23" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-24" fill="#E5E5EA" x="14" y="27" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-23" fill="#E5E5EA" x="18" y="27" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-22" fill="#E5E5EA" x="22" y="27" width="2" height="2"></rect>
+        <rect id="Rectangle-Copy-21" fill="#E5E5EA" x="26" y="27" width="2" height="2"></rect>
         <rect id="Rectangle-Copy" fill="#E5E5EA" x="13" y="8" width="2" height="8"></rect>
         <rect id="Rectangle-Copy-2" fill="#E5E5EA" x="19" y="8" width="2" height="8"></rect>
         <rect id="Rectangle-Copy-4" fill="#E5E5EA" x="25" y="8" width="2" height="8"></rect>

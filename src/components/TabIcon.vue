@@ -38,7 +38,7 @@ const iconMap = computed(() => {
     iconMap.set('恢复', ICONS.tab_icons.recover)
     iconMap.set('搜索', ICONS.tab_icons.search)
     iconMap.set('分享', ICONS.tab_icons.share)
-    iconMap.set('账单', ICONS.tab_icons.bill)
+    iconMap.set('账单', ICONS.tab_icons.billSimple)
     iconMap.set('其它', ICONS.tab_icons.others)
     iconMap.set('银行卡', ICONS.tab_icons.card)
     iconMap.set('文件', ICONS.tab_icons.folder)

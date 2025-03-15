@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>tabicon/ statistics</title>
-    <g id="tabicon/-statistics" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M20,16 L20,34 L16,34 L16,16 L20,16 Z M28,9 L28,34 L24,34 L24,9 L28,9 Z M36,22 L36,34 L32,34 L32,22 L36,22 Z M12,26 L12,34 L8,34 L8,26 L12,26 Z" id="Combined-Shape" fill="#E5E5EA"></path>
+    <title>tab/ statistics</title>
+    <g id="tab/-statistics" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M16,16 L20,16 L20,34 L16,34 L16,16 Z M24,9 L28,9 L28,34 L24,34 L24,9 Z M32,22 L36,22 L36,34 L32,34 L32,22 Z M8,26 L12,26 L12,34 L8,34 L8,26 Z" id="Combined-Shape" fill="#E5E5EA"></path>
     </g>
 </svg>

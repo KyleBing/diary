@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>tabicon/ about-black</title>
-    <g id="tabicon/-about-black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <title>tab/ about_black</title>
+    <g id="tab/-about_black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <polygon id="Path" fill="#4A4A4A" fill-rule="nonzero" points="16 36 16 33 21 33 21 22 18 22 18 19 24 19 24 33 29 33 29 36"></polygon>
         <circle id="Oval" fill="#4A4A4A" cx="22" cy="12.5" r="2.5"></circle>
     </g>
