@@ -1,29 +1,12 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 
 import IndexFramework from "./framework/IndexFramework.vue"
-import Waterfall from "./framework/Waterfall.vue"
-import Register from "@/view/Login&Register/Register.vue"
 import Login from "@/view/Login&Register/Login.vue"
-import ChangePassword from "@/view/Login&Register/ChangePassword.vue"
-import ChangeProfile from "@/view/ChangeProfile/ChangeProfile.vue"
-import Bill from "@/view/Bill/Bill.vue"
-import BankCardList from "@/view/BankCard/BankCardList.vue"
-import InvitationList from "@/view/Invitation/InvitationList.vue"
-import Share from "@/view/Share/Share.vue"
-import Statistics from "@/view/Statistics/StatisticsIndex.vue"
-
 import List from "@/view/DiaryList/List.vue"
 import Detail from "@/view/Detail/Detail.vue"
 import Edit from "@/view/Edit/Edit.vue"
 import NotFound_404 from "./fundation/NotFound_404.vue";
-import WaterfallList from "@/view/DiaryListWaterfall/WaterfallList.vue";
-import RemoveAllYourDiary from "@/view/Util/RemoveAllYourDiary.vue";
-import DestroyAccount from "@/view/Util/DestroyAccount.vue";
-import FileManager from "@/view/FileManager/FileManager.vue";
 import {getAuthorization, isInMobileMode} from "./utility.ts";
-import FetchPassword from "@/view/Login&Register/FetchPassword.vue";
-import Calendar from "@/view/Calendar/Calendar.vue";
-import CalendarFramework from "@/framework/CalendarFramework.vue";
 
 
 const routes: RouteRecordRaw[] = [
@@ -42,34 +25,34 @@ const routes: RouteRecordRaw[] = [
     {
         name: 'CalendarFramework',
         path: '/calendar',
-        component: CalendarFramework,
+        component: () => import('@/framework/CalendarFramework.vue'),
         redirect: "/calendar/calendar",
         children: [
-            {name: 'Calendar', path: 'calendar'  ,   component: Calendar}
+            {name: 'Calendar', path: 'calendar'  ,   component: () => import('@/view/Calendar/Calendar.vue')}
         ]
     },
     {
         name: 'Waterfall',
         path: '/waterfall',
         redirect: '/waterfall/list',
-        component: Waterfall ,
+        component: () => import('@/framework/Waterfall.vue'),
         children: [
-            {name: 'WaterfallList'   , path: 'list'      ,        component: WaterfallList},
+            {name: 'WaterfallList'   , path: 'list'      ,     component: () => import('@/view/DiaryListWaterfall/WaterfallList.vue')},
         ]
     },
-    {name: 'Register',             path: '/register',          component: Register},
-    {name: 'Share',                path: '/share/:id',         component: Share},
-    {name: 'RemoveAllYourDiary',   path: '/clear-diary',       component: RemoveAllYourDiary },
-    {name: 'DestroyAccount',       path: '/destroy-account',   component: DestroyAccount },
-    {name: 'ChangePassword',       path: '/change-password',   component: ChangePassword },
-    {name: 'ChangeProfile',        path: '/change-profile',    component: ChangeProfile },
+    {name: 'Register',             path: '/register',          component: () => import('@/view/Login&Register/Register.vue')},
+    {name: 'Share',                path: '/share/:id',         component: () => import('@/view/Share/Share.vue')},
+    {name: 'RemoveAllYourDiary',   path: '/clear-diary',       component: () => import('@/view/Util/RemoveAllYourDiary.vue') },
+    {name: 'DestroyAccount',       path: '/destroy-account',   component: () => import('@/view/Util/DestroyAccount.vue') },
+    {name: 'ChangePassword',       path: '/change-password',   component: () => import('@/view/Login&Register/ChangePassword.vue') },
+    {name: 'ChangeProfile',        path: '/change-profile',    component: () => import('@/view/ChangeProfile/ChangeProfile.vue') },
     {name: 'Login',                path: '/login',             component: Login},
-    {name: 'FetchPassword',        path: '/fetch-password',    component: FetchPassword},
-    {name: 'Statistics',           path: '/statistics',        component: Statistics},
-    {name: 'FileManager',          path: '/file-manager',      component: FileManager},
-    {name: 'Bill',                 path: '/bill',              component: Bill},
-    {name: 'BankCard',             path: '/bank-card',         component: BankCardList },
-    {name: 'Invitation',           path: '/invitation',        component: InvitationList },
+    {name: 'FetchPassword',        path: '/fetch-password',    component: () => import('@/view/Login&Register/FetchPassword.vue') },
+    {name: 'Statistics',           path: '/statistics',        component: () => import('@/view/Statistics/StatisticsIndex.vue') },
+    {name: 'FileManager',          path: '/file-manager',      component: () => import('@/view/FileManager/FileManager.vue') },
+    {name: 'Bill',                 path: '/bill',              component: () => import('@/view/Bill/Bill.vue') },
+    {name: 'BankCard',             path: '/bank-card',         component: () => import('@/view/BankCard/BankCardList.vue')  },
+    {name: 'Invitation',           path: '/invitation',        component: () => import('@/view/Invitation/InvitationList.vue')  },
     {name: 'NotFound',             path: '/:pathMatch(.*)*',   component: NotFound_404}
 ]
 
