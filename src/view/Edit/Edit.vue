@@ -199,9 +199,13 @@ onBeforeMount(() => {
 
     // 如果存在缓存日记内容，载入它
     if (projectStore.cacheDiary){
-        diary.value = projectStore.cacheDiary
-        diaryOrigin.value = projectStore.cacheDiaryOrigin
-        projectStore.cacheDiary = undefined
+        if (Number(route.params.id) === projectStore.cacheDiary.id){  // 只有是同一个日记时
+            diary.value = projectStore.cacheDiary
+            diaryOrigin.value = projectStore.cacheDiaryOrigin
+            projectStore.cacheDiary = undefined
+        } else {
+
+        }
     }
 })
 
