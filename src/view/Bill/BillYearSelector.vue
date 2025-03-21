@@ -3,8 +3,9 @@
         <div
             :class="['year-selector-item', {checked: year.checked}]"
             @click="toggleChecked(index)"
-            v-for="(year, index) in availableYears" :key="index">
-            {{year.value}}
+            v-for="(year, index) in availableYears" :key="index"
+        >
+            {{ year.value }}
         </div>
     </div>
 </template>
@@ -39,11 +40,27 @@ function toggleChecked(index: number){
 
 <style scoped lang="scss">
 @import "../../scss/plugin";
-.year-selector {
-    .year-selector-item {
+.year-selector{
+    display: flex;
+    flex-flow: row wrap;
+    .year-selector-item{
+        border: 1px solid transparent;
+        @extend .btn-like;
+        background-color: $bg-light;
         color: $text-title;
+        margin-right: 10px;
+        padding: 5px 10px;
+        @include border-radius($radius-mobile);
         label{
-            color: $text-title;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+        input{
+            display: none;
+        }
+        &.checked{
+            border-color: $orange;
+            background-color: lighten($color-main, 20%);
         }
     }
 }

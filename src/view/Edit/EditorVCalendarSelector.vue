@@ -21,7 +21,7 @@
                 </template>
                 <template #footer>
                     <div class="p-2">
-                        <ButtonSmall @click="moveToday">转到今天</ButtonSmall>
+                        <ButtonSmall @click="moveToday">今天</ButtonSmall>
                     </div>
                 </template>
             </DatePicker>
@@ -70,17 +70,11 @@ onMounted(()=>{
  */
 const lunarObject = ref<LunarDateEntity>({})
 const popoverOptions = ref<PopoverOptions>({
-    autoHide: true,
-    data: undefined,
-    force: false,
-    hideDelay: 0,
-    id: undefined,
-    isInteractive: false,
-    modifiers: undefined,
-    showDelay: 0,
-    target: undefined,
-    visibility: 'click',
-    placement: "auto"
+    visibility: 'click', // When the popover appears
+    placement: 'bottom', // Where the popover appears
+    autoHide: true, // Auto-hide popover based on visibility
+    showDelay: 0, // Delay (ms) before popover is shown
+    hideDelay: 0, // Delay (ms) before popover is hidden
 })
 const attrs = ref([
     {

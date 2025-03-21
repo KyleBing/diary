@@ -6,11 +6,11 @@
                 <div class="filter-panel">
 
                     <!--  筛选面板 -->
-                    <BillPanel :width="450" title="账单筛选" padding="20px">
+                    <BillPanel :width="350" title="账单筛选" padding="10px 15px">
                         <div class="input-group white">
                             <label for="invitation" >关键字</label>
                             <textarea rows="3"
-                                      placeholder="多个关键字，空格间隔"
+                                      placeholder="支持多个关键字，以空格间隔"
                                       v-model.trim="formSearch.keyword"
                                       name="invitation"
                                       id="invitation"/>
@@ -20,13 +20,13 @@
                             <BillYearSelector v-model="yearNumberArray"/>
                         </div>
 
-                        <Button class="mb-2" @click="getBillData">筛选</Button>
+                        <Button class="mb-2" @click="getBillData">搜索</Button>
                         <ButtonSmall class="mb-2" @click="getBillKeys">获取最新账单类目</ButtonSmall>
-                        <ButtonSmall class="mb-2"  @click="hideBigIncome" v-if="isShowSalaryButton">隐藏工资收入</ButtonSmall>
+                        <ButtonSmall class="mb-2"  @click="hideBigIncome" v-if="isShowSalaryButton">结果隐藏工资收入</ButtonSmall>
                     </BillPanel>
 
                     <!--  借还记录 -->
-                    <BorrowInfo class="mt-2"/>
+                    <BorrowInfo :width="350" class="mt-2"/>
                 </div>
 
                 <!--  账单概况  -->

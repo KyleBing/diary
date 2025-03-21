@@ -17,7 +17,7 @@
 
         <!--  TOP INCOME & OUTCOME   -->
         <BillTop5 v-model="outcomeTop5"
-                  title="支出单项 TOP 5"/>
+                  title="单项支出 TOP 5"/>
 
         <table>
             <tr>

@@ -14,7 +14,7 @@
 withDefaults(defineProps<{
     title: string,
     padding?: string  // 10px 10px
-    width: number
+    width?: number
 }>(),{
     padding: '0 0 10px 0',
     width: 300
@@ -38,7 +38,7 @@ withDefaults(defineProps<{
         padding: 8px 20px;
         //background-color: $bg-lighter;
         font-weight: bold;
-        font-size: $fz-title;
+        font-size: $fz-main;
         text-align: center;
         border-bottom: 1px solid $color-border-light;
     }

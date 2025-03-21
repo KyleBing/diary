@@ -1,5 +1,5 @@
 <template>
-    <BillPanel :width="450" title="借还记录" v-if="borrowInfoList && borrowInfoList.length > 0">
+    <BillPanel :width="props.width" title="借还记录" v-if="borrowInfoList && borrowInfoList.length > 0">
         <div class="borrow-list">
             <div class="borrow-list-item" v-for="(item, index) in borrowInfoList" :key="index">
                 <div class="total">{{item.total}}</div>
@@ -28,6 +28,12 @@ import {onMounted, ref} from "vue";
 import billApi from "@/api/billApi.ts";
 import {EntityBorrow} from "@/view/Bill/BorrowInfo/Borrow.ts";
 import BillPanel from "@/view/Bill/BillPanel.vue";
+
+const props = withDefaults(defineProps<{
+    width: number
+}>(), {
+    width: 350
+})
 
 onMounted(()=>{
     getBorrowInfo()
@@ -146,6 +152,7 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
         font-size: $fz-tiny;
         color: $text-content;
         .usage{
+            text-wrap: wrap;
 
         }
         .date-loan{

@@ -25,7 +25,6 @@ defineProps<{
     font-size: $fz-title;
     cursor: pointer;
     @include border-radius();
-
     &:active {
         transform: translateY(2px);
     }
