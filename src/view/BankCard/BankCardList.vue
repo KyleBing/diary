@@ -33,7 +33,7 @@
 
                     <div class="year-tip">添加后，效果如下，点击卡号即可复制卡号</div>
 
-                    <div class="bank-card-list p-0">
+                    <div class="bank-card-list pt-4">
                         <BankCard
                             :index="index"
                             :card="card"
@@ -225,6 +225,9 @@ function processCardInfo(allCardString: string){
 
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
+    .bank-tip{
+        padding: 0;
+    }
     .bank-card-list-header {
         margin-top: 20px;
         margin-bottom: 20px;
