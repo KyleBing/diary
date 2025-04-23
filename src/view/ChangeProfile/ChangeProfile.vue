@@ -7,7 +7,10 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
-                        <img v-if="formUser.avatar" :src="formUser.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_avatar" alt="Diary Logo">
+                        <img v-if="formUser.avatar"
+                             :src="formUser.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_avatar"
+                             alt="Diary Logo"
+                        >
                         <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
                     </label>
                     <input type="file" @change="uploadAvatar" id="avatar">
@@ -122,6 +125,10 @@ onMounted(()=>{
 })
 
 function uploadAvatar(event: Event){
+    if (getAuthorization()?.email === projectConfig.demoAccount){
+        popMessage('danger', '演示账户不允许修改资料', ()=>{}, 3)
+        return
+    }
     let inputEl = event.target as HTMLInputElement
     if (inputEl.files!.length > 0){
         avatarFile = inputEl.files![0]
