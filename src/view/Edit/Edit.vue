@@ -3,8 +3,8 @@
         <div class="diary-edit-content">
             <!-- TITLE -->
             <div class="editor-title">
-                <label  class="hidden"></label>
-                <textarea ref="refDiaryTitle"
+                <label class="hidden"></label>
+                <textarea ref="refDiaryTitleTextArea"
                           class="title"
                           placeholder="一句话，概括你的一天"
                           v-model="diary.title"/>
@@ -114,7 +114,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
 import {useProjectStore} from "@/pinia";
 const projectStore = useProjectStore()
-import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, ref, watch} from "vue";
+import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
@@ -191,6 +191,7 @@ const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
 
 const refDiaryContentTextArea = ref()
+const refDiaryTitleTextArea = ref()
 
 onBeforeMount(() => {
     // console.log(refDiaryContentTextArea)
@@ -243,9 +244,16 @@ onMounted(()=>{
                 saveDiary()
             }
         }
+
         // 编辑器快捷键
-        refDiaryContentTextArea.value.onkeydown = event => {
+        refDiaryTitleTextArea.value.addEventListener('keydown', (event: KeyboardEvent) => {
+                addKeyboardEventListener(event, refDiaryTitleTextArea, diary, 'title')
+        })
+
+        // 编辑器快捷键
+        refDiaryContentTextArea.value.addEventListener('keydown', (event: KeyboardEvent) => {
             if (possibleBillItems.value.length > 0) {
+                // 账单待选项选择
                 switch (event.key) {
                     case 'Tab':
                         insertNewBillKey(possibleBillItems.value[0].key)
@@ -267,133 +275,148 @@ onMounted(()=>{
                         break;
                 }
             } else {
-                // CTRL + ArrowLeft 移到最左端
-                if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
-                    event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value as HTMLTextAreaElement // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-                    let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex)
-                    let textBefore = linesBefore.join('\n')
-                    let newCursorLocation = 0
-                    if (textBefore.length === 0) {
-
-                    } else {
-                        newCursorLocation = textBefore.length + 1  // -1行末尾 + 1
-                    }
-                    nextTick(() => {
-                        textarea.setSelectionRange(newCursorLocation, newCursorLocation)
-                    })
-                }
-
-                // CTRL + ArrowRight 移到最右端
-                if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowRight') {
-                    event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value as HTMLTextAreaElement // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-                    let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex + 1)
-                    let textBefore = linesBefore.join('\n')
-                    let newCursorLocation = textBefore.length
-                    nextTick(() => {
-                        textarea.setSelectionRange(newCursorLocation, newCursorLocation) // 定位光标
-                    })
-                }
-
-                // CTRL + D 复选行
-                if ((event.ctrlKey || event.metaKey) && event.key === 'd') {
-                    event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-
-                    textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 0, textAreaInfo.cursorLineContent)
-                    diary.value.content = textAreaInfo.textLineArray.join('\n')
-                    nextTick(() => {
-                        textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
-                    })
-                }
-
-                // CTRL + X 删除行
-                if ((event.ctrlKey || event.metaKey) && event.key === 'x') {
-                    let textarea = refDiaryContentTextArea.value // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-                    // 只有未选择任何内容的时候
-                    if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
-                        event.preventDefault()
-                        // 只有在 localhost 或 https 的环境下才能使用 navigator.clipboard
-                        if (window.isSecureContext){
-                            navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
-                                .then(() => {
-                                    console.log('✓ moved')
-                                })
-                            textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
-                            diary.value.content = textAreaInfo.textLineArray.join('\n')
-                            nextTick(() => {
-                                textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
-                            })
-                        } else {
-                            // 照样删除
-                            textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
-                            diary.value.content = textAreaInfo.textLineArray.join('\n')
-                        }
-                    }
-                }
-
-                // CTRL + C 复制行
-                if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
-                    let textarea = refDiaryContentTextArea.value // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-
-                    // 只有未选择任何内容的时候
-                    if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
-                        // 只有在 localhost 或 https 的环境下才能使用 navigator.clipboard
-                        if (window.isSecureContext){
-                            navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
-                                .then(() => {
-                                    console.log('✓ copied')
-                                })
-                        }
-                    }
-                }
-
-                // shift + tab
-                if (event.shiftKey && event.key === 'Tab') {
-                    event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-
-                    let tempLine = textAreaInfo.cursorLineContent
-                    let deleteSpaceCount = 0
-                    if (tempLine.substring(0, 4) === '    ') {
-                        tempLine = tempLine.substring(4)
-                        deleteSpaceCount = 4
-                    } else {
-                        let trimSpaceResult = removeSpaceBeforeLine(0, tempLine)
-                        tempLine = trimSpaceResult.lineContent
-                        deleteSpaceCount = trimSpaceResult.countSpace
-                    }
-                    textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1, tempLine)
-                    diary.value.content = textAreaInfo.textLineArray.join('\n')
-
-                    nextTick(() => {
-                        textarea.setSelectionRange(textAreaInfo.cursorSelectionStart - deleteSpaceCount, textAreaInfo.cursorSelectionStart - deleteSpaceCount)
-                    })
-
-                } else if (event.key === 'Tab') {
-                    // tab
-                    event.preventDefault()
-                    let textarea = refDiaryContentTextArea.value // dom
-                    let textAreaInfo = getTextareaInfo(textarea, diary.value.content)
-                    let contentBeforeCursor = diary.value.content.substring(0, textAreaInfo.cursorSelectionStart)
-                    let contentAfterCursor = diary.value.content.substring(textAreaInfo.cursorSelectionStart)
-                    diary.value.content = contentBeforeCursor + '    ' + contentAfterCursor
-                    nextTick(() => {
-                        textarea.setSelectionRange(textAreaInfo.cursorSelectionStart + 4, textAreaInfo.cursorSelectionStart + 4)
-                    })
-
-                }
+                addKeyboardEventListener(event, refDiaryContentTextArea, diary, 'content')
             }
-        }
+        })
     })
 })
+
+/**
+ * 标题和内容通用方法
+ * @param event   keyboard event
+ * @param textareaRef   ref of Textarea
+ * @param diaryObj   ref of diary Object
+ * @param key  key of diary Object
+ */
+function addKeyboardEventListener(event: KeyboardEvent, textareaRef: Ref, diaryObj: Ref<DiaryEntity>, key: string) {
+
+    // CTRL + ArrowLeft 移到最左端
+    if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
+        event.preventDefault()
+        let textarea = textareaRef.value as HTMLTextAreaElement // dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+        let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex)
+        let textBefore = linesBefore.join('\n')
+        let newCursorLocation = 0
+        if (textBefore.length === 0) {
+
+        } else {
+            newCursorLocation = textBefore.length + 1  // -1行末尾 + 1
+        }
+        nextTick(() => {
+            textarea.setSelectionRange(newCursorLocation, newCursorLocation)
+        })
+    }
+
+    // CTRL + ArrowRight 移到最右端
+    if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowRight') {
+        event.preventDefault()
+        let textarea = textareaRef.value as HTMLTextAreaElement // dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+        let linesBefore = textAreaInfo.textLineArray.slice(0, textAreaInfo.cursorLineIndex + 1)
+        let textBefore = linesBefore.join('\n')
+        let newCursorLocation = textBefore.length
+        nextTick(() => {
+            textarea.setSelectionRange(newCursorLocation, newCursorLocation) // 定位光标
+        })
+    }
+
+    // CTRL + D 复选行
+    if ((event.ctrlKey || event.metaKey) && event.key === 'd') {
+
+        event.preventDefault()
+        let textarea = textareaRef.value as HTMLTextAreaElement// dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+
+        textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 0, textAreaInfo.cursorLineContent)
+        diaryObj.value[key] = textAreaInfo.textLineArray.join('\n')
+
+        console.log(event, textareaRef, diaryObj.value[key])
+
+        nextTick(() => {
+            textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
+        })
+    }
+
+    // CTRL + X 删除行
+    if ((event.ctrlKey || event.metaKey) && event.key === 'x') {
+        let textarea = textareaRef.value as HTMLTextAreaElement // dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+        // 只有未选择任何内容的时候
+        if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
+            event.preventDefault()
+            // 只有在 localhost 或 https 的环境下才能使用 navigator.clipboard
+            if (window.isSecureContext){
+                navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
+                    .then(() => {
+                        console.log('✓ moved')
+                    })
+                textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
+                diaryObj.value[key] = textAreaInfo.textLineArray.join('\n')
+                nextTick(() => {
+                    textarea.setSelectionRange(textAreaInfo.cursorSelectionStart, textAreaInfo.cursorSelectionStart) // 定位光标
+                })
+            } else {
+                // 照样删除
+                textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1)
+                diaryObj.value[key] = textAreaInfo.textLineArray.join('\n')
+            }
+        }
+    }
+
+    // CTRL + C 复制行
+    if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+        let textarea = textareaRef.value as HTMLTextAreaElement // dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+
+        // 只有未选择任何内容的时候
+        if (textAreaInfo.cursorSelectionStart === textAreaInfo.cursorSelectionEnd) {
+            // 只有在 localhost 或 https 的环境下才能使用 navigator.clipboard
+            if (window.isSecureContext){
+                navigator.clipboard.writeText(textAreaInfo.cursorLineContent)
+                    .then(() => {
+                        console.log('✓ copied')
+                    })
+            }
+        }
+    }
+
+    // shift + tab
+    if (event.shiftKey && event.key === 'Tab') {
+        event.preventDefault()
+        let textarea = textareaRef.value as HTMLTextAreaElement // dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+
+        let tempLine = textAreaInfo.cursorLineContent
+        let deleteSpaceCount = 0
+        if (tempLine.substring(0, 4) === '    ') {
+            tempLine = tempLine.substring(4)
+            deleteSpaceCount = 4
+        } else {
+            let trimSpaceResult = removeSpaceBeforeLine(0, tempLine)
+            tempLine = trimSpaceResult.lineContent
+            deleteSpaceCount = trimSpaceResult.countSpace
+        }
+        textAreaInfo.textLineArray.splice(textAreaInfo.cursorLineIndex, 1, tempLine)
+        diaryObj.value[key] = textAreaInfo.textLineArray.join('\n')
+
+        nextTick(() => {
+            textarea.setSelectionRange(textAreaInfo.cursorSelectionStart - deleteSpaceCount, textAreaInfo.cursorSelectionStart - deleteSpaceCount)
+        })
+
+    } else if (event.key === 'Tab') {
+        // tab
+        event.preventDefault()
+        let textarea = textareaRef.value as HTMLTextAreaElement // dom
+        let textAreaInfo = getTextareaInfo(textarea, diaryObj.value[key])
+        let contentBeforeCursor = diaryObj.value[key].substring(0, textAreaInfo.cursorSelectionStart)
+        let contentAfterCursor = diaryObj.value[key].substring(textAreaInfo.cursorSelectionStart)
+        diaryObj.value[key] = contentBeforeCursor + '    ' + contentAfterCursor
+        nextTick(() => {
+            textarea.setSelectionRange(textAreaInfo.cursorSelectionStart + 4, textAreaInfo.cursorSelectionStart + 4)
+        })
+    }
+}
 
 onBeforeUnmount(() => {
     // 退出 Edit 之前，如果存在日记内容，缓存它。
@@ -487,7 +510,7 @@ function insertNewBillKey(billKey: string){
     // console.log(billKey)
     possibleBillItems.value = []
 
-    let lineArray = diary.value.content.split('\n').filter(item => item !== '')
+    let lineArray = diary.value.content.split('\n').filter((item: string) => item !== '')
     lineArray.pop()
     lineArray.push(billKey + ' ')
     diary.value.content = lineArray.join('\n')
