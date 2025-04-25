@@ -30,7 +30,7 @@
                 <div class="copyright">
                     <a class="project-name" target="_blank" href="http://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
                     <span class="version ml-1">v{{ packageInfo.version }}</span>
-                    <span class="ml-1">  始于 {{ packageInfo.dateInit }}</span>
+                    <span class="ml-1"> {{ packageInfo.dateInit.substring(0,4) }}-{{ packageInfo.dateModify.substring(0,4) }}</span>
                     <RouterLink class="ml-1 password" to="/fetch-password">找回密码</RouterLink>
                 </div>
             </div>

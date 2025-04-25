@@ -1,4 +1,4 @@
-import {DateUtilityObject} from "@/utility.ts";
+import {DateUtilityObject} from "../../utility";
 
 interface DiaryEntity {
     id: number

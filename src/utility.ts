@@ -1,6 +1,6 @@
-import {CategoryEntity} from "./entity/Category.ts";
-import {AuthorizationEntity} from "./entity/Authorization.ts";
-import {BillKey} from "@/view/Bill/Bill.ts";
+import {CategoryEntity} from "./entity/Category";
+import {AuthorizationEntity} from "./entity/Authorization";
+import {BillKey} from "./view/Bill/Bill";
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'

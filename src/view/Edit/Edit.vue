@@ -625,7 +625,7 @@ function combineWeekWorkLog(workList: DiaryEntityFromServer[]){
 
 // 获取当前位置的天气气温信息
 function getCurrentTemperature(){
-    let geolocation = getAuthorization().geolocation
+    let geolocation = getAuthorization()?.geolocation
     if (geolocation){
         axios
             .get('https://devapi.qweather.com/v7/weather/now',
