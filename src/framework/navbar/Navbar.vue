@@ -143,8 +143,10 @@
         </nav>
 
         <!--TOAST-->
-        <div id="toast" class="fadeIn animated-fast" v-show="isToastShowed">
-            <div class="toast">
+        <div id="toast" v-show="isToastShowed" class="fadeIn animated-fast">
+            <div class="toast"
+                 :style="projectStore.isInMobileMode? '': `left: ${toastPosition.x - 100}px; top: ${toastPosition.y + 100}px;`"
+            >
                 <div class="toast-header">确定删除吗</div>
                 <div class="toast-body"></div>
                 <div class="toast-footer">
@@ -170,7 +172,7 @@ import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelecto
 
 import ClipboardJS from "clipboard"
 
-import {getAuthorization, popMessage} from "../../utility.ts";
+import {getAuthorization, isInMobileMode, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia";
 const projectStore = useProjectStore()
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
@@ -236,10 +238,12 @@ onMounted(()=> {
  * TOAST Show | Hide
  */
 const isToastShowed = ref(false)
+const toastPosition = ref({x:0,y:0})
 function toastHide() {
     isToastShowed .value= false
 }
-function toastShow() {
+function toastShow(event: PointerEvent) {
+    toastPosition.value = {x: event.clientX, y: event.clientY}
     isToastShowed.value = true
 }
 

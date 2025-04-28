@@ -1,12 +1,9 @@
-<img width="120px" src="https://user-images.githubusercontent.com/12215982/225367174-f967aa05-5f35-474e-8ae2-0ea0619bd5d8.svg"/>
+<img width="120px" alt="project_logo" src="https://user-images.githubusercontent.com/12215982/225367174-f967aa05-5f35-474e-8ae2-0ea0619bd5d8.svg"/>
 
 # 标题日记
 
-一个纯文本 web 日记应用，专注记录生活琐事。
-
-
-> 线上地址  
-> [http://kylebing.cn/diary](http://kylebing.cn/diary)  
+一个纯文本 web 日记应用，专注记录生活琐事。  
+[http://kylebing.cn/diary](http://kylebing.cn/diary)
 
 
 
@@ -21,12 +18,10 @@
 ### 1. 推荐使用方式
 
 **标题**：20字以内，概括  
-**内容**：如果你还有许多想记的
+**内容**：事件详情
 
-记录一天里你感觉值得记录的事，生活、学习、工作、运动 等等方面。
-
-当你用它记录了足够多小事的时候，就知道这个日记该怎么用了。  
-就是记下你一天的重要时刻，怕忘的内容，日后好查找。
+记录一天中你感觉值得记录的事，生活、学习、工作、运动 等等方面。  
+记下此刻，记下你怕忘的内容，日后好查找。
 
 ### 2. 主要特性
 
@@ -56,10 +51,11 @@
     ```
     > 我一般每周整理一次账单  
     为了方便整理，建议你统一支付出口，只用一个作为主要支付手段：支付宝、微信，这样在统计的时候好统计，不然还需要去多个地方统计。
+- 当你把某篇日记设置成共享模式后，这条数据可以被公开访问，作为小的数据池也挺好。比如：[http://kylebing.cn/portal/diary/detail?diaryId=6766](http://kylebing.cn/portal/diary/detail?diaryId=6766)
 
 ### 3. 适配电脑、手机
 
-通过浏览器访问，电脑、移动端 都能完美显示。
+浏览器访问，电脑、移动端 都能完美显示。
 
 ### 4. 文本编辑时支持 `JetBrains` 相关快捷键
 
@@ -89,7 +85,7 @@
 
 `2017-09-27` ~ `现在`
 
-因为自己在用这个，也是自己最喜欢、使用频率最高的项目，所以只要我还健在，这个项目就会被一直维护下去。
+这是自己最喜欢、使用频率最高的项目，所以只要我还健在，这个项目就会被一直维护下去。
 
 --- 
 
@@ -173,17 +169,16 @@ gzip_types  text/css application/javascript application/json;
 ## 五、用到的 npm 包
 
 - `vue3` + `ts` + `vite` 
-  - `vue-router`
-  - `pinia`
 - `axios` 
 - `clipboard` 剪贴板
 - `moment` 时间处理
-- `v-calendar`  日期选择
+- `v-calendar` 日历选择
 - `marked` MarkDown 渲染
 - `echarts` 图表
 - `floating-vue` 悬窗
 - `qiniu-js` 七牛云相关文件
 - `js-base64` base64 处理
+- `js-yaml` 转换 yaml to js
 
 
 ---
