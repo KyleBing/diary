@@ -20,7 +20,8 @@
                             <div
                                 class="popover-list-item"
                                 v-for="(item, index) in attributes as Array<CalendarAttribute>" :key="index">
-                                <div class="indicator" :style="`background-color:${item.color || item.highlight.color}`"></div>
+                                <div class="indicator"
+                                     :style="`background-color:${item.color || item.highlight.color}`"/>
                                 <span >{{item.popover.label}}</span>
                             </div>
                         </div>

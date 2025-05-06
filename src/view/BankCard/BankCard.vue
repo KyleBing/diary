@@ -10,7 +10,10 @@
                     <div class="bankcard-name">{{ props.card.cardName }}</div>
 <!--                    <div class="bankcard-type">{{ props.card.cardType }}</div>-->
                 </div>
-                <div class="bankcard-no" :data-clipboard="props.card.cardNo.replace(/ /g, '')">{{ props.card.cardNo }}</div>
+                <div class="bankcard-no"
+                     :data-clipboard="props.card.cardNo.replace(/ /g, '')">
+                    {{ props.card.cardNo }}
+                </div>
 
                 <div class="bankcard-note">{{props.card.note}}</div>
             </div>

@@ -11,7 +11,8 @@
         </div>
     </transition>
 
-    <div class="diary-list-waterfall" :style="`width: ${projectStore.insets.windowsWidth}px; height: ${projectStore.insets.heightPanel}px`">
+    <div class="diary-list-waterfall"
+         :style="`width: ${projectStore.insets.windowsWidth}px; height: ${projectStore.insets.heightPanel}px`">
         <DiaryListWaterfallItem
             v-for="diary in diariesShow" :key="diary.id"
             :width="colWidth"

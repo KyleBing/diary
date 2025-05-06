@@ -21,14 +21,16 @@
                         <label for="password">密码</label>
                         <input v-model="password" name="password" type="password" id="password">
                     </div>
-                    <button class="btn mt-8" :class="verified ? 'btn-active' : 'btn-inactive'" type="submit">{{ loginLabel }}</button>
+                    <button :class="['btn', 'mt-8', verified ? 'btn-active' : 'btn-inactive']"
+                            type="submit">{{ loginLabel }}</button>
                 </form>
                 <div :class="['footer', {center: !isShowDemoAccount}]">
                     <RouterLink to="/register">注册</RouterLink>
                     <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
                 </div>
                 <div class="copyright">
-                    <a class="project-name" target="_blank" href="http://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
+                    <a class="project-name" target="_blank"
+                       href="http://kylebing.cn/diary/#/share/6766">{{ packageInfo.nameZh }}</a>
                     <span class="version ml-1">v{{ packageInfo.version }}</span>
                     <span class="ml-1"> {{ packageInfo.dateInit.substring(0,4) }}-{{ packageInfo.dateModify.substring(0,4) }}</span>
                     <RouterLink class="ml-1 password" to="/fetch-password">找回密码</RouterLink>

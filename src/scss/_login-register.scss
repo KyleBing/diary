@@ -28,6 +28,7 @@
       justify-content: center;
       align-items: center;
       $timer: 0;
+      border: 1px solid $color-main;
       @include transition(all 0.3s);
       @include box-shadow(
                       3px*$timer 3px*$timer 0 transparentize(black, 0.6),

@@ -22,7 +22,7 @@
 
                         <Button class="mb-2" @click="getBillData">搜索</Button>
                         <ButtonSmall class="mb-2" @click="getBillKeys">获取最新账单类目</ButtonSmall>
-                        <ButtonSmall class="mb-2"  @click="hideBigIncome" v-if="isShowSalaryButton">结果隐藏工资收入</ButtonSmall>
+                        <ButtonSmall class="mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">结果隐藏工资收入</ButtonSmall>
                     </BillPanel>
 
                     <!--  借还记录 -->
