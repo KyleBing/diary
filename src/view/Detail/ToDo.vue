@@ -1,22 +1,30 @@
 <template>
     <div class="todo-list">
-        <div :class="['todo-list-item', {done: item.isDone}]"
-             v-for="(item, index) in todoList" :key="index">
-            <div class="checkbox-wrapper">
-                <div :class="['checkbox', {checked: item.isDone}]"
-                     @click="toggleDoneStatus(item)"></div>
-            </div>
-            <div class="content-wrapper">
-                <div contenteditable="true" @input="handleContentChange(item, $event)" class="content">
-                    {{projectStore.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}
+        <draggable 
+            v-model="todoList"
+            item-key="id"
+            @end="onDragEnd"
+            :disabled="props.readonly"
+        >
+            <template #item="{ element: item }">
+                <div :class="['todo-list-item', {done: item.isDone}]">
+                    <div class="checkbox-wrapper">
+                        <div :class="['checkbox', {checked: item.isDone}]"
+                             @click="toggleDoneStatus(item)"></div>
+                    </div>
+                    <div class="content-wrapper">
+                        <div contenteditable="true" @input="handleContentChange(item, $event)" class="content">
+                            {{projectStore.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}
+                        </div>
+                        <div
+                            v-if="item.note"
+                            contenteditable="true" @input="handleNoteChange(item, $event)" class="note">
+                            {{projectStore.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}
+                        </div>
+                    </div>
                 </div>
-                <div
-                    v-if="item.note"
-                    contenteditable="true" @input="handleNoteChange(item, $event)" class="note">
-                    {{projectStore.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}
-                </div>
-            </div>
-        </div>
+            </template>
+        </draggable>
     </div>
 </template>
 
@@ -26,6 +34,8 @@ import {onMounted, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "../../pinia";
+import draggable from 'vuedraggable';
+
 const projectStore = useProjectStore();
 
 interface TODOEntity {
@@ -154,7 +164,13 @@ function handleNoteChange(todoItem: TODOEntity, ev: Event){
     todoItem.note =  (ev.target as HTMLDivElement).innerText
 }
 
-
+function onDragEnd() {
+    // Update IDs to maintain order
+    todoList.value.forEach((item, index) => {
+        item.id = index;
+    });
+    saveDiary();
+}
 
 </script>
 

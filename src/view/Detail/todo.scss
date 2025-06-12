@@ -5,6 +5,7 @@
 }
 
 .todo-list-item{
+  cursor: grab;
   @include border-radius(3px);
   padding-left: 15px;
   display: flex;
@@ -21,6 +22,9 @@
     margin-right: 8px;
   }
   .content-wrapper{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
     padding: 8px;
     width: 100%;
     border-bottom: 1px solid $color-border-light;

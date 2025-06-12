@@ -29,17 +29,19 @@
     "floating-vue": "^2.0.0-beta.20",
     "js-base64": "^3.7.5",
     "js-calendar-converter": "^0.0.6",
+    "js-yaml": "^4.1.0",
     "marked": "^4.2.4",
     "moment": "^2.29.4",
     "pinia": "^2.1.7",
     "qiniu-js": "^3.4.1",
-    "js-yaml": "^4.1.0",
     "register-service-worker": "^1.7.2",
     "v-calendar": "^3.1.2",
     "vue": "^3.4.3",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.2",
@@ -48,7 +50,6 @@
     "vite-plugin-pwa": "^0.17.4",
     "vite-plugin-zip-pack": "^1.0.7",
     "vite-svg-loader": "^5.1.0",
-    "vue-tsc": "^1.8.5",
-    "@types/js-yaml": "^4.0.9"
+    "vue-tsc": "^1.8.5"
   }
 }
