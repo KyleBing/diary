@@ -80,7 +80,8 @@
 
             <div class="nav-part-right">
                 <!--时钟-->
-                <Clock class="pr-6" v-if="!projectStore.isInMobileMode && projectStore.insets.windowsWidth > 1352"/>
+                <!-- MacbookPro 屏幕宽度 1512 -->
+                <Clock class="pr-6" v-if="!projectStore.isInMobileMode && projectStore.insets.windowsWidth > 1550"/>
 
                 <!--详情按钮-->
                 <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && projectStore.currentDiary">
