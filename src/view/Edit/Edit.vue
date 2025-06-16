@@ -729,7 +729,7 @@ function saveDiary() {
         weather: diary.value.weather,
         is_public: diary.value.is_public ? 1 : 0,
         is_markdown: diary.value.is_markdown ? 1 : 0,
-        date: dateFormatter(diary.value.date),
+        date: new Date(diary.value.date).toISOString(),//date: dateFormatter(diary.value.date),
     }
     if (isNew.value){
         diaryApi
