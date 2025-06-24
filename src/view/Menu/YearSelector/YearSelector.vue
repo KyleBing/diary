@@ -1,7 +1,7 @@
 <template>
     <MenuPanelContainer>
-        <div class="year-container" v-if="projectStore.statisticsYear.length > 0">
-            <div class="year" v-for="(year,indexYear) in projectStore.statisticsYear" :key="indexYear">
+        <div class="year-container" v-if="statisticStore.statisticsYear.length > 0">
+            <div class="year" v-for="(year,indexYear) in statisticStore.statisticsYear" :key="indexYear">
                 <div class="year-header">
                     <span>{{ year.year }}</span>
                     <sup class="count">{{ year.count }}</sup>
@@ -22,9 +22,11 @@
 </template>
 
 <script lang="ts" setup>
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
+const statisticStore = useStatisticStore()
 
 function monthClicked(monthId: string) {
     if (monthId === projectStore.dateFilterString) {

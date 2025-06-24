@@ -78,16 +78,19 @@
   }
 }
 
-// 》 IPAD
+// >  IPAD
 @media (min-width: $grid-separate-width-big){
   .year-container{
-    padding: 30px;
+    padding: 0;
   }
   .year-month-item {}
 }
 
 // Mobile
 @media (max-width: $grid-separate-width-sm){
+  .year-container{
+    padding: 10px;
+  }
   .year-header{
     padding-bottom: 10px;
   }

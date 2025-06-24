@@ -5,10 +5,10 @@
         <PageHeader title="统计数据">
             <div class="main-statistic">
                 <div class="main-statistic-item">
-                    <div class="label">共享</div> <div class="number value">{{ projectStore.statisticsCategory.shared}}</div>
+                    <div class="label">共享</div> <div class="number value">{{ statisticStore.statisticsCategory.shared}}</div>
                 </div>
                 <div class="main-statistic-item">
-                    <div class="label">总计</div> <div class="number value">{{ projectStore.statisticsCategory.amount }}</div>
+                    <div class="label">总计</div> <div class="number value">{{ statisticStore.statisticsCategory.amount }}</div>
                 </div>
             </div>
         </PageHeader>
@@ -36,9 +36,11 @@ import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 import Loading from "../../components/Loading.vue"
 import StatisticUsers from "@/view/Statistics/Users/StatisticUsers.vue";
 import StatisticCharts from "@/view/Statistics/Diary/StatisticCharts.vue";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 
-import {useProjectStore} from "../../pinia";
 const projectStore = useProjectStore()
+const statisticStore = useStatisticStore()
 import {onMounted, ref} from "vue";
 
 
@@ -53,12 +55,12 @@ function getStatistic() {
     statisticApi
         .category()
         .then(res => {
-            projectStore.statisticsCategory = res.data
+            statisticStore.statisticsCategory = res.data
             let keys = Object.keys(res.data)
             keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-            projectStore.dataArrayCategory =  keys.map(key => {
+            statisticStore.dataArrayCategory =  keys.map(key => {
                 return {
-                    name: projectStore.categoryNameMap.get(key),
+                    name: statisticStore.categoryNameMap.get(key),
                     key: key,
                     value: res.data[key]
                 }
@@ -67,9 +69,9 @@ function getStatistic() {
     statisticApi
         .year()
         .then(res => {
-            projectStore.statisticsYear = res.data
+            statisticStore.statisticsYear = res.data
             if (res.data){
-                projectStore.dataArrayYear = res.data.reverse().map(year => {
+                statisticStore.dataArrayYear = res.data.reverse().map(year => {
                     return {
                         name: year.year,
                         value: year.count

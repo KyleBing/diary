@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import billApi from "@/api/billApi.ts";
+import billApi from "../../../api/billApi.ts";
 import {EntityBorrow} from "@/view/Bill/BorrowInfo/Borrow.ts";
 import BillPanel from "@/view/Bill/BillPanel.vue";
 

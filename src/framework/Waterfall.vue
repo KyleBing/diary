@@ -12,11 +12,12 @@
 
 <script lang="ts" setup>
 import statisticApi from "../api/statisticApi.ts";
-import {useProjectStore} from "../pinia";
+import {useProjectStore} from "../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import { onMounted } from "vue";
 import Navbar from "./navbar/Navbar.vue";
-
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+const statisticStore = useStatisticStore()
 onMounted(()=>{
     getStatistic()
 })
@@ -27,19 +28,19 @@ function getStatistic() {
     statisticApi
         .category()
         .then(res => {
-            projectStore.statisticsCategory = res.data
+            statisticStore.statisticsCategory = res.data
             setDataArrayCategory(res.data)
         })
     statisticApi
         .year()
         .then(res => {
-            projectStore.statisticsYear = res.data
+            statisticStore.statisticsYear = res.data
             setDataArrayYear(res.data)
         })
 }
 function setDataArrayYear(statisticsYear){
     if (statisticsYear){
-        projectStore.dataArrayYear = statisticsYear.reverse().map(year => {
+        statisticStore.dataArrayYear = statisticsYear.reverse().map(year => {
             return {
                 name: year.year,
                 value: year.count
@@ -50,9 +51,9 @@ function setDataArrayYear(statisticsYear){
 function setDataArrayCategory(statisticsCategory){
     let keys = Object.keys(statisticsCategory)
     keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-    projectStore.dataArrayCategory = keys.map(key => {
+    statisticStore.dataArrayCategory = keys.map(key => {
         return {
-            name: projectStore.categoryNameMap.get(key),
+            name: statisticStore.categoryNameMap.get(key),
             value: statisticsCategory[key]
         }
     })

@@ -52,13 +52,13 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 
 import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility.ts";
 
-import {useProjectStore} from "@/pinia"
+import {useProjectStore} from "@/pinia/useProjectStore.ts"
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {DiaryEntity, DiaryEntityFromServer, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
 import {storeToRefs} from "pinia";
 import {EnumListStyle} from "@/listStyle.ts";
-
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 const router = useRouter()
 const route = useRoute()
@@ -201,7 +201,7 @@ function getDiaries() {
                 if (diary.content) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
-                diary.categoryString = projectStore.categoryNameMap.get(diary.category)
+                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
                 diary.dateString = dateProcess(diary.date).date

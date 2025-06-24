@@ -8,7 +8,7 @@
             <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
                     <div :class="['navbar-category-list-item', {active: projectStore.filteredCategories.includes(item.name_en)}]"
-                         v-for="(item, index) in projectStore.categoryAll" :key="index"
+                         v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
@@ -27,9 +27,9 @@
 </template>
 
 <script lang="ts" setup>
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {CategoryEntity} from "@/entity/Category.ts";
-
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 
 function toggleFilterShared(){
@@ -51,7 +51,7 @@ function selectCategoryNone() {
     projectStore.isListNeedBeReload = true
 }
 function reverseCategorySelect() {
-    let tempCategories = [].concat(projectStore.categoryAll.map(item => item.name_en))
+    let tempCategories = [].concat(useStatisticStore().categoryAll.map(item => item.name_en))
     projectStore.filteredCategories.forEach(item => {
         tempCategories.splice(tempCategories.indexOf(item), 1)
     })

@@ -1,23 +1,20 @@
 <template>
-    <RouterView v-if="projectStore.categoryAll.length > 0"/>
+    <RouterView v-if="useStatisticStore().categoryAll.length > 0"/>
     <ServerError v-if="isServerError"/>
 </template>
 <script lang="ts" setup>
-import {useProjectStore} from "./pinia";
+import {useProjectStore} from "./pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {onBeforeMount, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
-
+import {useStatisticStore} from "./pinia/useStatisticStore.ts";
 
 const route = useRoute()
 const router = useRouter()
 
-import diaryApi from "./api/diaryApi.ts"
-
 
 // Server Error
-import ServerError from "./fundation/ServerError.vue";
-import {setCategoryAll} from "./utility.ts";
+import ServerError from "./components/ServerError.vue";
 const isServerError = ref(false)
 
 
@@ -40,8 +37,9 @@ onBeforeMount(() => {
 
 
 onMounted(()=> {
-    // 获取所有类别数据
-    getCategoryAll()
+    useStatisticStore().getCategoryAll().then(res => { // 获取所有类别数据
+        isServerError.value = res
+    })
 
     projectStore.cacheDiary = undefined         // 每次刷新页面，清空缓存日记内容
     projectStore.cacheDiaryOrigin = undefined   // 每次刷新页面，清空缓存日记内容
@@ -67,19 +65,7 @@ onMounted(()=> {
     })
 })
 
-function getCategoryAll() {
-    diaryApi
-        .getCategoryAll()
-        .then(res => {
-            projectStore.categoryAll = res.data
-            setCategoryAll(res.data)
-            console.log('app is loaded all categories')
-        })
-        .catch(() => {
-            isServerError.value = true
-            console.log('服务器错误，请联系管理员')
-        })
-}
+
 </script>
 
 <style lang="scss">

@@ -4,7 +4,7 @@
                  :to="`/detail/${diary.id}`"
                  :style="diaryItemStyle"
     >
-        <i :class="['category']" :style="`background-color: ${projectStore.categoryObjectMap.get(diary.category).color}`"></i>
+        <i :class="['category']" :style="`background-color: ${statisticStore.categoryObjectMap.get(diary.category).color}`"></i>
 
         <span class="date">{{ diary.date }}</span>
 
@@ -35,9 +35,11 @@
 <script lang="ts" setup>
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts"
 import {computed} from "vue";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
+const statisticStore = useStatisticStore()
 
 const props = withDefaults(defineProps<{
     isActive: boolean,
@@ -59,7 +61,7 @@ const weatherIcon = computed(() => {
 })
 const diaryItemStyle = computed(() => {
     if (props.isActive){
-        return `background-color: ${projectStore.categoryObjectMap.get(props.diary.category).color}`
+        return `background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}`
     }
 })
 const contentIcon = computed(() => {

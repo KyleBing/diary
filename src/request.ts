@@ -1,8 +1,6 @@
 import axios from "axios";
 import {getAuthorization} from "./utility";
-import {ResponseEntity} from "./entity/Response.ts";
-
-const BASE_URL = import.meta.env.MODE === 'development' ? '/dev/': '../portal/'
+import {ResponseEntity} from "./entity/Response";
 
 function request(
     method: 'post'|'get'|'patch'|'put'|'delete',
@@ -11,6 +9,8 @@ function request(
     url: string,
     timeout = 30000
 ) : Promise<ResponseEntity> {
+
+    const BASE_URL = import.meta.env.MODE === 'development' ? '/dev/': '../portal/'
 
     let headers = {}
     /**

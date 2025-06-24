@@ -50,7 +50,7 @@ import userApi from "../../api/userApi.ts"
 import billApi from "../../api/billApi.ts";
 
 import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";

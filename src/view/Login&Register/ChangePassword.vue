@@ -43,7 +43,7 @@
 import userApi from "../../api/userApi.ts"
 
 import {deleteAuthorization, popMessage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";

@@ -1,11 +1,11 @@
 <template>
     <MenuPanelContainer>
         <ul class="menu-category-list">
-            <li class="menu-category-item" v-for="(item, index) in projectStore.categoryAll" :key="index"
+            <li class="menu-category-item" v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
                 :style="categoryMenuItemStyle(item)"
                 @click="toggleCategory(item)"
             >
-                <div>{{ item.name }}<span class="count">{{ projectStore.statisticsCategory[item.name_en] }}</span></div>
+                <div>{{ item.name }}<span class="count">{{ useStatisticStore().statisticsCategory[item.name_en] }}</span></div>
             </li>
         </ul>
 
@@ -25,11 +25,11 @@
 <script lang="ts" setup>
 
 import {onMounted, ref, watch} from "vue";
-import {getCategoryAll, getDiaryConfigFromLocalStorage} from "@/utility.ts";
-import {useProjectStore} from "@/pinia";
+import {getDiaryConfigFromLocalStorage} from "@/utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {CategoryEntity} from "@/entity/Category.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
-
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 
 const filterShared = ref(false) // 是否筛选已共享的日记
@@ -63,10 +63,10 @@ function categoryMenuItemStyle(category: CategoryEntity){
     }
 }
 function selectCategoryAll() {
-    projectStore.SET_FILTERED_CATEGORIES(getCategoryAll().map(item => item.name_en))
+    projectStore.SET_FILTERED_CATEGORIES(useStatisticStore().getCategoryAllFromLocalStorage().map(item => item.name_en))
 }
 function reverseCategorySelect() {
-    let tempCategories = [].concat(projectStore.categoryAll.map(item => item.name_en))
+    let tempCategories = [].concat(useStatisticStore().categoryAll.map(item => item.name_en))
     projectStore.filteredCategories.forEach(item => {
         tempCategories.splice(tempCategories.indexOf(item), 1)
     })

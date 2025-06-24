@@ -25,20 +25,16 @@
 <script lang="ts" setup>
 import List from "@/view/DiaryList/List.vue"
 import Navbar from "./navbar/Navbar.vue"
-import statisticApi from "../api/statisticApi.ts";
 
-import {useProjectStore} from "../pinia";
+import {useProjectStore} from "../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
+import {useStatisticStore} from "../pinia/useStatisticStore.ts";
 import {onMounted, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
-
-const route = useRoute()
-const router = useRouter()
 const refDiaryList = ref()
 
 onMounted(() => {
-    getStatistic() // 载入统计信息
+    useStatisticStore().getStatistic() // 载入统计信息
 })
 
 const { isShowSearchBar } = storeToRefs(projectStore)
@@ -50,41 +46,6 @@ watch(isShowSearchBar, newValue => {
     }
 })
 
-function getStatistic() {
-    statisticApi
-        .category()
-        .then(res => {
-            projectStore.statisticsCategory = res.data
-            setDataArrayCategory(res.data)
-        })
-    statisticApi
-        .year()
-        .then(res => {
-            projectStore.statisticsYear = res.data
-            setDataArrayYear(res.data)
-        })
-}
-function setDataArrayYear(statisticsYear){
-    if (statisticsYear){
-        projectStore.dataArrayYear = statisticsYear.reverse()
-                                                    .map(year => {
-                                                        return {
-                                                            name: year.year,
-                                                            value: year.count
-                                                        }
-                                                    })
-    }
-}
-function setDataArrayCategory(statisticsCategory){
-    let keys = Object.keys(statisticsCategory)
-    keys = keys.filter(item =>  item !== 'amount' && item !== 'shared')
-    projectStore.dataArrayCategory = keys.map(key => {
-                                            return {
-                                                name: projectStore.categoryNameMap.get(key),
-                                                value: statisticsCategory[key]
-                                            }
-                                        })
-}
 
 </script>
 

@@ -6,10 +6,10 @@
         <div class="statistic-charts" v-if="isShow">
             <StatisticPanel title="类别数据">
                 <div class="statistic-group">
-                    <ChartBar :data="projectStore.dataArrayCategory" title=""/>
-                    <ChartPie :data="projectStore.dataArrayCategory" title=""/>
+                    <ChartBar :data="statisticStore.dataArrayCategory" title=""/>
+                    <ChartPie :data="statisticStore.dataArrayCategory" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in projectStore.dataArrayCategory">
+                        <div class="info-list-item" v-for="year in statisticStore.dataArrayCategory">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
@@ -18,10 +18,10 @@
             </StatisticPanel>
             <StatisticPanel title="年份数据">
                 <div class="statistic-group">
-                    <ChartBar :data="projectStore.dataArrayYear" title=""/>
-                    <ChartPie :data="projectStore.dataArrayYear" title=""/>
+                    <ChartBar :data="statisticStore.dataArrayYear" title=""/>
+                    <ChartPie :data="statisticStore.dataArrayYear" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in projectStore.dataArrayYear">
+                        <div class="info-list-item" v-for="year in statisticStore.dataArrayYear">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
@@ -51,12 +51,13 @@ import ChartPie from "../../../components/charts/ChartPie.vue"
 import ChartBar from "../../../components/charts/ChartBar.vue"
 import StatisticPanel from "@/view/Statistics/StatisticPanel.vue"
 import StatisticWeather from "@/view/Statistics/Weather/StatisticWeather.vue";
-import StatisticBillDaySum from "@/view/Statistics/BillDaySum/StatisticBillDaySum.vue";
 import StatisticBillMonthSum from "@/view/Statistics/BillMonthSum/StatisticBillMonthSum.vue";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../../pinia";
+import {useProjectStore} from "../../../pinia/useProjectStore.ts";
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 
 const projectStore = useProjectStore()
+const statisticStore = useStatisticStore()
 
 const isShow = ref(false)
 onMounted(() => {

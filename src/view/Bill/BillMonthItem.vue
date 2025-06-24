@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import {EntityBillItem, EntityBillMonth, EntityBillTop5Item, MonthNameMap} from "@/view/Bill/Bill.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {dateProcess} from "@/utility.ts";
 import BillMonthSummary from "@/view/Bill/BillMonthSummary.vue";
 import BillTop5 from "@/view/Bill/BillTop5.vue";

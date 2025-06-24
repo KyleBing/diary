@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 
 </script>

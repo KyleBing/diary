@@ -19,12 +19,8 @@ import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import {nextTick, onMounted, ref, watch} from "vue";
 
-import {useProjectStore} from "../../pinia";
-const projectStore = useProjectStore()
-import {useRoute, useRouter} from "vue-router";
+import { useStatisticStore } from '@/pinia/useStatisticStore.ts';
 
-const route = useRoute()
-const router = useRouter()
 
 // 注册必须的组件
 echarts.use([
@@ -101,7 +97,7 @@ function resetData(newValue) {
     newValue.forEach(item => {
         seriesData.push(item.value)
         xAxisData.push(item.name)
-        let color = projectStore.categoryNameMap.get(item.key) && projectStore.categoryObjectMap.get(item.key).color
+        let color = useStatisticStore().categoryNameMap.get(item.key) && useStatisticStore().categoryObjectMap.get(item.key).color
         if (color){
             colorArray.push(color)
         }

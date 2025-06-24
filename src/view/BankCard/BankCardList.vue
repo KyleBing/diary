@@ -58,11 +58,12 @@ import ClipboardJS from "clipboard"
 import bankCardApi from "../../api/bankCardApi.ts"
 
 import diaryApi from "../../api/diaryApi.ts"
-import {getCategoryAll, popMessage} from "../../utility.ts";
+import {popMessage} from "../../utility.ts";
 import {onBeforeUnmount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 import {BankCardEntity} from "@/view/BankCard/BankCard.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 
 const cardListExample = [
     {
@@ -116,7 +117,7 @@ onBeforeUnmount(()=>{
 // 编辑银行卡信息
 function editCardInfo(){
     let params = {
-        categories: JSON.stringify(getCategoryAll().map(item => item.name_en)),
+        categories: JSON.stringify(useStatisticStore().getCategoryAllFromLocalStorage().map(item => item.name_en)),
         keywords: JSON.stringify(['我的银行卡列表']),
         pageSize: 100,
         pageNo: 1

@@ -1,7 +1,6 @@
-import {CategoryEntity} from "./entity/Category";
 import {AuthorizationEntity} from "./entity/Authorization";
 import {BillKey} from "./view/Bill/Bill";
-
+import {useStatisticStore} from "./pinia/useStatisticStore.ts";
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
 
@@ -231,7 +230,7 @@ function getDiaryConfigFromLocalStorage() {
         let newDiaryConfig: DiaryConfigEntity = {
             isFilterShared: false, // 是否筛选共享日记
             keywords: [], // 关键词
-            filteredCategories: getCategoryAll().map(item => item.name_en), // 筛选的日记类别
+            filteredCategories: useStatisticStore().categoryAll.map(item => item.name_en), // 筛选的日记类别
             dateFilterString: '' // 日记范围
         }
         setDiaryConfig(newDiaryConfig)
@@ -247,23 +246,6 @@ function removeDiaryConfig() {
     localStorage.removeItem('DiaryConfig')
 }
 
-
-function getCategoryAll(): CategoryEntity[] {
-    let categoryAllString = localStorage.getItem('CategoryAll')
-    if (categoryAllString) {
-        return JSON.parse(categoryAllString) as CategoryEntity[]
-    } else {
-        return []
-    }
-}
-
-function setCategoryAll(newValue: CategoryEntity[]) {
-    localStorage.setItem('CategoryAll', JSON.stringify(newValue))
-}
-
-function removeCategoryAll() {
-    localStorage.removeItem('CategoryAll')
-}
 
 
 function isInMobileMode(): boolean{
@@ -283,7 +265,6 @@ export {
     temperatureProcessCTS,
     setBillKeys, getBillKeys, removeBillKeys,
     getDiaryConfigFromLocalStorage, setDiaryConfig, removeDiaryConfig,
-    getCategoryAll, setCategoryAll, removeCategoryAll,
     isInMobileMode,
     type DateUtilityObject,
 

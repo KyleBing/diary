@@ -112,7 +112,7 @@ import {
 } from "@/utility.ts";
 import diaryApi from "../../api/diaryApi.ts"
 import projectConfig from "../../projectConfig.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";

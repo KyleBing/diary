@@ -174,7 +174,7 @@ import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelecto
 import ClipboardJS from "clipboard"
 
 import {getAuthorization, isInMobileMode, popMessage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";

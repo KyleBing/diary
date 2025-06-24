@@ -16,10 +16,10 @@
                 </div>
             </div>
         </div>
-        <div v-if="projectStore.statisticsCategory.shared > 0" class="statistics">
+        <div v-if="statisticStore.statisticsCategory.shared > 0" class="statistics">
             <p>📍 {{userInfo.city}}</p>
-            <p>总计 <b>{{ projectStore.statisticsCategory.amount }}</b> 篇</p>
-            <p>共享 <b>{{ projectStore.statisticsCategory.shared }}</b> 篇</p>
+            <p>总计 <b>{{ statisticStore.statisticsCategory.amount }}</b> 篇</p>
+            <p>共享 <b>{{ statisticStore.statisticsCategory.shared }}</b> 篇</p>
         </div>
         <div class="copyright">
             <span class="version ml-1">v{{ packageInfo.version }}</span>
@@ -30,14 +30,14 @@
 <script lang="ts" setup>
 import projectConfig from "../../projectConfig.ts";
 import {ref} from "vue";
-import {useProjectStore} from "../../pinia";
-import {deleteAuthorization, getAuthorization, removeCategoryAll} from "../../utility.ts";
+import {deleteAuthorization, getAuthorization} from "../../utility.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 import packageInfo from "../../../package.json";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+const statisticStore = useStatisticStore()
 
 const router = useRouter()
-const projectStore = useProjectStore()
 
 const userInfo = ref(getAuthorization())
 
@@ -46,8 +46,8 @@ function changeProfile(){
 }
 function logout() {
     deleteAuthorization()
-    removeCategoryAll()
-    projectStore.isMenuShowed = false
+    statisticStore.removeCategoryAllFromLocalStorage()
+    statisticStore.isMenuShowed = false
     router.push({name: 'Login'})
 }
 </script>
