@@ -52,7 +52,7 @@ import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 import {EntityBillItem, EntityBillMonth} from "@/view/Bill/Bill.ts";
 
 import {popMessage, setBillKeys} from "@/utility.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore();
 import {onMounted, ref} from "vue";
 import BillYearSelector from "@/view/Bill/BillYearSelector.vue";

@@ -67,7 +67,7 @@ import projectConfig from "../../projectConfig.ts";
 import axios from "axios";
 
 import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 
 const projectStore = useProjectStore();
 import {onMounted, ref, watch} from "vue";

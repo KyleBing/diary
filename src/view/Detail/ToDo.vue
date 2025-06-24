@@ -33,7 +33,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import {onMounted, ref, watch} from "vue";
 import {DiaryEntity, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 import draggable from 'vuedraggable';
 
 const projectStore = useProjectStore();

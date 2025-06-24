@@ -15,7 +15,7 @@
                         <div class="desc">
                             <p>这是你最后反悔的机会</p>
                             <p>你的所有日记都将被删除</p>
-                            <p class="mt-2">总计 <b>{{ projectStore.statisticsCategory.amount }}</b> 篇，共享日记 <b>{{ projectStore.statisticsCategory.shared }}</b> 篇</p>
+                            <p class="mt-2">总计 <b>{{ useStatisticStore().statisticsCategory.amount }}</b> 篇，共享日记 <b>{{ useStatisticStore().statisticsCategory.shared }}</b> 篇</p>
                             <p></p>
                         </div>
                     </div>
@@ -40,10 +40,10 @@ import diaryApi from "../../api/diaryApi.ts";
 import projectConfig from "../../projectConfig.ts";
 import {getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 const router = useRouter()
 

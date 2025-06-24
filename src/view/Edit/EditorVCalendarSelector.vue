@@ -47,7 +47,7 @@ import {LunarDateEntity} from "@/entity/LunarDate.ts";
 import {DatePicker} from 'v-calendar';
 import 'v-calendar/style.css';
 import {dateFormatter} from "@/utility.ts";
-import {PopoverOptions} from "v-calendar/dist/types/src/utils/popovers";
+import type {PopoverOptions} from "v-calendar";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 
 const emit = defineEmits(["dayChange"])

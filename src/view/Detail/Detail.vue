@@ -54,7 +54,6 @@ import calendar from "js-calendar-converter";
 import Moment from "moment";
 import DetailHeader from "@/view/Detail/DetailHeader.vue";
 import WordExplode from "@/view/Detail/WordExplode.vue";
-import ButtonNormal from "../../components/ButtonNormal.vue";
 import ToDo from "./ToDo.vue";
 import {DiaryEntityFromServer} from "@/view/DiaryList/Diary.ts";
 import {LunarDateEntity} from "@/entity/LunarDate.ts";
@@ -62,7 +61,8 @@ import ButtonSmall from "@/components/ButtonSmall.vue";
 
 import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 
 const projectStore = useProjectStore();
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
@@ -150,7 +150,7 @@ function  showDiary(diaryId: number) {
             diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
             diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
 
-            tempDiary.categoryString = projectStore.categoryNameMap.get(tempDiary.category)
+            tempDiary.categoryString = useStatisticStore().categoryNameMap.get(tempDiary.category)
         })
         .catch(() => {
             isLoading.value = false // loading off

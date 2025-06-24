@@ -118,7 +118,7 @@ import ChartBar from "../../../components/charts/ChartBar.vue";
 import Moment from "moment";
 
 import {computed, onMounted, ref} from "vue";
-import {useProjectStore} from "../../../pinia";
+import {useProjectStore} from "../../../pinia/useProjectStore.ts";
 import {dateFormatter, getAuthorization} from "../../../utility.ts";
 const projectStore = useProjectStore()
 

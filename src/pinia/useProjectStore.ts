@@ -1,12 +1,10 @@
 import { defineStore } from "pinia";
-import SVG_ICONS from "./assets/icons/SVG_ICONS.ts";
-import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "./utility.ts";
+import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
+import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity, DiaryListOperation} from "@/view/DiaryList/Diary.ts";
-import {CategoryEntity} from "./entity/Category.ts";
-import {StatisticYearEntity} from "./entity/StatisticYear.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 
-console.log('pinia is loaded, inside pinia file')
+console.log('pinia projectStore is loaded, inside pinia file')
 
 export const useProjectStore = defineStore('projectStore', {
     state: ()=>({
@@ -18,8 +16,6 @@ export const useProjectStore = defineStore('projectStore', {
             {windowsHeight: number, windowsWidth: number,heightPanel:number} ,
 
         colorMode: 'light',
-        statisticsCategory: {} ,                        // 统计信息
-        statisticsYear: [] as StatisticYearEntity[] ,   // 统计信息
 
         // LIST FILTER
         isFilterShared: false ,                         // 是否筛选共享的日记
@@ -46,9 +42,6 @@ export const useProjectStore = defineStore('projectStore', {
         editLogoImg: SVG_ICONS.logo_icons.logo ,        // 编辑页LOGO
         listOperation: {} as DiaryListOperation ,       // 列表页的操作，增删改操作，一般不再重新加载列表
 
-        categoryAll : [] as CategoryEntity[],
-        dataArrayYear: [] as String[],
-        dataArrayCategory: [] as CategoryEntity[],
 
         // BILL
         moneyAccuracy: 1, // 展示的货币精度，小数位数
@@ -61,23 +54,6 @@ export const useProjectStore = defineStore('projectStore', {
             // console.log(state.insets)
             // 宽度小于 1024 或 高>宽 时，表示是在移动设备上
             return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
-        },
-
-        // 类别名称字典
-        categoryNameMap(state){
-            let categoryNameMap = new Map()
-            state.categoryAll.forEach(item => {
-                categoryNameMap.set(item.name_en, item.name)
-            })
-            return categoryNameMap
-        },
-        // 类别对象字典
-        categoryObjectMap(state): Map<string, CategoryEntity>{
-            let categoryNameMap = new Map()
-            state.categoryAll.forEach(item => {
-                categoryNameMap.set(item.name_en, item)
-            })
-            return categoryNameMap
         },
     },
     actions: {
@@ -102,18 +78,6 @@ export const useProjectStore = defineStore('projectStore', {
             let diaryConfig = getDiaryConfigFromLocalStorage()
             diaryConfig.filteredCategories = payload
             setDiaryConfig(diaryConfig)
-        },
-        SET_STATISTICS_YEAR(payload: StatisticYearEntity[]){
-            // 如果没有任何年份数据，清除 dateFilterString 数字
-            let diaryConfig = getDiaryConfigFromLocalStorage()
-            if (payload){
-
-            } else {
-                diaryConfig.dateFilterString = ''
-                this.dateFilterString = ''
-            }
-            setDiaryConfig(diaryConfig)
-            this.statisticsYear = payload
         },
         SET_DATE_FILTER_STRING(payload: string){
             this.dateFilterString = payload

@@ -24,7 +24,7 @@
 <script lang="ts" setup>
 import RegisterTip from "./RegisterTip.vue";
 
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import projectConfig from "../../projectConfig.ts"

@@ -1,7 +1,7 @@
 <template>
     <div class="indicator-list-inline">
         <div class="indicator-list-item"
-             v-for="(item, index) in projectStore.categoryAll" :key="index"
+             v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
              :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
         />
         <div class="indicator-list-item" :style="projectStore.isFilterShared? 'background-color: white':''"/>
@@ -10,7 +10,8 @@
 
 <script lang="ts" setup>
 import {CategoryEntity} from "@/entity/Category.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 
 function indicatorItemStyle(category: CategoryEntity): string{

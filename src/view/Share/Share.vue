@@ -87,10 +87,10 @@ import ToDo from "@/view/Detail/ToDo.vue";
 import {
     dateProcess,
     temperatureProcessSTC,
-    getCategoryAll,
     DateUtilityObject
 } from "@/utility.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 
 const projectStore = useProjectStore();
 import {computed, onMounted, ref, watch} from "vue";
@@ -110,7 +110,7 @@ const heightShare = computed(()=>{
         : projectStore.insets.windowsHeight
 })
 const shareCategoryStyle = computed(()=>{
-    return `background-color: ${projectStore.categoryObjectMap.get(currentDiary.value.category).color}`
+    return `background-color: ${useStatisticStore().categoryObjectMap.get(currentDiary.value.category).color}`
 })
 const contentMarkDownHtml = computed(()=>{
     return marked.parse(currentDiary.value.content)
@@ -145,7 +145,7 @@ function getDiaryInfo(diaryId: number){
 
             // category map
             let categoryNameMap = new Map()
-            getCategoryAll().forEach(item => {
+            useStatisticStore().categoryAll.forEach(item => {
                 categoryNameMap.set(item.name_en, item.name)
             })
             currentDiary.value.categoryString = categoryNameMap.get(tempDiary.category)

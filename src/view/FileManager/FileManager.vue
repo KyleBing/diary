@@ -51,7 +51,7 @@ import Modal from "../../components/Modal.vue";
 import FileSelector from "../../components/FileSelector.vue";
 
 import {popMessage, dateFormatter} from "@/utility.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {onMounted, onUnmounted, ref} from "vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";

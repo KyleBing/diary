@@ -4,7 +4,7 @@ interface StatisticYearEntity{
     months: StatisticMonthEntity[]
 }
 interface StatisticMonthEntity{
-    id: number,
+    id: string, // 202501
     month: number,
     count: number
 }

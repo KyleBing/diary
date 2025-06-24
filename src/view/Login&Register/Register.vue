@@ -60,7 +60,7 @@ import userApi from "../../api/userApi.ts"
 import projectConfig from "../../projectConfig.ts";
 import RegisterTip from "./RegisterTip.vue";
 
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";

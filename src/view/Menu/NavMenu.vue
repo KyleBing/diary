@@ -82,7 +82,7 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 import UserProfile from "@/view/Menu/UserProfile.vue";
 import MenuOtherFunction from "@/view/Menu/MenuOtherFunction.vue";
 
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {computed, nextTick, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";

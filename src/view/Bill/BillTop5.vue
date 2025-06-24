@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import {EntityBillTop5Item} from "@/view/Bill/Bill.ts";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 
 const projectStore = useProjectStore();
 

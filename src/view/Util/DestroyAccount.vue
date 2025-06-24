@@ -37,7 +37,7 @@
 import projectConfig from "../../projectConfig.ts";
 import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
 import userApi from "../../api/userApi.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";

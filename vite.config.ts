@@ -9,7 +9,6 @@ import {dateFormatter} from "./src/utility";
 const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd-hh-mm-ss')
 
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
     server: {
@@ -18,8 +17,8 @@ export default defineConfig({
         https: false,
         proxy: {
             '/dev': {
-                // target: 'http://localhost:3000',
-                target: 'http://kylebing.cn:3000',
+                target: 'http://localhost:3000',
+                // target: 'http://kylebing.cn:3000',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/dev/, '/'),
             },
@@ -72,6 +71,7 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, './src'),
             '@/view': resolve(__dirname, './src/views'),
+            '@/api': resolve(__dirname, './src/api'),
         },
     },
 

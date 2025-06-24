@@ -36,7 +36,7 @@ import diaryApi from "../../api/diaryApi.ts"
 import Loading from "../../components/Loading.vue"
 
 import {dateProcess, getDiaryConfigFromLocalStorage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia";
+import {useProjectStore} from "../../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
@@ -44,7 +44,7 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntityFromServer, DiaryEntityWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 import DiaryListWaterfallItem from "@/view/DiaryListWaterfall/DiaryListWaterfallItem.vue";
-
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const route = useRoute()
 
 const isHasMore = ref(true)
@@ -154,7 +154,7 @@ function getDiaries(params: DiarySearchParams) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
                 diary.dateObj = dateProcess(diary.date)
-                diary.categoryString = projectStore.categoryNameMap.get(diary.category)
+                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.dateString = dateProcess(diary.date).date
                 return diary

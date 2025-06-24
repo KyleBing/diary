@@ -5,7 +5,7 @@ import Login from "@/view/Login&Register/Login.vue"
 import List from "@/view/DiaryList/List.vue"
 import Detail from "@/view/Detail/Detail.vue"
 import Edit from "@/view/Edit/Edit.vue"
-import NotFound_404 from "./fundation/NotFound_404.vue";
+import NotFound_404 from "./components/NotFound_404.vue";
 import {getAuthorization, isInMobileMode} from "./utility.ts";
 
 

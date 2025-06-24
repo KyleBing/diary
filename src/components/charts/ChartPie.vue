@@ -19,9 +19,7 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import {computed, nextTick, onMounted, ref, watch} from "vue";
-import {useProjectStore} from "../../pinia";
-
-const projectStore = useProjectStore()
+import {useStatisticStore} from "../../pinia/useStatisticStore.ts";
 
 echarts.use([
     TitleComponent,
@@ -121,7 +119,7 @@ function initChart() {
                 itemStyle: {
                     color: item => {
                         if (item.data.key){
-                            return  projectStore.categoryObjectMap.get(item.data.key).color // 返回类别对应的颜色
+                            return  useStatisticStore().categoryObjectMap.get(item.data.key).color // 返回类别对应的颜色
                         } else {
                             return COLORS[item.dataIndex%(COLORS.length - 1)]
                         }

@@ -42,17 +42,17 @@
 <script lang="ts" setup>
 import projectConfig from "../../projectConfig.ts";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
 import {WeatherArray} from "@/entity/Weather.ts";
 import {dateFormatter, getAuthorization, popMessage} from "@/utility.ts";
 import {DiaryEntity} from "@/view/DiaryList/Diary.ts";
 import diaryApi from "../../api/diaryApi.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
-
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 const router = useRouter()
-
+const statisticStore = useStatisticStore()
 const isDownloadingContent = ref(false)
 const weatherMap = ref(new Map()) // 天气 MAP
 
@@ -114,7 +114,7 @@ function getSqlData(diaries: DiaryEntity[]){
         let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
         let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
         let weather = weatherMap.value.get(diary.weather)
-        let category = projectStore.categoryNameMap.get(diary.category)
+        let category = statisticStore.categoryNameMap.get(diary.category)
         finalData =
             finalData.concat(`
 INSERT INTO
@@ -134,7 +134,7 @@ function getCVSData(diaries: DiaryEntity[]){
         let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
         let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
         let weather = weatherMap.value.get(diary.weather)
-        let category = projectStore.categoryNameMap.get(diary.category)
+        let category = statisticStore.categoryNameMap.get(diary.category)
         let content = diary.content.replace(/\"/g, '\"')
         finalData =
             finalData.concat(`${diary.id},${date},${dateModify},${dateCreate},${category},${weather},${temperature},${temperature_outside},${is_markdown},${diary.title},"${content}"\n`)
@@ -161,7 +161,7 @@ function getTextData(diaries: DiaryEntity[]){
         let temperature = diary.temperature === -273? '':`${diary.temperature}℃`
         let temperature_outside = diary.temperature_outside === -273? '':`${diary.temperature_outside}℃`
         let weather = weatherMap.value.get(diary.weather)
-        let category = projectStore.categoryNameMap.get(diary.category)
+        let category = statisticStore.categoryNameMap.get(diary.category)
         finalData =
             finalData.concat(`=== ${diary.id} =====================\n
 日　　期：${date}

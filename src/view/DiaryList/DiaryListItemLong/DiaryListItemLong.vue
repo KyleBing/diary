@@ -30,11 +30,16 @@
 <script lang="ts" setup>
 import {marked} from "marked";
 import {computed} from "vue";
-import {useProjectStore} from "@/pinia";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntityFromServer} from "../Diary.ts";
+
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+const statisticStore = useStatisticStore()
+
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
+
 const route = useRoute()
 
 
@@ -51,7 +56,7 @@ const suffix = computed(()=> {
 const diaryItemHeaderStyle = computed(()=>{
     if (isActive.value){
         return `
-              background-color: ${projectStore.categoryObjectMap.get(props.diary.category).color};
+              background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color};
                 `
     } else {
         return ''
@@ -60,7 +65,7 @@ const diaryItemHeaderStyle = computed(()=>{
 const diaryArticleItemStyle = computed(()=>{
     if (isActive.value){
         return `
-              border-color: ${projectStore.categoryObjectMap.get(props.diary.category).color};
+              border-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color};
                 `
     } else {
         return ''
@@ -74,7 +79,7 @@ const diaryItemCategoryTextStyle = computed(()=>{
 
     } else {
         return `
-              color:  ${projectStore.categoryObjectMap.get(props.diary.category).color}
+              color:  ${statisticStore.categoryObjectMap.get(props.diary.category).color}
                 `
     }
 })

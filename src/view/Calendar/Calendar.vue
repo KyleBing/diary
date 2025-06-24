@@ -45,11 +45,11 @@
 <script lang="ts" setup>
 import PageHeader from "../../framework/pageHeader/PageHeader.vue"
 
-import {useProjectStore} from "@/pinia";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore();
 import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
-import diaryApi from "@/api/diaryApi.ts";
+import diaryApi from "../../api/diaryApi.ts";
 import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
 import {DiaryEntity, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
@@ -58,6 +58,7 @@ import {CalendarAttribute, CalendarEntity} from "@/view/Calendar/VCalendar.ts";
 import Moment from "moment";
 import {useRouter} from "vue-router";
 import jsYaml from "js-yaml"
+import { useStatisticStore } from "@/pinia/useStatisticStore";
 
 const router = useRouter()
 
@@ -105,7 +106,7 @@ function getDiaries() {
                 if (diary.content) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
-                diary.categoryString = projectStore.categoryNameMap.get(diary.category)
+                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
                 diary.dateString = dateProcess(diary.date).date
@@ -133,10 +134,10 @@ function getDiaries() {
                     key: item.id,
                     bar: {
                         style: {
-                            backgroundColor: projectStore.categoryObjectMap.get(item.category).color
+                            backgroundColor: useStatisticStore().categoryObjectMap.get(item.category).color
                         }
                     },
-                    color: projectStore.categoryObjectMap.get(item.category).color,
+                    color: useStatisticStore().categoryObjectMap.get(item.category).color,
                     dates: new Date(item.date),
                     popover: {
                         label: item.title,
