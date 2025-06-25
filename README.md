@@ -7,7 +7,6 @@
 
 
 
-
 ## 一、界面
 
 <img width="2032" alt="list-diary" src="https://github.com/user-attachments/assets/4c3efa8f-322c-41ae-bb0d-0b20c6143bea">
@@ -17,7 +16,7 @@
 
 ### 1. 推荐使用方式
 
-**标题**：20字以内，概括  
+**标题**：20 字以内，概括  
 **内容**：事件详情
 
 记录一天中你感觉值得记录的事，生活、学习、工作、运动 等等方面。  
@@ -25,22 +24,24 @@
 
 ### 2. 主要特性
 
-- 以文本为主
-- 支持 Markdown **不提供图片存储服务，图床自行解决**
-- 记录天气、环境温度（需要资料里提前设置好地址）
+- 纯文本为主
+- 支持 Markdown __*不提供图片存储服务，图床自行解决*__
 - 关键字搜索 标题、内容
 - 日期、类别筛选日记
+- 自动设置**当天**天气、室外环境温度 __*需要资料里提前设置好地址*__
 - 分享某篇日记  
   > 比如当前这篇日记的分享链接是：  
-  > [http://kylebing.cn/diary/#/share/6766](http://kylebing.cn/diary/#/share/6766)
-- 自动跟随系统切换 `明亮` `暗黑` 两种显示样式
+  > [http://kylebing.cn/diary/#/share/6766](http://kylebing.cn/diary/#/share/6766)  
+  > 这是我非常喜欢的一种使用方式：作为其它独立页面的数据源使用。  
+  > 比如：[iPhone参数](http://kylebing.cn/tools/iphone/) 中的 `赞赏列表` 就是从日记中获取的数据，可以实时更新。
+- 适配暗黑模式
 - 日记统计：类别统计、账单统计、温湿度变化曲线
-- 日记完整导出，多种格式： `json`, `txt`, `json`, `csv`
-- 账单（需要指定格式书写）
+- 日记完整导出 `json`, `txt`, `json`, `csv`
+- 账单（严格按指定格式书写）
   - 选择 `账单` 类别
   - 标题无所谓
-  - 内容区为账单条目
-  - 格式为
+  - 内容为账单条目
+  - 格式
     ```bash
     条目[空格][+-]花费
     # 如
@@ -55,7 +56,8 @@
 
 ### 3. 适配电脑、手机
 
-浏览器访问，电脑、移动端 都能完美显示。
+浏览器访问，电脑、移动端 都能完美显示。  
+iPhone Safari 中选择 <kbd>添加到主屏幕</kbd> 会添加一个类似 app 的入口到桌面。
 
 ### 4. 文本编辑时支持 `JetBrains` 相关快捷键
 
@@ -96,22 +98,22 @@
 
 该项目包含两个部分：
 
-- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue3`+`ts`+`vite`
-- 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/portal) `nodejs`
+- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue) `vue3`、`ts`、`vite`  `v9.20`
+- 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/portal) `nodejs` `v9.20`
 > 具体的部署方式在各个项目中都有介绍
 
 
-**`http` `https` 不同部署环境对功能的影响**  
-- 编辑页面中，内容输入区在 <kbd>ctrl</kbd> + <kbd>x</kbd> 的时候无法将内容放置到剪贴板上。
-- 整个程序在打开的时候无法以 `ServiceWorker` 的形式快速载入，只有完整的从服务器再次载入。
-- `ServiceWorker` 和  `navigator.clipboard` 只在环境是 `https` 或 `localhost` 的时候生效。
+> **`http` `https` 不同部署环境对功能的影响**  
+> - 编辑页面中，内容输入区在 <kbd>ctrl</kbd> + <kbd>x</kbd> 的时候无法将内容放置到剪贴板上。
+> - 整个程序在打开的时候无法以 `ServiceWorker` 的形式快速载入，只有完整的从服务器再次载入。
+> - `ServiceWorker` 和  `navigator.clipboard` 只在环境是 `https` 或 `localhost` 的时候生效。
 
 
-## 二、邀请码系统
+## 二、邀请码
 
 新用户注册需要邀请码，邀请码分为两种：  
-- 一种是万能的，在后台系统的配置文件中配置
-- 一种是一次性的，一人一码
+- **万能的**：在后台系统的配置文件中配置
+- **一次性**：一人一码
 
 1. 登入系统后，点开菜单，选择邀请码菜单（用户默认注册后的 `group_id` 为 `2`，只有用户 `group_id` 为 `1` 的用户才能看到，需要手动去数据库中指定管理员账户），可以生成新的邀请码，点击邀请码就可以复制内容，分享给别人就可以了。
 2. 邀请码页面中显示的是都是未注册的码，复制后邀请码变为绿色，表示已被分享还未使用。
@@ -163,16 +165,28 @@ gzip_types  text/css application/javascript application/json;
 ## 四、开发说明
 
 所有配置信息都保存在 `LocalStorage` 中
-- `DiaryConfig`: 用户的配置信息（类别筛选，日期筛选，关键字）
-- `Authorization`: 用户信息（`avatar`,`city`,`email`,`geolocation`,`group_id`,`nickname`,`phone`,`token`,`uid`）
+- `DiaryConfig`: 用户的配置信息
+  - 类别筛选
+  - 日期筛选
+  - 关键字
+- `Authorization`: 用户信息
+  - `avatar`
+  - `city`
+  - `email`
+  - `geolocation`
+  - `group_id`
+  - `nickname`
+  - `phone`
+  - `token`
+  - `uid`
 
 ## 五、用到的 npm 包
 
-- `vue3` + `ts` + `vite` 
-- `axios` 
+- `vue3`、`ts`、`vite` 
+- `axios` 数据请求
 - `clipboard` 剪贴板
 - `moment` 时间处理
-- `v-calendar` 日历选择
+- `v-calendar` 日期选择
 - `marked` MarkDown 渲染
 - `echarts` 图表
 - `floating-vue` 悬窗
