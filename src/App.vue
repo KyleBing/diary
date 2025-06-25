@@ -38,7 +38,7 @@ onBeforeMount(() => {
 
 onMounted(()=> {
     useStatisticStore().getCategoryAll().then(res => { // 获取所有类别数据
-        isServerError.value = res
+        isServerError.value = !res
     })
 
     projectStore.cacheDiary = undefined         // 每次刷新页面，清空缓存日记内容
