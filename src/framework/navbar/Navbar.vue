@@ -18,7 +18,7 @@
                     <TabIcon alt="返回"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed"
                      @click="toggleSearchbar">
                     <TabIcon alt="搜索"/>
                 </div>

@@ -4,41 +4,79 @@
         enter-active-class="animated-fast slideInLeft"
         leave-active-class="animated-fast slideOutLeft"
     >
-        <div class="menu-panel" id="menu-panel" v-if="projectStore.isMenuShowed" :style="`height:  ${projectStore.insets.heightPanel}px`">
+        <div class="menu-panel" id="menu-panel"
+             v-if="projectStore.isMenuShowed" :style="`height:  ${projectStore.insets.heightPanel}px`">
 
             <MenuPanelContainer v-show="menuListShowed">
                 <!-- 菜单列表 -->
                 <div class="menu" :style="`min-height: ${projectStore.insets.heightPanel - 60}px`">
                     <div class="menu-list">
-                        <MenuListItemShort v-if="projectStore.isInMobileMode"
-                                           menu-name="搜索"    :icon="SVG_ICONS.tab_icons.search" @click="menuListClicked('search')"/>
+                        <!-- 搜索 -->
+                        <MenuListItemShort v-if="false"
+                                           menu-name="搜索"
+                                           :icon="SVG_ICONS.tab_icons.search"
+                                           @click="menuListClicked('search')"/>
 
-                        <MenuListItemShort v-if="projectStore.isInMobileMode" menu-name="待办"
-                                           :icon="projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'?
-                                                                                                                    SVG_ICONS.tab_icons.todoActive:
-                                                                                                                    SVG_ICONS.tab_icons.todo"
-                                           @click="menuListClicked('todo')"/>
-
-                        <MenuListItemShort menu-name="类别筛选" :icon="SVG_ICONS.tab_icons.category" @click="menuListClicked('category')">
+                        <!-- 类别筛选 -->
+                        <MenuListItemShort menu-name="类别筛选"
+                                           :icon="SVG_ICONS.tab_icons.category"
+                                           @click="menuListClicked('category')">
                             <MenuCategoryIndicatorInline/>
                         </MenuListItemShort>
 
-                        <MenuListItemShort menu-name="年份筛选" :icon="SVG_ICONS.tab_icons.year"       @click="menuListClicked('year')"
+                        <!-- 待办 -->
+                        <MenuListItemShort v-if="projectStore.isInMobileMode"
+                                           menu-name="待办"
+                                           :icon="projectStore.filteredCategories.length === 1 &&
+                                                    projectStore.filteredCategories[0] === 'todo'?
+                                                        SVG_ICONS.tab_icons.todoActive:
+                                                        SVG_ICONS.tab_icons.todo"
+                                           @click="menuListClicked('todo')"/>
+
+                        <!-- 年份筛选 -->
+                        <MenuListItemShort menu-name="年份筛选"
+                                           :icon="SVG_ICONS.tab_icons.year"
+                                           @click="menuListClicked('year')"
                                            :add-on-text="projectStore.dateFilterString">
                         </MenuListItemShort>
-                        <MenuListItemShort menu-name="统计数据"  :icon="SVG_ICONS.tab_icons.statistics"  @click="goToPage('Statistics')" />
-                        <MenuListItemShort menu-name="账单"     :icon="SVG_ICONS.tab_icons.billSimple"        @click="goToPage('Bill')" />
-                        <MenuListItemShort menu-name="银行卡"   :icon="SVG_ICONS.tab_icons.card"        @click="goToPage('BankCard')" />
-                        <MenuListItemShort
-                            v-if="isAdminUser"
-                            menu-name="文件管理" :icon="SVG_ICONS.tab_icons.folder"        @click="goToPage('FileManager')" />
-                        <MenuListItemShort menu-name="其它"     :icon="SVG_ICONS.tab_icons.others"      @click="menuListClicked('others')" />
-                        <MenuListItemShort
-                            v-if="isAdminUser"
-                            menu-name="邀请码"   :icon="SVG_ICONS.tab_icons.invitation"         @click="goToPage('Invitation')" />
-                        <MenuListItemShort
-                            menu-name="关于"     :icon="SVG_ICONS.tab_icons.about"        @click="menuListClicked('about')"
-                            :add-on-text="`v${packageInfo.version}`"/>
+
+                        <!-- 统计数据 -->
+                        <MenuListItemShort menu-name="统计数据"  
+                                            :icon="SVG_ICONS.tab_icons.statistics"  
+                                            @click="goToPage('Statistics')" />
+
+                        <!-- 账单 -->
+                        <MenuListItemShort menu-name="账单"
+                                           :icon="SVG_ICONS.tab_icons.billSimple"
+                                           @click="goToPage('Bill')" />
+
+                        <!-- 银行卡 -->
+                        <MenuListItemShort menu-name="银行卡"
+                                           :icon="SVG_ICONS.tab_icons.card"
+                                           @click="goToPage('BankCard')" />
+
+                        <!-- 文件管理 -->
+                        <MenuListItemShort v-if="isAdminUser"
+                                           menu-name="文件管理"
+                                           :icon="SVG_ICONS.tab_icons.folder"
+                                           @click="goToPage('FileManager')" />
+
+                        <!-- 其它 -->
+                        <MenuListItemShort menu-name="其它"
+                                           :icon="SVG_ICONS.tab_icons.others"
+                                           @click="menuListClicked('others')" />
+
+                        <!-- 邀请码  -->
+                        <MenuListItemShort v-if="isAdminUser"
+                                           menu-name="邀请码"
+                                           :icon="SVG_ICONS.tab_icons.invitation"
+                                           @click="goToPage('Invitation')" />
+
+                        <!-- 关于 -->
+                        <MenuListItemShort menu-name="关于"
+                                           :icon="SVG_ICONS.tab_icons.about"
+                                           @click="menuListClicked('about')"
+                                           :add-on-text="`v${packageInfo.version}`"/>
                     </div>
 
                     <!-- 用户信息 -->
