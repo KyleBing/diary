@@ -41,7 +41,7 @@ export const useStatisticStore = defineStore('statisticStore', {
         setCategoryAllToLocalStorage(newValue: CategoryEntity[]) {
             localStorage.setItem('CategoryAll', JSON.stringify(newValue))
         },
-        removeCategoryAllFromLocalStorage(newValue: CategoryEntity[]) {
+        removeCategoryAllFromLocalStorage() {
             localStorage.removeItem('CategoryAll')
         },
         getCategoryAllFromLocalStorage(): CategoryEntity[] {

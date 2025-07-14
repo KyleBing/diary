@@ -35,7 +35,10 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 import packageInfo from "../../../package.json";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
+
 const statisticStore = useStatisticStore()
+const projectStore = useProjectStore()
 
 const router = useRouter()
 
@@ -44,10 +47,11 @@ const userInfo = ref(getAuthorization())
 function changeProfile(){
     router.push({name: 'ChangeProfile'})
 }
+// 退出登录
 function logout() {
     deleteAuthorization()
     statisticStore.removeCategoryAllFromLocalStorage()
-    statisticStore.isMenuShowed = false
+    projectStore.isMenuShowed = false  // 关闭菜单
     router.push({name: 'Login'})
 }
 </script>
