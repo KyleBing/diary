@@ -27,7 +27,7 @@ import RegisterTip from "./RegisterTip.vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import projectConfig from "../../projectConfig.ts"
+import projectConfig from "../../../config/projectConfig.json"
 
 const fetchPasswordTip =  `
             <h3>如果你忘记密码</h3>

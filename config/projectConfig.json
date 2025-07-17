@@ -1,0 +1,15 @@
+{
+    "adminEmail": "xxx@163.com",
+    "isShowDemoAccount": true,
+
+    "demoAccount": "test@163.com",
+    "demoAccountPassword": "test",
+
+    "QiniuImgBaseURL": "",
+    "QiniuBucketName": "",
+    "QiniuStyleSuffix": "",
+
+    "HefengWeatherKey": "",
+
+    "registerTip": "<p>长期未使用的用户将定期进行清理，大概一年清一次。</p>"
+}

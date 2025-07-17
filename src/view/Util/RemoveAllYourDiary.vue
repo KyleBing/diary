@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import diaryApi from "../../api/diaryApi.ts";
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import {getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "../../pinia/useProjectStore.ts";

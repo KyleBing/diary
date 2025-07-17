@@ -111,7 +111,7 @@ import {
     temperatureProcessSTC, temperatureProcessCTS, dateFormatter
 } from "@/utility.ts";
 import diaryApi from "../../api/diaryApi.ts"
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";

@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import userApi from "../../api/userApi.ts"
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import RegisterTip from "./RegisterTip.vue";
 
 import {useProjectStore} from "../../pinia/useProjectStore.ts";

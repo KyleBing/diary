@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";

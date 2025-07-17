@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "../../pinia/useProjectStore.ts";

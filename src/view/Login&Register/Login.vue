@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import packageInfo from "../../../package.json"
 
 import userApi from "../../api/userApi.ts"

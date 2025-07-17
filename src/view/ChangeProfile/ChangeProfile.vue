@@ -63,7 +63,7 @@
 import userApi from "../../api/userApi.ts"
 import fileApi from "../../api/fileApi.ts";
 import * as qiniu from 'qiniu-js'
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import axios from "axios";
 
 import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";

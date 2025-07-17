@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../projectConfig.ts";
+import projectConfig from "../../../config/projectConfig.json";
 import {ref} from "vue";
 import {deleteAuthorization, getAuthorization} from "../../utility.ts";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
