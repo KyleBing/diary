@@ -1,6 +1,6 @@
 import {DateUtilityObject} from "../../utility";
 
-interface DiaryEntity {
+export interface DiaryEntity {
     id: number
     title: string,
     content: string,
@@ -13,14 +13,14 @@ interface DiaryEntity {
     temperature_outside: string,
 }
 
-interface DiaryListOperation {
+export interface DiaryListOperation {
     type: 'add' | 'delete' | 'change',
     diary: DiaryEntity|undefined,
     id: number
 }
 
 // 数据库 diary
-interface DiaryEntityFromServer{
+export interface DiaryEntityFromServer{
     id: number
     title: string,
     content?: string,
@@ -50,7 +50,7 @@ interface DiaryEntityFromServer{
     isShowItemWeekDayShort?: boolean, // 是否显示缩写星期，列表的时候用
 }
 
-interface DiaryEntityWaterfall extends DiaryEntityFromServer{
+export interface DiaryEntityWaterfall extends DiaryEntityFromServer{
     position: {
         top: number,
         left: number,
@@ -59,7 +59,7 @@ interface DiaryEntityWaterfall extends DiaryEntityFromServer{
 }
 
 
-interface DiarySearchParams {
+export interface DiarySearchParams {
     keywords: Array<string> | string, // 关键字 JSON string 后的内容 : string[]
     pageNo: number,
     pageSize: number, // 单页请求条数
@@ -68,7 +68,12 @@ interface DiarySearchParams {
     dateFilterString?: string // 日记年月筛选
 }
 
-interface DiarySubmitEntity{
+export interface DiarySearchParamsForCalendar extends DiarySearchParams {
+    dateStart: string, // date string, format: YYYYMMDD
+    dateEnd: string, // date string, format: YYYYMMDD
+}
+
+export interface DiarySubmitEntity{
     id: number,
     title: string,
     content: string,
@@ -82,7 +87,7 @@ interface DiarySubmitEntity{
 }
 
 // 日记添加的 response
-interface ResponseDiaryAdd{
+export interface ResponseDiaryAdd{
     success: boolean,
     data: {
         id: number
@@ -91,7 +96,7 @@ interface ResponseDiaryAdd{
 }
 
 
-enum EnumWeather{
+export enum EnumWeather{
     'sunny' = 100,        // 晴
     'cloudy' = 101,       // 多云
     'overcast' = 104,     // 阴
@@ -104,13 +109,21 @@ enum EnumWeather{
     'smog' = 502,         // 霾
 }
 
-export {
-    type DiaryEntity,
-    type DiaryListOperation,
-    type DiarySearchParams,
-    type DiarySubmitEntity,
-    type DiaryEntityFromServer,
-    type ResponseDiaryAdd,
-    type DiaryEntityWaterfall,
-    EnumWeather
+
+/**
+ * 日历用
+ */
+
+// 数据库 diary 只包含类别
+export interface DiaryEntityFromServerCategoryOnly{
+    id: number
+    date: Date|string|number,
+    category: string,
+}
+// 数据库 diary 只包含标题、类别
+export interface DiaryEntityFromServerTitleOnly{
+    id: number
+    title: string,
+    date: Date|string|number,
+    category: string,
 }

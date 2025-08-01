@@ -1,7 +1,10 @@
 import request  from '../request.ts'
 import {
     DiaryEntityFromServer,
+    DiaryEntityFromServerCategoryOnly,
+    DiaryEntityFromServerTitleOnly,
     DiarySearchParams,
+    DiarySearchParamsForCalendar,
     DiarySubmitEntity,
     ResponseDiaryAdd
 } from "@/view/DiaryList/Diary.ts";
@@ -24,12 +27,7 @@ export default {
     }>  {
         return request('get'   , params, null, 'diary/list')}  ,
 
-    listTitleOnly(params: DiarySearchParams): Promise<{
-        success: boolean,
-        data: Array<DiaryEntityFromServer>,
-        message: string
-    }>  {
-        return request('get'   , params, null, 'diary/list-title-only')}  ,
+
     add(requestData: DiarySubmitEntity): Promise<ResponseDiaryAdd>   {
         return request('post'  , {}, requestData, 'diary/add')}   ,
     modify(requestData: DiarySubmitEntity){
@@ -62,4 +60,21 @@ export default {
         return request('get'   , null, null, 'diary/export', 120000)}  ,
     clear()  {
         return request('post'   , null, null, 'diary/clear')}  ,
+
+
+    // 获取日记列表，列表中只包含标题
+    listTitleOnly(params: DiarySearchParams): Promise<{
+        success: boolean,
+        data: Array<DiaryEntityFromServerTitleOnly>,
+        message: string
+    }>  {
+        return request('get'   , params, null, 'diary/list-title-only')}  ,
+
+    // 获取日记列表，列表中只包含类别
+    lietCategoryOnly(params: DiarySearchParamsForCalendar): Promise<{
+        success: boolean,
+        data: Array<DiaryEntityFromServerCategoryOnly>,
+        message: string
+    }>  {
+        return request('get'   , params, null, 'diary/list-category-only')}  ,
 }

@@ -1,4 +1,4 @@
-interface CalendarAttribute {
+export interface CalendarAttribute {
     key: number,
     bar: {
         style: {
@@ -18,13 +18,10 @@ interface CalendarAttribute {
     }
 }
 
-interface CalendarEntity {
+
+export interface CalendarEntity {
     name: string,
     color: string,
     dates: Array<[Array<Date>]>
 }
 
-export {
-    type CalendarAttribute,
-    type CalendarEntity
-}
