@@ -5,7 +5,7 @@ $fz-article-header: 13px;  // 日记头部字体大小
 $fz-md-article: 14px;      // Markdown 内容的基础字体大小
 
 .article{
-  margin: 10px;
+  margin-bottom: 10px;
   overflow: hidden;
   font-size: $fz-article;
   background-color: white;
@@ -13,10 +13,11 @@ $fz-md-article: 14px;      // Markdown 内容的基础字体大小
   border: 1px solid $color-border-light;
 
   .article-header{
+    cursor: pointer;
     @extend .unselectable;
     text-align: center;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 6px 15px;
     color: $text-subtitle;
@@ -27,25 +28,32 @@ $fz-md-article: 14px;      // Markdown 内容的基础字体大小
     &.hidden{
       display: none !important;
     }
-    & > *{
-      padding-left: 30px;
-    }
+
     &:active{
       transform: translateY(2px);
-    }
-    .week{
-    }
-    .weather{
-      img{
-        display: block;
-        width: 20px;
-      }
     }
     .date{
       font-family: "Galvji", sans-serif;
     }
-    .category{
+    .metas{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      & > *{
+        padding-left: 30px;
+      }
+      .week{
+      }
+      .weather{
+        img{
+          display: block;
+          width: 20px;
+        }
+      }
+      .category{
+      }
     }
+    
   }
   .article-body{
     color: $bg-main;
@@ -83,7 +91,7 @@ $fz-md-article: 14px;      // Markdown 内容的基础字体大小
       justify-content: flex-end;
       padding: 8px 15px;
       & > *{
-        padding-left: 30px;
+
       }
     }
     &-body{

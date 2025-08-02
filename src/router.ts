@@ -28,7 +28,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/framework/CalendarFramework.vue'),
         redirect: "/calendar/calendar",
         children: [
-            {name: 'Calendar', path: 'calendar'  ,   component: () => import('@/view/Calendar/Calendar.vue')}
+            {name: 'Calendar', path: 'calendar'  ,   component: () => import('@/view/Calendar/Calendar.vue')},
+            {name: 'CalendarEdit', path: 'calendar/:id'  ,   component: () => import('@/view/Calendar/Calendar.vue')},
+            {name: 'CalendarEditNew', path: 'calendar'  ,   component: () => import('@/view/Calendar/Calendar.vue')}
         ]
     },
     {

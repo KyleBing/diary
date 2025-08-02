@@ -1,10 +1,14 @@
 <template>
     <div class="statistic-container">
+
         <PageHeader title="日历"/>
 
         <div class="calendar-container" :style="`height:${projectStore.insets.heightPanel}px`">
 
-            <div class="calendar" :style="`height:${projectStore.insets.heightPanel - 40}px`">
+            <!-- 日历本体 -->
+            <div class="calendar"
+                :style="`height:${projectStore.insets.heightPanel}px; overflow-y: auto;`"
+            >
                 <Calendar
                     timezone="Asia/Hong_Kong"
                     show-weeknumbers
@@ -13,8 +17,8 @@
                     :attributes="attributes"
                     locale="zh"
                     :first-day-of-week="1"
-                    :rows="3"
-                    :columns="4"
+                    :rows="calendarRow"
+                    :columns="calendarCol"
                     @dayclick="getDiaryListOfDay"
                     @did-move="onPageChange">
                     <template #day-popover="{ day, dayTitle, attributes, format, masks}">
@@ -29,15 +33,45 @@
                         </div>
                     </template>
                 </Calendar>
-
             </div>
 
-            <div class="operation-panel">
-                <ButtonSmall @click="getShowingCalendarDiaries" class="mb-2">日历 - 日记</ButtonSmall>
+
+            <!-- 日记列表 -->
+            <div class="calendar-diary-list pl-2 pr-2" 
+                :style="`height:${projectStore.insets.heightPanel}px; overflow-y: auto;`">
+
+                <CalendarListHeader 
+                    v-if="currentFocusedDay" 
+                    :date="currentFocusedDay.id"
+                />
+                <div v-if="focusedDayDiaries.length > 0">
+                    <DiaryListItemLong 
+                        @click="diaryListItemLongClicked(item)"
+                        v-for="item in focusedDayDiaries" 
+                        :key="item.id"
+                        :isActive="route.params.id === String(item.id)" 
+                        :category="item.category" 
+                        :diary="item"
+                        :isShowDate="false"
+                        :isShowWeek="false"
+                    />
+                </div>
+                <div v-else class="p-2">
+                    <Loading :loading="isLoadingFocusedDayDiaries"/>
+                </div>
+            </div>
+
+            <!-- 操作面板 -->
+            <!-- <div class="calendar-operation-panel">
+                <ButtonSmall @click="getAllShowingCalendarDiaries" class="mb-2">日历 - 日记</ButtonSmall>
                 <ButtonSmall @click="loadCalendarPeriod" class="mb-2">日历 - 经期</ButtonSmall>
                 <ButtonSmall v-if="periodDiary?.id" @click="router.push({name: 'Edit', params: {id: periodDiary.id}})" class="mb-2">编辑经期日历</ButtonSmall>
+            </div> -->
 
+            <div class="calendar-operation-panel" v-if="calendarCol === 1">
+                <Edit></Edit>
             </div>
+
         </div>
     </div>
 </template>
@@ -51,17 +85,36 @@ import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
 import diaryApi from "../../api/diaryApi.ts";
 import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
-import {DiaryEntity, DiaryEntityFromServerCategoryOnly, DiaryEntityFromServerTitleOnly, DiarySearchParams, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
+import {DiaryEntity, DiaryEntityFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import {CalendarAttribute, CalendarEntity} from "@/view/Calendar/VCalendar.ts";
 import Moment from "moment";
+import DiaryListItemLong from "@/view/DiaryList/DiaryListItemLong/DiaryListItemLong.vue";
+import CalendarListHeader from "@/view/Calendar/CalendarListHeader.vue";
+import Edit from "@/view/Edit/Edit.vue";
 
-import {useRouter} from "vue-router";
+import {useRouter, useRoute} from "vue-router";
 import jsYaml from "js-yaml"
 import { useStatisticStore } from "@/pinia/useStatisticStore";
+import Loading from "@/components/Loading.vue";
+
+interface CalendarDay {
+    id: string, // 2025-08-02
+    date: Date,  
+    day: number,
+    month: number,
+    year: number,
+    weekday: number,
+}
 
 const router = useRouter()
+const route = useRoute()
+
+const currentFocusedDay = ref<CalendarDay>()
+
+const calendarRow = ref(3)
+const calendarCol = ref(4)
 
 enum EnumCalendarColor {
     'gray' = 'gray',
@@ -94,7 +147,7 @@ const formSearch = ref<DiarySearchParamsForCalendar>({
 const isLoading =  ref(false)
 
 // 获取显示的日历日记列表
-function getShowingCalendarDiaries() {
+function getAllShowingCalendarDiaries() {
     formSearch.value.pageNo = 1
     formSearch.value.keywords = JSON.stringify(projectStore.keywords)
     formSearch.value.categories = JSON.stringify(projectStore.filteredCategories)
@@ -157,28 +210,52 @@ function getShowingCalendarDiaries() {
 
 // 鼠标点击某个天时，获取该天的日记列表
 const focusedDayDiaries = ref<Array<DiaryEntity>>([])
-function getDiaryListOfDay(day: Date) {
+const isLoadingFocusedDayDiaries = ref(false)
+function getDiaryListOfDay(day: CalendarDay) {
+    console.log('getDiaryListOfDay', day)
+    currentFocusedDay.value = day
+    isLoadingFocusedDayDiaries.value = true
+    focusedDayDiaries.value = []  // 清空列表
     diaryApi
-    .listTitleOnly({
-        dateStart: Moment(day).format('YYYY-MM-DD'),
-        dateEnd: Moment(day).format('YYYY-MM-DD'),
-        keywords: JSON.stringify(projectStore.keywords),
-    })
-    .then(res => {
-        focusedDayDiaries.value = res.data.map((diary: DiaryEntityFromServerTitleOnly) => {
-            diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
-            diary.weekday = dateProcess(diary.date).weekday
-            diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
-            diary.dateString = dateProcess(diary.date).date
-            diary.color = useStatisticStore().categoryObjectMap.get(diary.category).color
-            return diary
+        .listAll({
+            dateStart: Moment(day.date).format('YYYY-MM-DD'),
+            dateEnd: Moment(day.date).format('YYYY-MM-DD'),
+            keywords: JSON.stringify(projectStore.keywords),
+            categories: JSON.stringify(projectStore.filteredCategories),
+            dateFilterString: projectStore.dateFilterString,
+            filterShared: projectStore.isFilterShared ? 1 : 0,
+            keywords: JSON.stringify(projectStore.keywords)
         })
+        .then(res => {
+            focusedDayDiaries.value = res.data.map(diary => {
+                if (diary.content) {
+                    diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+                }
+                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
+                diary.weekday = dateProcess(diary.date).weekday
+                diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
+                diary.dateString = dateProcess(diary.date).date
+                diary.color = useStatisticStore().categoryObjectMap.get(diary.category).color
+                return diary
+            })
+        })
+        .finally(() => {
+            isLoadingFocusedDayDiaries.value = false
+        })
+}
+
+// 日记列表点击
+function diaryListItemLongClicked(item: DiaryEntity) {
+    calendarCol.value = 1
+    router.push({
+        name: 'CalendarEdit',
+        params: {id: item.id}
     })
 }
 
 
 onMounted(() => {
-    getShowingCalendarDiaries()
+    getAllShowingCalendarDiaries()
     // 为初始页面初始化日期范围
     onPageChange(initPage.value)
 })
@@ -189,7 +266,7 @@ watch(isListNeedBeReload, newValue => {
     if (newValue) {
         attributes.value = []
         nextTick(()=>{
-            getShowingCalendarDiaries()
+            getAllShowingCalendarDiaries()
         })
     }
 })
@@ -206,7 +283,6 @@ const maxDate = ref<Date>()
 
 // 处理日历页面滑动时的变化
 function onPageChange(data: any) {
-    console.log('onPageChange', data)
     
     let minDateValue: Date
     let maxDateValue: Date
@@ -248,22 +324,37 @@ function updateDateRangeForSearch() {
         formSearch.value.dateEnd = Moment(maxDate.value).format('YYYY-MM-DD')
         
         // 可选择为新范围重新加载日记数据
-        getShowingCalendarDiaries()
+        getAllShowingCalendarDiaries()
     }
 }
-const attributes = ref<Array<CalendarAttribute>>([{
-    key: '今天',
-    highlight: {
-        fillMode: 'solid',
-        color: EnumCalendarColor.red
+const attributes = ref<Array<CalendarAttribute>>([
+    {
+        key: '今天',
+        highlight: {
+            fillMode: 'solid',
+            color: EnumCalendarColor.red
+        },
+        dates: new Date(),
+        popover: {
+            label: '今天',
+            visibility: 'hover',
+            hideIndicator: true, // 隐藏不同类别标识
+        }
     },
-    dates: new Date(),
-    popover: {
-        label: '今天',
-        visibility: 'hover',
-        hideIndicator: true, // 隐藏不同类别标识
-    }
-},])
+    {
+        key: '选中的日期',
+        highlight: {
+            fillMode: 'solid',
+            color: EnumCalendarColor.blue
+        },
+        dates: currentFocusedDay.value?.date,
+        popover: {
+            label: '今天',
+            visibility: 'hover',
+            hideIndicator: true, // 隐藏不同类别标识
+        }
+    },
+])
 
 
 /**
@@ -330,21 +421,27 @@ function loadCalendarPeriod(){
 <style lang="scss">
 @import "../../scss/plugin";
 
+// 日历容器
 .calendar-container{
-    padding: 20px;
     flex-shrink: 0;
     display: flex;
     justify-content: flex-start;
     overflow-y: auto;
 }
+
+// 日历本体
 .calendar{
+    padding: 20px;
     overflow-y: auto;
 
 }
-.operation-panel{
-    margin-left: 30px;
+
+// 日历操作面板
+.calendar-operation-panel{
+    flex-grow: 1;
 }
 
+// 日历日记列表弹窗
 .popover-list{
     padding: 5px;
     font-size: $fz-small;
@@ -362,6 +459,16 @@ function loadCalendarPeriod(){
             height: 4px;
         }
     }
+}
+
+// 日历日记列表
+.calendar-diary-list{
+    background-color: $bg-light;
+    border-left: 1px solid $color-border;
+    border-right: 1px solid $color-border;
+    padding: 20px;
+    width: 500px;
+    overflow-y: auto;
 }
 
 </style>

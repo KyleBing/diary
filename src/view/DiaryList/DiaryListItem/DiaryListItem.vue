@@ -1,7 +1,7 @@
 <template>
-    <RouterLink ref="listItem"
+    <div ref="listItem"
                  :class="['diary-list-item', {active: isActive}]"
-                 :to="`/detail/${diary.id}`"
+                 @click="emit('click')"
                  :style="diaryItemStyle"
     >
         <i :class="['category']" :style="`background-color: ${statisticStore.categoryObjectMap.get(diary.category).color}`"></i>
@@ -29,7 +29,7 @@
                  class="icon"
                  :src="weatherIcon"/>
         </div>
-    </RouterLink>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -47,6 +47,10 @@ const props = withDefaults(defineProps<{
 }>(), {
     isActive: false
 })
+
+const emit = defineEmits<{
+    (e: 'click'): void
+}>()
 
 const weatherIcon = computed(() => {
     if (props.isActive) {

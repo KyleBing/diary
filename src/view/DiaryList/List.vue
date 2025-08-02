@@ -13,18 +13,26 @@
         </transition>
 
         <!-- 普通列表 -->
-        <div class="diary-list-group" v-if="projectStore.listStyle === EnumListStyle.list">
+        <div v-if="projectStore.listStyle === EnumListStyle.list" class="diary-list-group" >
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
-                <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
+                <DiaryListItem 
+                    v-else 
+                    @click="diaryListItemClick(item)" 
+                    :isActive="route.params.id === String(item.id)" 
+                    :category="item.category" 
+                    :diary="item"/>
             </template>
         </div>
 
         <!-- 详情列表 -->
-        <div class="diary-list-group" v-if="projectStore.listStyle === EnumListStyle.detail">
+        <div v-if="projectStore.listStyle === EnumListStyle.detail" class="diary-list-group detail" >
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
-                <DiaryListItemLong v-else :diary="item"/>
+                <DiaryListItemLong 
+                    v-else 
+                    @click="diaryLiteItemLongClick(item)" 
+                    :diary="item"/>
             </template>
         </div>
 
@@ -89,6 +97,21 @@ onMounted(()=>{
     reloadDiaryList() // 载入日记列表
 })
 
+// 日记列表点击
+function diaryLiteItemLongClick(item: DiaryEntity) {
+    router.push({
+        name: 'Detail',
+        params: {id: item.id}
+    })
+}
+
+// 日记列表点击
+function diaryListItemClick(item: DiaryEntity) {
+    router.push({
+        name: 'Detail',
+        params: {id: item.id}
+    })
+}
 
 // 刷新 diaries show
 function refreshDiariesShow(){

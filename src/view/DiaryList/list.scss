@@ -72,6 +72,11 @@
   margin-bottom: 1px;
 }
 
+.diary-list-group{
+  &.detail{
+    padding: 10px;
+  }
+}
 
 // DARK
 @media (prefers-color-scheme: dark) {

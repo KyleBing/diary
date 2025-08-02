@@ -77,4 +77,12 @@ export default {
         message: string
     }>  {
         return request('get'   , params, null, 'diary/list-category-only')}  ,
+
+    // 获取日记列表，包含所有字段
+    listAll(params: DiarySearchParams): Promise<{
+        success: boolean,
+        data: Array<DiaryEntityFromServer>,
+        message: string
+    }>  {
+        return request('get'   , params, null, 'diary/list-all')}  ,
 }

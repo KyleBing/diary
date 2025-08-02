@@ -1,19 +1,21 @@
 <template>
     <div :class="['article', {active: isActive},]" :style="diaryArticleItemStyle">
-        <RouterLink
+        <div
             :style="diaryItemHeaderStyle"
-            :to="`/detail/${props.diary.id}`"
-            :class="['article-header']"
+            @click="emit('click')"
+            class="article-header"
         >
-            <div class="date">{{ props.diary.dateString }}</div>
-            <div class="weather">
+            <div class="date" v-if="props.isShowDate">{{ props.diary.dateString }}</div>
+            <div class="metas">
+                <div class="weather">
                 <img v-if="props.diary.weather"
                      :src="SVG_ICONS.weather_icons[props.diary.weather + suffix]"
                      :alt="props.diary.weather">
             </div>
-            <div class="week">{{ props.diary.weekday }}</div>
+            <div class="week" v-if="props.isShowWeek">{{ props.diary.weekday }}</div>
             <div class="category" :style="diaryItemCategoryTextStyle" >{{ props.diary.categoryString }}</div>
-        </RouterLink>
+            </div>
+        </div>
 
         <div class="article-body" v-if="projectStore.isHideContent">
             <div class="title">{{ props.diary.title.replace(/[^，。 \n]/g, '*') }}</div>
@@ -42,10 +44,19 @@ const projectStore = useProjectStore()
 
 const route = useRoute()
 
-
-const props = defineProps<{
-    diary: DiaryEntityFromServer
+const emit = defineEmits<{
+    (e: 'click'): void
 }>()
+
+
+const props = withDefaults(defineProps<{
+    diary: DiaryEntityFromServer,
+    isShowDate?: boolean
+    isShowWeek?: boolean
+}>(), {
+    isShowDate: true,
+    isShowWeek: true
+})
 
 const isActive = computed(() => {
     return Number(route.params.id) === Number(props.diary.id)

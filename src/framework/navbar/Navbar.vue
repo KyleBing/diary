@@ -6,7 +6,9 @@
                 <div @click="menuShow"
                      v-if="
                          (!projectStore.isInMobileMode && !projectStore.isMenuShowed)
-                         || projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed
+                         || projectStore.isInMobileMode 
+                         && (route.name === 'List' || route.name === 'WaterfallList') 
+                         && !projectStore.isMenuShowed
                     ">
                     <TabIcon v-if="projectStore.isInMobileMode" alt="菜单"/>
                     <TabIcon v-else alt="LOGO"/>
@@ -14,12 +16,14 @@
                 <div @click="menuClose" v-if="projectStore.isMenuShowed">
                     <TabIcon alt="关闭"/>
                 </div>
-                <div @click="commitBack" v-if="projectStore.isInMobileMode && route.name !== 'List'">
+                <div @click="commitBack" 
+                    v-if="projectStore.isInMobileMode && route.name !== 'List' && route.name !== 'WaterfallList' ">
                     <TabIcon alt="返回"/>
                 </div>
 
                 <div v-show="(!projectStore.isMenuShowed && !projectStore.isInMobileMode) || 
-                            (!projectStore.isMenuShowed && projectStore.isInMobileMode && route.name === 'List')"
+                            (!projectStore.isMenuShowed && projectStore.isInMobileMode 
+                            && (route.name === 'List' || route.name === 'WaterfallList'))"
                      @click="toggleSearchbar">
                     <TabIcon alt="搜索"/>
                 </div>
@@ -101,7 +105,7 @@
                 </div>
 
                 <!--编辑按钮-->
-                <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew'">
+                <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew' || route.name === 'CalendarEdit'">
                     <div @click="diaryRecover" v-if="projectStore.isDiaryEditorContentHasChanged">
                         <TabIcon alt="恢复"/>
                     </div>
@@ -117,7 +121,7 @@
 
                 <div
                     v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
-                    || !projectStore.isInMobileMode"
+                            || !projectStore.isInMobileMode"
                     @click="addNewDiary"
                 >
                     <TabIcon alt="添加"/>
@@ -197,7 +201,16 @@ function addNewDiary() {
         projectStore.cacheDiary = undefined
         projectStore.cacheDiaryOrigin = undefined
     }
-    router.push('/edit')
+    if (route.path.includes('calendar')) {
+        router.push({
+        name: 'CalendarEditNew'
+    })
+    } else {
+        router.push({
+        name: 'Edit'
+    })
+    }
+    
 }
 // 编辑日记
 function editDiary() {
