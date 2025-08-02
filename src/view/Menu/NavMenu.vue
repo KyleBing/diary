@@ -40,6 +40,15 @@
                                            :add-on-text="projectStore.dateFilterString">
                         </MenuListItemShort>
 
+                        <!-- 日历 -->
+                        <MenuListItemShort menu-name="日历"   v-if="!projectStore.isInMobileMode"
+                                            :icon="SVG_ICONS.tab_icons.calendar"  
+                                            @click="goToPage('Calendar')" />
+                        <!-- 日历 - 经期 -->
+                        <MenuListItemShort menu-name="日历 - 经期" v-if="!projectStore.isInMobileMode"
+                                            :icon="SVG_ICONS.tab_icons.calendar"  
+                                            @click="goToPage('CalendarPeriod')" />
+
                         <!-- 统计数据 -->
                         <MenuListItemShort menu-name="统计数据"  
                                             :icon="SVG_ICONS.tab_icons.statistics"  

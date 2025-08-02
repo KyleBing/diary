@@ -61,14 +61,7 @@
                 </div>
             </div>
 
-            <!-- 操作面板 -->
-            <!-- <div class="calendar-operation-panel">
-                <ButtonSmall @click="getAllShowingCalendarDiaries" class="mb-2">日历 - 日记</ButtonSmall>
-                <ButtonSmall @click="loadCalendarPeriod" class="mb-2">日历 - 经期</ButtonSmall>
-                <ButtonSmall v-if="periodDiary?.id" @click="router.push({name: 'Edit', params: {id: periodDiary.id}})" class="mb-2">编辑经期日历</ButtonSmall>
-            </div> -->
-
-            <div class="calendar-operation-panel" v-if="calendarCol === 1">
+            <div class="calendar-operation-panel" v-if="calendarCol !== 4">
                 <Edit></Edit>
             </div>
 
@@ -183,6 +176,11 @@ function getAllShowingCalendarDiaries() {
                 }
             }]
 
+            // 如果有选中的日期，重新添加选中日期的高亮
+            if (currentFocusedDay.value) {
+                updateSelectedDateHighlight(currentFocusedDay.value.date)
+            }
+
             diaries.value.forEach(item => {
                 attributes.value.push({
                     key: item.id,
@@ -212,8 +210,14 @@ function getAllShowingCalendarDiaries() {
 const focusedDayDiaries = ref<Array<DiaryEntity>>([])
 const isLoadingFocusedDayDiaries = ref(false)
 function getDiaryListOfDay(day: CalendarDay) {
+
+    calendarCol.value = 4
     console.log('getDiaryListOfDay', day)
     currentFocusedDay.value = day
+    
+    // 更新选中的日期高亮
+    updateSelectedDateHighlight(day.date)
+    
     isLoadingFocusedDayDiaries.value = true
     focusedDayDiaries.value = []  // 清空列表
     diaryApi
@@ -244,9 +248,30 @@ function getDiaryListOfDay(day: CalendarDay) {
         })
 }
 
+// 更新选中日期的高亮显示
+function updateSelectedDateHighlight(selectedDate: Date) {
+    // 找到现有的选中日期属性并更新，或者添加新的
+    const selectedDateIndex = attributes.value.findIndex(attr => attr.key === '选中的日期')
+    
+    if (selectedDateIndex !== -1) {
+        // 更新现有的选中日期属性
+        attributes.value[selectedDateIndex].dates = selectedDate
+    } else {
+        // 添加新的选中日期属性
+        attributes.value.push({
+            key: '选中的日期',
+            highlight: {
+                fillMode: 'solid',
+                color: EnumCalendarColor.blue
+            },
+            dates: selectedDate
+        })
+    }
+}
+
 // 日记列表点击
 function diaryListItemLongClicked(item: DiaryEntity) {
-    calendarCol.value = 1
+    calendarCol.value = 2
     router.push({
         name: 'CalendarEdit',
         params: {id: item.id}
@@ -340,135 +365,13 @@ const attributes = ref<Array<CalendarAttribute>>([
             visibility: 'hover',
             hideIndicator: true, // 隐藏不同类别标识
         }
-    },
-    {
-        key: '选中的日期',
-        highlight: {
-            fillMode: 'solid',
-            color: EnumCalendarColor.blue
-        },
-        dates: currentFocusedDay.value?.date,
-        popover: {
-            label: '今天',
-            visibility: 'hover',
-            hideIndicator: true, // 隐藏不同类别标识
-        }
-    },
+    }
 ])
-
-
-/**
- * 经期数据
- */
-const periodDiary = ref<DiaryEntity>()
-function loadCalendarPeriod(){
-    diaryApi
-        .getDiaryWithTitleKeyword({keyword: '经期记录'})
-        .then(res => {
-            periodDiary.value = res.data
-            if (res.data.content){
-
-                let calendars = jsYaml.load(res.data.content).calendars as Array<CalendarEntity>
-                console.log(calendars)
-                let calendarConfigArray = calendars.map(calendar => {
-                    return {
-                        key: calendar.name,
-                        highlight: {
-                            start: {fillMode: 'light', color: EnumCalendarColor[calendar.color],},
-                            base: {fillMode: 'light', color: EnumCalendarColor[calendar.color],},
-                            end: {fillMode: 'light', color: EnumCalendarColor[calendar.color],},
-                        },
-                        dates: calendar.dates.map(dates => {
-                            return {
-                                start: dates[0],
-                                end: dates[1],
-                            }
-                        }),
-                        popover: {
-                            label: calendar.name,
-                            visibility: 'hover',
-                        }
-                    }
-                })
-
-                console.log(calendarConfigArray)
-                attributes.value = []
-                    .concat(calendarConfigArray)
-                    .concat( {
-                        key: '今天',
-                        highlight: {
-                            fillMode: 'solid',
-                            color: EnumCalendarColor.red
-                        },
-                        dates: new Date(),
-                        popover: {
-                            label: '今天',
-                            visibility: 'hover',
-                            hideIndicator: true, // 隐藏不同类别标识
-                        }
-                    },)
-            }
-        })
-        .catch(() => {
-            attributes.value = []
-        })
-}
 
 
 
 </script>
 
 <style lang="scss">
-@import "../../scss/plugin";
-
-// 日历容器
-.calendar-container{
-    flex-shrink: 0;
-    display: flex;
-    justify-content: flex-start;
-    overflow-y: auto;
-}
-
-// 日历本体
-.calendar{
-    padding: 20px;
-    overflow-y: auto;
-
-}
-
-// 日历操作面板
-.calendar-operation-panel{
-    flex-grow: 1;
-}
-
-// 日历日记列表弹窗
-.popover-list{
-    padding: 5px;
-    font-size: $fz-small;
-
-    .popover-list-item{
-        padding: 1px 0;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        .indicator{
-            margin-right: 5px;
-            display: block;
-            @include border-radius(10px);
-            width: 12px;
-            height: 4px;
-        }
-    }
-}
-
-// 日历日记列表
-.calendar-diary-list{
-    background-color: $bg-light;
-    border-left: 1px solid $color-border;
-    border-right: 1px solid $color-border;
-    padding: 20px;
-    width: 500px;
-    overflow-y: auto;
-}
-
+@import "./calendar.scss"
 </style>

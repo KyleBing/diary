@@ -1,0 +1,51 @@
+@import "../../scss/plugin";
+
+// 日历容器
+.calendar-container{
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+// 日历本体
+.calendar{
+    padding: 20px;
+    overflow-y: auto;
+
+}
+
+// 日历操作面板
+.calendar-operation-panel{
+    flex-grow: 1;
+}
+
+// 日历日记列表弹窗
+.popover-list{
+    padding: 5px;
+    font-size: $fz-small;
+
+    .popover-list-item{
+        padding: 1px 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .indicator{
+            margin-right: 5px;
+            display: block;
+            @include border-radius(10px);
+            width: 12px;
+            height: 4px;
+        }
+    }
+}
+
+// 日历日记列表
+.calendar-diary-list{
+    background-color: $bg-light;
+    border-left: 1px solid $color-border;
+    border-right: 1px solid $color-border;
+    padding: 20px;
+    width: 500px;
+    overflow-y: auto;
+}

@@ -28,9 +28,13 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/framework/CalendarFramework.vue'),
         redirect: "/calendar/calendar",
         children: [
-            {name: 'Calendar', path: 'calendar'  ,   component: () => import('@/view/Calendar/Calendar.vue')},
-            {name: 'CalendarEdit', path: 'calendar/:id'  ,   component: () => import('@/view/Calendar/Calendar.vue')},
-            {name: 'CalendarEditNew', path: 'calendar'  ,   component: () => import('@/view/Calendar/Calendar.vue')}
+            {name: 'Calendar',          path: 'calendar'  ,                 component: () => import('@/view/Calendar/CalendarDiary.vue')},
+
+            {name: 'CalendarEditNew',   path: 'calendar'  ,                 component: () => import('@/view/Calendar/CalendarDiary.vue')},
+            {name: 'CalendarEdit',      path: 'calendar/:id'  ,             component: () => import('@/view/Calendar/CalendarDiary.vue')},
+
+            {name: 'CalendarPeriod',    path: 'calendar-period'  ,          component: () => import('@/view/Calendar/CalendarPeriod.vue')},
+            {name: 'CalendarPeriodEdit',path: 'calendar-period/:id'  ,      component: () => import('@/view/Calendar/CalendarPeriod.vue')},
         ]
     },
     {
