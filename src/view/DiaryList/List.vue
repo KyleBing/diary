@@ -15,7 +15,7 @@
         <!-- 普通列表 -->
         <div class="diary-list-group" v-if="projectStore.listStyle === EnumListStyle.list">
             <template v-for="item in diariesShow" :key="item.id">
-                <ListHeader v-if="!item.title" size="" :title="item.date"/>
+                <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItem v-else :isActive="route.params.id === String(item.id)" :category="item.category" :diary="item"/>
             </template>
         </div>

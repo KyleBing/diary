@@ -1,15 +1,15 @@
 {
-    "adminEmail": "xxx@163.com",
+    "adminEmail": "kylebing@163.com",
     "isShowDemoAccount": true,
 
     "demoAccount": "test@163.com",
     "demoAccountPassword": "test",
 
-    "QiniuImgBaseURL": "",
-    "QiniuBucketName": "",
-    "QiniuStyleSuffix": "",
+    "QiniuImgBaseURL": "http://diary-container.kylebing.cn/",
+    "QiniuBucketName": "diary-container",
+    "QiniuStyleSuffix": "thumbnail_600px",
 
-    "HefengWeatherKey": "",
+    "HefengWeatherKey": "c5894aea6ce2495ca0f78a2963c04d57",
 
     "registerTip": "<p>长期未使用的用户将定期进行清理，大概一年清一次。</p>"
 }

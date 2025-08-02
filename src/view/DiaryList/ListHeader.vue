@@ -6,7 +6,7 @@
 
 defineProps<{
     title: string,
-    size?: string
+    size?: 'big' | 'medium'
 }>()
 
 </script>
