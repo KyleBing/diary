@@ -265,7 +265,6 @@ export {
     temperatureProcessCTS,
     setBillKeys, getBillKeys, removeBillKeys,
     getDiaryConfigFromLocalStorage, setDiaryConfig, removeDiaryConfig,
-    isInMobileMode,
     type DateUtilityObject,
 
     EnumWeekDay,

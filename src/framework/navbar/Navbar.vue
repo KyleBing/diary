@@ -6,8 +6,8 @@
                 <div @click="menuShow"
                      v-if="
                          (!projectStore.isInMobileMode && !projectStore.isMenuShowed)
-                         || projectStore.isInMobileMode 
-                         && (route.name === 'List' || route.name === 'WaterfallList') 
+                         || projectStore.isInMobileMode
+                         && (route.name === 'List' || route.name === 'WaterfallList')
                          && !projectStore.isMenuShowed
                     ">
                     <TabIcon v-if="projectStore.isInMobileMode" alt="菜单"/>
@@ -16,13 +16,13 @@
                 <div @click="menuClose" v-if="projectStore.isMenuShowed">
                     <TabIcon alt="关闭"/>
                 </div>
-                <div @click="commitBack" 
+                <div @click="commitBack"
                     v-if="projectStore.isInMobileMode && route.name !== 'List' && route.name !== 'WaterfallList' ">
                     <TabIcon alt="返回"/>
                 </div>
 
-                <div v-show="(!projectStore.isMenuShowed && !projectStore.isInMobileMode) || 
-                            (!projectStore.isMenuShowed && projectStore.isInMobileMode 
+                <div v-show="(!projectStore.isMenuShowed && !projectStore.isInMobileMode) ||
+                            (!projectStore.isMenuShowed && projectStore.isInMobileMode
                             && (route.name === 'List' || route.name === 'WaterfallList'))"
                      @click="toggleSearchbar">
                     <TabIcon alt="搜索"/>
@@ -178,7 +178,7 @@ import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelecto
 
 import ClipboardJS from "clipboard"
 
-import {getAuthorization, isInMobileMode, popMessage} from "../../utility.ts";
+import {getAuthorization, popMessage} from "../../utility.ts";
 import {useProjectStore} from "../../pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
@@ -197,21 +197,21 @@ const isAdminUser = computed(()=>{
 // 新建日记
 function addNewDiary() {
     // 新建日记时，如果存在缓存日记内容，清除它
-    if (projectStore.cacheDiary){
+    if (projectStore.cacheDiary) {
         projectStore.cacheDiary = undefined
         projectStore.cacheDiaryOrigin = undefined
     }
     if (route.path.includes('calendar')) {
         router.push({
-        name: 'CalendarEditNew'
-    })
+            name: 'CalendarEditNew'
+        })
     } else {
         router.push({
-        name: 'Edit'
-    })
+            name: 'EditNew'
+        })
     }
-    
 }
+
 // 编辑日记
 function editDiary() {
     // 新建日记时，如果存在缓存日记内容，清除它

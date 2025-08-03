@@ -6,7 +6,7 @@ import List from "@/view/DiaryList/List.vue"
 import Detail from "@/view/Detail/Detail.vue"
 import Edit from "@/view/Edit/Edit.vue"
 import NotFound_404 from "./components/NotFound_404.vue";
-import {getAuthorization, isInMobileMode} from "./utility.ts";
+import {getAuthorization} from "./utility.ts";
 
 
 const routes: RouteRecordRaw[] = [
