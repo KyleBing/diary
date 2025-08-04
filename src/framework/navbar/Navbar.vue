@@ -57,7 +57,7 @@
                 </div>
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="goToPage('Bill')">
-                    <TabIcon alt="账单"/>
+                    <TabIcon alt="账单简单"/>
                 </div>
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode && isAdminUser"

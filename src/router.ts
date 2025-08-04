@@ -7,6 +7,7 @@ import Detail from "@/view/Detail/Detail.vue"
 import Edit from "@/view/Edit/Edit.vue"
 import NotFound_404 from "./components/NotFound_404.vue";
 import {getAuthorization} from "./utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 
 
 const routes: RouteRecordRaw[] = [
@@ -78,7 +79,7 @@ router.beforeEach((to, _) => {
         default:
             if (getAuthorization() && getAuthorization()!.email) {
                 if (to.name === 'List') {
-                    if (isInMobileMode()) {
+                    if (useProjectStore().isInMobileMode) {
                         return true
                     } else {
                         return {name: 'EditNew'}
