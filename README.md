@@ -20,6 +20,11 @@
 记录一天中你感觉值得记录的事，生活、学习、工作、运动 等等方面。  
 记下此刻，记下你怕忘的内容，日后好查找。
 
+## 三、前端、后台
+
+- 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue)  `vue3`、`ts`、`vite`
+- 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/portal)  `nodejs`
+
 ---
 
 ## → [日记详细使用说明](https://kylebing.github.io/readme/diary/%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D.html)
