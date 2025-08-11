@@ -1,0 +1,107 @@
+@use "sass:math";
+$height-loading: 50px;
+$width-loading: 8px;
+
+$panel-width: 100px;
+$panel-height: 100px;
+$panel-radius: 20px;
+
+.pre-loading{
+
+    width: $panel-width;
+    height: $panel-height;
+    @include border-radius($panel-radius);
+    @include box-shadow(15px 15px 120px rgba(0,0,0,.5));
+
+    //background: linear-gradient(to bottom right, transparentize(white, 0.4), transparentize(white, 0.2));
+
+    background-color: transparentize(white, 0.5);
+
+
+    position: fixed;
+    backdrop-filter: blur(15px) saturate(150%);
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    box-sizing: content-box;
+    padding: 7.5px 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+    .pre-loading-wrapper{
+        height: $height-loading;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .pre-loading-item{
+            width: $width-loading;
+            margin-right: math.div($width-loading, 2);
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+        .pre-loading-1{
+            @include animation(load-frame-1 1.2s infinite linear 0s);
+            @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
+            background-color: $color-main;
+        }
+        .pre-loading-2{
+            @include animation(load-frame-2 1.2s infinite linear 0s);
+            @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
+            background-color: #2cbfff;
+        }
+        .pre-loading-3{
+            @include animation(load-frame-3 1.2s infinite linear 0s);
+            @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
+            background-color: #4cd9b8;
+
+        }
+        .pre-loading-4{
+            @include animation(load-frame-4 1.2s infinite linear 0s);
+            @include box-shadow(2px 4px 2px rgba(0,0,0,0.1));
+            background-color: #ffcc00;
+        }
+    }
+
+    p{
+        font-size: $fz-small;
+        font-weight: bold;
+        margin-bottom: 0;
+        margin-top: 15px;
+        text-align: center;
+    }
+}
+
+@keyframes load-frame-1 {
+    0% {height: $height-loading * .15}
+    25% {height: $height-loading * .65}
+    50% {height: $height-loading * 1}
+    75% {height: $height-loading * .65}
+    100% {height: $height-loading * .15}
+}
+
+@keyframes load-frame-2 {
+    0% {height: $height-loading * .65}
+    25% {height: $height-loading * 1}
+    50% {height: $height-loading * .65}
+    75% {height: $height-loading * .15}
+    100% {height: $height-loading * .65}
+}
+
+@keyframes load-frame-3 {
+    0% {height: $height-loading * 1}
+    25% {height: $height-loading * .65}
+    50% {height: $height-loading * .15}
+    75% {height: $height-loading * .65}
+    100% {height: $height-loading * 1}
+}
+
+@keyframes load-frame-4 {
+    0% {height: $height-loading * .65}
+    25% {height: $height-loading * .15}
+    50% {height: $height-loading * .65}
+    75% {height: $height-loading * 1}
+    100% {height: $height-loading * .65}
+}

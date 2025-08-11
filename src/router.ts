@@ -69,6 +69,33 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _) => {
+
+    let loadingDom = document.createElement('div')
+    let wrapper = document.createElement('div')
+    let block1 = document.createElement('div')
+    let block2 = document.createElement('div')
+    let block3 = document.createElement('div')
+    let block4 = document.createElement('div')
+
+    loadingDom.className = 'pre-loading'
+    wrapper.className = 'pre-loading-wrapper'
+    block1.classList.add('pre-loading-1')
+    block1.classList.add('pre-loading-item')
+    block2.classList.add('pre-loading-2')
+    block2.classList.add('pre-loading-item')
+    block3.classList.add('pre-loading-3')
+    block3.classList.add('pre-loading-item')
+    block4.classList.add('pre-loading-4')
+    block4.classList.add('pre-loading-item')
+
+    wrapper.appendChild(block1)
+    wrapper.appendChild(block2)
+    wrapper.appendChild(block3)
+    wrapper.appendChild(block4)
+    loadingDom.appendChild(wrapper)
+
+    document.body.appendChild(loadingDom)
+
     switch (to.name) {
         case 'Login':
         case 'Register':
@@ -93,6 +120,10 @@ router.beforeEach((to, _) => {
     }
 })
 
+
+router.afterEach((from, _) => {
+    document.querySelector('.pre-loading')?.remove()  // 进入大屏后，去除载入的 loading
+})
 
 
 export  {
