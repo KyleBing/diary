@@ -94,6 +94,7 @@ const MENU_LIST = [
         name: '搜索',
         isShowInMobile: false,
         isShowInPC: false,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.search,
         insideComponent: null,
         addOnText: null,
@@ -109,6 +110,7 @@ const MENU_LIST = [
         name: '类别筛选',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.category,
         insideComponent: MenuCategoryIndicatorInline,
         addOnText: null,
@@ -120,6 +122,7 @@ const MENU_LIST = [
         name: '待办',
         isShowInMobile: true,
         isShowInPC: false,
+        isNeedAdmin: false,
         icon: projectStore.filteredCategories.length === 1 &&
                 projectStore.filteredCategories[0] === 'todo'?
                     SVG_ICONS.tab_icons.todoActive:
@@ -134,6 +137,7 @@ const MENU_LIST = [
         name: '年份筛选',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.year,
         insideComponent: null,
         addOnText: null,
@@ -145,6 +149,7 @@ const MENU_LIST = [
         name: '日历',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.calendar,
         insideComponent: null,
         addOnText: null,
@@ -156,6 +161,7 @@ const MENU_LIST = [
         name: '日历 - 经期',
         isShowInMobile: false,
         isShowInPC: false,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.calendar,
         insideComponent: null,
         addOnText: null,
@@ -167,6 +173,7 @@ const MENU_LIST = [
         name: '账单',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.billSimple,
         insideComponent: null,
         addOnText: null,
@@ -178,6 +185,7 @@ const MENU_LIST = [
         name: '统计数据',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.statistics,
         insideComponent: null,
         addOnText: null,
@@ -189,6 +197,7 @@ const MENU_LIST = [
         name: '银行卡',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.card,
         insideComponent: null,
         addOnText: null,
@@ -200,6 +209,7 @@ const MENU_LIST = [
         name: '文件管理',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: true,
         icon: SVG_ICONS.tab_icons.folder,
         insideComponent: null,
         addOnText: null,
@@ -211,6 +221,7 @@ const MENU_LIST = [
         name: '其它',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.others,
         insideComponent: null,
         addOnText: null,
@@ -221,7 +232,8 @@ const MENU_LIST = [
     {
         name: '邀请码',
         isShowInMobile: true,
-        isShowInPC: true,
+        isShowInPC: true,   
+        isNeedAdmin: true,
         icon: SVG_ICONS.tab_icons.invitation,
         insideComponent: null,
         addOnText: null,
@@ -233,6 +245,7 @@ const MENU_LIST = [
         name: '更新日志',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.changeLog,
         insideComponent: null,
         addOnText: null,
@@ -244,6 +257,7 @@ const MENU_LIST = [
         name: '关于',
         isShowInMobile: true,
         isShowInPC: true,
+        isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.about,
         insideComponent: null,
         addOnText: `v${packageInfo.version}`,
@@ -255,11 +269,12 @@ const MENU_LIST = [
 
 const MENU_LIST_SHOWING = computed(() => {
     if (projectStore.isInMobileMode){
-        return MENU_LIST.filter(item => item.isShowInMobile)
+        return MENU_LIST.filter(item => item.isShowInMobile && (item.isNeedAdmin ? projectStore.isAdminUser : true))
     } else {
-        return MENU_LIST.filter(item => item.isShowInPC)
+        return MENU_LIST.filter(item => item.isShowInPC && (item.isNeedAdmin ? projectStore.isAdminUser : true))
     }
 })
+
 
 
 // menu - category

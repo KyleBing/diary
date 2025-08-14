@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
-import {getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
+import {getAuthorization, getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
 import {DiaryEntity, DiaryListOperation} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 
@@ -55,6 +55,9 @@ export const useProjectStore = defineStore('projectStore', {
             // 宽度小于 1024 或 高>宽 时，表示是在移动设备上
             return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
         },
+        isAdminUser(){
+            return getAuthorization()?.group_id === 1
+        }
     },
     actions: {
         INIT_PROJECT_CONFIG(){
