@@ -128,6 +128,10 @@ function refreshDiariesShow(){
             tempShowArray.push({ // 添加年月
                 date: lastDiaryDateString.substring(0, 7)
             })
+        } else {
+            tempShowArray.push({ // 添加待办标题
+                date: '待办列表'
+            })
         }
 
         let currentDay = Number(lastDiaryDateString.slice(8, 10))
