@@ -30,7 +30,7 @@ import tab_category from "./tab/category.svg?url"
 import tab_year from "./tab/year.svg?url"
 import tab_about from "./tab/about.svg?url"
 import tab_calendar from "./tab/calendar.svg?url"
-
+import tab_changelog from "./tab/changelog.svg?url"
 
 import tab_invitation_black from "./tab/invitation_black.svg?url"
 import tab_add_black from "./tab/add_black.svg?url"
@@ -61,6 +61,7 @@ import tab_category_black from "./tab/category_black.svg?url"
 import tab_year_black from "./tab/year_black.svg?url"
 import tab_about_black from "./tab/about_black.svg?url"
 import tab_calendar_black from "./tab/calendar_black.svg?url"
+import tab_changelog_black from "./tab/changelog_black.svg?url"
 
 
 // LOGO
@@ -190,6 +191,7 @@ export default {
         category: tab_category,
         year: tab_year,
         about: tab_about,
+        changeLog: tab_changelog,
     },
     tab_icons_black: {
         invitation: tab_invitation_black,
@@ -221,6 +223,7 @@ export default {
         category: tab_category_black,
         year: tab_year_black,
         about: tab_about_black,
+        changeLog: tab_changelog_black,
     },
     weather_icons: {
         cloudy: weather_cloudy,

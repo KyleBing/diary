@@ -1,5 +1,5 @@
 <template>
-    <div class="indicator-list">
+    <div class="indicator-list-inline">
         <div class="indicator-list-item"
              v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
              :style="`border-color: ${item.color}; ${indicatorItemStyle(item)}`"
@@ -27,30 +27,34 @@ function indicatorItemStyle(category: CategoryEntity): string{
 
 <style lang="scss" scoped>
 @use "sass:math";
-@import "../../scss/plugin";
+@import "../../../scss/plugin";
 
-$height-indicator: 8px;
-.indicator-list{
-    width: $height-indicator * (8+3);
+$height-indicator: 2px;
+.indicator-list-inline{
+    padding: 0 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     cursor: pointer;
     @extend .btn-like;
-    height: $height-navbar;
-    padding: math.div($height-navbar - $height-indicator * 2 - 3, 2) 0;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-flow: row wrap;
+    justify-content: stretch;
+    flex-flow: row nowrap;
     .indicator-list-item{
-        margin-right: 3px;
-        margin-bottom: 3px;
         flex-shrink: 0;
-        border: 1px dotted white;
+        flex-grow: 1;
         height: $height-indicator;
-        width: $height-indicator;
-        @include border-radius(2px);
         &:nth-child(2n){
             margin-bottom: 0;
         }
+        //&:first-child{
+        //    @include border-radius(0 0 0 $radius-mobile);
+        //}
+        //&:last-child{
+        //    @include border-radius(0 0 $radius-mobile 0 );
+        //}
     }
 }
 

@@ -27,7 +27,7 @@ function indicatorItemStyle(category: CategoryEntity): string{
 
 <style lang="scss" scoped>
 @use "sass:math";
-@import "../../scss/plugin";
+@import "../../../scss/plugin";
 
 $width-indicator: 3px;
 .indicator-list-inline{

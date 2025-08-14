@@ -40,14 +40,14 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../../config/projectConfig.json";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
 import {WeatherArray} from "@/entity/Weather.ts";
 import {dateFormatter, getAuthorization, popMessage} from "@/utility.ts";
 import {DiaryEntity} from "@/view/DiaryList/Diary.ts";
-import diaryApi from "../../api/diaryApi.ts";
+import diaryApi from "@/api/diaryApi.js";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
@@ -191,6 +191,6 @@ function downloadFile(fileName: string, data: any) { // 下载文件
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@import "../../../scss/plugin";
 
 </style>

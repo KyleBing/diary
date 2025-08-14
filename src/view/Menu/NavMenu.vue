@@ -7,85 +7,18 @@
         <div class="menu-panel" id="menu-panel"
              v-if="projectStore.isMenuShowed" :style="`height:  ${projectStore.insets.heightPanel}px`">
 
+            <!-- 菜单列表 -->
             <MenuPanelContainer v-show="menuListShowed">
-                <!-- 菜单列表 -->
+                <!-- 菜单列表内容 -->
                 <div class="menu" :style="`min-height: ${projectStore.insets.heightPanel - 60}px`">
                     <div class="menu-list">
-                        <!-- 搜索 -->
-                        <MenuListItemShort v-if="false"
-                                           menu-name="搜索"
-                                           :icon="SVG_ICONS.tab_icons.search"
-                                           @click="menuListClicked('search')"/>
-
-                        <!-- 类别筛选 -->
-                        <MenuListItemShort menu-name="类别筛选"
-                                           :icon="SVG_ICONS.tab_icons.category"
-                                           @click="menuListClicked('category')">
-                            <MenuCategoryIndicatorInline/>
+                        <MenuListItemShort
+                            v-for="item in MENU_LIST_SHOWING" :key="item.name"
+                                   :menu-name="item.name"
+                                   :icon="item.icon"
+                                   @click="item.onClick">
+                            <component :is="item.insideComponent" v-if="item.insideComponent"/>
                         </MenuListItemShort>
-
-                        <!-- 待办 -->
-                        <MenuListItemShort v-if="projectStore.isInMobileMode"
-                                           menu-name="待办"
-                                           :icon="projectStore.filteredCategories.length === 1 &&
-                                                    projectStore.filteredCategories[0] === 'todo'?
-                                                        SVG_ICONS.tab_icons.todoActive:
-                                                        SVG_ICONS.tab_icons.todo"
-                                           @click="menuListClicked('todo')"/>
-
-                        <!-- 年份筛选 -->
-                        <MenuListItemShort menu-name="年份筛选"
-                                           :icon="SVG_ICONS.tab_icons.year"
-                                           @click="menuListClicked('year')"
-                                           :add-on-text="projectStore.dateFilterString">
-                        </MenuListItemShort>
-
-                        <!-- 日历 -->
-                        <MenuListItemShort menu-name="日历"   v-if="!projectStore.isInMobileMode"
-                                            :icon="SVG_ICONS.tab_icons.calendar"  
-                                            @click="goToPage('Calendar')" />
-                        <!-- 日历 - 经期 -->
-                        <MenuListItemShort menu-name="日历 - 经期" v-if="!projectStore.isInMobileMode"
-                                            :icon="SVG_ICONS.tab_icons.calendar"  
-                                            @click="goToPage('CalendarPeriod')" />
-
-                        <!-- 统计数据 -->
-                        <MenuListItemShort menu-name="统计数据"  
-                                            :icon="SVG_ICONS.tab_icons.statistics"  
-                                            @click="goToPage('Statistics')" />
-
-                        <!-- 账单 -->
-                        <MenuListItemShort menu-name="账单"
-                                           :icon="SVG_ICONS.tab_icons.billSimple"
-                                           @click="goToPage('Bill')" />
-
-                        <!-- 银行卡 -->
-                        <MenuListItemShort menu-name="银行卡"
-                                           :icon="SVG_ICONS.tab_icons.card"
-                                           @click="goToPage('BankCard')" />
-
-                        <!-- 文件管理 -->
-                        <MenuListItemShort v-if="isAdminUser"
-                                           menu-name="文件管理"
-                                           :icon="SVG_ICONS.tab_icons.folder"
-                                           @click="goToPage('FileManager')" />
-
-                        <!-- 其它 -->
-                        <MenuListItemShort menu-name="其它"
-                                           :icon="SVG_ICONS.tab_icons.others"
-                                           @click="menuListClicked('others')" />
-
-                        <!-- 邀请码  -->
-                        <MenuListItemShort v-if="isAdminUser"
-                                           menu-name="邀请码"
-                                           :icon="SVG_ICONS.tab_icons.invitation"
-                                           @click="goToPage('Invitation')" />
-
-                        <!-- 关于 -->
-                        <MenuListItemShort menu-name="关于"
-                                           :icon="SVG_ICONS.tab_icons.about"
-                                           @click="menuListClicked('about')"
-                                           :add-on-text="`v${packageInfo.version}`"/>
                     </div>
 
                     <!-- 用户信息 -->
@@ -114,28 +47,31 @@
             <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
                 <About v-show="aboutShowed"/>
             </transition>
+
+            <!-- 页面 更新日志 -->
+            <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut">
+                <ChangeLog v-show="changeLogShowed"/>
+            </transition>
         </div>
     </transition>
 
 </template>
 
 <script lang="ts" setup>
-import MenuCategorySelector from "@/view/Menu/MenuCategorySelector.vue"
+import MenuCategorySelector from "@/view/Menu/MenuCategorySelector/MenuCategorySelector.vue"
 import YearSelector from "./YearSelector/YearSelector.vue"
 import About from "@/view/About/About.vue"
 import packageInfo from "../../../package.json"
 import MenuListItemShort from "@/view/Menu/MenuListItemShort.vue"
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
 import UserProfile from "@/view/Menu/UserProfile.vue";
-import MenuOtherFunction from "@/view/Menu/MenuOtherFunction.vue";
-
+import MenuOtherFunction from "@/view/Menu/MenuOtherFunction/MenuOtherFunction.vue";
+import ChangeLog from "@/view/Menu/ChangeLog/ChangeLog.vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {computed, nextTick, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
-import {getAuthorization} from "@/utility.ts";
-import MenuCategoryIndicatorInline from "@/view/Menu/MenuCategoryIndicatorInline.vue";
-import MenuCategoryIndicatorInlineVertical from "@/view/Menu/MenuCategoryIndicatorInlineVertical.vue";
+import MenuCategoryIndicatorInline from "@/view/Menu/MenuCategorySelector/MenuCategoryIndicatorInline.vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const projectStore = useProjectStore()
@@ -151,6 +87,180 @@ const categoryShowed = ref(false)        // 类别菜单
 const yearShowed = ref(false)            // 年份选择
 const othersShowed = ref(false)          // 其它不常用功能
 const aboutShowed = ref(false)           // 关于页面
+const changeLogShowed = ref(false)       // 更新日志
+
+const MENU_LIST = [
+    {
+        name: '搜索',
+        isShowInMobile: false,
+        isShowInPC: false,
+        icon: SVG_ICONS.tab_icons.search,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            projectStore.isShowSearchBar = true
+            menuInit()
+            nextTick(() => {
+                (document.querySelector('#keyword') as HTMLInputElement).focus()
+            })
+        }
+    },
+    {
+        name: '类别筛选',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.category,
+        insideComponent: MenuCategoryIndicatorInline,
+        addOnText: null,
+        onClick: () => {
+            menuListClicked('category')
+        }
+    },
+    {
+        name: '待办',
+        isShowInMobile: true,
+        isShowInPC: false,
+        icon: projectStore.filteredCategories.length === 1 &&
+                projectStore.filteredCategories[0] === 'todo'?
+                    SVG_ICONS.tab_icons.todoActive:
+                    SVG_ICONS.tab_icons.todo,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            menuListClicked('todo')
+        }
+    },
+    {
+        name: '年份筛选',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.year,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            menuListClicked('year')
+        }
+    },
+    {
+        name: '日历',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.calendar,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('Calendar')
+        }
+    },
+    {
+        name: '日历 - 经期',
+        isShowInMobile: false,
+        isShowInPC: false,
+        icon: SVG_ICONS.tab_icons.calendar,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('CalendarPeriod')
+        }
+    },
+    {
+        name: '账单',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.billSimple,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('Bill')
+        }
+    },
+    {
+        name: '统计数据',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.statistics,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('Statistics')
+        }
+    },
+    {
+        name: '银行卡',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.card,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('BankCard')
+        }
+    },
+    {
+        name: '文件管理',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.folder,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('FileManager')
+        }
+    },
+    {
+        name: '其它',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.others,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            menuListClicked('others')
+        }
+    },
+    {
+        name: '邀请码',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.invitation,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('Invitation')
+        }
+    },
+    {
+        name: '更新日志',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.changeLog,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            menuListClicked('changeLog')
+        }
+    },
+    {
+        name: '关于',
+        isShowInMobile: true,
+        isShowInPC: true,
+        icon: SVG_ICONS.tab_icons.about,
+        insideComponent: null,
+        addOnText: `v${packageInfo.version}`,
+        onClick: () => {
+            menuListClicked('about')
+        }
+    }
+] as const
+
+const MENU_LIST_SHOWING = computed(() => {
+    if (projectStore.isInMobileMode){
+        return MENU_LIST.filter(item => item.isShowInMobile)
+    } else {
+        return MENU_LIST.filter(item => item.isShowInPC)
+    }
+})
+
 
 // menu - category
 const categoriesSet = ref(new Set())
@@ -162,10 +272,6 @@ watch(isMenuShowed, newValue => {
     } else {
         menuClose()
     }
-})
-
-const isAdminUser = computed(()=>{
-    return getAuthorization().group_id === 1
 })
 
 // 跳转到独立页面
@@ -238,6 +344,7 @@ function menuListClicked(menuName: string) {
             yearShowed.value = false     // year
             othersShowed.value = false   // others
             aboutShowed.value = false    // about
+            changeLogShowed.value = false // changeLog
             break
         case 'bankCard':
             router.push({
@@ -251,6 +358,7 @@ function menuListClicked(menuName: string) {
             yearShowed.value = true        // year
             othersShowed.value = false     // others
             aboutShowed.value = false      // about
+            changeLogShowed.value = false // changeLog
             break
         case 'others':
             projectStore.isMenuShowed = true    // menu panel
@@ -259,6 +367,7 @@ function menuListClicked(menuName: string) {
             yearShowed.value = false       // year
             othersShowed.value = true      // others
             aboutShowed.value = false      // about
+            changeLogShowed.value = false // changeLog
             break
         case 'about':
             projectStore.isMenuShowed = true    // menu panel
@@ -267,6 +376,16 @@ function menuListClicked(menuName: string) {
             yearShowed.value = false       // year
             othersShowed.value = false     // others
             aboutShowed.value = true       // about
+            changeLogShowed.value = false // changeLog
+            break
+        case 'changeLog':
+            projectStore.isMenuShowed = true    // menu panel
+            menuListShowed.value = false   // menu list
+            categoryShowed.value = false   // category
+            yearShowed.value = false       // year
+            othersShowed.value = false     // others
+            aboutShowed.value = false      // about
+            changeLogShowed.value = true   // changeLog
             break
         default:
             break
