@@ -16,11 +16,11 @@
         <div v-if="projectStore.listStyle === EnumListStyle.list" class="diary-list-group" >
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
-                <DiaryListItem 
-                    v-else 
-                    @click="diaryListItemClick(item)" 
-                    :isActive="route.params.id === String(item.id)" 
-                    :category="item.category" 
+                <DiaryListItem
+                    v-else
+                    @click="diaryListItemClick(item)"
+                    :isActive="route.params.id === String(item.id)"
+                    :category="item.category"
                     :diary="item"/>
             </template>
         </div>
@@ -29,9 +29,9 @@
         <div v-if="projectStore.listStyle === EnumListStyle.detail" class="diary-list-group detail" >
             <template v-for="item in diariesShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
-                <DiaryListItemLong 
-                    v-else 
-                    @click="diaryLiteItemLongClick(item)" 
+                <DiaryListItemLong
+                    v-else
+                    @click="diaryLiteItemLongClick(item)"
                     :diary="item"/>
             </template>
         </div>
@@ -120,9 +120,16 @@ function refreshDiariesShow(){
     if (diaries.value.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
         let lastDiary = diaries.value[0]
         let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
-        tempShowArray.push({ // 添加年月
-            date: lastDiaryDateString.substring(0, 7)
-        })
+
+        // 如果只筛选 to-do 日记，则不显示年月标题
+        let isShowMonthHeader = !(projectStore.filteredCategories.length === 1
+            && projectStore.filteredCategories[0] === 'todo')
+        if (isShowMonthHeader) {
+            tempShowArray.push({ // 添加年月
+                date: lastDiaryDateString.substring(0, 7)
+            })
+        }
+
         let currentDay = Number(lastDiaryDateString.slice(8, 10))
         let tempDiary: DiaryEntity = {}
         Object.assign(tempDiary, lastDiary)
@@ -144,8 +151,14 @@ function refreshDiariesShow(){
                 let currentDiaryMonth = currentDiaryDateString.substring(0, 7)
                 let currentDiaryDay = Number(currentDiaryDateString.substring(8, 10))
 
+                // 判断是否需要添加年月标题
+                let isNeedAddHeader = lastDiaryMonth !== currentDiaryMonth
+
+                // 如果只筛选 to-do 日记，则不显示年月标题
+                isNeedAddHeader = isNeedAddHeader && isShowMonthHeader
+
                 // 添加年月标题
-                if (lastDiaryMonth !== currentDiaryMonth) {
+                if (isNeedAddHeader) {
                     tempShowArray.push({
                         date: currentDiaryDateString.substring(0, 7)
                     })
