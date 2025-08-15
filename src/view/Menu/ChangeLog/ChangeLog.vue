@@ -1,6 +1,6 @@
 <template>
     <MenuPanelContainer>
-        <div class="change-log-container markdown dark"
+        <div class="change-log-container markdown changelog"
              v-html="contentMarkDownHtml"/>
     </MenuPanelContainer>
 </template>

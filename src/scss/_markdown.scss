@@ -223,17 +223,24 @@ $gap-small: 8px;
 }
 
 
-.markdown.dark{
+.markdown.changelog{
     hr{
         background-color: $dark-border-active;
     }
     @for $item from 1 through 7 {
         h#{$item}{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             color: $dark-text-title;
+            margin-top: 0px;
+            margin-bottom: (7-$item)*2px;
+            font-size: 10px + (7-$item)*1.5;
         }
     }
     color: $dark-text;
     p{
+        font-size: $fz-small;
         color: $dark-text;
     }
     img{
@@ -245,10 +252,18 @@ $gap-small: 8px;
     pre{
         background-color: $dark-bg-dark;
         code{
+            margin-left: 3px;
+            margin-right: 3px;
+            line-height: 1;
+            padding: 2px 3px;
             background-color: $dark-bg-dark;
         }
     }
     code{
+        margin-left: 5px;
+        margin-right: 5px;
+        line-height: 1;
+        padding: 3px 5px;
         color: $dark-text;
         background-color: $dark-bg-dark;
     }
@@ -269,11 +284,13 @@ $gap-small: 8px;
 
     ul{
         li{
+            font-size: $fz-small;
             color: $dark-text;
         }
     }
     ol{
         li{
+            font-size: $fz-small;
             color: $dark-text;
         }
     }
