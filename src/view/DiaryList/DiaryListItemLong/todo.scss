@@ -1,0 +1,186 @@
+@import "../../../scss/plugin";
+
+
+$checkbox-size: 22px;
+$checkbox-size-sm: 18px;
+
+
+.todo-list{
+
+}
+
+.todo-list-item{
+  cursor: grab;
+  @include border-radius(3px);
+  padding-left: 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  &.done{
+    .content{
+      color: $text-label;
+    }
+  }
+  .checkbox-wrapper{
+    margin-top: 7px;
+    margin-right: 8px;
+  }
+  .content-wrapper{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    padding: 8px;
+    width: 100%;
+    border-bottom: 1px solid $color-border-light;
+    
+    div.checkbox{
+      display: block;
+      height: $checkbox-size;
+      width: $checkbox-size;
+      @include border-radius(20px);
+      border: 1px solid $text-label;
+      background-color: white;
+      cursor: pointer;
+      &:hover{
+        border-color: $green;
+      }
+    }
+
+    div.checkbox.checked{
+      display: block;
+      height: $checkbox-size;
+      width: $checkbox-size;
+      @include border-radius(20px);
+      border: 2px solid $green;
+      position: relative;
+      &::after{
+        content: '';
+        display: block;
+        position: absolute;
+        width: $checkbox-size - 8;
+        height: $checkbox-size - 8;
+        @include border-radius(20px);
+        top: 2px;
+        left: 2px;
+        background-color: $green;
+      }
+    }
+  }
+  .content{
+    margin-right: 5px;
+    line-height: 1.3;
+  }
+  .note{
+    margin-right: 5px;
+    line-height: 1.3;
+    color: $text-label;
+    font-size: $fz-main;
+  }
+
+  &:hover{
+    background-color: $bg-light;
+    .content-wrapper{
+      border-bottom-color: transparent;
+    }
+  }
+  &:last-child{
+    .content-wrapper{
+      border-bottom: none;
+    }
+  }
+}
+
+// TODO item in LongList Mode
+.todo-list-item.small{
+  cursor: default;
+  @include border-radius(3px);
+  padding-left: 5px;
+  &.done{
+    .content{
+      color: $text-label;
+    }
+  }
+  .checkbox-wrapper{
+    margin-top: 5px;
+    margin-right: 6px;
+    div.checkbox{
+      height: $checkbox-size-sm;
+      width: $checkbox-size-sm;
+      @include border-radius(20px);
+    }
+    div.checkbox.checked{
+      height: $checkbox-size-sm;
+      width: $checkbox-size-sm;
+      @include border-radius(20px);
+      &::after{
+        width: $checkbox-size-sm - 8;
+        height: $checkbox-size-sm - 8;
+        @include border-radius(20px);
+        top: 2px;
+        left: 2px;
+      }
+    }
+  }
+  .content-wrapper{
+    padding: 4px;
+    width: 100%;
+  }
+  .content{
+    margin-right: 5px;
+    line-height: 1.3;
+  }
+  .note{
+    margin-right: 5px;
+    line-height: 1.3;
+    font-size: $fz-small;
+  }
+
+  &:hover{
+    .content-wrapper{
+    }
+  }
+}
+
+
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .todo-list-item{
+    padding-left: 10px;
+    &.small{
+      padding-left: 0px;
+    }
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .todo-list-item{
+    &.done{
+      .content{
+        color: $text-label;
+      }
+    }
+    .checkbox-wrapper{
+    }
+    .content-wrapper{
+      border-bottom: 1px solid $dark-border;
+    }
+    .content{
+      color: $dark-text-title;
+    }
+    .note{
+      color: $dark-text-subtitle;
+    }
+
+    &:hover{
+      background-color: $dark-bg-nav;
+    }
+  }
+
+  div.checkbox {
+    background-color: $dark-bg;
+  }
+}
+
+

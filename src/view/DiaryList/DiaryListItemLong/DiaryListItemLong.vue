@@ -23,8 +23,15 @@
         </div>
         <div class="article-body" v-else>
             <div class="title">{{ props.diary.title }}</div>
-            <div class="markdown" v-if="props.diary.is_markdown === 1" v-html="contentMarkDownHtml"/>
-            <div class="content" v-else v-html="props.diary.contentHtml"/>
+            <div class="markdown" 
+                v-if="props.diary.is_markdown === 1" 
+                v-html="contentMarkDownHtml"/>
+            <DiaryListTodo 
+                v-else-if="props.diary.category === 'todo'" 
+                :diary="props.diary"/>
+            <div class="content" 
+                v-else 
+                v-html="props.diary.contentHtml"/>
         </div>
     </div>
 </template>
@@ -35,6 +42,7 @@ import {computed} from "vue";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
 import {DiaryEntityFromServer} from "../Diary.ts";
+import DiaryListTodo from "./DiaryListTodo.vue";
 
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const statisticStore = useStatisticStore()

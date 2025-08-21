@@ -35,22 +35,18 @@ import {DiaryEntity, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "../../pinia/useProjectStore.ts";
 import draggable from 'vuedraggable';
+import { TodoEntity } from '@/entity/Todo';
 
 const projectStore = useProjectStore();
 
-interface TODOEntity {
-    id: number,
-    isDone: boolean,
-    content: string,
-    note?: string
-}
+
 
 const props = defineProps<{
     readonly: boolean,
     diary: DiaryEntity
 }>()
 
-const todoList= ref<Array<TODOEntity>>([])
+const todoList= ref<Array<TodoEntity>>([])
 const lastId = ref(0) // 最后一个修改后的 id，用于将最后一个标记的 todoItem 移到列表最后
 
 onMounted(()=>{
@@ -68,7 +64,7 @@ watch(() => props.diary, newValue => {
     processContent(newValue)
 })
 
-function toggleDoneStatus(todoItem: TODOEntity){
+function toggleDoneStatus(todoItem: TodoEntity){
     if (!props.readonly){
         if (todoItem.isDone){
             lastId.value = lastId.value + 1
@@ -109,7 +105,7 @@ function processContent(diary: DiaryEntity){
         saveDiary()
     }
 }
-function toDiaryString(todoList: TODOEntity[]){
+function toDiaryString(todoList: TodoEntity[]){
     let finalString = ''
     if (todoList.length > 0){
         todoList.forEach(item => {
@@ -157,10 +153,10 @@ function deleteToDo(index: number){
  * @param todoItem
  * @param ev
  */
-function handleContentChange(todoItem: TODOEntity, ev: Event){
+function handleContentChange(todoItem: TodoEntity, ev: Event){
     todoItem.content = (ev.target as HTMLDivElement).innerText
 }
-function handleNoteChange(todoItem: TODOEntity, ev: Event){
+function handleNoteChange(todoItem: TodoEntity, ev: Event){
     todoItem.note =  (ev.target as HTMLDivElement).innerText
 }
 
