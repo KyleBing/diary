@@ -207,7 +207,16 @@ let lastCol = 0  // 下次该放置的 col index，哪一列
 const loadTimeOutHandle = ref()  // 载入过程的 timeOut handle
 const isNeedLoadNextTimeout = true  // 是否要打断 timeout 的载入过程
 
-function renderingWaterfallList(newDiaries: Array<DiaryEntityFromServer>, index: number){
+
+/**
+ * 渲染瀑布流列表
+ * @param newDiaries 新的日记列表
+ * @param index 当前索引
+ */
+function renderingWaterfallList(
+    newDiaries: Array<DiaryEntityFromServer>, 
+    index: number
+){
     // 如果不需要载入下面的内容，在 reload 的时候会遇到这种情况
     if (!isNeedLoadNextTimeout){
         return
@@ -296,30 +305,39 @@ function renderingWaterfallList(newDiaries: Array<DiaryEntityFromServer>, index:
             }
         } else {
             isInRenderProcess.value = false
+            // 当一页日记加载完成后没有填满屏幕，则需要加载下一页
+            if (isNeedLoadContent()){
+                loadMore()
+            }
         }
     })
 }
 
 
+
+/**
+ * 判断是否需要加载内容
+ */
+function isNeedLoadContent() {
+    let lastNode = document.querySelector('.diary-list-waterfall > div:last-child') as HTMLDivElement
+    if (!lastNode) {
+        return false
+    }
+    let listEl = document.querySelector('.diary-list-waterfall') as HTMLDivElement
+    let scrollTop = listEl.scrollTop
+    let scrollHeight = listEl.scrollHeight
+    let clientHeight = listEl.clientHeight
+    
+    // 当滚动位置接近底部时触发加载（距离底部100px时开始加载）
+    const threshold = 100
+    return (scrollTop + clientHeight + threshold >= scrollHeight)
+}
+/**
+ * 添加滚动事件
+ */
 function addScrollEvent() {
     (document.querySelector('.diary-list-waterfall') as HTMLDivElement)
         .addEventListener('scroll', () => {
-            // 判断是否加载内容
-            function isNeedLoadContent() {
-                let lastNode = document.querySelector('.diary-list-waterfall > div:last-child') as HTMLDivElement
-                if (!lastNode) {
-                    return false
-                }
-                let listEl = document.querySelector('.diary-list-waterfall') as HTMLDivElement
-                let scrollTop = listEl.scrollTop
-                let scrollHeight = listEl.scrollHeight
-                let clientHeight = listEl.clientHeight
-                
-                // 当滚动位置接近底部时触发加载（距离底部100px时开始加载）
-                const threshold = 100
-                return (scrollTop + clientHeight + threshold >= scrollHeight)
-            }
-
             if (isHasMore.value && isNeedLoadContent() && !isInRenderProcess.value) {
                 loadMore()
             }
