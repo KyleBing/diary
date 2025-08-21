@@ -42,7 +42,7 @@ const routes: RouteRecordRaw[] = [
         name: 'Waterfall',
         path: '/waterfall',
         redirect: '/waterfall/list',
-        component: () => import('@/framework/Waterfall.vue'),
+        component: () => import('@/framework/WaterfallFramework.vue'),
         children: [
             {name: 'WaterfallList'   , path: 'list'      ,     component: () => import('@/view/DiaryListWaterfall/WaterfallList.vue')},
         ]

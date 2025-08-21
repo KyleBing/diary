@@ -56,7 +56,7 @@ const params = ref<DiarySearchParams>({
     keywords: [],
     pageNo: 1,
     pageSize: 100, // 单页请求条数
-    categories: [],
+    categories: '',
     filterShared: 0, // 1 是筛选，0 是不筛选
     dateFilterString: '' // 日记年月筛选
 })
@@ -305,22 +305,22 @@ function addScrollEvent() {
     (document.querySelector('.diary-list-waterfall') as HTMLDivElement)
         .addEventListener('scroll', () => {
             // 判断是否加载内容
-            function needLoadContent() {
+            function isNeedLoadContent() {
                 let lastNode = document.querySelector('.diary-list-waterfall > div:last-child') as HTMLDivElement
                 if (!lastNode) {
                     return false
                 }
-                let lastOffsetTop = lastNode.offsetTop
-                let clientHeight = window.innerHeight
                 let listEl = document.querySelector('.diary-list-waterfall') as HTMLDivElement
                 let scrollTop = listEl.scrollTop
-                // console.clear()
-                // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
-                // 当 list 滚动到上面的部分 + 屏幕高度 >  最后一个元素的 offsetTop 的时候，就说明已经触底了
-                return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
+                let scrollHeight = listEl.scrollHeight
+                let clientHeight = listEl.clientHeight
+                
+                // 当滚动位置接近底部时触发加载（距离底部100px时开始加载）
+                const threshold = 100
+                return (scrollTop + clientHeight + threshold >= scrollHeight)
             }
 
-            if (isHasMore.value && needLoadContent() && !isInRenderProcess.value) {
+            if (isHasMore.value && isNeedLoadContent() && !isInRenderProcess.value) {
                 loadMore()
             }
         })
