@@ -35,6 +35,9 @@ export const useStatisticStore = defineStore('statisticStore', {
             })
             return categoryNameMap
         },
+        dataArrayCategorySorted(state) {
+            return state.dataArrayCategory.sort((a, b) => b.value - a.value)
+        }
     },
     actions: {
         // 设置类别数据到 LocalStorage

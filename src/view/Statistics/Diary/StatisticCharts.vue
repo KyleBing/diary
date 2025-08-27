@@ -4,18 +4,21 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-charts" v-if="isShow">
+            <!-- 类别数据 -->
             <StatisticPanel title="类别数据">
                 <div class="statistic-group">
                     <ChartBar :data="statisticStore.dataArrayCategory" title=""/>
                     <ChartPie :data="statisticStore.dataArrayCategory" title=""/>
                     <div class="info-list">
-                        <div class="info-list-item" v-for="year in statisticStore.dataArrayCategory">
+                        <div class="info-list-item" v-for="year in statisticStore.dataArrayCategorySorted">
                             <div class="key">{{ year.name }}</div>
                             <div class="value">{{ year.value }}</div>
                         </div>
                     </div>
                 </div>
             </StatisticPanel>
+            
+            <!-- 年份数据 -->
             <StatisticPanel title="年份数据">
                 <div class="statistic-group">
                     <ChartBar :data="statisticStore.dataArrayYear" title=""/>
@@ -29,10 +32,12 @@
                 </div>
             </StatisticPanel>
 
+            <!-- 账单趋势 - 月 -->
             <StatisticPanel title="账单趋势 - 月">
                 <StatisticBillMonthSum/>
             </StatisticPanel>
 
+            <!-- 温度趋势 -->
             <StatisticPanel title="温度趋势">
                 <StatisticWeather/>
             </StatisticPanel>
