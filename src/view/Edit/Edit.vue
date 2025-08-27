@@ -200,12 +200,14 @@ onBeforeMount(() => {
 
     // 如果存在缓存日记内容，载入它
     if (projectStore.cacheDiary){
-        if (Number(route.params.id) === projectStore.cacheDiary.id){  // 只有是同一个日记时
-            diary.value = projectStore.cacheDiary
-            diaryOrigin.value = projectStore.cacheDiaryOrigin
-            projectStore.cacheDiary = undefined
+        if (projectStore.cacheDiary.id === -1){
+            recoverCachedDiary()
         } else {
-
+            if (Number(route.params.id) === projectStore.cacheDiary.id){  // 只有是同一个日记时
+                recoverCachedDiary()
+            } else {
+                
+            }
         }
     }
 })
@@ -280,6 +282,27 @@ onMounted(()=>{
         })
     })
 })
+
+
+/**
+ * 缓存当前日记内容
+ */
+function cacheCurrentDiary(){
+    if (diary.value.title || diary.value.content){
+        projectStore.cacheDiary = diary.value
+        projectStore.cacheDiaryOrigin = diaryOrigin.value
+    }
+}
+/**
+ * 恢复缓存日记内容
+ */
+function recoverCachedDiary(){
+    if (projectStore.cacheDiary){
+        diary.value = projectStore.cacheDiary
+        diaryOrigin.value = projectStore.cacheDiaryOrigin
+        projectStore.cacheDiary = undefined
+    }
+}
 
 /**
  * 标题和内容通用方法
@@ -422,10 +445,7 @@ onBeforeUnmount(() => {
     // 退出 Edit 之前，如果存在日记内容，缓存它。
     // 目前只有一个场景用到，就是屏幕窗口大小变化时， Edit 会消失再出现，结果就是
     // 会选择用户在这期间写的内容，这是极不应该的。
-    if (diary.value.title || diary.value.content){
-        projectStore.cacheDiary = diary.value
-        projectStore.cacheDiaryOrigin = diaryOrigin.value
-    }
+    cacheCurrentDiary()
 })
 
 onBeforeRouteLeave((_, __, next) => {
@@ -465,7 +485,9 @@ watch(() => route.params.id, newDiaryId => {
     }
 })
 watch(diary, newValue => {
-        updateDiaryIcon()
+        updateDiaryIcon()  // 更新 navbar icon
+        cacheCurrentDiary() // 缓存当前日记内容
+
         if (newValue.content === '') {
             possibleBillItems.value = []
         }
