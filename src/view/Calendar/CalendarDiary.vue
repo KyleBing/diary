@@ -228,7 +228,6 @@ function getDiaryListOfDay(day: CalendarDay) {
             categories: JSON.stringify(projectStore.filteredCategories),
             dateFilterString: projectStore.dateFilterString,
             filterShared: projectStore.isFilterShared ? 1 : 0,
-            keywords: JSON.stringify(projectStore.keywords)
         })
         .then(res => {
             focusedDayDiaries.value = res.data.map(diary => {
