@@ -133,6 +133,7 @@ $card-bgs: (
   background-color: transparentize(white, 0.4);
   @include transition(all 0.5s);
   animation: card-move-up 0.5s;
+  animation-fill-mode: forwards;   // 止于结束状态，不会乱跳
 }
 
 
