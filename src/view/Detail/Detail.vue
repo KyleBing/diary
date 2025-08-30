@@ -47,9 +47,9 @@
 
 <script lang="ts" setup>
 import ClipboardJS from "clipboard"
-import Loading from "../../components/Loading.vue"
-import diaryApi from "../../api/diaryApi.ts"
-import {marked} from "marked"
+import Loading from "@/components/Loading.vue"
+import diaryApi from "@/api/diaryApi.ts"
+import * as marked from "marked";
 import calendar from "js-calendar-converter";
 import Moment from "moment";
 import DetailHeader from "@/view/Detail/DetailHeader.vue";

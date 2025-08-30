@@ -39,9 +39,9 @@
 </template>
 
 <script lang="ts" setup>
-import TabIcon from "../../components/TabIcon.vue";
-import fileManagerApi from "../../api/fileManagerApi";
-import Modal from "../../components/Modal.vue";
+import TabIcon from "@/components/TabIcon.vue";
+import fileManagerApi from "@/api/fileManagerApi";
+import Modal from "@/components/Modal.vue";
 
 import {popMessage} from "@/utility.ts";
 import {computed, ref} from "vue";

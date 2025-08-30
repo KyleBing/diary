@@ -99,8 +99,8 @@ import Moment from 'moment'
 // components
 import EditCategorySelector from "./CategorySelector/EditorCategorySelector.vue"
 import WeatherSelector from "./WeatherSelector/WeatherSelector.vue"
-import LoadingButton from "../../components/LoadingButton.vue"
-import ButtonSmall from "../../components/ButtonSmall.vue";
+import LoadingButton from "@/components/LoadingButton.vue"
+import ButtonSmall from "@/components/ButtonSmall.vue";
 import TemperatureSetItem from "./TemperatureSetItem.vue";
 import PossibleBillKeySelector from "./PossibleBillKeySelector.vue";
 
@@ -110,13 +110,13 @@ import {
     getAuthorization,
     temperatureProcessSTC, temperatureProcessCTS, dateFormatter
 } from "@/utility.ts";
-import diaryApi from "../../api/diaryApi.ts"
+import diaryApi from "@/api/diaryApi.ts"
 import projectConfig from "../../../config/projectConfig.json";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 
 // ENTITY
 import {

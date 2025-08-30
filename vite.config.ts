@@ -86,7 +86,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, './src'),
-            '@/view': resolve(__dirname, './src/views'),
+            '@/view': resolve(__dirname, './src/view'),
             '@/api': resolve(__dirname, './src/api'),
         },
     },

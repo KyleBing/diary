@@ -168,18 +168,18 @@
 
 <script lang="ts" setup>
 // COMPONENTS
-import TabIcon from "../../components/TabIcon.vue"
-import Loading from "../../components/Loading.vue";
-import diaryApi from "../../api/diaryApi.ts";
+import TabIcon from "@/components/TabIcon.vue"
+import Loading from "@/components/Loading.vue";
+import diaryApi from "@/api/diaryApi.ts";
 import NavMenu from "@/view/Menu/NavMenu.vue";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import Clock from "./Clock.vue";
-import NavbarCategorySelector from "../../framework/navbar/NavbarCategorySelector.vue";
+import NavbarCategorySelector from "@/framework/navbar/NavbarCategorySelector.vue";
 
 import ClipboardJS from "clipboard"
 
-import {getAuthorization, popMessage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {getAuthorization, popMessage} from "@/utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";

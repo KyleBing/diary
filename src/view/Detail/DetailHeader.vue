@@ -48,9 +48,9 @@
 </template>
 
 <script lang="ts" setup>
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
-import {useStatisticStore} from "../../pinia/useStatisticStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 import Moment from "moment";
 
 const props = defineProps({

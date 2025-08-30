@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
-import {popMessage} from "../../utility.ts";
+import {popMessage} from "@/utility.ts";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 
 const props = defineProps({

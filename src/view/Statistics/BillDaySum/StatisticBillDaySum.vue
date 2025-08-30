@@ -13,10 +13,10 @@
 </template>
 
 <script lang="ts" setup>
-import statisticApi from "../../../api/statisticApi.ts";
+import statisticApi from "@/api/statisticApi.ts";
 import ChartBarOfBillDay from "./ChartBarOfBillDay.vue";
 import {onMounted, ref} from "vue";
-import {dateFormatter} from "../../../utility.ts";
+import {dateFormatter} from "@/utility.ts";
 
 const isShow = ref(false)
 const billStatisticData = ref([])

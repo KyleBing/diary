@@ -47,7 +47,7 @@ interface BankCardFace {
     bgColorClass: string
 }
 
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const bankMap: Map<string, BankCardFace> = new Map([
     ['中信银行', {icon: SVG_ICONS.bank_icons['中信银行'], bgColorClass: 'bank-bg-white'}],
     ['农业银行', {icon: SVG_ICONS.bank_icons['农业银行'], bgColorClass: 'bank-bg-green'}],

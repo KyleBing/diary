@@ -36,13 +36,13 @@
 </template>
 
 <script lang="ts" setup>
-import diaryApi from "../../api/diaryApi.ts";
+import diaryApi from "@/api/diaryApi.ts";
 import projectConfig from "../../../config/projectConfig.json";
-import {getAuthorization, popMessage} from "../../utility.ts";
+import {getAuthorization, popMessage} from "@/utility.ts";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 const router = useRouter()

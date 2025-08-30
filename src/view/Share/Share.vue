@@ -79,9 +79,9 @@
 </template>
 
 <script lang="ts" setup>
-import Loading from "../../components/Loading.vue"
-import diaryApi from "../../api/diaryApi.ts"
-import {marked} from "marked";
+import Loading from "@/components/Loading.vue"
+import diaryApi from "@/api/diaryApi.ts"
+import * as marked from "marked";
 import ToDo from "@/view/Detail/ToDo.vue";
 
 import {
@@ -96,7 +96,7 @@ const projectStore = useProjectStore();
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import {EntityDiaryFromServer} from "@/view/DiaryList/Diary.ts";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const route = useRoute()
 
 const currentDiary = ref<EntityDiaryFromServer>(null)

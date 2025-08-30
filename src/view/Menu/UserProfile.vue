@@ -30,8 +30,8 @@
 <script lang="ts" setup>
 import projectConfig from "../../../config/projectConfig.json";
 import {ref} from "vue";
-import {deleteAuthorization, getAuthorization} from "../../utility.ts";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import {deleteAuthorization, getAuthorization} from "@/utility.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 import packageInfo from "../../../package.json";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";

@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import projectConfig from "../../config/projectConfig.json"
-import {useProjectStore} from "../pinia/useProjectStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const projectStore = useProjectStore()
 </script>

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import statisticApi from "../../../api/statisticApi.ts";
+import statisticApi from "@/api/statisticApi.ts";
 import ChartBarOfBillMonth from "./ChartBarOfBillMonth.vue";
 
 import {onMounted, ref} from "vue";

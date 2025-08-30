@@ -31,12 +31,12 @@
 </template>
 
 <script lang="ts" setup>
-import Loading from "../../components/Loading.vue"
-import TabIcon from "../../components/TabIcon.vue"
-import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+import Loading from "@/components/Loading.vue"
+import TabIcon from "@/components/TabIcon.vue"
+import PageHeader from "@/framework/pageHeader/PageHeader.vue"
 
 import ClipboardJS from "clipboard"
-import invitationApi from "../../api/invitationApi.ts";
+import invitationApi from "@/api/invitationApi.ts";
 import {popMessage, dateFormatter, getAuthorization} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()

@@ -60,19 +60,19 @@
 
 
 <script lang="ts" setup>
-import userApi from "../../api/userApi.ts"
-import fileApi from "../../api/fileApi.ts";
+import userApi from "@/api/userApi.ts"
+import fileApi from "@/api/fileApi.ts";
 import * as qiniu from 'qiniu-js'
 import projectConfig from "../../../config/projectConfig.json";
 import axios from "axios";
 
-import {popMessage, setAuthorization, getAuthorization} from "../../utility.ts";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {popMessage, setAuthorization, getAuthorization} from "@/utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 
 const projectStore = useProjectStore();
 import {onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {UserProfileEntity} from "@/entity/User.ts";
 
 const router = useRouter()

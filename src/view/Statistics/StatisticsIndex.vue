@@ -31,13 +31,13 @@
 </template>
 
 <script lang="ts" setup>
-import statisticApi from "../../api/statisticApi.ts"
-import PageHeader from "../../framework/pageHeader/PageHeader.vue"
-import Loading from "../../components/Loading.vue"
+import statisticApi from "@/api/statisticApi.ts"
+import PageHeader from "@/framework/pageHeader/PageHeader.vue"
+import Loading from "@/components/Loading.vue"
 import StatisticUsers from "@/view/Statistics/Users/StatisticUsers.vue";
 import StatisticCharts from "@/view/Statistics/Diary/StatisticCharts.vue";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 
 const projectStore = useProjectStore()
 const statisticStore = useStatisticStore()

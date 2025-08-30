@@ -49,16 +49,16 @@
 </template>
 
 <script lang="ts" setup>
-import Loading from "../../components/Loading.vue"
+import Loading from "@/components/Loading.vue"
 import BankCard from "@/view/BankCard/BankCard.vue"
-import TabIcon from "../../components/TabIcon.vue"
-import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+import TabIcon from "@/components/TabIcon.vue"
+import PageHeader from "@/framework/pageHeader/PageHeader.vue"
 
 import ClipboardJS from "clipboard"
-import bankCardApi from "../../api/bankCardApi.ts"
+import bankCardApi from "@/api/bankCardApi.ts"
 
-import diaryApi from "../../api/diaryApi.ts"
-import {popMessage} from "../../utility.ts";
+import diaryApi from "@/api/diaryApi.ts"
+import {popMessage} from "@/utility.ts";
 import {onBeforeUnmount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";

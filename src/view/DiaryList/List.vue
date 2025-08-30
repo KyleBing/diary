@@ -53,26 +53,24 @@
 <script lang="ts" setup>
 import DiaryListItem from "@/view/DiaryList/DiaryListItem/DiaryListItem.vue"
 import DiaryListItemLong from "@/view/DiaryList/DiaryListItemLong/DiaryListItemLong.vue"
-import Loading from "../../components/Loading.vue"
-import diaryApi from "../../api/diaryApi.ts"
+import Loading from "@/components/Loading.vue"
+import diaryApi from "@/api/diaryApi"
 import ListHeader from "@/view/DiaryList/ListHeader.vue"
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
+import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 
-import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility.ts";
+import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
 
-import {useProjectStore} from "@/pinia/useProjectStore.ts"
+import {useProjectStore} from "@/pinia/useProjectStore"
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {
-    EntityDiaryForm,
-    EntityDiaryFromServer,
     EntityDiaryListOperation,
     DiarySearchParams,
     EntityDiaryFromServerLocal
-} from "./Diary.ts";
-import {storeToRefs} from "pinia";
-import {EnumListStyle} from "@/listStyle.ts";
-import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
+} from "./Diary"
+import {storeToRefs} from "pinia"
+import {EnumListStyle} from "@/listStyle"
+import { useStatisticStore } from "@/pinia/useStatisticStore"
 const projectStore = useProjectStore()
 const router = useRouter()
 const route = useRoute()
@@ -92,7 +90,7 @@ const formSearch = ref<DiarySearchParams>({
     dateFilterString: '' // 日记年月筛选
 })
 
-onMounted(()=>{
+onMounted(() => {
     document.title = '日记' // 变更标题
     // init
     keywordShow.value = projectStore.keywords && projectStore.keywords.join(' ')
@@ -104,7 +102,7 @@ onMounted(()=>{
 })
 
 // 日记列表点击
-function diaryLiteItemLongClick(item: EntityDiaryForm) {
+function diaryLiteItemLongClick(item: EntityDiaryFromServerLocal) {
     router.push({
         name: 'Detail',
         params: {id: item.id}
@@ -112,7 +110,7 @@ function diaryLiteItemLongClick(item: EntityDiaryForm) {
 }
 
 // 日记列表点击
-function diaryListItemClick(item: EntityDiaryForm) {
+function diaryListItemClick(item: EntityDiaryFromServerLocal) {
     router.push({
         name: 'Detail',
         params: {id: item.id}
@@ -122,7 +120,7 @@ function diaryListItemClick(item: EntityDiaryForm) {
 // 刷新 diaryList show
 function refreshDiariesShow(){
     console.log('diaryList changed')
-    let tempShowArray: Array<EntityDiaryForm|{date: string}> = []
+    let tempShowArray: Array<EntityDiaryFromServerLocal|{date: string}> = []
     if (diaryList.value.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
         let lastDiary = diaryList.value[0]
         let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
@@ -141,10 +139,9 @@ function refreshDiariesShow(){
         }
 
         let currentDay = Number(lastDiaryDateString.slice(8, 10))
-        let tempDiary: EntityDiaryForm = {}
+        let tempDiary: EntityDiaryFromServerLocal = {}
         Object.assign(tempDiary, lastDiary)
         tempDiary.date = currentDay
-        tempDiary.is_public = tempDiary.is_public === 1
         // 添加当前日记内容
         tempShowArray.push(tempDiary)
 
@@ -173,9 +170,8 @@ function refreshDiariesShow(){
                         date: currentDiaryDateString.substring(0, 7)
                     })
                 }
-                let tempDiary: EntityDiaryFromServer = {}
+                let tempDiary = {} as EntityDiaryFromServerLocal
                 Object.assign(tempDiary, currentDiary)
-                tempDiary.is_public = currentDiary.is_public === 1
 
                 // 判断前一个日记和后一个日记的日期字符串是否一致
                 // 这里需要判断完整的日期字符串，列表执行搜索的时候可能会有 month 不同但 day 相同的情况，就会导致下一条的日期不会显示。
@@ -244,14 +240,17 @@ function getDiaries() {
         .list(formSearch.value)
         .then(res => {
             let newDiariesList = res.data.map(diary => {
-                if (diary.content) {
-                    diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+                let diaryObj = {} as EntityDiaryFromServerLocal
+                Object.assign(diaryObj, diary)
+
+                if (diaryObj.content) {
+                    diaryObj.contentHtml = diaryObj.content.replace(/\n/g, '<br/>')
                 }
-                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
-                diary.weekday = dateProcess(diary.date).weekday
-                diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
-                diary.dateString = dateProcess(diary.date).date
-                return diary
+                diaryObj.categoryString = useStatisticStore().categoryNameMap.get(diaryObj.category)
+                diaryObj.weekday = dateProcess(diaryObj.date).weekday
+                diaryObj.weekdayShort = EnumWeekDayShort[new Date(diaryObj.date).getDay()]
+                diaryObj.dateString = dateProcess(diaryObj.date).date
+                return diaryObj
             })
 
             // page operation

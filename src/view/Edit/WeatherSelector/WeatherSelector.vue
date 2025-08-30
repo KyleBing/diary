@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {ref, watch} from "vue";
 import {WeatherArray} from "@/entity/Weather.ts";
 

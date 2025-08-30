@@ -1,4 +1,4 @@
-import {DateUtilityObject} from "../../utility";
+import {DateUtilityObject} from "@/utility";
 import { EntityBillDay } from "../Bill/Bill";
 
 
@@ -52,7 +52,7 @@ export interface EntityDiaryListOperation {
 }
 
 
-export interface EntityDiaryWaterfall extends EntityDiaryFromServer{
+export interface EntityDiaryWaterfall extends EntityDiaryFromServerLocal{
     position: {
         top: number,
         left: number,

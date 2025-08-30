@@ -51,25 +51,22 @@
 </template>
 
 <script lang="ts" setup>
-import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+import PageHeader from "@/framework/pageHeader/PageHeader.vue"
 
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore();
 import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
-import diaryApi from "../../api/diaryApi.ts";
-import {EntityDiaryForm, EntityDiaryFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
+import diaryApi from "@/api/diaryApi.ts";
+import {EntityDiaryForm} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import {CalendarAttribute, CalendarEntity} from "@/view/Calendar/VCalendar.ts";
 import Moment from "moment";
-import DiaryListItemLong from "@/view/DiaryList/DiaryListItemLong/DiaryListItemLong.vue";
-import CalendarListHeader from "@/view/Calendar/CalendarListHeader.vue";
 import Edit from "@/view/Edit/Edit.vue";
 
 import {useRouter, useRoute} from "vue-router";
 import jsYaml from "js-yaml"
-import Loading from "@/components/Loading.vue";
 
 interface CalendarDay {
     id: string, // 2025-08-02

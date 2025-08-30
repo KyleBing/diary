@@ -46,9 +46,9 @@
 </template>
 
 <script lang="ts" setup>
-import billApi from "../../api/billApi.ts"
-import Loading from "../../components/Loading.vue"
-import PageHeader from "../../framework/pageHeader/PageHeader.vue"
+import billApi from "@/api/billApi.ts"
+import Loading from "@/components/Loading.vue"
+import PageHeader from "@/framework/pageHeader/PageHeader.vue"
 import {EntityBillItem, EntityBillMonth} from "@/view/Bill/Bill.ts";
 
 import {popMessage, setBillKeys} from "@/utility.ts";

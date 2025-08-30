@@ -26,9 +26,8 @@
         <div :style="backgroundColor" class="marker bottom"></div>
     </div>
 </template>
-
 <script lang="ts" setup>
-import {marked} from "marked";
+import * as marked from "marked";
 import {computed} from "vue";
 import {EntityDiaryWaterfall} from "@/view/DiaryList/Diary.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
@@ -44,12 +43,12 @@ const props = withDefaults(defineProps<{
 })
 
 const backgroundColor = computed<string>(() => {
-    return `background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}`
+    return `background-color: ${statisticStore.categoryObjectMap.get(props.diary.category)!.color}`
 })
 const borderColor = computed<string>(() => {
     return `
-        border-bottom-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color};
-        border-right-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color};
+        border-bottom-color: ${statisticStore.categoryObjectMap.get(props.diary.category)!.color};
+        border-right-color: ${statisticStore.categoryObjectMap.get(props.diary.category)!.color};
     `
 })
 const contentMarkDownHtml = computed<string>(() => {

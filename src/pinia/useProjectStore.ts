@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
-import {getAuthorization, getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
+import {getAuthorization, getDiaryConfigFromLocalStorage, setDiaryConfig} from "@/utility.ts";
 import {EntityDiaryForm, EntityDiaryListOperation} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 

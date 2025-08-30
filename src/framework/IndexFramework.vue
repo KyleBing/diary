@@ -26,9 +26,9 @@
 import List from "@/view/DiaryList/List.vue"
 import Navbar from "./navbar/Navbar.vue"
 
-import {useProjectStore} from "../pinia/useProjectStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
-import {useStatisticStore} from "../pinia/useStatisticStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 import {onMounted, ref, watch} from "vue";
 import {storeToRefs} from "pinia";
 const refDiaryList = ref()

@@ -19,7 +19,7 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import {computed, nextTick, onMounted, ref, watch} from "vue";
-import {useStatisticStore} from "../../pinia/useStatisticStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 
 echarts.use([
     TitleComponent,

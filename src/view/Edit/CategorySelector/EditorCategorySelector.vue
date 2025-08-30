@@ -16,8 +16,8 @@
 
 <script lang="ts" setup>
 import {ref, watch} from "vue";
-import {CategoryEntity} from "../../../entity/Category.ts";
-import {useStatisticStore} from "../../../pinia/useStatisticStore.ts";
+import {CategoryEntity} from "@/entity/Category.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 
 const props = withDefaults(defineProps<{
     category: string

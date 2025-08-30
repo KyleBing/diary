@@ -52,13 +52,13 @@
 </template>
 
 <script lang="ts" setup>
-import ChartPie from "../../../components/charts/ChartPie.vue"
-import ChartBar from "../../../components/charts/ChartBar.vue"
+import ChartPie from "@/components/charts/ChartPie.vue"
+import ChartBar from "@/components/charts/ChartBar.vue"
 import StatisticPanel from "@/view/Statistics/StatisticPanel.vue"
 import StatisticWeather from "@/view/Statistics/Weather/StatisticWeather.vue";
 import StatisticBillMonthSum from "@/view/Statistics/BillMonthSum/StatisticBillMonthSum.vue";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../../pinia/useProjectStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 
 const projectStore = useProjectStore()

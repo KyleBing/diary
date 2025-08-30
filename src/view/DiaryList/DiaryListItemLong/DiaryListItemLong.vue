@@ -37,11 +37,11 @@
 </template>
 
 <script lang="ts" setup>
-import {marked} from "marked";
+import * as marked from "marked";
 import {computed} from "vue";
 import {useRoute} from "vue-router";
-import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
-import {EntityDiaryFromServer} from "../Diary.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
+import {EntityDiaryFromServerLocal} from "../Diary.ts";
 import DiaryListTodo from "./DiaryListTodo.vue";
 
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
@@ -58,7 +58,7 @@ const emit = defineEmits<{
 
 
 const props = withDefaults(defineProps<{
-    diary: EntityDiaryFromServer,
+    diary: EntityDiaryFromServerLocal,
     isShowDate?: boolean
     isShowWeek?: boolean
 }>(), {
@@ -74,18 +74,14 @@ const suffix = computed(()=> {
 })
 const diaryItemHeaderStyle = computed(()=>{
     if (isActive.value){
-        return `
-              background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color};
-                `
+        return ` background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}; `
     } else {
         return ''
     }
 })
 const diaryArticleItemStyle = computed(()=>{
     if (isActive.value){
-        return `
-              border-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color};
-                `
+        return ` border-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}; `
     } else {
         return ''
     }
@@ -97,9 +93,7 @@ const diaryItemCategoryTextStyle = computed(()=>{
     if (isActive.value){
 
     } else {
-        return `
-              color:  ${statisticStore.categoryObjectMap.get(props.diary.category).color}
-                `
+        return ` color:  ${statisticStore.categoryObjectMap.get(props.diary.category).color} `
     }
 })
 

@@ -40,14 +40,14 @@
 </template>
 
 <script lang="ts" setup>
-import userApi from "../../api/userApi.ts"
+import userApi from "@/api/userApi.ts"
 
-import {deleteAuthorization, popMessage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {deleteAuthorization, popMessage} from "@/utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 
 const router = useRouter()
 

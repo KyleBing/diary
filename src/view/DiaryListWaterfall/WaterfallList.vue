@@ -31,17 +31,17 @@
 
 <script lang="ts" setup>
 
-import diaryApi from "../../api/diaryApi.ts"
+import diaryApi from "@/api/diaryApi.ts"
 
-import Loading from "../../components/Loading.vue"
+import Loading from "@/components/Loading.vue"
 
-import {dateProcess, getDiaryConfigFromLocalStorage} from "../../utility.ts";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {dateProcess, getDiaryConfigFromLocalStorage} from "@/utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {EntityDiaryFromServer, EntityDiaryWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
+import {useRoute} from "vue-router";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
+import {EntityDiaryWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 import DiaryListWaterfallItem from "@/view/DiaryListWaterfall/DiaryListWaterfallItem.vue";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
@@ -63,7 +63,7 @@ const params = ref<DiarySearchParams>({
 
 
 
-const diaryList = ref<Array<EntityDiaryFromServer>>([])  // 实际日记
+const diaryList = ref<Array<EntityDiaryWaterfall>>([])  // 实际日记
 
 let colCount = 10 // 列数
 let colWidth = projectStore.insets.windowsWidth / colCount  // 每个元素的宽度
@@ -149,15 +149,17 @@ function getDiaries(params: DiarySearchParams) {
     diaryApi
         .list(params)
         .then(res => {
-            let newDiariesList = res.data.map(diary => {
+            let newDiariesList: Array<EntityDiaryWaterfall> = res.data.map(diary => {
+                let tempDiary: EntityDiaryWaterfall = {} as EntityDiaryWaterfall
+                Object.assign(tempDiary, diary)
                 if (diary.content) {
-                    diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+                    tempDiary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
-                diary.dateObj = dateProcess(diary.date)
-                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
-                diary.weekday = dateProcess(diary.date).weekday
-                diary.dateString = dateProcess(diary.date).date
-                return diary
+                tempDiary.dateObj = dateProcess(diary.date)
+                tempDiary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
+                tempDiary.weekday = dateProcess(diary.date).weekday
+                tempDiary.dateString = dateProcess(diary.date).date
+                return tempDiary
             })
 
             // calculate proper width and cols
@@ -214,7 +216,7 @@ const isNeedLoadNextTimeout = true  // 是否要打断 timeout 的载入过程
  * @param index 当前索引
  */
 function renderingWaterfallList(
-    newDiaries: Array<EntityDiaryFromServer>,
+    newDiaries: Array<EntityDiaryWaterfall>,
     index: number
 ){
     // 如果不需要载入下面的内容，在 reload 的时候会遇到这种情况

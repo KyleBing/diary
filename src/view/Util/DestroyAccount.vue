@@ -35,12 +35,12 @@
 
 <script lang="ts" setup>
 import projectConfig from "../../../config/projectConfig.json";
-import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "../../utility.ts";
+import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "@/utility.ts";
 import {onMounted, ref} from "vue";
-import {useProjectStore} from "../../pinia/useProjectStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
-import userApi from "../../api/userApi.ts";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import userApi from "@/api/userApi.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 
 const projectStore = useProjectStore()
 const router = useRouter()

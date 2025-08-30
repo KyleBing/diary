@@ -113,14 +113,12 @@
 
 <script lang="ts" setup>
 import StatisticPanel from "@/view/Statistics/StatisticPanel.vue";
-import statisticApi from "../../../api/statisticApi.ts";
-import ChartBar from "../../../components/charts/ChartBar.vue";
+import statisticApi from "@/api/statisticApi.ts";
+import ChartBar from "@/components/charts/ChartBar.vue";
 import Moment from "moment";
 
 import {computed, onMounted, ref} from "vue";
-import {useProjectStore} from "../../../pinia/useProjectStore.ts";
-import {dateFormatter, getAuthorization} from "../../../utility.ts";
-const projectStore = useProjectStore()
+import {dateFormatter, getAuthorization} from "@/utility.ts";
 
 onMounted(()=>{
     getStatisticUsers()

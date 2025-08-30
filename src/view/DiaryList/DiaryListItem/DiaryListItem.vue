@@ -33,17 +33,17 @@
 </template>
 
 <script lang="ts" setup>
-import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts"
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts"
 import {computed} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
-import {EntityDiaryFromServer} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryFromServerLocal} from "@/view/DiaryList/Diary.ts";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
 const projectStore = useProjectStore()
 const statisticStore = useStatisticStore()
 
 const props = withDefaults(defineProps<{
     isActive: boolean,
-    diary: EntityDiaryFromServer
+    diary: EntityDiaryFromServerLocal
 }>(), {
     isActive: false
 })
@@ -56,7 +56,7 @@ const weatherIcon = computed(() => {
     if (props.isActive) {
         return SVG_ICONS.weather_icons[`${props.diary.weather}_white`]
     } else {
-        if (props.diary.is_public) {
+        if (props.diary.is_public === 1) {
             return SVG_ICONS.weather_icons[`${props.diary.weather}_active`]
         } else {
             return SVG_ICONS.weather_icons[props.diary.weather]
@@ -69,7 +69,7 @@ const diaryItemStyle = computed(() => {
     }
 })
 const contentIcon = computed(() => {
-    if (props.diary.is_markdown){
+    if (props.diary.is_markdown === 1){
         if (props.isActive){
             return SVG_ICONS.content_md_white
         } else {

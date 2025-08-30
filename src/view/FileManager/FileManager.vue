@@ -41,18 +41,16 @@
 </template>
 
 <script lang="ts" setup>
-import Loading from "../../components/Loading.vue"
+import Loading from "@/components/Loading.vue"
 import ClipboardJS from "clipboard"
-import TabIcon from "../../components/TabIcon.vue"
-import PageHeader from "../../framework/pageHeader/PageHeader.vue"
-import fileManagerApi from "../../api/fileManagerApi.ts";
+import TabIcon from "@/components/TabIcon.vue"
+import PageHeader from "@/framework/pageHeader/PageHeader.vue"
+import fileManagerApi from "@/api/fileManagerApi.ts";
 import FileListItem from "./FileListItem.vue";
-import Modal from "../../components/Modal.vue";
-import FileSelector from "../../components/FileSelector.vue";
+import Modal from "@/components/Modal.vue";
+import FileSelector from "@/components/FileSelector.vue";
 
 import {popMessage, dateFormatter} from "@/utility.ts";
-import {useProjectStore} from "@/pinia/useProjectStore.ts";
-const projectStore = useProjectStore()
 import {onMounted, onUnmounted, ref} from "vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 

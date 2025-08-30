@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import TabIcon from "../../components/TabIcon.vue";
+import TabIcon from "@/components/TabIcon.vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
 

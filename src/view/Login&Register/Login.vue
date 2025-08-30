@@ -46,15 +46,15 @@
 import projectConfig from "../../../config/projectConfig.json";
 import packageInfo from "../../../package.json"
 
-import userApi from "../../api/userApi.ts"
-import billApi from "../../api/billApi.ts";
+import userApi from "@/api/userApi.ts"
+import billApi from "@/api/billApi.ts";
 
 import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 
 const router = useRouter()
 

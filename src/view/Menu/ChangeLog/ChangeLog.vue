@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import changeLog from "../../../../CHANGELOG.md"
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue"
-import { marked } from "marked"
+import * as marked from "marked"
 import { computed } from "vue"
 
 const contentMarkDownHtml = computed(()=>{

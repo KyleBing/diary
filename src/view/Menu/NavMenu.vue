@@ -63,7 +63,7 @@ import YearSelector from "./YearSelector/YearSelector.vue"
 import About from "@/view/About/About.vue"
 import packageInfo from "../../../package.json"
 import MenuListItemShort from "@/view/Menu/MenuListItemShort.vue"
-import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts"
+import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts"
 import UserProfile from "@/view/Menu/UserProfile.vue";
 import MenuOtherFunction from "@/view/Menu/MenuOtherFunction/MenuOtherFunction.vue";
 import ChangeLog from "@/view/Menu/ChangeLog/ChangeLog.vue";
