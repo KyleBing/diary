@@ -1,9 +1,9 @@
 <template>
         <div class="diary-list-group" >
-            <ListHeader size="big" :title="props.diaryListGroup.date"/>
+            <ListHeader size="medium" :title="props.diaryListGroup.date"/>
 
             <div :class="['diary-list-group-content', {detail: props.listStyle === EnumListStyle.detail}]">
-                <template v-if="props.listStyle === EnumListStyle.list">    
+                <template v-if="props.listStyle === EnumListStyle.list">
                 <DiaryListItem
                     v-for="item in props.diaryListGroup.diaries" :key="item.id"
                     @click="diaryListItemClick(item)"
@@ -20,11 +20,11 @@
                     :diary="item"/>
             </template>
             </div>
-            
+
         </div>
 </template>
 
-<script lang="ts" setup>    
+<script lang="ts" setup>
 import { EntityDiaryListGroup, EntityDiaryFromServerLocal } from "./Diary"
 import { useRouter, useRoute } from "vue-router"
 
