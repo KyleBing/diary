@@ -1,7 +1,7 @@
 <template>
     <div :class="[
         'list-header',
-        {big: size === 'big'}, 
+        {big: size === 'big'},
         {medium: size === 'medium'},
         {'with-search': isWithSearch}
     ]">{{ title }}</div>
@@ -69,11 +69,7 @@ const isWithSearch = computed(() => {
     .list-header{
         border-color: $dark-border !important;
         background-color: $dark-list-header-bg !important;
-        @include border-radius($radius-mobile);
         color: white !important;
-        &.big{
-            margin: 0 10px;
-        }
         border-bottom: 1px solid $dark-border !important;
     }
 }

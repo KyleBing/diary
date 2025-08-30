@@ -56,11 +56,16 @@ const weekday = computed(() => {
 }
 
 @media (prefers-color-scheme: dark) {
-    .list-header{
+    .calendar-list-header{
         border-color: $dark-border !important;
-        background-color: $dark-list-header-bg !important;
+        background-color: transparent;
         @include border-radius($radius-mobile);
         color: white !important;
+        .calendar-list-header-title{
+        }
+        .calendar-list-header-week{
+            color: $dark-text-subtitle;
+        }
         &.big{
             margin: 0 10px;
         }

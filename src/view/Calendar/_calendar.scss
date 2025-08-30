@@ -49,3 +49,11 @@
     width: 500px;
     overflow-y: auto;
 }
+
+@media (prefers-color-scheme: dark) {
+    .calendar-diary-list{
+        background-color: $dark-bg;
+        border-left-color: $dark-border;
+        border-right-color: $dark-border;
+    }
+}
