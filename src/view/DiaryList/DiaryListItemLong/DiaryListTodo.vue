@@ -18,14 +18,14 @@
 
 <script lang="ts" setup>
 import {onMounted, ref, watch} from "vue";
-import {DiaryEntity} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryForm} from "@/view/DiaryList/Diary.ts";
 import { TodoEntity } from '@/entity/Todo';
 import { useProjectStore } from "@/pinia/useProjectStore";
 
 const projectStore = useProjectStore();
 
 const props = defineProps<{
-    diary: DiaryEntity
+    diary: EntityDiaryForm
 }>()
 
 const todoList= ref<Array<TodoEntity>>([])
@@ -46,7 +46,7 @@ watch(() => props.diary, newValue => {
 })
 
 // 将日记内容转换成 TODOS
-function processContent(diary: DiaryEntity){
+function processContent(diary: EntityDiaryForm){
     if (diary.content){
         let todoStringList = diary.content.split('\n')
         todoList.value = todoStringList

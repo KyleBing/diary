@@ -1,8 +1,8 @@
 import request  from '../request.ts'
 import {
-    DiaryEntityFromServer,
-    DiaryEntityFromServerCategoryOnly,
-    DiaryEntityFromServerTitleOnly,
+    EntityDiaryFromServer,
+    EntityDiaryFromServerCategoryOnly,
+    EntityDiaryFromServerTitleOnly,
     DiarySearchParams,
     DiarySearchParamsForCalendar,
     DiarySubmitEntity,
@@ -22,7 +22,7 @@ export default {
 
     list(params: DiarySearchParams): Promise<{
         success: boolean,
-        data: Array<DiaryEntityFromServer>,
+        data: Array<EntityDiaryFromServer>,
         message: string
     }>  {
         return request('get'   , params, null, 'diary/list')}  ,
@@ -36,21 +36,21 @@ export default {
         return request('delete', {}, requestData, 'diary/delete')},
     detail(params: {diaryId: number}): Promise<{
         success: boolean,
-        data: DiaryEntityFromServer,
+        data: EntityDiaryFromServer,
         message: string
     }>{
         return request('get',    params,null, 'diary/detail')},
     getDiaryWithTitleKeyword(
         params: { keyword: string }): Promise<{
         success: boolean,
-        data: DiaryEntityFromServer,
+        data: EntityDiaryFromServer,
         message: string
     }> {
         return request('get', params, null, 'diary/get-diary-content-with-keyword')
     },
     share(params: {diaryId: number}): Promise<{
         success: boolean,
-        data: DiaryEntityFromServer,
+        data: EntityDiaryFromServer,
         message: string
     }> {
         return request('get',    params, null,'diary/share')},
@@ -65,7 +65,7 @@ export default {
     // 获取日记列表，列表中只包含标题
     listTitleOnly(params: DiarySearchParams): Promise<{
         success: boolean,
-        data: Array<DiaryEntityFromServerTitleOnly>,
+        data: Array<EntityDiaryFromServerTitleOnly>,
         message: string
     }>  {
         return request('get'   , params, null, 'diary/list-title-only')}  ,
@@ -73,7 +73,7 @@ export default {
     // 获取日记列表，列表中只包含类别
     lietCategoryOnly(params: DiarySearchParamsForCalendar): Promise<{
         success: boolean,
-        data: Array<DiaryEntityFromServerCategoryOnly>,
+        data: Array<EntityDiaryFromServerCategoryOnly>,
         message: string
     }>  {
         return request('get'   , params, null, 'diary/list-category-only')}  ,
@@ -81,7 +81,7 @@ export default {
     // 获取日记列表，包含所有字段
     listAll(params: DiarySearchParams): Promise<{
         success: boolean,
-        data: Array<DiaryEntityFromServer>,
+        data: Array<EntityDiaryFromServer>,
         message: string
     }>  {
         return request('get'   , params, null, 'diary/list-all')}  ,

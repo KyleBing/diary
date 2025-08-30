@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import diaryApi from "../../api/diaryApi.ts"
 import {onMounted, ref, watch} from "vue";
-import {DiaryEntity, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryForm, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "../../pinia/useProjectStore.ts";
 import draggable from 'vuedraggable';
@@ -43,7 +43,7 @@ const projectStore = useProjectStore();
 
 const props = defineProps<{
     readonly: boolean,
-    diary: DiaryEntity
+    diary: EntityDiaryForm
 }>()
 
 const todoList= ref<Array<TodoEntity>>([])
@@ -83,7 +83,7 @@ function toggleDoneStatus(todoItem: TodoEntity){
     }
 }
 // 将日记内容转换成 TODOS
-function processContent(diary: DiaryEntity){
+function processContent(diary: EntityDiaryForm){
     if (diary.content){
         let todoStringList = diary.content.split('\n')
         todoList.value = todoStringList

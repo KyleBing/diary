@@ -41,7 +41,7 @@ import {marked} from "marked";
 import {computed} from "vue";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "../../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntityFromServer} from "../Diary.ts";
+import {EntityDiaryFromServer} from "../Diary.ts";
 import DiaryListTodo from "./DiaryListTodo.vue";
 
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
@@ -58,7 +58,7 @@ const emit = defineEmits<{
 
 
 const props = withDefaults(defineProps<{
-    diary: DiaryEntityFromServer,
+    diary: EntityDiaryFromServer,
     isShowDate?: boolean
     isShowWeek?: boolean
 }>(), {

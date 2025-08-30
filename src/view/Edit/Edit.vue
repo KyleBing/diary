@@ -120,8 +120,8 @@ import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
 
 // ENTITY
 import {
-    DiaryEntity,
-    DiaryEntityFromServer,
+    EntityDiaryForm,
+    EntityDiaryFromServer,
     DiarySearchParams,
     DiarySubmitEntity, EnumWeather,
     ResponseDiaryAdd
@@ -136,7 +136,7 @@ const spaceIdentifier = ref('✎') // 为了判断目前是否处于空格显示
 const isNew = ref(true)
 const isLoading = ref(false)
 
-const diary = ref<DiaryEntity>({
+const diary = ref<EntityDiaryForm>({
     id: -1,
     title: "",
     content: "",
@@ -148,7 +148,7 @@ const diary = ref<DiaryEntity>({
     temperature: '',
     temperature_outside: '',
 })
-const diaryOrigin = ref<DiaryEntity>({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
+const diaryOrigin = ref<EntityDiaryForm>({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
     id: -1,
     title: "",
     content: "",
@@ -311,7 +311,7 @@ function recoverCachedDiary(){
  * @param diaryObj   ref of diary Object
  * @param key  key of diary Object
  */
-function addKeyboardEventListener(event: KeyboardEvent, textareaRef: Ref, diaryObj: Ref<DiaryEntity>, key: string) {
+function addKeyboardEventListener(event: KeyboardEvent, textareaRef: Ref, diaryObj: Ref<EntityDiaryForm>, key: string) {
 
     // CTRL + ArrowLeft 移到最左端
     if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
@@ -637,7 +637,7 @@ function loadCurrentWeekLogs() {
         })
 }
 
-function combineWeekWorkLog(workList: DiaryEntityFromServer[]){
+function combineWeekWorkLog(workList: EntityDiaryFromServer[]){
     let contentStr = ''
     workList.forEach(item => {
         contentStr = contentStr + item.title + '\n' + item.content + '\n'

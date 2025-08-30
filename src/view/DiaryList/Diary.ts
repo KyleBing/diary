@@ -1,40 +1,29 @@
 import {DateUtilityObject} from "../../utility";
+import { EntityBillDay } from "../Bill/Bill";
 
-export interface DiaryEntity {
-    id: number
-    title: string,
-    content: string,
-    is_public: boolean,
-    is_markdown: boolean,
-    date: Date|string|number, // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
-    weather: string,
-    category: string,
-    temperature: string,
-    temperature_outside: string,
+
+// DIARY ENTITY
+// 接口返回的数据类型
+export interface EntityDiaryFromServer{
+    id: number, // 19286,
+    date: string, // "2025-08-29T02:31:14.000Z",
+    title: string, // "能耗添加加载子类型的开关",
+    content: string, // "- 能耗添加加载子类型的开关",
+    temperature: number, // -273,
+    temperature_outside: number, // 29,
+    weather: string, // "cloudy",
+    category: string, // "work",
+    date_create: string, // "2025-08-29T02:31:31.000Z",
+    date_modify: string, // "2025-08-29T02:31:32.000Z",
+    uid: number, // 3,
+    is_public: 0|1, // 0,
+    is_markdown: 0|1 // 0
+
+    // 账单时，列表会返回 billData
+    billData?: Array<EntityBillDay>,
 }
 
-export interface DiaryListOperation {
-    type: 'add' | 'delete' | 'change',
-    diary: DiaryEntity|undefined,
-    id: number
-}
-
-// 数据库 diary
-export interface DiaryEntityFromServer{
-    id: number
-    title: string,
-    content?: string,
-    is_public: 1|0,
-    is_markdown: 1|0,
-    date: Date|string|number,
-    weather: string,
-    category: string,
-    temperature: string,
-    temperature_outside: string,
-
-    // bill
-    billData?: [],
-
+export interface EntityDiaryFromServerLocal extends EntityDiaryFromServer{
     // detail
     dateObj?: DateUtilityObject,
 
@@ -46,11 +35,24 @@ export interface DiaryEntityFromServer{
     weekday?: string,
     weekdayShort?: string,
     dateString? : string
-
-    isShowItemWeekDayShort?: boolean, // 是否显示缩写星期，列表的时候用
 }
 
-export interface DiaryEntityWaterfall extends DiaryEntityFromServer{
+
+
+export interface EntityDiaryForm extends Omit<EntityDiaryFromServer, 'date_create' | 'date_modify' | 'billData' | 'date' | 'is_public' | 'is_markdown'>{
+    is_public: boolean,
+    is_markdown: boolean,
+    date: Date|string, // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
+}
+
+export interface EntityDiaryListOperation {
+    type: 'add' | 'delete' | 'change',
+    diary: EntityDiaryForm|undefined,
+    id: number
+}
+
+
+export interface EntityDiaryWaterfall extends EntityDiaryFromServer{
     position: {
         top: number,
         left: number,
@@ -115,13 +117,13 @@ export enum EnumWeather{
  */
 
 // 数据库 diary 只包含类别
-export interface DiaryEntityFromServerCategoryOnly{
+export interface EntityDiaryFromServerCategoryOnly{
     id: number
     date: Date|string|number,
     category: string,
 }
 // 数据库 diary 只包含标题、类别
-export interface DiaryEntityFromServerTitleOnly{
+export interface EntityDiaryFromServerTitleOnly{
     id: number
     title: string,
     date: Date|string|number,

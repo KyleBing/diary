@@ -30,14 +30,14 @@
 <script lang="ts" setup>
 import {marked} from "marked";
 import {computed} from "vue";
-import {DiaryEntityWaterfall} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryWaterfall} from "@/view/DiaryList/Diary.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 const statisticStore = useStatisticStore()
 
 const props = withDefaults(defineProps<{
     width: number,
     // isActive: boolean,
-    diary: DiaryEntityWaterfall
+    diary: EntityDiaryWaterfall
 }>(), {
     width: 200,
     // isActive: false

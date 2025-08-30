@@ -46,7 +46,7 @@ import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";
 import {WeatherArray} from "@/entity/Weather.ts";
 import {dateFormatter, getAuthorization, popMessage} from "@/utility.ts";
-import {DiaryEntity} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryForm} from "@/view/DiaryList/Diary.ts";
 import diaryApi from "@/api/diaryApi.js";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
@@ -81,21 +81,21 @@ function exportDiary(fileFormat){
         .export()
         .then(res => {
             isDownloadingContent.value = false
-            let diaries = res.data
+            let diaryList = res.data
             let fileName = `日记导出-${getAuthorization().nickname}-${dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
-            if (diaries.length > 0){
+            if (diaryList.length > 0){
                 switch (fileFormat){
                     case 'csv':
-                        downloadFile(`${fileName}.csv`, getCVSData(diaries))
+                        downloadFile(`${fileName}.csv`, getCVSData(diaryList))
                         break;
                     case 'json':
-                        downloadFile(`${fileName}.json`, JSON.stringify(diaries))
+                        downloadFile(`${fileName}.json`, JSON.stringify(diaryList))
                         break;
                     case 'text':
-                        downloadFile(`${fileName}.txt`, getTextData(diaries))
+                        downloadFile(`${fileName}.txt`, getTextData(diaryList))
                         break;
                     case 'sql':
-                        downloadFile(`${fileName}.sql`, getSqlData(diaries))
+                        downloadFile(`${fileName}.sql`, getSqlData(diaryList))
                         break;
                 }
             } else {
@@ -104,9 +104,9 @@ function exportDiary(fileFormat){
         })
 }
 
-function getSqlData(diaries: DiaryEntity[]){
+function getSqlData(diaryList: EntityDiaryForm[]){
     let finalData = ''
-    diaries.forEach(diary => {
+    diaryList.forEach(diary => {
         let date = dateFormatter(new Date(diary.date))
         let dateModify = dateFormatter(new Date(diary.date_modify))
         let dateCreate = dateFormatter(new Date(diary.date_create))
@@ -118,15 +118,15 @@ function getSqlData(diaries: DiaryEntity[]){
         finalData =
             finalData.concat(`
 INSERT INTO
-diaries(id, date, date_create, date_modify, category, is_markdown, is_public, temperature, temperature_outside, title, content, uid)
+diaryList(id, date, date_create, date_modify, category, is_markdown, is_public, temperature, temperature_outside, title, content, uid)
 VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${diary.is_markdown},${diary.is_public},${diary.temperature},${diary.temperature_outside}, '${diary.title}', '${diary.content}',${getAuthorization().uid});\n`)
     })
     return finalData
 }
 
-function getCVSData(diaries: DiaryEntity[]){
+function getCVSData(diaryList: EntityDiaryForm[]){
     let finalData = 'ID,日期,编辑时间,创建时间,类别,天气,身处温度,外界气温,Markdown,标题,内容\n'
-    diaries.forEach(diary => {
+    diaryList.forEach(diary => {
         let date = dateFormatter(new Date(diary.date))
         let dateModify = dateFormatter(new Date(diary.date_modify))
         let dateCreate = dateFormatter(new Date(diary.date_create))
@@ -142,18 +142,18 @@ function getCVSData(diaries: DiaryEntity[]){
     return finalData
 }
 
-function getTextData(diaries: DiaryEntity[]){
+function getTextData(diaryList: EntityDiaryForm[]){
     let finalData = `※※※※※※※※※※※※※※※※※※※※※※※※※※※※
 
     导出日期：${dateFormatter(new Date())}
     用　　户：${getAuthorization().nickname}
-    总　　计：${diaries.length} 条
+    总　　计：${diaryList.length} 条
     Email：${getAuthorization().email}
     UID：${getAuthorization().uid}
 
 ※※※※※※※※※※※※※※※※※※※※※※※※※※※※
 \n\n\n\n`
-    diaries.forEach(diary => {
+    diaryList.forEach(diary => {
         let date = dateFormatter(new Date(diary.date))
         let dateModify = dateFormatter(new Date(diary.date_modify))
         let dateCreate = dateFormatter(new Date(diary.date_create))

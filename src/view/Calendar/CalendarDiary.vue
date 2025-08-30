@@ -78,7 +78,7 @@ import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
 import diaryApi from "../../api/diaryApi.ts";
 import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
-import {DiaryEntity, DiaryEntityFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryForm, EntityDiaryFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import {CalendarAttribute, CalendarEntity} from "@/view/Calendar/VCalendar.ts";
@@ -125,7 +125,7 @@ enum EnumCalendarColor {
 /**
  * Diary List
  */
-const diaries = ref<Array<DiaryEntity>>([])
+const diaryList = ref<Array<EntityDiaryForm>>([])
 const formSearch = ref<DiarySearchParamsForCalendar>({
     keywords: '',
     pageNo: 1,
@@ -145,14 +145,14 @@ function getAllShowingCalendarDiaries() {
     formSearch.value.keywords = JSON.stringify(projectStore.keywords)
     formSearch.value.categories = JSON.stringify(projectStore.filteredCategories)
     formSearch.value.filterShared = projectStore.isFilterShared ? 1 : 0
-    diaries.value = []
+    diaryList.value = []
 
     isLoading.value = true
     diaryApi
         .lietCategoryOnly(formSearch.value)
         .then(res => {
             isLoading.value = false
-            diaries.value = res.data.map((diary: DiaryEntityFromServerCategoryOnly) => {
+            diaryList.value = res.data.map((diary: EntityDiaryFromServerCategoryOnly) => {
                 diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
@@ -181,7 +181,7 @@ function getAllShowingCalendarDiaries() {
                 updateSelectedDateHighlight(currentFocusedDay.value.date)
             }
 
-            diaries.value.forEach(item => {
+            diaryList.value.forEach(item => {
                 attributes.value.push({
                     key: item.id,
                     bar: {
@@ -207,7 +207,7 @@ function getAllShowingCalendarDiaries() {
 
 
 // 鼠标点击某个天时，获取该天的日记列表
-const focusedDayDiaries = ref<Array<DiaryEntity>>([])
+const focusedDayDiaries = ref<Array<EntityDiaryForm>>([])
 const isLoadingFocusedDayDiaries = ref(false)
 function getDiaryListOfDay(day: CalendarDay) {
 
@@ -269,7 +269,7 @@ function updateSelectedDateHighlight(selectedDate: Date) {
 }
 
 // 日记列表点击
-function diaryListItemLongClicked(item: DiaryEntity) {
+function diaryListItemLongClicked(item: EntityDiaryForm) {
     calendarCol.value = 2
     router.push({
         name: 'CalendarEdit',

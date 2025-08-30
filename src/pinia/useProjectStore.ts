@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import SVG_ICONS from "../assets/icons/SVG_ICONS.ts";
 import {getAuthorization, getDiaryConfigFromLocalStorage, setDiaryConfig} from "../utility.ts";
-import {DiaryEntity, DiaryListOperation} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryForm, EntityDiaryListOperation} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 
 console.log('pinia projectStore is loaded, inside pinia file')
@@ -26,7 +26,7 @@ export const useProjectStore = defineStore('projectStore', {
         isShowSearchBar: false ,                        // 搜索栏显示
         isHideContent: false ,                          // 是否显示列表内容
 
-        currentDiary: {} as DiaryEntity,                // 当前日记
+        currentDiary: {} as EntityDiaryForm,                // 当前日记
 
         listStyle: EnumListStyle.list ,                 // 日记列表是否显示为全部内容
         waterFallItemCount: 0, // 瀑布流展示的日记数量
@@ -40,14 +40,14 @@ export const useProjectStore = defineStore('projectStore', {
         isMenuShowed: false ,                           // 显示菜单
 
         editLogoImg: SVG_ICONS.logo_icons.logo ,        // 编辑页LOGO
-        listOperation: {} as DiaryListOperation ,       // 列表页的操作，增删改操作，一般不再重新加载列表
+        listOperation: {} as EntityDiaryListOperation ,       // 列表页的操作，增删改操作，一般不再重新加载列表
 
 
         // BILL
         moneyAccuracy: 1, // 展示的货币精度，小数位数
 
-        cacheDiary: undefined as (DiaryEntity | undefined),                // 缓存日记，目前只用于屏幕变换时，恢复日记内容
-        cacheDiaryOrigin: undefined as (DiaryEntity | undefined),          // 跟上面同步使用：用于恢复用户之前的编辑状态，同时恢复当时的原日记内容，恢复 “日记已被编辑” 的状态
+        cacheDiary: undefined as (EntityDiaryForm | undefined),                // 缓存日记，目前只用于屏幕变换时，恢复日记内容
+        cacheDiaryOrigin: undefined as (EntityDiaryForm | undefined),          // 跟上面同步使用：用于恢复用户之前的编辑状态，同时恢复当时的原日记内容，恢复 “日记已被编辑” 的状态
     }),
     getters: {
         isInMobileMode(state){

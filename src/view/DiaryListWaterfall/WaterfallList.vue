@@ -14,7 +14,7 @@
     <div class="diary-list-waterfall"
          :style="`width: ${projectStore.insets.windowsWidth}px; height: ${projectStore.insets.heightPanel}px`">
         <DiaryListWaterfallItem
-            v-for="diary in diariesShow" :key="diary.id"
+            v-for="diary in diaryListShow" :key="diary.id"
             :width="colWidth"
             :diary="diary"/>
 
@@ -23,7 +23,7 @@
         </div>
 
         <div v-show="!isLoading && !isHasMore" class="end-of-diary">
-            <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
+            <div class="no-diary-list" v-if="diaryList.length < 1">无日记</div>
             <p><img :src="SVG_ICONS.EOF" alt="EOF"></p>
         </div>
     </div>
@@ -41,7 +41,7 @@ const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "../../assets/icons/SVG_ICONS.ts";
-import {DiaryEntityFromServer, DiaryEntityWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryFromServer, EntityDiaryWaterfall, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
 import DiaryListWaterfallItem from "@/view/DiaryListWaterfall/DiaryListWaterfallItem.vue";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
@@ -63,7 +63,7 @@ const params = ref<DiarySearchParams>({
 
 
 
-const diaries = ref<Array<DiaryEntityFromServer>>([])  // 实际日记
+const diaryList = ref<Array<EntityDiaryFromServer>>([])  // 实际日记
 
 let colCount = 10 // 列数
 let colWidth = projectStore.insets.windowsWidth / colCount  // 每个元素的宽度
@@ -122,8 +122,8 @@ function clearKeyword() {
 function reload() {
     params.value.pageNo = 1
     params.value.keywords = JSON.stringify(projectStore.keywords)
-    diaries.value = []
-    diariesShow.value = []
+    diaryList.value = []
+    diaryListShow.value = []
 
     // 卡片载入的相关变量重置
     lastCol = 0
@@ -176,7 +176,7 @@ function getDiaries(params: DiarySearchParams) {
             }
 
             // diary operation
-            diaries.value = diaries.value.concat(newDiariesList)
+            diaryList.value = diaryList.value.concat(newDiariesList)
         })
         .finally(() => {
             // 列表加载完成后设置列表重载： false
@@ -189,7 +189,7 @@ function getDiaries(params: DiarySearchParams) {
 /**
  * 列表渲染
  */
-const diariesShow = ref<Array<DiaryEntityWaterfall>>([])  // 列表展示的日记
+const diaryListShow = ref<Array<EntityDiaryWaterfall>>([])  // 列表展示的日记
 const loadGap = 10 // 卡片加载间隔时长，单位 ms
 const isShowLoadProcess = true // 是否显示卡片加载的过程，不显示的话会很卡。
 
@@ -214,7 +214,7 @@ const isNeedLoadNextTimeout = true  // 是否要打断 timeout 的载入过程
  * @param index 当前索引
  */
 function renderingWaterfallList(
-    newDiaries: Array<DiaryEntityFromServer>, 
+    newDiaries: Array<EntityDiaryFromServer>,
     index: number
 ){
     // 如果不需要载入下面的内容，在 reload 的时候会遇到这种情况
@@ -222,16 +222,16 @@ function renderingWaterfallList(
         return
     }
 
-    // 1. 转成 DiaryEntityWaterfall 对象
-    let diary = newDiaries[index] as DiaryEntityWaterfall
+    // 1. 转成 EntityDiaryWaterfall 对象
+    let diary = newDiaries[index] as EntityDiaryWaterfall
     diary.position = {
         top:  lastTopPos,
         left: lastCol * colWidth,
         col: lastCol
     }
     // 2. 添加到展示的列表中
-    diariesShow.value.push(diary)
-    projectStore.waterFallItemCount = diariesShow.value.length  // 更新瀑布流日记数量
+    diaryListShow.value.push(diary)
+    projectStore.waterFallItemCount = diaryListShow.value.length  // 更新瀑布流日记数量
 
     nextTick(()=>{
         // 3. 待其渲染完成后再去处理下一个

@@ -14,7 +14,7 @@
 
         <!-- 普通列表 -->
         <div v-if="projectStore.listStyle === EnumListStyle.list" class="diary-list-group" >
-            <template v-for="item in diariesShow" :key="item.id">
+            <template v-for="item in diaryListShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItem
                     v-else
@@ -27,7 +27,7 @@
 
         <!-- 详情列表 -->
         <div v-if="projectStore.listStyle === EnumListStyle.detail" class="diary-list-group detail" >
-            <template v-for="item in diariesShow" :key="item.id">
+            <template v-for="item in diaryListShow" :key="item.id">
                 <ListHeader v-if="!item.title" size="big" :title="item.date"/>
                 <DiaryListItemLong
                     v-else
@@ -41,7 +41,7 @@
         </div>
 
         <div v-show="!isLoading && !isHasMore" class="end-of-diary">
-            <div class="no-diary-list" v-if="diaries.length < 1">无日记</div>
+            <div class="no-diary-list" v-if="diaryList.length < 1">无日记</div>
             <p>
                 <img v-if="projectStore.colorMode === 'light'" :src="SVG_ICONS.EOF" alt="EOF">
                 <img v-else :src="SVG_ICONS.EOFDark" alt="EOF">
@@ -63,7 +63,13 @@ import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts"
 import {nextTick, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {DiaryEntity, DiaryEntityFromServer, DiaryListOperation, DiarySearchParams} from "./Diary.ts";
+import {
+    EntityDiaryForm,
+    EntityDiaryFromServer,
+    EntityDiaryListOperation,
+    DiarySearchParams,
+    EntityDiaryFromServerLocal
+} from "./Diary.ts";
 import {storeToRefs} from "pinia";
 import {EnumListStyle} from "@/listStyle.ts";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
@@ -73,8 +79,8 @@ const route = useRoute()
 
 const isHasMore = ref(true)
 const isLoading = ref(true)
-const diaries = ref<Array<DiaryEntityFromServer>>([])
-const diariesShow = ref<Array<DiaryEntity>>([])
+const diaryList = ref<Array<EntityDiaryFromServerLocal>>([])
+const diaryListShow = ref<Array<EntityDiaryFromServerLocal>>([])
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(projectStore)
 
 const formSearch = ref<DiarySearchParams>({
@@ -98,7 +104,7 @@ onMounted(()=>{
 })
 
 // 日记列表点击
-function diaryLiteItemLongClick(item: DiaryEntity) {
+function diaryLiteItemLongClick(item: EntityDiaryForm) {
     router.push({
         name: 'Detail',
         params: {id: item.id}
@@ -106,19 +112,19 @@ function diaryLiteItemLongClick(item: DiaryEntity) {
 }
 
 // 日记列表点击
-function diaryListItemClick(item: DiaryEntity) {
+function diaryListItemClick(item: EntityDiaryForm) {
     router.push({
         name: 'Detail',
         params: {id: item.id}
     })
 }
 
-// 刷新 diaries show
+// 刷新 diaryList show
 function refreshDiariesShow(){
-    console.log('diaries changed')
-    let tempShowArray: Array<DiaryEntity|{date: string}> = []
-    if (diaries.value.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
-        let lastDiary = diaries.value[0]
+    console.log('diaryList changed')
+    let tempShowArray: Array<EntityDiaryForm|{date: string}> = []
+    if (diaryList.value.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
+        let lastDiary = diaryList.value[0]
         let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
 
         // 如果只筛选 to-do 日记，则不显示年月标题
@@ -135,7 +141,7 @@ function refreshDiariesShow(){
         }
 
         let currentDay = Number(lastDiaryDateString.slice(8, 10))
-        let tempDiary: DiaryEntity = {}
+        let tempDiary: EntityDiaryForm = {}
         Object.assign(tempDiary, lastDiary)
         tempDiary.date = currentDay
         tempDiary.is_public = tempDiary.is_public === 1
@@ -144,10 +150,10 @@ function refreshDiariesShow(){
 
         let sameDayIndex = 0 // 连续相同日期的日记 index
 
-        if (diaries.value.length > 1) {  // 再判断第二个日记与第一个的关系
-            for (let i = 1; i < diaries.value.length; i++) {
-                lastDiary = diaries.value[i - 1] // 更新上一条日记指向
-                let currentDiary = diaries.value[i]
+        if (diaryList.value.length > 1) {  // 再判断第二个日记与第一个的关系
+            for (let i = 1; i < diaryList.value.length; i++) {
+                lastDiary = diaryList.value[i - 1] // 更新上一条日记指向
+                let currentDiary = diaryList.value[i]
                 let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
                 let currentDiaryDateString = dateFormatter(new Date(currentDiary.date), 'yyyy-MM-dd')
                 let lastDiaryMonth = lastDiaryDateString.substring(0, 7)
@@ -167,7 +173,7 @@ function refreshDiariesShow(){
                         date: currentDiaryDateString.substring(0, 7)
                     })
                 }
-                let tempDiary: DiaryEntityFromServer = {}
+                let tempDiary: EntityDiaryFromServer = {}
                 Object.assign(tempDiary, currentDiary)
                 tempDiary.is_public = currentDiary.is_public === 1
 
@@ -185,7 +191,7 @@ function refreshDiariesShow(){
             }
         }
     }
-    diariesShow.value = tempShowArray
+    diaryListShow.value = tempShowArray
 }
 
 /* KEYWORD 相关 */
@@ -219,8 +225,8 @@ function clearKeyword() {
 function reloadDiaryList() {
     formSearch.value.pageNo = 1
     formSearch.value.keywords = JSON.stringify(projectStore.keywords)
-    diaries.value = []
-    diariesShow.value = []
+    diaryList.value = []
+    diaryListShow.value = []
     loadMore()
 }
 
@@ -257,7 +263,7 @@ function getDiaries() {
             }
 
             // diary operation
-            diaries.value = diaries.value.concat(newDiariesList)
+            diaryList.value = diaryList.value.concat(newDiariesList)
             refreshDiariesShow()
         })
         .finally(() => {
@@ -304,31 +310,31 @@ watch(isListNeedBeReload, newValue => {
     }
 })
 
-watch(listOperation, ({type, diary, id}: DiaryListOperation) => {
+watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
     // console.log('list operation: ', type,diary,id)
     switch (type) {
         case 'add':
             let posInsert = 0
-            for (let i = 0; i < diaries.value.length; i++) {
-                let currentDiary = diaries.value[i]
+            for (let i = 0; i < diaryList.value.length; i++) {
+                let currentDiary = diaryList.value[i]
                 if (diary!.date > currentDiary.date) {
                     posInsert = i
                     break
                 }
             }
-            diaries.value.splice(posInsert, 0, diary!)
+            diaryList.value.splice(posInsert, 0, diary!)
             refreshDiariesShow()
             break
         case 'delete':
-            diaries.value.map((item, index) => {
+            diaryList.value.map((item, index) => {
                 if (item.id === id) {
-                    diaries.value.splice(index, 1)
-                    if (diaries.value[index]) {
+                    diaryList.value.splice(index, 1)
+                    if (diaryList.value[index]) {
                         // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
                         router.push({
                             name: 'Detail',
                             params: {
-                                id: diaries.value[index].id
+                                id: diaryList.value[index].id
                             }
                         })
                     } else {
@@ -343,9 +349,9 @@ watch(listOperation, ({type, diary, id}: DiaryListOperation) => {
             break
         case 'change':
             // TODO: 修改日记的日期时排序调整位置
-            diaries.value.map((item, index) => {
+            diaryList.value.map((item, index) => {
                 if (Number(item.id) === Number(diary!.id)) {
-                    diaries.value.splice(index, 1, diary!)
+                    diaryList.value.splice(index, 1, diary!)
                 }
             })
             refreshDiariesShow()

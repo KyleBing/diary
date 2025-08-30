@@ -58,7 +58,7 @@ const projectStore = useProjectStore();
 import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
 import diaryApi from "../../api/diaryApi.ts";
-import {DiaryEntity, DiaryEntityFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
+import {EntityDiaryForm, EntityDiaryFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import {CalendarAttribute, CalendarEntity} from "@/view/Calendar/VCalendar.ts";
@@ -103,7 +103,7 @@ enum EnumCalendarColor {
 
 
 // 鼠标点击某个天时，获取该天的日记列表
-const focusedDayDiaries = ref<Array<DiaryEntity>>([])
+const focusedDayDiaries = ref<Array<EntityDiaryForm>>([])
 
 // 更新选中日期的高亮显示
 function updateSelectedDateHighlight(selectedDate: Date) {
@@ -208,7 +208,7 @@ const attributes = ref<Array<CalendarAttribute>>([
 /**
  * 经期数据
  */
-const periodDiary = ref<DiaryEntity>()
+const periodDiary = ref<EntityDiaryForm>()
 function loadCalendarPeriod(){
     diaryApi
         .getDiaryWithTitleKeyword({keyword: '经期记录'})
