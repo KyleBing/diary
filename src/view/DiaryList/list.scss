@@ -34,7 +34,7 @@
   top: 0;
   background-color: $bg-searchbar;
   padding: 8px 10px;
-  z-index: $z-header;
+  z-index: $z-search;
   input{
     width: 100%;
     line-height: 25px;
@@ -70,12 +70,6 @@
   font-size: $fz-small;
   color: $color-main;
   margin-bottom: 1px;
-}
-
-.diary-list-group{
-  &.detail{
-    padding: 10px;
-  }
 }
 
 // DARK

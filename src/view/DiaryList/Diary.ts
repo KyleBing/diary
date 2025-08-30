@@ -129,3 +129,16 @@ export interface EntityDiaryFromServerTitleOnly{
     date: Date|string|number,
     category: string,
 }
+
+
+
+// Diary List Group
+
+export interface EntityDiaryListGroup{
+    date: string,
+    diaries: Array<EntityDiaryFromServerLocal>
+}
+
+
+
+

@@ -1,13 +1,25 @@
 <template>
-    <div :class="['list-header', {big: size === 'big'}, {medium: size === 'medium'}]">{{ title }}</div>
+    <div :class="[
+        'list-header',
+        {big: size === 'big'}, 
+        {medium: size === 'medium'},
+        {'with-search': isWithSearch}
+    ]">{{ title }}</div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from "vue"
+import { useProjectStore } from "@/pinia/useProjectStore"
+const projectStore = useProjectStore()
 
 defineProps<{
     title: string,
     size?: 'big' | 'medium'
 }>()
+
+const isWithSearch = computed(() => {
+    return projectStore.isShowSearchBar
+})
 
 </script>
 
@@ -15,19 +27,20 @@ defineProps<{
 @import "../../scss/plugin";
 
 .list-header{
+    position: sticky;
+    top: 0;
+    z-index: $z-header;
     font-size: $fz-list-header;
     text-align: left;
     padding: 3px 20px;
-    //color: $text-date;
     background-color: $bg-light;
-    //height: $height-header;
     line-height: $height-header;
-    //letter-spacing: -0.5px;
     font-family: "Galvji", sans-serif;
-    //letter-spacing: 1px;
     color: black;
     font-weight: bold;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    transition: top 0.3s ease-in-out;
+    border-bottom: 1px solid $color-border;
     &.big{
         padding: 10px 20px;
         height: auto;
@@ -38,6 +51,10 @@ defineProps<{
         padding: 3px 20px;
         height: auto;
         font-size: $fz-list-header + 3;
+    }
+    &.with-search{
+        transition: top 0.3s ease-in-out;
+        top: 50px;
     }
 }
 
@@ -57,6 +74,7 @@ defineProps<{
         &.big{
             margin: 0 10px;
         }
+        border-bottom: 1px solid $dark-border !important;
     }
 }
 

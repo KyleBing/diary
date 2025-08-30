@@ -1,9 +1,6 @@
 <template>
     <div class="diary-list-group-container" :style="`min-height: ${projectStore.insets.heightPanel}px`">
-        <transition
-            enter-active-class="animated-fast slideInDown"
-            leave-active-class="animated-fast slideOutUp"
-        >
+        <transition enter-active-class="animated-fast slideInDown" leave-active-class="animated-fast slideOutUp">
             <div class="search-bar" v-if="projectStore.isShowSearchBar">
                 <form @submit.prevent="search">
                     <input id="keyword" type="text" placeholder="搜索内容" v-model="keywordShow">
@@ -12,32 +9,16 @@
             </div>
         </transition>
 
-        <!-- 普通列表 -->
-        <div v-if="projectStore.listStyle === EnumListStyle.list" class="diary-list-group" >
-            <template v-for="item in diaryListShow" :key="item.id">
-                <ListHeader v-if="!item.title" size="big" :title="item.date"/>
-                <DiaryListItem
-                    v-else
-                    @click="diaryListItemClick(item)"
-                    :isActive="route.params.id === String(item.id)"
-                    :category="item.category"
-                    :diary="item"/>
-            </template>
-        </div>
 
-        <!-- 详情列表 -->
-        <div v-if="projectStore.listStyle === EnumListStyle.detail" class="diary-list-group detail" >
-            <template v-for="item in diaryListShow" :key="item.id">
-                <ListHeader v-if="!item.title" size="big" :title="item.date"/>
-                <DiaryListItemLong
-                    v-else
-                    @click="diaryLiteItemLongClick(item)"
-                    :diary="item"/>
-            </template>
+        <div class="diary-list-group">
+            <DiaryListGroup 
+                v-for="item in diaryListGroup" :key="item.date" 
+                :listStyle="projectStore.listStyle"
+                :diaryListGroup="item" />
         </div>
 
         <div class="pt-4 pb-4" v-if="isLoading">
-            <Loading :loading="isLoading"/>
+            <Loading :loading="isLoading" />
         </div>
 
         <div v-show="!isLoading && !isHasMore" class="end-of-diary">
@@ -51,11 +32,8 @@
 </template>
 
 <script lang="ts" setup>
-import DiaryListItem from "@/view/DiaryList/DiaryListItem/DiaryListItem.vue"
-import DiaryListItemLong from "@/view/DiaryList/DiaryListItemLong/DiaryListItemLong.vue"
 import Loading from "@/components/Loading.vue"
 import diaryApi from "@/api/diaryApi"
-import ListHeader from "@/view/DiaryList/ListHeader.vue"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 
 import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
@@ -68,8 +46,12 @@ import {
     DiarySearchParams,
     EntityDiaryFromServerLocal
 } from "./Diary"
+
+import DiaryListGroup from "@/view/DiaryList/DiaryListGroup.vue"
+
+import { EntityDiaryListGroup } from "./Diary"
+
 import {storeToRefs} from "pinia"
-import {EnumListStyle} from "@/listStyle"
 import { useStatisticStore } from "@/pinia/useStatisticStore"
 const projectStore = useProjectStore()
 const router = useRouter()
@@ -77,8 +59,10 @@ const route = useRoute()
 
 const isHasMore = ref(true)
 const isLoading = ref(true)
-const diaryList = ref<Array<EntityDiaryFromServerLocal>>([])
-const diaryListShow = ref<Array<EntityDiaryFromServerLocal>>([])
+
+const diaryList = ref<Array<EntityDiaryFromServerLocal>>([])  // 全部日记
+const diaryListGroup = ref<Array<EntityDiaryListGroup>>([])   // 处理分组后的日记分组
+
 const {isShowSearchBar, isListNeedBeReload, listOperation} = storeToRefs(projectStore)
 
 const formSearch = ref<DiarySearchParams>({
@@ -101,49 +85,29 @@ onMounted(() => {
     reloadDiaryList() // 载入日记列表
 })
 
-// 日记列表点击
-function diaryLiteItemLongClick(item: EntityDiaryFromServerLocal) {
-    router.push({
-        name: 'Detail',
-        params: {id: item.id}
-    })
-}
 
-// 日记列表点击
-function diaryListItemClick(item: EntityDiaryFromServerLocal) {
-    router.push({
-        name: 'Detail',
-        params: {id: item.id}
-    })
-}
 
 // 刷新 diaryList show
-function refreshDiariesShow(){
-    console.log('diaryList changed')
-    let tempShowArray: Array<EntityDiaryFromServerLocal|{date: string}> = []
+function refreshDiariesShow() {
+    let tempGroupArray: Array<EntityDiaryListGroup> = []
     if (diaryList.value.length > 0) { // 在开始时，先把头问月份和第一个日记加到数组中
         let lastDiary = diaryList.value[0]
         let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
-
-        // 如果只筛选 to-do 日记，则不显示年月标题
-        let isShowMonthHeader = !(projectStore.filteredCategories.length === 1
-            && projectStore.filteredCategories[0] === 'todo')
-        if (isShowMonthHeader) {
-            tempShowArray.push({ // 添加年月
-                date: lastDiaryDateString.substring(0, 7)
-            })
-        } else {
-            tempShowArray.push({ // 添加待办标题
-                date: '待办列表'
-            })
-        }
+        let yearDateString = lastDiaryDateString.substring(0, 7)
 
         let currentDay = Number(lastDiaryDateString.slice(8, 10))
-        let tempDiary: EntityDiaryFromServerLocal = {}
+
+        let tempDiary = {} as EntityDiaryFromServerLocal
         Object.assign(tempDiary, lastDiary)
         tempDiary.date = currentDay
+
+        let tempGroup: EntityDiaryListGroup = {
+            date: yearDateString,
+            diaries: [tempDiary]
+        }
+
         // 添加当前日记内容
-        tempShowArray.push(tempDiary)
+        tempGroupArray.push(tempGroup)
 
         let sameDayIndex = 0 // 连续相同日期的日记 index
 
@@ -153,41 +117,40 @@ function refreshDiariesShow(){
                 let currentDiary = diaryList.value[i]
                 let lastDiaryDateString = dateFormatter(new Date(lastDiary.date), 'yyyy-MM-dd')
                 let currentDiaryDateString = dateFormatter(new Date(currentDiary.date), 'yyyy-MM-dd')
-                let lastDiaryMonth = lastDiaryDateString.substring(0, 7)
+                let lastDiaryYearMonth = lastDiaryDateString.substring(0, 7)
                 let lastDiaryDay = Number(lastDiaryDateString.substring(8, 10))
-                let currentDiaryMonth = currentDiaryDateString.substring(0, 7)
+                let currentDiaryYearMonth = currentDiaryDateString.substring(0, 7)
                 let currentDiaryDay = Number(currentDiaryDateString.substring(8, 10))
 
                 // 判断是否需要添加年月标题
-                let isNeedAddHeader = lastDiaryMonth !== currentDiaryMonth
+                let isNeedAddAnotherGroup = lastDiaryYearMonth !== currentDiaryYearMonth
 
-                // 如果只筛选 to-do 日记，则不显示年月标题
-                isNeedAddHeader = isNeedAddHeader && isShowMonthHeader
 
-                // 添加年月标题
-                if (isNeedAddHeader) {
-                    tempShowArray.push({
-                        date: currentDiaryDateString.substring(0, 7)
-                    })
-                }
                 let tempDiary = {} as EntityDiaryFromServerLocal
                 Object.assign(tempDiary, currentDiary)
 
                 // 判断前一个日记和后一个日记的日期字符串是否一致
                 // 这里需要判断完整的日期字符串，列表执行搜索的时候可能会有 month 不同但 day 相同的情况，就会导致下一条的日期不会显示。
-                if(currentDiaryDateString === lastDiaryDateString){
+                if (currentDiaryDateString === lastDiaryDateString) {
                     tempDiary.date = ''
                 } else {
                     sameDayIndex = 0
                     tempDiary.date = currentDiaryDay
                 }
 
-                // 添加当前日记内容
-                tempShowArray.push(tempDiary)
+                // 添加年月标题
+                if (isNeedAddAnotherGroup) {
+                    tempGroupArray.push({
+                        date: currentDiaryYearMonth,
+                        diaries: [tempDiary]
+                    })
+                } else {
+                    tempGroupArray[tempGroupArray.length - 1].diaries.push(tempDiary)
+                }
             }
         }
+        diaryListGroup.value = tempGroupArray
     }
-    diaryListShow.value = tempShowArray
 }
 
 /* KEYWORD 相关 */
@@ -222,7 +185,6 @@ function reloadDiaryList() {
     formSearch.value.pageNo = 1
     formSearch.value.keywords = JSON.stringify(projectStore.keywords)
     diaryList.value = []
-    diaryListShow.value = []
     loadMore()
 }
 
@@ -274,12 +236,20 @@ function getDiaries() {
 function addScrollEvent() {
     document.querySelector('.diary-list-container')!.addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
         /* 判断是否加载内容*/
-        function needLoadContent() {
-            let lastNode = document.querySelector('.diary-list-group > :last-child') as HTMLDivElement
-            if (!lastNode) {
+        function isNeedLoadMoreDidary() {
+            // Get the last diary group element
+            let lastGroupNode = document.querySelector('.diary-list-group > .diary-list-group:last-child') as HTMLDivElement
+            if (!lastGroupNode) {
                 return false
             }
-            let lastOffsetTop = lastNode.offsetTop
+            
+            // Get the last diary item within the last group
+            let lastDiaryNode = lastGroupNode.querySelector('.diary-list-group-content > :last-child') as HTMLDivElement
+            if (!lastDiaryNode) {
+                return false
+            }
+            
+            let lastOffsetTop = lastDiaryNode.offsetTop + lastGroupNode.offsetTop
             let clientHeight = window.innerHeight
             let listEl = document.querySelector('.diary-list-container')
             let scrollTop = listEl!.scrollTop
@@ -289,7 +259,7 @@ function addScrollEvent() {
             return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
         }
 
-        if (isHasMore.value && needLoadContent()) {
+        if (isHasMore.value && isNeedLoadMoreDidary()) {
             loadMore()
         }
     })
