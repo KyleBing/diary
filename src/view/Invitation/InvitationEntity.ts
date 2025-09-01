@@ -1,4 +1,4 @@
-interface InvitationEntity {
+export interface InvitationEntity {
     id: string,
     date_create: string | Date,
     date_register: string | Date,
@@ -6,6 +6,3 @@ interface InvitationEntity {
     is_shared: 0|1
 }
 
-export {
-    type InvitationEntity
-}

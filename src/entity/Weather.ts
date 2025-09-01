@@ -1,4 +1,4 @@
-const WeatherArray = [
+export const WeatherArray = [
   {value : 'sunny' ,        label : '晴'} ,
   {value : 'cloudy' ,       label : '多云'} ,
   {value : 'overcast' ,     label : '阴'} ,
@@ -12,9 +12,5 @@ const WeatherArray = [
   {value : 'sandstorm' ,    label : '沙尘暴'} ,
 ]
 
-const WeatherMap: Map<string, string> = new Map(WeatherArray.map(item => [item.value, item.label]))
+export const WeatherMap: Map<string, string> = new Map(WeatherArray.map(item => [item.value, item.label]))
 
-export {
-  WeatherArray,
-  WeatherMap
-}

@@ -1,4 +1,4 @@
-interface BankCardEntity{
+export interface BankCardEntity{
     cardNo: string,
     cardName: string,
     cardType: string,
@@ -7,6 +7,4 @@ interface BankCardEntity{
     note?: string
 }
 
-export {
-    BankCardEntity
-}
+

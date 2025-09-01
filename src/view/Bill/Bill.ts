@@ -1,4 +1,4 @@
-const MonthNameMap: Map<string, string> = new Map([
+export const MonthNameMap: Map<string, string> = new Map([
     ['01', '一月'],
     ['02', '二月'],
     ['03', '三月'],
@@ -14,7 +14,7 @@ const MonthNameMap: Map<string, string> = new Map([
 ])
 
 // 月份账单
-interface EntityBillMonth {
+export interface EntityBillMonth {
     id: number,
     days: Array<EntityBillDay>,
     food: EntityBillFood,
@@ -28,7 +28,7 @@ interface EntityBillMonth {
 }
 
 // 日账单
-interface EntityBillDay {
+export interface EntityBillDay {
     id: number,
     date: string,
     sum: number,
@@ -38,7 +38,7 @@ interface EntityBillDay {
 }
 
 // 吃饭账单
-interface EntityBillFood {
+export interface EntityBillFood {
     breakfast: number, // 早
     launch: number, // 午
     dinner: number, // 晚
@@ -47,29 +47,20 @@ interface EntityBillFood {
     sum: number  // 合计
 }
 
-interface EntityBillItem{
+export interface EntityBillItem{
     item: string,
     price: number
 }
 
 // income top5 & outcome top5 item
-interface EntityBillTop5Item extends EntityBillItem{
+export interface EntityBillTop5Item extends EntityBillItem{
     isFiltered?: boolean
 }
 
 
-interface  BillKey {
+export interface  BillKey {
     key: string, // 账单条目
     count: number, // 数量
     sort?: number, // 排序
 }
 
-export {
-    MonthNameMap,
-    type EntityBillMonth,
-    type EntityBillFood,
-    type EntityBillDay,
-    type EntityBillItem,
-    type EntityBillTop5Item,
-    type BillKey
-}

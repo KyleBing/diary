@@ -1,5 +1,5 @@
 
-interface AuthorizationEntity{
+export interface AuthorizationEntity{
     nickname: string
     uid: number
     email: string
@@ -9,8 +9,4 @@ interface AuthorizationEntity{
     group_id: number
     city: string
     geolocation: string
-}
-
-export {
-    type AuthorizationEntity
 }

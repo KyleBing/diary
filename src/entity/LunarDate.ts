@@ -1,4 +1,4 @@
-interface LunarDateEntity{
+export interface LunarDateEntity{
     Animal: string,
     IDayCn: string,
     IMonthCn: string,
@@ -18,8 +18,4 @@ interface LunarDateEntity{
     lYear: number,
     nWeek: number,
     ncWeek: string
-}
-
-export {
-    type LunarDateEntity
 }

@@ -1,6 +1,11 @@
 <template>
     <div class="bill-panel" :style="`width: ${width}px`">
-        <div class="bill-panel-title">{{ title }}</div>
+        <div class="bill-panel-title">
+            {{ title }}
+            <div class="bill-panel-action">
+                <slot name="action" />
+            </div>
+        </div>
         <div class="bill-panel-content"
              :style="`padding: ${padding}`"
         >
@@ -35,12 +40,18 @@ withDefaults(defineProps<{
     background-color: white;
     .bill-panel-title{
         background: linear-gradient(to bottom, white, #f1f1f1);
-        padding: 8px 20px;
+        height: 35px;
+        line-height: 35px;
         //background-color: $bg-lighter;
         font-weight: bold;
         font-size: $fz-main;
         text-align: center;
         border-bottom: 1px solid $color-border-light;
+
+        .bill-panel-action{
+            height: 35px;
+            float: right;
+        }
     }
     .bill-panel-content{
         padding-bottom: 10px;

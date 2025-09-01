@@ -1,4 +1,4 @@
-interface StatisticCategoryEntity{
+export interface StatisticCategoryEntity{
     nickname: string
     uid: number
     email: string
@@ -8,8 +8,4 @@ interface StatisticCategoryEntity{
     group_id: number
     city: string
     geolocation: string
-}
-
-export {
-    type StatisticCategoryEntity
 }

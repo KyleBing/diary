@@ -68,7 +68,7 @@ const props = withDefaults(defineProps<{
         | '黑色-列表详情'
         | '黑色-列表瀑布'
         | '黑色-日历-选中',
-    size?: string
+    size?: '' | 'small'
 }>(), {
     size: ''
 })

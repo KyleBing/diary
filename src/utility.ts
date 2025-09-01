@@ -7,7 +7,7 @@ const BILL_KEYS_NAME = 'BillKeys'
 /**
  *  AUTHORIZATION
  */
-function getAuthorization(): AuthorizationEntity | undefined {
+export function getAuthorization(): AuthorizationEntity | undefined {
     let authJsonString = localStorage.getItem(AUTHORIZATION_NAME)
     if (authJsonString){
         return JSON.parse(authJsonString)
@@ -16,11 +16,11 @@ function getAuthorization(): AuthorizationEntity | undefined {
     }
 }
 
-function deleteAuthorization() {
+export function deleteAuthorization() {
     localStorage.removeItem(AUTHORIZATION_NAME)
     removeBillKeys()
 }
-function setAuthorization(auth: AuthorizationEntity) {
+export function setAuthorization(auth: AuthorizationEntity) {
     localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
         nickname: auth.nickname,
         uid: auth.uid,
@@ -38,14 +38,14 @@ function setAuthorization(auth: AuthorizationEntity) {
  * 保存账单常用项目列表
  * @param keyArray
  */
-function setBillKeys(keyArray: string[]) {
+export function setBillKeys(keyArray: string[]) {
     localStorage.setItem(BILL_KEYS_NAME, JSON.stringify(keyArray))
 }
 
 /**
  * 获取账单常用项目列表
  */
-function getBillKeys(): Array<BillKey> {
+export function getBillKeys(): Array<BillKey> {
     let keysString = localStorage.getItem(BILL_KEYS_NAME)
     if (keysString) {
         return JSON.parse(keysString)
@@ -54,7 +54,7 @@ function getBillKeys(): Array<BillKey> {
     }
 }
 
-function removeBillKeys() {
+export function removeBillKeys() {
     localStorage.removeItem(BILL_KEYS_NAME)
 }
 
@@ -68,7 +68,7 @@ function removeBillKeys() {
  * @param callback
  * @param timeout
  */
-function popMessage(
+export function popMessage(
     type: 'default' | 'warning' | 'success' | 'danger',
     title: string,
     callback = () => {},
@@ -101,13 +101,13 @@ function popMessage(
     }, 1000 * timeout)
 }
 
-function $(selector: string) {
+export function $(selector: string) {
     return document.querySelector(selector)
 }
 
 
 // CONST
-enum EnumWeekDay {
+export enum EnumWeekDay {
     '周日' = 0,
     '周一',
     '周二',
@@ -117,7 +117,7 @@ enum EnumWeekDay {
     '周六',
 }
 
-enum EnumWeekDayShort {
+export enum EnumWeekDayShort {
     '日' = 0,
     '一',
     '二',
@@ -128,7 +128,7 @@ enum EnumWeekDayShort {
 }
 
 // 格式化时间，输出字符串
-function dateFormatter(date: Date, formatString: string = 'yyyy-MM-dd hh:mm:ss') {
+export function dateFormatter(date: Date, formatString: string = 'yyyy-MM-dd hh:mm:ss') {
     let dateRegArray: Object = {
         "M+": date.getMonth() + 1,                      // 月份
         "d+": date.getDate(),                           // 日
@@ -149,7 +149,7 @@ function dateFormatter(date: Date, formatString: string = 'yyyy-MM-dd hh:mm:ss')
     return formatString
 }
 
-interface DateUtilityObject{
+export interface DateUtilityObject{
     year: number,
     day: number,
     month: number,
@@ -163,7 +163,7 @@ interface DateUtilityObject{
     time: string
 }
 
-function dateProcess(dateString: string): DateUtilityObject {
+export function dateProcess(dateString: string): DateUtilityObject {
     let date = new Date(dateString)
     let year = date.getFullYear()
     let month = date.getMonth() + 1
@@ -202,26 +202,26 @@ function dateProcess(dateString: string): DateUtilityObject {
     }
 }
 
-function padNumberWith0(num: number) {
+export function padNumberWith0(num: number) {
     return String(num).padStart(2, '0')
 }
 
-function temperatureProcessSTC(temperature: number | string) {
+export function temperatureProcessSTC(temperature: number | string) {
     return temperature === -273 ? '' : String(temperature)
 }
 
-function temperatureProcessCTS(temperature: number | string) {
+export function temperatureProcessCTS(temperature: number | string) {
     return temperature === '' ? -273 : Number(temperature)
 }
 
-interface DiaryConfigEntity {
+export interface DiaryConfigEntity {
     isFilterShared: boolean, // 是否筛选共享日记
     keywords: string[], // 关键词
     filteredCategories: string[], // 筛选的日记类别
     dateFilterString: string // 日记范围
 }
 
-function getDiaryConfigFromLocalStorage() {
+export function getDiaryConfigFromLocalStorage() {
     let diaryConfigString = localStorage.getItem('DiaryConfig')
     if (diaryConfigString) {
         return JSON.parse(diaryConfigString)
@@ -238,35 +238,18 @@ function getDiaryConfigFromLocalStorage() {
     }
 }
 
-function setDiaryConfig(newValue: DiaryConfigEntity) {
+export function setDiaryConfig(newValue: DiaryConfigEntity) {
     localStorage.setItem('DiaryConfig', JSON.stringify(newValue))
 }
 
-function removeDiaryConfig() {
+export function removeDiaryConfig() {
     localStorage.removeItem('DiaryConfig')
 }
 
 
 
-function isInMobileMode(): boolean{
+export function isInMobileMode(): boolean{
     // console.log(state.insets)
     // 宽度小于 1024 或 高>宽 时，表示是在移动设备上
     return innerWidth < 1024 || innerWidth < innerHeight
-}
-
-export {
-    getAuthorization,
-    setAuthorization,
-    popMessage,
-    dateProcess,
-    dateFormatter,
-    deleteAuthorization,
-    temperatureProcessSTC,
-    temperatureProcessCTS,
-    setBillKeys, getBillKeys, removeBillKeys,
-    getDiaryConfigFromLocalStorage, setDiaryConfig, removeDiaryConfig,
-    type DateUtilityObject,
-
-    EnumWeekDay,
-    EnumWeekDayShort
 }

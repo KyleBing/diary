@@ -1,4 +1,4 @@
-interface EntityFile {
+export interface EntityFile {
     id: number,
     name_original: string,
     path: string,
@@ -10,6 +10,3 @@ interface EntityFile {
     size: number
 }
 
-export {
-    type EntityFile
-}

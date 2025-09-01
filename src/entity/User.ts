@@ -1,17 +1,17 @@
-interface UserEntity {
+export interface UserEntity {
     name: string,
     name_en: string,
     color: string,
 }
 
-interface UserRegisterEntity {
+export interface UserRegisterEntity {
     nickname: string,
     invitationCode: string,
     email: string,
     password: string,
 }
 
-interface UserProfileEntity{
+export interface UserProfileEntity{
     nickname: string,
     phone: string,
     avatar: string,
@@ -20,8 +20,3 @@ interface UserProfileEntity{
 }
 
 
-export {
-    type UserEntity,
-    type UserRegisterEntity,
-    type UserProfileEntity
-}

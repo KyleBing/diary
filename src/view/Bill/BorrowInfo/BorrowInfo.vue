@@ -1,5 +1,14 @@
 <template>
     <BillPanel :width="props.width" title="借还记录" v-if="borrowInfoList && borrowInfoList.length > 0">
+
+        <!-- 编辑借还记录 -->
+        <template #action>
+            <div @click="editBorrowInfo()">
+                <TabIcon size="small" icon="黑色-编辑"/>
+            </div>
+        </template>
+
+        <!-- 借还记录列表 -->
         <div class="borrow-list">
             <div class="borrow-list-item" v-for="(item, index) in borrowInfoList" :key="index">
                 <div class="total">{{item.total}}</div>
@@ -28,12 +37,20 @@ import {onMounted, ref} from "vue";
 import billApi from "@/api/billApi.ts";
 import {EntityBorrow} from "@/view/Bill/BorrowInfo/Borrow.ts";
 import BillPanel from "@/view/Bill/BillPanel.vue";
+import TabIcon from "@/components/TabIcon.vue";
+import { useProjectStore } from "@/pinia/useProjectStore.ts";
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
+import diaryApi from "@/api/diaryApi.ts";
+import { useRouter } from "vue-router";
 
 const props = withDefaults(defineProps<{
     width: number
 }>(), {
     width: 350
 })
+
+const projectStore = useProjectStore()
+const router = useRouter()
 
 onMounted(()=>{
     getBorrowInfo()
@@ -110,6 +127,33 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
     })
     return tempBorrowArray
 }
+
+
+
+/**
+ * 编辑借还记录
+ */
+ function editBorrowInfo(){
+    const keyword = '借还记录'
+    projectStore.SET_KEYWORD([keyword])  // 将 keyword 设置为关键词，为了筛选日记列表，只显示这一条内容
+    let params = {
+        categories: JSON.stringify(useStatisticStore().getCategoryAllFromLocalStorage().map(item => item.name_en)),
+        keywords: JSON.stringify([keyword]),
+        pageSize: 100,
+        pageNo: 1
+    }
+    diaryApi
+        .list(params)
+        .then(res => {
+            if (res.data.length === 1){
+                router.push({
+                    name: 'Edit',
+                    params: {id: res.data[0].id}
+                })
+            }
+        })
+}
+
 
 </script>
 

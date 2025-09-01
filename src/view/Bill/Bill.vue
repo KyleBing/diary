@@ -27,6 +27,7 @@
 
                     <!--  借还记录 -->
                     <BorrowInfo :width="350" class="mt-2"/>
+                    
                 </div>
 
                 <!--  账单概况  -->
@@ -62,6 +63,9 @@ import BillPanel from "@/view/Bill/BillPanel.vue";
 import Button from "@/components/Button.vue";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import BillSummary from "@/view/Bill/BillSummary.vue";
+import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
+import diaryApi from "@/api/diaryApi.ts";
+import { useRouter } from "vue-router";
 
 const billYearData = ref<Array<EntityBillMonth>>([])
 const isLoading = ref(false)
@@ -69,7 +73,7 @@ const formSearch = ref({
     year: new Date().getFullYear(),
     keyword: ''
 })
-
+const router = useRouter()
 const yearNumberArray = ref<Array<number>>([new Date().getFullYear()])
 
 onMounted(()=>{

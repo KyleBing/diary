@@ -1,4 +1,4 @@
-interface StatisticUserEntity{
+export interface StatisticUserEntity{
     uid: number,
     last_visit_time: string,
     nickname: string,
@@ -8,8 +8,3 @@ interface StatisticUserEntity{
     count_map_route: number,
     sync_count: number
 }
-
-export {
-    type StatisticUserEntity
-}
-
