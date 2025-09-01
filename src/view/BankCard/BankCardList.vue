@@ -64,6 +64,7 @@ import {useRouter} from "vue-router";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 import {BankCardEntity} from "@/view/BankCard/BankCard.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import { useProjectStore } from "@/pinia/useProjectStore.ts";
 
 const cardListExample = [
     {
@@ -106,6 +107,7 @@ const cardListStore = ref([])
 const cardListCredit = ref([])
 const clipboard = ref(null) // clipboard obj
 const router = useRouter()
+const projectStore = useProjectStore()
 
 onMounted(()=>{
     getBankCards()
@@ -116,9 +118,11 @@ onBeforeUnmount(()=>{
 
 // 编辑银行卡信息
 function editCardInfo(){
+    const keyword = '我的银行卡列表'
+    projectStore.SET_KEYWORD([keyword])  // 将 keyword 设置为关键词，为了筛选日记列表，只显示这一条内容
     let params = {
         categories: JSON.stringify(useStatisticStore().getCategoryAllFromLocalStorage().map(item => item.name_en)),
-        keywords: JSON.stringify(['我的银行卡列表']),
+        keywords: JSON.stringify([keyword]),
         pageSize: 100,
         pageNo: 1
     }

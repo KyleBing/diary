@@ -102,12 +102,8 @@
                         :data-clipboard="shareUrl">
                         <TabIcon icon="分享"/>
                     </div>
-                    <div @click="toastShow">
-                        <TabIcon icon="删除"/>
-                    </div>
-                    <div @click="editDiary">
-                        <TabIcon icon="编辑"/>
-                    </div>
+                    <div @click="toastShow"> <TabIcon icon="删除"/> </div>
+                    <div @click="editDiary"> <TabIcon icon="编辑"/> </div>
                 </div>
 
                 <!--编辑按钮-->
