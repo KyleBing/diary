@@ -30,6 +30,7 @@ import tab_category from "./tab/category.svg?url"
 import tab_year from "./tab/year.svg?url"
 import tab_about from "./tab/about.svg?url"
 import tab_calendar from "./tab/calendar.svg?url"
+import tab_calendar_active from "./tab/calendar_active.svg?url"
 import tab_changelog from "./tab/changelog.svg?url"
 
 import tab_invitation_black from "./tab/invitation_black.svg?url"
@@ -62,6 +63,7 @@ import tab_year_black from "./tab/year_black.svg?url"
 import tab_about_black from "./tab/about_black.svg?url"
 import tab_calendar_black from "./tab/calendar_black.svg?url"
 import tab_changelog_black from "./tab/changelog_black.svg?url"
+import tab_calendar_black_active from "./tab/calendar_black_active.svg?url"
 
 
 // LOGO
@@ -182,6 +184,7 @@ export default {
         listDetail: tab_list_detail,
         listWaterfall: tab_list_waterfall,
         calendar: tab_calendar,
+        calendar_active: tab_calendar_active,
         statistics: tab_statistics,
         key: tab_key,
         folder: tab_folder,
@@ -214,6 +217,7 @@ export default {
         listDetail: tab_list_detail_black,
         listWaterfall: tab_list_waterfall_black,
         calendar: tab_calendar_black,
+        calendar_active: tab_calendar_black_active,
         statistics: tab_statistics_black,
         key: tab_key_black,
         folder: tab_folder_black,

@@ -48,6 +48,7 @@ const iconMap = computed(() => {
     iconMap.set('内容隐藏', ICONS.tab_icons.contentHide)
     iconMap.set('内容显示', ICONS.tab_icons.contentShow)
     iconMap.set('日历', ICONS.tab_icons.calendar)
+    iconMap.set('日历-选中', ICONS.tab_icons.calendar_active)
     iconMap.set('列表简洁', ICONS.tab_icons.listSimple)
     iconMap.set('列表详情', ICONS.tab_icons.listDetail)
     iconMap.set('列表瀑布', ICONS.tab_icons.listWaterfall)
@@ -75,6 +76,7 @@ const iconMap = computed(() => {
     iconMap.set('黑色-列表简洁', ICONS.tab_icons_black.listSimple)
     iconMap.set('黑色-列表详情', ICONS.tab_icons_black.listDetail)
     iconMap.set('黑色-列表瀑布', ICONS.tab_icons_black.listWaterfall)
+    iconMap.set('黑色-日历-选中', ICONS.tab_icons_black.calendar_active)
     return iconMap
 })
 </script>

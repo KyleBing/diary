@@ -47,7 +47,8 @@
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="calendarTaped">
-                    <TabIcon alt="日历"/>
+                    <TabIcon alt="日历-选中" v-if="route.name === 'Calendar'"/>
+                    <TabIcon v-else alt="日历"/>
                 </div>
 
 
