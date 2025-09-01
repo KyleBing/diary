@@ -6,7 +6,7 @@
     >
         <i :class="['category']" :style="`background-color: ${statisticStore.categoryObjectMap.get(diary.category).color}`"></i>
 
-        <span class="date">{{ diary.date }}</span>
+        <span class="date">{{ diary.day }}</span>
 
         <div class="detail">
             <p class="title" v-if="projectStore.isHideContent">{{ diary.title.replace(/[^，。 \n]/g, '*') }}</p>

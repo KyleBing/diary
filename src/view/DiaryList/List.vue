@@ -99,7 +99,7 @@ function refreshDiariesShow() {
 
         let tempDiary = {} as EntityDiaryFromServerLocal
         Object.assign(tempDiary, lastDiary)
-        tempDiary.date = currentDay
+        tempDiary.day = currentDay
 
         let tempGroup: EntityDiaryListGroup = {
             title: yearDateString,
@@ -139,10 +139,10 @@ function refreshDiariesShow() {
                 // 判断前一个日记和后一个日记的日期字符串是否一致
                 // 这里需要判断完整的日期字符串，列表执行搜索的时候可能会有 month 不同但 day 相同的情况，就会导致下一条的日期不会显示。
                 if (currentDiaryDateString === lastDiaryDateString) {
-                    tempDiary.date = ''
+                    tempDiary.day = ''
                 } else {
                     sameDayIndex = 0
-                    tempDiary.date = currentDiaryDay
+                    tempDiary.day = currentDiaryDay
                 }
 
                 // 添加标题

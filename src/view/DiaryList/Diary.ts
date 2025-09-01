@@ -24,6 +24,8 @@ export interface EntityDiaryFromServer{
 }
 
 export interface EntityDiaryFromServerLocal extends EntityDiaryFromServer{
+    day: number | '', // 日记列表中的日期：日  值
+
     // detail
     dateObj?: DateUtilityObject,
 
