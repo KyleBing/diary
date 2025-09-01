@@ -73,7 +73,6 @@ import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 import MenuCategoryIndicatorInline from "@/view/Menu/MenuCategorySelector/MenuCategoryIndicatorInline.vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
-import { EnumListStyle } from "@/listStyle.ts";
 
 const projectStore = useProjectStore()
 const router = useRouter()
@@ -108,7 +107,7 @@ const MENU_LIST = [
         }
     },
     {
-        name: '类别筛选',
+        name: '类别',
         isShowInMobile: true,
         isShowInPC: true,
         isNeedAdmin: false,
@@ -135,7 +134,7 @@ const MENU_LIST = [
         }
     },
     {
-        name: '年份筛选',
+        name: '年份',
         isShowInMobile: true,
         isShowInPC: true,
         isNeedAdmin: false,
@@ -149,13 +148,25 @@ const MENU_LIST = [
     {
         name: '日历',
         isShowInMobile: true,
-        isShowInPC: true,
+        isShowInPC: false,
         isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.calendar_active,
         insideComponent: null,
         addOnText: null,
         onClick: () => {
             goToPage('Calendar')
+        }
+    },
+    {
+        name: '瀑布',
+        isShowInMobile: true,
+        isShowInPC: true,
+        isNeedAdmin: false,
+        icon: SVG_ICONS.tab_icons.listWaterfall,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('WaterfallList')
         }
     },
     {
@@ -173,7 +184,7 @@ const MENU_LIST = [
     {
         name: '账单',
         isShowInMobile: true,
-        isShowInPC: true,
+        isShowInPC: false,
         isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.billSimple,
         insideComponent: null,
@@ -183,7 +194,7 @@ const MENU_LIST = [
         }
     },
     {
-        name: '统计数据',
+        name: '统计',
         isShowInMobile: true,
         isShowInPC: true,
         isNeedAdmin: false,
@@ -197,7 +208,7 @@ const MENU_LIST = [
     {
         name: '银行卡',
         isShowInMobile: true,
-        isShowInPC: true,
+        isShowInPC: false,
         isNeedAdmin: false,
         icon: SVG_ICONS.tab_icons.card,
         insideComponent: null,
@@ -207,27 +218,15 @@ const MENU_LIST = [
         }
     },
     {
-        name: '文件管理',
+        name: '文件',
         isShowInMobile: true,
-        isShowInPC: true,
+        isShowInPC: false,
         isNeedAdmin: true,
         icon: SVG_ICONS.tab_icons.folder,
         insideComponent: null,
         addOnText: null,
         onClick: () => {
             goToPage('FileManager')
-        }
-    },
-    {
-        name: '瀑布列表',
-        isShowInMobile: true,
-        isShowInPC: true,
-        isNeedAdmin: false,
-        icon: SVG_ICONS.tab_icons.listWaterfall,
-        insideComponent: null,
-        addOnText: null,
-        onClick: () => {
-            goToPage('WaterfallList')
         }
     },
     {
