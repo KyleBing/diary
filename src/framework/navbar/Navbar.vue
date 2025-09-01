@@ -36,14 +36,21 @@
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleListStyle">
-                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.list" alt="列表简洁"/>
-                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.detail" alt="列表详情"/>
-                    <TabIcon v-if="projectStore.listStyle === EnumListStyle.waterfall" alt="列表瀑布"/>
+                    <TabIcon 
+                        v-if="projectStore.listStyle === EnumListStyle.list 
+                            || projectStore.listStyle === EnumListStyle.waterfall" 
+                        alt="列表简洁"/>
+                    <TabIcon 
+                        v-else-if="projectStore.listStyle === EnumListStyle.detail 
+                            || projectStore.listStyle === EnumListStyle.waterfall" 
+                        alt="列表详情"/>
                 </div>
-                <div class="waterfall-count"
+
+
+                <!-- <div class="waterfall-count"
                      v-if="projectStore.listStyle === EnumListStyle.waterfall">
                     {{projectStore.waterFallItemCount}}
-                </div>
+                </div> -->
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="calendarTaped">
@@ -299,6 +306,7 @@ function calendarTaped(){
     }
 }
 
+
 // 跳转到独立页面
 function goToPage(pageName: string){
     router.push({name: pageName})
@@ -330,13 +338,7 @@ function toggleListStyle() {
 
             break;
         case EnumListStyle.detail:
-            projectStore.listStyle = EnumListStyle.waterfall
-            router.push({
-                name: 'Waterfall'
-            })
-            break;
-        case EnumListStyle.waterfall:
-            projectStore.listStyle = EnumListStyle.list
+        projectStore.listStyle = EnumListStyle.list
             router.push({
                 name: 'List'
             })

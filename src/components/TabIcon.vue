@@ -16,7 +16,7 @@ import ICONS from "../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
 
 const props = withDefaults(defineProps<{
-    alt: string,
+    alt: keyof typeof ICONS.tab_icons,
     size?: string
 }>(), {
     size: ''

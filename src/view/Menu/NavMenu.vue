@@ -73,6 +73,7 @@ import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 import MenuCategoryIndicatorInline from "@/view/Menu/MenuCategorySelector/MenuCategoryIndicatorInline.vue";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
+import { EnumListStyle } from "@/listStyle.ts";
 
 const projectStore = useProjectStore()
 const router = useRouter()
@@ -150,7 +151,7 @@ const MENU_LIST = [
         isShowInMobile: true,
         isShowInPC: true,
         isNeedAdmin: false,
-        icon: SVG_ICONS.tab_icons.calendar,
+        icon: SVG_ICONS.tab_icons.calendar_active,
         insideComponent: null,
         addOnText: null,
         onClick: () => {
@@ -162,7 +163,7 @@ const MENU_LIST = [
         isShowInMobile: false,
         isShowInPC: false,
         isNeedAdmin: false,
-        icon: SVG_ICONS.tab_icons.calendar,
+        icon: SVG_ICONS.tab_icons.calendar_active,
         insideComponent: null,
         addOnText: null,
         onClick: () => {
@@ -215,6 +216,18 @@ const MENU_LIST = [
         addOnText: null,
         onClick: () => {
             goToPage('FileManager')
+        }
+    },
+    {
+        name: '瀑布列表',
+        isShowInMobile: true,
+        isShowInPC: true,
+        isNeedAdmin: false,
+        icon: SVG_ICONS.tab_icons.listWaterfall,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('WaterfallList')
         }
     },
     {
@@ -356,6 +369,15 @@ function menuListClicked(menuName: string) {
             projectStore.isMenuShowed = true  // menu panel
             menuListShowed.value = false // menu list
             categoryShowed.value = true  // category
+            yearShowed.value = false     // year
+            othersShowed.value = false   // others
+            aboutShowed.value = false    // about
+            changeLogShowed.value = false // changeLog
+            break
+        case 'waterfall':
+            projectStore.isMenuShowed = true  // menu panel
+            menuListShowed.value = false // menu list
+            categoryShowed.value = false  // category
             yearShowed.value = false     // year
             othersShowed.value = false   // others
             aboutShowed.value = false    // about
