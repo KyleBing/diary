@@ -1,7 +1,7 @@
 <template>
     <div class="page-header">
         <div class="page-back-btn" @click="router.back()">
-            <TabIcon alt="关闭"/>
+            <TabIcon icon="关闭"/>
         </div>
         <div class="page-title">{{ title }}</div>
         <div class="page-subtitle">{{ subtitle }}</div>

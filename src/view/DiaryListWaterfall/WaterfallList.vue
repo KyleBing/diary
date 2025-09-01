@@ -75,9 +75,6 @@ onMounted(()=>{
     // init
     isShowKeyword.value = getDiaryConfigFromLocalStorage().keywords && getDiaryConfigFromLocalStorage().keywords.join(' ')
     nextTick(()=>{
-        // 页面刷新的时候，当前页肯定是 waterfall 这个页面
-        projectStore.listStyle = EnumListStyle.waterfall
-
         addScrollEvent()
     })
     projectStore.isShowSearchBar = !!isShowKeyword.value

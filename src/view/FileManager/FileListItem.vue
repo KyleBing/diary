@@ -3,10 +3,10 @@
         <div class="id">{{props.fileInfo.id}}</div>
 
         <div class="file-meta">
-            <TabIcon @click="openFileInNewTab" size="small" alt="黑色-内容显示" />
-            <TabIcon @click="modalEditFileName = true" size="small" alt="黑色-编辑"/>
-            <TabIcon @click="deleteFile" size="small" alt="黑色-删除"/>
-            <TabIcon size="small" alt="黑色-分享" class="clipboard" :data-clipboard="filePath" />
+            <TabIcon @click="openFileInNewTab" size="small" icon="黑色-内容显示" />
+            <TabIcon @click="modalEditFileName = true" size="small" icon="黑色-编辑"/>
+            <TabIcon @click="deleteFile" size="small" icon="黑色-删除"/>
+            <TabIcon size="small" icon="黑色-分享" class="clipboard" :data-clipboard="filePath" />
         </div>
 
         <div class="file-info">

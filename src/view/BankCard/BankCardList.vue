@@ -1,6 +1,6 @@
 <template>
     <PageHeader title="银行卡列表" subtitle="点击复制卡号">
-        <TabIcon @click="editCardInfo" alt="编辑"/>
+        <TabIcon @click="editCardInfo" icon="编辑"/>
     </PageHeader>
     <MenuPanelContainer>
         <div v-if="isLoading" class="pt-8 pb-8">

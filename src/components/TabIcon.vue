@@ -1,13 +1,13 @@
 <template>
     <div :class="[
             'icon-btn',
-            {wide: props.alt === 'LOGO'},
+            {wide: props.icon === 'LOGO'},
             {small: props.size === 'small'},
-            {black: props.alt && props.alt.indexOf('黑色') > -1}
+            {black: props.icon && props.icon.indexOf('黑色') > -1}
         ]">
-        <img :alt="props.alt"
-             :title="props.alt"
-             :src="iconMap.get(props.alt)">
+        <img :alt="props.icon"
+             :title="props.icon"
+             :src="iconMap.get(props.icon)">
     </div>
 </template>
 
@@ -16,7 +16,58 @@ import ICONS from "../assets/icons/SVG_ICONS.ts";
 import {computed} from "vue";
 
 const props = withDefaults(defineProps<{
-    alt: keyof typeof ICONS.tab_icons,
+    icon: 'LOGO'
+        | '保存'
+        | '确定'
+        | '确定-已保存'
+        | '确定-已变化'
+        | '添加'
+        | '关闭'
+        | '返回'
+        | '删除'
+        | '编辑'
+        | '菜单'
+        | '恢复'
+        | '搜索'
+        | '分享'
+        | '账单'
+        | '账单简单'
+        | '其它'
+        | '银行卡'
+        | '文件'
+        | '待办'
+        | '待办-显示'
+        | '内容隐藏'
+        | '内容显示'
+        | '日历'
+        | '日历-选中'
+        | '列表简洁'
+        | '列表详情'
+        | '列表瀑布'
+        | '黑色-添加'
+        | '黑色-确定'
+        | '黑色-关闭'
+        | '黑色-返回'
+        | '黑色-删除'
+        | '黑色-编辑'
+        | '黑色-菜单'
+        | '黑色-恢复'
+        | '黑色-搜索'
+        | '黑色-分享'
+        | '黑色-账单'
+        | '黑色-账单简单'
+        | '黑色-其它'
+        | '黑色-银行卡'
+        | '黑色-文件'
+        | '黑色-待办'
+        | '黑色-待办-显示'
+        | '黑色-内容隐藏'
+        | '黑色-内容显示'
+        | '黑色-日历'
+        | '黑色-列表简洁'
+        | '黑色-列表详情'
+        | '黑色-列表瀑布'
+        | '黑色-日历-选中',
     size?: string
 }>(), {
     size: ''

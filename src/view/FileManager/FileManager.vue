@@ -1,6 +1,6 @@
 <template>
     <PageHeader title="文件列表" subtitle="">
-        <TabIcon @click="showModalUpload" alt="添加"/>
+        <TabIcon @click="showModalUpload" icon="添加"/>
     </PageHeader>
     <MenuPanelContainer>
         <div v-if="isLoading" class="pt-8 pb-8">

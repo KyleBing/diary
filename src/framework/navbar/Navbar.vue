@@ -10,40 +10,39 @@
                          && (route.name === 'List' || route.name === 'WaterfallList')
                          && !projectStore.isMenuShowed
                     ">
-                    <TabIcon v-if="projectStore.isInMobileMode" alt="菜单"/>
-                    <TabIcon v-else alt="LOGO"/>
+                    <TabIcon v-if="projectStore.isInMobileMode" icon="菜单"/>
+                    <TabIcon v-else icon="LOGO"/>
                 </div>
                 <div @click="menuClose" v-if="projectStore.isMenuShowed">
-                    <TabIcon alt="关闭"/>
+                    <TabIcon icon="关闭"/>
                 </div>
                 <div @click="commitBack"
-                    v-if="projectStore.isInMobileMode && route.name !== 'List' && route.name !== 'WaterfallList' ">
-                    <TabIcon alt="返回"/>
+                     v-if="projectStore.isInMobileMode && route.name !== 'List' && route.name !== 'WaterfallList' ">
+                    <TabIcon icon="返回"/>
                 </div>
 
                 <div v-show="(!projectStore.isMenuShowed && !projectStore.isInMobileMode) ||
                             (!projectStore.isMenuShowed && projectStore.isInMobileMode
                             && (route.name === 'List' || route.name === 'WaterfallList'))"
                      @click="toggleSearchbar">
-                    <TabIcon alt="搜索"/>
+                    <TabIcon icon="搜索"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
+                <div v-show="!projectStore.isMenuShowed" 
+                v-if="!projectStore.isInMobileMode"
                      @click="toggleHideContent">
-                    <TabIcon v-if="projectStore.isHideContent" alt="内容隐藏"/>
-                    <TabIcon v-else alt="内容显示"/>
+                    <TabIcon v-if="projectStore.isHideContent" icon="内容隐藏"/>
+                    <TabIcon v-else icon="内容显示"/>
                 </div>
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleListStyle">
-                    <TabIcon 
-                        v-if="projectStore.listStyle === EnumListStyle.list 
-                            || projectStore.listStyle === EnumListStyle.waterfall" 
-                        alt="列表简洁"/>
-                    <TabIcon 
-                        v-else-if="projectStore.listStyle === EnumListStyle.detail 
-                            || projectStore.listStyle === EnumListStyle.waterfall" 
-                        alt="列表详情"/>
+                    <TabIcon
+                        v-if="projectStore.listStyle === EnumListStyle.list"
+                        icon="列表简洁"/>
+                    <TabIcon
+                        v-else-if="projectStore.listStyle === EnumListStyle.detail"
+                        icon="列表详情"/>
                 </div>
 
 
@@ -54,30 +53,29 @@
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="calendarTaped">
-                    <TabIcon alt="日历-选中" v-if="route.name === 'Calendar'"/>
-                    <TabIcon v-else alt="日历"/>
+                    <TabIcon icon="日历-选中" v-if="route.name === 'Calendar'"/>
+                    <TabIcon v-else icon="日历"/>
                 </div>
-
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="goToPage('BankCard')">
-                    <TabIcon alt="银行卡"/>
+                    <TabIcon icon="银行卡"/>
                 </div>
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="goToPage('Bill')">
-                    <TabIcon alt="账单简单"/>
+                    <TabIcon icon="账单简单"/>
                 </div>
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode && isAdminUser"
                      @click="goToPage('FileManager')">
-                    <TabIcon alt="文件"/>
+                    <TabIcon icon="文件"/>
                 </div>
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleTodoList">
                     <TabIcon
-                        alt="待办-显示"
+                        icon="待办-显示"
                         v-if="projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'"/>
-                    <TabIcon alt="待办" v-else/>
+                    <TabIcon icon="待办" v-else/>
                 </div>
                 <div v-if="!projectStore.isInMobileMode && projectStore.dateFilterString"
                      v-show="!projectStore.isMenuShowed"
@@ -102,28 +100,28 @@
                         v-if="projectStore.currentDiary && projectStore.currentDiary.is_public === 1"
                         class="clipboard-trigger"
                         :data-clipboard="shareUrl">
-                        <TabIcon alt="分享"/>
+                        <TabIcon icon="分享"/>
                     </div>
                     <div @click="toastShow">
-                        <TabIcon alt="删除"/>
+                        <TabIcon icon="删除"/>
                     </div>
                     <div @click="editDiary">
-                        <TabIcon alt="编辑"/>
+                        <TabIcon icon="编辑"/>
                     </div>
                 </div>
 
                 <!--编辑按钮-->
                 <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew' || route.name === 'CalendarEdit'">
                     <div @click="diaryRecover" v-if="projectStore.isDiaryEditorContentHasChanged">
-                        <TabIcon alt="恢复"/>
+                        <TabIcon icon="恢复"/>
                     </div>
                     <div v-if="projectStore.isSavingDiary">
                         <Loading :height="50" :loading="true"/>
                     </div>
                     <div @click="diarySave" v-else>
-                        <TabIcon v-if="isNewDiary" alt="确定"/>
-                        <TabIcon v-else-if="projectStore.isDiaryEditorContentHasChanged" alt="确定-已变化"/>
-                        <TabIcon v-else alt="确定-已保存"/>
+                        <TabIcon v-if="isNewDiary" icon="确定"/>
+                        <TabIcon v-else-if="projectStore.isDiaryEditorContentHasChanged" icon="确定-已变化"/>
+                        <TabIcon v-else icon="确定-已保存"/>
                     </div>
                 </div>
 
@@ -132,7 +130,7 @@
                             || !projectStore.isInMobileMode"
                     @click="addNewDiary"
                 >
-                    <TabIcon alt="添加"/>
+                    <TabIcon icon="添加"/>
                 </div>
             </div>
 
@@ -141,12 +139,12 @@
             <div class="brand" v-if="projectStore.isInMobileMode" @click="toggleListStyle">
                 <img :src="projectStore.editLogoImg"
                      v-if="route.name === 'Edit' || route.name === 'EditNew'"
-                     alt="LOGO">
+                     icon="LOGO">
                 <a v-else-if="projectStore.listStyle === EnumListStyle.list">
-                    <img :src="SVG_ICONS.logo_icons.logo" alt="日记">
+                    <img :src="SVG_ICONS.logo_icons.logo" icon="日记">
                 </a>
                 <a v-else>
-                    <img :src="SVG_ICONS.logo_icons.logo_content" alt="日记">
+                    <img :src="SVG_ICONS.logo_icons.logo_content" icon="日记">
                 </a>
             </div>
 
@@ -319,10 +317,11 @@ function menuShow() {
 function menuClose() {
     projectStore.isMenuShowed = false
 }
+
 function toggleListStyle() {
-    switch (projectStore.listStyle){
+    switch (projectStore.listStyle) {
         case EnumListStyle.list:
-            if (route.name === 'List' || route.name === 'Detail' || route.name === 'Edit' || route.name === 'EditNew'){
+            if (route.name === 'List' || route.name === 'Detail' || route.name === 'Edit' || route.name === 'EditNew') {
                 projectStore.listStyle = EnumListStyle.detail  // 点击时切换到下一个展示类别
                 router.push({
                     name: 'List'
@@ -335,10 +334,9 @@ function toggleListStyle() {
                     name: 'List'
                 })
             }
-
             break;
         case EnumListStyle.detail:
-        projectStore.listStyle = EnumListStyle.list
+            projectStore.listStyle = EnumListStyle.list
             router.push({
                 name: 'List'
             })

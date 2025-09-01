@@ -1,6 +1,6 @@
 <template>
     <PageHeader title="邀请码" subtitle="点击可复制">
-        <TabIcon v-if="isAdminUser" @click="generateNewInvitationCode" alt="添加"/>
+        <TabIcon v-if="isAdminUser" @click="generateNewInvitationCode" icon="添加"/>
     </PageHeader>
 
     <MenuPanelContainer>
@@ -22,8 +22,8 @@
 
                 </div>
                 <div class="operation-btns" v-if="isAdminUser">
-                    <TabIcon alt="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
-                    <TabIcon v-if="item.is_shared === 0" alt="黑色-确定" @click="markAsShared(item.id)"/>
+                    <TabIcon icon="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
+                    <TabIcon v-if="item.is_shared === 0" icon="黑色-确定" @click="markAsShared(item.id)"/>
                 </div>
             </div>
         </div>
