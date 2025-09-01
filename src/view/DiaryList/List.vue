@@ -12,7 +12,7 @@
 
         <div class="diary-list-group">
             <DiaryListGroup 
-                v-for="item in diaryListGroup" :key="item.date" 
+                v-for="item in diaryListGroup" :key="item.title"
                 :listStyle="projectStore.listStyle"
                 :diaryListGroup="item" />
         </div>
@@ -102,7 +102,8 @@ function refreshDiariesShow() {
         tempDiary.date = currentDay
 
         let tempGroup: EntityDiaryListGroup = {
-            date: yearDateString,
+            title: yearDateString,
+            headerSize: "medium",
             diaries: [tempDiary]
         }
 
@@ -110,7 +111,7 @@ function refreshDiariesShow() {
         // 只有 TODO 类别时，说明处于 TODO 模式
         let isUseTodoTitle = projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'
         if (isUseTodoTitle) {
-            tempGroup.date = '待办列表'
+            tempGroup.title = '待办列表'
         }
 
         // 添加当前日记内容
@@ -144,14 +145,20 @@ function refreshDiariesShow() {
                     tempDiary.date = currentDiaryDay
                 }
 
-                // 添加年月标题
-                if (isNeedAddAnotherGroup && !isUseTodoTitle) {
-                    tempGroupArray.push({
-                        date: currentDiaryYearMonth,
-                        diaries: [tempDiary]
-                    })
-                } else {
+                // 添加标题
+                if (isUseTodoTitle){ // TO-DO 列表模式时直接添加日记内容，不需要考虑添加新组
                     tempGroupArray[tempGroupArray.length - 1].diaries.push(tempDiary)
+                    tempGroupArray[tempGroupArray.length - 1].headerSize = "big"
+                } else {
+                    if (isNeedAddAnotherGroup) {
+                        tempGroupArray.push({
+                            title: currentDiaryYearMonth,
+                            headerSize: "medium",
+                            diaries: [tempDiary]
+                        })
+                    } else {
+                        tempGroupArray[tempGroupArray.length - 1].diaries.push(tempDiary)
+                    }
                 }
             }
         }

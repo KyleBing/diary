@@ -135,7 +135,8 @@ export interface EntityDiaryFromServerTitleOnly{
 // Diary List Group
 
 export interface EntityDiaryListGroup{
-    date: string,
+    title: string,
+    headerSize:  'big' | 'medium',
     diaries: Array<EntityDiaryFromServerLocal>
 }
 

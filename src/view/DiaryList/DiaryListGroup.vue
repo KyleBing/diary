@@ -1,6 +1,6 @@
 <template>
         <div class="diary-list-group" >
-            <ListHeader size="medium" :title="props.diaryListGroup.date"/>
+            <ListHeader :size="diaryListGroup.headerSize" :title="props.diaryListGroup.title"/>
 
             <div :class="['diary-list-group-content', {detail: props.listStyle === EnumListStyle.detail}]">
                 <template v-if="props.listStyle === EnumListStyle.list">
