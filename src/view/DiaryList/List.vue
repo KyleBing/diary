@@ -106,6 +106,13 @@ function refreshDiariesShow() {
             diaries: [tempDiary]
         }
 
+        // 如果只筛选 to-do 日记，则不显示年月标题
+        // 只有 TODO 类别时，说明处于 TODO 模式
+        let isUseTodoTitle = projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'
+        if (isUseTodoTitle) {
+            tempGroup.date = '待办列表'
+        }
+
         // 添加当前日记内容
         tempGroupArray.push(tempGroup)
 
@@ -125,7 +132,6 @@ function refreshDiariesShow() {
                 // 判断是否需要添加年月标题
                 let isNeedAddAnotherGroup = lastDiaryYearMonth !== currentDiaryYearMonth
 
-
                 let tempDiary = {} as EntityDiaryFromServerLocal
                 Object.assign(tempDiary, currentDiary)
 
@@ -139,7 +145,7 @@ function refreshDiariesShow() {
                 }
 
                 // 添加年月标题
-                if (isNeedAddAnotherGroup) {
+                if (isNeedAddAnotherGroup && !isUseTodoTitle) {
                     tempGroupArray.push({
                         date: currentDiaryYearMonth,
                         diaries: [tempDiary]
