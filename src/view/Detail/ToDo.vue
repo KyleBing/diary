@@ -71,6 +71,10 @@ function toggleDoneStatus(todoItem: TodoEntity){
             todoItem.id = lastId.value
         }
         todoItem.isDone = !todoItem.isDone
+
+
+        todoList.value = todoList.value.filter(item => item.id !== todoItem.id)  // 先删除，再添加
+
         // 拆分 标记 | 未标记的，并通过 id 排序，实现类似 iPhone todoList 的效果
         let unfinished = todoList.value
             .filter(item => !item.isDone)
@@ -78,6 +82,12 @@ function toggleDoneStatus(todoItem: TodoEntity){
         let finished = todoList.value
             .filter(item => item.isDone)
             .sort((a,b) => a.id - b.id)
+
+        if (todoItem.isDone){
+            finished.unshift(todoItem)
+        } else {
+            unfinished.unshift(todoItem)
+        }
         todoList.value = unfinished.concat(finished)
         saveDiary()
     }
