@@ -135,6 +135,7 @@ const router = useRouter()
 const spaceIdentifier = ref('✎') // 为了判断目前是否处于空格显示状态
 const isNew = ref(true)
 const isLoading = ref(false)
+const isSavingDiary = ref(false)  // 是否正在保存日记
 
 const diary = ref<EntityDiaryForm>({
     id: -1,
@@ -754,6 +755,7 @@ function saveDiary() {
         date: dateFormatter(diary.value.date),
     }
     if (isNew.value){
+        isSavingDiary.value = true
         diaryApi
             .add(requestData)
             .then(processAfterSaveDiary)
@@ -763,7 +765,11 @@ function saveDiary() {
                     projectStore.isDiaryNeedToBeSaved = false
                 }, 3)
             })
+            .finally(() => {
+                isSavingDiary.value = false
+            })
     } else {
+        isSavingDiary.value = true
         diaryApi
             .modify(requestData)
             .then(processAfterSaveDiary)
@@ -772,6 +778,9 @@ function saveDiary() {
                     projectStore.isSavingDiary = false
                     projectStore.isDiaryNeedToBeSaved = false
                 }, 3)
+            })
+            .finally(() => {
+                isSavingDiary.value = false
             })
     }
 }
@@ -789,7 +798,7 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
         diary.value.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
         popMessage('success', res.message, ()=>{
             projectStore.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
-            nextTick(()=>{
+            nextTick(() => {
                 router.push({
                     name: 'Edit',
                     params: {
@@ -801,14 +810,6 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
     } else {
         popMessage('success', res.message, ()=>{
             projectStore.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
-            nextTick(()=>{
-                router.push({
-                    name: 'Edit',
-                    params: {
-                        id: res.data.id
-                    }
-                })
-            })
         }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
     }
 
