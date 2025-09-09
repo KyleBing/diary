@@ -10,6 +10,7 @@
                 <div :class="['todo-list-item', {done: item.isDone}]">
                     <div class="checkbox-wrapper">
                         <div :class="['checkbox', {checked: item.isDone}]"
+                             :style="{'--todo-color': statisticStore.categoryObjectMap.get('todo').color}"
                              @click="toggleDoneStatus(item)"></div>
                     </div>
                     <div class="content-wrapper">
@@ -36,8 +37,10 @@ import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import draggable from 'vuedraggable';
 import { TodoEntity } from '@/entity/Todo';
+import { useStatisticStore } from '@/pinia/useStatisticStore.ts';
 
 const projectStore = useProjectStore();
+const statisticStore = useStatisticStore();
 
 
 
