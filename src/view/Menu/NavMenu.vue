@@ -158,6 +158,18 @@ const MENU_LIST = [
         }
     },
     {
+        name: '统计',
+        isShowInMobile: true,
+        isShowInPC: true,
+        isNeedAdmin: false,
+        icon: SVG_ICONS.tab_icons.statistics,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('Statistics')
+        }
+    },
+    {
         name: '瀑布',
         isShowInMobile: true,
         isShowInPC: true,
@@ -193,18 +205,7 @@ const MENU_LIST = [
             goToPage('Bill')
         }
     },
-    {
-        name: '统计',
-        isShowInMobile: true,
-        isShowInPC: true,
-        isNeedAdmin: false,
-        icon: SVG_ICONS.tab_icons.statistics,
-        insideComponent: null,
-        addOnText: null,
-        onClick: () => {
-            goToPage('Statistics')
-        }
-    },
+
     {
         name: '银行卡',
         isShowInMobile: true,
