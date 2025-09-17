@@ -135,6 +135,7 @@ function logout() {
     .statistics{
         margin: 0 auto;
         padding: 10px 10px;
+        border-top: 1px solid rgba(255,255,255,0.1);
         @include border-radius($radius-mobile);
         display: flex;
         background-color: transparentize(white, 0.9);

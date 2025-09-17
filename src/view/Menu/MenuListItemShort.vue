@@ -49,10 +49,14 @@ $gap: 16px;
         padding-right: 3px;
     }
     .menu-list-item-wrapper{
+
         position: relative;
         padding: 0 5px 0 15px;
         background-color: lighten($bg-menu, 4%);
-        border: 1px solid lighten($bg-menu, 8%);
+        //border: 1px solid lighten($bg-menu, 8%);
+        border-top: 1px solid rgba(255,255,255,0.2);
+        border-left: 1px solid rgba(255,255,255,0.1);
+        //background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
         align-items: center;
         display: flex;
         justify-content: flex-start;
@@ -62,6 +66,9 @@ $gap: 16px;
         &:hover{
             border-color: lighten($bg-menu, 12%);
             background-color: lighten($bg-menu, 9%);
+
+            border-top: 1px solid rgba(255,255,255,0.3);
+            border-left: 1px solid rgba(255,255,255,0.2);
         }
         &:active{
             background-color: lighten($bg-menu,12%);
