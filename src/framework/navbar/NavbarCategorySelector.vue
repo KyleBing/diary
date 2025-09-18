@@ -13,11 +13,13 @@
                          :title="item.name"
                          @click="toggleCategory(item)"
                     >
-                    <div class="dot" :style="`border: 1px solid ${item.color};`"></div>
+                    <div class="dot" :style="`border-color: ${item.color};`"></div>
                     <!-- <div class="name"> {{ item.name }} </div> -->
                 </div>
 
-                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">共享</div>
+                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">
+                        <div class="dot" style="border-color: white"></div>
+                    </div>
 
                 </div>
                 <div class="navbar-category-list-special">
@@ -68,7 +70,6 @@ function reverseCategorySelect() {
 function categoryMenuItemStyle(category: CategoryEntity){
     if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
         return `color: ${category.color}; opacity: 1; font-weight: bold; `
-        // return `color: rgba(255,255,255,0.8); font-weight: bold;`
     } else {
         return ``
     }
@@ -137,8 +138,9 @@ $nav-btn-height: 15px;
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
         .dot{
+            border-width: 4px;
             opacity: 1;
-            height: 15px;
+            height: 20px;
         }
     }
     &:hover{
@@ -161,9 +163,9 @@ $nav-btn-height: 15px;
         background-color: transparent;
         border: 1px solid transparent;
         display: block;
-        width: 5px;
-        height: 5px;
-        @include border-radius(3px);
+        width: 8px;
+        height: 8px;
+        @include border-radius(8px);
         margin-right: 5px;
         transition: all 0.2s;
     }
