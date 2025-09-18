@@ -10,8 +10,12 @@
                     <div :class="['navbar-category-list-item', {active: projectStore.filteredCategories.includes(item.name_en)}]"
                          v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
+                         :title="item.name"
                          @click="toggleCategory(item)"
-                    >{{ item.name }}</div>
+                    >
+                    <div class="dot" :style="`border: 1px solid ${item.color};`"></div>
+                    <!-- <div class="name"> {{ item.name }} </div> -->
+                </div>
 
                     <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">共享</div>
 
@@ -63,10 +67,10 @@ function reverseCategorySelect() {
 // STYLE
 function categoryMenuItemStyle(category: CategoryEntity){
     if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
-        return `color: ${category.color}; opacity: 1; font-weight: bold; border-left: 1px solid ${category.color};`
+        return `color: ${category.color}; opacity: 1; font-weight: bold; `
         // return `color: rgba(255,255,255,0.8); font-weight: bold;`
     } else {
-        return `border-left: 1px solid ${category.color};`
+        return ``
     }
 }
 </script>
@@ -109,14 +113,17 @@ $nav-btn-height: 15px;
 .navbar-category-list-item{
     //font-size: $fz-small;
     font-size: 13px;
-    padding: 0 6px;
+    padding: 0 3px;
     height: $nav-btn-height;
     font-weight: normal;
     line-height: $nav-btn-height;
     color: transparentize(white, 0.6);
     border-left: 1px solid transparent;
     @extend .btn-like;
-
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-flow: row nowrap;
 
     &.special{
         font-weight: bold;
@@ -129,6 +136,9 @@ $nav-btn-height: 15px;
             transform: translateY(-1px);
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
+        .dot{
+            height: 15px;
+        }
     }
     &:hover{
         font-weight: bold;
@@ -139,6 +149,19 @@ $nav-btn-height: 15px;
         &.special{
             color: transparentize($color-main, 0.2);
         }
+    }
+
+    .dot{
+        background-color: transparent;
+        border: 1px solid transparent;
+        display: block;
+        width: 5px;
+        height: 5px;
+        @include border-radius(3px);
+        margin-right: 5px;
+        transition: all 0.2s;
+    }
+    .name{
     }
 
 }
