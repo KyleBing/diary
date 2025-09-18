@@ -12,6 +12,7 @@
                          :style="categoryMenuItemStyle(item)"
                          @click="toggleCategory(item)"
                     >{{ item.name }}</div>
+
                     <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">共享</div>
 
                 </div>
@@ -62,10 +63,10 @@ function reverseCategorySelect() {
 // STYLE
 function categoryMenuItemStyle(category: CategoryEntity){
     if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
-        return `color: ${category.color}; opacity: 1; font-weight: bold;`
+        return `color: ${category.color}; opacity: 1; font-weight: bold; border-left: 1px solid ${category.color};`
         // return `color: rgba(255,255,255,0.8); font-weight: bold;`
     } else {
-        return ``
+        return `border-left: 1px solid ${category.color};`
     }
 }
 </script>
@@ -113,7 +114,9 @@ $nav-btn-height: 15px;
     font-weight: normal;
     line-height: $nav-btn-height;
     color: transparentize(white, 0.6);
+    border-left: 1px solid transparent;
     @extend .btn-like;
+
 
     &.special{
         font-weight: bold;

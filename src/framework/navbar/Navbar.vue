@@ -84,7 +84,7 @@
                 </div>
 
                 <NavbarCategorySelector
-                    v-if="!projectStore.isInMobileMode && !projectStore.isMenuShowed"
+                    v-if="!projectStore.isInMobileMode && !projectStore.isMenuShowed && projectStore.insets.windowsWidth > 1366"
                     class="ml-5"/>
 
             </div>
