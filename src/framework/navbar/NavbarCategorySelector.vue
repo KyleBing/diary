@@ -119,11 +119,12 @@ $nav-btn-height: 15px;
     line-height: $nav-btn-height;
     color: transparentize(white, 0.6);
     border-left: 1px solid transparent;
-    @extend .btn-like;
+    //@extend .btn-like;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-flow: row nowrap;
+    cursor: pointer;
 
     &.special{
         font-weight: bold;
@@ -133,10 +134,10 @@ $nav-btn-height: 15px;
         color: white;
         font-weight: bold;
         &:hover{
-            transform: translateY(-1px);
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
         .dot{
+            opacity: 1;
             height: 15px;
         }
     }
@@ -149,9 +150,14 @@ $nav-btn-height: 15px;
         &.special{
             color: transparentize($color-main, 0.2);
         }
+        .dot{
+            box-shadow: 0 0 3px rgba(255,255,255,0.7);
+            opacity: 1;
+        }
     }
 
     .dot{
+        opacity: 0.8;
         background-color: transparent;
         border: 1px solid transparent;
         display: block;
