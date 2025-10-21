@@ -7,13 +7,10 @@
             <h3 class="title">{{packageInfo.nameZh}}</h3>
             <h4 class="subtitle">{{packageInfo.description}}</h4>
             <div class="version">v{{packageInfo.version}}</div>
-            <div class="author">
-                <a href="http://kylebing.cn" class="social-link">🌖 开发者主页</a>
-                <a href="mailto:kylebing@163.com">kylebing@163.com</a>
-                <a>·</a>
-                <a href="https://github.com/KyleBing/diary-vue"> github 开源仓库 </a>
-                <a>·</a>
-                <a href="">{{packageInfo.dateInit}} ~ {{packageInfo.dateModify}}</a>
+            <div class="info">
+                <a href="http://kylebing.cn" class="social-link">主页</a>
+                <a href="https://github.com/KyleBing/diary-vue">github</a>
+                <div class="date">{{packageInfo.dateInit}} - {{packageInfo.dateModify}}</div>
             </div>
         </div>
     </MenuPanelContainer>
@@ -62,18 +59,27 @@ import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
         margin-top: 20px;
         font-size: $fz-list-content;
     }
-    .author{
+    .info{
         width: 100%;
         position: absolute;
         bottom: 60px;
+        font-size: $fz-note;
         a{
             display: block;
             line-height: 20px;
-            font-size: $fz-note;
             height: 20px;
-            &:link,&:hover,&:active,&:visited{
+            &:hover{
+                color: $color-main !important;
+                text-decoration: underline;
+            }
+            &:link,&:active,&:visited{
                 color: $text-about-subtitle;
             }
+        }
+
+        .date{
+            margin-top: 15px;
+            color: $text-label;
         }
     }
 }
