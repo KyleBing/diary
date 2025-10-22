@@ -11,7 +11,7 @@
 
 
         <div class="diary-list-group">
-            <DiaryListGroup 
+            <DiaryListGroup
                 v-for="item in diaryListGroup" :key="item.title"
                 :listStyle="projectStore.listStyle"
                 :diaryListGroup="item" />
@@ -44,7 +44,7 @@ import {useRoute, useRouter} from "vue-router";
 import {
     EntityDiaryListOperation,
     DiarySearchParams,
-    EntityDiaryFromServerLocal
+    EntityDiaryFromServerLocal, EntityDiaryFromServer
 } from "./Diary"
 
 import DiaryListGroup from "@/view/DiaryList/DiaryListGroup.vue"
@@ -210,6 +210,19 @@ function loadMore() {
     formSearch.value.filterShared = projectStore.isFilterShared ? 1 : 0
     getDiaries()
 }
+
+// 将服务器返回的 diary 格式转换成 diary 展示时的格式
+function processDiaryToShowType(diary: EntityDiaryFromServerLocal): EntityDiaryFromServerLocal{
+    if (diary.content) {
+        diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+    }
+    diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
+    diary.weekday = dateProcess(diary.date).weekday
+    diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
+    diary.dateString = dateProcess(diary.date).date
+    return diary
+}
+
 function getDiaries() {
     diaryApi
         .list(formSearch.value)
@@ -218,14 +231,7 @@ function getDiaries() {
                 let diaryObj = {} as EntityDiaryFromServerLocal
                 Object.assign(diaryObj, diary)
 
-                if (diaryObj.content) {
-                    diaryObj.contentHtml = diaryObj.content.replace(/\n/g, '<br/>')
-                }
-                diaryObj.categoryString = useStatisticStore().categoryNameMap.get(diaryObj.category)
-                diaryObj.weekday = dateProcess(diaryObj.date).weekday
-                diaryObj.weekdayShort = EnumWeekDayShort[new Date(diaryObj.date).getDay()]
-                diaryObj.dateString = dateProcess(diaryObj.date).date
-                return diaryObj
+                return processDiaryToShowType(diaryObj)
             })
 
             // page operation
@@ -255,13 +261,13 @@ function addScrollEvent() {
             if (!lastGroupNode) {
                 return false
             }
-            
+
             // Get the last diary item within the last group
             let lastDiaryNode = lastGroupNode.querySelector('.diary-list-group-content > :last-child') as HTMLDivElement
             if (!lastDiaryNode) {
                 return false
             }
-            
+
             let lastOffsetTop = lastDiaryNode.offsetTop + lastGroupNode.offsetTop
             let clientHeight = window.innerHeight
             let listEl = document.querySelector('.diary-list-container')
@@ -293,7 +299,7 @@ watch(isListNeedBeReload, newValue => {
 })
 
 watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
-    // console.log('list operation: ', type,diary,id)
+    console.log('list operation: ', type,diary,id)
     switch (type) {
         case 'add':
             let posInsert = 0
@@ -333,7 +339,7 @@ watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
             // TODO: 修改日记的日期时排序调整位置
             diaryList.value.map((item, index) => {
                 if (Number(item.id) === Number(diary!.id)) {
-                    diaryList.value.splice(index, 1, diary!)
+                    diaryList.value.splice(index, 1, processDiaryToShowType(diary))
                 }
             })
             refreshDiariesShow()
