@@ -7,7 +7,7 @@
             <DatePicker
                 locale="zh"
                 v-model="modelDate"
-                mode="dateTime"
+                mode="date"
                 is24hr
                 hide-time-header
                 :attributes="attrs"
@@ -20,8 +20,9 @@
                     </div>
                 </template>
                 <template #footer>
-                    <div class="p-2">
+                    <div class="p-2 pt-0">
                         <ButtonSmall @click="moveToday">今天</ButtonSmall>
+                        <!-- <TimePicker v-model="modelDate" :minute-simple="false"/> -->
                     </div>
                 </template>
             </DatePicker>
@@ -49,6 +50,7 @@ import 'v-calendar/style.css';
 import {dateFormatter} from "@/utility.ts";
 import type {PopoverOptions} from "v-calendar";
 import ButtonSmall from "@/components/ButtonSmall.vue";
+import TimePicker from "@/view/Edit/TimePicker.vue";
 
 const emit = defineEmits(["dayChange"])
 const modelDate = defineModel<Date>({ // v-model value
@@ -166,7 +168,6 @@ function dateTimeMove(step: -1|0|1) {
 
 .date-selector{
     display: flex;
-    width: 100%;
     flex-flow: column nowrap;
 }
 

@@ -1,5 +1,7 @@
 <template>
     <div class="diary-edit-container" :style="`min-height: ${projectStore.insets.heightPanel}px`">
+
+
         <div class="diary-edit-content">
             <!-- TITLE -->
             <div class="editor-title">
@@ -30,10 +32,15 @@
                 </div>
             </div>
         </div>
+
+
         <div class="diary-edit-meta">
             <!--  主参数区 -->
             <div class="editor-form">
-                <EditorVCalendarSelector @dayChange="dayHasChanged" v-model="diary.date"/>
+                <EditorVCalendarSelector
+                    @dayChange="dayHasChanged"
+                    v-model="diary.date"/>
+
                 <div class="editor-meta-switches">
                     <div class="editor-form-item">
                         <label for="markdown">身处</label>
@@ -75,6 +82,13 @@
                 </div>
 
             </div>
+
+            <!-- 时间选择 -->
+            <TimePicker 
+                v-model="diary.date" 
+                :minute-simple="false"
+                :is-show-value="false"
+            />
 
             <!-- 类别选择 -->
             <EditCategorySelector :category="diary.category" @change="setCategory"/>
@@ -181,6 +195,7 @@ const requestData = ref<DiarySearchParams>({ // 请求本周日志的 requestDat
 import 'v-calendar/style.css';
 import EditorVCalendarSelector from "@/view/Edit/EditorVCalendarSelector.vue";
 import {BillKey} from "@/view/Bill/Bill.ts";
+import TimePicker from "@/view/Edit/TimePicker.vue";
 
 
 /**
@@ -207,7 +222,7 @@ onBeforeMount(() => {
             if (Number(route.params.id) === projectStore.cacheDiary.id){  // 只有是同一个日记时
                 recoverCachedDiary()
             } else {
-                
+
             }
         }
     }
