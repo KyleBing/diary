@@ -21,8 +21,11 @@
                 </template>
                 <template #footer>
                     <div class="p-2 pt-0">
-                        <ButtonSmall @click="moveToday">今天</ButtonSmall>
-                        <!-- <TimePicker v-model="modelDate" :minute-simple="false"/> -->
+                        <ButtonSmall @click="moveToday" class="mb-1">今天</ButtonSmall>
+                        <TimePicker 
+                            v-model="modelDate" 
+                            :minute-simple="false" 
+                            orientation="vertical"/>
                     </div>
                 </template>
             </DatePicker>
@@ -249,8 +252,6 @@ $height: 40px;
     .lunar{}
     .weekday{}
 }
-
-
 
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
     .date-selector{

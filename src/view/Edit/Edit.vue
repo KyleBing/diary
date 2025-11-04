@@ -80,15 +80,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            <!-- 时间选择 -->
-            <TimePicker 
-                v-model="diary.date" 
-                :minute-simple="false"
-                :is-show-value="false"
-            />
 
             <!-- 类别选择 -->
             <EditCategorySelector :category="diary.category" @change="setCategory"/>

@@ -7,7 +7,7 @@
                 <div class="minute">{{ String(minute).padStart(2, '0') }}</div>
         </div>
 
-        <div class="time-picker-panel">
+        <div class="time-picker-panel" :class="orientation">
             <div class="hour-picker">
                 <div class="picker-header">小时</div>
                 <div class="hour-list">
@@ -40,10 +40,12 @@ import { ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<{
     minuteSimple?: boolean,
-    isShowValue?: boolean
+    isShowValue?: boolean,
+    orientation?: 'vertical' | 'horizontal'
 }>(), {
     minuteSimple: false,
-    isShowValue: true
+    isShowValue: true,
+    orientation: 'horizontal'
 })
 
 const modelValue = defineModel<Date>({required: true})
@@ -84,18 +86,23 @@ $text-item-active: white;
 $border-color-highlight: black;
 $border-color: #ddd;
 
+$gap: 5px;
+
 
 .time-picker{
     .time-picker-time-value{
+        border: 1px solid $border-color;
+        background-color: white;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        margin-bottom: $gap;
+        padding: 2px 5px;
         width: 100%;
         .hour, .minute, .separator{
-            font-size: 30px;
+            font-size: 14px;
         }
-
     }
 }
 .time-picker-panel{
@@ -103,7 +110,19 @@ $border-color: #ddd;
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    gap: 5px;
+    gap: $gap;
+    &.vertical{
+        flex-flow: column nowrap;
+        .hour-list-item{
+            width: 12.5%;
+        }
+    }
+    &.horizontal{
+        flex-flow: row nowrap;
+        .hour-list-item{
+            width: 25%;
+        }
+    }
 }
 
 .hour-picker, .minute-picker {
@@ -123,7 +142,7 @@ $border-color: #ddd;
     justify-content: flex-start;
     .hour-list-item{
         text-align: center;
-        width: 25%;
+        width: 12.5%;
     }
 }
 
