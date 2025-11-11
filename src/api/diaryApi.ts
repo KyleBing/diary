@@ -20,12 +20,12 @@ export default {
 
         return request('get',    null, null,'diary-category/list')},
 
-    list(params: DiarySearchParams): Promise<{
+    list(params: DiarySearchParams, signal?: AbortSignal): Promise<{
         success: boolean,
         data: Array<EntityDiaryFromServer>,
         message: string
     }>  {
-        return request('get'   , params, null, 'diary/list')}  ,
+        return request('get'   , params, null, 'diary/list', undefined, signal)}  ,
 
 
     add(requestData: DiarySubmitEntity): Promise<ResponseDiaryAdd>   {

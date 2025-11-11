@@ -39,7 +39,7 @@ import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
 
 import {useProjectStore} from "@/pinia/useProjectStore"
-import {nextTick, onMounted, ref, watch} from "vue";
+import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {
     EntityDiaryListOperation,
@@ -180,9 +180,16 @@ watch(isShowSearchBar, newValue => {
         })
     }
 })
+
+let timeoutHandle: ReturnType<typeof setTimeout> | null = null
+let currentListRequestController: AbortController | null = null
 watch(keywordShow, newValue => {
     if (newValue){ // 当有内容时才变化， '' 将不存储
         projectStore.SET_KEYWORD(newValue.split(' '))
+        if (timeoutHandle){
+            clearTimeout(timeoutHandle)
+        }
+        timeoutHandle = setTimeout(search, 200)
     } else {
         projectStore.SET_KEYWORD([])
     }
@@ -198,17 +205,24 @@ function reloadDiaryList() {
     formSearch.value.pageNo = 1
     formSearch.value.keywords = JSON.stringify(projectStore.keywords)
     diaryList.value = []
+    diaryListGroup.value = []
     loadMore()
 }
 
 /* DIARY 相关 */
 function loadMore() {
+    if (currentListRequestController) {
+        currentListRequestController.abort()
+    }
+    const controller = new AbortController()
+    currentListRequestController = controller
+
     isHasMore.value = false
     isLoading.value = true
     formSearch.value.categories = JSON.stringify(projectStore.filteredCategories)
     formSearch.value.dateFilterString = projectStore.dateFilterString
     formSearch.value.filterShared = projectStore.isFilterShared ? 1 : 0
-    getDiaries()
+    getDiaries(controller)
 }
 
 // 将服务器返回的 diary 格式转换成 diary 展示时的格式
@@ -223,10 +237,13 @@ function processDiaryToShowType(diary: EntityDiaryFromServerLocal): EntityDiaryF
     return diary
 }
 
-function getDiaries() {
+function getDiaries(controller: AbortController) {
     diaryApi
-        .list(formSearch.value)
+        .list(formSearch.value, controller.signal)
         .then(res => {
+            if (controller !== currentListRequestController) {
+                return
+            }
             let newDiariesList = res.data.map(diary => {
                 let diaryObj = {} as EntityDiaryFromServerLocal
                 Object.assign(diaryObj, diary)
@@ -247,9 +264,13 @@ function getDiaries() {
             refreshDiariesShow()
         })
         .finally(() => {
+            if (controller !== currentListRequestController) {
+                return
+            }
             // 列表加载完成后设置列表重载： false
             projectStore.isListNeedBeReload = false
             isLoading.value = false
+            currentListRequestController = null
         })
 }
 function addScrollEvent() {
@@ -344,6 +365,13 @@ watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
             })
             refreshDiariesShow()
             break
+    }
+})
+
+onBeforeUnmount(() => {
+    if (currentListRequestController) {
+        currentListRequestController.abort()
+        currentListRequestController = null
     }
 })
 

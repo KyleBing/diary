@@ -7,7 +7,8 @@ function request(
     params: {}|null,
     requestData: {}|null,
     url: string,
-    timeout = 30000
+    timeout = 30000,
+    signal?: AbortSignal
 ) : Promise<ResponseEntity> {
 
     const BASE_URL = import.meta.env.MODE === 'development' ? '/dev/': '../portal/'
@@ -32,7 +33,8 @@ function request(
             data: requestData,
             headers,
             timeout,
-            withCredentials: true
+            withCredentials: true,
+            signal
         })
             .then(res => {
                 if (res.status === 200) {
