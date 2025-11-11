@@ -28,6 +28,7 @@
 ---
 
 ## → [日记详细使用说明](https://kylebing.github.io/readme/diary/%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D.html)
+## → [部署自己的日记系统](https://kylebing.github.io/readme/diary/%E9%83%A8%E7%BD%B2%E8%AF%B4%E6%98%8E.html)
 ## → [其它截图](./README_screenshot.md)
 ## → [版本更新记录](https://github.com/KyleBing/diary/discussions/3)
 
