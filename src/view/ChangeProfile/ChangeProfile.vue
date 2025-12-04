@@ -103,10 +103,10 @@ onMounted(()=>{
             formUser.value.city = newValue
             // 根据城市名获取经纬度
             axios
-                .get('https://geoapi.qweather.com/v2/city/lookup',
+                .get(`https://${projectConfig.hefeng_weather_api_host}/geo/v2/city/lookup`,
                     {
                         params: {
-                            key: projectConfig.hefeng_weather_key,
+                            key: projectConfig.hefeng_weather_api_key,
                             location: newValue, // 县区名
                             number: 1, // 返回数据数量 1-20
                         }

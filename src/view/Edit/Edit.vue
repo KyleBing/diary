@@ -658,10 +658,10 @@ function getCurrentTemperature(){
     let geolocation = getAuthorization()?.geolocation
     if (geolocation){
         axios
-            .get('https://devapi.qweather.com/v7/weather/now',
+            .get(`https://${projectConfig.hefeng_weather_api_host}/v7/weather/now`,
                 {
                     params: {
-                        key: projectConfig.hefeng_weather_key,
+                        key: projectConfig.hefeng_weather_api_key,
                         location: geolocation
                     }
                 })
