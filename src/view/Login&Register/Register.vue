@@ -11,7 +11,7 @@
                     </div>
                     <div class="project-name">注册</div>
                 </div>
-                <RegisterTip :html-content="projectConfig.registerTip"/>
+                <RegisterTip :html-content="projectConfig.register_tip"/>
 
                 <form id="regForm">
                     <div class="input-group">
@@ -46,7 +46,7 @@
                             @click.prevent="regSubmit">注册
                     </button>
                 </form>
-                <div :class="['footer', {center: !projectConfig.isShowDemoAccount}]">
+                <div :class="['footer', {center: !projectConfig.is_show_demo_account}]">
                     <RouterLink to="/login">登录</RouterLink>
                 </div>
             </div>
@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import userApi from "@/api/userApi.ts"
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../config/project_config.json";
 import RegisterTip from "./RegisterTip.vue";
 
 import {useProjectStore} from "@/pinia/useProjectStore.ts";

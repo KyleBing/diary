@@ -117,7 +117,7 @@ import {
     temperatureProcessSTC, temperatureProcessCTS, dateFormatter
 } from "@/utility.ts";
 import diaryApi from "@/api/diaryApi.ts"
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../config/project_config.json";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";
@@ -661,7 +661,7 @@ function getCurrentTemperature(){
             .get('https://devapi.qweather.com/v7/weather/now',
                 {
                     params: {
-                        key: projectConfig.HefengWeatherKey,
+                        key: projectConfig.hefeng_weather_key,
                         location: geolocation
                     }
                 })

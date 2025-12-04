@@ -2,7 +2,7 @@
     <div class="user-profile">
         <div class="avatar">
             <img v-if="userInfo.avatar"
-                 :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_rounded"
+                 :src="userInfo.avatar + '-' + projectConfig.qiniu_style_suffix || SVG_ICONS.logo_icons.logo_rounded"
                  alt="Avatar">
             <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
         </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../config/project_config.json";
 import {ref} from "vue";
 import {deleteAuthorization, getAuthorization} from "@/utility.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";

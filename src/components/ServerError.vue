@@ -6,14 +6,14 @@
         </div>
         <div class="server-error-title">遇到错误，请尝试刷新页面。如问题依旧，请联系管理员</div>
         <div class="server-error-title">
-            <a :href="`mailto:${ projectConfig.adminEmail }`">{{ projectConfig.adminEmail }}</a>
+            <a :href="`mailto:${ projectConfig.admin_email }`">{{ projectConfig.admin_email }}</a>
         </div>
     </div>
 
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../config/projectConfig.json"
+import projectConfig from "../../config/project_config.json"
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const projectStore = useProjectStore()

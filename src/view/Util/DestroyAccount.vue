@@ -9,7 +9,7 @@
                 <div id="reg">
                     <div class="logo-wrapper">
                         <div class="logo">
-                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_rounded" alt="Avatar">
+                            <img v-if="userInfo.avatar" :src="userInfo.avatar + '-' + projectConfig.qiniu_style_suffix || SVG_ICONS.logo_icons.logo_rounded" alt="Avatar">
                             <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
                         </div>
                         <div class="desc">
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../config/project_config.json";
 import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "@/utility.ts";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";

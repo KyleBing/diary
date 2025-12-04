@@ -27,11 +27,11 @@ import RegisterTip from "./RegisterTip.vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
-import projectConfig from "../../../config/projectConfig.json"
+import projectConfig from "../../../config/project_config.json"
 
 const fetchPasswordTip =  `
             <h3>如果你忘记密码</h3>
-            <p>请使用注册邮件发送邮件到 <a :href="${projectConfig.adminEmail}">${projectConfig.adminEmail}</a>，注明来意，管理员将为你重置密码</p>
+            <p>请使用注册邮件发送邮件到 <a :href="${projectConfig.admin_email}">${projectConfig.admin_email}</a>，注明来意，管理员将为你重置密码</p>
             <p>之后用重置的密码登录，再修改密码即可。</p>
         `
 

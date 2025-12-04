@@ -4,9 +4,9 @@
   "type": "module",
   "description": "一句话概括你的一天",
   "version": "9.3.1",
-  "dateModify": "2025.11.12",
+  "dateModify": "2025.11.28",
   "dateInit": "2018.08.14",
-  "adminEmail": "kylebing@163.com",
+  "admin_email": "kylebing@163.com",
   "author": {
     "email": "kylebing@163.com",
     "homePage": "http://kylebing.cn",

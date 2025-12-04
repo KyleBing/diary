@@ -9,7 +9,7 @@
                    <!--                   <div class="btn btn-active" @click="goToChangePassword">找回密码</div>-->
                </div>
 
-               <div class="desc">忘记密码，可以通过注册的邮箱给管理员 {{ projectConfig.adminEmail }} 发邮件重置密码</div>
+               <div class="desc">忘记密码，可以通过注册的邮箱给管理员 {{ projectConfig.admin_email }} 发邮件重置密码</div>
            </div>
        </div>
        <div class="menu-section">
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../../config/projectConfig.json";
+import projectConfig from "../../../../config/project_config.json";
 import {onMounted, ref} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useRouter} from "vue-router";

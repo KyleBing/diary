@@ -8,7 +8,7 @@
                 <div class="logo-wrapper mb-6">
                     <label class="logo avatar" for="avatar">
                         <img v-if="formUser.avatar"
-                             :src="formUser.avatar + '-' + projectConfig.QiniuStyleSuffix || SVG_ICONS.logo_icons.logo_avatar"
+                             :src="formUser.avatar + '-' + projectConfig.qiniu_style_suffix || SVG_ICONS.logo_icons.logo_avatar"
                              alt="Diary Logo"
                         >
                         <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
@@ -63,7 +63,7 @@
 import userApi from "@/api/userApi.ts"
 import fileApi from "@/api/fileApi.ts";
 import * as qiniu from 'qiniu-js'
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../config/project_config.json";
 import axios from "axios";
 
 import {popMessage, setAuthorization, getAuthorization} from "@/utility.ts";
@@ -106,7 +106,7 @@ onMounted(()=>{
                 .get('https://geoapi.qweather.com/v2/city/lookup',
                     {
                         params: {
-                            key: projectConfig.HefengWeatherKey,
+                            key: projectConfig.hefeng_weather_key,
                             location: newValue, // 县区名
                             number: 1, // 返回数据数量 1-20
                         }
@@ -125,7 +125,7 @@ onMounted(()=>{
 })
 
 function uploadAvatar(event: Event){
-    if (getAuthorization()?.email === projectConfig.demoAccount){
+    if (getAuthorization()?.email === projectConfig.demo_account){
         popMessage('danger', '演示账户不允许修改资料', ()=>{}, 3)
         return
     }
@@ -145,7 +145,7 @@ function uploadAvatar(event: Event){
 
         fileApi
             .getUploadToken({
-                bucket: projectConfig.QiniuBucketName
+                bucket: projectConfig.qiniu_bucket_name
             })
             .then(res => {
                 console.log('get token success')
@@ -160,7 +160,7 @@ function uploadAvatar(event: Event){
                     complete: res => {
                         // res = {hash: 'hash', key: 'key'}
                         console.log('complete: ',res)
-                        formUser.value.avatar = projectConfig.QiniuImgBaseURL + res.key
+                        formUser.value.avatar = projectConfig.qiniu_img_base_url + res.key
                     }
                 }
                 const observable = qiniu.upload(avatarFile, null, res.data, {}, {})

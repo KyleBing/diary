@@ -24,9 +24,9 @@
                     <button :class="['btn', 'mt-8', verified ? 'btn-active' : 'btn-inactive']"
                             type="submit">{{ loginLabel }}</button>
                 </form>
-                <div :class="['footer', {center: !isShowDemoAccount}]">
+                <div :class="['footer', {center: !is_show_demo_account}]">
                     <RouterLink to="/register">注册</RouterLink>
-                    <a v-if="isShowDemoAccount" @click="useTestAccount">试用演示账户</a>
+                    <a v-if="is_show_demo_account" @click="useTestAccount">试用演示账户</a>
                 </div>
                 <div class="copyright">
                     <a class="project-name" target="_blank"
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/projectConfig.json";
+import projectConfig from "../../../config/project_config.json";
 import packageInfo from "../../../package.json"
 
 import userApi from "@/api/userApi.ts"
@@ -70,7 +70,7 @@ const labelEmail = ref("邮箱")
 const email = ref('')
 const password = ref('')
 const loginLabel = ref('登录')
-const isShowDemoAccount = projectConfig.isShowDemoAccount
+const is_show_demo_account = projectConfig.is_show_demo_account
 const avatarLink = ref<string | null>(null)
 
 
@@ -145,8 +145,8 @@ function getBillKeys() {
         })
 }
 function useTestAccount() {
-    email.value = projectConfig.demoAccount
-    password.value = projectConfig.demoAccountPassword
+    email.value = projectConfig.demo_account
+    password.value = projectConfig.demo_account_password
 }
 function getAvatar(){
     userApi
