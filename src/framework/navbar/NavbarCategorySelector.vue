@@ -161,7 +161,7 @@ $nav-btn-height: 15px;
     .dot{
         opacity: 0.8;
         background-color: transparent;
-        border: 1px solid transparent;
+        border: 2px solid transparent;
         display: block;
         width: 10px;
         height: 10px;
