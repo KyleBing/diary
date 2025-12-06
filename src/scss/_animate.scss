@@ -272,3 +272,40 @@
   animation-name: slideOutUp;
 }
 
+@-webkit-keyframes pulseSelect {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseSelect {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.pulseSelect {
+  -webkit-animation-name: pulseSelect;
+  animation-name: pulseSelect;
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+

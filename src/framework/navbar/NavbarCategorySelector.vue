@@ -7,18 +7,17 @@
         >
             <div class="navbar-category-list-container" >
                 <div class="navbar-category-list">
-                    <div :class="['navbar-category-list-item', {active: projectStore.filteredCategories.includes(item.name_en)}]"
+                    <div :class="['navbar-category-list-item', {active: projectStore.filteredCategories.includes(item.name_en), 'pulse-animate': isAnimating === index}]"
                          v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
-                         :style="categoryMenuItemStyle(item)"
                          :title="item.name"
-                         @click="toggleCategory(item)"
+                         @click="toggleCategory(item, index)"
                     >
-                    <div class="dot" :style="`border-color: ${item.color};`"></div>
+                    <div class="dot" :style="dotStyle(item)"></div>
                     <!-- <div class="name"> {{ item.name }} </div> -->
                 </div>
 
                     <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">
-                        <div class="dot" style="border-color: white"></div>
+                        <div class="dot" :style="projectStore.isFilterShared ? 'border-color: white; background-color: white;' : 'border-color: white;'"></div>
                     </div>
 
                 </div>
@@ -37,16 +36,25 @@
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {CategoryEntity} from "@/entity/Category.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import {ref} from "vue";
+
 const projectStore = useProjectStore()
+const isAnimating = ref<number | null>(null)
 
 function toggleFilterShared(){
     projectStore.SET_IS_FILTERED_SHARED(!projectStore.isFilterShared)
     projectStore.isListNeedBeReload = true
 }
-function toggleCategory(category: CategoryEntity){
-    let index = projectStore.filteredCategories.indexOf(category.name_en)
-    if ( index > -1) {
-        projectStore.filteredCategories.splice(index, 1)
+function toggleCategory(category: CategoryEntity, index: number){
+    // Trigger animation
+    isAnimating.value = index
+    setTimeout(() => {
+        isAnimating.value = null
+    }, 300) // Match animation duration
+    
+    let idx = projectStore.filteredCategories.indexOf(category.name_en)
+    if ( idx > -1) {
+        projectStore.filteredCategories.splice(idx, 1)
     } else {
         projectStore.filteredCategories.push(category.name_en)
     }
@@ -58,7 +66,7 @@ function selectCategoryNone() {
     projectStore.isListNeedBeReload = true
 }
 function reverseCategorySelect() {
-    let tempCategories = [].concat(useStatisticStore().categoryAll.map(item => item.name_en))
+    let tempCategories: string[] = useStatisticStore().categoryAll.map(item => item.name_en)
     projectStore.filteredCategories.forEach(item => {
         tempCategories.splice(tempCategories.indexOf(item), 1)
     })
@@ -66,12 +74,12 @@ function reverseCategorySelect() {
     projectStore.isListNeedBeReload = true
 }
 
-// STYLE
-function categoryMenuItemStyle(category: CategoryEntity){
-    if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
-        return `color: ${category.color}; opacity: 1; font-weight: bold; `
+function dotStyle(category: CategoryEntity){
+    const isActive = projectStore.filteredCategories.indexOf(category.name_en) > -1
+    if (isActive){
+        return `border-color: ${category.color}; background-color: ${category.color};`
     } else {
-        return ``
+        return `border-color: ${category.color};`
     }
 }
 </script>
@@ -126,6 +134,7 @@ $nav-btn-height: 15px;
     justify-content: flex-start;
     flex-flow: row nowrap;
     cursor: pointer;
+    @extend .unselectable;
 
     &.special{
         font-weight: bold;
@@ -138,9 +147,10 @@ $nav-btn-height: 15px;
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
         .dot{
-            border-width: 5px;
+            border-width: 2px;
             opacity: 1;
             height: 20px;
+            background-color: inherit;
         }
     }
     &:hover{
