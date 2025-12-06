@@ -138,7 +138,7 @@ $nav-btn-height: 15px;
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
         .dot{
-            border-width: 3px;
+            border-width: 5px;
             opacity: 1;
             height: 20px;
         }
