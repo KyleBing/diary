@@ -28,7 +28,7 @@
                     <TabIcon icon="搜索"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed" 
+                <div v-show="!projectStore.isMenuShowed"
                 v-if="!projectStore.isInMobileMode"
                      @click="toggleHideContent">
                     <TabIcon v-if="projectStore.isHideContent" icon="内容隐藏"/>
@@ -83,8 +83,10 @@
                     <div class="btn-text" @click="clearDateFilter">{{ projectStore.dateFilterString }}</div>
                 </div>
 
+                <!--  类别筛选器  -->
+                <!--  经测试： 1080 时可以正常显示所有类别  -->
                 <NavbarCategorySelector
-                    v-if="!projectStore.isInMobileMode && !projectStore.isMenuShowed && projectStore.insets.windowsWidth > 1366"
+                    v-if="!projectStore.isInMobileMode && !projectStore.isMenuShowed && projectStore.insets.windowsWidth > 1080"
                     class="ml-5"/>
 
             </div>
