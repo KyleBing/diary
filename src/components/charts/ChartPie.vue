@@ -20,6 +20,8 @@ import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import {computed, nextTick, onMounted, ref, watch} from "vue";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import { useProjectStore } from '@/pinia/useProjectStore.ts';
+import chartOption from "@/view/Statistics/chartOption.ts";
 
 echarts.use([
     TitleComponent,
@@ -91,6 +93,11 @@ function resetData(newValue) {
     chart.value.setOption(option.value)
 }
 function initChart() {
+    // Get theme-aware colors from system-level theme detection
+    const projectStore = useProjectStore()
+    const isDarkTheme = projectStore.isDarkMode
+    const themeColors = chartOption.getThemeColors(isDarkTheme)
+
     option.value = {
         grid: {
             top: 0,
@@ -102,11 +109,16 @@ function initChart() {
             text: '',
             left: 'center',
             textStyle:{
-                color: '#666666'
+                color: themeColors.title
             }
         },
         tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            backgroundColor: themeColors.tooltipBg,
+            borderColor: themeColors.tooltipBorder,
+            textStyle: {
+                color: themeColors.title
+            }
         },
         series: [
             {
@@ -129,6 +141,9 @@ function initChart() {
                     show: true,
                     position: 'outside',
                     fontSize: 12,
+                    color: themeColors.valueLabel,
+                    textBorderColor: themeColors.valueLabelBorder,
+                    textBorderWidth: themeColors.valueLabelBorderWidth,
                     formatter: data => {
                         return `${data.name}\t${Math.ceil(data.percent)}%`
                     }

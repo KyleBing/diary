@@ -5,6 +5,7 @@
 <script>
 import * as echarts from 'echarts'
 import chartOption from "../chartOption";
+import { useProjectStore } from "@/pinia/useProjectStore.ts";
 
 export default {
     name: "ChartBarOfBillMonth",
@@ -96,7 +97,7 @@ export default {
                     splitLine: { // y 轴的分隔线样式
                         show: true,
                         lineStyle: {
-                            color: chartOption.COLOR.line,  // 线的颜色
+                            color: chartOption.COLOR_LIGHT.splitLine,  // 线的颜色
                             width: 1,           // 宽度
                             type: 'solid'       // 样式
                         },
@@ -122,6 +123,27 @@ export default {
     },
     methods: {
         initChart() {
+            // Get theme-aware colors from system-level theme detection
+            const projectStore = useProjectStore()
+            const isDarkTheme = projectStore.isDarkMode
+            const themeColors = chartOption.getThemeColors(isDarkTheme)
+
+            // Apply theme colors to chart options
+            this.option.xAxis.axisLabel.color = themeColors.axisLabel
+            this.option.xAxis.axisLine.lineStyle.color = themeColors.axisLine
+            this.option.yAxis.axisLabel.color = themeColors.axisLabel
+            this.option.yAxis.axisLine.lineStyle.color = themeColors.axisLine
+            this.option.yAxis.splitLine.lineStyle.color = themeColors.splitLine
+            this.option.tooltip.backgroundColor = themeColors.tooltipBg
+            this.option.tooltip.borderColor = themeColors.tooltipBorder
+            this.option.tooltip.textStyle = this.option.tooltip.textStyle || {}
+            this.option.tooltip.textStyle.color = themeColors.title
+            if (this.option.tooltip.axisPointer && this.option.tooltip.axisPointer.label) {
+                this.option.tooltip.axisPointer.label.backgroundColor = themeColors.tooltipBg
+            }
+            this.option.legend.textStyle = this.option.legend.textStyle || {}
+            this.option.legend.textStyle.color = themeColors.legend
+
             this.chart = echarts.init(this.$refs.chart)
 
             this.option.series.push({
@@ -134,6 +156,9 @@ export default {
                     show: true,
                     position: 'top',
                     fontSize: 10,
+                    color: themeColors.valueLabel,
+                    textBorderColor: themeColors.valueLabelBorder,
+                    textBorderWidth: themeColors.valueLabelBorderWidth,
                 }
             },)
             this.option.xAxis.data =
@@ -152,6 +177,9 @@ export default {
                     show: true,
                     position: 'top',
                     fontSize: 10,
+                    color: themeColors.valueLabel,
+                    textBorderColor: themeColors.valueLabelBorder,
+                    textBorderWidth: themeColors.valueLabelBorderWidth,
                 }
             },)
             this.option.xAxis.data =

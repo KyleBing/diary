@@ -1,11 +1,11 @@
 /* 通用 echart 配置 */
 
+// Base colors (data series colors - remain the same)
 const COLOR = {
     main   : '#00deff',
     label  : '#aaa',
     title  : '#fff',
     white  : '#fff',
-    line   : 'rgba(0,0,0,0.2)',
     green  : '#2bb06a',
     cyan   : '#5AC8FA',
     blue   : '#007AFF',
@@ -16,6 +16,42 @@ const COLOR = {
     yellow : '#FFCC00',
     gray   : '#8E8E93',
     primary: '#409EFF'
+}
+
+// Light theme colors for chart UI elements (axes, labels, etc.)
+const COLOR_LIGHT = {
+    axisLabel: '#666666',
+    axisLine: COLOR.gray,
+    splitLine: 'rgba(0,0,0,0.1)',
+    title: '#333333',
+    legend: '#666666',
+    tooltipBg: '#ffffff',
+    tooltipBorder: '#ccc',
+    valueLabel: '#000000', // Black text for chart item labels
+    valueLabelBorder: '#ffffff', // White outline for black text in light mode
+    valueLabelBorderWidth: 2 // Width of white outline
+}
+
+// Dark theme colors for chart UI elements
+const COLOR_DARK = {
+    axisLabel: '#ffffff',
+    axisLine: COLOR.gray,
+    splitLine: 'rgba(255,255,255,0.2)',
+    title: '#ffffff',
+    legend: '#ffffff',
+    tooltipBg: '#2a2a2a',
+    tooltipBorder: '#555',
+    valueLabel: '#ffffff', // White font for value labels in dark mode
+    valueLabelBorder: '#000000', // Black outline for readability on colored items
+    valueLabelBorderWidth: 1 // Subtle outline in dark mode
+}
+
+/**
+ * Get theme-aware colors based on system theme
+ * @param isDark - whether dark theme is active
+ */
+function getThemeColors(isDark: boolean) {
+    return isDark ? COLOR_DARK : COLOR_LIGHT
 }
 const COLOR_ARRAY = [
     '#FF9500',
@@ -58,4 +94,7 @@ export default {
     COLOR_ARRAY,
     COLOR_OPTION: [COLOR.main, COLOR.green],
     COLOR_BAR: [COLOR.green, COLOR.purple],
+    COLOR_LIGHT,
+    COLOR_DARK,
+    getThemeColors,
 }

@@ -20,6 +20,8 @@ import { CanvasRenderer } from 'echarts/renderers';
 import {nextTick, onMounted, ref, watch} from "vue";
 
 import { useStatisticStore } from '@/pinia/useStatisticStore.ts';
+import { useProjectStore } from '@/pinia/useProjectStore.ts';
+import chartOption from "@/view/Statistics/chartOption.ts";
 
 
 // 注册必须的组件
@@ -37,7 +39,7 @@ echarts.use([
 
 const COLORS =  [
     '#FFA41C',
-    '#2F3037',
+    '#ad4ccd',
     '#9FE080',
     '#5C7BD9',
     '#7ED3F4',
@@ -116,6 +118,11 @@ function resetData(newValue) {
     chart.value.setOption(option.value)
 }
 function initChart() {
+    // Get theme-aware colors from system-level theme detection
+    const projectStore = useProjectStore()
+    const isDarkTheme = projectStore.isDarkMode
+    const themeColors = chartOption.getThemeColors(isDarkTheme)
+
     option.value = {
         grid: {
             bottom: 40,
@@ -127,11 +134,16 @@ function initChart() {
             text: '',
             left: 'center',
             textStyle:{
-                color: '#666666'
+                color: themeColors.title
             }
         },
         tooltip: {
             trigger: 'axis',
+            backgroundColor: themeColors.tooltipBg,
+            borderColor: themeColors.tooltipBorder,
+            textStyle: {
+                color: themeColors.title
+            },
             axisPointer: {
                 type: 'shadow'
             }
@@ -141,13 +153,19 @@ function initChart() {
             data: [],
             axisLabel: {
                 fontSize: 11,
-                color: '#666666',
+                color: themeColors.axisLabel,
                 rotate: -45
+            },
+            axisLine: {
+                lineStyle: {
+                    color: themeColors.axisLine
+                }
             }
         }],
         yAxis: [{
             type: 'value',
             axisLabel:{
+                color: themeColors.axisLabel,
                 formatter: (value, index) => {
                     let k = value / 1000
                     let b = value % 1000
@@ -156,6 +174,16 @@ function initChart() {
                     } else {
                         return b
                     }
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: themeColors.axisLine
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: themeColors.splitLine
                 }
             }
         }],
@@ -168,6 +196,9 @@ function initChart() {
                 show: true,
                 position: 'top',
                 fontSize: 12,
+                color: themeColors.valueLabel,
+                textBorderColor: themeColors.valueLabelBorder,
+                textBorderWidth: themeColors.valueLabelBorderWidth,
             },
         }]
     }

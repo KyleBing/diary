@@ -5,6 +5,7 @@
 <script>
 import * as echarts from 'echarts'
 import chartOption from "../chartOption";
+import { useProjectStore } from "@/pinia/useProjectStore.ts";
 
 export default {
     name: "ChartLineTrend",
@@ -95,7 +96,7 @@ export default {
                     splitLine: { // y 轴的分隔线样式
                         show: true,
                         lineStyle: {
-                            color: chartOption.COLOR.line,  // 线的颜色
+                            color: chartOption.COLOR_LIGHT.splitLine,  // 线的颜色
                             width: 1,           // 宽度
                             type: 'solid'       // 样式
                         },
@@ -118,6 +119,57 @@ export default {
     },
     methods: {
         initChart() {
+            // Get theme-aware colors from system-level theme detection
+            const projectStore = useProjectStore()
+            const isDarkTheme = projectStore.isDarkMode
+            const themeColors = chartOption.getThemeColors(isDarkTheme)
+
+            // Axis/color selection
+            const AXIS_FONT_COLOR = themeColors.axisLabel
+            const AXIS_LINE_COLOR = themeColors.axisLine
+            const SPLIT_LINE_COLOR = themeColors.splitLine
+
+            // Set color for xAxis
+            if (this.option && this.option.xAxis) {
+                this.option.xAxis.axisLabel = this.option.xAxis.axisLabel || {};
+                this.option.xAxis.axisLabel.color = AXIS_FONT_COLOR;
+                this.option.xAxis.axisLine = this.option.xAxis.axisLine || {};
+                if (this.option.xAxis.axisLine.lineStyle) {
+                    this.option.xAxis.axisLine.lineStyle.color = AXIS_LINE_COLOR;
+                }
+            }
+
+            // Set color for all yAxes
+            if (this.option && this.option.yAxis && Array.isArray(this.option.yAxis)) {
+                this.option.yAxis.forEach((yAxisOpt) => {
+                    yAxisOpt.axisLabel = yAxisOpt.axisLabel || {};
+                    yAxisOpt.axisLabel.color = AXIS_FONT_COLOR;
+                    yAxisOpt.axisLine = yAxisOpt.axisLine || {};
+                    if (yAxisOpt.axisLine.lineStyle) {
+                        yAxisOpt.axisLine.lineStyle.color = AXIS_LINE_COLOR;
+                    }
+                    yAxisOpt.splitLine = yAxisOpt.splitLine || {};
+                    yAxisOpt.splitLine.lineStyle = yAxisOpt.splitLine.lineStyle || {};
+                    yAxisOpt.splitLine.lineStyle.color = SPLIT_LINE_COLOR;
+                });
+            }
+
+            // Set tooltip colors
+            if (this.option && this.option.tooltip) {
+                this.option.tooltip.backgroundColor = themeColors.tooltipBg;
+                this.option.tooltip.borderColor = themeColors.tooltipBorder;
+                this.option.tooltip.textStyle = this.option.tooltip.textStyle || {};
+                this.option.tooltip.textStyle.color = themeColors.title;
+                if (this.option.tooltip.axisPointer && this.option.tooltip.axisPointer.label) {
+                    this.option.tooltip.axisPointer.label.backgroundColor = themeColors.tooltipBg;
+                }
+            }
+
+            // Set legend colors
+            if (this.option && this.option.legend) {
+                this.option.legend.textStyle = this.option.legend.textStyle || {};
+                this.option.legend.textStyle.color = themeColors.legend;
+            }
             this.chart = echarts.init(this.$refs.chart)
 
             this.option.series.push({
@@ -137,6 +189,9 @@ export default {
                     distance: 5,
                     show: true,
                     fontSize: 10,
+                    color: themeColors.valueLabel,
+                    textBorderColor: themeColors.valueLabelBorder,
+                    textBorderWidth: themeColors.valueLabelBorderWidth,
                     formatter: (data) => {
                         if (data.dataIndex % 10 === 0){
                             return data.data.value
@@ -149,7 +204,9 @@ export default {
                     symbol: 'pin',
                     offset: [0, 20],
                     label: {
-                        color: 'white',
+                        color: themeColors.valueLabel,
+                        textBorderColor: themeColors.valueLabelBorder,
+                        textBorderWidth: themeColors.valueLabelBorderWidth,
                         show: true,
                         fontSize: 12,
                         padding: 4,
@@ -189,6 +246,9 @@ export default {
                     distance: 5,
                     show: true,
                     fontSize: 10,
+                    color: themeColors.valueLabel,
+                    textBorderColor: themeColors.valueLabelBorder,
+                    textBorderWidth: themeColors.valueLabelBorderWidth,
                     formatter: (data) => {
                         if (data.dataIndex % 10 === 0){
                             return data.data.value
@@ -201,7 +261,9 @@ export default {
                     symbol: 'pin',
                     offset: [0, 20],
                     label: {
-                        color: 'white',
+                        color: themeColors.valueLabel,
+                        textBorderColor: themeColors.valueLabelBorder,
+                        textBorderWidth: themeColors.valueLabelBorderWidth,
                         show: true,
                         fontSize: 12,
                         padding: 4,

@@ -16,6 +16,7 @@ export const useProjectStore = defineStore('projectStore', {
             {windowsHeight: number, windowsWidth: number,heightPanel:number} ,
 
         colorMode: 'light',
+        isDarkTheme: false, // 系统主题检测 (prefers-color-scheme: dark)
 
         // LIST FILTER
         isFilterShared: false ,                         // 是否筛选共享的日记
@@ -57,6 +58,16 @@ export const useProjectStore = defineStore('projectStore', {
         },
         isAdminUser(){
             return getAuthorization()?.group_id === 1
+        },
+        // 检测系统主题样式 (light/dark)
+        isDarkMode(state){
+            if (state.isDarkTheme !== undefined) {
+                return state.isDarkTheme
+            }
+            if (typeof window !== 'undefined' && window.matchMedia) {
+                return window.matchMedia('(prefers-color-scheme: dark)').matches
+            }
+            return false
         }
     },
     actions: {
@@ -67,6 +78,31 @@ export const useProjectStore = defineStore('projectStore', {
             this.keywords = diaryConfig.keywords
             this.dateFilterString = diaryConfig.dateFilterString
             this.isFilterShared = diaryConfig.isFilterShared
+            
+            // Initialize system theme detection
+            this.detectSystemTheme()
+            
+            // Listen for system theme changes
+            if (typeof window !== 'undefined' && window.matchMedia) {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+                // Modern browsers support addEventListener
+                if (mediaQuery.addEventListener) {
+                    mediaQuery.addEventListener('change', (e) => {
+                        this.isDarkTheme = e.matches
+                    })
+                } else {
+                    // Fallback for older browsers
+                    mediaQuery.addListener((e) => {
+                        this.isDarkTheme = e.matches
+                    })
+                }
+            }
+        },
+        // Detect system theme preference
+        detectSystemTheme(){
+            if (typeof window !== 'undefined' && window.matchMedia) {
+                this.isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            }
         },
         // 设置是否显示共享
         SET_IS_FILTERED_SHARED (payload: boolean){
