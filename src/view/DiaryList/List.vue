@@ -83,6 +83,18 @@ onMounted(() => {
     })
     projectStore.isShowSearchBar = !!keywordShow.value
     reloadDiaryList() // 载入日记列表
+    
+    // 添加键盘监听（上下键切换日记）
+    window.addEventListener('keydown', handleKeyDown)
+})
+
+onBeforeUnmount(() => {
+    if (currentListRequestController) {
+        currentListRequestController.abort()
+        currentListRequestController = null
+    }
+    // 移除键盘监听
+    window.removeEventListener('keydown', handleKeyDown)
 })
 
 
@@ -370,12 +382,68 @@ watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
     }
 })
 
-onBeforeUnmount(() => {
-    if (currentListRequestController) {
-        currentListRequestController.abort()
-        currentListRequestController = null
+/**
+ * 处理键盘事件 - 上下键切换日记
+ * 支持在 Detail 或 Edit 路径下切换日记 id
+ */
+function handleKeyDown(event: KeyboardEvent) {
+
+    event.preventDefault() // 防止上下键对列表滚动
+
+    // 如果焦点在输入框、文本区域等元素上，则不处理
+    const target = event.target as HTMLElement
+    if (target.tagName === 'INPUT' || 
+        target.tagName === 'TEXTAREA' || 
+        target.isContentEditable ||
+        target.closest('.contenteditable')) {
+        return
     }
-})
+
+    // 只处理上下箭头键
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        // 检查当前路由是否是 Detail 或 Edit
+        const routeName = route.name
+        
+        if (routeName !== 'Detail') {
+            return // 不在 Detail 页面，不处理
+        }
+
+        const currentId = route.params.id
+        if (!currentId || diaryList.value.length === 0) {
+            return
+        }
+
+        // 找到当前日记在列表中的位置
+        const currentIndex = diaryList.value.findIndex(item => String(item.id) === String(currentId))
+        if (currentIndex === -1) {
+            return // 当前日记不在列表中
+        }
+
+        let targetIndex: number
+        if (event.key === 'ArrowUp') {
+            // 上一个日记（列表中向前，更早的日期）
+            targetIndex = currentIndex - 1
+            if (targetIndex < 0) {
+                return // 已经是第一个，不做任何操作
+            }
+        } else {
+            // 下一个日记（列表中向后，更新的日期）
+            targetIndex = currentIndex + 1
+            if (targetIndex >= diaryList.value.length) {
+                return // 已经是最后一个，不做任何操作
+            }
+        }
+
+        const targetDiary = diaryList.value[targetIndex]
+        if (targetDiary && targetDiary.id) {
+            // 保持当前路由名称，只改变 id 参数
+            router.push({
+                name: routeName,
+                params: { id: targetDiary.id }
+            })
+        }
+    }
+}
 
 </script>
 
