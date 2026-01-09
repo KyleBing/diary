@@ -340,7 +340,6 @@ watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
             diaryList.value.map((item, index) => {
                 if (item.id === id) {
                     diaryList.value.splice(index, 1)
-                    console.log(diaryList)
                     if (diaryList.value[index]) {
                         // 删除当前日记后，显示最近的一条日记，由于删除了一条，所以留下的 index 就是后面一个元素的 index
                         router.push({

@@ -486,12 +486,15 @@ const diaryHasChanged = computed(() => {
 
 watch(() => route.params.id, newDiaryId => {
     console.log('edit: watch: diary-id: triggered.', newDiaryId)
+    isNew.value = false  // 能获取id的日记肯定不是新日记
+
     if (newDiaryId) {
         getDiary(Number(newDiaryId))
     } else {
         createDiary()
     }
-})
+}, {immediate: true})
+
 watch(diary, newValue => {
         updateDiaryIcon()  // 更新 navbar icon
         cacheCurrentDiary() // 缓存当前日记内容
@@ -700,7 +703,11 @@ function updateDiaryIcon() {
         projectStore.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content_saved: SVG_ICONS.logo_icons.logo_title_saved
     }
 }
+
+
 function getDiary(diaryId: number) {
+
+    console.log('is new:getDiary: ', isNew.value)
     // 编辑日记
     diaryApi
         .detail({
@@ -819,12 +826,11 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
             projectStore.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
         }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
     }
-
     isNew.value = false
-
-
 }
+
 function createDiary() {
+    console.log('create diary been called.')
     isNew.value = true
 
     // 只有在当天写日记时，才自动获取实时天气

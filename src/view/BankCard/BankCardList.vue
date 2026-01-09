@@ -118,6 +118,11 @@ onBeforeUnmount(()=>{
 
 // 编辑银行卡信息
 function editCardInfo(){
+
+    // 为防止列表因类别筛选，而不显示银行卡列表
+    projectStore.SET_FILTERED_CATEGORIES([])  // 打开所有类别
+    projectStore.SET_IS_FILTERED_SHARED(false)  // 不筛选共享
+
     const keyword = '我的银行卡列表'
     projectStore.SET_KEYWORD([keyword])  // 将 keyword 设置为关键词，为了筛选日记列表，只显示这一条内容
     let params = {
