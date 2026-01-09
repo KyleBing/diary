@@ -10,17 +10,27 @@
                 <div :class="['todo-list-item', {done: item.isDone}]">
                     <div class="checkbox-wrapper">
                         <div :class="['checkbox', {checked: item.isDone}]"
-                             :style="{'--todo-color': statisticStore.categoryObjectMap.get('todo').color}"
-                             @click="toggleDoneStatus(item)"></div>
+                             :style="{'--todo-color': statisticStore.categoryObjectMap.get('todo')?.color}"
+                             @click="toggleDoneStatus(item)">
+                        </div>
                     </div>
                     <div class="content-wrapper">
-                        <div contenteditable="true" @input="handleContentChange(item, $event)" class="content">
-                            {{projectStore.isHideContent? item.content.replace(/[^，。 \n]/g, '*'): item.content}}
+                        <div 
+                            contenteditable="true" 
+                            @input="handleContentChange(item, $event)"
+                            @blur="handleContentBlur(item, $event)"
+                            @focus="handleContentFocus(item, $event)"
+                            :ref="(el) => setContentRef(el as HTMLDivElement, item.id)"
+                            class="content">
                         </div>
                         <div
                             v-if="item.note"
-                            contenteditable="true" @input="handleNoteChange(item, $event)" class="note">
-                            {{projectStore.isHideContent? item.note?.replace(/[^，。 \n]/g, '*'): item.note}}
+                            contenteditable="true" 
+                            @input="handleNoteChange(item, $event)"
+                            @blur="handleNoteBlur(item, $event)"
+                            @focus="handleNoteFocus(item, $event)"
+                            :ref="(el) => setNoteRef(el as HTMLDivElement, item.id)"
+                            class="note">
                         </div>
                     </div>
                 </div>
@@ -31,7 +41,7 @@
 
 <script lang="ts" setup>
 import diaryApi from "@/api/diaryApi.ts"
-import {onMounted, ref, watch} from "vue";
+import {onMounted, ref, watch, nextTick} from "vue";
 import {EntityDiaryForm, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
@@ -51,6 +61,8 @@ const props = defineProps<{
 
 const todoList= ref<Array<TodoEntity>>([])
 const lastId = ref(0) // 最后一个修改后的 id，用于将最后一个标记的 todoItem 移到列表最后
+const contentElements = new Map<number, HTMLDivElement>()
+const noteElements = new Map<number, HTMLDivElement>()
 
 onMounted(()=>{
     processContent(props.diary)
@@ -65,6 +77,22 @@ onMounted(()=>{
 
 watch(() => props.diary, newValue => {
     processContent(newValue)
+})
+
+// Update display when hide content setting changes
+watch(() => projectStore.isHideContent, () => {
+    nextTick(() => {
+        todoList.value.forEach(item => {
+            const contentEl = contentElements.get(item.id)
+            if (contentEl && document.activeElement !== contentEl) {
+                updateContentElement(contentEl, item.id)
+            }
+            const noteEl = noteElements.get(item.id)
+            if (noteEl && document.activeElement !== noteEl && item.note) {
+                updateNoteElement(noteEl, item.id)
+            }
+        })
+    })
 })
 
 function toggleDoneStatus(todoItem: TodoEntity){
@@ -115,6 +143,21 @@ function processContent(diary: EntityDiaryForm){
         const todoUndone = todoList.value.filter(item => !item.isDone)
         todoList.value = todoUndone.concat(todoDone)
         lastId.value = todoList.value.length
+        
+        // Sync content to DOM after processing
+        nextTick(() => {
+            todoList.value.forEach(item => {
+                const contentEl = contentElements.get(item.id)
+                if (contentEl) {
+                    updateContentElement(contentEl, item.id)
+                }
+                const noteEl = noteElements.get(item.id)
+                if (noteEl && item.note) {
+                    updateNoteElement(noteEl, item.id)
+                }
+            })
+        })
+        
         saveDiary()
     }
 }
@@ -162,15 +205,128 @@ function deleteToDo(index: number){
 
 
 /**
+ * Save and restore cursor position for contenteditable
+ */
+function saveCursorPosition(element: HTMLDivElement): number {
+    const selection = window.getSelection()
+    if (!selection || selection.rangeCount === 0) return 0
+    
+    const range = selection.getRangeAt(0)
+    const preCaretRange = range.cloneRange()
+    preCaretRange.selectNodeContents(element)
+    preCaretRange.setEnd(range.endContainer, range.endOffset)
+    return preCaretRange.toString().length
+}
+
+function restoreCursorPosition(element: HTMLDivElement, position: number) {
+    const selection = window.getSelection()
+    if (!selection) return
+    
+    const range = document.createRange()
+    let currentPos = 0
+    let nodeStack: Node[] = [element]
+    let node: Node | undefined
+    let foundStart = false
+    
+    while (!foundStart && (node = nodeStack.pop())) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const nodeLength = node.textContent?.length || 0
+            if (currentPos + nodeLength >= position) {
+                range.setStart(node, position - currentPos)
+                range.setEnd(node, position - currentPos)
+                foundStart = true
+            } else {
+                currentPos += nodeLength
+            }
+        } else {
+            let i = node.childNodes.length
+            while (i--) {
+                nodeStack.push(node.childNodes[i] as Node)
+            }
+        }
+    }
+    
+    if (foundStart) {
+        selection.removeAllRanges()
+        selection.addRange(range)
+    }
+}
+
+function setContentRef(el: HTMLDivElement | null, id: number) {
+    if (el) {
+        contentElements.set(id, el)
+        updateContentElement(el, id)
+    }
+}
+
+function setNoteRef(el: HTMLDivElement | null, id: number) {
+    if (el) {
+        noteElements.set(id, el)
+        updateNoteElement(el, id)
+    }
+}
+
+function updateContentElement(el: HTMLDivElement, id: number) {
+    const item = todoList.value.find(t => t.id === id)
+    if (item && el.textContent !== getDisplayContent(item.content)) {
+        el.textContent = getDisplayContent(item.content)
+    }
+}
+
+function updateNoteElement(el: HTMLDivElement, id: number) {
+    const item = todoList.value.find(t => t.id === id)
+    if (item && item.note && el.textContent !== getDisplayContent(item.note)) {
+        el.textContent = getDisplayContent(item.note)
+    }
+}
+
+function getDisplayContent(content: string): string {
+    return projectStore.isHideContent ? content.replace(/[^，。 \n]/g, '*') : content
+}
+
+function handleContentFocus(_todoItem: TodoEntity, _ev: Event) {
+    // Focus handled, content already in DOM
+}
+
+function handleContentBlur(todoItem: TodoEntity, ev: Event) {
+    const element = ev.target as HTMLDivElement
+    todoItem.content = element.textContent || ''
+}
+
+function handleNoteFocus(_todoItem: TodoEntity, _ev: Event) {
+    // Focus handled, content already in DOM
+}
+
+function handleNoteBlur(todoItem: TodoEntity, ev: Event) {
+    const element = ev.target as HTMLDivElement
+    todoItem.note = element.textContent || ''
+}
+
+/**
  * 实时修改 to-do 内容
  * @param todoItem
  * @param ev
  */
 function handleContentChange(todoItem: TodoEntity, ev: Event){
-    todoItem.content = (ev.target as HTMLDivElement).innerText
+    const element = ev.target as HTMLDivElement
+    const cursorPos = saveCursorPosition(element)
+    todoItem.content = element.textContent || ''
+    
+    // Restore cursor position after Vue updates
+    nextTick(() => {
+        restoreCursorPosition(element, cursorPos)
+    })
 }
+
 function handleNoteChange(todoItem: TodoEntity, ev: Event){
-    todoItem.note =  (ev.target as HTMLDivElement).innerText
+    const element = ev.target as HTMLDivElement
+    const cursorPos = saveCursorPosition(element)
+    todoItem.note = element.textContent || ''
+    
+    // Restore cursor position after Vue updates
+    nextTick(() => {
+        restoreCursorPosition(element, cursorPos)
+    })
 }
 
 function onDragEnd() {
