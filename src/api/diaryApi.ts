@@ -17,7 +17,6 @@ export default {
         data: Array<CategoryEntity>,
         message: string
     }> {
-
         return request('get',    null, null,'diary-category/list')},
 
     list(params: DiarySearchParams, signal?: AbortSignal): Promise<{
@@ -63,7 +62,7 @@ export default {
 
 
     // 获取日记列表，列表中只包含标题
-    listTitleOnly(params: DiarySearchParams): Promise<{
+    listTitleOnly(params: DiarySearchParams | DiarySearchParamsForCalendar): Promise<{
         success: boolean,
         data: Array<EntityDiaryFromServerTitleOnly>,
         message: string
@@ -71,10 +70,10 @@ export default {
         return request('get'   , params, null, 'diary/list-title-only')}  ,
 
     // 获取日记列表，列表中只包含类别
-    lietCategoryOnly(params: DiarySearchParamsForCalendar): Promise<{
+    listCategoryOnly(params: DiarySearchParamsForCalendar): Promise<{
         success: boolean,
         data: Array<EntityDiaryFromServerCategoryOnly>,
-        message: string
+        message: string,
     }>  {
         return request('get'   , params, null, 'diary/list-category-only')}  ,
 

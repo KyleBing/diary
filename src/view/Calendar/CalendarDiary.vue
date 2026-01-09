@@ -37,20 +37,20 @@
 
 
             <!-- 日记列表 -->
-            <div class="calendar-diary-list pl-2 pr-2" 
+            <div class="calendar-diary-list pl-2 pr-2"
                 :style="`height:${projectStore.insets.heightPanel}px; overflow-y: auto;`">
 
-                <CalendarListHeader 
-                    v-if="currentFocusedDay" 
+                <CalendarListHeader
+                    v-if="currentFocusedDay"
                     :date="currentFocusedDay.id"
                 />
                 <div v-if="focusedDayDiaries.length > 0">
-                    <DiaryListItemLong 
+                    <DiaryListItemLong
                         @click="diaryListItemLongClicked(item)"
-                        v-for="item in focusedDayDiaries" 
+                        v-for="item in focusedDayDiaries"
                         :key="item.id"
-                        :isActive="route.params.id === String(item.id)" 
-                        :category="item.category" 
+                        :isActive="route.params.id === String(item.id)"
+                        :category="item.category"
                         :diary="item"
                         :isShowDate="false"
                         :isShowWeek="false"
@@ -92,7 +92,7 @@ import Loading from "@/components/Loading.vue";
 
 interface CalendarDay {
     id: string, // 2025-08-02
-    date: Date,  
+    date: Date,
     day: number,
     month: number,
     year: number,
@@ -147,7 +147,7 @@ function getAllShowingCalendarDiaries() {
 
     isLoading.value = true
     diaryApi
-        .lietCategoryOnly(formSearch.value)
+        .listCategoryOnly(formSearch.value)
         .then(res => {
             isLoading.value = false
             diaryList.value = res.data.map((diary: EntityDiaryFromServerCategoryOnly) => {
@@ -212,10 +212,10 @@ function getDiaryListOfDay(day: CalendarDay) {
     calendarCol.value = 4
     console.log('getDiaryListOfDay', day)
     currentFocusedDay.value = day
-    
+
     // 更新选中的日期高亮
     updateSelectedDateHighlight(day.date)
-    
+
     isLoadingFocusedDayDiaries.value = true
     focusedDayDiaries.value = []  // 清空列表
     diaryApi
@@ -249,7 +249,7 @@ function getDiaryListOfDay(day: CalendarDay) {
 function updateSelectedDateHighlight(selectedDate: Date) {
     // 找到现有的选中日期属性并更新，或者添加新的
     const selectedDateIndex = attributes.value.findIndex(attr => attr.key === '选中的日期')
-    
+
     if (selectedDateIndex !== -1) {
         // 更新现有的选中日期属性
         attributes.value[selectedDateIndex].dates = selectedDate
@@ -305,22 +305,22 @@ const maxDate = ref<Date>()
 
 // 处理日历页面滑动时的变化
 function onPageChange(data: any) {
-    
+
     let minDateValue: Date
     let maxDateValue: Date
-    
+
     // 检查数据类型并相应处理
     if (Array.isArray(data)) {
         // 数组格式：包含所有显示的月份
         const firstMonth = data[0]
         const lastMonth = data[data.length - 1]
-        
+
         const firstMonthDate = Moment().year(firstMonth.year).month(firstMonth.month - 1).startOf('month')
         const lastMonthDate = Moment().year(lastMonth.year).month(lastMonth.month - 1).endOf('month')
-        
+
         minDateValue = firstMonthDate.toDate()
         maxDateValue = lastMonthDate.toDate()
-        
+
         console.log('日历页面已更改 (数组格式):', {
             monthsCount: data.length,
             firstMonth,
@@ -329,9 +329,9 @@ function onPageChange(data: any) {
         })
     } else {
         // 对象格式：忽略
-       
+
     }
-    
+
     minDate.value = minDateValue
     maxDate.value = maxDateValue
 
@@ -344,7 +344,7 @@ function updateDateRangeForSearch() {
     if (minDate.value && maxDate.value) {
         formSearch.value.dateStart = Moment(minDate.value).format('YYYY-MM-DD')
         formSearch.value.dateEnd = Moment(maxDate.value).format('YYYY-MM-DD')
-        
+
         // 可选择为新范围重新加载日记数据
         getAllShowingCalendarDiaries()
     }
