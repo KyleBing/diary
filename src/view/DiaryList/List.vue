@@ -384,11 +384,10 @@ watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {
 
 /**
  * 处理键盘事件 - 上下键切换日记
- * 支持在 Detail 或 Edit 路径下切换日记 id
+ * 支持在 Detail
  */
 function handleKeyDown(event: KeyboardEvent) {
 
-    event.preventDefault() // 防止上下键对列表滚动
 
     // 如果焦点在输入框、文本区域等元素上，则不处理
     const target = event.target as HTMLElement
@@ -401,6 +400,8 @@ function handleKeyDown(event: KeyboardEvent) {
 
     // 只处理上下箭头键
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        event.preventDefault() // 防止上下键对列表滚动
+
         // 检查当前路由是否是 Detail 或 Edit
         const routeName = route.name
         
