@@ -3,29 +3,34 @@
 
         <!-- 编辑借还记录 -->
         <template #action>
-            <div @click="editBorrowInfo()">
-                <TabIcon size="small" icon="黑色-编辑"/>
+            <div class="action-container">
+                <div @click="toggleHideContent()">
+                    <TabIcon size="small" :icon="isBorrowListHidden ? '黑色-内容隐藏' : '黑色-内容显示'"/>
+                </div>
+                <div @click="editBorrowInfo()">
+                    <TabIcon size="small" icon="黑色-编辑"/>
+                </div>
             </div>
         </template>
 
         <!-- 借还记录列表 -->
         <div class="borrow-list">
             <div class="borrow-list-item" v-for="(item, index) in borrowInfoList" :key="index">
-                <div class="total">{{item.total}}</div>
-                <div class="lender">{{item.lender}}</div>
+                <div class="total">{{hideContent(item.total?.toString() || '')}}</div>
+                <div class="lender">{{hideContent(item.lender || '')}}</div>
                 <div class="section-note">
-                    <div class="usage">{{item.usage}} - {{item.type}}</div>
-                    <div class="date-loan">{{item.dateLoan}}</div>
+                    <div class="usage">{{hideContent(item.usage || '')}} - {{hideContent(item.type || '')}}</div>
+                    <div class="date-loan">{{hideContent(item.dateLoan || '')}}</div>
                 </div>
             </div>
             <div class="borrow-list-item">
-                <div class="total">{{borrowSum}}</div>
+                <div class="total">{{hideContent(borrowSum.toString())}}</div>
                 <div class="lender">总计</div>
             </div>
 
             <div class="borrow-list-item" v-for="(key) in borrowPersonMap.keys()" :key="key">
-                <div class="total">{{borrowPersonMap.get(key)}}</div>
-                <div class="lender">{{key}}</div>
+                <div class="total">{{hideContent(borrowPersonMap.get(key)?.toString() || '')}}</div>
+                <div class="lender">{{hideContent(key)}}</div>
                 <div class="section-note"></div>
             </div>
         </div>
@@ -51,6 +56,8 @@ const props = withDefaults(defineProps<{
 
 const projectStore = useProjectStore()
 const router = useRouter()
+
+const isBorrowListHidden = ref(false)
 
 onMounted(()=>{
     getBorrowInfo()
@@ -154,6 +161,23 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
         })
 }
 
+/**
+ * 切换显示/隐藏列表内容
+ */
+function toggleHideContent() {
+    isBorrowListHidden.value = !isBorrowListHidden.value
+}
+
+/**
+ * 隐藏内容处理，与详情中的处理方式相同
+ */
+function hideContent(content: string): string {
+    if (isBorrowListHidden.value) {
+        return content.replace(/[^，。 \n]/g, '*')
+    }
+    return content
+}
+
 
 </script>
 
@@ -203,6 +227,12 @@ function processBorrowInfo(borrowInfoString: string): Array<EntityBorrow>{
 
         }
     }
+}
+
+.action-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 // mobile
