@@ -197,6 +197,7 @@ const billKeys = ref<Array<BillKey>>([])
 const possibleBillItems = ref<Array<BillKey>>([])
 const keysPanelPositionLeft = ref(150)
 const keysPanelPositionTop = ref(20)
+const billItemsDebounceTimer = ref<NodeJS.Timeout | null>(null)
 
 const refDiaryContentTextArea = ref()
 const refDiaryTitleTextArea = ref()
@@ -454,6 +455,12 @@ onBeforeUnmount(() => {
     // 目前只有一个场景用到，就是屏幕窗口大小变化时， Edit 会消失再出现，结果就是
     // 会选择用户在这期间写的内容，这是极不应该的。
     cacheCurrentDiary()
+    
+    // 清理防抖定时器
+    if (billItemsDebounceTimer.value) {
+        clearTimeout(billItemsDebounceTimer.value)
+        billItemsDebounceTimer.value = null
+    }
 })
 
 onBeforeRouteLeave((_, __, next) => {
@@ -559,15 +566,28 @@ function contentUpdate(event: Event){
             keysPanelPositionTop.value = lineArray.length * 24 + 15
             let lastWord = lineArray[lineArray.length - 1]
             keysPanelPositionLeft.value = lastWord.length * 15 + 30
-            // possibleBillItems.value = billKeys.value.filter(item => item.item.indexOf(lastWord) === 0)
-            // console.log('lastWord:', lastWord, 'word length:', lastWord.length)
-            if (lastWord !== ''){
-                possibleBillItems.value = billKeys.value.filter(item => item.key.indexOf(lastWord) > -1).splice(0,9)
-            } else {
-                possibleBillItems.value = []
+            
+            // 清除之前的定时器
+            if (billItemsDebounceTimer.value) {
+                clearTimeout(billItemsDebounceTimer.value)
+                billItemsDebounceTimer.value = null
             }
-            // console.log(possibleBillItems.value.map(item => item.item).join(','))
+            
+            // 延迟300ms再显示匹配的账单条目，避免快速输入数字时被识别成序号选择
+            billItemsDebounceTimer.value = setTimeout(() => {
+                if (lastWord !== ''){
+                    possibleBillItems.value = billKeys.value.filter(item => item.key.indexOf(lastWord) > -1).splice(0,9)
+                } else {
+                    possibleBillItems.value = []
+                }
+                billItemsDebounceTimer.value = null
+            }, 300)
         } else {
+            // 内容为空时，清除定时器并立即清空列表
+            if (billItemsDebounceTimer.value) {
+                clearTimeout(billItemsDebounceTimer.value)
+                billItemsDebounceTimer.value = null
+            }
             possibleBillItems.value = []
         }
     }
@@ -689,6 +709,15 @@ function setCategory(categoryNameEn: string) {
     diary.value.category = categoryNameEn
     if (categoryNameEn === 'bill' && diary.value.title === ''){
         diary.value.title = '账单'
+    }
+    
+    // 当类别不是账单时，清理防抖定时器并清空账单条目列表
+    if (categoryNameEn !== 'bill') {
+        if (billItemsDebounceTimer.value) {
+            clearTimeout(billItemsDebounceTimer.value)
+            billItemsDebounceTimer.value = null
+        }
+        possibleBillItems.value = []
     }
 }
 function setWeather(weather: string) {
