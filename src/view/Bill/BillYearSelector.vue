@@ -48,8 +48,9 @@ function toggleChecked(index: number){
         @extend .btn-like;
         background-color: $bg-light;
         color: $text-title;
-        margin-right: 10px;
-        padding: 5px 10px;
+        margin-right: 5px;
+        margin-bottom: 3px;
+        padding: 5px 8px;
         @include border-radius($radius-mobile);
         label{
             line-height: 1.5;

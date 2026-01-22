@@ -1,6 +1,6 @@
 import {AuthorizationEntity} from "./entity/Authorization";
 import {BillKey} from "./view/Bill/Bill";
-import {useStatisticStore} from "./pinia/useStatisticStore.ts";
+import {useStatisticStore} from "./pinia/useStatisticStore";
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
 
@@ -38,7 +38,7 @@ export function setAuthorization(auth: AuthorizationEntity) {
  * 保存账单常用项目列表
  * @param keyArray
  */
-export function setBillKeys(keyArray: string[]) {
+export function setBillKeys(keyArray: BillKey[]) {
     localStorage.setItem(BILL_KEYS_NAME, JSON.stringify(keyArray))
 }
 
