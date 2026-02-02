@@ -14,10 +14,14 @@
         </div>
         <div class="menu-section">
             <div class="menu-section-title">导出日记</div>
-            <div class="menu-section-subtitle">基于现有筛选条件导出日记内容到指定格式的文件</div>
             <div class="menu-section-content">
 
                 <div class="description">
+
+                    <div class="description-item">
+                        <div class="description-item-title">基于现有筛选条件导出日记内容到指定格式的文件。</div>
+                    </div>
+
                     <div class="description-item">
                         <div class="description-item-title">已选择的日记类别：</div>
                         <div class="description-item-content">
@@ -291,7 +295,7 @@ function downloadFile(fileName: string, data: any) { // 下载文件
 .description-item{
     font-size: 12px;
     color: #666;
-    margin-bottom: 7px;
+    margin-bottom: 4px;
     display: flex;
     flex-flow: row nowrap;
     .description-item-title{
@@ -299,7 +303,6 @@ function downloadFile(fileName: string, data: any) { // 下载文件
         margin-right: 10px;
         font-size: 12px;
         color: $text-menu-second;
-        font-weight: bold;
     }
     .description-item-content{
         font-size: 12px;
