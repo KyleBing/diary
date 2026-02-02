@@ -110,6 +110,50 @@ function goToChangePassword() {
     router.push({name: 'ChangePassword'})
 }
 
+function getFilterConditionsForFileName(): string {
+    const conditions: string[] = []
+    
+    // 类别筛选
+    if (projectStore.filteredCategories.length === 0) {
+        // 如果为空，表示选择了全部类别
+        conditions.push('全部类别')
+    } else {
+        // 检查是否选择了所有类别
+        const allCategoryNames = statisticStore.categoryAll.map(cat => cat.name_en)
+        const isAllSelected = projectStore.filteredCategories.length === allCategoryNames.length &&
+            projectStore.filteredCategories.every(cat => allCategoryNames.includes(cat))
+        
+        if (isAllSelected) {
+            conditions.push('全部类别')
+        } else {
+            const categoryNames = projectStore.filteredCategories
+                .map(cat => statisticStore.categoryNameMap.get(cat) || cat)
+                .join('+')
+            conditions.push(`${categoryNames}`)
+        }
+    }
+    
+    // 关键字
+    if (projectStore.keywords.length > 0) {
+        const keywords = projectStore.keywords.join('+')
+        conditions.push(`${keywords}`)
+    }
+    
+    // 时间筛选
+    if (projectStore.dateFilterString) {
+        // 移除可能存在的特殊字符，替换为下划线
+        const dateFilter = projectStore.dateFilterString.replace(/[<>:"/\\|?*]/g, '_')
+        conditions.push(`${dateFilter}`)
+    }
+    
+    // 共享筛选
+    if (projectStore.isFilterShared) {
+        conditions.push('仅共享')
+    }
+    
+    return conditions.length > 0 ? `-${conditions.join('-')}` : ''
+}
+
 function exportDiary(fileFormat: string) {
     isDownloadingContent.value = true
     // Build params same as list params
@@ -126,7 +170,9 @@ function exportDiary(fileFormat: string) {
         .then(res => {
             isDownloadingContent.value = false
             let diaryList = res.data
-            let fileName = `日记导出-${getAuthorization()?.nickname}-${dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
+            const filterConditions = getFilterConditionsForFileName()
+            let fileName = `日记导出-${getAuthorization()?.nickname}${filterConditions}-${dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
+            
             if (diaryList.length > 0) {
                 switch (fileFormat) {
                     case 'csv':
