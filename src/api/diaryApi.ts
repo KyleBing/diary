@@ -55,8 +55,8 @@ export default {
         return request('get',    params, null,'diary/share')},
 
     // 导出用户所有日记
-    export()  {
-        return request('get'   , null, null, 'diary/export', 120000)}  ,
+    export(params: DiarySearchParams)  {
+        return request('get'   , params, null, 'diary/export', 120000)}  ,
     clear()  {
         return request('post'   , null, null, 'diary/clear')}  ,
 
