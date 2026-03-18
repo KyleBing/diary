@@ -428,6 +428,13 @@ function menuListClicked(menuName: string) {
             break
     }
 }
+
+defineExpose({
+    menuShow,
+    menuClose,
+    menuInit,
+    menuListClicked,
+})
 </script>
 
 <style scoped lang="sass"></style>

@@ -124,6 +124,14 @@
                 </div>
 
                 <div
+                    v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)
+                            || !projectStore.isInMobileMode"
+                    @click="showMenuCategorySelector"
+                >
+                    <TabIcon icon="类别"/>
+                </div>
+
+                <div
                     v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
                             || !projectStore.isInMobileMode"
                     @click="addNewDiary"
@@ -148,7 +156,7 @@
 
 
             <!-- MENU -->
-            <NavMenu/>
+            <NavMenu ref="navMenuRef"/>
 
         </nav>
 
@@ -185,13 +193,13 @@ import ClipboardJS from "clipboard"
 import {getAuthorization, popMessage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
-import {computed, onMounted, onUnmounted, ref, watch} from "vue";
+import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {EnumListStyle} from "@/listStyle.ts";
 
 const route = useRoute()
 const router = useRouter()
-
+const navMenuRef = ref<InstanceType<typeof NavMenu>>()
 
 const isAdminUser = computed(()=>{
     return getAuthorization()?.group_id === 1
@@ -387,6 +395,13 @@ function diaryDelete() {
                 }
             }, 0.5)
         })
+}
+
+function showMenuCategorySelector(){
+    projectStore.isMenuShowed = true
+    nextTick(() => {
+        navMenuRef.value?.menuListClicked('category')
+    })
 }
 
 </script>
