@@ -3,3 +3,8 @@ export interface CategoryEntity {
     name_en: string,
     color: string,
 }
+
+export enum EnumNavbarCategoryShowStyle {
+    dot = 'dot',
+    text = 'text',
+}

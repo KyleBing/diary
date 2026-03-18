@@ -31,6 +31,7 @@ const props = withDefaults(defineProps<{
         | '搜索'
         | '分享'
         | '账单'
+        | '类别'
         | '账单简单'
         | '其它'
         | '银行卡'
@@ -103,6 +104,7 @@ const iconMap = computed(() => {
     iconMap.set('列表简洁', ICONS.tab_icons.listSimple)
     iconMap.set('列表详情', ICONS.tab_icons.listDetail)
     iconMap.set('列表瀑布', ICONS.tab_icons.listWaterfall)
+    iconMap.set('类别', ICONS.tab_icons.category)
 
     iconMap.set('黑色-添加', ICONS.tab_icons_black.add)
     iconMap.set('黑色-确定', ICONS.tab_icons_black.done)
@@ -128,6 +130,7 @@ const iconMap = computed(() => {
     iconMap.set('黑色-列表详情', ICONS.tab_icons_black.listDetail)
     iconMap.set('黑色-列表瀑布', ICONS.tab_icons_black.listWaterfall)
     iconMap.set('黑色-日历-选中', ICONS.tab_icons_black.calendar_active)
+    iconMap.set('黑色-类别', ICONS.tab_icons_black.category)
     return iconMap
 })
 </script>

@@ -3,6 +3,7 @@ import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {getAuthorization, getDiaryConfigFromLocalStorage, setDiaryConfig} from "@/utility.ts";
 import {EntityDiaryForm, EntityDiaryListOperation} from "@/view/DiaryList/Diary.ts";
 import {EnumListStyle} from "@/listStyle.ts";
+import {EnumNavbarCategoryShowStyle} from "@/entity/Category.ts";
 
 console.log('pinia projectStore is loaded, inside pinia file')
 
@@ -49,6 +50,9 @@ export const useProjectStore = defineStore('projectStore', {
 
         cacheDiary: undefined as (EntityDiaryForm | undefined),                // 缓存日记，目前只用于屏幕变换时，恢复日记内容
         cacheDiaryOrigin: undefined as (EntityDiaryForm | undefined),          // 跟上面同步使用：用于恢复用户之前的编辑状态，同时恢复当时的原日记内容，恢复 “日记已被编辑” 的状态
+
+        navbarCategoryShowStyle: EnumNavbarCategoryShowStyle.text, // 导航栏类别显示样式
+        // navbarCategoryShowStyle: EnumNavbarCategoryShowStyle.dot, // 导航栏类别显示样式
     }),
     getters: {
         isInMobileMode(state){
@@ -78,10 +82,10 @@ export const useProjectStore = defineStore('projectStore', {
             this.keywords = diaryConfig.keywords
             this.dateFilterString = diaryConfig.dateFilterString
             this.isFilterShared = diaryConfig.isFilterShared
-            
+
             // Initialize system theme detection
             this.detectSystemTheme()
-            
+
             // Listen for system theme changes
             if (typeof window !== 'undefined' && window.matchMedia) {
                 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')

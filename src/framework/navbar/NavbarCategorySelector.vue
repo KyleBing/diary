@@ -5,25 +5,33 @@
             enter-active-class="animated-fast slideInRight"
             leave-active-class="animated-fast slideOutRight"
         >
-            <div class="navbar-category-list-container" >
+            <div class="navbar-category-list-container">
                 <div class="navbar-category-list">
                     <div :class="['navbar-category-list-item', {active: projectStore.filteredCategories.includes(item.name_en), 'pulse-animate': isAnimating === index}]"
                          v-for="(item, index) in useStatisticStore().categoryAll" :key="index"
                          :title="item.name"
                          @click="toggleCategory(item, index)"
                     >
-                    <div class="dot" :style="dotStyle(item)"></div>
-                    <!-- <div class="name"> {{ item.name }} </div> -->
-                </div>
-
-                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: projectStore.isFilterShared}]" @click="toggleFilterShared">
-                        <div class="dot" :style="projectStore.isFilterShared ? 'border-color: white; background-color: white;' : 'border-color: white;'"></div>
+                        <div v-if="projectStore.navbarCategoryShowStyle === EnumNavbarCategoryShowStyle.dot"
+                             class="dot"
+                             :style="dotStyle(item)"></div>
+                        <div v-if="projectStore.navbarCategoryShowStyle === EnumNavbarCategoryShowStyle.text"
+                             class="name"
+                             :style="itemStyle(item)"> {{ item.name }}
+                        </div>
                     </div>
 
-                </div>
-                <div class="navbar-category-list-special">
+                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-2', {active: projectStore.isFilterShared}]"
+                         @click="toggleFilterShared">
+                        <div v-if="projectStore.navbarCategoryShowStyle === EnumNavbarCategoryShowStyle.dot"
+                             class="dot"></div>
+                        <div v-if="projectStore.navbarCategoryShowStyle === EnumNavbarCategoryShowStyle.text"
+                             class="name">共享</div>
+                    </div>
+
                     <div class="navbar-category-list-item special" @click="reverseCategorySelect">反选</div>
-                    <div class="navbar-category-list-item special" @click="selectCategoryNone" >清选</div>
+                    <div class="navbar-category-list-item special" @click="selectCategoryNone">清选</div>
+
                 </div>
             </div>
 
@@ -34,7 +42,7 @@
 
 <script lang="ts" setup>
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
-import {CategoryEntity} from "@/entity/Category.ts";
+import {CategoryEntity, EnumNavbarCategoryShowStyle} from "@/entity/Category.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 import {ref} from "vue";
 
@@ -51,7 +59,7 @@ function toggleCategory(category: CategoryEntity, index: number){
     setTimeout(() => {
         isAnimating.value = null
     }, 300) // Match animation duration
-    
+
     let idx = projectStore.filteredCategories.indexOf(category.name_en)
     if ( idx > -1) {
         projectStore.filteredCategories.splice(idx, 1)
@@ -61,6 +69,7 @@ function toggleCategory(category: CategoryEntity, index: number){
     projectStore.SET_FILTERED_CATEGORIES(projectStore.filteredCategories)
     projectStore.isListNeedBeReload = true
 }
+
 function selectCategoryNone() {
     projectStore.SET_FILTERED_CATEGORIES([])
     projectStore.isListNeedBeReload = true
@@ -74,12 +83,23 @@ function reverseCategorySelect() {
     projectStore.isListNeedBeReload = true
 }
 
+
+// DOT STYLE
 function dotStyle(category: CategoryEntity){
     const isActive = projectStore.filteredCategories.indexOf(category.name_en) > -1
     if (isActive){
         return `border-color: ${category.color}; background-color: ${category.color};`
     } else {
         return `border-color: ${category.color};`
+    }
+}
+
+// TEXT STYLE
+function itemStyle(category: CategoryEntity){
+    if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
+        return `color: white; background-color: ${category.color}`
+    } else {
+        return `color: ${category.color}`
     }
 }
 </script>
@@ -97,18 +117,6 @@ $nav-btn-height: 15px;
     display: flex;
 }
 
-
-.navbar-category-list-special{
-    align-items: center;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    height: $height-navbar;
-    //padding: ($height-navbar - $nav-btn-height * 2)/2;
-    .navbar-category-list-item{
-        color: transparentize(white, 0.5);
-    }
-}
 .navbar-category-list{
     flex-shrink: 0;
     flex-grow: 1;
@@ -119,10 +127,10 @@ $nav-btn-height: 15px;
     padding: math.div($height-navbar - $nav-btn-height * 2, 2);
     height: $height-navbar;
 }
+
 .navbar-category-list-item{
     //font-size: $fz-small;
     font-size: 13px;
-    padding: 0 3px;
     height: $nav-btn-height;
     font-weight: normal;
     line-height: $nav-btn-height;
@@ -137,11 +145,11 @@ $nav-btn-height: 15px;
     @extend .unselectable;
 
     &.special{
+        padding: 2px;
         font-weight: bold;
         color: transparentize($color-main, 0.4);
     }
     &.active{
-        color: white;
         font-weight: bold;
         &:hover{
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
@@ -152,13 +160,41 @@ $nav-btn-height: 15px;
             height: 20px;
             background-color: inherit;
         }
+        .name{
+            text-shadow: 0px 1px 1px transparentize(black, 0.5);
+            opacity: 1;
+        }
+    }
+
+    &.share-item{
+        .dot{
+            border-color: white;
+        }
+        .name{
+            color: white;
+        }
+
+        &.active{
+            .dot{
+                border-color: black;
+            }
+            .name{
+                background:gray;
+                color: white;
+            }
+        }
+        &:hover{
+            .dot{
+                box-shadow: 0 0 3px rgba(255,255,255,0.7);
+            }
+            .name{
+                opacity: 1;
+            }
+        }
     }
     &:hover{
         font-weight: bold;
         color: rgba(255,255,255,0.6);
-        &.active.share-item{
-            color: white;
-        }
         &.special{
             color: transparentize($color-main, 0.2);
         }
@@ -166,9 +202,13 @@ $nav-btn-height: 15px;
             box-shadow: 0 0 3px rgba(255,255,255,0.7);
             opacity: 1;
         }
+        .name{
+            opacity: 1;
+        }
     }
 
     .dot{
+        padding: 0 3px;
         opacity: 0.8;
         background-color: transparent;
         border: 2px solid transparent;
@@ -176,12 +216,15 @@ $nav-btn-height: 15px;
         width: 10px;
         height: 10px;
         @include border-radius(8px);
-        margin-right: 5px;
+        margin-right: 8px;
         transition: all 0.2s;
     }
     .name{
+        border-radius: 3px;
+        padding: 3px 4px;
+        opacity: 0.6;
+        transition: all 0.2s;
     }
-
 }
 
 $height-indicator: 8px;
