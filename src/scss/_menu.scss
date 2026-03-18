@@ -3,7 +3,8 @@ $menu-category-list-item-height: 40px;
 
 .menu-panel{
   z-index: 10;
-  overflow: auto;
+  border-radius: $radius-whole-ui - 1px;  // 避免当与 list 重叠时，menu 在上， list 在下，会出现白边的情况
+  overflow: hidden;
   position: fixed;
   top: $height-navbar;
   left: 0;

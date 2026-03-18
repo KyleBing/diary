@@ -16,6 +16,7 @@ const projectStore = useProjectStore()
     padding: 30px;
     overflow-y: auto;
     background-color: $bg-menu;
+    border-radius: $radius-whole-ui;
 }
 
 // MacbookPro

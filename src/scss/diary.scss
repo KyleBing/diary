@@ -19,11 +19,16 @@ body{
 .diary {
   padding-top: $height-navbar;
   .diary-list-container {
+    border-radius: $radius-whole-ui;
+    overflow: hidden;
     overflow-y: auto;
     width: 100%;
     background-color: $bg-light;
   }
-  .diary-container {}
+  .diary-container {
+    border-radius: $radius-whole-ui;
+    overflow: hidden;
+  }
 }
 
 .diary-list-group-container{

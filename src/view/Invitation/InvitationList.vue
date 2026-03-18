@@ -124,6 +124,8 @@ function markAsShared(invitationId: number | string){
     padding: 30px;
     overflow-y: auto;
     background-color: $bg-menu;
+    border-radius: $radius-whole-ui;
+    overflow: hidden;
 }
 .invitation-list{
     display: flex;

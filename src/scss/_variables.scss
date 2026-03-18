@@ -41,6 +41,7 @@ $color-border-search-bar: #646464;
 // Radius
 $radius-mobile: 7px;
 $radius-pc: 10px;
+$radius-whole-ui: 10px;
 
 // Font size
 $fz-list-header         : 24px;
@@ -126,7 +127,7 @@ $dark-bg-td-even       : lighten($dark-color, 20%);
 $dark-bg-td-active     : lighten($dark-color, 30%);
 $dark-bg-bill-brief    : lighten($dark-color, 18%);
 $dark-bg-main          : lighten($dark-color, 20%);
-$dark-bg-menu          : lighten($dark-color, 20%);
+$dark-bg-menu          : lighten($dark-color, 18%);
 
 
 $dark-border           : lighten($dark-color, 26%) ;

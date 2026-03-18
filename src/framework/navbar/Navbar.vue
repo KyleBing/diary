@@ -123,9 +123,10 @@
                     </div>
                 </div>
 
+
+                <!--  只在移动端上才显示这个按钮  -->
                 <div
-                    v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)
-                            || !projectStore.isInMobileMode"
+                    v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)"
                     @click="showMenuCategorySelector"
                 >
                     <TabIcon icon="类别"/>

@@ -16,8 +16,8 @@
         <div v-if="isLoading" class="pt-8 pb-8">
             <Loading :loading="isLoading"/>
         </div>
-        <div v-else class="statistic-content" :style="`height:${projectStore.insets.heightPanel}px`">
 
+        <MenuPanelContainer v-else>
             <div class="statistic-user">
                 <StatisticUsers/>
             </div>
@@ -25,8 +25,8 @@
             <div class="statistic-diary">
                 <StatisticCharts/>
             </div>
+        </MenuPanelContainer>
 
-        </div>
     </div>
 </template>
 
@@ -42,6 +42,7 @@ import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 const statisticStore = useStatisticStore()
 import {onMounted, ref} from "vue";
+import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 
 const isLoading = ref(false)
