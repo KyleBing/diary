@@ -132,7 +132,7 @@ $nav-btn-height: 15px;
     //font-size: $fz-small;
     font-size: 13px;
     height: $nav-btn-height;
-    font-weight: normal;
+    font-weight: bold;
     line-height: $nav-btn-height;
     color: transparentize(white, 0.6);
     border-left: 1px solid transparent;
@@ -146,11 +146,9 @@ $nav-btn-height: 15px;
 
     &.special{
         padding: 2px;
-        font-weight: bold;
         color: transparentize($color-main, 0.4);
     }
     &.active{
-        font-weight: bold;
         &:hover{
             text-shadow: 2px 2px 1px transparentize(black, 0.5);
         }
