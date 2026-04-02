@@ -69,7 +69,9 @@ export interface DiarySearchParams {
     pageSize: number, // 单页请求条数
     categories: string,
     filterShared?: 0|1, // 1 是筛选，0 是不筛选
-    dateFilterString?: string // 日记年月筛选
+    dateFilterString?: string, // 日记年月筛选（例如 202501）
+    timeStart?: string, // YYYY-MM-DD HH:mm:ss
+    timeEnd?: string,   // YYYY-MM-DD HH:mm:ss
 }
 
 export interface DiarySearchParamsForCalendar extends DiarySearchParams {

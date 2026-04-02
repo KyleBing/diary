@@ -1,6 +1,7 @@
 import {AuthorizationEntity} from "./entity/Authorization";
 import {BillKey} from "./view/Bill/Bill";
 import {useStatisticStore} from "./pinia/useStatisticStore";
+import Moment from "moment";
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
 const BILL_KEYS_NAME = 'BillKeys'
 
@@ -206,6 +207,27 @@ export function padNumberWith0(num: number) {
     return String(num).padStart(2, '0')
 }
 
+/**
+ * 将年份筛选的月份 id（如 202501）转换为接口过滤用的时间范围。
+ * 输出格式：YYYY-MM-DD HH:mm:ss
+ */
+export function getMonthTimeRangeFromYearMonthId(yearMonthId: string): { timeStart: string, timeEnd: string } | undefined {
+    if (!yearMonthId) return undefined
+    const match = String(yearMonthId).match(/^(\d{4})(\d{2})$/)
+    if (!match) return undefined
+
+    const year = Number(match[1])
+    const month = Number(match[2])
+    if (!Number.isFinite(year) || !Number.isFinite(month) || month < 1 || month > 12) return undefined
+
+    const start = Moment().year(year).month(month - 1).startOf('month')
+    const end = Moment().year(year).month(month - 1).endOf('month')
+    return {
+        timeStart: start.format('YYYY-MM-DD HH:mm:ss'),
+        timeEnd: end.format('YYYY-MM-DD HH:mm:ss'),
+    }
+}
+
 export function temperatureProcessSTC(temperature: number | string) {
     return temperature === -273 ? '' : String(temperature)
 }
@@ -218,20 +240,32 @@ export interface DiaryConfigEntity {
     isFilterShared: boolean, // 是否筛选共享日记
     keywords: string[], // 关键词
     filteredCategories: string[], // 筛选的日记类别
-    dateFilterString: string // 日记范围
+    dateFilterString: string, // 日记范围（例如 202501）
+    dateFilterTimeStart: string, // YYYY-MM-DD HH:mm:ss
+    dateFilterTimeEnd: string, // YYYY-MM-DD HH:mm:ss
 }
 
 export function getDiaryConfigFromLocalStorage() {
     let diaryConfigString = localStorage.getItem('DiaryConfig')
     if (diaryConfigString) {
-        return JSON.parse(diaryConfigString)
+        const parsed = JSON.parse(diaryConfigString) as Partial<DiaryConfigEntity>
+        return {
+            isFilterShared: parsed.isFilterShared ?? false,
+            keywords: parsed.keywords ?? [],
+            filteredCategories: parsed.filteredCategories ?? useStatisticStore().categoryAll.map(item => item.name_en),
+            dateFilterString: parsed.dateFilterString ?? '',
+            dateFilterTimeStart: parsed.dateFilterTimeStart ?? '',
+            dateFilterTimeEnd: parsed.dateFilterTimeEnd ?? '',
+        } as DiaryConfigEntity
     } else {
         // 如果不存在配置，生成一个新的
         let newDiaryConfig: DiaryConfigEntity = {
             isFilterShared: false, // 是否筛选共享日记
             keywords: [], // 关键词
             filteredCategories: useStatisticStore().categoryAll.map(item => item.name_en), // 筛选的日记类别
-            dateFilterString: '' // 日记范围
+            dateFilterString: '', // 日记范围
+            dateFilterTimeStart: '',
+            dateFilterTimeEnd: '',
         }
         setDiaryConfig(newDiaryConfig)
         return newDiaryConfig

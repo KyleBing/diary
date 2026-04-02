@@ -35,7 +35,7 @@ import diaryApi from "@/api/diaryApi.ts"
 
 import Loading from "@/components/Loading.vue"
 
-import {dateProcess, getDiaryConfigFromLocalStorage} from "@/utility.ts";
+import {dateProcess, getDiaryConfigFromLocalStorage, getMonthTimeRangeFromYearMonthId} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
@@ -139,6 +139,9 @@ function loadMore() {
     isLoading.value = true
     params.value.categories = JSON.stringify(getDiaryConfigFromLocalStorage().filteredCategories)
     params.value.dateFilterString = getDiaryConfigFromLocalStorage().dateFilterString
+    const monthRange = getMonthTimeRangeFromYearMonthId(params.value.dateFilterString || '')
+    params.value.timeStart = monthRange?.timeStart
+    params.value.timeEnd = monthRange?.timeEnd
     params.value.filterShared = getDiaryConfigFromLocalStorage().isFilterShared ? 1 : 0
     getDiaries(params.value)
 }

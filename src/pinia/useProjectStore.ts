@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
-import {getAuthorization, getDiaryConfigFromLocalStorage, setDiaryConfig} from "@/utility.ts";
-import {EntityDiaryForm, EntityDiaryListOperation} from "@/view/DiaryList/Diary.ts";
-import {EnumListStyle} from "@/listStyle.ts";
-import {EnumNavbarCategoryShowStyle} from "@/entity/Category.ts";
+import SVG_ICONS from "@/assets/icons/SVG_ICONS";
+import {getAuthorization, getDiaryConfigFromLocalStorage, getMonthTimeRangeFromYearMonthId, setDiaryConfig} from "@/utility";
+import {EntityDiaryForm, EntityDiaryListOperation} from "@/view/DiaryList/Diary";
+import {EnumListStyle} from "@/listStyle";
+import {EnumNavbarCategoryShowStyle} from "@/entity/Category";
 
 console.log('pinia projectStore is loaded, inside pinia file')
 
@@ -22,7 +22,9 @@ export const useProjectStore = defineStore('projectStore', {
         // LIST FILTER
         isFilterShared: false ,                         // 是否筛选共享的日记
         dateFilterString: '' ,                          // 日期筛选
-        keywords: [] as String[] ,                      // 搜索关键字
+        dateFilterTimeStart: '' ,                       // 日期筛选开始时间
+        dateFilterTimeEnd: '' ,                         // 日期筛选结束时间
+        keywords: [] as string[] ,                      // 搜索关键字
         filteredCategories: [] as string[] ,            // 筛选的类别 name_en[]
 
         isShowSearchBar: false ,                        // 搜索栏显示
@@ -81,6 +83,8 @@ export const useProjectStore = defineStore('projectStore', {
             this.filteredCategories = diaryConfig.filteredCategories
             this.keywords = diaryConfig.keywords
             this.dateFilterString = diaryConfig.dateFilterString
+            this.dateFilterTimeStart = diaryConfig.dateFilterTimeStart
+            this.dateFilterTimeEnd = diaryConfig.dateFilterTimeEnd
             this.isFilterShared = diaryConfig.isFilterShared
 
             // Initialize system theme detection
@@ -124,8 +128,13 @@ export const useProjectStore = defineStore('projectStore', {
         },
         SET_DATE_FILTER_STRING(payload: string){
             this.dateFilterString = payload
+            const monthRange = getMonthTimeRangeFromYearMonthId(payload)
+            this.dateFilterTimeStart = monthRange?.timeStart || ''
+            this.dateFilterTimeEnd = monthRange?.timeEnd || ''
             let diaryConfig = getDiaryConfigFromLocalStorage()
             diaryConfig.dateFilterString = payload
+            diaryConfig.dateFilterTimeStart = this.dateFilterTimeStart
+            diaryConfig.dateFilterTimeEnd = this.dateFilterTimeEnd
             setDiaryConfig(diaryConfig)
         },
         SET_KEYWORD (payload: string[]){

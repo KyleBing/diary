@@ -22,32 +22,55 @@
                         <div class="description-item-title">基于现有筛选条件导出日记内容到指定格式的文件。</div>
                     </div>
 
-                    <div class="description-item">
-                        <div class="description-item-title">已选择的日记类别：</div>
-                        <div class="description-item-content">
-                            <template v-if="projectStore.filteredCategories.length > 0">
+                    <div class="filter-wrapper">
+                        <div class="description-item">
+                            <div class="description-item-title">日记类别：</div>
+                            <div class="description-item-content">
+                                <template v-if="projectStore.filteredCategories.length > 0">
                                 <span v-for="(category, index) in projectStore.filteredCategories"
-                                :style="`color: ${useStatisticStore().categoryObjectMap.get(category)?.color || '#666'}`"
-                                :key="category">{{ useStatisticStore().categoryNameMap.get(category) || category }}{{ index < projectStore.filteredCategories.length - 1 ? '，' : '' }}</span>
-                            </template>
-                            <template v-else>
+                                      :style="`color: ${useStatisticStore().categoryObjectMap.get(category)?.color || '#666'}`"
+                                      :key="category">{{ useStatisticStore().categoryNameMap.get(category) || category }}{{ index < projectStore.filteredCategories.length - 1 ? '，' : '' }}</span>
+                                </template>
+                                <template v-else>
                                 <span v-for="category in useStatisticStore().categoryAll"
-                                :style="`color: ${category.color}`"
-                                :key="category.name_en">{{ category.name }}，</span>
-                            </template>
+                                      :style="`color: ${category.color}`"
+                                      :key="category.name_en">{{ category.name }}，</span>
+                                </template>
+                            </div>
                         </div>
+                        <div class="description-item" v-if="projectStore.keywords.length > 0">
+                            <div class="description-item-title">关键字：</div>
+                            <div class="description-item-content">
+                                <span v-for="keyword in projectStore.keywords" :key="keyword">“{{ keyword }}”</span>
+                            </div>
+                        </div>
+                        <div class="description-item">
+                            <div class="description-item-title">时间区间：</div>
+                            <div class="description-item-content">
+                                <DatePicker
+                                    locale="zh"
+                                    v-model="exportTimeRange"
+                                    mode="date"
+                                    is-range
+                                    :popover="exportPopoverOptions"
+                                >
+                                    <template #default="{ togglePopover }">
+                                        <div class="export-datetime" @click="() => togglePopover()">
+                                            <div class="value">
+                                                {{ exportTimeRange?.start ? dateFormatter(exportTimeRange.start, 'yyyy-MM-dd') : '—' }}
+                                                ~
+                                                {{ exportTimeRange?.end ? dateFormatter(exportTimeRange.end, 'yyyy-MM-dd') : '—' }}
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template #footer>
+                                        <div class="p-2 pt-0"></div>
+                                    </template>
+                                </DatePicker>
+                            </div>
                     </div>
-                    <div class="description-item" v-if="projectStore.keywords.length > 0">
-                        <div class="description-item-title">关键字：</div>
-                        <div class="description-item-content">
-                            <span v-for="keyword in projectStore.keywords" :key="keyword">“{{ keyword }}”</span>
-                        </div>
-                    </div>
-                    <div class="description-item" v-if="projectStore.dateFilterString">
-                        <div class="description-item-title">时间跨度：</div>
-                        <div class="description-item-content">
-                            <span v-if="projectStore.dateFilterString">{{ projectStore.dateFilterString }}</span>
-                        </div>
+
+
                     </div>
                     <div class="description-item" v-if="projectStore.isFilterShared">
                         <div class="description-item-title">是否筛选共享日记：</div>
@@ -81,23 +104,64 @@
 
 <script lang="ts" setup>
 import projectConfig from "../../../../config/project_config.json";
-import {onMounted, ref} from "vue";
-import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {onMounted, ref, watch} from "vue";
+import {useProjectStore} from "@/pinia/useProjectStore";
 import {useRouter} from "vue-router";
-import {WeatherMap} from "@/entity/Weather.ts";
-import {dateFormatter, getAuthorization, popMessage} from "@/utility.ts";
-import {EntityDiaryForm, DiarySearchParams} from "@/view/DiaryList/Diary.ts";
+import {WeatherMap} from "@/entity/Weather";
+import {
+    dateFormatter,
+    getAuthorization,
+    getDiaryConfigFromLocalStorage,
+    getMonthTimeRangeFromYearMonthId,
+    popMessage,
+    setDiaryConfig
+} from "@/utility";
+import {EntityDiaryFromServer, DiarySearchParams} from "@/view/DiaryList/Diary";
 import diaryApi from "@/api/diaryApi.js";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
-import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import {useStatisticStore} from "@/pinia/useStatisticStore";
+import Moment from "moment";
+import {DatePicker} from "v-calendar";
 
 const projectStore = useProjectStore()
 const router = useRouter()
 const statisticStore = useStatisticStore()
 const isDownloadingContent = ref(false)
 
-onMounted(() => {
+type ExportRange = { start: Date, end: Date } | null
+const exportTimeRange = ref<ExportRange>(null)
+const exportPopoverOptions = ref({
+    visibility: 'click' as const,
+    placement: 'bottom' as const,
+    autoHide: true,
+    showDelay: 0,
+    hideDelay: 0,
 })
+
+onMounted(() => {
+    // 初始化：从 store（本地持久化的）时间区间恢复到选择器
+    if (projectStore.dateFilterTimeStart && projectStore.dateFilterTimeEnd) {
+        const start = Moment(projectStore.dateFilterTimeStart, 'YYYY-MM-DD HH:mm:ss', true)
+        const end = Moment(projectStore.dateFilterTimeEnd, 'YYYY-MM-DD HH:mm:ss', true)
+        if (start.isValid() && end.isValid()) {
+            exportTimeRange.value = { start: start.toDate(), end: end.toDate() }
+        }
+    }
+})
+
+watch(exportTimeRange, (newValue) => {
+    if (newValue) {
+        projectStore.dateFilterTimeStart = Moment(newValue.start).startOf('day').format('YYYY-MM-DD HH:mm:ss')
+        projectStore.dateFilterTimeEnd = Moment(newValue.end).endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    } else {
+        projectStore.dateFilterTimeStart = ''
+        projectStore.dateFilterTimeEnd = ''
+    }
+    const diaryConfig = getDiaryConfigFromLocalStorage()
+    diaryConfig.dateFilterTimeStart = projectStore.dateFilterTimeStart
+    diaryConfig.dateFilterTimeEnd = projectStore.dateFilterTimeEnd
+    setDiaryConfig(diaryConfig)
+}, {deep: true})
 
 function clearDiary() {
     projectStore.isMenuShowed = false
@@ -116,7 +180,7 @@ function goToChangePassword() {
 
 function getFilterConditionsForFileName(): string {
     const conditions: string[] = []
-    
+
     // 类别筛选
     if (projectStore.filteredCategories.length === 0) {
         // 如果为空，表示选择了全部类别
@@ -126,7 +190,7 @@ function getFilterConditionsForFileName(): string {
         const allCategoryNames = statisticStore.categoryAll.map(cat => cat.name_en)
         const isAllSelected = projectStore.filteredCategories.length === allCategoryNames.length &&
             projectStore.filteredCategories.every(cat => allCategoryNames.includes(cat))
-        
+
         if (isAllSelected) {
             conditions.push('全部类别')
         } else {
@@ -136,30 +200,31 @@ function getFilterConditionsForFileName(): string {
             conditions.push(`${categoryNames}`)
         }
     }
-    
+
     // 关键字
     if (projectStore.keywords.length > 0) {
         const keywords = projectStore.keywords.join('+')
         conditions.push(`${keywords}`)
     }
-    
+
     // 时间筛选
     if (projectStore.dateFilterString) {
         // 移除可能存在的特殊字符，替换为下划线
         const dateFilter = projectStore.dateFilterString.replace(/[<>:"/\\|?*]/g, '_')
         conditions.push(`${dateFilter}`)
     }
-    
+
     // 共享筛选
     if (projectStore.isFilterShared) {
         conditions.push('仅共享')
     }
-    
+
     return conditions.length > 0 ? `-${conditions.join('-')}` : ''
 }
 
 function exportDiary(fileFormat: string) {
     isDownloadingContent.value = true
+    const monthRange = getMonthTimeRangeFromYearMonthId(projectStore.dateFilterString || '')
     // Build params same as list params
     const exportParams: DiarySearchParams = {
         keywords: JSON.stringify(projectStore.keywords),
@@ -167,7 +232,9 @@ function exportDiary(fileFormat: string) {
         pageSize: 100,
         categories: JSON.stringify(projectStore.filteredCategories),
         filterShared: (projectStore.isFilterShared ? 1 : 0) as 0 | 1,
-        dateFilterString: projectStore.dateFilterString || ''
+        dateFilterString: projectStore.dateFilterString || '',
+        timeStart: projectStore.dateFilterTimeStart || monthRange?.timeStart,
+        timeEnd: projectStore.dateFilterTimeEnd || monthRange?.timeEnd,
     }
     diaryApi
         .export(exportParams)
@@ -176,7 +243,7 @@ function exportDiary(fileFormat: string) {
             let diaryList = res.data
             const filterConditions = getFilterConditionsForFileName()
             let fileName = `日记导出-${getAuthorization()?.nickname}${filterConditions}-${dateFormatter(new Date(), 'yyyy-MM-dd_hhmmss')}`
-            
+
             if (diaryList.length > 0) {
                 switch (fileFormat) {
                     case 'csv':
@@ -198,27 +265,24 @@ function exportDiary(fileFormat: string) {
         })
 }
 
-function getSqlData(diaryList: EntityDiaryForm[]) {
+function getSqlData(diaryList: EntityDiaryFromServer[]) {
     let finalData = ''
     diaryList.forEach(diary => {
         let date = dateFormatter(new Date(diary.date))
         let dateModify = dateFormatter(new Date(diary.date_modify))
         let dateCreate = dateFormatter(new Date(diary.date_create))
-        let is_markdown = diary.is_markdown === 0 ? '否' : '是'
-        let temperature = diary.temperature === -273 ? '' : `${diary.temperature}℃`
-        let temperature_outside = diary.temperature_outside === -273 ? '' : `${diary.temperature_outside}℃`
-        let weather = WeatherMap.get(diary.weather)
         let category = statisticStore.categoryNameMap.get(diary.category)
+        const uid = getAuthorization()?.uid ?? 0
         finalData =
             finalData.concat(`
 INSERT INTO
 diaryList(id, date, date_create, date_modify, category, is_markdown, is_public, temperature, temperature_outside, title, content, uid)
-VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${diary.is_markdown},${diary.is_public},${diary.temperature},${diary.temperature_outside}, '${diary.title}', '${diary.content}',${getAuthorization().uid});\n`)
+VALUES (${diary.id}, '${date}','${dateCreate}','${dateModify}','${category}',${diary.is_markdown},${diary.is_public},${diary.temperature},${diary.temperature_outside}, '${diary.title}', '${diary.content}',${uid});\n`)
     })
     return finalData
 }
 
-function getCVSData(diaryList: EntityDiaryForm[]) {
+function getCVSData(diaryList: EntityDiaryFromServer[]) {
     let finalData = 'ID,日期,编辑时间,创建时间,类别,天气,身处温度,外界气温,Markdown,标题,内容\n'
     diaryList.forEach(diary => {
         let date = dateFormatter(new Date(diary.date))
@@ -236,7 +300,7 @@ function getCVSData(diaryList: EntityDiaryForm[]) {
     return finalData
 }
 
-function getTextData(diaryList: EntityDiaryForm[]) {
+function getTextData(diaryList: EntityDiaryFromServer[]) {
     let finalData = `※※※※※※※※※※※※※※※※※※※※※※※※※※※※
 
     导出日期：${dateFormatter(new Date())}
@@ -287,6 +351,12 @@ function downloadFile(fileName: string, data: any) { // 下载文件
 <style scoped lang="scss">
 @import "../../../scss/plugin";
 
+.filter-wrapper{
+    border: 1px solid $color-border-menu;
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+
 .description{
     font-size: 12px;
     color: #666;
@@ -298,6 +368,9 @@ function downloadFile(fileName: string, data: any) { // 下载文件
     margin-bottom: 4px;
     display: flex;
     flex-flow: row nowrap;
+    &:last-child{
+        margin-bottom: 0;
+    }
     .description-item-title{
         white-space: nowrap;
         margin-right: 10px;
@@ -309,6 +382,21 @@ function downloadFile(fileName: string, data: any) { // 下载文件
         color: $text-menu-second;
         display: flex;
         flex-flow: row wrap;
+    }
+}
+
+.export-datetime{
+    user-select: none;
+    width: 100%;
+    cursor: pointer;
+
+    .value{
+        color: $text-menu-second;
+        white-space: nowrap;
+        &:hover{
+            color: $color-main;
+            text-decoration: underline;
+        }
     }
 }
 </style>

@@ -36,7 +36,7 @@ import Loading from "@/components/Loading.vue"
 import diaryApi from "@/api/diaryApi"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 
-import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
+import {dateFormatter, dateProcess, EnumWeekDayShort, getMonthTimeRangeFromYearMonthId} from "@/utility"
 
 import {useProjectStore} from "@/pinia/useProjectStore"
 import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
@@ -235,6 +235,9 @@ function loadMore() {
     isLoading.value = true
     formSearch.value.categories = JSON.stringify(projectStore.filteredCategories)
     formSearch.value.dateFilterString = projectStore.dateFilterString
+    const monthRange = getMonthTimeRangeFromYearMonthId(projectStore.dateFilterString)
+    formSearch.value.timeStart = monthRange?.timeStart
+    formSearch.value.timeEnd = monthRange?.timeEnd
     formSearch.value.filterShared = projectStore.isFilterShared ? 1 : 0
     getDiaries(controller)
 }
