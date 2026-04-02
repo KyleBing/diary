@@ -17,6 +17,7 @@
             <Loading :loading="isLoading"/>
         </div>
 
+        <!-- CONTENT -->
         <MenuPanelContainer v-else>
             <div class="statistic-user">
                 <StatisticUsers/>
