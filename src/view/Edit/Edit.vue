@@ -745,13 +745,9 @@ function getDiary(diaryId: number) {
         .then(res => {
             let tempDiary = res.data
 
-            if (projectStore.isHideContent){
-                diary.value.title = tempDiary.title.replace(/[^，。 \n]/g, '*')
-                diary.value.content = tempDiary.content.replace(/[^，。 \n]/g, '*')
-            } else {
-                diary.value.title = tempDiary.title
-                diary.value.content = tempDiary.content
-            }
+            // `diaryOrigin` 必须始终保存真实内容（非 *），否则隐藏模式下无法恢复/保存原文。
+            const realTitle = tempDiary.title
+            const realContent = tempDiary.content
 
             diary.value.id = tempDiary.id
             diary.value.category = tempDiary.category
@@ -761,7 +757,16 @@ function getDiary(diaryId: number) {
             diary.value.is_markdown = !!tempDiary.is_markdown
             diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
             diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
-            Object.assign(diaryOrigin.value, diary.value) // 不能直接赋值，赋值的是它的引用
+
+            if (projectStore.isHideContent){
+                diary.value.title = realTitle.replace(/[^，。 \n]/g, '*')
+                diary.value.content = realContent.replace(/[^，。 \n]/g, '*')
+            } else {
+                diary.value.title = realTitle
+                diary.value.content = realContent
+            }
+
+            Object.assign(diaryOrigin.value, diary.value, { title: realTitle, content: realContent }) // 不能直接赋值，赋值的是它的引用
 
         })
         .catch(err => {
@@ -770,25 +775,31 @@ function getDiary(diaryId: number) {
         })
 }
 function saveDiary() {
-    if (projectStore.isHideContent) {
-        popMessage('warning', '请退出当前隐藏模式，再进行保存操作', ()=>{}, 2)
-        return
-    } else if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
+    const titleToSave = projectStore.isHideContent
+        ? (recoverDiaryContent.value.title || diaryOrigin.value.title)
+        : diary.value.title
+    const contentToSave = projectStore.isHideContent
+        ? (recoverDiaryContent.value.content || diaryOrigin.value.content)
+        : diary.value.content
+
+    if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
         popMessage('warning', '身处温度填写错误，应为 23.45 这样', ()=>{}, 2)
         return
     } else if (!/^(-?\d{1,3}(\.\d{1,2})?)?$/.test(diary.value.temperature)){
         popMessage('warning', '室外温度填写错误，请检查 23.45 这样', ()=>{}, 2)
         return
-    } else if  (diary.value.title.trim().length === 0) {
-        diary.value.title = '' // clear content
+    } else if  (titleToSave.trim().length === 0) {
+        if (!projectStore.isHideContent){
+            diary.value.title = '' // clear content
+        }
         popMessage('warning', '内容未填写', null)
         projectStore.isDiaryNeedToBeSaved = false// 未能成功保存时，复位 isDiaryNeedToBeSaved 标识
         return
     }
     let requestData: DiarySubmitEntity = {
         id: diary.value.id,
-        title: diary.value.title,
-        content: diary.value.content,
+        title: titleToSave,
+        content: contentToSave,
         category: diary.value.category,
         temperature: temperatureProcessCTS(diary.value.temperature),
         temperature_outside: temperatureProcessCTS(diary.value.temperature_outside),
@@ -801,7 +812,7 @@ function saveDiary() {
         isSavingDiary.value = true
         diaryApi
             .add(requestData)
-            .then(processAfterSaveDiary)
+            .then((res) => processAfterSaveDiary(res, requestData))
             .catch(err => {
                 popMessage('danger', err.message, () => {
                     projectStore.isSavingDiary = false
@@ -815,7 +826,7 @@ function saveDiary() {
         isSavingDiary.value = true
         diaryApi
             .modify(requestData)
-            .then(processAfterSaveDiary)
+            .then((res) => processAfterSaveDiary(res, requestData))
             .catch(err => {
                 popMessage('danger', err.message, () => {
                     projectStore.isSavingDiary = false
@@ -829,13 +840,14 @@ function saveDiary() {
 }
 
 // 保存日记后要操作的
-function processAfterSaveDiary(res: ResponseDiaryAdd){
+function processAfterSaveDiary(res: ResponseDiaryAdd, requestData: DiarySubmitEntity){
     projectStore.isSavingDiary = false
 
     // 成功后更新 origin 字符串
-    Object.assign(diaryOrigin.value, diary.value)
+    Object.assign(diaryOrigin.value, diary.value, { title: requestData.title, content: requestData.content })
     updateDiaryIcon() // 更新 navbar icon
     projectStore.isDiaryNeedToBeSaved = false
+    recoverDiaryContent.value = { title: '', content: '' }
 
     if (isNew.value) { // 如果是新建日记，跳转到对应路由
         diary.value.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
@@ -900,11 +912,13 @@ function recoverDiary() {
 
 function convertToServerVersion() { // 转换为数据库格式的日记
     let date = dateFormatter(diary.value.date)
+    const title = projectStore.isHideContent ? diaryOrigin.value.title : diary.value.title
+    const content = projectStore.isHideContent ? diaryOrigin.value.content : diary.value.content
     return {
         id: diary.value.id,
         date: date,
-        title: diary.value.title,
-        content: diary.value.content,
+        title: title,
+        content: content,
         temperature: temperatureProcessCTS(diary.value.temperature),
         temperature_outside: temperatureProcessCTS(diary.value.temperature_outside),
         weather: diary.value.weather,
