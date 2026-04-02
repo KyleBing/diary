@@ -26,16 +26,7 @@
                         <div class="description-item">
                             <div class="description-item-title">日记类别：</div>
                             <div class="description-item-content">
-                                <template v-if="projectStore.filteredCategories.length > 0">
-                                <span v-for="(category, index) in projectStore.filteredCategories"
-                                      :style="`color: ${useStatisticStore().categoryObjectMap.get(category)?.color || '#666'}`"
-                                      :key="category">{{ useStatisticStore().categoryNameMap.get(category) || category }}{{ index < projectStore.filteredCategories.length - 1 ? '，' : '' }}</span>
-                                </template>
-                                <template v-else>
-                                <span v-for="category in useStatisticStore().categoryAll"
-                                      :style="`color: ${category.color}`"
-                                      :key="category.name_en">{{ category.name }}，</span>
-                                </template>
+                                <ExportCategorySelector />
                             </div>
                         </div>
                         <div class="description-item" v-if="projectStore.keywords.length > 0">
@@ -122,6 +113,7 @@ import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 import {useStatisticStore} from "@/pinia/useStatisticStore";
 import Moment from "moment";
 import {DatePicker} from "v-calendar";
+import ExportCategorySelector from "@/view/Menu/MenuOtherFunction/ExportCategorySelector.vue";
 
 const projectStore = useProjectStore()
 const router = useRouter()
@@ -353,8 +345,8 @@ function downloadFile(fileName: string, data: any) { // 下载文件
 
 .filter-wrapper{
     border: 1px solid $color-border-menu;
-    padding: 5px 8px;
-    border-radius: 3px;
+    padding: 8px 10px;
+    border-radius: 5px;
 }
 
 .description{
