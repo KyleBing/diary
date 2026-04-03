@@ -18,7 +18,7 @@ function request(
     * 所有 requestData 都会自动添加  authorization 信息
     * 给 requestData 添加 authorization 内部的数据： username email uid 等等
     **/
-    if (url !== 'user/login' && url !== 'user/register'){ // 注册和登录时不添加 Token 数据
+    if (url !== 'user/login' && url !== 'user/register' && !url.startsWith('setup/')){ // 注册、登录、安装引导时不添加 Token 数据
         Object.assign(headers, {
             'Diary-Token':  getAuthorization()?.token,
             'Diary-Uid':  getAuthorization()?.uid

@@ -114,7 +114,7 @@ function  regSubmit() {
         userApi
             .register(requestData)
             .then(res => {
-                popMessage('success', `${res.message}，正在前往登录`, () => router.push({name: 'Login'}))})
+                popMessage('success', `${res.message}，正在前往登录`, () => router.push({name: 'Login'}))}, 5)
             .catch(err => {
                 popMessage('danger', err.message, ()=>{}, 5)
             })

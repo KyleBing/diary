@@ -47,6 +47,7 @@ const routes: RouteRecordRaw[] = [
             {name: 'WaterfallList'   , path: 'list'      ,     component: () => import('@/view/DiaryListWaterfall/WaterfallList.vue')},
         ]
     },
+    {name: 'Setup',                path: '/setup',             component: () => import('@/view/Setup/SetupWizard.vue')},
     {name: 'Register',             path: '/register',          component: () => import('@/view/Login&Register/Register.vue')},
     {name: 'Share',                path: '/share/:id',         component: () => import('@/view/Share/Share.vue')},
     {name: 'RemoveAllYourDiary',   path: '/clear-diary',       component: () => import('@/view/Util/RemoveAllYourDiary.vue') },
@@ -72,6 +73,7 @@ const router = createRouter({
 router.beforeEach((to, _) => {
     switch (to.name) {
         case 'Login':
+        case 'Setup':
         case 'Register':
         case 'Share':
         case 'FetchPassword':

@@ -28,6 +28,8 @@ $bg-menu        : #4A4A4A;
 $bg-searchbar   : #E5E5EA;
 $bg-share       : #FFFDF8;
 $bg-bill-brief  : #fdfdfd;
+$bg-setup       : #121212;
+$bg-setup-card  : lighten(black, 18%);
 
 // Border
 $color-border           : #ddd;
@@ -37,6 +39,7 @@ $color-border-highlight : darken($color-border, 15%);
 $color-border-share     : #F0E8DB;
 $color-border-menu      : #646464;
 $color-border-search-bar: #646464;
+$color-border-setup     : #4b4a4a;
 
 // Radius
 $radius-mobile: 7px;
@@ -67,7 +70,10 @@ $text-title:          #232323;
 $text-subtitle:       #666;
 $text-date:           #2d2d2d;
 $text-about-subtitle: #acafb3;
+
+$text-menu-first:    white;
 $text-menu-second:    $text-about-subtitle;
+$text-menu-comment:    $text-subtitle;
 
 
 // Height
@@ -121,6 +127,7 @@ $dark-bg-page-header   : lighten($dark-color, 35%) ;
 
 $dark-bg-nav           : lighten($dark-color, 10%) ;
 $dark-border-nav       : lighten($dark-color, 2%) ;
+$dark-border-setup     : #3b3b3b;
 
 $dark-bg-td            : lighten($dark-color, 23%);
 $dark-bg-td-even       : lighten($dark-color, 20%);
@@ -128,6 +135,8 @@ $dark-bg-td-active     : lighten($dark-color, 30%);
 $dark-bg-bill-brief    : lighten($dark-color, 18%);
 $dark-bg-main          : lighten($dark-color, 20%);
 $dark-bg-menu          : lighten($dark-color, 18%);
+$dark-bg-setup-card    : darken($bg-setup-card, 4%);
+
 
 
 $dark-border           : lighten($dark-color, 26%) ;
