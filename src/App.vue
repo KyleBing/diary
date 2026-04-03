@@ -1,6 +1,6 @@
 <template>
-    <RouterView v-if="canRenderRouterView"/>
     <ServerError v-if="isServerError"/>
+    <RouterView v-else/>
 </template>
 <script lang="ts" setup>
 import {useProjectStore} from "./pinia/useProjectStore.ts";
@@ -78,31 +78,27 @@ function syncSetupStatus() {
     setupApi
         .status()
         .then(async res => {
+            // setup/status 成功即表示后端可访问，用于区分「服务未启动/不可达」与业务接口错误
+            isServerError.value = false
             isSetupRequired.value = !res.data.isInitialized
             if (isSetupRequired.value) {
-                isServerError.value = false
                 if (route.name !== 'Setup') {
                     await router.replace({name: 'Setup'})
                 }
                 return
             }
 
-            statisticStore.getCategoryAll().then(success => {
-                isServerError.value = !success
-            })
+            statisticStore.getCategoryAll()
         })
         .catch(() => {
-            statisticStore.getCategoryAll().then(success => {
-                isServerError.value = !success
-            })
+            isServerError.value = true
         })
 }
 
 function handleSetupCompleted() {
     isSetupRequired.value = false
-    statisticStore.getCategoryAll().then(success => {
-        isServerError.value = !success
-    })
+    isServerError.value = false
+    statisticStore.getCategoryAll()
 }
 
 

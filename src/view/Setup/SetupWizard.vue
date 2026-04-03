@@ -3,7 +3,7 @@
         <div class="body-login setup-body">
             <div class="logo-wrapper">
                 <div class="logo">
-                    <img :src="SVG_ICONS.logo_icons.logo_rounded" alt="Diary Logo">
+                    <img :src="SVG_ICONS.logo_icons.logo_init" alt="Diary Logo Init">
                 </div>
             </div>
             <div class="setup-title">安装引导</div>
@@ -20,10 +20,10 @@
                         <span :class="['status-pill', status.isInitialized ? 'is-done' : 'is-pending']">
                             {{ status.isInitialized ? '已初始化' : '未初始化' }}
                         </span>
-                        <span class="status-text">初始化后会生成锁文件 `{{ status.lockFileName }}`。</span>
+                        <span class="status-text">初始化后会生成锁文件 <span class="command-code">{{ status.lockFileName }}</span>。</span>
                     </div>
                     <div class="desc mt-1">
-                        如果后续需要重新执行初始化，请先删除后台根目录中的 `{{ status.lockFileName }}` 文件。
+                        如果后续需要重新执行初始化，请先删除后台根目录中的 <span class="command-code">{{ status.lockFileName }}</span> 文件。
                     </div>
                 </div>
 
@@ -83,7 +83,10 @@
                     </form>
 
                     <div class="desc mt-2">
-                        会同步写入：{{ status.configFiles.join('、') }}
+                        会同步写入：
+                        <p class="command-code">
+                            {{ status.configFiles.join('、') }}
+                        </p>
                     </div>
                     <div class="desc" v-if="saveMessage">{{ saveMessage }}</div>
                 </div>
@@ -91,14 +94,21 @@
                 <div class="setup-card" v-if="!status.isInitialized">
                     <div class="setup-card-title">3. 重启说明</div>
                     <div class="description-list">
-                        <div v-for="tip in status.restartTips" :key="tip" class="desc">{{ tip }}</div>
+                        <div class="desc">
+                            <p v-for="tip in status.restartTips" :key="tip">{{ tip }}</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="setup-card">
                     <div class="setup-card-title">{{ status.isInitialized ? '初始化结果' : '4. 初始化数据库' }}</div>
                     <div class="desc" v-if="!status.isInitialized">
-                        初始化会创建 `diary` 数据库，并写入基础表结构。首次注册的用户会自动成为管理员。
+                        <p>
+                            初始化会清空原有 <span class="command-code">diary</span> 数据库内容
+                        </p>
+                        <p>
+                            初始化会创建 <span class="command-code">diary</span> 数据库，并写入基础表结构。首次注册的用户会自动成为管理员。 
+                        </p>
                     </div>
                     <div class="desc" v-if="initMessage">{{ initMessage }}</div>
                     <div class="btn-list mt-4" v-if="!status.isInitialized">
@@ -201,7 +211,7 @@ function loadStatus() {
         })
         .catch(err => {
             const message = err?.message || '读取安装状态失败'
-            popMessage('danger', message)
+            popMessage('danger', message, undefined, 4)
         })
         .finally(() => {
             isLoadingStatus.value = false
