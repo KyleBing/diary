@@ -101,9 +101,9 @@ import {useRouter} from "vue-router";
 import {WeatherMap} from "@/entity/Weather";
 import {
     dateFormatter,
+    formatDiaryDateRangeLabel,
     getAuthorization,
     getDiaryConfigFromLocalStorage,
-    getMonthTimeRangeFromYearMonthId,
     popMessage,
     setDiaryConfig
 } from "@/utility";
@@ -199,11 +199,11 @@ function getFilterConditionsForFileName(): string {
         conditions.push(`${keywords}`)
     }
 
-    // 时间筛选
-    if (projectStore.dateFilterString) {
-        // 移除可能存在的特殊字符，替换为下划线
-        const dateFilter = projectStore.dateFilterString.replace(/[<>:"/\\|?*]/g, '_')
-        conditions.push(`${dateFilter}`)
+    // 时间筛选（与导航栏一致的日期区间）
+    const rangeLabel = formatDiaryDateRangeLabel(projectStore.dateFilterTimeStart, projectStore.dateFilterTimeEnd)
+    if (rangeLabel) {
+        const safe = rangeLabel.replace(/[<>:"/\\|?*]/g, '_')
+        conditions.push(safe)
     }
 
     // 共享筛选
@@ -216,7 +216,6 @@ function getFilterConditionsForFileName(): string {
 
 function exportDiary(fileFormat: string) {
     isDownloadingContent.value = true
-    const monthRange = getMonthTimeRangeFromYearMonthId(projectStore.dateFilterString || '')
     // Build params same as list params
     const exportParams: DiarySearchParams = {
         keywords: JSON.stringify(projectStore.keywords),
@@ -224,9 +223,8 @@ function exportDiary(fileFormat: string) {
         pageSize: 100,
         categories: JSON.stringify(projectStore.filteredCategories),
         filterShared: (projectStore.isFilterShared ? 1 : 0) as 0 | 1,
-        dateFilterString: projectStore.dateFilterString || '',
-        timeStart: projectStore.dateFilterTimeStart || monthRange?.timeStart,
-        timeEnd: projectStore.dateFilterTimeEnd || monthRange?.timeEnd,
+        timeStart: projectStore.dateFilterTimeStart || undefined,
+        timeEnd: projectStore.dateFilterTimeEnd || undefined,
     }
     diaryApi
         .export(exportParams)

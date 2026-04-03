@@ -35,7 +35,7 @@ import diaryApi from "@/api/diaryApi.ts"
 
 import Loading from "@/components/Loading.vue"
 
-import {dateProcess, getDiaryConfigFromLocalStorage, getMonthTimeRangeFromYearMonthId} from "@/utility.ts";
+import {dateProcess, getDiaryConfigFromLocalStorage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
@@ -58,7 +58,6 @@ const params = ref<DiarySearchParams>({
     pageSize: 100, // 单页请求条数
     categories: '',
     filterShared: 0, // 1 是筛选，0 是不筛选
-    dateFilterString: '' // 日记年月筛选
 })
 
 
@@ -138,10 +137,8 @@ function loadMore() {
     isHasMore.value = false
     isLoading.value = true
     params.value.categories = JSON.stringify(getDiaryConfigFromLocalStorage().filteredCategories)
-    params.value.dateFilterString = getDiaryConfigFromLocalStorage().dateFilterString
-    const monthRange = getMonthTimeRangeFromYearMonthId(params.value.dateFilterString || '')
-    params.value.timeStart = monthRange?.timeStart
-    params.value.timeEnd = monthRange?.timeEnd
+    params.value.timeStart = projectStore.dateFilterTimeStart || undefined
+    params.value.timeEnd = projectStore.dateFilterTimeEnd || undefined
     params.value.filterShared = getDiaryConfigFromLocalStorage().isFilterShared ? 1 : 0
     getDiaries(params.value)
 }

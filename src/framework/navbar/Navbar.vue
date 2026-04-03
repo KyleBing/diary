@@ -77,10 +77,10 @@
                         v-if="projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'"/>
                     <TabIcon icon="待办" v-else/>
                 </div>
-                <div v-if="!projectStore.isInMobileMode && projectStore.dateFilterString"
+                <div v-if="!projectStore.isInMobileMode && dateFilterRangeLabel"
                      v-show="!projectStore.isMenuShowed"
                      class="btn-text-group">
-                    <div class="btn-text" @click="clearDateFilter">{{ projectStore.dateFilterString }}</div>
+                    <div class="btn-text" @click="clearDateFilter">{{ dateFilterRangeLabel }}</div>
                 </div>
 
                 <!--  类别筛选器  -->
@@ -191,7 +191,7 @@ import NavbarCategorySelector from "@/framework/navbar/NavbarCategorySelector.vu
 
 import ClipboardJS from "clipboard"
 
-import {getAuthorization, popMessage} from "@/utility.ts";
+import {formatDiaryDateRangeLabel, getAuthorization, popMessage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
@@ -205,6 +205,10 @@ const navMenuRef = ref<InstanceType<typeof NavMenu>>()
 const isAdminUser = computed(()=>{
     return getAuthorization()?.group_id === 1
 })
+
+const dateFilterRangeLabel = computed(() =>
+    formatDiaryDateRangeLabel(projectStore.dateFilterTimeStart, projectStore.dateFilterTimeEnd)
+)
 
 
 // 新建日记

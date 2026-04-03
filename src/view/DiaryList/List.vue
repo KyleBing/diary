@@ -36,7 +36,7 @@ import Loading from "@/components/Loading.vue"
 import diaryApi from "@/api/diaryApi"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 
-import {dateFormatter, dateProcess, EnumWeekDayShort, getMonthTimeRangeFromYearMonthId} from "@/utility"
+import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
 
 import {useProjectStore} from "@/pinia/useProjectStore"
 import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
@@ -71,7 +71,6 @@ const formSearch = ref<DiarySearchParams>({
     pageSize: 100, // 单页请求条数
     categories: '',
     filterShared: 0, // 1 是筛选，0 是不筛选
-    dateFilterString: '' // 日记年月筛选
 })
 
 onMounted(() => {
@@ -234,10 +233,8 @@ function loadMore() {
     isHasMore.value = false
     isLoading.value = true
     formSearch.value.categories = JSON.stringify(projectStore.filteredCategories)
-    formSearch.value.dateFilterString = projectStore.dateFilterString
-    const monthRange = getMonthTimeRangeFromYearMonthId(projectStore.dateFilterString)
-    formSearch.value.timeStart = monthRange?.timeStart
-    formSearch.value.timeEnd = monthRange?.timeEnd
+    formSearch.value.timeStart = projectStore.dateFilterTimeStart || undefined
+    formSearch.value.timeEnd = projectStore.dateFilterTimeEnd || undefined
     formSearch.value.filterShared = projectStore.isFilterShared ? 1 : 0
     getDiaries(controller)
 }

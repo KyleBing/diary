@@ -228,6 +228,14 @@ export function getMonthTimeRangeFromYearMonthId(yearMonthId: string): { timeSta
     }
 }
 
+/** 导航栏等：将 timeStart / timeEnd（含时间部分）显示为 `2026-04-03 ~ 2026-04-03` */
+export function formatDiaryDateRangeLabel(timeStart: string, timeEnd: string): string {
+    const s = (timeStart || '').trim()
+    const e = (timeEnd || '').trim()
+    if (!s || !e) return ''
+    return `${s.slice(0, 10)} ~ ${e.slice(0, 10)}`
+}
+
 export function temperatureProcessSTC(temperature: number | string) {
     return temperature === -273 ? '' : String(temperature)
 }
@@ -240,7 +248,6 @@ export interface DiaryConfigEntity {
     isFilterShared: boolean, // 是否筛选共享日记
     keywords: string[], // 关键词
     filteredCategories: string[], // 筛选的日记类别
-    dateFilterString: string, // 日记范围（例如 202501）
     dateFilterTimeStart: string, // YYYY-MM-DD HH:mm:ss
     dateFilterTimeEnd: string, // YYYY-MM-DD HH:mm:ss
 }
@@ -248,14 +255,31 @@ export interface DiaryConfigEntity {
 export function getDiaryConfigFromLocalStorage() {
     let diaryConfigString = localStorage.getItem('DiaryConfig')
     if (diaryConfigString) {
-        const parsed = JSON.parse(diaryConfigString) as Partial<DiaryConfigEntity>
+        const parsed = JSON.parse(diaryConfigString) as Partial<DiaryConfigEntity> & { dateFilterString?: string }
+        let dateFilterTimeStart = parsed.dateFilterTimeStart ?? ''
+        let dateFilterTimeEnd = parsed.dateFilterTimeEnd ?? ''
+        // 旧版仅有 dateFilterString（如 202501）时，迁移为 time 区间并写回本地
+        if ((!dateFilterTimeStart || !dateFilterTimeEnd) && parsed.dateFilterString) {
+            const migrated = getMonthTimeRangeFromYearMonthId(parsed.dateFilterString)
+            if (migrated) {
+                dateFilterTimeStart = migrated.timeStart
+                dateFilterTimeEnd = migrated.timeEnd
+                const upgraded: DiaryConfigEntity = {
+                    isFilterShared: parsed.isFilterShared ?? false,
+                    keywords: parsed.keywords ?? [],
+                    filteredCategories: parsed.filteredCategories ?? useStatisticStore().categoryAll.map(item => item.name_en),
+                    dateFilterTimeStart,
+                    dateFilterTimeEnd,
+                }
+                setDiaryConfig(upgraded)
+            }
+        }
         return {
             isFilterShared: parsed.isFilterShared ?? false,
             keywords: parsed.keywords ?? [],
             filteredCategories: parsed.filteredCategories ?? useStatisticStore().categoryAll.map(item => item.name_en),
-            dateFilterString: parsed.dateFilterString ?? '',
-            dateFilterTimeStart: parsed.dateFilterTimeStart ?? '',
-            dateFilterTimeEnd: parsed.dateFilterTimeEnd ?? '',
+            dateFilterTimeStart,
+            dateFilterTimeEnd,
         } as DiaryConfigEntity
     } else {
         // 如果不存在配置，生成一个新的
@@ -263,7 +287,6 @@ export function getDiaryConfigFromLocalStorage() {
             isFilterShared: false, // 是否筛选共享日记
             keywords: [], // 关键词
             filteredCategories: useStatisticStore().categoryAll.map(item => item.name_en), // 筛选的日记类别
-            dateFilterString: '', // 日记范围
             dateFilterTimeStart: '',
             dateFilterTimeEnd: '',
         }

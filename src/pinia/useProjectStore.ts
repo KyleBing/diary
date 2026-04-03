@@ -21,9 +21,8 @@ export const useProjectStore = defineStore('projectStore', {
 
         // LIST FILTER
         isFilterShared: false ,                         // 是否筛选共享的日记
-        dateFilterString: '' ,                          // 日期筛选
-        dateFilterTimeStart: '' ,                       // 日期筛选开始时间
-        dateFilterTimeEnd: '' ,                         // 日期筛选结束时间
+        dateFilterTimeStart: '' ,                       // 日期筛选开始时间（对应接口 timeStart）
+        dateFilterTimeEnd: '' ,                         // 日期筛选结束时间（对应接口 timeEnd）
         keywords: [] as string[] ,                      // 搜索关键字
         filteredCategories: [] as string[] ,            // 筛选的类别 name_en[]
 
@@ -82,7 +81,6 @@ export const useProjectStore = defineStore('projectStore', {
             let diaryConfig = getDiaryConfigFromLocalStorage()
             this.filteredCategories = diaryConfig.filteredCategories
             this.keywords = diaryConfig.keywords
-            this.dateFilterString = diaryConfig.dateFilterString
             this.dateFilterTimeStart = diaryConfig.dateFilterTimeStart
             this.dateFilterTimeEnd = diaryConfig.dateFilterTimeEnd
             this.isFilterShared = diaryConfig.isFilterShared
@@ -126,13 +124,12 @@ export const useProjectStore = defineStore('projectStore', {
             diaryConfig.filteredCategories = payload
             setDiaryConfig(diaryConfig)
         },
+        /** payload 为年月 id（如 202501），空字符串表示清除日期区间筛选 */
         SET_DATE_FILTER_STRING(payload: string){
-            this.dateFilterString = payload
             const monthRange = getMonthTimeRangeFromYearMonthId(payload)
             this.dateFilterTimeStart = monthRange?.timeStart || ''
             this.dateFilterTimeEnd = monthRange?.timeEnd || ''
             let diaryConfig = getDiaryConfigFromLocalStorage()
-            diaryConfig.dateFilterString = payload
             diaryConfig.dateFilterTimeStart = this.dateFilterTimeStart
             diaryConfig.dateFilterTimeEnd = this.dateFilterTimeEnd
             setDiaryConfig(diaryConfig)
