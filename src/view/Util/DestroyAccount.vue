@@ -34,19 +34,21 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/project_config.json";
 import {deleteAuthorization, removeDiaryConfig, getAuthorization, popMessage} from "@/utility.ts";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 import {useRouter} from "vue-router";
 import userApi from "@/api/userApi.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
 const router = useRouter()
 
 const show = ref(false)
 const userInfo = getAuthorization()
+const projectConfig = computed(() => systemConfigStore.config)
 
 onMounted(()=>{
     show.value = true

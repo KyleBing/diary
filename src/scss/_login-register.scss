@@ -1,4 +1,20 @@
 // Register
+
+// Chrome 自动填充会覆盖 input 背景色；用 inset box-shadow 铺满以匹配设计稿背景
+@mixin login-input-autofill($bg, $text-color, $focus-bg: $bg, $ring-color: $color-main) {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px $bg inset !important;
+    -webkit-text-fill-color: $text-color !important;
+    caret-color: $text-color;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px $focus-bg inset, 0 0 0 2px $ring-color !important;
+  }
+}
+
 .body-login-bg {
   display: flex;
   justify-content: center;
@@ -141,6 +157,8 @@
       @include box-shadow(0 0 0 2px $color-main);
     }
 
+    @include login-input-autofill($bg-menu, white);
+
     &[disabled] {
       cursor: not-allowed;
       background-color: transparent;
@@ -161,6 +179,8 @@
         background-color: white;
         @include box-shadow(0 0 0 2px $color-main);
       }
+
+      @include login-input-autofill($bg-light, $text-content, white);
     }
   }
 }
@@ -283,6 +303,8 @@
         &:focus {
           background-color: lighten($dark-bg, 3%);
         }
+
+        @include login-input-autofill($dark-bg, white, lighten($dark-bg, 3%));
       }
     }
   }
@@ -310,6 +332,8 @@
         &:focus {
           background-color: $bg-menu;
         }
+
+        @include login-input-autofill($bg-menu, white);
       }
     }
   }

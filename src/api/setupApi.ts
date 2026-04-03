@@ -14,7 +14,7 @@ export interface SetupStatusResponse {
                 user: string
                 password: string
                 port: number
-                multipleStatements: boolean
+                multipleStatements?: boolean
                 timezone: string
             }
             projectConfig: {
@@ -37,7 +37,7 @@ export default {
             user: string
             password: string
             port: number
-            multipleStatements: boolean
+            multipleStatements?: boolean
             timezone: string
         }
         projectConfig: {

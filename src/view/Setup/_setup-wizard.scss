@@ -70,15 +70,6 @@
   color: $text-menu-second;
 }
 
-.checkbox-row{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  margin-top: 4px;
-  margin-bottom: 12px;
-  color: $text-menu-second;
-}
 
 .description-list{
   display: flex;
@@ -104,5 +95,15 @@
   .setup-card{
     background-color: $dark-bg-setup-card;
     border-color: $dark-border-setup;
+  }
+
+  .toggle-row{
+    border-color: $dark-border-setup;
+  }
+
+  .toggle-row-text{
+    label{
+      color: $dark-text-title;
+    }
   }
 }

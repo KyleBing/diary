@@ -28,19 +28,21 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/project_config.json";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {deleteAuthorization, getAuthorization} from "@/utility.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 import packageInfo from "../../../package.json";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 
 const statisticStore = useStatisticStore()
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
 
 const router = useRouter()
+const projectConfig = computed(() => systemConfigStore.config)
 
 const userInfo = ref(getAuthorization())
 

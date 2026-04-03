@@ -50,10 +50,6 @@
                             <label for="db-timezone">时区</label>
                             <input id="db-timezone" v-model.trim="databaseConfig.timezone" type="text" placeholder="可留空">
                         </div>
-                        <label class="checkbox-row">
-                            <input v-model="databaseConfig.multipleStatements" type="checkbox">
-                            <span>允许多条 SQL 语句（初始化阶段建议保持开启）</span>
-                        </label>
 
                         <div class="setup-card-title mt-8">2. 项目配置</div>
                         <div class="input-group">
@@ -107,7 +103,7 @@
                             初始化会清空原有 <span class="command-code">diary</span> 数据库内容
                         </p>
                         <p>
-                            初始化会创建 <span class="command-code">diary</span> 数据库，并写入基础表结构。首次注册的用户会自动成为管理员。 
+                            初始化会创建 <span class="command-code">diary</span> 数据库，并写入基础表结构。首次注册的用户会自动成为管理员。
                         </p>
                     </div>
                     <div class="desc" v-if="initMessage">{{ initMessage }}</div>
@@ -164,7 +160,6 @@ const databaseConfig = reactive({
     user: 'root',
     password: '',
     port: 3306,
-    multipleStatements: true,
     timezone: ''
 })
 
@@ -232,7 +227,6 @@ function saveConfig() {
                 user: databaseConfig.user.trim(),
                 password: databaseConfig.password,
                 port: Number(databaseConfig.port),
-                multipleStatements: databaseConfig.multipleStatements,
                 timezone: databaseConfig.timezone.trim()
             },
             projectConfig: {
@@ -290,5 +284,5 @@ function goToLogin() {
 </script>
 
 <style scoped lang="scss">
-@import "SetupWizard";
+@import "setup-wizard";
 </style>

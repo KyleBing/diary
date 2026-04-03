@@ -63,19 +63,21 @@
 import userApi from "@/api/userApi.ts"
 import fileApi from "@/api/fileApi.ts";
 import * as qiniu from 'qiniu-js'
-import projectConfig from "../../../config/project_config.json";
 import axios from "axios";
 
 import {popMessage, setAuthorization, getAuthorization} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 
 const projectStore = useProjectStore();
-import {onMounted, ref, watch} from "vue";
+const systemConfigStore = useSystemConfigStore()
+import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {UserProfileEntity} from "@/entity/User.ts";
 
 const router = useRouter()
+const projectConfig = computed(() => systemConfigStore.config)
 
 
 const show = ref(false)
@@ -101,12 +103,16 @@ onMounted(()=>{
     watch(() => formUser.value.city, newValue => {
         if (newValue.trim().length > 0){
             formUser.value.city = newValue
+            if (!projectConfig.value.hefeng_weather_api_host || !projectConfig.value.hefeng_weather_api_key) {
+                formUser.value.geolocation = ''
+                return
+            }
             // 根据城市名获取经纬度
             axios
-                .get(`https://${projectConfig.hefeng_weather_api_host}/geo/v2/city/lookup`,
+                .get(`https://${projectConfig.value.hefeng_weather_api_host}/geo/v2/city/lookup`,
                     {
                         params: {
-                            key: projectConfig.hefeng_weather_api_key,
+                            key: projectConfig.value.hefeng_weather_api_key,
                             location: newValue, // 县区名
                             number: 1, // 返回数据数量 1-20
                         }
@@ -125,7 +131,7 @@ onMounted(()=>{
 })
 
 function uploadAvatar(event: Event){
-    if (getAuthorization()?.email === projectConfig.demo_account){
+    if (getAuthorization()?.email === projectConfig.value.demo_account){
         popMessage('danger', '演示账户不允许修改资料', ()=>{}, 3)
         return
     }
@@ -145,7 +151,7 @@ function uploadAvatar(event: Event){
 
         fileApi
             .getUploadToken({
-                bucket: projectConfig.qiniu_bucket_name
+                bucket: projectConfig.value.qiniu_bucket_name
             })
             .then(res => {
                 console.log('get token success')
@@ -160,7 +166,7 @@ function uploadAvatar(event: Event){
                     complete: res => {
                         // res = {hash: 'hash', key: 'key'}
                         console.log('complete: ',res)
-                        formUser.value.avatar = projectConfig.qiniu_img_base_url + res.key
+                        formUser.value.avatar = projectConfig.value.qiniu_img_base_url + res.key
                     }
                 }
                 const observable = qiniu.upload(avatarFile, null, res.data, {}, {})

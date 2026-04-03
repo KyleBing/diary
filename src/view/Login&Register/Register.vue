@@ -57,18 +57,20 @@
 
 <script lang="ts" setup>
 import userApi from "@/api/userApi.ts"
-import projectConfig from "../../../config/project_config.json";
 import RegisterTip from "./RegisterTip.vue";
 
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
 import {computed, onMounted, ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {popMessage} from "@/utility.ts";
 import {UserRegisterEntity} from "@/entity/User.ts";
 
 const router = useRouter()
+const projectConfig = computed(() => systemConfigStore.config)
 
 const show = ref(false)
 

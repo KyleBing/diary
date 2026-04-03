@@ -5,24 +5,22 @@
 <script lang="ts" setup>
 import {useProjectStore} from "./pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
-import {computed, onBeforeMount, onMounted, onUnmounted, ref} from "vue";
+import {onBeforeMount, onMounted, onUnmounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useStatisticStore} from "./pinia/useStatisticStore.ts";
+import {useSystemConfigStore} from "./pinia/useSystemConfigStore.ts";
 import setupApi from "@/api/setupApi.ts";
 
 const route = useRoute()
 const router = useRouter()
 const statisticStore = useStatisticStore()
+const systemConfigStore = useSystemConfigStore()
 
 
 // Server Error
 import ServerError from "./components/ServerError.vue";
 const isServerError = ref(false)
 const isSetupRequired = ref(false)
-const canRenderRouterView = computed(() => {
-    return route.name === 'Setup' || isSetupRequired.value || statisticStore.categoryAll.length > 0
-})
-
 
 onBeforeMount(() => {
     // 日记项目载入后，隐藏 preloading
@@ -88,6 +86,7 @@ function syncSetupStatus() {
                 return
             }
 
+            systemConfigStore.fetchConfig(true).catch(() => {})
             statisticStore.getCategoryAll()
         })
         .catch(() => {
@@ -98,6 +97,7 @@ function syncSetupStatus() {
 function handleSetupCompleted() {
     isSetupRequired.value = false
     isServerError.value = false
+    systemConfigStore.fetchConfig(true).catch(() => {})
     statisticStore.getCategoryAll()
 }
 

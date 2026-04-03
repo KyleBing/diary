@@ -117,9 +117,10 @@ import {
     temperatureProcessSTC, temperatureProcessCTS, dateFormatter
 } from "@/utility.ts";
 import diaryApi from "@/api/diaryApi.ts"
-import projectConfig from "../../../config/project_config.json";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
 import {computed, nextTick, onBeforeMount, onBeforeUnmount, onMounted, Ref, ref, watch} from "vue";
 import {onBeforeRouteLeave, useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
@@ -136,6 +137,7 @@ import {storeToRefs} from "pinia";
 
 const route = useRoute()
 const router = useRouter()
+const projectConfig = computed(() => systemConfigStore.config)
 
 
 const spaceIdentifier = ref('✎') // 为了判断目前是否处于空格显示状态
@@ -678,12 +680,12 @@ function combineWeekWorkLog(workList: EntityDiaryFromServer[]){
 // 获取当前位置的天气气温信息
 function getCurrentTemperature(){
     let geolocation = getAuthorization()?.geolocation
-    if (geolocation){
+    if (geolocation && projectConfig.value.hefeng_weather_api_host && projectConfig.value.hefeng_weather_api_key){
         axios
-            .get(`https://${projectConfig.hefeng_weather_api_host}/v7/weather/now`,
+            .get(`https://${projectConfig.value.hefeng_weather_api_host}/v7/weather/now`,
                 {
                     params: {
-                        key: projectConfig.hefeng_weather_api_key,
+                        key: projectConfig.value.hefeng_weather_api_key,
                         location: geolocation
                     }
                 })

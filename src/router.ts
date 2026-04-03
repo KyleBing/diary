@@ -57,6 +57,7 @@ const routes: RouteRecordRaw[] = [
     {name: 'Login',                path: '/login',             component: Login},
     {name: 'FetchPassword',        path: '/fetch-password',    component: () => import('@/view/Login&Register/FetchPassword.vue') },
     {name: 'Statistics',           path: '/statistics',        component: () => import('@/view/Statistics/StatisticsIndex.vue') },
+    {name: 'SystemConfig',         path: '/system-config',     component: () => import('@/view/SystemConfig/SystemConfigPage.vue'), meta: {requiresAdmin: true} },
     {name: 'FileManager',          path: '/file-manager',      component: () => import('@/view/FileManager/FileManager.vue') },
     {name: 'Bill',                 path: '/bill',              component: () => import('@/view/Bill/Bill.vue') },
     {name: 'BillCandidateList',    path: '/bill/candidates',   component: () => import('@/view/Bill/BillCandidateList.vue') },
@@ -87,6 +88,8 @@ router.beforeEach((to, _) => {
                     } else {
                         return {name: 'EditNew'}
                     }
+                } else if (to.meta.requiresAdmin && !useProjectStore().isAdminUser) {
+                    return {name: 'Index'}
                 } else {
                     return true
                 }

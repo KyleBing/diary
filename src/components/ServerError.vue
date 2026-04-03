@@ -13,10 +13,13 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../config/project_config.json"
+import {computed} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
+const projectConfig = computed(() => systemConfigStore.config)
 </script>
 
 <style scoped lang="scss">

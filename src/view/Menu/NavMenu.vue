@@ -243,6 +243,18 @@ const MENU_LIST = [
         }
     },
     {
+        name: '系统设置',
+        isShowInMobile: true,
+        isShowInPC: true,
+        isNeedAdmin: true,
+        icon: SVG_ICONS.tab_icons.key,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('SystemConfig')
+        }
+    },
+    {
         name: '邀请码',
         isShowInMobile: true,
         isShowInPC: true,   

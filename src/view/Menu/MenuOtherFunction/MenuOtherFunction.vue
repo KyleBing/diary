@@ -94,9 +94,9 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../../config/project_config.json";
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore";
 import {useRouter} from "vue-router";
 import {WeatherMap} from "@/entity/Weather";
 import {
@@ -116,8 +116,10 @@ import {DatePicker} from "v-calendar";
 import ExportCategorySelector from "@/view/Menu/MenuOtherFunction/ExportCategorySelector.vue";
 
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
 const router = useRouter()
 const statisticStore = useStatisticStore()
+const projectConfig = computed(() => systemConfigStore.config)
 const isDownloadingContent = ref(false)
 
 type ExportRange = { start: Date, end: Date } | null

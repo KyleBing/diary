@@ -14,10 +14,14 @@ input[type=checkbox] + label.switch
   display: block;
   @include border-radius($height-radio * 1.5);
   background-color: $color-border;
+  outline: 1px solid $color-border-menu;
   @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
   height: $height-radio + $radio-gap * 2;
   width: $height-radio * $radio-length-timer;
   @include transition(all 0.3s);
+  &.dark{
+    background-color: $bg-setup-card;
+  }
   &:before{
     content: '';
     display: block;
@@ -48,5 +52,45 @@ input[type=checkbox]:checked + label.switch
     height: $height-radio;
     @include border-radius($height-radio);
     @include transition(all 0.3s);
+  }
+}
+
+
+
+.toggle-input-group{
+  margin-bottom: 15px;
+  label {
+    display: block;
+    line-height: 200%;
+    font-size: $fz-note;
+    color: $bg-light;
+  }
+  .toggle-input-wrapper{
+    background-color: $bg-menu;
+    width: 100%;
+    @include border-radius(30px);
+    display: block;
+    line-height: 1.5;
+    padding: 8px 12px;
+    font-size: $fz-title;
+    color: white;
+    font-weight: bold;
+    transition: all .5s;
+  }
+
+  &.white {
+    label {
+      color: $text-content;
+    }
+
+    input {
+      background-color: $bg-light;
+      color: $text-content;
+
+      &:focus {
+        background-color: white;
+        @include box-shadow(0 0 0 2px $color-main);
+      }
+    }
   }
 }

@@ -43,7 +43,6 @@
 </template>
 
 <script lang="ts" setup>
-import projectConfig from "../../../config/project_config.json";
 import packageInfo from "../../../package.json"
 
 import userApi from "@/api/userApi.ts"
@@ -51,7 +50,9 @@ import billApi from "@/api/billApi.ts";
 
 import {popMessage, setAuthorization, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 const projectStore = useProjectStore()
+const systemConfigStore = useSystemConfigStore()
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
@@ -70,7 +71,8 @@ const labelEmail = ref("邮箱")
 const email = ref('')
 const password = ref('')
 const loginLabel = ref('登录')
-const is_show_demo_account = projectConfig.is_show_demo_account
+const systemConfig = computed(() => systemConfigStore.config)
+const is_show_demo_account = computed(() => systemConfig.value.is_show_demo_account)
 const avatarLink = ref<string | null>(null)
 
 
@@ -145,8 +147,8 @@ function getBillKeys() {
         })
 }
 function useTestAccount() {
-    email.value = projectConfig.demo_account
-    password.value = projectConfig.demo_account_password
+    email.value = systemConfig.value.demo_account
+    password.value = systemConfig.value.demo_account_password
 }
 function getAvatar(){
     userApi
