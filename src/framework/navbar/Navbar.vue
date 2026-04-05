@@ -66,7 +66,7 @@
                     <TabIcon icon="账单简单"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode && isAdminUser"
+                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode && projectStore.isAdminUser"
                      @click="goToPage('FileManager')">
                     <TabIcon icon="文件"/>
                 </div>
@@ -191,7 +191,7 @@ import NavbarCategorySelector from "@/framework/navbar/NavbarCategorySelector.vu
 
 import ClipboardJS from "clipboard"
 
-import {formatDiaryDateRangeLabel, getAuthorization, popMessage} from "@/utility.ts";
+import {formatDiaryDateRangeLabel, popMessage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
@@ -201,10 +201,6 @@ import {EnumListStyle} from "@/listStyle.ts";
 const route = useRoute()
 const router = useRouter()
 const navMenuRef = ref<InstanceType<typeof NavMenu>>()
-
-const isAdminUser = computed(()=>{
-    return getAuthorization()?.group_id === 1
-})
 
 const dateFilterRangeLabel = computed(() =>
     formatDiaryDateRangeLabel(projectStore.dateFilterTimeStart, projectStore.dateFilterTimeEnd)

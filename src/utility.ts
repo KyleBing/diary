@@ -17,9 +17,19 @@ export function getAuthorization(): AuthorizationEntity | undefined {
     }
 }
 
+function notifyAuthSessionChanged() {
+    if (typeof window === 'undefined') {
+        return
+    }
+    import('./pinia/useProjectStore').then(({useProjectStore}) => {
+        useProjectStore().bumpAuthRevision()
+    }).catch(() => {})
+}
+
 export function deleteAuthorization() {
     localStorage.removeItem(AUTHORIZATION_NAME)
     removeBillKeys()
+    notifyAuthSessionChanged()
 }
 export function setAuthorization(auth: AuthorizationEntity) {
     localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
@@ -33,6 +43,7 @@ export function setAuthorization(auth: AuthorizationEntity) {
         city: auth.city,
         geolocation: auth.geolocation
     }))
+    notifyAuthSessionChanged()
 }
 
 /**

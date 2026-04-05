@@ -1,15 +1,15 @@
 <template>
     <div class="user-profile">
         <div class="avatar">
-            <img v-if="userInfo.avatar"
+            <img v-if="userInfo?.avatar"
                  :src="userInfo.avatar + '-' + projectConfig.qiniu_style_suffix || SVG_ICONS.logo_icons.logo_rounded"
                  alt="Avatar">
             <img v-else :src="SVG_ICONS.logo_icons.logo_avatar" alt="Avatar">
         </div>
         <div class="user-info mt-1 mb-2">
             <div class="user">
-                <div class="username">{{ userInfo.nickname }}</div>
-                <div class="email">{{ userInfo.email }}</div>
+                <div class="username">{{ userInfo?.nickname }}</div>
+                <div class="email">{{ userInfo?.email }}</div>
                 <div class="operation">
                     <div class="logout" @click="logout">退出</div>
                     <div class="logout ml-3" @click="changeProfile">修改</div>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div v-if="statisticStore.statisticsCategory.shared > 0" class="statistics">
-            <p>📍 {{userInfo.city}}</p>
+            <p>📍 {{userInfo?.city}}</p>
             <p>总计 <b>{{ statisticStore.statisticsCategory.amount }}</b> 篇</p>
             <p>共享 <b>{{ statisticStore.statisticsCategory.shared }}</b> 篇</p>
         </div>
@@ -28,8 +28,9 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from "vue";
+import {computed} from "vue";
 import {deleteAuthorization, getAuthorization} from "@/utility.ts";
+import {storeToRefs} from "pinia";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {useRouter} from "vue-router";
 import packageInfo from "../../../package.json";
@@ -39,12 +40,16 @@ import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 
 const statisticStore = useStatisticStore()
 const projectStore = useProjectStore()
+const {authRevision} = storeToRefs(projectStore)
 const systemConfigStore = useSystemConfigStore()
 
 const router = useRouter()
 const projectConfig = computed(() => systemConfigStore.config)
 
-const userInfo = ref(getAuthorization())
+const userInfo = computed(() => {
+    void authRevision.value
+    return getAuthorization()
+})
 
 function changeProfile(){
     router.push({name: 'ChangeProfile'})

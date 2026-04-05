@@ -1,6 +1,6 @@
 <template>
     <PageHeader title="邀请码" subtitle="点击可复制">
-        <TabIcon v-if="isAdminUser" @click="generateNewInvitationCode" icon="添加"/>
+        <TabIcon v-if="projectStore.isAdminUser" @click="generateNewInvitationCode" icon="添加"/>
     </PageHeader>
 
     <MenuPanelContainer>
@@ -21,7 +21,7 @@
                     <div class="create-time">{{item.date_create}}</div>
 
                 </div>
-                <div class="operation-btns" v-if="isAdminUser">
+                <div class="operation-btns" v-if="projectStore.isAdminUser">
                     <TabIcon icon="黑色-关闭" @click="deleteInvitationCode(item.id)"/>
                     <TabIcon v-if="item.is_shared === 0" icon="黑色-确定" @click="markAsShared(item.id)"/>
                 </div>
@@ -37,20 +37,16 @@ import PageHeader from "@/framework/pageHeader/PageHeader.vue"
 
 import ClipboardJS from "clipboard"
 import invitationApi from "@/api/invitationApi.ts";
-import {popMessage, dateFormatter, getAuthorization} from "@/utility.ts";
+import {popMessage, dateFormatter} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
-import {computed, onBeforeUnmount, onMounted, ref} from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import {InvitationEntity} from "./InvitationEntity.ts";
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 
 const isLoading = ref(false)
 const invitationList = ref<Array<InvitationEntity>>([])
 const clipboard = ref(null) // clipboard obj
-
-const isAdminUser = computed(()=>{
-    return getAuthorization().group_id === 1
-})
 
 onMounted(()=>{
     // 只在第一次请求的时候显示载入 loading

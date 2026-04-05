@@ -4,7 +4,7 @@
         leave-active-class="animated faceOut"
     >
         <div class="statistic-user" v-if="showUserStatisticInfo">
-            <div class="user-list" v-if="isAdminUser">
+            <div class="user-list" v-if="projectStore.isAdminUser">
                 <StatisticPanel title="日记用户">
                     <table>
                         <thead>
@@ -104,7 +104,7 @@
             </div>
 
             <!--用户日记数量柱状图-->
-            <StatisticPanel title="用户日记数量" v-if="isAdminUser">
+            <StatisticPanel title="用户日记数量" v-if="projectStore.isAdminUser">
                 <ChartBar title="" :data="chartDataDiary"/>
             </StatisticPanel>
         </div>
@@ -117,15 +117,14 @@ import statisticApi from "@/api/statisticApi.ts";
 import ChartBar from "@/components/charts/ChartBar.vue";
 import Moment from "moment";
 
-import {computed, onMounted, ref} from "vue";
-import {dateFormatter, getAuthorization} from "@/utility.ts";
+import {onMounted, ref} from "vue";
+import {dateFormatter} from "@/utility.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
+
+const projectStore = useProjectStore()
 
 onMounted(()=>{
     getStatisticUsers()
-})
-
-const isAdminUser = computed(()=>{
-    return getAuthorization().group_id === 1
 })
 
 

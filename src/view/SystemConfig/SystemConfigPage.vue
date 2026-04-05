@@ -129,7 +129,15 @@ const form = reactive<SystemConfig>({
     ...systemConfigStore.config
 })
 
-const isFormValid = computed(() => form.admin_email.trim().length > 0)
+const isFormValid = computed(() => {
+    if (!form.admin_email.trim().length) {
+        return false
+    }
+    if (form.is_show_demo_account) {
+        return form.demo_account.trim().length > 0 && form.demo_account_password.length > 0
+    }
+    return true
+})
 
 onBeforeMount(() => {
     if (!projectStore.isAdminUser) {

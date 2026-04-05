@@ -55,6 +55,9 @@ export const useProjectStore = defineStore('projectStore', {
 
         navbarCategoryShowStyle: EnumNavbarCategoryShowStyle.text, // 导航栏类别显示样式
         // navbarCategoryShowStyle: EnumNavbarCategoryShowStyle.dot, // 导航栏类别显示样式
+
+        /** 登录/登出时递增，使依赖 localStorage 授权信息的 getter、computed 能重新计算 */
+        authRevision: 0,
     }),
     getters: {
         isInMobileMode(state){
@@ -62,7 +65,8 @@ export const useProjectStore = defineStore('projectStore', {
             // 宽度小于 1024 或 高>宽 时，表示是在移动设备上
             return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
         },
-        isAdminUser(){
+        isAdminUser(state){
+            void state.authRevision
             return getAuthorization()?.group_id === USER_GROUP_ADMIN
         },
         // 检测系统主题样式 (light/dark)
@@ -140,6 +144,9 @@ export const useProjectStore = defineStore('projectStore', {
             let diaryConfig = getDiaryConfigFromLocalStorage()
             diaryConfig.keywords = payload
             setDiaryConfig(diaryConfig)
+        },
+        bumpAuthRevision(){
+            this.authRevision++
         },
     }
 })
