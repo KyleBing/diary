@@ -32,6 +32,8 @@ import tab_about from "./tab/about.svg?url"
 import tab_calendar from "./tab/calendar.svg?url"
 import tab_calendar_active from "./tab/calendar_active.svg?url"
 import tab_changelog from "./tab/changelog.svg?url"
+import tab_config from "./tab/config.svg?url"
+import tab_cog from "./tab/cog.svg?url"
 
 import tab_invitation_black from "./tab/invitation_black.svg?url"
 import tab_add_black from "./tab/add_black.svg?url"
@@ -64,6 +66,8 @@ import tab_about_black from "./tab/about_black.svg?url"
 import tab_calendar_black from "./tab/calendar_black.svg?url"
 import tab_changelog_black from "./tab/changelog_black.svg?url"
 import tab_calendar_black_active from "./tab/calendar_black_active.svg?url"
+import tab_config_black from "./tab/config_black.svg?url"
+import tab_cog_black from "./tab/cog_black.svg?url"
 
 
 // LOGO
@@ -78,6 +82,7 @@ import logo_change_password from "./logo/logo_change_password.svg?url"
 import logo_avatar from "./logo/logo_avatar.svg?url"
 import logo_server_error from "./logo/logo_server_error.svg?url"
 import logo_init from "./logo/logo_init.svg?url"
+import logo_config from "./logo/logo_config.svg?url"
 
 // Weather
 import weather_cloudy from "./weather/cloudy.svg?url"
@@ -152,6 +157,7 @@ export default {
         logo_avatar: logo_avatar,
         logo_server_error: logo_server_error,
         logo_init: logo_init,
+        logo_config: logo_config,
     },
     // EOF
     EOF: EOF,
@@ -197,6 +203,8 @@ export default {
         year: tab_year,
         about: tab_about,
         changeLog: tab_changelog,
+        config: tab_config,
+        cog: tab_cog,
     },
     tab_icons_black: {
         invitation: tab_invitation_black,
@@ -230,6 +238,8 @@ export default {
         year: tab_year_black,
         about: tab_about_black,
         changeLog: tab_changelog_black,
+        config: tab_config_black,
+        cog: tab_cog_black,
     },
     weather_icons: {
         cloudy: weather_cloudy,

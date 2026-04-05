@@ -1,3 +1,4 @@
+
 <template>
     <!-- MENU -->
     <transition
@@ -247,7 +248,7 @@ const MENU_LIST = [
         isShowInMobile: true,
         isShowInPC: true,
         isNeedAdmin: true,
-        icon: SVG_ICONS.tab_icons.key,
+        icon: SVG_ICONS.tab_icons.cog,
         insideComponent: null,
         addOnText: null,
         onClick: () => {

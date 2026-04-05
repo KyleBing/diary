@@ -166,6 +166,31 @@
     }
   }
 
+  textarea {
+    background-color: $bg-menu;
+    width: 100%;
+    @include border-radius();
+    display: block;
+    line-height: 1.5;
+    padding: 8px 15px;
+    font-size: $fz-title;
+    color: white;
+    font-weight: bold;
+    transition: all .5s;
+
+    &:focus {
+      background-color: $bg-menu;
+      transition: all .5s;
+      @include box-shadow(0 0 0 2px $color-main);
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      background-color: transparent;
+      border: 1px solid transparentize($color-main, 0.8);
+    }
+  }
+
   &.white {
     label {
       color: $text-content;
@@ -181,6 +206,16 @@
       }
 
       @include login-input-autofill($bg-light, $text-content, white);
+    }
+
+    textarea {
+      background-color: $bg-light;
+      color: $text-content;
+
+      &:focus {
+        background-color: white;
+        @include box-shadow(0 0 0 2px $color-main);
+      }
     }
   }
 }
@@ -306,6 +341,14 @@
 
         @include login-input-autofill($dark-bg, white, lighten($dark-bg, 3%));
       }
+
+      textarea {
+        background-color: $dark-bg;
+
+        &:focus {
+          background-color: lighten($dark-bg, 3%);
+        }
+      }
     }
   }
   .btn-light {
@@ -334,6 +377,16 @@
         }
 
         @include login-input-autofill($bg-menu, white);
+      }
+
+      textarea {
+        background-color: $bg-menu;
+        font-size: $fz-title;
+        color: white;
+
+        &:focus {
+          background-color: $bg-menu;
+        }
       }
     }
   }

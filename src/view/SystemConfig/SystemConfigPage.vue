@@ -3,7 +3,7 @@
         <div class="body-login setup-body">
             <div class="logo-wrapper">
                 <div class="logo">
-                    <img :src="SVG_ICONS.logo_icons.logo_init" alt="System Config">
+                    <img :src="SVG_ICONS.logo_icons.logo_config" alt="System Config">
                 </div>
             </div>
             <div class="setup-title">系统配置</div>
@@ -108,15 +108,17 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onMounted, reactive, ref} from "vue"
+import {computed, onBeforeMount, onMounted, reactive, ref} from "vue"
 import {useRouter} from "vue-router"
 
 import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 import {SystemConfig} from "@/entity/SystemConfig"
+import {useProjectStore} from "@/pinia/useProjectStore"
 import {useSystemConfigStore} from "@/pinia/useSystemConfigStore"
 import {popMessage} from "@/utility"
 
 const router = useRouter()
+const projectStore = useProjectStore()
 const systemConfigStore = useSystemConfigStore()
 
 const isLoading = ref(true)
@@ -129,7 +131,16 @@ const form = reactive<SystemConfig>({
 
 const isFormValid = computed(() => form.admin_email.trim().length > 0)
 
+onBeforeMount(() => {
+    if (!projectStore.isAdminUser) {
+        router.replace({name: 'Index'})
+    }
+})
+
 onMounted(async () => {
+    if (!projectStore.isAdminUser) {
+        return
+    }
     document.title = '日记 - 系统配置'
     try {
         const config = await systemConfigStore.fetchConfig(true)

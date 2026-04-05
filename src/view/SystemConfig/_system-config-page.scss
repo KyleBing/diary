@@ -2,8 +2,12 @@
 
 .system-config-page {
   textarea {
+    border: none;
+    -webkit-appearance: none;
+    box-shadow: none;
     min-height: 140px;
     resize: vertical;
+    font-size: $fz-main;
   }
 
   .toggle-row {

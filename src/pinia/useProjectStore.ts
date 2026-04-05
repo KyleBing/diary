@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS";
+import {USER_GROUP_ADMIN} from "@/entity/Authorization";
 import {getAuthorization, getDiaryConfigFromLocalStorage, getMonthTimeRangeFromYearMonthId, setDiaryConfig} from "@/utility";
 import {EntityDiaryForm, EntityDiaryListOperation} from "@/view/DiaryList/Diary";
 import {EnumListStyle} from "@/listStyle";
@@ -62,7 +63,7 @@ export const useProjectStore = defineStore('projectStore', {
             return state.insets.windowsWidth < 1024 || state.insets.windowsWidth < state.insets.windowsHeight
         },
         isAdminUser(){
-            return getAuthorization()?.group_id === 1
+            return getAuthorization()?.group_id === USER_GROUP_ADMIN
         },
         // 检测系统主题样式 (light/dark)
         isDarkMode(state){

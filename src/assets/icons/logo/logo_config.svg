@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo_config</title>
+    <g id="logo_config" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#FFCC00" cx="50" cy="50" r="50"></circle>
+        <path d="M65,35 C73.2842712,35 80,41.7157288 80,50 C80,58.2842712 73.2842712,65 65,65 L35,65 C26.7157288,65 20,58.2842712 20,50 C20,41.7157288 26.7157288,35 35,35 L65,35 Z M35,38 C28.372583,38 23,43.372583 23,50 C23,56.627417 28.372583,62 35,62 C41.627417,62 47,56.627417 47,50 C47,43.372583 41.627417,38 35,38 Z" id="Combined-Shape" fill="#4A4A4A"></path>
+    </g>
+</svg>
