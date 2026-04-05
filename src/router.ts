@@ -74,6 +74,10 @@ const router = createRouter({
 router.beforeEach((to, _) => {
     switch (to.name) {
         case 'Login':
+            if (getAuthorization()?.email) {
+                return {name: 'Index'}
+            }
+            return true
         case 'Setup':
         case 'Register':
         case 'Share':
