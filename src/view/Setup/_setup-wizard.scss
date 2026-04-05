@@ -33,9 +33,13 @@
   background: $bg-setup-card;
   .setup-card-title{
     font-size: 16px;
-    font-weight: bold;
     margin-bottom: 12px;
-    color: $text-menu-first
+    color: $text-menu-first;
+    h3{
+      font-weight: bold;
+    }
+    .desc{
+    }
   }
 }
 
@@ -81,6 +85,12 @@
   font-size: 12px;
   color: $text-menu-second;
   line-height: 1.5;
+  a{
+    color: $color-main;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
 }
 
 .btn{

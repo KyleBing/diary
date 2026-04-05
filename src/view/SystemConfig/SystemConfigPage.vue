@@ -15,7 +15,9 @@
 
             <template v-else>
                 <div class="setup-card">
-                    <div class="setup-card-title">账号与展示</div>
+                    <div class="setup-card-title">
+                        <h3>账号与展示</h3>
+                    </div>
 
                     <div class="input-group">
                         <label for="admin-email">管理员邮箱</label>
@@ -33,6 +35,7 @@
 
                             <label class="switch dark" for="is-show-demo-account"></label>
                         </div>
+                        <div class="desc mt-1">如果没有该账户，勾选时会自动创建；如果已存在，会自动修改密码成下面的新密码</div>
                     </div>
 
                     <div class="input-group">
@@ -47,7 +50,12 @@
                 </div>
 
                 <div class="setup-card">
-                    <div class="setup-card-title">七牛显示配置</div>
+                    <div class="setup-card-title">
+                        <h3>七牛显示配置</h3>
+                        <div class="desc mt-1">
+                            <p>七牛云主要是用于存储用户头像，不配置只是不显示头像。 <a href="https://www.qiniu.com/" target="_blank">七牛云官网</a></p>
+                        </div>
+                    </div>
 
                     <div class="input-group">
                         <label for="qiniu-base-url">图片访问域名</label>
@@ -66,7 +74,14 @@
                 </div>
 
                 <div class="setup-card">
-                    <div class="setup-card-title">天气服务</div>
+                    <div class="setup-card-title">
+                        <h3>天气服务</h3>
+                        <div class="desc mt-1">
+                            <p>如果需要使用和风天气，请先在和风天气控制台创建 API Key，并配置以下信息，有一定的免费额度可用。
+                                <a href="https://dev.qweather.com/" target="_blank">和风天气 API 文档</a>
+                            </p>
+                        </div>
+                    </div>
 
                     <div class="input-group">
                         <label for="weather-api-key">和风天气 API Key</label>
@@ -80,7 +95,10 @@
                 </div>
 
                 <div class="setup-card">
-                    <div class="setup-card-title">注册提示</div>
+                    <div class="setup-card-title">
+                        <h3>注册提示</h3>
+                        <div class="desc mt-1">注册提示会显示在注册页，支持 HTML 格式</div>
+                    </div>
 
                     <div class="input-group">
                         <label for="register-tip">HTML 内容</label>
