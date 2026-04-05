@@ -4,22 +4,15 @@
         <div class="logo-server-error">
             <img :src="SVG_ICONS.logo_icons.logo_server_error" alt="logo error">
         </div>
-        <div class="server-error-title">遇到错误，请尝试刷新页面。如问题依旧，请联系管理员</div>
-        <div class="server-error-title">
-            <a :href="`mailto:${ projectConfig.admin_email }`">{{ projectConfig.admin_email }}</a>
-        </div>
+        <div class="server-error-title">遇到错误，请尝试刷新页面。</div>
     </div>
 
 </template>
 
 <script lang="ts" setup>
-import {computed} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
-import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const projectStore = useProjectStore()
-const systemConfigStore = useSystemConfigStore()
-const projectConfig = computed(() => systemConfigStore.config)
 </script>
 
 <style scoped lang="scss">
@@ -44,11 +37,6 @@ const projectConfig = computed(() => systemConfigStore.config)
     text-align: center;
     font-size: 14px;
     color: #FFCC00;
-    a{
-        color: #FFCC00;
-        font-size: 14px;
-        text-decoration: underline;
-    }
 }
 
 

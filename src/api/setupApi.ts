@@ -5,6 +5,7 @@ export interface SetupStatusResponse {
     message: string
     data: {
         isInitialized: boolean
+        hasRegisteredUsers: boolean
         lockFileName: string
         configFiles: string[]
         restartTips: string[]
@@ -16,12 +17,6 @@ export interface SetupStatusResponse {
                 port: number
                 multipleStatements?: boolean
                 timezone: string
-            }
-            projectConfig: {
-                invitation_code: string
-                year_data_start: number
-                qiniu_access_key: string
-                qiniu_secret_key: string
             }
         }
     }
@@ -39,12 +34,6 @@ export default {
             port: number
             multipleStatements?: boolean
             timezone: string
-        }
-        projectConfig: {
-            invitation_code: string
-            year_data_start: number
-            qiniu_access_key: string
-            qiniu_secret_key: string
         }
     }) {
         return request('post', null, requestData, 'setup/config')

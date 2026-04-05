@@ -1,17 +1,26 @@
 import request from "@/request"
-import {SystemConfig} from "@/entity/SystemConfig"
+import {AdminSystemConfig, PublicSystemConfig} from "@/entity/SystemConfig"
 
-export interface SystemConfigResponse {
+export interface PublicSystemConfigResponse {
     success: boolean
     message: string
-    data: SystemConfig
+    data: PublicSystemConfig
+}
+
+export interface AdminSystemConfigResponse {
+    success: boolean
+    message: string
+    data: AdminSystemConfig
 }
 
 export default {
-    get(): Promise<SystemConfigResponse> {
-        return request('get', null, null, 'system-config') as Promise<SystemConfigResponse>
+    get(): Promise<PublicSystemConfigResponse> {
+        return request('get', null, null, 'system-config') as Promise<PublicSystemConfigResponse>
     },
-    save(requestData: SystemConfig): Promise<SystemConfigResponse> {
-        return request('put', null, requestData, 'system-config') as Promise<SystemConfigResponse>
+    getAdmin(): Promise<AdminSystemConfigResponse> {
+        return request('get', null, null, 'system-config/admin') as Promise<AdminSystemConfigResponse>
+    },
+    save(requestData: AdminSystemConfig): Promise<AdminSystemConfigResponse> {
+        return request('put', null, requestData, 'system-config') as Promise<AdminSystemConfigResponse>
     }
 }

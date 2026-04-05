@@ -19,7 +19,11 @@
                         <input v-model="invitationCode"
                                type="text"
                                name="invitation"
+                               :placeholder="isInvitationRequired ? '' : '首个注册用户可留空'"
                                id="invitation">
+                        <div class="desc mt-1" v-if="!isInvitationRequired">
+                            当前还没有任何用户注册，首个注册用户无需邀请码，并将自动成为管理员。
+                        </div>
                     </div>
                     <div class="input-group">
                         <label for="nickname" :class="{red: !nicknameVerified}">{{ labelUsername }}</label>
@@ -68,6 +72,7 @@ import {useRouter} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {popMessage} from "@/utility.ts";
 import {UserRegisterEntity} from "@/entity/User.ts";
+import setupApi from "@/api/setupApi.ts";
 
 const router = useRouter()
 const projectConfig = computed(() => systemConfigStore.config)
@@ -90,11 +95,20 @@ const emailVerified=  ref(false)
 const password1Verified=  ref(false)
 const password2Verified=  ref(false)
 const heightBg =  ref(0)
+const isInvitationRequired = ref(true)
 
 
 onMounted(()=>{
     show.value = true
     document.title = '日记 - 注册' // 变更标题
+    setupApi
+        .status()
+        .then(res => {
+            isInvitationRequired.value = res.data.hasRegisteredUsers
+        })
+        .catch(() => {
+            isInvitationRequired.value = true
+        })
 })
 
 const verified = computed(()=> {
@@ -124,7 +138,7 @@ function  regSubmit() {
 }
 
 watch(invitationCode, () => {
-    if (invitationCode.value.length > 0) {
+    if (!isInvitationRequired.value || invitationCode.value.length > 0) {
         labelInvitation.value = "邀请码"
         invitationVerified.value = true
     } else {
@@ -132,6 +146,16 @@ watch(invitationCode, () => {
         invitationVerified.value = false
     }
 })
+
+watch(isInvitationRequired, () => {
+    if (!isInvitationRequired.value || invitationCode.value.length > 0) {
+        labelInvitation.value = "邀请码"
+        invitationVerified.value = true
+    } else {
+        labelInvitation.value = "邀请码不能为空"
+        invitationVerified.value = false
+    }
+}, {immediate: true})
 watch(nickname, () => {
     if (nickname.value.length > 0) {
         labelUsername.value = "昵称"

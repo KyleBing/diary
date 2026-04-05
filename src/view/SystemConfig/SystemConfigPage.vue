@@ -14,46 +14,27 @@
             </div>
 
             <template v-else>
+
+
                 <div class="setup-card">
                     <div class="setup-card-title">
-                        <h3>账号与展示</h3>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="admin-email">管理员邮箱</label>
-                        <input id="admin-email" v-model.trim="form.admin_email" type="email">
-                    </div>
-
-                    <div class="toggle-input-group">
-                        <label for="is-show-demo-account">显示演示账号入口</label>
-                        <div class="toggle-input-wrapper">
-                            <input
-                                id="is-show-demo-account"
-                                v-model="form.is_show_demo_account"
-                                type="checkbox"
-                            >
-
-                            <label class="switch dark" for="is-show-demo-account"></label>
+                        <h3>邀请码</h3>
+                        <div class="desc mt-1">
+                            <p>通用邀请码留空时，仅允许使用系统生成的邀请码注册。</p>
                         </div>
-                        <div class="desc mt-1">如果没有该账户，勾选时会自动创建；如果已存在，会自动修改密码成下面的新密码</div>
                     </div>
 
                     <div class="input-group">
-                        <label for="demo-account">演示账号</label>
-                        <input id="demo-account" v-model.trim="form.demo_account" type="text">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="demo-account-password">演示账号密码</label>
-                        <input id="demo-account-password" v-model="form.demo_account_password" type="text">
+                        <label for="invitation-code">通用邀请码</label>
+                        <input id="invitation-code" v-model.trim="form.invitation_code" type="text" placeholder="可留空">
                     </div>
                 </div>
 
                 <div class="setup-card">
                     <div class="setup-card-title">
-                        <h3>七牛显示配置</h3>
+                        <h3>七牛云</h3>
                         <div class="desc mt-1">
-                            <p>七牛云主要是用于存储用户头像，不配置只是不显示头像。 <a href="https://www.qiniu.com/" target="_blank">七牛云官网</a></p>
+                            <p>七牛云主要用于存储用户头像。图片访问域名、Bucket 和样式后缀会下发给前端；Access Key 和 Secret Key 仅用于后台访问七牛云。 <a href="https://www.qiniu.com/" target="_blank">七牛云官网</a></p>
                         </div>
                     </div>
 
@@ -70,6 +51,16 @@
                     <div class="input-group">
                         <label for="qiniu-style-suffix">样式后缀</label>
                         <input id="qiniu-style-suffix" v-model.trim="form.qiniu_style_suffix" type="text">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="qiniu-access-key">七牛 Access Key</label>
+                        <input id="qiniu-access-key" v-model.trim="form.qiniu_access_key" type="text" placeholder="可留空">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="qiniu-secret-key">七牛 Secret Key</label>
+                        <input id="qiniu-secret-key" v-model.trim="form.qiniu_secret_key" type="text" placeholder="可留空">
                     </div>
                 </div>
 
@@ -107,6 +98,36 @@
                 </div>
 
                 <div class="setup-card">
+                    <div class="setup-card-title">
+                        <h3>演示账户</h3>
+                    </div>
+
+                    <div class="toggle-input-group">
+                        <label for="is-show-demo-account">显示演示账号入口</label>
+                        <div class="toggle-input-wrapper">
+                            <input
+                                id="is-show-demo-account"
+                                v-model="form.is_show_demo_account"
+                                type="checkbox"
+                            >
+
+                            <label class="switch dark" for="is-show-demo-account"></label>
+                        </div>
+                        <div class="desc mt-1">如果没有该账户，勾选时会自动创建；如果已存在，会自动修改密码成下面的新密码</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="demo-account">演示账号</label>
+                        <input id="demo-account" v-model.trim="form.demo_account" type="text">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="demo-account-password">演示账号密码</label>
+                        <input id="demo-account-password" v-model="form.demo_account_password" type="text">
+                    </div>
+                </div>
+
+                <div class="setup-card">
                     <div class="setup-card-title">操作</div>
                     <div class="btn-list">
                         <button
@@ -129,8 +150,9 @@
 import {computed, onBeforeMount, onMounted, reactive, ref} from "vue"
 import {useRouter} from "vue-router"
 
+import systemConfigApi from "@/api/systemConfigApi"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS"
-import {SystemConfig} from "@/entity/SystemConfig"
+import {AdminSystemConfig, DEFAULT_ADMIN_SYSTEM_CONFIG} from "@/entity/SystemConfig"
 import {useProjectStore} from "@/pinia/useProjectStore"
 import {useSystemConfigStore} from "@/pinia/useSystemConfigStore"
 import {popMessage} from "@/utility"
@@ -143,14 +165,11 @@ const isLoading = ref(true)
 const isSaving = ref(false)
 const message = ref('')
 
-const form = reactive<SystemConfig>({
-    ...systemConfigStore.config
+const form = reactive<AdminSystemConfig>({
+    ...DEFAULT_ADMIN_SYSTEM_CONFIG
 })
 
 const isFormValid = computed(() => {
-    if (!form.admin_email.trim().length) {
-        return false
-    }
     if (form.is_show_demo_account) {
         return form.demo_account.trim().length > 0 && form.demo_account_password.length > 0
     }
@@ -169,8 +188,9 @@ onMounted(async () => {
     }
     document.title = '日记 - 系统配置'
     try {
-        const config = await systemConfigStore.fetchConfig(true)
-        Object.assign(form, config)
+        const res = await systemConfigApi.getAdmin()
+        Object.assign(form, res.data)
+        systemConfigStore.APPLY_CONFIG(res.data)
     } catch (err: any) {
         popMessage('danger', err?.message || '读取系统配置失败', undefined, 4)
     } finally {
@@ -186,8 +206,9 @@ async function saveConfig() {
     isSaving.value = true
     message.value = ''
     try {
-        const res = await systemConfigStore.saveConfig(form)
-        Object.assign(form, systemConfigStore.config)
+        const res = await systemConfigApi.save({...form})
+        Object.assign(form, res.data)
+        systemConfigStore.APPLY_CONFIG(res.data)
         message.value = res.message
         popMessage('success', res.message)
     } catch (err: any) {

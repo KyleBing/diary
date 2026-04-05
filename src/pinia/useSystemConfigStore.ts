@@ -1,15 +1,14 @@
 import {defineStore} from "pinia"
 
 import systemConfigApi from "@/api/systemConfigApi"
-import {DEFAULT_SYSTEM_CONFIG, SystemConfig} from "@/entity/SystemConfig"
+import {DEFAULT_SYSTEM_CONFIG, PublicSystemConfig} from "@/entity/SystemConfig"
 
 function parseBoolean(value: unknown) {
     return value === true || value === 1 || value === '1' || value === 'true'
 }
 
-function normalizeSystemConfig(rawConfig: Partial<SystemConfig> = {}): SystemConfig {
+function normalizeSystemConfig(rawConfig: Partial<PublicSystemConfig> = {}): PublicSystemConfig {
     return {
-        admin_email: String(rawConfig.admin_email || '').trim(),
         is_show_demo_account: parseBoolean(rawConfig.is_show_demo_account),
         demo_account: String(rawConfig.demo_account || '').trim(),
         demo_account_password: String(rawConfig.demo_account_password || ''),
@@ -24,12 +23,12 @@ function normalizeSystemConfig(rawConfig: Partial<SystemConfig> = {}): SystemCon
 
 export const useSystemConfigStore = defineStore('systemConfigStore', {
     state: () => ({
-        config: {...DEFAULT_SYSTEM_CONFIG} as SystemConfig,
+        config: {...DEFAULT_SYSTEM_CONFIG} as PublicSystemConfig,
         isLoaded: false,
         isLoading: false
     }),
     actions: {
-        APPLY_CONFIG(config: Partial<SystemConfig>) {
+        APPLY_CONFIG(config: Partial<PublicSystemConfig>) {
             this.config = normalizeSystemConfig({
                 ...this.config,
                 ...config
@@ -52,15 +51,6 @@ export const useSystemConfigStore = defineStore('systemConfigStore', {
             } finally {
                 this.isLoading = false
             }
-        },
-        async saveConfig(payload: Partial<SystemConfig>) {
-            const requestData = normalizeSystemConfig({
-                ...this.config,
-                ...payload
-            })
-            const res = await systemConfigApi.save(requestData)
-            this.APPLY_CONFIG(res.data)
-            return res
         }
     }
 })

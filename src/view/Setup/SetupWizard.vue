@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="setup-title">安装引导</div>
-            <div class="setup-subtitle">在前端完成数据库配置、项目配置与初始化。</div>
+            <div class="setup-subtitle">在前端完成数据库配置与初始化，项目配置改到系统配置页维护。</div>
 
             <div v-if="isLoadingStatus" class="setup-card">
                 <div class="setup-card-title">正在读取当前状态...</div>
@@ -51,24 +51,6 @@
                             <input id="db-timezone" v-model.trim="databaseConfig.timezone" type="text" placeholder="可留空">
                         </div>
 
-                        <div class="setup-card-title mt-8">2. 项目配置</div>
-                        <div class="input-group">
-                            <label for="project-invitation-code">通用邀请码</label>
-                            <input id="project-invitation-code" v-model.trim="projectConfig.invitation_code" type="text">
-                        </div>
-                        <div class="input-group">
-                            <label for="project-year-data-start">数据起始年份</label>
-                            <input id="project-year-data-start" v-model.number="projectConfig.year_data_start" type="number" min="1">
-                        </div>
-                        <div class="input-group">
-                            <label for="project-qiniu-access-key">七牛 Access Key</label>
-                            <input id="project-qiniu-access-key" v-model.trim="projectConfig.qiniu_access_key" type="text" placeholder="可留空">
-                        </div>
-                        <div class="input-group">
-                            <label for="project-qiniu-secret-key">七牛 Secret Key</label>
-                            <input id="project-qiniu-secret-key" v-model.trim="projectConfig.qiniu_secret_key" type="text" placeholder="可留空">
-                        </div>
-
                         <button
                             :class="['btn', isConfigValid && !isSavingConfig ? 'btn-active' : 'btn-inactive']"
                             :disabled="!isConfigValid || isSavingConfig"
@@ -88,7 +70,7 @@
                 </div>
 
                 <div class="setup-card" v-if="!status.isInitialized">
-                    <div class="setup-card-title">3. 重启说明</div>
+                    <div class="setup-card-title">2. 重启说明</div>
                     <div class="description-list">
                         <div class="desc">
                             <p v-for="tip in status.restartTips" :key="tip">{{ tip }}</p>
@@ -97,7 +79,7 @@
                 </div>
 
                 <div class="setup-card">
-                    <div class="setup-card-title">{{ status.isInitialized ? '初始化结果' : '4. 初始化数据库' }}</div>
+                    <div class="setup-card-title">{{ status.isInitialized ? '初始化结果' : '3. 初始化数据库' }}</div>
                     <div class="desc" v-if="!status.isInitialized">
                         <p>
                             初始化会清空原有 <span class="command-code">diary</span> 数据库内容
@@ -131,7 +113,12 @@ import {useRouter} from "vue-router"
 
 import setupApi from "@/api/setupApi"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts"
-import {popMessage} from "@/utility"
+import {useProjectStore} from "@/pinia/useProjectStore"
+import {useStatisticStore} from "@/pinia/useStatisticStore"
+import {deleteAuthorization, getAuthorization, popMessage} from "@/utility"
+
+const projectStore = useProjectStore()
+const statisticStore = useStatisticStore()
 
 const router = useRouter()
 
@@ -163,21 +150,11 @@ const databaseConfig = reactive({
     timezone: ''
 })
 
-const projectConfig = reactive({
-    invitation_code: '',
-    year_data_start: new Date().getFullYear(),
-    qiniu_access_key: '',
-    qiniu_secret_key: ''
-})
-
 const isConfigValid = computed(() => {
     return databaseConfig.host.trim().length > 0 &&
         databaseConfig.user.trim().length > 0 &&
         Number.isInteger(Number(databaseConfig.port)) &&
-        Number(databaseConfig.port) > 0 &&
-        projectConfig.invitation_code.trim().length > 0 &&
-        Number.isInteger(Number(projectConfig.year_data_start)) &&
-        Number(projectConfig.year_data_start) > 0
+        Number(databaseConfig.port) > 0
 })
 
 onMounted(() => {
@@ -193,8 +170,16 @@ function applyStatusResponse(responseData: Awaited<ReturnType<typeof setupApi.st
 
     if (responseData.config) {
         Object.assign(databaseConfig, responseData.config.databaseConfig)
-        Object.assign(projectConfig, responseData.config.projectConfig)
     }
+}
+
+function clearLocalSessionIfSetupNotInitialized(isInitialized: boolean) {
+    if (isInitialized || !getAuthorization()) {
+        return
+    }
+    deleteAuthorization()
+    statisticStore.removeCategoryAllFromLocalStorage()
+    projectStore.isMenuShowed = false
 }
 
 function loadStatus() {
@@ -203,6 +188,7 @@ function loadStatus() {
         .status()
         .then(res => {
             applyStatusResponse(res.data)
+            clearLocalSessionIfSetupNotInitialized(res.data.isInitialized)
         })
         .catch(err => {
             const message = err?.message || '读取安装状态失败'
@@ -228,12 +214,6 @@ function saveConfig() {
                 password: databaseConfig.password,
                 port: Number(databaseConfig.port),
                 timezone: databaseConfig.timezone.trim()
-            },
-            projectConfig: {
-                invitation_code: projectConfig.invitation_code.trim(),
-                year_data_start: Number(projectConfig.year_data_start),
-                qiniu_access_key: projectConfig.qiniu_access_key.trim(),
-                qiniu_secret_key: projectConfig.qiniu_secret_key.trim()
             }
         })
         .then(res => {

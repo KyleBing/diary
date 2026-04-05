@@ -9,7 +9,7 @@
                     <!--                   <div class="btn btn-active" @click="goToChangePassword">找回密码</div>-->
                 </div>
 
-                <div class="desc">忘记密码，可以通过注册的邮箱给管理员 {{ projectConfig.admin_email }} 发邮件重置密码</div>
+                <div class="desc">忘记密码时，请联系系统管理员重置密码。</div>
             </div>
         </div>
         <div class="menu-section">
@@ -96,7 +96,6 @@
 <script lang="ts" setup>
 import {computed, onMounted, ref, watch} from "vue";
 import {useProjectStore} from "@/pinia/useProjectStore";
-import {useSystemConfigStore} from "@/pinia/useSystemConfigStore";
 import {useRouter} from "vue-router";
 import {WeatherMap} from "@/entity/Weather";
 import {
@@ -116,10 +115,8 @@ import {DatePicker} from "v-calendar";
 import ExportCategorySelector from "@/view/Menu/MenuOtherFunction/ExportCategorySelector.vue";
 
 const projectStore = useProjectStore()
-const systemConfigStore = useSystemConfigStore()
 const router = useRouter()
 const statisticStore = useStatisticStore()
-const projectConfig = computed(() => systemConfigStore.config)
 const isDownloadingContent = ref(false)
 
 type ExportRange = { start: Date, end: Date } | null

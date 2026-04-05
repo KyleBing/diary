@@ -1,5 +1,4 @@
-export interface SystemConfig {
-    admin_email: string
+export interface PublicSystemConfig {
     is_show_demo_account: boolean
     demo_account: string
     demo_account_password: string
@@ -11,8 +10,13 @@ export interface SystemConfig {
     register_tip: string
 }
 
-export const DEFAULT_SYSTEM_CONFIG: SystemConfig = {
-    admin_email: "xxx@163.com",
+export interface AdminSystemConfig extends PublicSystemConfig {
+    invitation_code: string
+    qiniu_access_key: string
+    qiniu_secret_key: string
+}
+
+export const DEFAULT_SYSTEM_CONFIG: PublicSystemConfig = {
     is_show_demo_account: false,
     demo_account: "test@163.com",
     demo_account_password: "test",
@@ -23,4 +27,11 @@ export const DEFAULT_SYSTEM_CONFIG: SystemConfig = {
     hefeng_weather_api_host: "",
     register_tip:
         "<p>长期未使用的用户将定期进行清理，大概一年清一次。</p>"
+}
+
+export const DEFAULT_ADMIN_SYSTEM_CONFIG: AdminSystemConfig = {
+    ...DEFAULT_SYSTEM_CONFIG,
+    invitation_code: "",
+    qiniu_access_key: "",
+    qiniu_secret_key: ""
 }
