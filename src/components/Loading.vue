@@ -34,20 +34,20 @@ withDefaults(defineProps<{
         }
     }
     .loading-1{
-        @include animation(load-frame-1 1.2s infinite linear 0s);
+        animation: load-frame-1 1.2s infinite linear 0s;
         background-color: $red;
     }
     .loading-2{
-        @include animation(load-frame-2 1.2s infinite linear 0s);
+        animation: load-frame-2 1.2s infinite linear 0s;
         background-color: $color-main;
     }
     .loading-3{
-        @include animation(load-frame-3 1.2s infinite linear 0s);
+        animation: load-frame-3 1.2s infinite linear 0s;
         background-color: $green;
 
     }
     .loading-4{
-        @include animation(load-frame-4 1.2s infinite linear 0s);
+        animation: load-frame-4 1.2s infinite linear 0s;
         background-color: $blue;
     }
 }

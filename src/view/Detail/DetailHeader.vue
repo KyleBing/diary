@@ -150,7 +150,7 @@ function getTemperatureClassName(temperature: number): string{
             margin: 3px 0;
             padding: 5px 12px;
             color: white;
-            @include border-radius(5px);
+            border-radius: 5px;
         }
     }
 }
@@ -162,7 +162,7 @@ function getTemperatureClassName(temperature: number): string{
         padding: 15px 50px;
         display: flex;
         justify-content: space-between;
-        @include border-radius(10px);
+        border-radius: 10px;
 
         .weather-wrapper {
             display: flex;
@@ -212,7 +212,7 @@ function getTemperatureClassName(temperature: number): string{
                 margin: 3px 0;
                 padding: 5px 12px;
                 color: white;
-                @include border-radius(5px);
+                border-radius: 5px;
             }
         }
     }
@@ -222,7 +222,7 @@ function getTemperatureClassName(temperature: number): string{
         margin: 0 0 30px;
         padding: 10px 50px;
         justify-content: space-between;
-        @include border-radius($radius-mobile);
+        border-radius: $radius-mobile;
 
         .weather-wrapper{
             .weather{

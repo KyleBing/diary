@@ -201,20 +201,20 @@ $height: 40px;
     box-sizing: content-box;
     height: $height;
     width: 100%;
-    @include border-radius($radius-mobile);
+    border-radius: $radius-mobile;
     position: relative;
     margin-bottom: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     .button-date-change{
-        @include transition(opacity 0.3s);
+        transition: opacity 0.3s;
         display: flex;
         opacity: 0;
         color: $text-subtitle;
         flex-shrink: 0;
         @extend .btn-like;
-        @include border-radius(50px);
+        border-radius: 50px;
         justify-content: center;
         align-items: center;
         height: 30px;
@@ -230,7 +230,7 @@ $height: 40px;
         background-color: $bg-light;
         border-color: $color-border-highlight;
         .button-date-change{
-            @include transition(opacity 0.3s);
+            transition: opacity 0.3s;
             opacity: 1;
         }
         input{
@@ -292,7 +292,7 @@ $height: 40px;
             color: $dark-text-subtitle;
             flex-shrink: 0;
             @extend .btn-like;
-            @include border-radius(50px);
+            border-radius: 50px;
             display: flex;
             justify-content: center;
             align-items: center;

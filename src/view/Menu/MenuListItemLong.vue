@@ -43,7 +43,7 @@ $height-icon: 34px;
     display: flex;
     justify-content: flex-start;
     @extend .unselectable;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     overflow: hidden;
     color: white;
     &:hover{

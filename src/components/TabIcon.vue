@@ -145,7 +145,7 @@ $icon-padding-mobile: 3px;
     width: $height-navbar;
     padding: $icon-padding-pc;
     @extend .btn-like;
-    @include border-radius(50px);
+    border-radius: 50px;
     img{
         transition: all 0.2s;
         width: $height-navbar - $icon-padding-pc * 2;
@@ -161,13 +161,13 @@ $icon-padding-mobile: 3px;
     }
     &:hover{
         img{
-            @include border-radius(10px);
+            border-radius: 10px;
             background-color: lighten($bg-menu, 0%);
         }
     }
     &:active{
         img{
-            @include border-radius(50px);
+            border-radius: 50px;
             transition: all 0s;
             background-color: lighten($bg-menu, 5%);
         }

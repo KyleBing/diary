@@ -21,7 +21,7 @@ defineProps<{
     margin-right: 10px;
     font-size: $fz-main;
     padding: 7px 10px;
-    @include border-radius($radius-mobile);
+    border-radius: $radius-mobile;
     @extend .btn-like;
     &.confirm{
         background-color: $color-main;

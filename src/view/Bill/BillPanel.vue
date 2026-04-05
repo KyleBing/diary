@@ -35,7 +35,7 @@ withDefaults(defineProps<{
     overflow: hidden;
     margin-right: 20px;
     width: 300px;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     border: 1px solid $color-border;
     background-color: white;
     .bill-panel-title{
@@ -70,7 +70,7 @@ withDefaults(defineProps<{
 
 @media (prefers-color-scheme: dark) {
     .bill-panel {
-        @include border-radius($radius-pc);
+        border-radius: $radius-pc;
         border: 1px solid $dark-border;
         background-color: $dark-bg-dark;
         .bill-panel-title {

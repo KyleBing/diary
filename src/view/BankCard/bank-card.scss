@@ -20,21 +20,21 @@ $card-bgs: (
   border-top: 1px solid transparentize(white, 0.5);
   border-left: 1px solid transparentize(white, 0.5);
   overflow: hidden;
-  @include border-radius($radius-pc);
+  border-radius: $radius-pc;
   width: 430px;
   min-height: 200px;
   color: $text-title;
   position: relative;
-  @include box-shadow(3px 3px 0px transparentize(black, 0.5));
+  box-shadow: 3px 3px 0px transparentize(black, 0.5);
   background-color: transparentize(white, 0.4);
   margin-bottom: $bank-card-gap;
   margin-right: $bank-card-gap;
-  @include transition(all 0.3s);
+  transition: all 0.3s;
   &:hover{
     //transform: translateX();
-    @include transform(translateY(-5px) translateX(-1px));
-    @include transition(all 0.2s);
-    @include box-shadow(15px 15px 0px transparentize(black, 0.5));
+    transform: translateY(-5px) translateX(-1px);
+    transition: all 0.2s;
+    box-shadow: 15px 15px 0px transparentize(black, 0.5);
     .bankcard-index {
       color: white;
       opacity: 1;
@@ -77,7 +77,7 @@ $card-bgs: (
   .bankcard-logo{
     height: 60px;
     width: 60px;
-    @include border-radius(100px);
+    border-radius: 100px;
     flex-shrink: 0;
     img {
       display: block;
@@ -131,7 +131,7 @@ $card-bgs: (
   flex-flow: column nowrap;
   font-size: $fz-small;
   background-color: transparentize(white, 0.4);
-  @include transition(all 0.5s);
+  transition: all 0.5s;
   animation: card-move-up 0.5s;
   animation-fill-mode: forwards;   // 止于结束状态，不会乱跳
 }
@@ -171,9 +171,9 @@ $card-bgs: (
     margin-bottom: 15px;
     margin-right: 0;
     &:hover{
-      @include transform(translateY(-5px) translateX(-1px));
-      @include transition(all 0.2s);
-      @include box-shadow(5px 5px 0px transparentize(black, 0.5));
+      transform: translateY(-5px) translateX(-1px);
+      transition: all 0.2s;
+      box-shadow: 5px 5px 0px transparentize(black, 0.5);
     }
     // upper
     .bankcard-upper{

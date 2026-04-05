@@ -24,18 +24,16 @@ textarea{
   line-height: 1.5;
   padding: 15px 20px;
   border: 1px solid $color-border;
-  @include transition(box-shadow 0.5s);
-  @include transition(-webkit-box-shadow 0.5s);
-  @include border-radius($radius-pc);
+  transition: box-shadow 0.5s;
+  border-radius: $radius-pc;
 
   &.content{
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
   }
   &:focus{
     border-color: $color-border-highlight;
-    @include box-shadow(0 0 0 3px rgba(black, 0.1));
-    @include transition(box-shadow 0.5s);
-    @include transition(-webkit-box-shadow 0.5s);
+    box-shadow: 0 0 0 3px rgba(black, 0.1);
+    transition: box-shadow 0.5s;
   }
 }
 
@@ -56,14 +54,14 @@ textarea{
   .editor-content{
     position: relative;
     textarea{
-      @include transition(all 0.3s);
+      transition: all 0.3s;
       padding-bottom: 250px;
       overflow-x: hidden;
       overflow-y: scroll;
       resize: vertical;
       font-size: 1rem;
       &:focus{
-        @include transition(all 0.3s);
+        transition: all 0.3s;
       }
       &::-webkit-scrollbar {
         z-index: 50;
@@ -97,7 +95,7 @@ textarea{
     border: 1px solid $color-border;
     background-color: white;
     padding: 25px 25px;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     justify-content: space-between;
     display: flex;
     flex-flow: row wrap;
@@ -123,7 +121,7 @@ textarea{
         line-height: $height-input;
       }
       &:hover{
-        @include border-radius($radius-mobile);
+        border-radius: $radius-mobile;
         //background-color: transparentize($color-main, 0.9);
         label{
           color: $text-content;
@@ -226,7 +224,7 @@ textarea{
     }
     .editor-form{
       width: 100%;
-      //@include border-radius(0);
+      //border-radius: 0;
     }
   }
 }
@@ -237,16 +235,16 @@ textarea{
   input[type=checkbox] + label.switch
   {
     background-color: $dark-border-active;
-    @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     &:before{
       background-color: $dark-bg;
-      @include box-shadow(1px 2px 3px rgba(0,0,0,0.2));
+      box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
     }
   }
   input[type=checkbox]:checked + label.switch
   {
     background-color: $green;
-    @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     &:before{
     }
   }
@@ -261,7 +259,7 @@ textarea{
     background-color: $dark-bg-dark;
     &:focus{
       border-color: $dark-border-active;
-      @include box-shadow(0 0 0 3px rgba(white, 0.1));
+      box-shadow: 0 0 0 3px rgba(white, 0.1);
     }
     &::-webkit-scrollbar {
       background-color: transparent;
@@ -309,7 +307,7 @@ textarea{
           color: $dark-text;
         }
         &:hover{
-          @include border-radius($radius-mobile);
+          border-radius: $radius-mobile;
           label{
             color: $dark-text;
           }

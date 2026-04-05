@@ -59,7 +59,7 @@ const weekday = computed(() => {
     .calendar-list-header{
         border-color: $dark-border !important;
         background-color: transparent;
-        @include border-radius($radius-mobile);
+        border-radius: $radius-mobile;
         color: white !important;
         .calendar-list-header-title{
         }

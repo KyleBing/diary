@@ -61,7 +61,7 @@ $gap: 16px;
         display: flex;
         justify-content: flex-start;
         @extend .unselectable;
-        @include border-radius($radius-mobile);
+        border-radius: $radius-mobile;
         overflow: hidden;
         &:hover{
             border-color: lighten($bg-menu, 12%);
@@ -122,7 +122,7 @@ $gap: 16px;
         }
         .menu-list-item-wrapper{
             padding: 0 5px 0 12px;
-            @include border-radius($radius-mobile);
+            border-radius: $radius-mobile;
             .menu-list-item-icon{
                 margin-right: 10px;
                 width: $height-icon;

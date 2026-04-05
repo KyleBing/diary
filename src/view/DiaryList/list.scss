@@ -10,7 +10,7 @@
   text-align: center;
   width: 40%;
   margin: 20px auto 30px;
-  @include border-radius(5px);
+  border-radius: 5px;
 
   &:active{
     color: $bg-main;
@@ -19,9 +19,9 @@
 }
 
 .end-of-diary{
-  @include box-shadow(1px 2px 4px rgba(0,0,0,0.12));
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.12);
   background-color: white;
-  @include border-radius(0 0 15px 15px);
+  border-radius: 0 0 15px 15px;
   text-align: center;
   padding: 20px 0 10px;
   img{
@@ -38,7 +38,7 @@
   input{
     width: 100%;
     line-height: 25px;
-    @include border-radius();
+    border-radius: $radius-mobile;
     padding: 5px 10px;
     display: block;
     border: 1px solid $color-border-highlight;

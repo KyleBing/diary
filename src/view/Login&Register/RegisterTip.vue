@@ -23,7 +23,7 @@ defineProps({
     width: 100%;
     padding: 20px;
     font-size: $fz-small;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     background-color: $bg-menu;
     color: $dark-text-title;
     line-height: 1.3;

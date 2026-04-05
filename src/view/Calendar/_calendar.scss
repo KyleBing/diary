@@ -33,7 +33,7 @@
         .indicator{
             margin-right: 5px;
             display: block;
-            @include border-radius(10px);
+            border-radius: 10px;
             width: 12px;
             height: 4px;
         }

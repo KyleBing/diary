@@ -87,19 +87,19 @@ $animate-width: 5px;
         position: absolute;
         z-index: $z-waterfall;
         opacity: 0;
-        @include transition(all 0.3s);
-        &.left  { @include border-radius($radius-pc 0 0 $radius-pc ); left: 0  ; top:0 ; bottom: 0; width: $animate-width}
-        &.right { @include border-radius(0 $radius-pc $radius-pc 0 ); right: 0 ; top:0 ; bottom: 0; width: $animate-width}
-        &.bottom{ @include border-radius(0 0 $radius-pc $radius-pc ); bottom: 0; left:0; right:0  ; height: $animate-width}
+        transition: all 0.3s;
+        &.left  { border-radius: $radius-pc 0 0 $radius-pc; left: 0  ; top:0 ; bottom: 0; width: $animate-width}
+        &.right { border-radius: 0 $radius-pc $radius-pc 0; right: 0 ; top:0 ; bottom: 0; width: $animate-width}
+        &.bottom{ border-radius: 0 0 $radius-pc $radius-pc; bottom: 0; left:0; right:0  ; height: $animate-width}
     }
     .meta{
         font-size: $fz-small;
         z-index: $z-waterfall;
-        @include border-radius($radius-pc $radius-pc 0 0 );
+        border-radius: $radius-pc $radius-pc 0 0;
         padding: 5px;
         background-color: $green;
         color: white;
-        @include transition(all 0.3s);
+        transition: all 0.3s;
         position: absolute;
         top: 0;
         left: 0;
@@ -121,10 +121,10 @@ $animate-width: 5px;
             z-index: $z-waterfall-hover;
             opacity: 1;
             top: -30px;
-            @include transition(all 0.1s);
+            transition: all 0.1s;
         }
         .marker{
-            @include transition(all  0.1s);
+            transition: all  0.1s;
             opacity: 1;
             &.left{left: -$animate-width}
             &.right{right: -$animate-width}

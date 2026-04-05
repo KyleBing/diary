@@ -36,7 +36,7 @@ const emit = defineEmits(['selectKey'])
   overflow-y: auto;
   background-color: white;
   border: 1px solid $color-border;
-  @include border-radius($radius-mobile);
+  border-radius: $radius-mobile;
   position: absolute;
   top: 20px;
   left: 250px;

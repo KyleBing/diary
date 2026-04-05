@@ -9,7 +9,7 @@ $fz-md-article: 14px;      // Markdown 内容的基础字体大小
   overflow: hidden;
   font-size: $fz-article;
   background-color: white;
-  @include border-radius($radius-mobile);
+  border-radius: $radius-mobile;
   border: 1px solid $color-border-light;
 
   .article-header{

@@ -133,13 +133,13 @@ function markAsShared(invitationId: number | string){
     flex-flow: row wrap;
     &-item{
         font-family: "JetBrainsMonoDiary", "SF UI Display", "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
-        @include transition(all 0.3s);
+        transition: all 0.3s;
         align-items: center;
         margin-right: 15px;
         margin-bottom: 15px;
         padding: 10px;
         background-color: white;
-        @include border-radius($radius-pc);
+        border-radius: $radius-pc;
         border: 1px solid white;
         display: flex;
         flex-flow: row nowrap;

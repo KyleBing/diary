@@ -159,7 +159,7 @@ function hideBigIncome(){
         color: white;
         background: $bg-main;
         border: 1px solid $dark-border-active;
-        @include border-radius($radius-mobile)
+        border-radius: $radius-mobile;
     }
 
     .v-popper__arrow-inner {

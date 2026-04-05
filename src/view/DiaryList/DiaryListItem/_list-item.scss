@@ -80,7 +80,7 @@
       position: absolute;
       border-bottom: 1px solid $color-border-light;
       transform-origin: 0 100%;
-      @include transform(scaleY(0.5));
+      transform: scaleY(0.5);
     }
   }
   &.active{

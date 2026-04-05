@@ -81,7 +81,7 @@
   line-height: 1;
   font-size: $fz-main;
   padding: 5px 10px;
-  @include border-radius(30px);
+  border-radius: 30px;
   background-color: transparentize(white, 0.5);
   border: 1px solid $color-border;
   &:hover{

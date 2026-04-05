@@ -34,9 +34,9 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   margin: 0 auto;
   border-top: 1px solid lighten($color-border, 2%);
   border-left: 1px solid lighten($color-border, 2%);
-  @include border-radius(3px);
+  border-radius: 3px;
   background-color: $bg-share;
-  @include box-shadow(2px 2px 5px rgba(0,0,0,0.2))
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 
 .share-head{
@@ -53,7 +53,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
 }
 
 .share-date{
-  @include border-radius(5px);
+  border-radius: 5px;
   border: 1px solid $color-border-light;
   padding: $meta-padding 15px;
   background-color: white;
@@ -152,7 +152,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   $margin: 5px;
   color: white;
   font-weight: bold;
-  @include border-radius(3px);
+  border-radius: 3px;
   margin: $margin 0;
   line-height: $height-weather - $margin * 2 - 3 * 2;
   padding: 3px 8px;
@@ -195,7 +195,7 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   .share{
     padding: 30px 20px;
     width: auto;
-    @include border-radius(0);
+    border-radius: 0;
   }
   .share-head{
     flex-flow: row nowrap;

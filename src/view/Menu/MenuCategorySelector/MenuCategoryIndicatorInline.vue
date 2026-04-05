@@ -50,10 +50,10 @@ $height-indicator: 2px;
             margin-bottom: 0;
         }
         //&:first-child{
-        //    @include border-radius(0 0 0 $radius-mobile);
+        //    border-radius: 0 0 0 $radius-mobile;
         //}
         //&:last-child{
-        //    @include border-radius(0 0 $radius-mobile 0 );
+        //    border-radius: 0 0 $radius-mobile 0;
         //}
     }
 }

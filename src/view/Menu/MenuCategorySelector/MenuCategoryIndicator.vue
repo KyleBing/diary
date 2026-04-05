@@ -47,7 +47,7 @@ $height-indicator: 8px;
         border: 1px dotted white;
         height: $height-indicator;
         width: $height-indicator;
-        @include border-radius(2px);
+        border-radius: 2px;
         &:nth-child(2n){
             margin-bottom: 0;
         }

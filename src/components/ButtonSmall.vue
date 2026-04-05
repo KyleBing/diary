@@ -15,7 +15,7 @@
     line-height: 1;
     text-align: center;
     cursor: pointer;
-    @include border-radius($radius-mobile - 3);
+    border-radius: $radius-mobile - 3;
     background: linear-gradient(to bottom, lighten($bg-light, 20%), $bg-light);
     font-weight: normal;
     padding: 7px 8px;

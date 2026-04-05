@@ -24,7 +24,7 @@ defineProps<{
     display: block;
     font-size: $fz-title;
     cursor: pointer;
-    @include border-radius();
+    border-radius: $radius-mobile;
     &:active {
         transform: translateY(2px);
     }

@@ -31,7 +31,7 @@
   align-items: center;
   cursor: pointer;
   @extend .unselectable;
-  @include border-radius($radius-mobile);
+  border-radius: $radius-mobile;
   margin-bottom: 10px;
   width: 22%;
   margin-right: math.div(100% - 22 * 4, 3);
@@ -65,15 +65,15 @@
   &.active{
     background-color: $color-main;
     background: linear-gradient(to bottom right, $color-main, darken($color-main, 5%));
-    @include transition(all 0);
+    transition: all 0;
     text-shadow: 1px 0 2px transparentize(black, 0.6);
     .month{
       color: white;
-      @include transition(all 0);
+      transition: all 0;
     }
     .month-count {
       color: white;
-      @include transition(all 0);
+      transition: all 0;
     }
   }
 }

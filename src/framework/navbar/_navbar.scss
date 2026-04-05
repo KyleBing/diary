@@ -71,7 +71,7 @@
     padding: 4px 8px;
     color: white;
     @extend .btn-like;
-    @include border-radius($radius-mobile);
+    border-radius: $radius-mobile;
     &.active{
       border-color: transparentize(white, 0.7);
       &:hover{

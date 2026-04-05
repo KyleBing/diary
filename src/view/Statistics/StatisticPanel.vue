@@ -25,7 +25,7 @@ export default {
 .statistic-panel{
     flex-shrink: 0;
     background-color: $bg-light;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     padding: 30px;
 }
 h3{

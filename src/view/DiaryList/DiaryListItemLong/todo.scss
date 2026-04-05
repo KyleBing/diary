@@ -11,7 +11,7 @@ $checkbox-size-sm: 18px;
 
 .todo-list-item{
   cursor: grab;
-  @include border-radius(3px);
+  border-radius: 3px;
   padding-left: 15px;
   display: flex;
   flex-flow: row nowrap;
@@ -38,7 +38,7 @@ $checkbox-size-sm: 18px;
       display: block;
       height: $checkbox-size;
       width: $checkbox-size;
-      @include border-radius(20px);
+      border-radius: 20px;
       border: 1px solid $text-label;
       background-color: white;
       cursor: pointer;
@@ -51,7 +51,7 @@ $checkbox-size-sm: 18px;
       display: block;
       height: $checkbox-size;
       width: $checkbox-size;
-      @include border-radius(20px);
+      border-radius: 20px;
       border: 2px solid $green;
       position: relative;
       &::after{
@@ -60,7 +60,7 @@ $checkbox-size-sm: 18px;
         position: absolute;
         width: $checkbox-size - 8;
         height: $checkbox-size - 8;
-        @include border-radius(20px);
+        border-radius: 20px;
         top: 2px;
         left: 2px;
         background-color: $green;
@@ -94,7 +94,7 @@ $checkbox-size-sm: 18px;
 // TODO item in LongList Mode
 .todo-list-item.small{
   cursor: default;
-  @include border-radius(3px);
+  border-radius: 3px;
   padding-left: 5px;
   &.done{
     .content{
@@ -107,16 +107,16 @@ $checkbox-size-sm: 18px;
     div.checkbox{
       height: $checkbox-size-sm;
       width: $checkbox-size-sm;
-      @include border-radius(20px);
+      border-radius: 20px;
     }
     div.checkbox.checked{
       height: $checkbox-size-sm;
       width: $checkbox-size-sm;
-      @include border-radius(20px);
+      border-radius: 20px;
       &::after{
         width: $checkbox-size-sm - 8;
         height: $checkbox-size-sm - 8;
-        @include border-radius(20px);
+        border-radius: 20px;
         top: 2px;
         left: 2px;
       }

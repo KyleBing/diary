@@ -3,7 +3,7 @@
   margin-bottom: 20px;
   padding: 12px 20px;
   background-color: $bg-light;
-  @include border-radius($radius-pc);
+  border-radius: $radius-pc;
   display: flex;
   align-items: center;
   font-size: $fz-small;
@@ -12,7 +12,7 @@
 .id{
   flex-shrink: 0;
   font-size: $fz-title;
-  @include border-radius(100px);
+  border-radius: 100px;
   text-align: center;
   height: 40px;
   width: 40px;

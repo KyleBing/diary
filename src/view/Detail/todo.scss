@@ -6,7 +6,7 @@
 
 .todo-list-item{
   cursor: grab;
-  @include border-radius(3px);
+  border-radius: 3px;
   padding-left: 15px;
   display: flex;
   flex-flow: row nowrap;
@@ -55,7 +55,7 @@ div.checkbox{
   display: block;
   height: $checkbox-size;
   width: $checkbox-size;
-  @include border-radius(20px);
+  border-radius: 20px;
   border: 1px solid $text-label;
   background-color: white;
   cursor: pointer;
@@ -69,7 +69,7 @@ div.checkbox.checked{
   display: block;
   height: $checkbox-size;
   width: $checkbox-size;
-  @include border-radius(20px);
+  border-radius: 20px;
   border: 1px solid var(--todo-color, $green);
   position: relative;
   &::after{
@@ -78,7 +78,7 @@ div.checkbox.checked{
     position: absolute;
     width: $checkbox-size - 6;
     height: $checkbox-size - 6;
-    @include border-radius(20px);
+    border-radius: 20px;
     top: 2px;
     left: 2px;
     background-color: var(--todo-color, $green);

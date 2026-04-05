@@ -12,12 +12,12 @@ input[type=checkbox] + label.switch
 {
   position: relative;
   display: block;
-  @include border-radius($height-radio * 1.5);
+  border-radius: $height-radio * 1.5;
   background-color: $color-border;
-  @include box-shadow(inset 2px 2px 3px rgba(0,0,0,0.2));
+  box-shadow: inset 2px 2px 3px rgba(0,0,0,0.2);
   height: $height-radio + $radio-gap * 2;
   width: $height-radio * $radio-length-timer;
-  @include transition(all 0.3s);
+  transition: all 0.3s;
   &.dark{
     outline: 1px solid $color-border-menu;
     background-color: $bg-setup-card;
@@ -31,18 +31,18 @@ input[type=checkbox] + label.switch
     left: $radio-gap;
     width: $height-radio;
     height: $height-radio;
-    @include border-radius($height-radio);
+    border-radius: $height-radio;
     background-color: white;
-    @include box-shadow(2px 3px 4px rgba(0,0,0,0.3));
-    @include transition(all 0.3s);
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.3);
+    transition: all 0.3s;
   }
 }
 
 input[type=checkbox]:checked + label.switch
 {
   background-color: $green;
-  @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
-  @include transition(all 0.3s);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  transition: all 0.3s;
   outline: 1px solid darken($green, 5%);
 
   &.dark{
@@ -55,8 +55,8 @@ input[type=checkbox]:checked + label.switch
     right: 0;
     width: $height-radio;
     height: $height-radio;
-    @include border-radius($height-radio);
-    @include transition(all 0.3s);
+    border-radius: $height-radio;
+    transition: all 0.3s;
   }
 }
 
@@ -73,7 +73,7 @@ input[type=checkbox]:checked + label.switch
   .toggle-input-wrapper{
     background-color: $bg-menu;
     width: 100%;
-    @include border-radius(30px);
+    border-radius: 30px;
     display: block;
     line-height: 1.5;
     padding: 8px 12px;
@@ -94,7 +94,7 @@ input[type=checkbox]:checked + label.switch
 
       &:focus {
         background-color: white;
-        @include box-shadow(0 0 0 2px $color-main);
+        box-shadow: 0 0 0 2px $color-main;
       }
     }
   }

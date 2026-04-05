@@ -36,7 +36,7 @@
     padding: 30px 0;
 
     .logo {
-      @include border-radius(200px);
+      border-radius: 200px;
       overflow: hidden;
       height: 150px;
       width: 150px;
@@ -45,9 +45,8 @@
       align-items: center;
       $timer: 0;
       border: 1px solid $color-main;
-      @include transition(all 0.3s);
-      @include box-shadow(
-                      3px*$timer 3px*$timer 0 transparentize(black, 0.6),
+      transition: all 0.3s;
+      box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
                       -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
                       -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
                       -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
@@ -59,13 +58,11 @@
                       15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
                       140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
                       -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                      60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),
-      );
+                      60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
       &.valid{
         $timer: 0.15;
-        @include transition(all 0.3s);
-        @include box-shadow(
-                3px*$timer 3px*$timer 0 transparentize(black, 0.6),
+        transition: all 0.3s;
+        box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
                 -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
                 -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
                 -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
@@ -77,8 +74,7 @@
                 15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
                 140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
                 -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),
-        );
+                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
       }
       img {
         width: 100%;
@@ -142,7 +138,7 @@
   input {
     background-color: $bg-menu;
     width: 100%;
-    @include border-radius();
+    border-radius: $radius-mobile;
     display: block;
     line-height: 1.5;
     padding: 8px 15px;
@@ -154,7 +150,7 @@
     &:focus {
       background-color: $bg-menu;
       transition: all .5s;
-      @include box-shadow(0 0 0 2px $color-main);
+      box-shadow: 0 0 0 2px $color-main;
     }
 
     @include login-input-autofill($bg-menu, white);
@@ -169,7 +165,7 @@
   textarea {
     background-color: $bg-menu;
     width: 100%;
-    @include border-radius();
+    border-radius: $radius-mobile;
     display: block;
     line-height: 1.5;
     padding: 8px 15px;
@@ -181,7 +177,7 @@
     &:focus {
       background-color: $bg-menu;
       transition: all .5s;
-      @include box-shadow(0 0 0 2px $color-main);
+      box-shadow: 0 0 0 2px $color-main;
     }
 
     &[disabled] {
@@ -202,7 +198,7 @@
 
       &:focus {
         background-color: white;
-        @include box-shadow(0 0 0 2px $color-main);
+        box-shadow: 0 0 0 2px $color-main;
       }
 
       @include login-input-autofill($bg-light, $text-content, white);
@@ -214,7 +210,7 @@
 
       &:focus {
         background-color: white;
-        @include box-shadow(0 0 0 2px $color-main);
+        box-shadow: 0 0 0 2px $color-main;
       }
     }
   }
@@ -229,7 +225,7 @@
   font-weight: bold;
   font-size: $fz-title;
   cursor: pointer;
-  @include border-radius();
+  border-radius: $radius-mobile;
 
   &:active {
     transform: translateY(2px);

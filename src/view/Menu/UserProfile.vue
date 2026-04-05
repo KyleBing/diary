@@ -67,20 +67,19 @@ function logout() {
         margin: 0 auto;
         width: 60px;
         height: 60px;
-        @include border-radius(50px);
+        border-radius: 50px;
         outline-width: 1px;
         overflow: hidden;
         img{
             width: 100%;
             display: block;
         }
-        @include box-shadow(0px 0px 0 transparentize(black, 0.6));
-        @include transition(all 0.3s);
+        box-shadow: 0px 0px 0 transparentize(black, 0.6);
+        transition: all 0.3s;
         &:hover{
             $timer: 0.1;
-            @include transition(all 0.3s);
-            @include box-shadow(
-                    3px*$timer 3px*$timer 0 transparentize(black, 0.6),
+            transition: all 0.3s;
+            box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
                     -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
                     -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
                     -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
@@ -92,14 +91,13 @@ function logout() {
                     15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
                     140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
                     -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                    60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),
-            );
+                    60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
         }
     }
     .user-info{
         margin: 0 auto;
         padding: 8px 10px;
-        @include border-radius($radius-pc $radius-pc 0 0);
+        border-radius: $radius-pc $radius-pc 0 0;
         display: flex;
         //background-color: transparentize(white, 0.9);
         flex-flow: column nowrap;
@@ -138,7 +136,7 @@ function logout() {
         margin: 0 auto;
         padding: 10px 10px;
         border-top: 1px solid rgba(255,255,255,0.1);
-        @include border-radius($radius-mobile);
+        border-radius: $radius-mobile;
         display: flex;
         background-color: transparentize(white, 0.9);
         justify-content: space-around;
@@ -167,7 +165,7 @@ function logout() {
     .user-profile{
         padding: 20px 30px 10px;
         .statistics{
-            @include border-radius($radius-pc)
+            border-radius: $radius-pc;
         }
     }
 
@@ -178,8 +176,7 @@ function logout() {
 
     0%{
         $timer: 0.3;
-        @include box-shadow(
-                3px*$timer 3px*$timer 0 transparentize(black, 0.6),
+        box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
                 -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
                 -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
                 -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
@@ -191,14 +188,12 @@ function logout() {
                 15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
                 140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
                 -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),
-        );
+                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
     }
 
     50%{
         $timer: 0.5;
-        @include box-shadow(
-                -3px*$timer 3px*$timer 0 transparentize(black, 0.6),
+        box-shadow: -3px*$timer 3px*$timer 0 transparentize(black, 0.6),
                 -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
                 -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
                 45px*$timer -8px*$timer 10px*$timer transparentize($cyan, 0.5),
@@ -210,13 +205,11 @@ function logout() {
                 -15px*$timer 105px*$timer 10px*$timer transparentize($blue, 0.6),
                 14px*$timer 15px*$timer 35px*$timer transparentize($magenta, 0.6),
                 -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                20px*$timer -15px*$timer 0px*$timer transparentize($magenta, 0.2),
-        );
+                20px*$timer -15px*$timer 0px*$timer transparentize($magenta, 0.2),;
     }
     100%{
         $timer: 0.3;
-        @include box-shadow(
-                3px*$timer 3px*$timer 0 transparentize(black, 0.6),
+        box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
                 -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
                 -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
                 -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
@@ -228,8 +221,7 @@ function logout() {
                 15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
                 140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
                 -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),
-        );
+                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
     }
 
 

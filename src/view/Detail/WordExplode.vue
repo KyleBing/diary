@@ -204,7 +204,7 @@ function isCombination(newChar: string, oldChar: string): boolean {
         font-size: $fz-main;
         padding: 2px 4px;
         border: 1px solid $color-border;
-        @include border-radius(3px);
+        border-radius: 3px;
         &.active{
             background-color: $color-main;
             border-color: $bg-menu;

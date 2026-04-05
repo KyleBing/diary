@@ -51,7 +51,7 @@ function toggleChecked(index: number){
         margin-right: 5px;
         margin-bottom: 3px;
         padding: 5px 8px;
-        @include border-radius($radius-mobile);
+        border-radius: $radius-mobile;
         label{
             line-height: 1.5;
             cursor: pointer;

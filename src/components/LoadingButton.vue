@@ -54,17 +54,17 @@ $height-loading-btn: 20px;
     }
     &-1{
         height: $height-loading-btn * 1;
-        @include animation(load-frame-1 1s infinite linear 0s);
+        animation: load-frame-1 1s infinite linear 0s;
         background-color: $grass;
     }
     &-2{
         height: $height-loading-btn * 0.5;
-        @include animation(load-frame-2 1s infinite linear 0s);
+        animation: load-frame-2 1s infinite linear 0s;
         background-color: $color-main;
     }
     &-3{
         height: $height-loading-btn * 0.25;
-        @include animation(load-frame-1 1s infinite linear 0s);
+        animation: load-frame-1 1s infinite linear 0s;
         background-color: $magenta;
     }
 }

@@ -82,7 +82,7 @@ function itemStyle(nameEn: string){
     display: block;
     width: 10px;
     height: 10px;
-    @include border-radius(8px);
+    border-radius: 8px;
     transition: all 0.2s;
     margin-right: 0;
 }

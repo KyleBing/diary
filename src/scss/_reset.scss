@@ -44,12 +44,6 @@ tt {
     outline: none;
 }
 
-.clearfix::after {
-    content: '';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
 
 ::-webkit-scrollbar {
     z-index: 50;

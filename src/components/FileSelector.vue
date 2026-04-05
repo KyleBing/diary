@@ -48,7 +48,7 @@ $cross-width: 60px;
 .avatar-wrapper{
     width: $btn-frame-width;
     //height: $btn-frame-height;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     border: $btn-border-width solid $color-main;
     overflow: hidden;
     display: flex;
@@ -95,7 +95,7 @@ $cross-width: 60px;
     padding: 20px;
     width: 100%;
     height: $btn-frame-height;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     border: $btn-border-width dashed $green;
     background-color: transparentize($green, 0.9);
     position: relative;
@@ -110,7 +110,7 @@ $cross-width: 60px;
     //width: $btn-frame-width;
     width: 100%;
     height: $btn-frame-height;
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     border: $btn-border-width dashed $color-border;
     position: relative;
 

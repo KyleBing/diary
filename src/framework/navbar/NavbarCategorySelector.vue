@@ -213,7 +213,7 @@ $nav-btn-height: 15px;
         display: block;
         width: 10px;
         height: 10px;
-        @include border-radius(8px);
+        border-radius: 8px;
         margin-right: 8px;
         transition: all 0.2s;
     }
@@ -242,7 +242,7 @@ $height-indicator: 8px;
         border: 1px dotted white;
         height: $height-indicator;
         width: $height-indicator;
-        @include border-radius(2px);
+        border-radius: 2px;
         &:nth-child(2n){
             margin-bottom: 0;
         }

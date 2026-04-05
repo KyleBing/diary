@@ -20,7 +20,7 @@
   background-color: white;
   margin-right: 20px;
   padding-bottom: 25px;
-  @include border-radius($radius-pc);
+  border-radius: $radius-pc;
   border: 1px solid $color-border-bill;
   .bill-header{
     justify-content: space-around;
@@ -118,11 +118,11 @@
       }
     }
   }
-  @include transition(all 0.5s);
+  transition: all 0.5s;
 
   &:hover{
-    @include transition(all 0.5s);
-    //@include box-shadow(2px 2px 5px transparentize(black, 0.8))
+    transition: all 0.5s;
+    //box-shadow: 2px 2px 5px transparentize(black, 0.8);
   }
 }
 

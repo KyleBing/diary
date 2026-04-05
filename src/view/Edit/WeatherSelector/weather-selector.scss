@@ -4,14 +4,14 @@ $height-weather: 30px;
 
 .weather-selector{
   border: 1px solid $color-border;
-  @include border-radius($radius-mobile);
+  border-radius: $radius-mobile;
   display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
   padding: 20px;
   background-color: white;
   .weather{
-    @include border-radius(50px);
+    border-radius: 50px;
     @extend .unselectable;
     padding: 7px;
     display: block;
@@ -36,7 +36,7 @@ $height-weather: 30px;
 // MAX
 @media (min-width: $grid-separate-width-big){
   .weather-selector {
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     .weather{
     }
   }
@@ -45,7 +45,7 @@ $height-weather: 30px;
 // md
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
   .weather-selector {
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
     .weather{
     }
   }
@@ -54,7 +54,7 @@ $height-weather: 30px;
 // sm
 @media (max-width: $grid-separate-width-md) {
   .weather-selector {
-    @include border-radius($radius-pc);
+    border-radius: $radius-pc;
   }
 }
 
