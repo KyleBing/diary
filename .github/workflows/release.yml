@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies with npm (fallback)
         if: steps.yarn_install.outcome == 'failure'
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build with Yarn
         id: yarn_build
