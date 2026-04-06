@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies with npm (fallback)
         if: steps.yarn_install.outcome == 'failure'
-        run: npm ci
+        run: npm install
 
       - name: Build with Yarn
         id: yarn_build
