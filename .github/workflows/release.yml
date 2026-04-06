@@ -22,11 +22,14 @@ jobs:
           node-version: 20
           cache: yarn
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install Yarn Classic
+        run: npm install -g yarn@1.22.22
+
+      - name: Set Yarn registry
+        run: yarn config set registry https://registry.npmjs.org
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build
         run: yarn build
