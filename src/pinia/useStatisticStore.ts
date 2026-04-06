@@ -76,6 +76,11 @@ export const useStatisticStore = defineStore('statisticStore', {
                     return false
                 })
         },
+        /** 类别未加载或 key 不存在时返回占位色，避免 UI 读取 undefined.color */
+        getCategoryColor(nameEn: string | undefined | null): string {
+            if (!nameEn) return '#888888'
+            return this.categoryObjectMap.get(nameEn)?.color ?? '#888888'
+        },
         // 获取统计信息
         getStatistic() {
             statisticApi

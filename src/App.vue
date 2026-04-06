@@ -86,8 +86,7 @@ function syncSetupStatus() {
                 return
             }
 
-            systemConfigStore.fetchConfig(true).catch(() => {})
-            statisticStore.getCategoryAll()
+            afterBackendReady()
         })
         .catch(() => {
             isServerError.value = true
@@ -97,8 +96,13 @@ function syncSetupStatus() {
 function handleSetupCompleted() {
     isSetupRequired.value = false
     isServerError.value = false
+    afterBackendReady()
+}
+
+async function afterBackendReady() {
+    // 类别是后续页面与统计依赖的基础数据，后端连通后优先拉取
+    await statisticStore.getCategoryAll()
     systemConfigStore.fetchConfig(true).catch(() => {})
-    statisticStore.getCategoryAll()
 }
 
 

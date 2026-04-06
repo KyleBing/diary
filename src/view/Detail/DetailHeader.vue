@@ -70,7 +70,7 @@ const props = defineProps({
 
 const categoryBgColor = computed<string>( () => {
     if (props.diary && props.diary.category){
-        return `background-color: ${useStatisticStore().categoryObjectMap.get(props.diary.category).color}`
+        return `background-color: ${useStatisticStore().getCategoryColor(props.diary.category)}`
     } else {
         return ''
     }

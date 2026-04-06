@@ -43,12 +43,13 @@ const props = withDefaults(defineProps<{
 })
 
 const backgroundColor = computed<string>(() => {
-    return `background-color: ${statisticStore.categoryObjectMap.get(props.diary.category)!.color}`
+    return `background-color: ${statisticStore.getCategoryColor(props.diary.category)}`
 })
 const borderColor = computed<string>(() => {
+    const c = statisticStore.getCategoryColor(props.diary.category)
     return `
-        border-bottom-color: ${statisticStore.categoryObjectMap.get(props.diary.category)!.color};
-        border-right-color: ${statisticStore.categoryObjectMap.get(props.diary.category)!.color};
+        border-bottom-color: ${c};
+        border-right-color: ${c};
     `
 })
 const contentMarkDownHtml = computed<string>(() => {

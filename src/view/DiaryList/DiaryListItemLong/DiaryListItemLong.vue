@@ -74,14 +74,14 @@ const suffix = computed(()=> {
 })
 const diaryItemHeaderStyle = computed(()=>{
     if (isActive.value){
-        return ` background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}; `
+        return ` background-color: ${statisticStore.getCategoryColor(props.diary.category)}; `
     } else {
         return ''
     }
 })
 const diaryArticleItemStyle = computed(()=>{
     if (isActive.value){
-        return ` border-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}; `
+        return ` border-color: ${statisticStore.getCategoryColor(props.diary.category)}; `
     } else {
         return ''
     }
@@ -93,7 +93,7 @@ const diaryItemCategoryTextStyle = computed(()=>{
     if (isActive.value){
 
     } else {
-        return ` color:  ${statisticStore.categoryObjectMap.get(props.diary.category).color} `
+        return ` color:  ${statisticStore.getCategoryColor(props.diary.category)} `
     }
 })
 

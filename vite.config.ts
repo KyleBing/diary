@@ -32,8 +32,8 @@ export default defineConfig({
         https: false,
         proxy: {
             '/dev': {
-                target: 'http://localhost:3000',
-                // target: 'http://kylebing.cn:3000',
+                // target: 'http://localhost:3000',
+                target: 'http://kylebing.cn:3000',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/dev/, '/'),
             },
@@ -48,7 +48,8 @@ export default defineConfig({
             injectRegister: 'auto',
             registerType: 'autoUpdate',
             devOptions: {
-                enabled: true // 是否在开发模式下也启用 pwa 配置
+                // 开发模式不注入 dev-sw，避免对不存在的 dev-sw.js 注册失败（控制台 404）
+                enabled: false
             },
 
             // MANIFEST PWA https://vite-pwa-org.netlify.app/guide/pwa-minimal-requirements.html

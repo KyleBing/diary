@@ -23,6 +23,7 @@ import { useStatisticStore } from '@/pinia/useStatisticStore.ts';
 import { useProjectStore } from '@/pinia/useProjectStore.ts';
 import chartOption from "@/view/Statistics/chartOption.ts";
 
+const statisticStore = useStatisticStore()
 
 // 注册必须的组件
 echarts.use([
@@ -99,7 +100,9 @@ function resetData(newValue) {
     newValue.forEach(item => {
         seriesData.push(item.value)
         xAxisData.push(item.name)
-        let color = useStatisticStore().categoryNameMap.get(item.key) && useStatisticStore().categoryObjectMap.get(item.key).color
+        const color = statisticStore.categoryNameMap.get(item.key)
+            ? statisticStore.getCategoryColor(item.key)
+            : undefined
         if (color){
             colorArray.push(color)
         }
