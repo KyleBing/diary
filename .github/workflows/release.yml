@@ -28,11 +28,23 @@ jobs:
       - name: Set Yarn registry
         run: yarn config set registry https://registry.npmjs.org
 
-      - name: Install dependencies
+      - name: Install dependencies with Yarn
+        id: yarn_install
+        continue-on-error: true
         run: yarn install --frozen-lockfile
 
-      - name: Build
+      - name: Install dependencies with npm (fallback)
+        if: steps.yarn_install.outcome == 'failure'
+        run: npm ci
+
+      - name: Build with Yarn
+        id: yarn_build
+        continue-on-error: true
         run: yarn build
+
+      - name: Build with npm (fallback)
+        if: steps.yarn_build.outcome == 'failure'
+        run: npm run build
 
       - name: Archive build output
         run: |
