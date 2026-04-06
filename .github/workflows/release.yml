@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v*.*"
 
 permissions:
   contents: write
@@ -20,13 +20,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Archive build output
         run: |
