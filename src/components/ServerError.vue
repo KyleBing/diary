@@ -4,7 +4,7 @@
         <div class="logo-server-error">
             <img :src="SVG_ICONS.logo_icons.logo_server_error" alt="logo error">
         </div>
-        <div class="server-error-title">遇到错误，请尝试刷新页面。</div>
+        <div class="server-error-title">遇到错误，请尝试刷新页面，如果问题依旧，请联系管理员。</div>
     </div>
 
 </template>
