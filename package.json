@@ -4,7 +4,7 @@
   "type": "module",
   "description": "一句话概括你的一天",
   "version": "9.4.1",
-  "dateModify": "2026.04.05",
+  "dateModify": "2026.04.07",
   "dateInit": "2018.08.14",
   "author": {
     "email": "kylebing@163.com",
@@ -42,12 +42,12 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.2",
     "typescript": "^5.0.2",
     "vite": "6.3.4",
-    "vite-plugin-pwa": "^0.17.4",
+    "vite-plugin-pwa": "^1.2.0",
     "vite-plugin-zip-pack": "^1.0.7",
     "vite-svg-loader": "^5.1.0",
     "vue-tsc": "^1.8.5"
