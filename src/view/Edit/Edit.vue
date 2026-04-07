@@ -959,5 +959,5 @@ function getWeatherNameFromCode(code: string): string{
 </script>
 
 <style lang="scss">
-@import "edit";
+@use "edit" as *;
 </style>

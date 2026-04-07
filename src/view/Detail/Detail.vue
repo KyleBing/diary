@@ -161,5 +161,5 @@ function  showDiary(diaryId: number) {
 </script>
 
 <style lang="scss">
-@import "detail";
+@use "detail" as *;
 </style>

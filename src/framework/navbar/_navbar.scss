@@ -1,4 +1,5 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .navbar-container{
   z-index: $z-navbar;
@@ -73,16 +74,16 @@
     @extend .btn-like;
     border-radius: $radius-mobile;
     &.active{
-      border-color: transparentize(white, 0.7);
+      border-color: color.adjust(white, $alpha: -0.7);
       &:hover{
-        background-color: transparentize(white, 0.85);
+        background-color: color.adjust(white, $alpha: -0.85);
       }
     }
     &:hover{
-      background-color: transparentize(white, 0.85);
+      background-color: color.adjust(white, $alpha: -0.85);
     }
     &.hole{
-      background-color: transparentize($color-main, 0.9);
+      background-color: color.adjust($color-main, $alpha: -0.9);
     }
   }
 }
@@ -96,7 +97,7 @@
     }
   }
   .menu-panel{
-    background-color: darken($dark-bg, 3%);
+    background-color: color.adjust($dark-bg, $lightness: -3%);
   }
 
   .menu-list-group-item{

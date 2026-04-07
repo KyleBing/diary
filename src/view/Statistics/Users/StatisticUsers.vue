@@ -188,5 +188,5 @@ function getStatisticUsers(){
 </script>
 
 <style scoped lang="scss">
-@import "statistic-users";
+@use "statistic-users" as *;
 </style>

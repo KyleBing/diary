@@ -18,7 +18,7 @@ const contentMarkDownHtml = computed(()=>{
 </script>
 
 <style scoped lang="scss">
-@import "../../../scss/plugin";
+@use "../../../scss/plugin" as *;
 .change-log-container{
     color: $text-title;
 }

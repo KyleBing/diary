@@ -40,5 +40,5 @@ function chooseWeather(weatherName: string) {
 </script>
 
 <style lang="scss" scoped>
-@import "./weather-selector";
+@use "./weather-selector" as *;
 </style>

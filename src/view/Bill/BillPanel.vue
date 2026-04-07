@@ -28,7 +28,8 @@ withDefaults(defineProps<{
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .bill-panel{
     flex-shrink: 0;
@@ -75,7 +76,7 @@ withDefaults(defineProps<{
         background-color: $dark-bg-dark;
         .bill-panel-title {
             border-color: $dark-border;
-            background: linear-gradient(to bottom, lighten($dark-bg-dark, 5%), $dark-bg);
+            background: linear-gradient(to bottom, color.adjust($dark-bg-dark, $lightness: 5%), $dark-bg);
         }
     }
 }

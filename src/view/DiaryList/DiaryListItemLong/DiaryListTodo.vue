@@ -72,5 +72,5 @@ function processContent(diary: EntityDiaryForm){
 </script>
 
 <style lang="scss">
-@import "todo";
+@use "todo" as *;
 </style>

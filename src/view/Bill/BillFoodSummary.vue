@@ -41,7 +41,7 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .brief-food{
     border-top: 1px solid $color-border;

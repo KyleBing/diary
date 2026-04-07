@@ -72,5 +72,5 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import "statistic-charts";
+@use "statistic-charts" as *;
 </style>

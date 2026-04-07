@@ -17,7 +17,7 @@ withDefaults(defineProps<{
 </script>
 
 <style scoped lang="scss">
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 // navbar 的高度是 45px, loading 的高度是 30px 上下的 padding 就是 15/2 px
 .loading{
     box-sizing: content-box;

@@ -16,7 +16,7 @@ const projectStore = useProjectStore()
 </script>
 
 <style scoped lang="scss">
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 
 .server-error{
     display: flex;

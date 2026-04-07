@@ -147,6 +147,6 @@ function tooltipContent(billItemArray: Array<EntityBillItem>) {
 
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 </style>

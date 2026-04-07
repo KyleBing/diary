@@ -270,5 +270,5 @@ function goToRegister() {
 </script>
 
 <style scoped lang="scss">
-@import "setup-wizard";
+@use "setup-wizard" as *;
 </style>

@@ -61,7 +61,7 @@ function itemStyle(nameEn: string){
 </script>
 
 <style scoped lang="scss">
-@import "../../../scss/plugin";
+@use "../../../scss/plugin" as *;
 
 .export-category-list{
     display: flex;

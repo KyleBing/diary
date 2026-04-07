@@ -1,4 +1,8 @@
+@use "sass:color" as color;
 @use "sass:math";
+@use "variables" as *;
+@use "utility" as *;
+
 $toast-width: 240px;
 $toast-border-color: $bg-menu;
 
@@ -79,16 +83,16 @@ $toast-border-color: $bg-menu;
   //background-color: $color-main;
   backdrop-filter: blur(20px) saturate(180%);
   border-radius: $radius-pc;
-  border: 1px solid transparentize($color-border, 0.9);
+  border: 1px solid color.adjust($color-border, $alpha: -0.9);
   h3{
     color: white;
     line-height: 25px;
     font-size: $fz-label;
   }
-  &.pop-msg-default { background-color: transparentize(white,0.2); }
-  &.pop-msg-warning { background-color: transparentize($yellow,0.2); }
-  &.pop-msg-success { background-color: transparentize($green,0.2); }
-  &.pop-msg-danger  { background-color: transparentize($red,0.2); }
+  &.pop-msg-default { background-color: color.adjust(white, $alpha: -0.2); }
+  &.pop-msg-warning { background-color: color.adjust($yellow, $alpha: -0.2); }
+  &.pop-msg-success { background-color: color.adjust($green, $alpha: -0.2); }
+  &.pop-msg-danger  { background-color: color.adjust($red, $alpha: -0.2); }
 }
 
 

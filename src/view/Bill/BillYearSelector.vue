@@ -39,7 +39,8 @@ function toggleChecked(index: number){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 .year-selector{
     display: flex;
     flex-flow: row wrap;
@@ -61,7 +62,7 @@ function toggleChecked(index: number){
         }
         &.checked{
             border-color: $orange;
-            background-color: lighten($color-main, 20%);
+            background-color: color.adjust($color-main, $lightness: 20%);
         }
     }
 }

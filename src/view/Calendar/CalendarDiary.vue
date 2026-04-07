@@ -374,5 +374,5 @@ const attributes = ref<Array<CalendarAttribute>>([
 </script>
 
 <style lang="scss">
-@import "./calendar.scss"
+@use "./calendar" as *
 </style>

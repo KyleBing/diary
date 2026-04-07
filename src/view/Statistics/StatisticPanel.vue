@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .statistic-panel-container{
     padding: 10px;
 }

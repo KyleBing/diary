@@ -105,8 +105,10 @@ function itemStyle(category: CategoryEntity){
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color" as color;
+
 @use "sass:math";
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 $nav-btn-height: 15px;
 
 .navbar-category-filter{
@@ -134,7 +136,7 @@ $nav-btn-height: 15px;
     height: $nav-btn-height;
     font-weight: bold;
     line-height: $nav-btn-height;
-    color: transparentize(white, 0.6);
+    color: color.adjust(white, $alpha: -0.6);
     border-left: 1px solid transparent;
     //@extend .btn-like;
     display: flex;
@@ -146,11 +148,11 @@ $nav-btn-height: 15px;
 
     &.special{
         padding: 2px;
-        color: transparentize($color-main, 0.4);
+        color: color.adjust($color-main, $alpha: -0.4);
     }
     &.active{
         &:hover{
-            text-shadow: 2px 2px 1px transparentize(black, 0.5);
+            text-shadow: 2px 2px 1px color.adjust(black, $alpha: -0.5);
         }
         .dot{
             border-width: 2px;
@@ -159,7 +161,7 @@ $nav-btn-height: 15px;
             background-color: inherit;
         }
         .name{
-            text-shadow: 0px 1px 1px transparentize(black, 0.5);
+            text-shadow: 0px 1px 1px color.adjust(black, $alpha: -0.5);
             opacity: 1;
         }
     }
@@ -194,7 +196,7 @@ $nav-btn-height: 15px;
         font-weight: bold;
         color: rgba(255,255,255,0.6);
         &.special{
-            color: transparentize($color-main, 0.2);
+            color: color.adjust($color-main, $alpha: -0.2);
         }
         .dot{
             box-shadow: 0 0 3px rgba(255,255,255,0.7);

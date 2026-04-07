@@ -1,4 +1,5 @@
-@import "../../../scss/plugin";
+@use "sass:color" as color;
+@use "../../../scss/plugin" as *;
 
 $fz-article: 15px;         // 日记内容字体大小
 $fz-article-header: 13px;  // 日记头部字体大小
@@ -23,7 +24,7 @@ $fz-md-article: 14px;      // Markdown 内容的基础字体大小
     color: $text-subtitle;
     font-size: $fz-article-header;
     border-bottom: 1px solid $color-border-light;
-    background-color: transparentize(black, 0.99);
+    background-color: color.adjust(black, $alpha: -0.99);
     font-weight: bold;
     &.hidden{
       display: none !important;

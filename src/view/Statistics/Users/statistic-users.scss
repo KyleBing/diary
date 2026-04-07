@@ -1,5 +1,5 @@
-@use "sass:color";
-@import "../../../scss/plugin";
+@use "sass:color" as color;
+@use "../../../scss/plugin" as *;
 
 .user-list{
   display: flex;

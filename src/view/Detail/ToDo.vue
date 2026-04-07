@@ -340,5 +340,5 @@ function onDragEnd() {
 </script>
 
 <style lang="scss">
-@import "todo";
+@use "todo" as *;
 </style>

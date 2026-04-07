@@ -1,4 +1,5 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .avatar{
   flex-shrink: 0;
@@ -15,7 +16,7 @@
   &:hover{
     border-color: $color-main;
     transition: all 0.3s;
-    box-shadow: 0 0 25px transparentize($color-main, 0.3);
+    box-shadow: 0 0 25px color.adjust($color-main, $alpha: -0.3);
   }
 }
 

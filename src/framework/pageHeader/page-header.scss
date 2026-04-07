@@ -1,4 +1,5 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .page-header{
   z-index: $z-header;
@@ -19,7 +20,7 @@
   }
   .page-subtitle{
     margin-left: 10px;
-    color: transparentize(white, 0.6);
+    color: color.adjust(white, $alpha: -0.6);
     flex-grow: 1;
     font-size: $fz-main;
     text-align: left;

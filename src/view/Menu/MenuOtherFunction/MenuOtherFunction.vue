@@ -338,7 +338,7 @@ function downloadFile(fileName: string, data: any) { // 下载文件
 </script>
 
 <style scoped lang="scss">
-@import "../../../scss/plugin";
+@use "../../../scss/plugin" as *;
 
 .filter-wrapper{
     border: 1px solid $color-border-menu;

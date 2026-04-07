@@ -25,7 +25,7 @@ import MenuPanelContainer from "@/framework/MenuPanelContainer.vue";
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .about{
     position: relative;

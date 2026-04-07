@@ -86,7 +86,7 @@ function getStatistic() {
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .back-btn{
     background-color: $bg-menu;
 }

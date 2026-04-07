@@ -94,6 +94,5 @@ function  getBankInfo(cardName: string){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
-@import "bank-card.scss";
+@use "bank-card" as *;
 </style>

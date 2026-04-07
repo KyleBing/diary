@@ -1,4 +1,4 @@
-@import "../../../scss/plugin";
+@use "../../../scss/plugin" as *;
 .statistic-info{
   flex-shrink: 0;
 }

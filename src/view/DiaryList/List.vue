@@ -449,5 +449,5 @@ function handleKeyDown(event: KeyboardEvent) {
 </script>
 
 <style lang="scss" scoped>
-@import "./list";
+@use "./list" as *;
 </style>

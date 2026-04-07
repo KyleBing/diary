@@ -29,7 +29,7 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .brief-amount{
     font-weight: bold;

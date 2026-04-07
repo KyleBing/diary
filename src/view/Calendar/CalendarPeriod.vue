@@ -273,6 +273,6 @@ function loadCalendarPeriod(){
 </script>
 
 <style lang="scss">
-@import "./calendar.scss"
+@use "./calendar" as *
 
 </style>

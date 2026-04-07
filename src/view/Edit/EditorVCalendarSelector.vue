@@ -167,7 +167,7 @@ function dateTimeMove(step: -1|0|1) {
 
 <style lang="scss">
 @use "sass:math";
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .date-selector{
     display: flex;
@@ -291,7 +291,6 @@ $height: 40px;
         .button-date-change{
             color: $dark-text-subtitle;
             flex-shrink: 0;
-            @extend .btn-like;
             border-radius: 50px;
             display: flex;
             justify-content: center;

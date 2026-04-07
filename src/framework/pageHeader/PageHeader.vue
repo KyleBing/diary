@@ -23,7 +23,7 @@ withDefaults(defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@import "page-header";
+@use "page-header" as *;
 </style>
 
 

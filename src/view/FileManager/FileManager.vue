@@ -149,7 +149,7 @@ function getFileList(){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .file-list{
     width: 100%;

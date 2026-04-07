@@ -204,7 +204,7 @@ function processCardInfo(allCardString: string){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .bank-tip{
     padding: 30px;
     color: $color-main;

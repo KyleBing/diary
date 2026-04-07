@@ -207,5 +207,5 @@ function changeProfileSubmit() {
 
 
 <style lang="scss">
-@import "./change-profile";
+@use "./change-profile" as *;
 </style>

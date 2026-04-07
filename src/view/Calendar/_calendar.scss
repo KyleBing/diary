@@ -1,4 +1,4 @@
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 // 日历容器
 .calendar-container{

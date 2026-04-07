@@ -94,6 +94,5 @@ function modifyFileNameConfirm(){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
-@import "./file-list-item";
+@use "./file-list-item" as *;
 </style>

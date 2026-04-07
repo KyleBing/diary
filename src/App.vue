@@ -125,6 +125,6 @@ function hidePreloadingWhenReady() {
 </script>
 
 <style lang="scss">
-@import "scss/diary";
+@use "scss/diary";
 </style>
 

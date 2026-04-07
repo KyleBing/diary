@@ -87,6 +87,6 @@ const contentIcon = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "list-item";
+@use "list-item" as *;
 </style>
 

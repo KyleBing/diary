@@ -17,7 +17,7 @@ const projectStore = useProjectStore()
 </script>
 
 <style scoped lang="scss">
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 
 .bg{
     letter-spacing: 1px;

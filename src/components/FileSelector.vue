@@ -35,7 +35,9 @@ function handleFiles(event: Event) {
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/plugin";
+@use "sass:color" as color;
+
+@use "../scss/plugin" as *;
 
 $btn-frame-height: 150px;
 $btn-frame-width: 200px;
@@ -97,7 +99,7 @@ $cross-width: 60px;
     height: $btn-frame-height;
     border-radius: $radius-pc;
     border: $btn-border-width dashed $green;
-    background-color: transparentize($green, 0.9);
+    background-color: color.adjust($green, $alpha: -0.9);
     position: relative;
     display: flex;
     justify-content: center;

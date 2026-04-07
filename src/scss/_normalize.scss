@@ -1,3 +1,7 @@
+@use "variables" as *;
+@use "gradient" as *;
+@use "utility" as *;
+
 .bold{
   font-weight: bold;
 }

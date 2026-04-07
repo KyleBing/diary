@@ -33,7 +33,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 $height-menu-list: 50px;
 $height-icon: 34px;
 .menu-list-item{
@@ -47,11 +48,11 @@ $height-icon: 34px;
     overflow: hidden;
     color: white;
     &:hover{
-        background-color: lighten($bg-menu, 5%);
+        background-color: color.adjust($bg-menu, $lightness: 5%);
     }
 
     &:active{
-        background-color: lighten($bg-menu,10%);
+        background-color: color.adjust($bg-menu, $lightness: 10%);
     }
 
     .menu-list-item-icon{
@@ -105,7 +106,7 @@ $height-icon: 34px;
     .menu-list-item{
         color: $dark-text-title;
         &:hover{
-            background-color: lighten($dark-bg, 0.9);
+            background-color: color.adjust($dark-bg, $lightness: 0.9%);
         }
         .menu-list-item-content{
             &:after{

@@ -49,5 +49,5 @@ function chooseCategory(categoryName: string) {
 </script>
 
 <style lang="scss" scoped>
-@import "editor-category-selector";
+@use "editor-category-selector" as *;
 </style>

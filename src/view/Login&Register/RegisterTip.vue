@@ -18,7 +18,7 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .register-tip {
     width: 100%;
     padding: 20px;

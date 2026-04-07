@@ -1,4 +1,5 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 // NEW
 
@@ -122,7 +123,7 @@ textarea{
       }
       &:hover{
         border-radius: $radius-mobile;
-        //background-color: transparentize($color-main, 0.9);
+        //background-color: color.adjust($color-main, $alpha: -0.9);
         label{
           color: $text-content;
         }

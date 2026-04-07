@@ -1,89 +1,12 @@
-@import "reset";
-@import "plugin";
-@import "normalize";
-
-@import "login-register"; // menu
-@import "menu"; // menu
-@import "menu-section"; // menu
-@import "gutter"; // 间隔
-@import "markdown"; // markdown
-@import "form"; // 组件
-@import "statistics"; // 统计数据
-
-// FRAME
-body{
-  position: relative;
-  background-color: $bg-main;
-}
-
-.diary {
-  padding-top: $height-navbar;
-  .diary-list-container {
-    border-radius: $radius-whole-ui;
-    overflow: hidden;
-    overflow-y: auto;
-    width: 100%;
-    background-color: $bg-light;
-  }
-  .diary-container {
-    border-radius: $radius-whole-ui;
-    overflow: hidden;
-  }
-}
-
-.diary-list-group-container{
-  padding-bottom: 100px;
-}
-
-// PC & IPAD
-@media (min-width: $grid-separate-width-md) {
-  .diary {
-    display: flex;
-    .diary-list-container {
-      border-right: 1px solid $color-border;
-      overflow-y: auto;
-      width: $menu-panel-big;
-      flex-shrink: 0;
-      background-color: $bg-light;
-    }
-    .diary-container {
-      display: block;
-      overflow-y: auto;
-      flex-grow: 1;
-    }
-  }
-}
-
-// IPAD
-@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
-  .diary {
-    padding-top: $height-navbar;
-    display: flex;
-    .diary-list-container {
-      border-right: 1px solid $color-border;
-      width: 400px;
-    }
-    .diary-container {
-      display: block;
-    }
-  }
-}
-
-// MOBILE
-@media (max-width: $grid-separate-width-md) {
-  .diary {
-    .diary-list-container {
-      width: 100%;
-    }
-    .diary-container {
-      display: none;
-    }
-  }
-}
-
-// VCalendar
-.vc-container {
-  width: auto !important;
-}
-
-@import "dark";
+@use "reset";
+@use "plugin" as *;
+@use "normalize";
+@use "login-register"; // menu
+@use "menu"; // menu
+@use "menu-section"; // menu
+@use "gutter"; // 间隔
+@use "markdown"; // markdown
+@use "form"; // 组件
+@use "statistics"; // 统计数据
+@use "diary-layout";
+@use "dark";

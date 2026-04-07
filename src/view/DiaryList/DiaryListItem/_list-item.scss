@@ -1,4 +1,5 @@
-@import "../../../scss/plugin";
+@use "sass:color" as color;
+@use "../../../scss/plugin" as *;
 
 .diary-list-item{
   cursor: pointer;
@@ -68,7 +69,7 @@
       text-align: right;
       &.bill-in{
         //font-weight: bold;
-        color: lighten(desaturate($magenta, 20%), 0%);
+        color: color.adjust(color.adjust($magenta, $saturation: -20%), $lightness: 0%);
       }
     }
     &:after{
@@ -133,7 +134,7 @@
       }
       .bill-amount{
         &.bill-in{
-          color: lighten(desaturate($magenta, 10%), 20%);
+          color: color.adjust(color.adjust($magenta, $saturation: -10%), $lightness: 20%);
         }
       }
       &:after{

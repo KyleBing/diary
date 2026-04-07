@@ -64,7 +64,9 @@ function logout() {
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "sass:color" as color;
+
+@use "../../scss/plugin" as *;
 .user-profile{
     padding: 40px 20px 10px;
     .avatar{
@@ -79,24 +81,24 @@ function logout() {
             width: 100%;
             display: block;
         }
-        box-shadow: 0px 0px 0 transparentize(black, 0.6);
+        box-shadow: 0px 0px 0 color.adjust(black, $alpha: -0.6);
         transition: all 0.3s;
         &:hover{
             $timer: 0.1;
             transition: all 0.3s;
-            box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
-                    -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
-                    -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
-                    -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
-                    15px*$timer -15px*$timer 10px*$timer transparentize($blue, 0.1),
-                    65px*$timer 65px*$timer 30px*$timer transparentize($yellow, 0.6),
-                    20px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.2),
-                    -20px*$timer -45px*$timer 15px*$timer transparentize($red, 0.6),
-                    -105px*$timer 38px*$timer 20px*$timer transparentize($green, 0.5),
-                    15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
-                    140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
-                    -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                    60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
+            box-shadow: 3px*$timer 3px*$timer 0 color.adjust(black, $alpha: -0.6),
+                    -5px*$timer -8px*$timer 3px*$timer color.adjust($color-main, $alpha: -0.3),
+                    -15px*$timer 13px*$timer 4px*$timer color.adjust($green, $alpha: -0.3),
+                    -45px*$timer 8px*$timer 10px*$timer color.adjust($cyan, $alpha: -0.5),
+                    15px*$timer -15px*$timer 10px*$timer color.adjust($blue, $alpha: -0.1),
+                    65px*$timer 65px*$timer 30px*$timer color.adjust($yellow, $alpha: -0.6),
+                    20px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.2),
+                    -20px*$timer -45px*$timer 15px*$timer color.adjust($red, $alpha: -0.6),
+                    -105px*$timer 38px*$timer 20px*$timer color.adjust($green, $alpha: -0.5),
+                    15px*$timer -105px*$timer 10px*$timer color.adjust($blue, $alpha: -0.6),
+                    140px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.6),
+                    -20px*$timer -145px*$timer 40px*$timer color.adjust($yellow, $alpha: -0.6),
+                    60px*$timer -65px*$timer 40px*$timer color.adjust($magenta, $alpha: -0.2),;
         }
     }
     .user-info{
@@ -104,7 +106,7 @@ function logout() {
         padding: 8px 10px;
         border-radius: $radius-pc $radius-pc 0 0;
         display: flex;
-        //background-color: transparentize(white, 0.9);
+        //background-color: color.adjust(white, $alpha: -0.9);
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
@@ -143,7 +145,7 @@ function logout() {
         border-top: 1px solid rgba(255,255,255,0.1);
         border-radius: $radius-mobile;
         display: flex;
-        background-color: transparentize(white, 0.9);
+        background-color: color.adjust(white, $alpha: -0.9);
         justify-content: space-around;
         align-items: center;
         line-height: 1.5;
@@ -181,52 +183,52 @@ function logout() {
 
     0%{
         $timer: 0.3;
-        box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
-                -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
-                -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
-                -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
-                15px*$timer -15px*$timer 10px*$timer transparentize($blue, 0.1),
-                65px*$timer 65px*$timer 30px*$timer transparentize($yellow, 0.6),
-                20px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.2),
-                -20px*$timer -45px*$timer 15px*$timer transparentize($red, 0.6),
-                -105px*$timer 38px*$timer 20px*$timer transparentize($green, 0.5),
-                15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
-                140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
-                -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
+        box-shadow: 3px*$timer 3px*$timer 0 color.adjust(black, $alpha: -0.6),
+                -5px*$timer -8px*$timer 3px*$timer color.adjust($color-main, $alpha: -0.3),
+                -15px*$timer 13px*$timer 4px*$timer color.adjust($green, $alpha: -0.3),
+                -45px*$timer 8px*$timer 10px*$timer color.adjust($cyan, $alpha: -0.5),
+                15px*$timer -15px*$timer 10px*$timer color.adjust($blue, $alpha: -0.1),
+                65px*$timer 65px*$timer 30px*$timer color.adjust($yellow, $alpha: -0.6),
+                20px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.2),
+                -20px*$timer -45px*$timer 15px*$timer color.adjust($red, $alpha: -0.6),
+                -105px*$timer 38px*$timer 20px*$timer color.adjust($green, $alpha: -0.5),
+                15px*$timer -105px*$timer 10px*$timer color.adjust($blue, $alpha: -0.6),
+                140px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.6),
+                -20px*$timer -145px*$timer 40px*$timer color.adjust($yellow, $alpha: -0.6),
+                60px*$timer -65px*$timer 40px*$timer color.adjust($magenta, $alpha: -0.2),;
     }
 
     50%{
         $timer: 0.5;
-        box-shadow: -3px*$timer 3px*$timer 0 transparentize(black, 0.6),
-                -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
-                -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
-                45px*$timer -8px*$timer 10px*$timer transparentize($cyan, 0.5),
-                -15px*$timer 15px*$timer 10px*$timer transparentize($blue, 0.1),
-                15px*$timer -5px*$timer 30px*$timer transparentize($yellow, 0.6),
-                20px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.2),
-                -20px*$timer 45px*$timer 15px*$timer transparentize($red, 0.6),
-                5px*$timer 18px*$timer 20px*$timer transparentize($green, 0.5),
-                -15px*$timer 105px*$timer 10px*$timer transparentize($blue, 0.6),
-                14px*$timer 15px*$timer 35px*$timer transparentize($magenta, 0.6),
-                -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                20px*$timer -15px*$timer 0px*$timer transparentize($magenta, 0.2),;
+        box-shadow: -3px*$timer 3px*$timer 0 color.adjust(black, $alpha: -0.6),
+                -5px*$timer -8px*$timer 3px*$timer color.adjust($color-main, $alpha: -0.3),
+                -15px*$timer 13px*$timer 4px*$timer color.adjust($green, $alpha: -0.3),
+                45px*$timer -8px*$timer 10px*$timer color.adjust($cyan, $alpha: -0.5),
+                -15px*$timer 15px*$timer 10px*$timer color.adjust($blue, $alpha: -0.1),
+                15px*$timer -5px*$timer 30px*$timer color.adjust($yellow, $alpha: -0.6),
+                20px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.2),
+                -20px*$timer 45px*$timer 15px*$timer color.adjust($red, $alpha: -0.6),
+                5px*$timer 18px*$timer 20px*$timer color.adjust($green, $alpha: -0.5),
+                -15px*$timer 105px*$timer 10px*$timer color.adjust($blue, $alpha: -0.6),
+                14px*$timer 15px*$timer 35px*$timer color.adjust($magenta, $alpha: -0.6),
+                -20px*$timer -145px*$timer 40px*$timer color.adjust($yellow, $alpha: -0.6),
+                20px*$timer -15px*$timer 0px*$timer color.adjust($magenta, $alpha: -0.2),;
     }
     100%{
         $timer: 0.3;
-        box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
-                -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
-                -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
-                -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
-                15px*$timer -15px*$timer 10px*$timer transparentize($blue, 0.1),
-                65px*$timer 65px*$timer 30px*$timer transparentize($yellow, 0.6),
-                20px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.2),
-                -20px*$timer -45px*$timer 15px*$timer transparentize($red, 0.6),
-                -105px*$timer 38px*$timer 20px*$timer transparentize($green, 0.5),
-                15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
-                140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
-                -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
+        box-shadow: 3px*$timer 3px*$timer 0 color.adjust(black, $alpha: -0.6),
+                -5px*$timer -8px*$timer 3px*$timer color.adjust($color-main, $alpha: -0.3),
+                -15px*$timer 13px*$timer 4px*$timer color.adjust($green, $alpha: -0.3),
+                -45px*$timer 8px*$timer 10px*$timer color.adjust($cyan, $alpha: -0.5),
+                15px*$timer -15px*$timer 10px*$timer color.adjust($blue, $alpha: -0.1),
+                65px*$timer 65px*$timer 30px*$timer color.adjust($yellow, $alpha: -0.6),
+                20px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.2),
+                -20px*$timer -45px*$timer 15px*$timer color.adjust($red, $alpha: -0.6),
+                -105px*$timer 38px*$timer 20px*$timer color.adjust($green, $alpha: -0.5),
+                15px*$timer -105px*$timer 10px*$timer color.adjust($blue, $alpha: -0.6),
+                140px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.6),
+                -20px*$timer -145px*$timer 40px*$timer color.adjust($yellow, $alpha: -0.6),
+                60px*$timer -65px*$timer 40px*$timer color.adjust($magenta, $alpha: -0.2),;
     }
 
 

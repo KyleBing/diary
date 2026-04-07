@@ -1,4 +1,5 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .bill-content{
   width: 100%;
@@ -109,12 +110,12 @@
             color: $yellow;
           }
           .text-gray{
-            color: transparentize(white, 0.2);
+            color: color.adjust(white, $alpha: -0.2);
           }
         }
       }
       &:nth-child(even){
-        //background-color: transparentize(black, 0.95);
+        //background-color: color.adjust(black, $alpha: -0.95);
       }
     }
   }
@@ -122,7 +123,7 @@
 
   &:hover{
     transition: all 0.5s;
-    //box-shadow: 2px 2px 5px transparentize(black, 0.8);
+    //box-shadow: 2px 2px 5px color.adjust(black, $alpha: -0.8);
   }
 }
 

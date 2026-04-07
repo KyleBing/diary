@@ -1,3 +1,6 @@
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
+
 .file-list-item{
   margin-left: 20px;
   margin-bottom: 20px;
@@ -77,7 +80,7 @@
 // DARK
 @media (prefers-color-scheme: dark) {
   .file-list-item{
-    background: linear-gradient(white, darken(white, 20%));
+    background: linear-gradient(white, color.adjust(white, $lightness: -20%));
   }
 }
 

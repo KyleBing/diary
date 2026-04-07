@@ -182,7 +182,7 @@ function hideContent(content: string): string {
 </script>
 
 <style scoped lang="scss">
-@import "../../../scss/plugin";
+@use "../../../scss/plugin" as *;
 .borrow-list{
     padding-top: 10px;
 }

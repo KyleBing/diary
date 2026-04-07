@@ -100,5 +100,5 @@ const diaryItemCategoryTextStyle = computed(()=>{
 </script>
 
 <style lang="scss" scoped>
-@import "./list-item-long";
+@use "./list-item-long" as *;
 </style>

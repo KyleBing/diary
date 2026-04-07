@@ -59,7 +59,9 @@ const contentMarkDownHtml = computed<string>(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/plugin";
+@use "sass:color" as color;
+
+@use "../../scss/plugin" as *;
 
 $animate-width: 5px;
 
@@ -114,7 +116,7 @@ $animate-width: 5px;
             margin-right: 5px;
         }
     }
-    outline: 0 solid transparentize(black, 0.6);
+    outline: 0 solid color.adjust(black, $alpha: -0.6);
     &:hover{
         z-index: 999;
         background-color: white;

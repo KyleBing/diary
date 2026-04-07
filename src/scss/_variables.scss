@@ -1,3 +1,5 @@
+@use "sass:color" as color;
+
 // Colors
 $green        : #4CD964;
 $cyan         : #5AC8FA;
@@ -29,13 +31,13 @@ $bg-searchbar   : #E5E5EA;
 $bg-share       : #FFFDF8;
 $bg-bill-brief  : #fdfdfd;
 $bg-setup       : #121212;
-$bg-setup-card  : lighten(black, 18%);
+$bg-setup-card  : color.adjust(black, $lightness: 18%);
 
 // Border
 $color-border           : #ddd;
 $color-border-bill      : #d7d7d7;
-$color-border-light     : lighten($color-border, 5%);
-$color-border-highlight : darken($color-border, 15%);
+$color-border-light     : color.adjust($color-border, $lightness: 5%);
+$color-border-highlight : color.adjust($color-border, $lightness: -15%);
 $color-border-share     : #F0E8DB;
 $color-border-menu      : #646464;
 $color-border-search-bar: #646464;
@@ -120,42 +122,42 @@ $weathers: (
 
 // DARK VALUES
 $dark-color: black;
-$dark-bg               : lighten($dark-color, 20%) ;
-$dark-bg-dark          : lighten($dark-color, 15%) ;
-$dark-bg-selector      : lighten($dark-color, 20%) ;
-$dark-bg-page-header   : lighten($dark-color, 35%) ;
+$dark-bg               : color.adjust($dark-color, $lightness: 20%) ;
+$dark-bg-dark          : color.adjust($dark-color, $lightness: 15%) ;
+$dark-bg-selector      : color.adjust($dark-color, $lightness: 20%) ;
+$dark-bg-page-header   : color.adjust($dark-color, $lightness: 35%) ;
 
-$dark-bg-nav           : lighten($dark-color, 10%) ;
-$dark-border-nav       : lighten($dark-color, 2%) ;
+$dark-bg-nav           : color.adjust($dark-color, $lightness: 10%) ;
+$dark-border-nav       : color.adjust($dark-color, $lightness: 2%) ;
 $dark-border-setup     : #3b3b3b;
 
-$dark-bg-td            : lighten($dark-color, 23%);
-$dark-bg-td-even       : lighten($dark-color, 20%);
-$dark-bg-td-active     : lighten($dark-color, 30%);
-$dark-bg-bill-brief    : lighten($dark-color, 18%);
-$dark-bg-main          : lighten($dark-color, 20%);
-$dark-bg-menu          : lighten($dark-color, 18%);
-$dark-bg-setup-card    : darken($bg-setup-card, 4%);
+$dark-bg-td            : color.adjust($dark-color, $lightness: 23%);
+$dark-bg-td-even       : color.adjust($dark-color, $lightness: 20%);
+$dark-bg-td-active     : color.adjust($dark-color, $lightness: 30%);
+$dark-bg-bill-brief    : color.adjust($dark-color, $lightness: 18%);
+$dark-bg-main          : color.adjust($dark-color, $lightness: 20%);
+$dark-bg-menu          : color.adjust($dark-color, $lightness: 18%);
+$dark-bg-setup-card    : color.adjust($bg-setup-card, $lightness: -4%);
 
 
 
-$dark-border           : lighten($dark-color, 26%) ;
-$dark-border-active    : lighten($dark-color, 35%) ;
+$dark-border           : color.adjust($dark-color, $lightness: 26%) ;
+$dark-border-active    : color.adjust($dark-color, $lightness: 35%) ;
 
-$dark-menu-border      : lighten($dark-color, 28%)  ;
-$dark-list-header-bg   : lighten($dark-color, 14%) ;
-$dark-list-bg          : lighten($dark-color, 20%) ;
-$dark-list-bg-active   : lighten($dark-color, 23%) ;
-$dark-text-title       : lighten($dark-color, 85%) ;
-$dark-text-label       : lighten($dark-color, 35%) ;
-$dark-text             : lighten($dark-color, 70%) ;
-$dark-text-subtitle    : lighten($dark-color, 60%) ;
+$dark-menu-border      : color.adjust($dark-color, $lightness: 28%)  ;
+$dark-list-header-bg   : color.adjust($dark-color, $lightness: 14%) ;
+$dark-list-bg          : color.adjust($dark-color, $lightness: 20%) ;
+$dark-list-bg-active   : color.adjust($dark-color, $lightness: 23%) ;
+$dark-text-title       : color.adjust($dark-color, $lightness: 85%) ;
+$dark-text-label       : color.adjust($dark-color, $lightness: 35%) ;
+$dark-text             : color.adjust($dark-color, $lightness: 70%) ;
+$dark-text-subtitle    : color.adjust($dark-color, $lightness: 60%) ;
 
-$dark-text-header-date: lighten($dark-color, 80%) ;
-$dark-text-header-lunar: lighten($dark-color, 60%) ;
+$dark-text-header-date: color.adjust($dark-color, $lightness: 80%) ;
+$dark-text-header-lunar: color.adjust($dark-color, $lightness: 60%) ;
 
-$dark-text-bill-price  : lighten($dark-color, 80%) ;
+$dark-text-bill-price  : color.adjust($dark-color, $lightness: 80%) ;
 
-$dark-scroll-thumb     : lighten($dark-color, 30%) ;
+$dark-scroll-thumb     : color.adjust($dark-color, $lightness: 30%) ;
 
 

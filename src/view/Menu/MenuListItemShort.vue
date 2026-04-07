@@ -32,7 +32,8 @@ export default {
 
 <style lang="scss" scoped>
 @use "sass:math";
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 $height-menu-list: 50px;
 $height-icon: 34px;
 
@@ -52,8 +53,8 @@ $gap: 16px;
 
         position: relative;
         padding: 0 5px 0 15px;
-        background-color: lighten($bg-menu, 4%);
-        //border: 1px solid lighten($bg-menu, 8%);
+        background-color: color.adjust($bg-menu, $lightness: 4%);
+        //border: 1px solid color.adjust($bg-menu, $lightness: 8%);
         border-top: 1px solid rgba(255,255,255,0.2);
         border-left: 1px solid rgba(255,255,255,0.1);
         //background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
@@ -64,14 +65,14 @@ $gap: 16px;
         border-radius: $radius-mobile;
         overflow: hidden;
         &:hover{
-            border-color: lighten($bg-menu, 12%);
-            background-color: lighten($bg-menu, 9%);
+            border-color: color.adjust($bg-menu, $lightness: 12%);
+            background-color: color.adjust($bg-menu, $lightness: 9%);
 
             border-top: 1px solid rgba(255,255,255,0.3);
             border-left: 1px solid rgba(255,255,255,0.2);
         }
         &:active{
-            background-color: lighten($bg-menu,12%);
+            background-color: color.adjust($bg-menu, $lightness: 12%);
         }
 
 
@@ -149,7 +150,7 @@ $gap: 16px;
     .menu-list-item{
         color: $dark-text-title;
         .menu-list-item-wrapper{
-            background-color: lighten($dark-bg-main, 3%);
+            background-color: color.adjust($dark-bg-main, $lightness: 3%);
             border-color: $dark-menu-border;
         }
         .menu-list-item-content{

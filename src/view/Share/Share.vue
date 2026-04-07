@@ -183,5 +183,5 @@ watch(() => route.params.id, newValue => {
 
 </script>
 <style lang="scss">
-@import "./share";
+@use "./share" as *;
 </style>

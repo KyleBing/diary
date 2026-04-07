@@ -11,7 +11,7 @@ const projectStore = useProjectStore()
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 .menu-panel-container{
     padding: 30px;
     overflow-y: auto;

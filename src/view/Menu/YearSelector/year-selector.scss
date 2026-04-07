@@ -1,5 +1,6 @@
 @use "sass:math";
-@import "../../../scss/plugin";
+@use "sass:color" as color;
+@use "../../../scss/plugin" as *;
 
 .year-container{
   overflow-y: auto;
@@ -42,7 +43,7 @@
     margin-right: 0;
   }
   .month{
-    color: darken($bg-menu, 10%);
+    color: color.adjust($bg-menu, $lightness: -10%);
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
@@ -64,9 +65,9 @@
   }
   &.active{
     background-color: $color-main;
-    background: linear-gradient(to bottom right, $color-main, darken($color-main, 5%));
+    background: linear-gradient(to bottom right, $color-main, color.adjust($color-main, $lightness: -5%));
     transition: all 0;
-    text-shadow: 1px 0 2px transparentize(black, 0.6);
+    text-shadow: 1px 0 2px color.adjust(black, $alpha: -0.6);
     .month{
       color: white;
       transition: all 0;

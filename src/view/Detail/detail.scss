@@ -1,4 +1,5 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .diary-detail{
   background-color: white;
@@ -82,7 +83,7 @@
   font-size: $fz-main;
   padding: 5px 10px;
   border-radius: 30px;
-  background-color: transparentize(white, 0.5);
+  background-color: color.adjust(white, $alpha: -0.5);
   border: 1px solid $color-border;
   &:hover{
     background-color: $bg-light;

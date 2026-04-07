@@ -9,7 +9,7 @@
 </script>
 
 <style lang="scss">
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 .modal{
     padding: 20px 30px;
     background-color: $bg-main;

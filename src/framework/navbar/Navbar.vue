@@ -408,5 +408,5 @@ function showMenuCategorySelector(){
 </script>
 
 <style lang="scss" scoped>
-@import "navbar";
+@use "navbar" as *;
 </style>

@@ -165,7 +165,7 @@ function getAvatar(){
 
 </script>
 <style lang="scss" scoped>
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .copyright{
     left: 0;
     width: 100%;

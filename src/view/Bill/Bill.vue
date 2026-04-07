@@ -150,7 +150,8 @@ function hideBigIncome(){
 </script>
 
 <style lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
+@use "bill" as *;
 
 // 对应 tooltip 的样式： theme 名， tooltip-bill
 .v-popper--theme-tooltip-bill {
@@ -166,7 +167,5 @@ function hideBigIncome(){
         border-color: $bg-main;
     }
 }
-
-@import "bill";
 
 </style>

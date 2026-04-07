@@ -96,7 +96,8 @@ function getTemperatureClassName(temperature: number): string{
 </script>
 
 <style scoped lang="scss">
-@import "/src/scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .diary-header{
     background-color: $bg-light;
@@ -245,7 +246,7 @@ function getTemperatureClassName(temperature: number): string{
 
 @media (prefers-color-scheme: dark) {
     .diary-header {
-        background-color: darken($dark-bg, 5%);
+        background-color: color.adjust($dark-bg, $lightness: -5%);
         color: $dark-text;
         .date-wrapper {
             color: $bg-main;

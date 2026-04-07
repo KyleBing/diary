@@ -54,7 +54,7 @@ watch(temperatureLocal, newValue => {
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .temperature-set-item{
     width: 100%;

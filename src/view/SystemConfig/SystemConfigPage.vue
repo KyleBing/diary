@@ -220,6 +220,6 @@ async function saveConfig() {
 </script>
 
 <style scoped lang="scss">
-@import "../Setup/setup-wizard";
-@import "system-config-page";
+@use "../Setup/setup-wizard" as *;
+@use "system-config-page" as *;
 </style>

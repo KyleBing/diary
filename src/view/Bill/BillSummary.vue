@@ -101,7 +101,7 @@ function recalculateData(){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .bill-list-big{
     .bill-list-big-item{

@@ -162,7 +162,9 @@ function saveOrder() {
 </script>
 
 <style lang="scss">
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
+@use "bill" as *;
 
 .bill-container {
     display: flex;
@@ -217,7 +219,7 @@ function saveOrder() {
     position: relative;
 
     &:hover {
-        background-color: lighten($bg-light, 2%);
+        background-color: color.adjust($bg-light, $lightness: 2%);
         border-color: $color-border-highlight;
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -316,7 +318,7 @@ function saveOrder() {
         border-color: $dark-border;
 
         &:hover {
-            background-color: lighten($dark-bg-dark, 3%);
+            background-color: color.adjust($dark-bg-dark, $lightness: 3%);
             border-color: $dark-border-active;
         }
 
@@ -337,6 +339,4 @@ function saveOrder() {
         color: $dark-text;
     }
 }
-
-@import "bill";
 </style>

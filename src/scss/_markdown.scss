@@ -1,3 +1,6 @@
+@use "sass:color" as color;
+@use "plugin" as *;
+
 $gap: 15px;
 $gap-small: 8px;
 
@@ -143,7 +146,7 @@ $gap-small: 8px;
         margin-bottom: 15px;
         padding-top: 10px;
         padding-bottom: 10px;
-        border-left: 3px solid transparentize(black, 0.8);
+        border-left: 3px solid color.adjust(black, $alpha: -0.8);
         padding-left: 18px;
         background-color: #f5f5f5;
         > *:last-child{
@@ -214,7 +217,7 @@ $gap-small: 8px;
         }
         blockquote{
             background-color: $dark-bg;
-            border-left: 3px solid darken(white, 60%);
+            border-left: 3px solid color.adjust(white, $lightness: -60%);
         }
         a{
             color: $dark-text-title;
@@ -296,7 +299,7 @@ $gap-small: 8px;
     }
     blockquote{
         background-color: $dark-bg;
-        border-left: 3px solid darken(white, 60%);
+        border-left: 3px solid color.adjust(white, $lightness: -60%);
     }
     a{
         color: $dark-text-title;

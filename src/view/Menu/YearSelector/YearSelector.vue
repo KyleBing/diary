@@ -48,5 +48,5 @@ function monthClicked(monthId: string) {
 </script>
 
 <style lang="scss" scoped>
-@import "year-selector";
+@use "year-selector" as *;
 </style>

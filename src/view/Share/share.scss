@@ -1,5 +1,6 @@
 @use "sass:math";
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 $height-share-header: 70px;
 $height-weather: 35px; // category line height
@@ -32,8 +33,8 @@ $height-temperature: $height-share-header - $height-weather - $meta-padding * 2;
   padding: 60px;
   width: $grid-separate-width-sm;
   margin: 0 auto;
-  border-top: 1px solid lighten($color-border, 2%);
-  border-left: 1px solid lighten($color-border, 2%);
+  border-top: 1px solid color.adjust($color-border, $lightness: 2%);
+  border-left: 1px solid color.adjust($color-border, $lightness: 2%);
   border-radius: 3px;
   background-color: $bg-share;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);

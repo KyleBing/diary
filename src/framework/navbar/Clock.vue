@@ -65,13 +65,15 @@ function clockStop(){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "sass:color" as color;
+
+@use "../../scss/plugin" as *;
 .clock{
     height: $height-navbar;
     align-items: center;
     justify-content: center;
     display: flex;
-    color: transparentize(white, 0.4);
+    color: color.adjust(white, $alpha: -0.4);
     font-size: $fz-main;
     > *{
         padding: 0 5px;

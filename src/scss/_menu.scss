@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "utility" as *;
+
 // MENU
 $menu-category-list-item-height: 40px;
 
@@ -53,7 +56,6 @@ $menu-category-list-item-height: 40px;
 }
 .menu-category-item {
   @extend .btn-like;
-  @extend .unselectable;
   flex-shrink: 0;
   position: relative;
   display: block;

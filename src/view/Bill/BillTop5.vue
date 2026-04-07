@@ -33,7 +33,7 @@ function changeCurrentState(billItem: EntityBillTop5Item){
 
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .summary{
     padding: 20px 25px;
     color: $text-content;

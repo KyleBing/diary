@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "../../../scss/plugin";
+@use "../../../scss/plugin" as *;
 
 .edit-category-selector{
   border-radius: $radius-pc;

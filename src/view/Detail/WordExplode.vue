@@ -182,7 +182,7 @@ function isCombination(newChar: string, oldChar: string): boolean {
 </script>
 
 <style lang="scss">
-@import "../../../src/scss/plugin";
+@use "../../scss/plugin" as *;
 
 .word-explode{
 

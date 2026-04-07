@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/_plugin.scss";
+@use "../../scss/plugin" as *;
 
 .date-item{
     align-items: center;

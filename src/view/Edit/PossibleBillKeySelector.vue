@@ -29,7 +29,7 @@ const emit = defineEmits(['selectKey'])
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 .possible-bill-key-list{
   z-index: 999;
   max-height: 600px;

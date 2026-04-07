@@ -346,7 +346,7 @@ function addScrollEvent() {
 </script>
 
 <style lang="scss" scoped>
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .diary-list-waterfall{
     width: 100%;

@@ -136,7 +136,8 @@ const iconMap = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/plugin";
+@use "sass:color" as color;
+@use "../scss/plugin" as *;
 $icon-padding-pc: 5px;
 $icon-padding-mobile: 3px;
 
@@ -162,14 +163,14 @@ $icon-padding-mobile: 3px;
     &:hover{
         img{
             border-radius: 10px;
-            background-color: lighten($bg-menu, 0%);
+            background-color: color.adjust($bg-menu, $lightness: 0%);
         }
     }
     &:active{
         img{
             border-radius: 50px;
             transition: all 0s;
-            background-color: lighten($bg-menu, 5%);
+            background-color: color.adjust($bg-menu, $lightness: 5%);
         }
     }
 
@@ -188,12 +189,12 @@ $icon-padding-mobile: 3px;
         //background-color: darken(white, 60%);
         &:hover{
             img{
-                background-color: lighten(white, 0%);
+                background-color: color.adjust(white, $lightness: 0%);
             }
         }
         &:active{
             img{
-                background-color: lighten(white, 5%);
+                background-color: color.adjust(white, $lightness: 5%);
             }
         }
     }
@@ -211,12 +212,12 @@ $icon-padding-mobile: 3px;
     .icon-btn{
         &:hover{
             img{
-                background-color: lighten($dark-bg, 2%);
+                background-color: color.adjust($dark-bg, $lightness: 2%);
             }
         }
         &:active{
             img{
-                background-color: lighten($dark-bg, 6%);
+                background-color: color.adjust($dark-bg, $lightness: 6%);
             }
         }
     }

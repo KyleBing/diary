@@ -30,7 +30,7 @@ const emit = defineEmits( ['click', 'submit'])
 
 
 <style scoped lang="scss">
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 .btn{
     display: flex;
     justify-content: center;

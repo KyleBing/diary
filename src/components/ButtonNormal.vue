@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-@import "../scss/plugin";
+@use "../scss/plugin" as *;
 
 .btn-normal{
     line-height: 1;

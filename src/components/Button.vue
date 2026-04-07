@@ -13,12 +13,13 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-@import "../scss/plugin";
+@use "sass:color" as color;
+@use "../scss/plugin" as *;
 .button {
     border: 1px solid $color-border;
     padding: 8px 15px;
     text-align: center;
-    background: linear-gradient(to bottom, lighten($bg-light, 20%), $bg-light);
+    background: linear-gradient(to bottom, color.adjust($bg-light, $lightness: 20%), $bg-light);
     font-weight: bold;
     width: 100%;
     display: block;
@@ -33,13 +34,13 @@ defineProps<{
     &.active {
         border-color: $color-main;
         color: $bg-main;
-        background: linear-gradient(to bottom, lighten($color-main, 20%), $color-main);
+        background: linear-gradient(to bottom, color.adjust($color-main, $lightness: 20%), $color-main);
         //background-color: $color-main;
         &:hover {
-            background: linear-gradient(to bottom, lighten($color-main, 10%), $color-main);
+            background: linear-gradient(to bottom, color.adjust($color-main, $lightness: 10%), $color-main);
         }
         &:active{
-            background: linear-gradient(to top, lighten($color-main, 20%), $color-main);
+            background: linear-gradient(to top, color.adjust($color-main, $lightness: 20%), $color-main);
         }
     }
 }

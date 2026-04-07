@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables" as *;
 
 .unselectable{
   -webkit-user-select: none;

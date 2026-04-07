@@ -1,9 +1,10 @@
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .load-more {
   @extend .unselectable;
   background-color: white;
-  border: 1px solid lighten($gray, 10%);
+  border: 1px solid color.adjust($gray, $lightness: 10%);
   display: block;
   line-height: 30px;
   font-size: $fz-list-content;
@@ -45,7 +46,7 @@
     font-size: 1em;
     &:focus{
       border-color: $color-border-search-bar;
-      box-shadow: 1px 1px 5px transparentize($color-border-search-bar, 0.7);
+      box-shadow: 1px 1px 5px color.adjust($color-border-search-bar, $alpha: -0.7);
     }
   }
   .clear{

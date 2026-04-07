@@ -114,7 +114,8 @@ function markAsShared(invitationId: number | string){
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "sass:color" as color;
+@use "../../scss/plugin" as *;
 
 .invitation-container{
     padding: 30px;
@@ -169,8 +170,8 @@ function markAsShared(invitationId: number | string){
             flex-shrink: 0;
         }
         &.shared{
-            background: linear-gradient(lighten($green, 15%), $green);
-            border-top-color: lighten($green, 15%);
+            background: linear-gradient(color.adjust($green, $lightness: 15%), $green);
+            border-top-color: color.adjust($green, $lightness: 15%);
             border-bottom-color: $green;
             border-left-color: $green;
             border-right-color: $green;

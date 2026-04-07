@@ -24,7 +24,7 @@ const isWithSearch = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .list-header{
     position: sticky;

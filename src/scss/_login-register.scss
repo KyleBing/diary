@@ -1,3 +1,7 @@
+@use "sass:color" as color;
+@use "variables" as *;
+@use "utility" as *;
+
 // Register
 
 // Chrome 自动填充会覆盖 input 背景色；用 inset box-shadow 铺满以匹配设计稿背景
@@ -46,35 +50,35 @@
       $timer: 0;
       border: 1px solid $color-main;
       transition: all 0.3s;
-      box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
-                      -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
-                      -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
-                      -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
-                      15px*$timer -15px*$timer 10px*$timer transparentize($blue, 0.1),
-                      65px*$timer 65px*$timer 30px*$timer transparentize($yellow, 0.6),
-                      20px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.2),
-                      -20px*$timer -45px*$timer 15px*$timer transparentize($red, 0.6),
-                      -105px*$timer 38px*$timer 20px*$timer transparentize($green, 0.5),
-                      15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
-                      140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
-                      -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                      60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
+      box-shadow: 3px*$timer 3px*$timer 0 color.adjust(black, $alpha: -0.6),
+                      -5px*$timer -8px*$timer 3px*$timer color.adjust($color-main, $alpha: -0.3),
+                      -15px*$timer 13px*$timer 4px*$timer color.adjust($green, $alpha: -0.3),
+                      -45px*$timer 8px*$timer 10px*$timer color.adjust($cyan, $alpha: -0.5),
+                      15px*$timer -15px*$timer 10px*$timer color.adjust($blue, $alpha: -0.1),
+                      65px*$timer 65px*$timer 30px*$timer color.adjust($yellow, $alpha: -0.6),
+                      20px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.2),
+                      -20px*$timer -45px*$timer 15px*$timer color.adjust($red, $alpha: -0.6),
+                      -105px*$timer 38px*$timer 20px*$timer color.adjust($green, $alpha: -0.5),
+                      15px*$timer -105px*$timer 10px*$timer color.adjust($blue, $alpha: -0.6),
+                      140px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.6),
+                      -20px*$timer -145px*$timer 40px*$timer color.adjust($yellow, $alpha: -0.6),
+                      60px*$timer -65px*$timer 40px*$timer color.adjust($magenta, $alpha: -0.2),;
       &.valid{
         $timer: 0.15;
         transition: all 0.3s;
-        box-shadow: 3px*$timer 3px*$timer 0 transparentize(black, 0.6),
-                -5px*$timer -8px*$timer 3px*$timer transparentize($color-main, 0.3),
-                -15px*$timer 13px*$timer 4px*$timer transparentize($green, 0.3),
-                -45px*$timer 8px*$timer 10px*$timer transparentize($cyan, 0.5),
-                15px*$timer -15px*$timer 10px*$timer transparentize($blue, 0.1),
-                65px*$timer 65px*$timer 30px*$timer transparentize($yellow, 0.6),
-                20px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.2),
-                -20px*$timer -45px*$timer 15px*$timer transparentize($red, 0.6),
-                -105px*$timer 38px*$timer 20px*$timer transparentize($green, 0.5),
-                15px*$timer -105px*$timer 10px*$timer transparentize($blue, 0.6),
-                140px*$timer 45px*$timer 15px*$timer transparentize($magenta, 0.6),
-                -20px*$timer -145px*$timer 40px*$timer transparentize($yellow, 0.6),
-                60px*$timer -65px*$timer 40px*$timer transparentize($magenta, 0.2),;
+        box-shadow: 3px*$timer 3px*$timer 0 color.adjust(black, $alpha: -0.6),
+                -5px*$timer -8px*$timer 3px*$timer color.adjust($color-main, $alpha: -0.3),
+                -15px*$timer 13px*$timer 4px*$timer color.adjust($green, $alpha: -0.3),
+                -45px*$timer 8px*$timer 10px*$timer color.adjust($cyan, $alpha: -0.5),
+                15px*$timer -15px*$timer 10px*$timer color.adjust($blue, $alpha: -0.1),
+                65px*$timer 65px*$timer 30px*$timer color.adjust($yellow, $alpha: -0.6),
+                20px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.2),
+                -20px*$timer -45px*$timer 15px*$timer color.adjust($red, $alpha: -0.6),
+                -105px*$timer 38px*$timer 20px*$timer color.adjust($green, $alpha: -0.5),
+                15px*$timer -105px*$timer 10px*$timer color.adjust($blue, $alpha: -0.6),
+                140px*$timer 45px*$timer 15px*$timer color.adjust($magenta, $alpha: -0.6),
+                -20px*$timer -145px*$timer 40px*$timer color.adjust($yellow, $alpha: -0.6),
+                60px*$timer -65px*$timer 40px*$timer color.adjust($magenta, $alpha: -0.2),;
       }
       img {
         width: 100%;
@@ -158,7 +162,7 @@
     &[disabled] {
       cursor: not-allowed;
       background-color: transparent;
-      border: 1px solid transparentize($color-main, 0.8);
+      border: 1px solid color.adjust($color-main, $alpha: -0.8);
     }
   }
 
@@ -183,7 +187,7 @@
     &[disabled] {
       cursor: not-allowed;
       background-color: transparent;
-      border: 1px solid transparentize($color-main, 0.8);
+      border: 1px solid color.adjust($color-main, $alpha: -0.8);
     }
   }
 
@@ -239,7 +243,7 @@
   background-color: $color-main;
 
   &:hover {
-    background-color: darken($color-main, 5%);
+    background-color: color.adjust($color-main, $lightness: -5%);
   }
 }
 
@@ -250,19 +254,19 @@
   background-color: white;
 
   &:hover {
-    background-color: darken(white, 1%);
+    background-color: color.adjust(white, $lightness: -1%);
   }
 }
 
 
 .btn-inactive {
   color: $gray;
-  border: 1px solid transparentize(white, 0.8);
+  border: 1px solid color.adjust(white, $alpha: -0.8);
   background-color: transparent;
 
   &:hover {
-    border: 1px solid transparentize(black, 0.8);
-    background-color: transparentize(black, 0.9);
+    border: 1px solid color.adjust(black, $alpha: -0.8);
+    background-color: color.adjust(black, $alpha: -0.9);
   }
 }
 
@@ -332,17 +336,17 @@
         background-color: $dark-bg;
 
         &:focus {
-          background-color: lighten($dark-bg, 3%);
+          background-color: color.adjust($dark-bg, $lightness: 3%);
         }
 
-        @include login-input-autofill($dark-bg, white, lighten($dark-bg, 3%));
+        @include login-input-autofill($dark-bg, white, color.adjust($dark-bg, $lightness: 3%));
       }
 
       textarea {
         background-color: $dark-bg;
 
         &:focus {
-          background-color: lighten($dark-bg, 3%);
+          background-color: color.adjust($dark-bg, $lightness: 3%);
         }
       }
     }
@@ -353,7 +357,7 @@
     background-color: $dark-bg;
 
     &:hover {
-      background-color: darken($dark-bg, 5%);
+      background-color: color.adjust($dark-bg, $lightness: -5%);
     }
   }
 

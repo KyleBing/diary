@@ -23,7 +23,7 @@ const weekday = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import "../../scss/plugin";
+@use "../../scss/plugin" as *;
 
 .calendar-list-header{
     font-size: $fz-list-header;
