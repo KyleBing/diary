@@ -98,7 +98,10 @@
 }
 
 .command-code{
-  color: $green
+  color: $green;
+  &.warning{
+    color: $red
+  }
 }
 
 @media (prefers-color-scheme: dark) {

@@ -88,7 +88,7 @@
                             初始化会创建 <span class="command-code">diary</span> 数据库，并写入基础表结构。首次注册的用户会自动成为管理员。
                         </p>
                     </div>
-                    <div class="desc" v-if="initMessage">{{ initMessage }}</div>
+                    <div :class="['desc', 'command-code', !isInitSuccess ? 'warning' : '']" v-if="initMessage">{{ initMessage }}</div>
                     <div class="btn-list mt-4" v-if="!status.isInitialized">
                         <button
                             :class="['btn', !isInitializing ? 'btn-active' : 'btn-inactive']"
@@ -99,7 +99,7 @@
                         </button>
                     </div>
                     <div class="btn-list mt-4" v-else>
-                        <button class="btn btn-active" @click="goToLogin">前往登录</button>
+                        <button class="btn btn-active" @click="goToRegister">前往注册</button>
                     </div>
                 </div>
             </template>
@@ -134,6 +134,7 @@ const isSavingConfig = ref(false)
 const isInitializing = ref(false)
 const saveMessage = ref('')
 const initMessage = ref('')
+const isInitSuccess = ref(false)
 
 const status = reactive<SetupStatus>({
     isInitialized: false,
@@ -245,7 +246,12 @@ function runInit() {
         .then(res => {
             status.isInitialized = true
             initMessage.value = `${res.message}，已创建锁文件 ${res.data.lockFileName}。`
-            popMessage('success', res.message)
+            isInitSuccess.value = res.success
+            if (!isInitSuccess.value) {
+                popMessage('danger', res.message, undefined, 2)
+            } else {
+                popMessage('success', res.message)
+            }
         })
         .catch(err => {
             const message = err?.message || '初始化失败'
@@ -257,9 +263,9 @@ function runInit() {
         })
 }
 
-function goToLogin() {
+function goToRegister() {
     window.dispatchEvent(new Event('setup-completed'))
-    router.replace({name: 'Login'})
+    router.replace({name: 'Register'})
 }
 </script>
 

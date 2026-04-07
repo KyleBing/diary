@@ -110,7 +110,9 @@ const heightShare = computed(()=>{
         : projectStore.insets.windowsHeight
 })
 const shareCategoryStyle = computed(()=>{
-    return `background-color: ${useStatisticStore().categoryObjectMap.get(currentDiary.value.category).color}`
+    const cat = currentDiary.value?.category
+    if (!cat) return ''
+    return `background-color: ${useStatisticStore().getCategoryColor(cat)}`
 })
 const contentMarkDownHtml = computed(()=>{
     return marked.parse(currentDiary.value.content)

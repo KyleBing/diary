@@ -4,7 +4,7 @@
                  @click="emit('click')"
                  :style="diaryItemStyle"
     >
-        <i :class="['category']" :style="`background-color: ${statisticStore.categoryObjectMap.get(diary.category).color}`"></i>
+        <i :class="['category']" :style="`background-color: ${statisticStore.getCategoryColor(diary.category)}`"></i>
 
         <span class="date">{{ diary.day }}</span>
 
@@ -65,7 +65,7 @@ const weatherIcon = computed(() => {
 })
 const diaryItemStyle = computed(() => {
     if (props.isActive){
-        return `background-color: ${statisticStore.categoryObjectMap.get(props.diary.category).color}`
+        return `background-color: ${statisticStore.getCategoryColor(props.diary.category)}`
     }
 })
 const contentIcon = computed(() => {

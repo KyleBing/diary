@@ -90,6 +90,8 @@ import {useRouter, useRoute} from "vue-router";
 import { useStatisticStore } from "@/pinia/useStatisticStore";
 import Loading from "@/components/Loading.vue";
 
+const statisticStore = useStatisticStore()
+
 interface CalendarDay {
     id: string, // 2025-08-02
     date: Date,
@@ -152,7 +154,7 @@ function getAllShowingCalendarDiaries() {
         .then(res => {
             isLoading.value = false
             diaryList.value = res.data.map((diary: EntityDiaryFromServerCategoryOnly) => {
-                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
+                diary.categoryString = statisticStore.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
                 diary.dateString = dateProcess(diary.date).date
@@ -185,10 +187,10 @@ function getAllShowingCalendarDiaries() {
                     key: item.id,
                     bar: {
                         style: {
-                            backgroundColor: useStatisticStore().categoryObjectMap.get(item.category).color
+                            backgroundColor: statisticStore.getCategoryColor(item.category)
                         }
                     },
-                    color: useStatisticStore().categoryObjectMap.get(item.category).color,
+                    color: statisticStore.getCategoryColor(item.category),
                     dates: new Date(item.date),
                     popover: {
                         label: item.title,
@@ -234,11 +236,11 @@ function getDiaryListOfDay(day: CalendarDay) {
                 if (diary.content) {
                     diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
                 }
-                diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
+                diary.categoryString = statisticStore.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday
                 diary.weekdayShort = EnumWeekDayShort[new Date(diary.date).getDay()]
                 diary.dateString = dateProcess(diary.date).date
-                diary.color = useStatisticStore().categoryObjectMap.get(diary.category).color
+                diary.color = statisticStore.getCategoryColor(diary.category)
                 return diary
             })
         })

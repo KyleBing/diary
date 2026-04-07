@@ -144,6 +144,7 @@ const spaceIdentifier = ref('✎') // 为了判断目前是否处于空格显示
 const isNew = ref(true)
 const isLoading = ref(false)
 const isSavingDiary = ref(false)  // 是否正在保存日记
+const hasTriedAutoRefreshWeather = ref(false)
 
 const diary = ref<EntityDiaryForm>({
     id: -1,
@@ -291,6 +292,9 @@ onMounted(()=>{
             }
         })
     })
+
+    // 刷新进入编辑页时，系统配置可能稍后才到；这里先尝试一次自动刷新天气
+    tryRefreshWeatherForTodayDiary()
 })
 
 
@@ -503,6 +507,14 @@ watch(() => route.params.id, newDiaryId => {
     }
 }, {immediate: true})
 
+watch(
+    () => [projectConfig.value.hefeng_weather_api_host, projectConfig.value.hefeng_weather_api_key],
+    () => {
+        // 配置异步加载完成后再补一次，避免刷新时首次未取到天气
+        tryRefreshWeatherForTodayDiary()
+    }
+)
+
 watch(diary, newValue => {
         updateDiaryIcon()  // 更新 navbar icon
         cacheCurrentDiary() // 缓存当前日记内容
@@ -608,8 +620,10 @@ function toggleSpaceShow(){
 // 日期前后移动
 function dayHasChanged(isToday: boolean){
     if (isToday){
-        getCurrentTemperature()
+        hasTriedAutoRefreshWeather.value = false
+        tryRefreshWeatherForTodayDiary()
     } else {
+        hasTriedAutoRefreshWeather.value = false
         diary.value.temperature = ''
         diary.value.temperature_outside = ''
         diary.value.weather = 'sunny'
@@ -875,16 +889,6 @@ function createDiary() {
     console.log('create diary been called.')
     isNew.value = true
 
-    // 只有在当天写日记时，才自动获取实时天气
-    if (Moment(diary.value.date).isSame(new Date(), 'day')){
-        getCurrentTemperature()
-    } else {
-        diary.value.temperature = ''
-        diary.value.temperature_outside = ''
-        diaryOrigin.value.temperature = ''
-        diaryOrigin.value.temperature_outside = ''
-    }
-
     diary.value = {
         id: -1,
         title: diary.value.category === 'bill'? '账单': '', // 在账单类别下新建时，自动填充标题为 账单
@@ -899,7 +903,23 @@ function createDiary() {
     }
     // 新建日记时也记录原始数据
     Object.assign(diaryOrigin.value, diary.value)
+    hasTriedAutoRefreshWeather.value = false
+    tryRefreshWeatherForTodayDiary()
     updateDiaryIcon()
+}
+
+function tryRefreshWeatherForTodayDiary() {
+    if (!isNew.value) return
+    if (!Moment(diary.value.date).isSame(new Date(), 'day')) return
+    if (hasTriedAutoRefreshWeather.value) return
+
+    const canFetch = !!getAuthorization()?.geolocation &&
+        !!projectConfig.value.hefeng_weather_api_host &&
+        !!projectConfig.value.hefeng_weather_api_key
+    if (!canFetch) return
+
+    hasTriedAutoRefreshWeather.value = true
+    getCurrentTemperature()
 }
 
 function recoverDiary() {

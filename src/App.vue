@@ -1,11 +1,11 @@
 <template>
     <ServerError v-if="isServerError"/>
-    <RouterView v-else/>
+    <RouterView v-else-if="isSetupRequired || isAppReady"/>
 </template>
 <script lang="ts" setup>
 import {useProjectStore} from "./pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
-import {onBeforeMount, onMounted, onUnmounted, ref} from "vue";
+import {onBeforeMount, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useStatisticStore} from "./pinia/useStatisticStore.ts";
 import {useSystemConfigStore} from "./pinia/useSystemConfigStore.ts";
@@ -21,11 +21,9 @@ const systemConfigStore = useSystemConfigStore()
 import ServerError from "./components/ServerError.vue";
 const isServerError = ref(false)
 const isSetupRequired = ref(false)
+const isAppReady = ref(false)
 
 onBeforeMount(() => {
-    // 日记项目载入后，隐藏 preloading
-    (document.querySelector('.preloading') as HTMLDivElement).style.display = 'none'
-
     // 获取当前颜色模式
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         projectStore.colorMode=  'dark'
@@ -49,6 +47,7 @@ onMounted(()=> {
 
     syncSetupStatus()
     window.addEventListener('setup-completed', handleSetupCompleted)
+    watch([isServerError, isSetupRequired, isAppReady], hidePreloadingWhenReady, {immediate: true})
 
     window.addEventListener('resize', () => {
         projectStore.insets = {
@@ -86,8 +85,7 @@ function syncSetupStatus() {
                 return
             }
 
-            systemConfigStore.fetchConfig(true).catch(() => {})
-            statisticStore.getCategoryAll()
+            afterBackendReady()
         })
         .catch(() => {
             isServerError.value = true
@@ -97,8 +95,30 @@ function syncSetupStatus() {
 function handleSetupCompleted() {
     isSetupRequired.value = false
     isServerError.value = false
-    systemConfigStore.fetchConfig(true).catch(() => {})
-    statisticStore.getCategoryAll()
+    afterBackendReady()
+}
+
+async function afterBackendReady() {
+    isAppReady.value = false
+    try {
+        // 类别是后续页面与统计依赖的基础数据，后端连通后优先拉取
+        await statisticStore.getCategoryAll()
+        await systemConfigStore.fetchConfig(true).catch(() => {})
+    } finally {
+        // 避免因单个初始化步骤异常导致页面永久停在 loading
+        isAppReady.value = true
+    }
+}
+
+function hidePreloadingWhenReady() {
+    // 使用 index.html 的 preloading，等待可渲染状态后再隐藏
+    if (!isServerError.value && !isSetupRequired.value && !isAppReady.value) {
+        return
+    }
+    const preloading = document.querySelector('.preloading') as HTMLDivElement | null
+    if (preloading) {
+        preloading.style.display = 'none'
+    }
 }
 
 

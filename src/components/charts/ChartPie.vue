@@ -131,7 +131,7 @@ function initChart() {
                 itemStyle: {
                     color: item => {
                         if (item.data.key){
-                            return  useStatisticStore().categoryObjectMap.get(item.data.key).color // 返回类别对应的颜色
+                            return useStatisticStore().getCategoryColor(item.data.key)
                         } else {
                             return COLORS[item.dataIndex%(COLORS.length - 1)]
                         }
