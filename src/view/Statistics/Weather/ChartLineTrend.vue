@@ -3,7 +3,38 @@
 </template>
 
 <script>
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core'
+import { LineChart } from 'echarts/charts'
+import {
+    GridComponent,
+    LegendScrollComponent,
+    TooltipComponent,
+    DataZoomSliderComponent,
+    DataZoomInsideComponent,
+    AxisPointerComponent,
+    MarkPointComponent,
+    DatasetComponent,
+    TransformComponent,
+} from 'echarts/components'
+import { LabelLayout, UniversalTransition } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
+
+echarts.use([
+    GridComponent,
+    LegendScrollComponent,
+    TooltipComponent,
+    DataZoomSliderComponent,
+    DataZoomInsideComponent,
+    AxisPointerComponent,
+    MarkPointComponent,
+    DatasetComponent,
+    TransformComponent,
+    LineChart,
+    LabelLayout,
+    UniversalTransition,
+    CanvasRenderer,
+])
+
 import chartOption from "../chartOption";
 import { useProjectStore } from "@/pinia/useProjectStore.ts";
 
