@@ -9,7 +9,7 @@
 
 ## 一、界面
 
-![main_view](https://github.com/user-attachments/assets/4c3efa8f-322c-41ae-bb0d-0b20c6143bea)
+![main_view](https://github.com/user-attachments/assets/6c82d422-24d0-46d0-879f-96501ed74c38)
 
 
 ## 二、用法
