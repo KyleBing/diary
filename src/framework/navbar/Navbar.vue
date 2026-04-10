@@ -66,10 +66,7 @@
                     <TabIcon icon="账单简单"/>
                 </div>
 
-                <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode && projectStore.isAdminUser"
-                     @click="goToPage('FileManager')">
-                    <TabIcon icon="文件"/>
-                </div>
+
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="toggleTodoList">
                     <TabIcon

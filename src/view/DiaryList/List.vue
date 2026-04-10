@@ -52,6 +52,12 @@ import DiaryListGroup from "@/view/DiaryList/DiaryListGroup.vue"
 import { EntityDiaryListGroup } from "./Diary"
 
 import {storeToRefs} from "pinia"
+
+/** 与 ToDo 解析一致：以 - 或 = 开头的行为一条待办 */
+function countTodoItemsInContent(content: string | undefined): number {
+    if (!content) return 0
+    return content.split('\n').filter(line => /^[\-=]/.test(line)).length
+}
 import { useStatisticStore } from "@/pinia/useStatisticStore"
 const projectStore = useProjectStore()
 const router = useRouter()
@@ -123,6 +129,7 @@ function refreshDiariesShow() {
         let isUseTodoTitle = projectStore.filteredCategories.length === 1 && projectStore.filteredCategories[0] === 'todo'
         if (isUseTodoTitle) {
             tempGroup.title = '待办列表'
+            tempDiary.day = countTodoItemsInContent(tempDiary.content) // todo 的时候，使用 todo 的数字作为 day 的显示
         }
 
         // 添加当前日记内容
@@ -158,6 +165,7 @@ function refreshDiariesShow() {
 
                 // 添加标题
                 if (isUseTodoTitle){ // TO-DO 列表模式时直接添加日记内容，不需要考虑添加新组
+                    tempDiary.day = countTodoItemsInContent(tempDiary.content)
                     tempGroupArray[tempGroupArray.length - 1].diaries.push(tempDiary)
                     tempGroupArray[tempGroupArray.length - 1].headerSize = "big"
                 } else {

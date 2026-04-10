@@ -222,7 +222,7 @@ const MENU_LIST = [
     {
         name: '文件',
         isShowInMobile: true,
-        isShowInPC: false,
+        isShowInPC: true,
         isNeedAdmin: true,
         icon: SVG_ICONS.tab_icons.folder,
         insideComponent: null,
@@ -258,7 +258,7 @@ const MENU_LIST = [
     {
         name: '邀请码',
         isShowInMobile: true,
-        isShowInPC: true,   
+        isShowInPC: true,
         isNeedAdmin: true,
         icon: SVG_ICONS.tab_icons.invitation,
         insideComponent: null,
