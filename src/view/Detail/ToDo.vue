@@ -1,7 +1,7 @@
 <template>
     <div class="todo-list">
         <draggable 
-            v-model="todoList"
+            v-model="todoListShow"
             item-key="id"
             @end="onDragEnd"
             :disabled="props.readonly"
@@ -41,7 +41,7 @@
 
 <script lang="ts" setup>
 import diaryApi from "@/api/diaryApi.ts"
-import {onMounted, ref, watch, nextTick} from "vue";
+import {onMounted, ref, watch, nextTick, computed} from "vue";
 import {EntityDiaryForm, DiarySubmitEntity} from "@/view/DiaryList/Diary.ts";
 import {dateFormatter, popMessage, temperatureProcessCTS} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
@@ -55,8 +55,9 @@ const statisticStore = useStatisticStore();
 
 
 const props = defineProps<{
-    readonly: boolean,
-    diary: EntityDiaryForm
+    readonly: boolean,  // 是否只能读，不能编辑
+    diary: EntityDiaryForm,
+    hasHideAllComplatedTodoItems: boolean // 是否隐藏所有已完成事项
 }>()
 
 const todoList= ref<Array<TodoEntity>>([])
@@ -65,7 +66,6 @@ const contentElements = new Map<number, HTMLDivElement>()
 const noteElements = new Map<number, HTMLDivElement>()
 
 onMounted(()=>{
-    processContent(props.diary)
     window.onkeydown = event => {
         // CTRL + S 保存
         if ((event.ctrlKey || event.metaKey) && event.key === 's') {
@@ -75,9 +75,32 @@ onMounted(()=>{
     }
 })
 
-watch(() => props.diary, newValue => {
-    processContent(newValue)
+const todoListShow = computed({
+    get: () => {
+        if (props.hasHideAllComplatedTodoItems){
+            return todoList.value.filter(item => !item.isDone)
+        }
+        return todoList.value
+    },
+    set: (newList: TodoEntity[]) => {
+        // Hide completed mode: drag only reorders visible unfinished items.
+        if (props.hasHideAllComplatedTodoItems){
+            const finished = todoList.value.filter(item => item.isDone)
+            todoList.value = newList.concat(finished)
+            return
+        }
+        todoList.value = newList
+    }
 })
+
+watch(
+    () => [props.diary.id, props.diary.content],
+    () => {
+        processContent(props.diary)
+    },
+    { immediate: true }
+)
+
 
 // Update display when hide content setting changes
 watch(() => projectStore.isHideContent, () => {

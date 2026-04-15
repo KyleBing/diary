@@ -14,14 +14,19 @@
             <div class="diary-title" v-if="diary.title">
                 <h2>{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
-                    <ButtonSmall class="clipboard" :data-clipboard="diary.title">复制</ButtonSmall>
+                    <template v-if="diary.category === 'todo'">
+                        <ButtonSmall class="clipboard" v-if="hasHideAllComplatedTodoItems" @click="toggleTodoList">显示已完成事项</ButtonSmall>
+                        <ButtonSmall class="clipboard" v-else @click="toggleTodoList">隐藏已完成事项</ButtonSmall>
+                    </template>
+
+                    <ButtonSmall class="clipboard ml-2" :data-clipboard="diary.title">复制</ButtonSmall>
                 </div>
             </div>
 
             <!--CONTENT-->
             <div class="diary-content" v-if="diary.content">
                 <div v-if="diary.category === 'todo'">
-                    <ToDo :readonly="false" :diary="diary"/>
+                    <ToDo :readonly="false" :diary="diary" :hasHideAllComplatedTodoItems="hasHideAllComplatedTodoItems"/>
                 </div>
 
                 <div v-else>
@@ -76,6 +81,7 @@ const diary = ref<EntityDiaryFromServer>({})
 const clipboard = ref() // clipboard obj
 const lunarObject = ref<LunarDateEntity>({})
 const isShowExplode = ref(false)
+const hasHideAllComplatedTodoItems = ref(false) // 是否隐藏所有已完成事项
 
 
 onMounted(()=>{
@@ -109,6 +115,11 @@ watch(() => route.params.id, (newValue) => {
     }
 })
 
+// TODO 列表的 显示|隐藏 已完成事项
+function toggleTodoList(){
+    hasHideAllComplatedTodoItems.value = !hasHideAllComplatedTodoItems.value
+}
+
 function toggleContentType(){
     isShowExplode.value = !isShowExplode.value
 }
@@ -132,7 +143,7 @@ function getContentHtml(content: string){
     }
 
 }
-function  showDiary(diaryId: number) {
+function showDiary(diaryId: number) {
     isLoading.value = true
     let requestData = {diaryId: diaryId}
     diaryApi
