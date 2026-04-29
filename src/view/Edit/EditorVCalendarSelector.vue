@@ -22,9 +22,9 @@
                 <template #footer>
                     <div class="p-2 pt-0">
                         <ButtonSmall @click="moveToday" class="mb-1">今天</ButtonSmall>
-                        <TimePicker 
-                            v-model="modelDate" 
-                            :minute-simple="false" 
+                        <TimePicker
+                            v-model="modelDate"
+                            :minute-simple="false"
                             orientation="vertical"/>
                     </div>
                 </template>
@@ -256,11 +256,18 @@ $height: 40px;
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
     .date-selector{
         width: 50%;
+        .button-date-change{
+            opacity: 1;
+        }
         .date-set-item{
-
+            justify-content: center;
+            .datetime{
+                padding: 0 20px;
+                width: auto;
+            }
         }
         .date-meta{
-            justify-content: flex-start;
+            justify-content: center;
             padding: 0;
             border: none;
             .lunar{
@@ -269,8 +276,10 @@ $height: 40px;
         }
     }
 }
+
 // MOBILE
 @media (max-width: $grid-separate-width-md) {
+
     .date-selector {
         width: 100%;
     }
