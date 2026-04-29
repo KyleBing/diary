@@ -205,11 +205,8 @@ textarea{
     }
     .editor-content{
       textarea{
-        height: 100px;
+        height: 300px;
         padding-bottom: 0;
-        &:focus{
-          height: 300px;
-        }
       }
       .editor-float-btn{
         display: none;
