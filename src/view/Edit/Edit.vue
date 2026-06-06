@@ -23,10 +23,11 @@
                 <textarea
                     ref="refDiaryContentTextArea"
                     v-model="diary.content"
-                    :style="projectStore.insets.windowsWidth > 1366 ? `height: ${projectStore.insets.heightPanel - 150 - 40 - 20}px`: ''"
+                    :style="contentTextareaStyle"
+                    :wrap="diary.category === 'code' ? 'off' : 'soft'"
                     placeholder="日记详细内容，如果你有很多要写的"
                     @input="contentUpdate($event)"
-                    class="content"></textarea>
+                    :class="['content', {'is-code': diary.category === 'code'}]"></textarea>
                 <div class="editor-float-btn" v-if="diary.is_markdown">
                     <ButtonSmall @click="toggleSpaceShow">切换空格显示</ButtonSmall>
                 </div>
@@ -139,7 +140,6 @@ const route = useRoute()
 const router = useRouter()
 const projectConfig = computed(() => systemConfigStore.config)
 
-
 const spaceIdentifier = ref('✎') // 为了判断目前是否处于空格显示状态
 const isNew = ref(true)
 const isLoading = ref(false)
@@ -158,6 +158,14 @@ const diary = ref<EntityDiaryForm>({
     temperature: '',
     temperature_outside: '',
 })
+
+const contentTextareaStyle = computed(() => {
+    if (projectStore.insets.windowsWidth > 1366) {
+        return `height: ${projectStore.insets.heightPanel - 150 - 40 - 20}px`
+    }
+    return ''
+})
+
 const diaryOrigin = ref<EntityDiaryForm>({ // 不需要跟上面一样，但需要有提交声明好的属性，不然后面无法对比其值
     id: -1,
     title: "",

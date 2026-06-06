@@ -27,10 +27,18 @@
 
             <!--CONTENT-->
             <div class="diary-content" v-if="diary.content">
+
+                <!-- todo 类别 -->
                 <div v-if="diary.category === 'todo'">
                     <ToDo :readonly="false" :diary="diary" :hasHideAllComplatedTodoItems="hasHideAllComplatedTodoItems"/>
                 </div>
 
+                <!-- code 类别 -->
+                <div v-else-if="diary.category === 'code'"
+                    class="markdown code-category-size"
+                    v-html="contentCodeHtml"/>
+
+                <!-- 其他类别 -->
                 <div v-else>
                     <div v-if="isShowExplode">
                         <WordExplode v-if="diary.content" :content="diary.content"/>
@@ -51,7 +59,7 @@
 import ClipboardJS from "clipboard"
 import Loading from "@/components/Loading.vue"
 import diaryApi from "@/api/diaryApi.ts"
-import * as marked from "marked";
+import {buildDiaryContentHtml, parseMarkdown} from "@/utility/markedHighlight.ts";
 import calendar from "js-calendar-converter";
 import Moment from "moment";
 import DetailHeader from "@/view/Detail/DetailHeader.vue";
@@ -77,7 +85,7 @@ const isLoading = ref(false) // loading
 const diary = ref<EntityDiaryFromServer>({})
 const clipboard = ref() // clipboard obj
 const lunarObject = ref<LunarDateEntity>({})
-const isShowExplode = ref(false)
+const isShowExplode = ref(false) // 是否显示炸词
 const hasHideAllComplatedTodoItems = ref(false) // 是否隐藏所有已完成事项
 
 
@@ -102,8 +110,13 @@ onUnmounted(()=>{
     clipboard.value.destroy()
 })
 
+// 内容 html - 其他类别内容
 const contentMarkDownHtml = computed(()=>{
-    return marked.parse(diary.value.content)
+    return parseMarkdown(diary.value.content)
+})
+// 内容 html - code 类别内容
+const contentCodeHtml = computed(()=>{
+    return buildDiaryContentHtml(diary.value.content, diary.value.category, projectStore.isHideContent, diary.value.title)
 })
 
 watch(() => route.params.id, (newValue) => {
@@ -122,23 +135,7 @@ function toggleContentType(){
 }
 
 function getContentHtml(content: string){
-    let isInCodeMode = /\[ ?code ?]/i.test(content)
-
-    if (isInCodeMode){
-        return `<pre class="code">${projectStore.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
-    } else {
-        let contentArray = content.split('\n')
-        let contentHtml = ""
-        contentArray.forEach(item => {
-            if (item === ''){
-                contentHtml += '<br/>'
-            } else {
-                contentHtml += `${projectStore.isHideContent ? item.replace(/[^，。 \n]/g, '*'): item}<br/>`
-            }
-        })
-        return contentHtml
-    }
-
+    return buildDiaryContentHtml(content, '', projectStore.isHideContent)
 }
 function showDiary(diaryId: number) {
     isLoading.value = true

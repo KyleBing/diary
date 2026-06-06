@@ -37,6 +37,7 @@ import diaryApi from "@/api/diaryApi"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS"
 
 import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
+import {buildDiaryListContentHtml} from "@/utility/markedHighlight.ts"
 
 import {useProjectStore} from "@/pinia/useProjectStore"
 import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
@@ -250,7 +251,7 @@ function loadMore() {
 // 将服务器返回的 diary 格式转换成 diary 展示时的格式
 function processDiaryToShowType(diary: EntityDiaryFromServerLocal): EntityDiaryFromServerLocal{
     if (diary.content) {
-        diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+        diary.contentHtml = buildDiaryListContentHtml(diary.content, diary.category, diary.title)
     }
     diary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)
     diary.weekday = dateProcess(diary.date).weekday

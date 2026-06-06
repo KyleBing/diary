@@ -10,4 +10,6 @@ declare module "*.md" {
 
 declare module "marked" {
     export function parse(text: string): string;
+    export function setOptions(options: Record<string, unknown>): void;
+    export const marked: typeof parse;
 }

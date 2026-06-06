@@ -8,11 +8,11 @@
 <script setup lang="ts">
 import changeLog from "../../../../CHANGELOG.md"
 import MenuPanelContainer from "@/framework/MenuPanelContainer.vue"
-import * as marked from "marked"
+import {parseMarkdown} from "@/utility/markedHighlight.ts"
 import { computed } from "vue"
 
 const contentMarkDownHtml = computed(()=>{
-    return marked.parse(changeLog)
+    return parseMarkdown(changeLog)
 })
 
 </script>

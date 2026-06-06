@@ -15,6 +15,9 @@
             <div class="title">{{ props.diary.title }}</div>
         </RouterLink>
         <div class="content markdown small" v-if="props.diary.is_markdown === 1" v-html="contentMarkDownHtml"></div>
+        <div class="content markdown small code-category-size"
+             v-else-if="props.diary.category === 'code'"
+             v-html="props.diary.contentHtml"></div>
         <div class="content" v-else v-html="props.diary.contentHtml"></div>
         <div class="meta" :style="backgroundColor">
             <div class="date">{{ props.diary.dateObj?.dateFull}}</div>
@@ -27,7 +30,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import * as marked from "marked";
+import {parseMarkdown} from "@/utility/markedHighlight.ts";
 import {computed} from "vue";
 import {EntityDiaryWaterfall} from "@/view/DiaryList/Diary.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
@@ -53,7 +56,7 @@ const borderColor = computed<string>(() => {
     `
 })
 const contentMarkDownHtml = computed<string>(() => {
-    return marked.parse(props.diary.content)
+    return parseMarkdown(props.diary.content)
 })
 
 </script>

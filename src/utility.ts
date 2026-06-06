@@ -255,6 +255,7 @@ export function temperatureProcessCTS(temperature: number | string) {
     return temperature === '' ? -273 : Number(temperature)
 }
 
+// 编辑页 code 类别内容框字号
 export interface DiaryConfigEntity {
     isFilterShared: boolean, // 是否筛选共享日记
     keywords: string[], // 关键词

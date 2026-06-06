@@ -78,6 +78,7 @@ import {nextTick, onMounted, ref, watch} from "vue";
 import {Calendar} from 'v-calendar';
 import diaryApi from "@/api/diaryApi.ts";
 import {dateProcess, EnumWeekDayShort} from "@/utility.ts";
+import {buildDiaryListContentHtml} from "@/utility/markedHighlight.ts";
 import {EntityDiaryForm, EntityDiaryFromServerCategoryOnly, DiarySearchParamsForCalendar} from "@/view/DiaryList/Diary.ts";
 import {storeToRefs} from "pinia";
 import {CalendarAttribute} from "@/view/Calendar/VCalendar.ts";
@@ -232,7 +233,7 @@ function getDiaryListOfDay(day: CalendarDay) {
         .then(res => {
             focusedDayDiaries.value = res.data.map(diary => {
                 if (diary.content) {
-                    diary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+                    diary.contentHtml = buildDiaryListContentHtml(diary.content, diary.category, diary.title)
                 }
                 diary.categoryString = statisticStore.categoryNameMap.get(diary.category)
                 diary.weekday = dateProcess(diary.date).weekday

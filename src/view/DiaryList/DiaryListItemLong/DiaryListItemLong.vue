@@ -26,6 +26,9 @@
             <div class="markdown" 
                 v-if="props.diary.is_markdown === 1" 
                 v-html="contentMarkDownHtml"/>
+            <div class="markdown code-category-size"
+                v-else-if="props.diary.category === 'code'"
+                v-html="props.diary.contentHtml"/>
             <DiaryListTodo 
                 v-else-if="props.diary.category === 'todo'" 
                 :diary="props.diary"/>
@@ -37,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import * as marked from "marked";
+import {parseMarkdown} from "@/utility/markedHighlight.ts";
 import {computed} from "vue";
 import {useRoute} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
@@ -87,7 +90,7 @@ const diaryArticleItemStyle = computed(()=>{
     }
 })
 const contentMarkDownHtml = computed(()=>{
-    return marked.parse(props.diary.content)
+    return parseMarkdown(props.diary.content)
 })
 const diaryItemCategoryTextStyle = computed(()=>{
     if (isActive.value){

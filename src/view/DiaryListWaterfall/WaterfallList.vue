@@ -36,6 +36,7 @@ import diaryApi from "@/api/diaryApi.ts"
 import Loading from "@/components/Loading.vue"
 
 import {dateProcess, getDiaryConfigFromLocalStorage} from "@/utility.ts";
+import {buildDiaryListContentHtml} from "@/utility/markedHighlight.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {nextTick, onMounted, ref, watch} from "vue";
@@ -150,7 +151,7 @@ function getDiaries(params: DiarySearchParams) {
                 let tempDiary: EntityDiaryWaterfall = {} as EntityDiaryWaterfall
                 Object.assign(tempDiary, diary)
                 if (diary.content) {
-                    tempDiary.contentHtml = diary.content.replace(/\n/g, '<br/>')
+                    tempDiary.contentHtml = buildDiaryListContentHtml(diary.content, diary.category, diary.title)
                 }
                 tempDiary.dateObj = dateProcess(diary.date)
                 tempDiary.categoryString = useStatisticStore().categoryNameMap.get(diary.category)

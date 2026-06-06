@@ -49,6 +49,9 @@
                         <ToDo v-if="currentDiary.category === 'todo'" :readonly="true" :diary="currentDiary"/>
                         <div v-else>
                             <div v-if="currentDiary.is_markdown === 1" class="markdown" v-html="contentMarkDownHtml"/>
+                            <div v-else-if="currentDiary.category === 'code'"
+                                 class="markdown code-category-size"
+                                 v-html="currentDiary.contentHtml"/>
                             <div v-else class="content" v-html="currentDiary.contentHtml"/>
                         </div>
                     </div>
@@ -81,7 +84,7 @@
 <script lang="ts" setup>
 import Loading from "@/components/Loading.vue"
 import diaryApi from "@/api/diaryApi.ts"
-import * as marked from "marked";
+import {buildDiaryContentHtml, parseMarkdown} from "@/utility/markedHighlight.ts";
 import ToDo from "@/view/Detail/ToDo.vue";
 
 import {
@@ -115,9 +118,8 @@ const shareCategoryStyle = computed(()=>{
     return `background-color: ${useStatisticStore().getCategoryColor(cat)}`
 })
 const contentMarkDownHtml = computed(()=>{
-    return marked.parse(currentDiary.value.content)
+    return parseMarkdown(currentDiary.value?.content)
 })
-
 onMounted(()=>{
     getDiaryInfo(Number(route.params.id))
 })
@@ -140,7 +142,7 @@ function getDiaryInfo(diaryId: number){
             dateObj.value = dateProcess(tempDiary.date)
             document.title = '日记 - ' + dateObj.value.dateFull // 变更标题
             if (currentDiary.value.content) {
-                currentDiary.value.contentHtml = getContentHtml(tempDiary.content)
+                currentDiary.value.contentHtml = buildDiaryContentHtml(tempDiary.content, tempDiary.category, false, tempDiary.title)
             }
             currentDiary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
             currentDiary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
@@ -158,24 +160,6 @@ function getDiaryInfo(diaryId: number){
             currentDiary.value = null
         })
 }
-function getContentHtml(content: string){
-    let isInCodeMode = /\[ ?code ?\]/i.test(content)
-    let contentArray = content.split('\n')
-    let contentHtml = ""
-    if (isInCodeMode){
-        return `<pre class="code">${projectStore.isHideContent? content.replace(/[^，。 \n]/g, '*'): content}</pre>`
-    } else {
-        contentArray.forEach(item => {
-            if (item === '') {
-                contentHtml += '<br/>'
-            } else {
-                contentHtml += `${projectStore.isHideContent ? item.replace(/[^，。 \n]/g, '*') : item}<br/>`
-            }
-        })
-        return contentHtml
-    }
-}
-
 watch(() => route.params.id, newValue => {
     console.log(newValue)
     getDiaryInfo(Number(newValue))
