@@ -13,11 +13,10 @@
         </div>
 
         <!-- FOOD -->
-        <BillFoodSummary :bill-food="billMonthData.food"/>
+        <!-- <BillFoodSummary :bill-food="billMonthData.food"/> -->
 
         <!--  TOP INCOME & OUTCOME   -->
-        <BillTop5 v-model="outcomeTop5"
-                  title="单项支出 TOP 5"/>
+        <BillTop5 v-model="outcomeTop5" title="单项支出 TOP 5" :month-data="billMonthData"/>
 
         <table>
             <tr>

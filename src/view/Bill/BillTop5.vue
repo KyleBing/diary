@@ -4,7 +4,11 @@
         <div class="bill-list">
             <div :class="['bill-list-item', {filtered: item.isFiltered}]"
                  v-for="(item, index) in modelTop5" :key="index" @click="changeCurrentState(item)">
-                <div class="name">{{item.item}}</div>
+                <div
+                    class="name link"
+                    v-tooltip="top5ItemTooltip(item, monthData)"
+                    @click.stop="openEdit(item)"
+                >{{item.item}}</div>
                 <div class="price">{{item.price.toFixed(projectStore.moneyAccuracy)}}</div>
             </div>
         </div>
@@ -13,19 +17,27 @@
 
 
 <script setup lang="ts">
-import {EntityBillTop5Item} from "@/view/Bill/Bill.ts";
+import {EntityBillMonth, EntityBillTop5Item} from "@/view/Bill/Bill.ts";
+import {openBillItemEdit, top5ItemTooltip} from "@/view/Bill/billNavigation.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
+import {useRouter} from "vue-router";
 
 const projectStore = useProjectStore();
+const router = useRouter()
 
 const modelTop5 = defineModel<Array<EntityBillTop5Item>>()
 
-defineProps<{
+const props = defineProps<{
     title: string
+    monthData?: EntityBillMonth
 }>()
 
 function changeCurrentState(billItem: EntityBillTop5Item){
     billItem.isFiltered = !billItem.isFiltered
+}
+
+function openEdit(item: EntityBillTop5Item) {
+    openBillItemEdit(router, item, props.monthData)
 }
 
 </script>
@@ -35,7 +47,7 @@ function changeCurrentState(billItem: EntityBillTop5Item){
 <style scoped lang="scss">
 @use "../../scss/plugin" as *;
 .summary{
-    padding: 20px 25px;
+    padding: 15px 25px;
     color: $text-content;
 }
 .title{
@@ -69,6 +81,13 @@ function changeCurrentState(billItem: EntityBillTop5Item){
         }
         .name{
             padding-right: 15px;
+            &.link{
+                cursor: pointer;
+                &:hover{
+                    color: $color-main;
+                    text-decoration: underline;
+                }
+            }
         }
         .price{
             font-family: "JetBrainsMonoDiary";

@@ -60,6 +60,7 @@ const routes: RouteRecordRaw[] = [
     {name: 'SystemConfig',         path: '/system-config',     component: () => import('@/view/SystemConfig/SystemConfigPage.vue'), meta: {requiresAdmin: true} },
     {name: 'FileManager',          path: '/file-manager',      component: () => import('@/view/FileManager/FileManager.vue') },
     {name: 'Bill',                 path: '/bill',              component: () => import('@/view/Bill/Bill.vue') },
+    {name: 'BillYearTop5',         path: '/bill/year-top5',    component: () => import('@/view/Bill/BillYearTop5.vue') },
     {name: 'BillCandidateList',    path: '/bill/candidates',   component: () => import('@/view/Bill/BillCandidateList.vue') },
     {name: 'BankCard',             path: '/bank-card',         component: () => import('@/view/BankCard/BankCardList.vue')  },
     {name: 'Invitation',           path: '/invitation',        component: () => import('@/view/Invitation/InvitationList.vue')  },

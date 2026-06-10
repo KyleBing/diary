@@ -20,7 +20,7 @@
                             <BillYearSelector v-model="yearNumberArray"/>
                         </div>
 
-                        <Button class="mb-2" @click="getBillData">搜索</Button>
+                        <ButtonSmall class="mb-2" @click="goToYearTop5">年度 TOP5 概览</ButtonSmall>
                         <ButtonSmall class="mb-2" @click="getBillKeys">获取最新账单类目</ButtonSmall>
                         <!-- <ButtonSmall class="mb-2" @click="goToBillCandidateList">管理账单条目</ButtonSmall> -->
                         <ButtonSmall class="mb-2" @click="hideBigIncome" v-if="isShowSalaryButton">结果隐藏工资收入</ButtonSmall>
@@ -56,12 +56,11 @@ import {EntityBillItem, EntityBillMonth} from "@/view/Bill/Bill.ts";
 import {popMessage, setBillKeys} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore();
-import {onMounted, ref} from "vue";
+import {onMounted, onUnmounted, ref, watch} from "vue";
 import BillYearSelector from "@/view/Bill/BillYearSelector.vue";
 import BillMonthItem from "@/view/Bill/BillMonthItem.vue";
 import BorrowInfo from "@/view/Bill/BorrowInfo/BorrowInfo.vue";
 import BillPanel from "@/view/Bill/BillPanel.vue";
-import Button from "@/components/Button.vue";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 import BillSummary from "@/view/Bill/BillSummary.vue";
 import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
@@ -77,8 +76,31 @@ const formSearch = ref({
 const router = useRouter()
 const yearNumberArray = ref<Array<number>>([new Date().getFullYear()])
 
+let searchTimer: ReturnType<typeof setTimeout> | undefined
+
+function scheduleBillSearch() {
+    if (searchTimer) {
+        clearTimeout(searchTimer)
+    }
+    searchTimer = setTimeout(() => {
+        getBillData()
+    }, 300)
+}
+
+watch(
+    [yearNumberArray, () => formSearch.value.keyword],
+    scheduleBillSearch,
+    { deep: true }
+)
+
 onMounted(()=>{
     getBillData()
+})
+
+onUnmounted(() => {
+    if (searchTimer) {
+        clearTimeout(searchTimer)
+    }
 })
 
 function getBillKeys(){
@@ -95,6 +117,13 @@ function getBillKeys(){
 
 function goToBillCandidateList(){
     router.push({name: 'BillCandidateList'})
+}
+
+function goToYearTop5(){
+    router.push({
+        name: 'BillYearTop5',
+        query: { year: String(yearNumberArray.value[0] ?? new Date().getFullYear()) },
+    })
 }
 
 
@@ -152,20 +181,4 @@ function hideBigIncome(){
 <style lang="scss">
 @use "../../scss/plugin" as *;
 @use "bill" as *;
-
-// 对应 tooltip 的样式： theme 名， tooltip-bill
-.v-popper--theme-tooltip-bill {
-    .v-popper__inner {
-        padding: 10px;
-        color: white;
-        background: $bg-main;
-        border: 1px solid $dark-border-active;
-        border-radius: $radius-mobile;
-    }
-
-    .v-popper__arrow-inner {
-        border-color: $bg-main;
-    }
-}
-
 </style>
