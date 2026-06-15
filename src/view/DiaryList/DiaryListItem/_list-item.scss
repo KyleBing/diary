@@ -52,6 +52,12 @@
       display: block;
       font-size: $fz-list-content;
       color: $text-title;
+      .weekday-short{
+        margin-left: 4px;
+        font-weight: normal;
+        font-size: $fz-small;
+        color: $text-label;
+      }
     }
     .icon{
       flex-shrink: 0;
@@ -88,6 +94,9 @@
     .title, .date{
       color: white;
       text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+      .weekday-short{
+        color: rgba(255, 255, 255, 0.85);
+      }
     }
     .detail{
       &:after{
@@ -131,6 +140,9 @@
     .detail{
       .title{
         color: $dark-text-title;
+        .weekday-short{
+          color: $dark-text;
+        }
       }
       .bill-amount{
         &.bill-in{
@@ -146,6 +158,9 @@
       .title, .date{
         color: white;
         text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        .weekday-short{
+          color: rgba(255, 255, 255, 0.85);
+        }
       }
       .detail{
         &:after{

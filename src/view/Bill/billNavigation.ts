@@ -1,6 +1,6 @@
 import diaryApi from "@/api/diaryApi.ts"
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts"
-import {popMessage} from "@/utility.ts"
+import {dateProcess, popMessage} from "@/utility.ts"
 import {EntityBillDay, EntityBillItem, EntityBillMonth, EntityBillTop5Item} from "@/view/Bill/Bill.ts"
 import type {Router} from "vue-router"
 
@@ -50,11 +50,17 @@ export function findDiaryIdForTop5Item(
     return findDiaryDayForTop5Item(monthData, top5Item)?.id
 }
 
-export function buildBillItemsTooltipHtml(billItemArray: Array<EntityBillItem>): string {
+export function buildBillItemsTooltipHtml(billItemArray: Array<EntityBillItem>, date?: string): string {
     const listContent = billItemArray.map(item =>
         `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
     ).join('')
+    let dateHeader = ''
+    if (date) {
+        const { date: dateLabel, weekShort } = dateProcess(date)
+        dateHeader = `<div class="bill-detail-date">${dateLabel} ${weekShort}</div>`
+    }
     return `
+        ${dateHeader}
         <table class="bill-detail-list">
             <tbody>
             ${listContent}
@@ -71,7 +77,7 @@ export function top5ItemTooltip(top5Item: EntityBillTop5Item, monthData?: Entity
         return { disabled: true }
     }
     return {
-        content: buildBillItemsTooltipHtml(day.items),
+        content: buildBillItemsTooltipHtml(day.items, day.date),
         html: true,
         theme: 'tooltip-bill',
     }
