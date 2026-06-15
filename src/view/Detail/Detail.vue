@@ -26,7 +26,7 @@
             </div>
 
             <!--CONTENT-->
-            <div class="diary-content" v-if="diary.content">
+            <div class="diary-content" v-if="diary.category === 'todo' || diary.content">
 
                 <!-- todo 类别 -->
                 <div v-if="diary.category === 'todo'">
