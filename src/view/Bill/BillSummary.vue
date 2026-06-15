@@ -1,41 +1,36 @@
 <template>
-    <BillPanel title="总计" padding="20px 20px">
-        <div class="bill-list-big">
-            <div class="bill-list-big-item">
-                <div class="name">总收入</div>
-                <div class="price text-income">￥ {{summaryData.sumIncome.toFixed(2)}}</div>
-            </div>
-            <div class="bill-list-big-item">
-                <div class="name">总支出</div>
-                <div class="price text-expense">￥ {{summaryData.sumExpense.toFixed(2)}}</div>
-            </div>
-
-            <div class="bill-list-big-item mt-3">
-                <div class="name">收入条目数</div>
-                <div class="price text-income">{{summaryData.totalIncomeCount}}</div>
-            </div>
-            <div class="bill-list-big-item">
-                <div class="name">支出条目数</div>
-                <div class="price text-expense">{{summaryData.totalExpenseCount}}</div>
-            </div>
-
-            <div class="bill-list-big-item mt-3">
-                <div class="name">总天数</div>
-                <div class="price text-income">{{summaryData.totalDayCount}}</div>
-            </div>
-            <div class="bill-list-big-item">
-                <div class="name">总条目数</div>
-                <div class="price text-income">{{summaryData.totalCount}}</div>
-            </div>
+    <div class="bill-navbar-statistic">
+        <div class="bill-navbar-statistic-item">
+            <div class="label">总收入</div>
+            <div class="value text-income">￥{{ summaryData.sumIncome.toFixed(2) }}</div>
         </div>
-    </BillPanel>
+        <div class="bill-navbar-statistic-item">
+            <div class="label">总支出</div>
+            <div class="value text-expense">￥{{ summaryData.sumExpense.toFixed(2) }}</div>
+        </div>
+        <div class="bill-navbar-statistic-item">
+            <div class="label">收入条目</div>
+            <div class="value text-income">{{ summaryData.totalIncomeCount }}</div>
+        </div>
+        <div class="bill-navbar-statistic-item">
+            <div class="label">支出条目</div>
+            <div class="value text-expense">{{ summaryData.totalExpenseCount }}</div>
+        </div>
+        <div class="bill-navbar-statistic-item">
+            <div class="label">总天数</div>
+            <div class="value">{{ summaryData.totalDayCount }}</div>
+        </div>
+        <div class="bill-navbar-statistic-item">
+            <div class="label">总条目</div>
+            <div class="value">{{ summaryData.totalCount }}</div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
 
 import {EntityBillMonth} from "@/view/Bill/Bill.ts";
 import {onMounted, ref, watch} from "vue";
-import BillPanel from "@/view/Bill/BillPanel.vue";
 
 const props = defineProps<{
     monthDataOfBill: Array<EntityBillMonth>
@@ -103,58 +98,43 @@ function recalculateData(){
 <style scoped lang="scss">
 @use "../../scss/plugin" as *;
 
-.bill-list-big{
-    .bill-list-big-item{
-        cursor: pointer;
-        @extend .btn-like;
-        margin-bottom: 6px;
-        font-size: $fz-main;
+.bill-navbar-statistic{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    overflow-x: auto;
+    flex-shrink: 1;
+    min-width: 0;
+    .bill-navbar-statistic-item{
+        flex-shrink: 0;
+        margin-left: 16px;
         display: flex;
-        justify-content: space-between;
+        flex-flow: row nowrap;
         align-items: center;
-        position: relative;
-        &.filtered{
-            text-decoration: line-through;
+        white-space: nowrap;
+        .label{
+            font-size: $fz-main;
+            margin-right: 6px;
+            opacity: 0.75;
         }
-        &:after{
-            position: absolute;
-            content: '';
-            height: 1px;
-            width: 100%;
-            border-bottom: 1px dashed $color-border;
-        }
-        > * {
-            z-index: 10;
-            background-color: white;
-        }
-        .name{
-            padding-right: 15px;
-        }
-        .price{
+        .value{
+            font-size: $fz-main;
             font-weight: bold;
             font-family: "JetBrainsMonoDiary";
-            padding-left: 15px;
         }
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    .summary{
-        color: $dark-text;
-    }
-    .title{
-        color: $dark-text;
-    }
-    .bill-list-big{
-        .bill-list-big-item{
-            &:after{
-                border-bottom: 1px dashed $dark-border;
+@media (max-width: $grid-separate-width-sm) {
+    .bill-navbar-statistic{
+        .bill-navbar-statistic-item{
+            margin-left: 10px;
+            .label{
+                font-size: $fz-small;
             }
-            > * {
-                background-color: $dark-bg-dark;
+            .value{
+                font-size: $fz-small;
             }
-            .name{}
-            .price{}
         }
     }
 }

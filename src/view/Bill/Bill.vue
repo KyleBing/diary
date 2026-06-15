@@ -1,6 +1,8 @@
 <template>
     <div class="statistic-container">
-        <PageHeader title="账单"/>
+        <PageHeader title="账单">
+            <BillSummary :monthDataOfBill="billYearData"/>
+        </PageHeader>
         <div class="bill-content" :style="`height:${projectStore.insets.heightPanel}px`">
             <div class="bill-container" >
                 <div class="filter-panel">
@@ -30,9 +32,6 @@
                     <BorrowInfo :width="350" class="mt-2"/>
                     
                 </div>
-
-                <!--  账单概况  -->
-                <BillSummary :monthDataOfBill="billYearData"/>
 
                 <!-- 月份数据 -->
                 <BillMonthItem
