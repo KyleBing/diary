@@ -1,14 +1,75 @@
 @use "sass:color" as color;
 @use "../../scss/plugin" as *;
 
+.bill-page{
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+
+  .page-header{
+    flex-shrink: 0;
+  }
+
+  .bill-content{
+    flex: 1 1 0%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .filter-panel{
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .bill-months-scroll{
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+  }
+}
+
 .bill-content{
   width: 100%;
-  overflow-x: auto;
-  overflow-y: auto;
-  padding: 20px;
+  box-sizing: border-box;
+  padding: 12px 12px 0;
   background-color: $bg-light;
 }
 
+.filter-panel{
+  flex-shrink: 0;
+  padding-right: 12px;
+}
+
+.bill-months-scroll{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+
+  .bill{
+    scroll-snap-align: start;
+  }
+
+  &::-webkit-scrollbar{
+    height: 8px;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+}
 
 .bill-container{
   display: flex;
@@ -20,8 +81,8 @@
   flex-shrink: 0;
   overflow: hidden;
   background-color: white;
-  margin-right: 20px;
-  padding-bottom: 25px;
+  margin-right: 16px;
+  padding-bottom: 12px;
   border-radius: $radius-pc;
   border: 1px solid $color-border-bill;
   .bill-header{
@@ -30,20 +91,19 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    flex-flow: row nowrap;
-    padding: 20px;
+    padding: 11px 15px;
     .title{
       text-align: center;
       font-family: serif;
-      line-height: 1.3;
-      letter-spacing: 1px;
-      font-size: $fz-big;
+      line-height: 1.2;
+      letter-spacing: 0.5px;
+      font-size: 22px;
       font-weight: bold;
     }
     .subtitle{
-      margin-top: 5px;
+      margin-top: 2px;
       color: $text-label;
-      font-size: $fz-title;
+      font-size: $fz-label;
       text-align: center;
     }
   }
@@ -62,6 +122,7 @@
 
   table{
     font-size: $fz-small;
+    line-height: 1.25;
     tr{
       &:nth-child(even){
         background-color: $bg-lighter;
@@ -71,29 +132,25 @@
         border-bottom: 1px solid $color-border-light;
         text-align: right;
         font-weight: bold;
-        padding: 8px 15px 8px;
+        padding: 5px 10px;
         &.center{
           text-align: center;
         }
       }
       td{
         white-space: nowrap;
-        min-width: 80px;
+        min-width: 56px;
         border-bottom: none;
         text-align: right;
-        padding: 3px 10px;
+        padding: 2px 8px;
         &.center{
           text-align: center;
         }
-        &.date{}
-        &.income{
-        }
-        &.output{}
       }
       td.label{
         @extend .text-gray;
         white-space: nowrap;
-        max-width: 200px;
+        max-width: 180px;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: left
@@ -163,23 +220,54 @@
 
 // mobile
 @media (max-width: $grid-separate-width-sm) {
+  .bill-page{
+    height: auto !important;
+    overflow: visible;
+
+    .bill-content{
+      flex: none;
+      min-height: auto;
+      display: flex;
+      flex-flow: column nowrap;
+      overflow: visible;
+    }
+
+    .filter-panel{
+      grid-column: auto;
+      grid-row: auto;
+      width: 100%;
+      max-height: none;
+      overflow: visible;
+      padding-right: 0;
+      margin-bottom: 12px;
+    }
+
+    .bill-months-scroll{
+      grid-column: auto;
+      grid-row: auto;
+      flex: none;
+      width: 100%;
+      flex-flow: column nowrap;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+  }
+
   .bill-content{
-    padding: 10px;
+    padding: 10px 10px 0;
   }
   .bill-container{
     flex-flow: column nowrap;
   }
-  .filter-panel{
-    width: 100%;
-  }
 
   .bill{
     margin-bottom: 20px;
+    margin-right: 0;
     width: 100%;
     .bill-header{
-      padding: 15px 10px 10px;
+      padding: 8px 10px;
       .title{
-        font-size: $fz-big;
+        font-size: 20px;
       }
     }
     .bill-brief{
@@ -191,14 +279,12 @@
       width: 100%;
       tr{
         th{
-          padding: 10px 5px ;
-          &.center{
-          }
+          padding: 3px 4px;
         }
         td{
           width: 40px;
           min-width: 40px;
-          padding: 2px 5px 2px ;
+          padding: 1px 4px;
           &.date{
             min-width: 50px;
           }

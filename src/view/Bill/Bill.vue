@@ -1,11 +1,10 @@
 <template>
-    <div class="statistic-container">
+    <div class="statistic-container bill-page" :style="`height: ${projectStore.insets.windowsHeight}px`">
         <PageHeader title="账单">
             <BillSummary :monthDataOfBill="billYearData"/>
         </PageHeader>
-        <div class="bill-content" :style="`height:${projectStore.insets.heightPanel}px`">
-            <div class="bill-container" >
-                <div class="filter-panel">
+        <div class="bill-content">
+            <div class="filter-panel">
 
                     <!--  筛选面板 -->
                     <BillPanel :width="350" title="账单筛选" padding="10px 15px">
@@ -31,8 +30,9 @@
                     <!--  借还记录 -->
                     <BorrowInfo :width="350" class="mt-2"/>
                     
-                </div>
+            </div>
 
+            <div class="bill-months-scroll">
                 <!-- 月份数据 -->
                 <BillMonthItem
                     v-if="!isLoading"
@@ -40,7 +40,6 @@
                     v-for="month in billYearData" :key="month.id"
                 />
                 <Loading v-else :loading="isLoading"/>
-
             </div>
         </div>
     </div>

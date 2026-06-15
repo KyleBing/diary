@@ -34,7 +34,6 @@ withDefaults(defineProps<{
 .bill-panel{
     flex-shrink: 0;
     overflow: hidden;
-    margin-right: 20px;
     width: 300px;
     border-radius: $radius-pc;
     border: 1px solid $color-border;

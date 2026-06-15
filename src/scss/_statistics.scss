@@ -4,6 +4,10 @@
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
+
+  &.bill-page{
+    overflow: hidden;
+  }
 }
 
 .statistic-content{

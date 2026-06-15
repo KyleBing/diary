@@ -47,7 +47,7 @@ function openEdit(item: EntityBillTop5Item) {
 <style scoped lang="scss">
 @use "../../scss/plugin" as *;
 .summary{
-    padding: 15px 25px;
+    padding: 10px 15px;
     color: $text-content;
 }
 .title{
@@ -59,7 +59,7 @@ function openEdit(item: EntityBillTop5Item) {
     .bill-list-item{
         cursor: pointer;
         @extend .btn-like;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
         font-size: $fz-small;
         display: flex;
         justify-content: space-between;

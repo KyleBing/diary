@@ -34,18 +34,19 @@ defineProps<{
 .brief-amount{
     font-weight: bold;
     font-size: $fz-main;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     align-items: stretch;
     flex-flow: column nowrap;
     display: flex;
     justify-content: space-between;
+    line-height: 1.25;
     > * {
         text-align: right;
     }
     .sum{
         position: relative;
-        margin-top: 5px;
-        padding-top: 5px;
+        margin-top: 2px;
+        padding-top: 2px;
         &:after{
             content: '';
             position: absolute;
