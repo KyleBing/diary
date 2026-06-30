@@ -98,9 +98,9 @@ const statisticStore = useStatisticStore();
 const props = withDefaults(defineProps<{
     readonly: boolean,  // 是否只能读，不能编辑
     diary: EntityDiaryForm,
-    hasHideAllComplatedTodoItems?: boolean // 是否隐藏所有已完成事项
+    hasHideAllCompletedTodoItems?: boolean // 是否隐藏所有已完成事项
 }>(), {
-    hasHideAllComplatedTodoItems: false,
+    hasHideAllCompletedTodoItems: false,
 })
 
 const todoList= ref<Array<TodoEntity>>([])
@@ -129,14 +129,14 @@ onMounted(()=>{
 
 const todoListShow = computed({
     get: () => {
-        if (props.hasHideAllComplatedTodoItems){
+        if (props.hasHideAllCompletedTodoItems){
             return todoList.value.filter(item => !item.isDone)
         }
         return todoList.value
     },
     set: (newList: TodoEntity[]) => {
         // Hide completed mode: drag only reorders visible unfinished items.
-        if (props.hasHideAllComplatedTodoItems){
+        if (props.hasHideAllCompletedTodoItems){
             const finished = todoList.value.filter(item => item.isDone)
             todoList.value = newList.concat(finished)
             return

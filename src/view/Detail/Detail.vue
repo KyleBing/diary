@@ -15,7 +15,7 @@
                 <h2>{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar">
                     <template v-if="diary.category === 'todo'">
-                        <ButtonSmall class="clipboard" v-if="hasHideAllComplatedTodoItems" @click="toggleTodoList">显示已完成事项</ButtonSmall>
+                        <ButtonSmall class="clipboard" v-if="hasHideAllCompletedTodoItems" @click="toggleTodoList">显示已完成事项</ButtonSmall>
                         <ButtonSmall class="clipboard" v-else @click="toggleTodoList">隐藏已完成事项</ButtonSmall>
                     </template>
 
@@ -30,7 +30,7 @@
 
                 <!-- todo 类别 -->
                 <div v-if="diary.category === 'todo'">
-                    <ToDo :readonly="false" :diary="diary" :hasHideAllComplatedTodoItems="hasHideAllComplatedTodoItems"/>
+                    <ToDo :readonly="false" :diary="diary" :hasHideAllCompletedTodoItems="hasHideAllCompletedTodoItems"/>
                 </div>
 
                 <!-- code 类别 -->
@@ -73,8 +73,10 @@ import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import {useUserConfigStore} from "@/pinia/useUserConfigStore.ts";
 
 const projectStore = useProjectStore();
+const userConfigStore = useUserConfigStore();
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 const router = useRouter()
@@ -86,10 +88,12 @@ const diary = ref<EntityDiaryFromServer>({})
 const clipboard = ref() // clipboard obj
 const lunarObject = ref<LunarDateEntity>({})
 const isShowExplode = ref(false) // 是否显示炸词
-const hasHideAllComplatedTodoItems = ref(false) // 是否隐藏所有已完成事项
+const hasHideAllCompletedTodoItems = ref(false) // 是否隐藏所有已完成事项
 
 
-onMounted(()=>{
+onMounted(async ()=>{
+    await loadUserConfig()
+
     // 初始化时，载入第一次点击的 id 内容
     if (route.params.id){
         showDiary(Number(route.params.id))
@@ -126,8 +130,15 @@ watch(() => route.params.id, (newValue) => {
 })
 
 // TODO 列表的 显示|隐藏 已完成事项
-function toggleTodoList(){
-    hasHideAllComplatedTodoItems.value = !hasHideAllComplatedTodoItems.value
+async function toggleTodoList(){
+    const nextValue = !hasHideAllCompletedTodoItems.value
+    hasHideAllCompletedTodoItems.value = nextValue
+    try {
+        await userConfigStore.saveConfigJson({isHideCompletedTodos: nextValue})
+    } catch (err) {
+        hasHideAllCompletedTodoItems.value = !nextValue
+        popMessage('danger', err instanceof Error ? err.message : '保存用户配置失败', null, 1)
+    }
 }
 
 function toggleContentType(){
@@ -136,6 +147,14 @@ function toggleContentType(){
 
 function getContentHtml(content: string){
     return buildDiaryContentHtml(content, '', projectStore.isHideContent)
+}
+async function loadUserConfig() {
+    try {
+        await userConfigStore.fetchConfig()
+        hasHideAllCompletedTodoItems.value = userConfigStore.isHideCompletedTodos
+    } catch (err) {
+        popMessage('danger', err instanceof Error ? err.message : '读取用户配置失败', null, 1)
+    }
 }
 function showDiary(diaryId: number) {
     isLoading.value = true
