@@ -51,7 +51,22 @@
   .nav-part-left{
     display: flex;
     justify-content: flex-start;
+    flex: 1;        // 为编辑标题留出可伸缩空间
+    min-width: 0;   // flex 子项省略号生效所需
+  }
 
+  // 移动端编辑页：返回按钮右侧的日记标题
+  .nav-edit-title{
+    flex: 1;
+    min-width: 0;
+    padding: 0 4px 0 2px;
+    height: $height-navbar;
+    line-height: $height-navbar;
+    color: $text-menu-first;
+    font-size: $fz-main;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .nav-part-right{
@@ -93,6 +108,9 @@
   .navbar{
     background-color: $dark-bg-nav;
     .btn-text{
+      color: $dark-text-title;
+    }
+    .nav-edit-title{
       color: $dark-text-title;
     }
   }

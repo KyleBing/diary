@@ -44,6 +44,7 @@ export const useProjectStore = defineStore('projectStore', {
         isMenuShowed: false ,                           // 显示菜单
 
         editLogoImg: SVG_ICONS.logo_icons.logo ,        // 编辑页LOGO
+        editingDiaryTitle: '',                          // 编辑页当前日记标题（navbar 展示）
         listOperation: {} as EntityDiaryListOperation ,       // 列表页的操作，增删改操作，一般不再重新加载列表
 
 

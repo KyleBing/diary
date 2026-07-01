@@ -464,6 +464,7 @@ function addKeyboardEventListener(event: KeyboardEvent, textareaRef: Ref, diaryO
 }
 
 onBeforeUnmount(() => {
+    projectStore.editingDiaryTitle = '' // 离开编辑页，清空 navbar 标题
     // 退出 Edit 之前，如果存在日记内容，缓存它。
     // 目前只有一个场景用到，就是屏幕窗口大小变化时， Edit 会消失再出现，结果就是
     // 会选择用户在这期间写的内容，这是极不应该的。
@@ -748,6 +749,7 @@ function setWeather(weather: string) {
 }
 function updateDiaryIcon() {
     document.title = diaryHasChanged.value ? '日记 - 编辑中...' : '日记' // 变更标题
+    projectStore.editingDiaryTitle = diary.value.title // 同步至 navbar 展示
     projectStore.isDiaryEditorContentHasChanged = diaryHasChanged.value
     if (diaryHasChanged.value) {
         projectStore.editLogoImg = diary.value.content ? SVG_ICONS.logo_icons.logo_content: SVG_ICONS.logo_icons.logo_title

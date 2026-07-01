@@ -21,6 +21,12 @@
                      v-if="projectStore.isInMobileMode && route.name !== 'List' && route.name !== 'WaterfallList' ">
                     <TabIcon icon="返回"/>
                 </div>
+                <!-- 移动端编辑页：返回按钮右侧显示当前日记标题，过长省略 -->
+                <div v-if="projectStore.isInMobileMode && isEditingRoute && editingDiaryTitle"
+                     class="nav-edit-title"
+                     :title="editingDiaryTitle">
+                    {{ editingDiaryTitle }}
+                </div>
 
                 <div v-show="(!projectStore.isMenuShowed && !projectStore.isInMobileMode) ||
                             (!projectStore.isMenuShowed && projectStore.isInMobileMode
@@ -140,12 +146,12 @@
 
 
             <!-- 中间部分 -->
-            <!--LOGO-->
-            <div class="brand" v-if="projectStore.isInMobileMode" @click="toggleListStyle">
-                <img :src="projectStore.editLogoImg"
-                     v-if="route.name === 'Edit' || route.name === 'EditNew'"
-                     icon="LOGO">
-                <a v-else-if="projectStore.listStyle === EnumListStyle.list">
+            <!--LOGO（编辑页标题已在左侧展示，此处不再显示）-->
+            <div class="brand"
+                 v-if="projectStore.isInMobileMode && 
+                    route.name !== 'Edit' && route.name !== 'EditNew' && route.name !== 'Detail' " 
+                 @click="toggleListStyle">
+                <a v-if="projectStore.listStyle === EnumListStyle.list">
                     <img :src="SVG_ICONS.logo_icons.logo" icon="日记">
                 </a>
                 <a v-else>
@@ -202,6 +208,14 @@ const navMenuRef = ref<InstanceType<typeof NavMenu>>()
 
 const dateFilterRangeLabel = computed(() =>
     formatDiaryDateRangeLabel(projectStore.dateFilterTimeStart, projectStore.dateFilterTimeEnd)
+)
+
+/** 编辑页路由：用于 navbar 展示当前日记标题 */
+const EDIT_ROUTE_NAMES = ['Edit', 'EditNew', 'CalendarEdit', 'CalendarEditNew'] as const
+const isEditingRoute = computed(() => EDIT_ROUTE_NAMES.includes(route.name as typeof EDIT_ROUTE_NAMES[number]))
+/** 单行展示用：合并换行/空白，供省略号截断 */
+const editingDiaryTitle = computed(() =>
+    projectStore.editingDiaryTitle.replace(/\s+/g, ' ').trim()
 )
 
 
