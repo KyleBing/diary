@@ -5,7 +5,8 @@
                class="temperature"
                name="temperature"
                id="temperature"
-               v-model.trim="temperatureLocal"
+               type="number"
+               v-model.number="temperatureLocal"
         >
         <div class="unit">{{unit}}</div>
     </div>
