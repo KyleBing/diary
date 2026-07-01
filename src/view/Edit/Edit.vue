@@ -44,13 +44,13 @@
 
                 <div class="editor-meta-switches">
                     <div class="editor-form-item">
-                        <label for="markdown">身处</label>
+                        <label for="temp-inside">身处</label>
                         <TemperatureSetItem
                             unit="℃"
                             v-model="diary.temperature"/>
                     </div>
                     <div class="editor-form-item">
-                        <label for="markdown">室外</label>
+                        <label for="temp-outside">室外</label>
                         <TemperatureSetItem
                             unit="℃"
                             v-model="diary.temperature_outside"/>
