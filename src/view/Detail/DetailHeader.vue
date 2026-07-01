@@ -135,12 +135,14 @@ function getTemperatureClassName(temperature: number): string{
     .date-wrapper{
         font-size: $fz-main;
         line-height: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
         .date-time{
             font-weight: bold;
         }
         .date-lunar{
             font-size: $fz-small;
-            margin-top: 3px;
             .date-diff{
                 color: $text-label;
                 margin-left: 10px;
@@ -190,12 +192,14 @@ function getTemperatureClassName(temperature: number): string{
             }
 
             .temperatures {
+                gap: 3px;
                 flex-shrink: 0;
                 font-size: $fz-note;
                 color: $text-title;
             }
         }
         .date-wrapper {
+            gap: 3px;
             flex-shrink: 0;
             color: $bg-main;
 
