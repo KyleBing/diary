@@ -12,8 +12,13 @@
 
             <!--TITLE-->
             <div class="diary-title" v-if="diary.title">
-                <h2>{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
-                <div class="toolbar">
+                <h2
+                    :class="{'mobile-copyable': projectStore.isInMobileMode}"
+                    @touchend="onMobileCopyGesture('title', copyTitleAndContent, $event)"
+                    @click="onMobileCopyGesture('title', copyTitleAndContent, $event)"
+                    @dblclick="onMobileDblClick(copyTitleAndContent)"
+                >{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
+                <div class="toolbar" v-if="!projectStore.isInMobileMode">
                     <template v-if="diary.category === 'todo'">
                         <ButtonSmall class="clipboard" v-if="hasHideAllCompletedTodoItems" @click="toggleTodoList">显示已完成事项</ButtonSmall>
                         <ButtonSmall class="clipboard" v-else @click="toggleTodoList">隐藏已完成事项</ButtonSmall>
@@ -26,7 +31,10 @@
             </div>
 
             <!--CONTENT-->
-            <div class="diary-content" v-if="diary.category === 'todo' || diary.content">
+            <div
+                class="diary-content"
+                v-if="diary.category === 'todo' || diary.content"
+            >
 
                 <!-- todo 类别 -->
                 <div v-if="diary.category === 'todo'">
@@ -143,6 +151,80 @@ async function toggleTodoList(){
 
 function toggleContentType(){
     isShowExplode.value = !isShowExplode.value
+}
+
+
+// 移动端双击复制
+const mobileDoubleTapState = { time: 0, key: '' }
+const MOBILE_DOUBLE_TAP_MS = 500
+
+/**
+ * 判断是否是触摸设备
+ * @returns 是否是触摸设备
+ */
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0
+}
+
+/**
+ * 移动端双击复制
+ * @param key 复制的内容类型
+ * @param copyFn 复制函数
+ * @param event 事件
+ */
+function onMobileCopyGesture(key: string, copyFn: () => void, event: Event) {
+    if (!projectStore.isInMobileMode) return
+    // 触摸设备上忽略 touchend 之后合成的 click，避免单次点击被误判为双击
+    if (isTouchDevice() && event.type === 'click') return
+
+    const now = Date.now()
+    if (now - mobileDoubleTapState.time < MOBILE_DOUBLE_TAP_MS && mobileDoubleTapState.key === key) {
+        if (event.type === 'touchend') {
+            event.preventDefault()
+        }
+        mobileDoubleTapState.time = 0
+        mobileDoubleTapState.key = ''
+        copyFn()
+    } else {
+        mobileDoubleTapState.time = now
+        mobileDoubleTapState.key = key
+    }
+}
+
+function onMobileDblClick(copyFn: () => void) {
+    if (!projectStore.isInMobileMode) return
+    mobileDoubleTapState.time = 0
+    mobileDoubleTapState.key = ''
+    copyFn()
+}
+
+/**
+ * 复制到剪贴板
+ * @param text 复制的内容
+ */
+async function copyToClipboard(text: string) {
+    if (!text) return
+    try {
+        if (window.isSecureContext && navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text)
+        } else {
+            const textarea = document.createElement('textarea')
+            textarea.value = text
+            textarea.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0'
+            document.body.appendChild(textarea)
+            textarea.focus()
+            textarea.select()
+            document.execCommand('copy')
+            document.body.removeChild(textarea)
+        }
+        popMessage('success', '已复制到 剪贴板', null, 1)
+    } catch {
+        popMessage('danger', '复制失败', null, 1)
+    }
+}
+
+function copyTitleAndContent() {
+    copyToClipboard(`${diary.value.title}\n------------------------\n${diary.value.content || ''}`)
 }
 
 function getContentHtml(content: string){

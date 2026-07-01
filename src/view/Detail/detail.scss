@@ -32,6 +32,14 @@
     transition: all 0.3s;
     opacity: 0;
   }
+
+  h2.mobile-copyable{
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }
 
 .diary-content{
