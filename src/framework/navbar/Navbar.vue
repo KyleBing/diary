@@ -2,6 +2,7 @@
     <div class="navbar-container">
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
+            <!-- 左部分 -->
             <div class="nav-part-left">
                 <div @click="menuShow"
                      v-if="
@@ -88,8 +89,10 @@
 
             </div>
 
+
+            <!-- 右部分 -->
             <div class="nav-part-right">
-                <!--时钟-->
+                
                 <!-- MacbookPro 屏幕宽度 1512 -->
                 <Clock class="pr-6" v-if="!projectStore.isInMobileMode && projectStore.insets.windowsWidth > 1550"/>
 
@@ -120,17 +123,14 @@
                     </div>
                 </div>
 
-
                 <!--  只在移动端上才显示这个按钮  -->
-                <div
-                    v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)"
+                <div v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)"
                     @click="showMenuCategorySelector"
                 >
                     <TabIcon icon="类别"/>
                 </div>
 
-                <div
-                    v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
+                <div v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
                             || !projectStore.isInMobileMode"
                     @click="addNewDiary"
                 >
@@ -139,6 +139,7 @@
             </div>
 
 
+            <!-- 中间部分 -->
             <!--LOGO-->
             <div class="brand" v-if="projectStore.isInMobileMode" @click="toggleListStyle">
                 <img :src="projectStore.editLogoImg"

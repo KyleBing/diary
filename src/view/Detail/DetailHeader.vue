@@ -104,6 +104,7 @@ function getTemperatureClassName(temperature: number): string{
     padding: 15px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     .weather-wrapper{
         display: flex;
         justify-content: center;
@@ -120,7 +121,11 @@ function getTemperatureClassName(temperature: number): string{
         .temperatures{
             flex-shrink: 0;
             font-size: $fz-small;
+            line-height: 1;
             color: $text-title;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
             .temperature{
 
             }
@@ -129,6 +134,7 @@ function getTemperatureClassName(temperature: number): string{
 
     .date-wrapper{
         font-size: $fz-main;
+        line-height: 1;
         .date-time{
             font-weight: bold;
         }
@@ -151,12 +157,14 @@ function getTemperatureClassName(temperature: number): string{
             margin: 3px 0;
             padding: 5px 12px;
             color: white;
+            font-weight: bold;
             border-radius: 5px;
         }
     }
 }
 
 
+// PC
 @media (min-width: $grid-separate-width-big ) {
     .diary-header{
         background-color: $bg-light;
@@ -218,6 +226,8 @@ function getTemperatureClassName(temperature: number): string{
         }
     }
 }
+
+// IPAD
 @media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
     .diary-header{
         margin: 0 0 30px;
@@ -244,6 +254,7 @@ function getTemperatureClassName(temperature: number): string{
     }
 }
 
+// 暗色模式
 @media (prefers-color-scheme: dark) {
     .diary-header {
         background-color: color.adjust($dark-bg, $lightness: -5%);
