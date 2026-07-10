@@ -1,8 +1,9 @@
 <template>
     <div class="todo-list">
-        <div v-for="item in todoList" :key="item.id" :class="['todo-list-item', 'small',{done: item.isDone}]">
+        <div v-for="item in todoListShow" :key="item.id" :class="['todo-list-item', 'small',{done: item.isDone}]">
             <div class="checkbox-wrapper">
-                <div :class="['checkbox', {checked: item.isDone}]"></div>
+                <div :class="['checkbox', {checked: item.isDone}]"
+                     :style="{'--todo-color': statisticStore.categoryObjectMap.get('todo')?.color}"></div>
             </div>
             <div class="content-wrapper">
                 <div class="content">
@@ -17,12 +18,16 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {EntityDiaryForm} from "@/view/DiaryList/Diary.ts";
 import { TodoEntity } from '@/entity/Todo';
 import { useProjectStore } from "@/pinia/useProjectStore";
+import { useStatisticStore } from '@/pinia/useStatisticStore.ts';
+import { useUserConfigStore } from '@/pinia/useUserConfigStore.ts';
 
 const projectStore = useProjectStore();
+const statisticStore = useStatisticStore();
+const userConfigStore = useUserConfigStore();
 
 const props = defineProps<{
     diary: EntityDiaryForm
@@ -31,7 +36,16 @@ const props = defineProps<{
 const todoList= ref<Array<TodoEntity>>([])
 const lastId = ref(0) // 最后一个修改后的 id，用于将最后一个标记的 todoItem 移到列表最后
 
+// 与详情页同步：读取用户配置决定是否隐藏已完成事项
+const todoListShow = computed(() => {
+    if (userConfigStore.isHideCompletedTodos) {
+        return todoList.value.filter(item => !item.isDone)
+    }
+    return todoList.value
+})
+
 onMounted(()=>{
+    userConfigStore.fetchConfig()
     processContent(props.diary)
     window.onkeydown = event => {
         // CTRL + S 保存

@@ -53,11 +53,18 @@ import DiaryListGroup from "@/view/DiaryList/DiaryListGroup.vue"
 import { EntityDiaryListGroup } from "./Diary"
 
 import {storeToRefs} from "pinia"
+import { useUserConfigStore } from '@/pinia/useUserConfigStore.ts'
 
-/** 与 ToDo 解析一致：以 - 或 = 开头的行为一条待办 */
+const userConfigStore = useUserConfigStore()
+
+/** 与 ToDo 解析一致：以 - 或 = 开头的行为一条待办；隐藏已完成时只计未完成 */
 function countTodoItemsInContent(content: string | undefined): number {
     if (!content) return 0
-    return content.split('\n').filter(line => /^[\-=]/.test(line)).length
+    const lines = content.split('\n').filter(line => /^[\-=]/.test(line))
+    if (userConfigStore.isHideCompletedTodos) {
+        return lines.filter(line => line.startsWith('-')).length
+    }
+    return lines.length
 }
 import { useStatisticStore } from "@/pinia/useStatisticStore"
 const projectStore = useProjectStore()
@@ -82,6 +89,7 @@ const formSearch = ref<DiarySearchParams>({
 
 onMounted(() => {
     document.title = '日记' // 变更标题
+    userConfigStore.fetchConfig()
     // init
     keywordShow.value = projectStore.keywords && projectStore.keywords.join(' ')
     nextTick(()=>{
@@ -340,6 +348,11 @@ watch(isListNeedBeReload, newValue => {
     if (newValue) {
         reloadDiaryList()
     }
+})
+
+// 隐藏已完成配置变更时，刷新待办列表计数与展示
+watch(() => userConfigStore.isHideCompletedTodos, () => {
+    refreshDiariesShow()
 })
 
 watch(listOperation, ({type, diary, id}: EntityDiaryListOperation) => {

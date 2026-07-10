@@ -189,6 +189,15 @@
 .bill-detail-date{
   font-size: $fz-small;
   font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.bill-detail-summary{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: $fz-small;
   margin-bottom: 6px;
   padding-bottom: 6px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);

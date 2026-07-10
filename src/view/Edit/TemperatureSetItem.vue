@@ -77,7 +77,7 @@ watch(temperatureLocal, newValue => {
         }
     }
     input{
-        padding: 0 5px 0 10px;
+        padding: 0 3px 0 0;
         color: $text-content;
         text-align: right;
         background-color: transparent;
@@ -86,6 +86,14 @@ watch(temperatureLocal, newValue => {
         font-size: $fz-label;
         border-bottom: 1px solid transparent;
         cursor: ns-resize;
+        // 隐藏 number input 上下箭头
+        appearance: textfield;
+        -moz-appearance: textfield;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+            margin: 0;
+        }
         &:hover{
             border-color: $color-border-highlight;
         }

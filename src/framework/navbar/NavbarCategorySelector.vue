@@ -72,6 +72,10 @@ function toggleCategory(category: CategoryEntity, index: number){
 
 function selectCategoryNone() {
     projectStore.SET_FILTERED_CATEGORIES([])
+    // 清选时同步关闭共享筛选
+    if (projectStore.isFilterShared) {
+        projectStore.SET_IS_FILTERED_SHARED(false)
+    }
     projectStore.isListNeedBeReload = true
 }
 function reverseCategorySelect() {

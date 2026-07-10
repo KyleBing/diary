@@ -899,15 +899,20 @@ function createDiary() {
     console.log('create diary been called.')
     isNew.value = true
 
+    // 列表只筛选一种类别时，新建日记默认选中该类别
+    const defaultCategory = projectStore.filteredCategories.length === 1
+        ? projectStore.filteredCategories[0]
+        : diary.value.category
+
     diary.value = {
         id: -1,
-        title: diary.value.category === 'bill'? '账单': '', // 在账单类别下新建时，自动填充标题为 账单
+        title: defaultCategory === 'bill'? '账单': '',
         content: "",
         is_public: false,
         is_markdown: false,
         date: diary.value.date || new Date(), // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
         weather: 'sunny',
-        category: diary.value.category,
+        category: defaultCategory,
         temperature: '',
         temperature_outside: '',
     }

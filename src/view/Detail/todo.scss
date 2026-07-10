@@ -1,7 +1,19 @@
 @use "../../scss/plugin" as *;
 
 .todo-list{
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
 
+.todo-add-trigger{
+  flex: 1;
+  min-height: 64px;
+  cursor: text;
+  border-radius: 3px;
+  &:hover{
+    background-color: $bg-light;
+  }
 }
 
 .todo-list-item{
@@ -91,12 +103,17 @@
 .todo-add-row{
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  align-items: flex-start;
   padding-left: 15px;
   margin-top: 4px;
   .checkbox-wrapper{
+    margin-top: 7px;
     margin-right: 6px;
     flex-shrink: 0;
+  }
+  div.checkbox.add-checkbox{
+    cursor: default;
+    pointer-events: none;
   }
   .add-input{
     flex: 1;
@@ -111,6 +128,10 @@
     &::placeholder{
       color: $text-label;
     }
+  }
+  .item-actions{
+    margin-top: 2px;
+    flex-shrink: 0;
   }
 }
 
@@ -150,13 +171,6 @@ div.checkbox.checked{
   }
 }
 
-div.checkbox.add-placeholder{
-  opacity: 0.35;
-  cursor: default;
-  pointer-events: none;
-}
-
-
 // MOBILE
 @media (max-width: $grid-separate-width-sm) {
   .todo-list-item{
@@ -167,6 +181,9 @@ div.checkbox.add-placeholder{
   }
   .todo-add-row{
     padding-left: 10px;
+  }
+  .todo-add-trigger{
+    min-height: 48px;
   }
 }
 
@@ -202,6 +219,12 @@ div.checkbox.add-placeholder{
       &::placeholder{
         color: $dark-text-subtitle;
       }
+    }
+  }
+
+  .todo-add-trigger{
+    &:hover{
+      background-color: $dark-bg-nav;
     }
   }
 

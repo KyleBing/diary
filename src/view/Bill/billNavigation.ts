@@ -50,17 +50,36 @@ export function findDiaryIdForTop5Item(
     return findDiaryDayForTop5Item(monthData, top5Item)?.id
 }
 
-export function buildBillItemsTooltipHtml(billItemArray: Array<EntityBillItem>, date?: string): string {
+export interface BillDaySummary {
+    sumIncome?: number
+    sumOutput?: number
+}
+
+// 构建账单弹窗 HTML：日期 + 当日总计 + 明细列表
+export function buildBillItemsTooltipHtml(
+    billItemArray: Array<EntityBillItem>,
+    date?: string,
+    daySummary?: BillDaySummary,
+): string {
     const listContent = billItemArray.map(item =>
-        `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
+        `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td></tr>`
     ).join('')
     let dateHeader = ''
     if (date) {
         const { date: dateLabel, weekShort } = dateProcess(date)
         dateHeader = `<div class="bill-detail-date">${dateLabel} ${weekShort}</div>`
     }
+    let summaryHeader = ''
+    if (daySummary) {
+        const income = daySummary.sumIncome ?? 0
+        const output = daySummary.sumOutput ?? 0
+        const incomeStr = income !== 0 ? `<span class="text-income">+${income.toFixed(2)}</span>` : '<span class="text-invalid">~</span>'
+        const outputStr = output !== 0 ? output.toFixed(2) : '<span class="text-invalid">~</span>'
+        summaryHeader = `<div class="bill-detail-summary"><span>收入 ${incomeStr}</span><span>支出 ${outputStr}</span></div>`
+    }
     return `
         ${dateHeader}
+        ${summaryHeader}
         <table class="bill-detail-list">
             <tbody>
             ${listContent}
@@ -77,7 +96,10 @@ export function top5ItemTooltip(top5Item: EntityBillTop5Item, monthData?: Entity
         return { disabled: true }
     }
     return {
-        content: buildBillItemsTooltipHtml(day.items, day.date),
+        content: buildBillItemsTooltipHtml(day.items, day.date, {
+            sumIncome: day.sumIncome,
+            sumOutput: day.sumOutput,
+        }),
         html: true,
         theme: 'tooltip-bill',
     }

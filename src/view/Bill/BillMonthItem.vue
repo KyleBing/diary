@@ -46,7 +46,7 @@
                 </td>
                 <td class="label center"
                     v-tooltip="{
-                                content: tooltipContent(item.items),
+                                content: tooltipContent(item),
                                 html: true,
                                 theme: 'tooltip-bill'
                             }">
@@ -59,7 +59,8 @@
 
 
 <script setup lang="ts">
-import {EntityBillItem, EntityBillMonth, EntityBillTop5Item, MonthNameMap} from "@/view/Bill/Bill.ts";
+import {EntityBillDay, EntityBillItem, EntityBillMonth, EntityBillTop5Item, MonthNameMap} from "@/view/Bill/Bill.ts";
+import {buildBillItemsTooltipHtml} from "@/view/Bill/billNavigation.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {dateProcess} from "@/utility.ts";
 import BillMonthSummary from "@/view/Bill/BillMonthSummary.vue";
@@ -128,16 +129,11 @@ function tooltipContentWithoutReturn(billItemArray: Array<EntityBillItem>) {
         })
         .join('，')
 }
-function tooltipContent(billItemArray: Array<EntityBillItem>) {
-    let listContent =  billItemArray.map(item => {
-        return `<tr class="bill-detail-list-item"><td>${item.item}</td><td class="price">${item.price.toFixed(2)}</td><tr/>`
-    }).join('')
-    return `
-                    <table class="bill-detail-list">
-                    <tbody>
-                    ${listContent}
-                    </tbody>
-                    </table>`
+function tooltipContent(day: EntityBillDay) {
+    return buildBillItemsTooltipHtml(day.items, day.date, {
+        sumIncome: day.sumIncome,
+        sumOutput: day.sumOutput,
+    })
 }
 
 
