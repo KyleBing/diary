@@ -42,6 +42,11 @@
   }
 }
 
+.diary-content.mobile-copyable{
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 .diary-content{
   border-top: 2px dashed $color-border;
   position: relative;

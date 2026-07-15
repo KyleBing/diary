@@ -14,27 +14,43 @@
             <div class="diary-title" v-if="diary.title">
                 <h2
                     :class="{'mobile-copyable': projectStore.isInMobileMode}"
-                    @touchend="onMobileCopyGesture('title', copyTitleAndContent, $event)"
-                    @click="onMobileCopyGesture('title', copyTitleAndContent, $event)"
-                    @dblclick="onMobileDblClick(copyTitleAndContent)"
+                    @touchend="onTitleMobileGesture($event)"
+                    @click="onTitleMobileGesture($event)"
+                    @dblclick="onMobileDblClick(copyTitle)"
                 >{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
                 <div class="toolbar" v-if="!projectStore.isInMobileMode">
                     <template v-if="diary.category === 'todo'">
-                        <ButtonSmall class="clipboard" v-if="hasHideAllCompletedTodoItems" @click="toggleTodoList">显示已完成事项</ButtonSmall>
-                        <ButtonSmall class="clipboard" v-else @click="toggleTodoList">隐藏已完成事项</ButtonSmall>
+                        <ButtonSmall v-if="hasHideAllCompletedTodoItems" @click="toggleTodoList">显示已完成事项</ButtonSmall>
+                        <ButtonSmall v-else @click="toggleTodoList">隐藏已完成事项</ButtonSmall>
+                        <ButtonSmall class="ml-2" @click="copyTitle">复制标题</ButtonSmall>
+                        <ButtonSmall class="ml-2" @click="copyTodosAll">复制全部</ButtonSmall>
+                        <ButtonSmall class="ml-2" @click="copyTodosUndone">复制未完成</ButtonSmall>
                     </template>
-
-                    <ButtonSmall class="clipboard ml-2" v-if="isShowExplode" @click="toggleContentType">普通</ButtonSmall>
-                    <ButtonSmall class="clipboard ml-2" v-else @click="toggleContentType">炸词</ButtonSmall>
-                    <ButtonSmall class="clipboard ml-2" :data-clipboard="`${diary.title}\n------------------------\n${diary.content}`">复制标题和内容</ButtonSmall>
+                    <template v-else>
+                        <ButtonSmall v-if="isShowExplode" @click="toggleContentType">普通</ButtonSmall>
+                        <ButtonSmall v-else @click="toggleContentType">炸词</ButtonSmall>
+                        <ButtonSmall class="ml-2" @click="copyTitle">复制标题</ButtonSmall>
+                    </template>
                 </div>
             </div>
 
             <!--CONTENT-->
             <div
                 class="diary-content"
+                :class="{'mobile-copyable': projectStore.isInMobileMode}"
                 v-if="diary.category === 'todo' || diary.content"
+                @touchend="onContentMobileGesture($event)"
+                @click="onContentMobileGesture($event)"
+                @dblclick="onMobileDblClick(copyContentOrTodosAll)"
             >
+                <!-- 非 todo：悬停显示复制内容；无标题 todo：在内容区提供复制 -->
+                <div class="toolbar" v-if="!projectStore.isInMobileMode && showContentCopyToolbar">
+                    <template v-if="diary.category === 'todo'">
+                        <ButtonSmall @click.stop="copyTodosAll">复制全部</ButtonSmall>
+                        <ButtonSmall @click.stop="copyTodosUndone">复制未完成</ButtonSmall>
+                    </template>
+                    <ButtonSmall v-else @click.stop="copyContent">复制内容</ButtonSmall>
+                </div>
 
                 <!-- todo 类别 -->
                 <div v-if="diary.category === 'todo'">
@@ -64,7 +80,6 @@
 </template>
 
 <script lang="ts" setup>
-import ClipboardJS from "clipboard"
 import Loading from "@/components/Loading.vue"
 import diaryApi from "@/api/diaryApi.ts"
 import {buildDiaryContentHtml, parseMarkdown} from "@/utility/markedHighlight.ts";
@@ -93,11 +108,17 @@ const route = useRoute()
 
 const isLoading = ref(false) // loading
 const diary = ref<EntityDiaryFromServer>({})
-const clipboard = ref() // clipboard obj
 const lunarObject = ref<LunarDateEntity>({})
 const isShowExplode = ref(false) // 是否显示炸词
 const hasHideAllCompletedTodoItems = ref(false) // 是否隐藏所有已完成事项
 
+// 无标题时内容区提供复制；有标题的 todo 复制放在标题工具栏
+const showContentCopyToolbar = computed(() => {
+    if (diary.value.category === 'todo') {
+        return !diary.value.title
+    }
+    return true
+})
 
 onMounted(async ()=>{
     await loadUserConfig()
@@ -106,20 +127,12 @@ onMounted(async ()=>{
     if (route.params.id){
         showDiary(Number(route.params.id))
     }
-
-    // 绑定剪贴板操作方法
-    clipboard.value = new ClipboardJS('.clipboard', {
-        text: trigger => {
-            return trigger.getAttribute('data-clipboard') || ''
-        },
-    })
-    clipboard.value.on('success', ()=>{  // 还可以添加监听事件，如：复制成功后提示
-        popMessage('success', '已复制到 剪贴板', null, 1)
-    })
 })
 
 onUnmounted(()=>{
-    clipboard.value.destroy()
+    if (multiTapTimer) {
+        clearTimeout(multiTapTimer)
+    }
 })
 
 // 内容 html - 其他类别内容
@@ -154,9 +167,11 @@ function toggleContentType(){
 }
 
 
-// 移动端双击复制
-const mobileDoubleTapState = { time: 0, key: '' }
-const MOBILE_DOUBLE_TAP_MS = 500
+// 移动端多击复制（双击 / 三击）
+const mobileTapState = { time: 0, key: '', count: 0 }
+let multiTapTimer: ReturnType<typeof setTimeout> | undefined
+const MOBILE_MULTI_TAP_MS = 500
+const MOBILE_TRIPLE_WAIT_MS = 280
 
 /**
  * 判断是否是触摸设备
@@ -167,34 +182,89 @@ function isTouchDevice() {
 }
 
 /**
- * 移动端双击复制
- * @param key 复制的内容类型
- * @param copyFn 复制函数
+ * 移动端双击 / 可选三击复制
+ * @param key 手势区域标识
+ * @param onDouble 双击回调
  * @param event 事件
+ * @param onTriple 三击回调（仅标题+todo 用于复制未完成）
  */
-function onMobileCopyGesture(key: string, copyFn: () => void, event: Event) {
+function onMobileCopyGesture(
+    key: string,
+    onDouble: () => void,
+    event: Event,
+    onTriple?: () => void
+) {
     if (!projectStore.isInMobileMode) return
     // 触摸设备上忽略 touchend 之后合成的 click，避免单次点击被误判为双击
     if (isTouchDevice() && event.type === 'click') return
 
     const now = Date.now()
-    if (now - mobileDoubleTapState.time < MOBILE_DOUBLE_TAP_MS && mobileDoubleTapState.key === key) {
-        if (event.type === 'touchend') {
-            event.preventDefault()
-        }
-        mobileDoubleTapState.time = 0
-        mobileDoubleTapState.key = ''
-        copyFn()
+    if (now - mobileTapState.time < MOBILE_MULTI_TAP_MS && mobileTapState.key === key) {
+        mobileTapState.count += 1
     } else {
-        mobileDoubleTapState.time = now
-        mobileDoubleTapState.key = key
+        mobileTapState.count = 1
     }
+    mobileTapState.time = now
+    mobileTapState.key = key
+
+    if (event.type === 'touchend' && mobileTapState.count >= 2) {
+        event.preventDefault()
+    }
+
+    if (multiTapTimer) {
+        clearTimeout(multiTapTimer)
+        multiTapTimer = undefined
+    }
+
+    // 三击：复制未完成
+    if (onTriple && mobileTapState.count >= 3) {
+        mobileTapState.count = 0
+        mobileTapState.time = 0
+        onTriple()
+        return
+    }
+
+    // 双击：若支持三击则短暂等待，否则立即复制
+    if (mobileTapState.count === 2) {
+        if (onTriple) {
+            multiTapTimer = setTimeout(() => {
+                mobileTapState.count = 0
+                mobileTapState.time = 0
+                multiTapTimer = undefined
+                onDouble()
+            }, MOBILE_TRIPLE_WAIT_MS)
+        } else {
+            mobileTapState.count = 0
+            mobileTapState.time = 0
+            onDouble()
+        }
+    }
+}
+
+// 标题区移动端手势：双击复制标题，todo 三击复制未完成
+function onTitleMobileGesture(event: Event) {
+    onMobileCopyGesture(
+        'title',
+        copyTitle,
+        event,
+        diary.value.category === 'todo' ? copyTodosUndone : undefined
+    )
+}
+
+// 正文区移动端手势：双击复制内容或全部待办
+function onContentMobileGesture(event: Event) {
+    onMobileCopyGesture('content', copyContentOrTodosAll, event)
 }
 
 function onMobileDblClick(copyFn: () => void) {
     if (!projectStore.isInMobileMode) return
-    mobileDoubleTapState.time = 0
-    mobileDoubleTapState.key = ''
+    if (multiTapTimer) {
+        clearTimeout(multiTapTimer)
+        multiTapTimer = undefined
+    }
+    mobileTapState.time = 0
+    mobileTapState.key = ''
+    mobileTapState.count = 0
     copyFn()
 }
 
@@ -223,8 +293,38 @@ async function copyToClipboard(text: string) {
     }
 }
 
-function copyTitleAndContent() {
-    copyToClipboard(`${diary.value.title}\n------------------------\n${diary.value.content || ''}`)
+// 复制标题
+function copyTitle() {
+    copyToClipboard(diary.value.title || '')
+}
+
+// 复制正文
+function copyContent() {
+    copyToClipboard(diary.value.content || '')
+}
+
+// 复制全部待办
+function copyTodosAll() {
+    copyToClipboard(diary.value.content || '')
+}
+
+// 复制未完成待办（`- ` 开头的行）
+function copyTodosUndone() {
+    const content = diary.value.content || ''
+    const undone = content
+        .split('\n')
+        .filter(line => line.startsWith('- '))
+        .join('\n')
+    copyToClipboard(undone)
+}
+
+// 正文双击：todo 复制全部，其它复制正文
+function copyContentOrTodosAll() {
+    if (diary.value.category === 'todo') {
+        copyTodosAll()
+    } else {
+        copyContent()
+    }
 }
 
 function getContentHtml(content: string){
