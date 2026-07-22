@@ -45,6 +45,13 @@
                     <div v-if="isEditable" class="item-actions">
                         <TabIcon
                             size="small"
+                            icon="黑色-复制"
+                            title="复制"
+                            @mousedown.prevent
+                            @click="copyTodo(item)"
+                        />
+                        <TabIcon
+                            size="small"
                             icon="黑色-编辑"
                             :title="isItemEditing(item) ? '完成' : '编辑'"
                             @mousedown.prevent
@@ -76,16 +83,17 @@
                     :style="{'--todo-color': statisticStore.categoryObjectMap.get('todo')?.color}"
                 ></div>
             </div>
-            <input
+            <!-- 与编辑态一致，用 contenteditable 支持长文本自动换行 -->
+            <div
                 ref="addInputRef"
-                v-model="newTodoContent"
-                type="text"
+                contenteditable="true"
                 class="add-input"
-                placeholder="添加待办事项，回车确认"
+                data-placeholder="添加待办事项，回车确认"
+                @input="handleAddInput"
                 @keydown.enter.prevent="submitNewTodo"
                 @keydown.esc.prevent="hideAddRow"
                 @blur="handleAddInputBlur"
-            />
+            ></div>
             <div class="item-actions">
                 <TabIcon size="small" icon="黑色-添加" title="添加" @mousedown.prevent @click="submitNewTodo"/>
             </div>
@@ -124,7 +132,7 @@ const noteElements = new Map<number, HTMLDivElement>()
 const editingItemId = ref<number | null>(null)
 const isAddRowVisible = ref(false)
 const newTodoContent = ref('')
-const addInputRef = ref<HTMLInputElement>()
+const addInputRef = ref<HTMLDivElement>()
 
 const isEditable = computed(() => !props.readonly && !projectStore.isHideContent)
 
@@ -301,6 +309,11 @@ function showAddRow() {
     nextTick(() => addInputRef.value?.focus())
 }
 
+// 同步新增输入内容
+function handleAddInput(ev: Event) {
+    newTodoContent.value = (ev.target as HTMLDivElement).textContent || ''
+}
+
 function handleAddInputBlur() {
     window.setTimeout(() => {
         if (!newTodoContent.value.trim()) {
@@ -310,7 +323,7 @@ function handleAddInputBlur() {
 }
 
 function submitNewTodo(){
-    const content = newTodoContent.value.trim()
+    const content = (addInputRef.value?.textContent || newTodoContent.value).trim()
     if (!content || !isEditable.value) return
     lastId.value = lastId.value + 1
     const newItem: TodoEntity = {
@@ -323,8 +336,37 @@ function submitNewTodo(){
     const finished = todoList.value.filter(item => item.isDone)
     todoList.value = unfinished.concat(newItem, finished)
     newTodoContent.value = ''
+    if (addInputRef.value) addInputRef.value.textContent = ''
     saveDiary()
     nextTick(() => addInputRef.value?.focus())
+}
+
+// 复制当前待办行内容
+async function copyTodo(item: TodoEntity) {
+    let text = item.content
+    if (isItemEditing(item)) {
+        const el = contentElements.get(item.id)
+        if (el) text = el.textContent || ''
+    }
+    text = text.trim()
+    if (!text) return
+    try {
+        if (window.isSecureContext && navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text)
+        } else {
+            const textarea = document.createElement('textarea')
+            textarea.value = text
+            textarea.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0'
+            document.body.appendChild(textarea)
+            textarea.focus()
+            textarea.select()
+            document.execCommand('copy')
+            document.body.removeChild(textarea)
+        }
+        popMessage('success', '已复制到 剪贴板', null, 1)
+    } catch {
+        popMessage('danger', '复制失败', null, 1)
+    }
 }
 
 function toggleItemEdit(item: TodoEntity){

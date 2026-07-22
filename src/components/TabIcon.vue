@@ -68,7 +68,8 @@ const props = withDefaults(defineProps<{
         | '黑色-列表简洁'
         | '黑色-列表详情'
         | '黑色-列表瀑布'
-        | '黑色-日历-选中',
+        | '黑色-日历-选中'
+        | '黑色-复制',
     size?: '' | 'small'
 }>(), {
     size: ''
@@ -131,6 +132,7 @@ const iconMap = computed(() => {
     iconMap.set('黑色-列表瀑布', ICONS.tab_icons_black.listWaterfall)
     iconMap.set('黑色-日历-选中', ICONS.tab_icons_black.calendar_active)
     iconMap.set('黑色-类别', ICONS.tab_icons_black.category)
+    iconMap.set('黑色-复制', ICONS.clipboard)
     return iconMap
 })
 </script>

@@ -90,7 +90,8 @@ $gap-small: 8px;
         padding: $gap $gap + 5;
         background-color: $bg-light;
         width: 100%;
-        font-family: "JetBrainsMonoDiary", Consolas;
+        font-family: "JetBrainsMonoDiary", Consolas, sans-serif;
+        border-radius: $radius-mobile;
         overflow-x: auto;
         > code{
             padding: 0;
