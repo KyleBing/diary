@@ -1,16 +1,24 @@
 <template>
-    <PageHeader title="端对端互传" subtitle="文件直连，不经服务器流量">
+    <PageHeader title="端对端互传" subtitle="日记 ↔ Manager 互通，不经服务器流量">
         <TabIcon @click="goBack" icon="返回"/>
     </PageHeader>
     <MenuPanelContainer>
         <div class="xfer">
-            <p class="tip">双方登录后，一方创建房间、另一方输入房间码。文件经 WebRTC 直连传输，不走本站带宽；跨公网可能因 NAT 失败，请尽量同一 Wi‑Fi。</p>
+            <p class="tip">双方登录后，一方创建房间、另一方输入同一房间码即可（日记与 Manager 互通）。文件经 WebRTC 直连传输，不走本站带宽；跨公网可能因 NAT 失败，请尽量同一 Wi‑Fi。</p>
 
             <div class="panel">
                 <div class="status">{{ statusDetail || status }}</div>
                 <div class="actions">
                     <button class="btn btn-active" type="button" @click="createRoom">创建房间</button>
-                    <input class="code-input" v-model="joinCode" maxlength="8" placeholder="房间码"/>
+                    <input
+                        class="code-input"
+                        v-model="joinCode"
+                        maxlength="6"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        placeholder="6 位数字"
+                        @input="joinCode = String(joinCode || '').replace(/\D/g, '').slice(0, 6)"
+                    />
                     <button class="btn" type="button" @click="joinRoom">加入</button>
                 </div>
                 <div v-if="room" class="room">
@@ -63,12 +71,12 @@ function goBack() {
 function createRoom() {
     if (!auth?.token) return popMessage('danger', '未登录')
     transfer.connect(auth.token, auth.uid)
-    setTimeout(() => transfer.createRoom(), 200)
+    transfer.createRoom()
 }
 function joinRoom() {
     if (!auth?.token) return popMessage('danger', '未登录')
     transfer.connect(auth.token, auth.uid)
-    setTimeout(() => transfer.joinRoom(joinCode.value), 200)
+    transfer.joinRoom(joinCode.value)
 }
 function onPick(e: Event) {
     picked.value = (e.target as HTMLInputElement).files?.[0] || null
@@ -124,9 +132,9 @@ onBeforeUnmount(() => transfer.disconnect())
 .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .code-input {
     width: 120px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.15em;
     padding: 6px 8px;
+    font-variant-numeric: tabular-nums;
 }
 .room { margin-top: 10px; font-size: 15px; strong { letter-spacing: 0.12em; font-size: 20px; } }
 .mt { margin-top: 10px; }

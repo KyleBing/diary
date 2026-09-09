@@ -32,7 +32,7 @@ const ICE_SERVERS: RTCIceServer[] = [
 function wsURL(token: string, uid: string | number): string {
   const proto = location.protocol === 'https:' ? 'wss:' : 'ws:'
   const host = location.host
-  // production nginx: /ws → portal-ws; local manager proxy may differ
+  // Same portal-ws hub for diary + manager (prod nginx /ws; vite proxies /ws in dev)
   const base = `${proto}//${host}/ws`
   const q = new URLSearchParams({
     token: String(token || ''),
@@ -50,6 +50,7 @@ export class PeerTransfer {
   private room = ''
   private makingOffer = false
   private polite = false
+  private pending: Array<() => void> = []
 
   onStatus: (s: TransferStatus, detail?: string) => void = () => {}
   onProgress: (p: TransferProgress) => void = () => {}
@@ -66,8 +67,15 @@ export class PeerTransfer {
     if (this.ws && this.ws.readyState <= 1) return
     this.onStatus('connecting', '连接信令…')
     this.ws = new WebSocket(wsURL(token, uid))
-    this.ws.onopen = () => this.onStatus('waiting', '信令已连接')
-    this.ws.onclose = () => this.onStatus('error', '信令断开')
+    this.ws.onopen = () => {
+      this.onStatus('waiting', '信令已连接')
+      const q = this.pending.splice(0)
+      q.forEach((fn) => fn())
+    }
+    this.ws.onclose = () => {
+      this.pending = []
+      this.onStatus('error', '信令断开')
+    }
     this.ws.onerror = () => this.onStatus('error', '信令错误')
     this.ws.onmessage = (ev) => {
       try {
@@ -79,6 +87,7 @@ export class PeerTransfer {
 
   disconnect() {
     try { this.ws?.send(JSON.stringify({ type: 'rtc-leave', content: {} })) } catch { /* */ }
+    this.pending = []
     this.channel?.close()
     this.pc?.close()
     this.ws?.close()
@@ -90,11 +99,12 @@ export class PeerTransfer {
   }
 
   createRoom() {
-    this.send('rtc-create', {})
+    this.whenOpen(() => this.send('rtc-create', {}))
   }
 
   joinRoom(code: string) {
-    this.send('rtc-join', { room: String(code || '').trim().toUpperCase() })
+    const digits = String(code || '').replace(/\D/g, '')
+    this.whenOpen(() => this.send('rtc-join', { room: digits }))
   }
 
   async sendFile(file: File) {
@@ -129,6 +139,17 @@ export class PeerTransfer {
     }
     this.channel.send(JSON.stringify({ kind: 'done' }))
     this.onStatus('done', '发送完成')
+  }
+
+  private whenOpen(fn: () => void) {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      fn()
+      return
+    }
+    this.pending.push(fn)
+    if (!this.ws || this.ws.readyState > 1) {
+      this.onStatus('error', '信令未连接，请先登录')
+    }
   }
 
   private send(type: string, content: Record<string, unknown>) {
