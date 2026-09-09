@@ -123,12 +123,12 @@ onBeforeUnmount(() => transfer.disconnect())
 .xfer { padding: 12px; max-width: 640px; }
 .tip { color: $text-subtitle; font-size: 13px; line-height: 1.5; margin-bottom: 12px; }
 .panel {
-    background: $bg-panel;
+    background: $bg-lighter;
     border-radius: 10px;
     padding: 14px;
     margin-bottom: 12px;
 }
-.status { font-size: 13px; margin-bottom: 10px; color: $text-main; }
+.status { font-size: 13px; margin-bottom: 10px; color: $text-title; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .code-input {
     width: 120px;
