@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 DEPLOY_HOST="${DEPLOY_HOST:-kylebing.cn}"
 DEPLOY_USER="${DEPLOY_USER:-root}"
 DEPLOY_PATH="${DEPLOY_PATH:-/var/www/html/diary}"
-SKIP_BUILD="${SKIP_BUILD:-1}"
+SKIP_BUILD="${SKIP_BUILD:-0}"
 
 section() {
   echo
