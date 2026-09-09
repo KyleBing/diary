@@ -1,5 +1,6 @@
 <template>
     <PageHeader title="文件列表" subtitle="">
+        <TabIcon @click="$router.push({name: 'FileTransfer'})" icon="分享"/>
         <TabIcon @click="showModalUpload" icon="添加"/>
     </PageHeader>
     <MenuPanelContainer>

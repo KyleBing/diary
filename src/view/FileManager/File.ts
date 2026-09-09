@@ -7,6 +7,7 @@ export interface EntityFile {
     date_time: string,
     type: string,
     uid: number,
-    size: number
+    size: number,
+    download_url?: string,
 }
 

@@ -3,10 +3,10 @@
         <div class="id">{{props.fileInfo.id}}</div>
 
         <div class="file-meta">
-            <TabIcon @click="openFileInNewTab" size="small" icon="黑色-内容显示" />
+            <TabIcon @click="downloadFile" size="small" icon="黑色-内容显示" />
             <TabIcon @click="modalEditFileName = true" size="small" icon="黑色-编辑"/>
             <TabIcon @click="deleteFile" size="small" icon="黑色-删除"/>
-            <TabIcon size="small" icon="黑色-分享" class="clipboard" :data-clipboard="filePath" />
+            <TabIcon size="small" icon="黑色-分享" class="clipboard" :data-clipboard="shareHint" />
         </div>
 
         <div class="file-info">
@@ -34,41 +34,53 @@
             </form>
         </Modal>
     </div>
-
-
 </template>
 
 <script lang="ts" setup>
 import TabIcon from "@/components/TabIcon.vue";
 import fileManagerApi from "@/api/fileManagerApi";
 import Modal from "@/components/Modal.vue";
-
-import {popMessage} from "@/utility.ts";
+import {popMessage, getAuthorization} from "@/utility.ts";
 import {computed, ref} from "vue";
 import {EntityFile} from "@/view/FileManager/File.ts";
+import {downloadWithAuth} from "@/utility/webrtcTransfer.ts";
 
 const props = defineProps<{
     fileInfo: EntityFile
 }>()
-const filePath = computed(()=>{
-    return `http://kylebing.cn/${props.fileInfo.path}`
+
+const shareHint = computed(() => {
+    return `文件：${props.fileInfo.name_original}（请在日记/管理端登录后下载）`
 })
 
 const emit = defineEmits(['refreshList'])
+const modalEditFileName = ref(false)
+const newFileName = ref('')
 
-const modalEditFileName = ref(false) // 文件名修改
-const newFileName = ref('') // 新文件名
-
-function openFileInNewTab(){
-    window.open(filePath.value, '_blank')
+async function downloadFile() {
+    const auth = getAuthorization()
+    if (!auth?.token || !auth?.uid) {
+        popMessage('danger', '未登录')
+        return
+    }
+    const url = props.fileInfo.download_url
+        || `/portal/file-manager/download?fileId=${props.fileInfo.id}`
+    try {
+        await downloadWithAuth(
+            url,
+            auth.token,
+            auth.uid,
+            props.fileInfo.name_original || 'file',
+        )
+    } catch {
+        popMessage('danger', '下载失败')
+    }
 }
+
 function deleteFile(){
     fileManagerApi
-        .delete({
-            fileId: props.fileInfo.id
-        })
+        .delete({ fileId: props.fileInfo.id })
         .then(res => {
-            console.log(res)
             popMessage('success', res.message)
             emit('refreshList')
         })
@@ -84,13 +96,13 @@ function modifyFileNameConfirm(){
         })
         .then(res => {
             popMessage('success', res.message)
+            modalEditFileName.value = false
             emit('refreshList')
         })
         .catch(err => {
             popMessage('danger', err.message)
         })
 }
-
 </script>
 
 <style scoped lang="scss">
