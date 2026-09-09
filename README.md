@@ -23,7 +23,7 @@
 ## 三、前端、后台
 
 - 前端：[https://github.com/KyleBing/diary-vue](https://github.com/KyleBing/diary-vue)  `vue3`、`ts`、`vite`
-- 后台：[https://github.com/KyleBing/portal](https://github.com/KyleBing/portal)  `nodejs`
+- 后台：[https://github.com/KyleBing/portal-go](https://github.com/KyleBing/portal-go)  `go`
 
 ---
 
