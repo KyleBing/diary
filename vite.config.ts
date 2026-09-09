@@ -37,12 +37,6 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/dev/, '/'),
             },
-            // Same portal-ws hub as Manager (local :9999; production nginx /ws)
-            '/ws': {
-                target: 'http://localhost:9999',
-                changeOrigin: true,
-                ws: true,
-            },
         }
     },
     base: './',
