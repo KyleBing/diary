@@ -3,8 +3,8 @@
   "nameZh": "标题日记",
   "type": "module",
   "description": "一句话概括你的一天",
-  "version": "9.5.6",
-  "dateModify": "2026.09.09",
+  "version": "9.5.7",
+  "dateModify": "2026.09.11",
   "dateInit": "2018.08.14",
   "author": {
     "email": "kylebing@163.com",

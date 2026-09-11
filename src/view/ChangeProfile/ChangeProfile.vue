@@ -190,7 +190,8 @@ function changeProfileSubmit() {
                     email: res.data.email,
                     phone: res.data.phone,
                     avatar: res.data.avatar,
-                    token: res.data.password,
+                    // 资料接口不再返回密码哈希；保留本地 JWT
+                    token: getAuthorization()?.token || '',
                     group_id: res.data.group_id,
                     city: res.data.city,
                     geolocation: res.data.geolocation,

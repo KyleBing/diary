@@ -7,7 +7,7 @@ export interface AuthorizationEntity{
     email: string
     phone: string
     avatar: string
-    token: string
+    token: string // JWT（登录接口 data.token）
     group_id: number
     city: string
     geolocation: string

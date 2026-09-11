@@ -31,6 +31,17 @@ export function deleteAuthorization() {
     removeBillKeys()
     notifyAuthSessionChanged()
 }
+
+// 续签后只更新 token，保留其它资料字段
+export function updateAuthorizationToken(token: string) {
+    const auth = getAuthorization()
+    if (!auth || !token) {
+        return
+    }
+    auth.token = token
+    localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify(auth))
+}
+
 export function setAuthorization(auth: AuthorizationEntity) {
     localStorage.setItem(AUTHORIZATION_NAME, JSON.stringify({
         nickname: auth.nickname,

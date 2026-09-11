@@ -59,7 +59,7 @@ const newFileName = ref('')
 
 async function downloadFile() {
     const auth = getAuthorization()
-    if (!auth?.token || !auth?.uid) {
+    if (!auth?.token) {
         popMessage('danger', '未登录')
         return
     }
@@ -69,7 +69,6 @@ async function downloadFile() {
         await downloadWithAuth(
             url,
             auth.token,
-            auth.uid,
             props.fileInfo.name_original || 'file',
         )
     } catch {
