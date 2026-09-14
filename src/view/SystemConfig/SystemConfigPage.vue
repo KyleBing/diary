@@ -28,6 +28,13 @@
                         <label for="invitation-code">通用邀请码</label>
                         <input id="invitation-code" v-model.trim="form.invitation_code" type="text" placeholder="可留空">
                     </div>
+
+                    <!-- 原独立菜单入口并入系统设置 -->
+                    <div class="btn-list mt-2">
+                        <button class="btn btn-default" type="button" @click="router.push({ name: 'Invitation' })">
+                            管理邀请码
+                        </button>
+                    </div>
                 </div>
 
                 <div class="setup-card">
