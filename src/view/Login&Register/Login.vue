@@ -23,6 +23,10 @@
                     </div>
                     <button :class="['btn', 'mt-8', verified ? 'btn-active' : 'btn-inactive']"
                             type="submit">{{ loginLabel }}</button>
+                    <button v-if="needResendVerify"
+                            class="btn mt-2 btn-inactive"
+                            type="button"
+                            @click.prevent="resendVerifyEmail">重发验证邮件</button>
                 </form>
                 <div :class="['footer', {center: !is_show_demo_account}]">
                     <RouterLink to="/register">注册</RouterLink>
@@ -60,6 +64,7 @@ import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 const router = useRouter()
 
 const show = ref(false)
+const needResendVerify = ref(false)
 onMounted(()=> {
     show.value = true
     document.title = '日记 - 登录' // 变更标题
@@ -104,6 +109,7 @@ const verified = computed(() => {
 function loginSubmit() {
     if (verified.value){
         loginLabel.value = '登录中...'
+        needResendVerify.value = false
         let requestData = {
             email: email.value,
             password: password.value,
@@ -128,12 +134,27 @@ function loginSubmit() {
                 loginLabel.value = '登录成功'
             })
             .catch(err => {
-                loginLabel.value = '登录失败'
-                popMessage('danger', err.message, () => loginLabel.value = '登录', 5)
+                loginLabel.value = '登录'
+                if (err?.data?.code === 'email_not_verified') {
+                    needResendVerify.value = true
+                }
+                popMessage('danger', err.message, () => {}, 5)
             })
     } else {
 
     }
+}
+
+function resendVerifyEmail() {
+    if (!emailVerified.value) return
+    userApi
+        .resendVerify({email: email.value})
+        .then(res => {
+            popMessage('success', res.message || '验证邮件已发送', () => {}, 5)
+        })
+        .catch(err => {
+            popMessage('danger', err.message || '发送失败', () => {}, 5)
+        })
 }
 
 function getBillKeys() {

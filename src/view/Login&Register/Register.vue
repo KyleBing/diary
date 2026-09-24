@@ -130,7 +130,13 @@ function  regSubmit() {
         userApi
             .register(requestData)
             .then(res => {
-                popMessage('success', `${res.message}，正在前往登录`, () => router.push({name: 'Login'}))}, 5)
+                const needVerify = res.data && res.data.email_verified === false
+                if (needVerify) {
+                    popMessage('success', `${res.message}`, () => router.push({name: 'Login'}), 8)
+                } else {
+                    popMessage('success', `${res.message}，正在前往登录`, () => router.push({name: 'Login'}), 5)
+                }
+            })
             .catch(err => {
                 popMessage('danger', err.message, ()=>{}, 5)
             })

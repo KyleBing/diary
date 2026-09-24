@@ -12,4 +12,9 @@ export default {
     // 获取头像
     getAvatar(params: {email: string})         { return request('get', params, null, 'user/avatar')}          ,
 
+    // 重发邮箱验证
+    resendVerify(requestData: {email: string}) { return request('post', {}, requestData, 'user/resend-verify')},
+    // 找回密码：发送重置邮件
+    forgot(requestData: {email: string})       { return request('post', {}, requestData, 'user/forgot')},
 }
+
