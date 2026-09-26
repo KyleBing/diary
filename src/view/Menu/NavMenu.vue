@@ -256,6 +256,18 @@ const MENU_LIST = [
         }
     },
     {
+        name: '邀请码',
+        isShowInMobile: true,
+        isShowInPC: true,
+        isNeedAdmin: true,
+        icon: SVG_ICONS.tab_icons.invitation,
+        insideComponent: null,
+        addOnText: null,
+        onClick: () => {
+            goToPage('Invitation')
+        }
+    },
+    {
         name: '更新日志',
         isShowInMobile: true,
         isShowInPC: true,
