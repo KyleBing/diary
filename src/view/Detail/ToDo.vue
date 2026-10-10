@@ -95,7 +95,8 @@
                 @blur="handleAddInputBlur"
             ></div>
             <div class="item-actions">
-                <TabIcon size="small" :icon="actionIcon('添加')" title="添加" @mousedown.prevent @click="submitNewTodo"/>
+                <!-- 新增确认用 ✓，浅色/暗黑分别走黑色-确定、确定 -->
+                <TabIcon size="small" :icon="actionIcon('确定')" title="添加" @mousedown.prevent @click="submitNewTodo"/>
             </div>
         </div>
     </div>
@@ -137,7 +138,7 @@ const addInputRef = ref<HTMLDivElement>()
 const isEditable = computed(() => !props.readonly && !projectStore.isHideContent)
 
 // 浅色底用黑色图标，暗黑模式用白色图标
-type TodoActionIcon = '复制' | '编辑' | '删除' | '添加'
+type TodoActionIcon = '复制' | '编辑' | '删除' | '确定'
 function actionIcon(name: TodoActionIcon) {
     return projectStore.isDarkMode ? name : `黑色-${name}`
 }
