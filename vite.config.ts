@@ -31,11 +31,13 @@ export default defineConfig({
         port: 1021,// 自定义端口
         https: false,
         proxy: {
+            // 开发时 /dev/* → 线上 /portal/*（无需本机起 portal-go）
+            // 联调本机后端时改为：target: 'http://localhost:3000'，rewrite 仍把 /dev 换成 /portal
             '/dev': {
-                // target: 'http://localhost:3000',
-                target: 'http://kylebing.cn:3000',
+                target: 'https://kylebing.cn',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/dev/, '/'),
+                secure: true,
+                rewrite: (path) => path.replace(/^\/dev/, '/portal'),
             },
         }
     },
