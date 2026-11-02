@@ -19,6 +19,7 @@
                     </div>
                     <div
                         class="content-wrapper"
+                        @dblclick="handleContentDblClick(item)"
                         @mousedown="handleEditMouseDown(item, $event)"
                         @focusout="handleEditFocusOut(item, $event)"
                     >
@@ -374,6 +375,11 @@ async function copyTodo(item: TodoEntity) {
     } catch {
         popMessage('danger', '复制失败', null, 1)
     }
+}
+
+function handleContentDblClick(item: TodoEntity) {
+    if (!isEditable.value || isItemEditing(item)) return
+    toggleItemEdit(item)
 }
 
 function toggleItemEdit(item: TodoEntity){

@@ -36,7 +36,9 @@ function getWeatherData(){
                 let temperature_outside = item.temperature_outside === -273? null: item.temperature_outside
                 return [date, temperature, temperature_outside]
             })
-            weatherStatisticData.value = tempData
+            weatherStatisticData.value = tempData.sort(
+                (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime()
+            )
         })
 }
 </script>

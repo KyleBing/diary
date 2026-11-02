@@ -91,9 +91,8 @@ export default {
                         }
                     }
                 },
-                xAxis: { // 横坐标轴
+                xAxis: { // 横坐标轴：左旧右新，dataZoom 默认展示右侧最近时段
                     type: 'time',
-                    inverse: true,
                     data: [],
                     // data: [], // 横轴数据
                     axisLabel: {
