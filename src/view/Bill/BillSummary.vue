@@ -1,28 +1,20 @@
 <template>
-    <div class="bill-navbar-statistic">
-        <div class="bill-navbar-statistic-item">
-            <div class="label">总收入</div>
-            <div class="value text-income">￥{{ summaryData.sumIncome.toFixed(2) }}</div>
+    <div class="bill-side-summary">
+        <div class="bill-side-summary-main">
+            <span class="label">收入</span>
+            <span class="value text-income number">{{ formatSigned(summaryData.sumIncome) }}</span>
+            <span class="label">支出</span>
+            <span class="value text-expense number">{{ formatSigned(summaryData.sumExpense) }}</span>
+            <span class="label">合计</span>
+            <span :class="['value', 'net', 'number', summaryData.sumNet >= 0 ? 'text-income' : 'text-expense']">
+                {{ formatSigned(summaryData.sumNet) }}
+            </span>
         </div>
-        <div class="bill-navbar-statistic-item">
-            <div class="label">总支出</div>
-            <div class="value text-expense">￥{{ summaryData.sumExpense.toFixed(2) }}</div>
-        </div>
-        <div class="bill-navbar-statistic-item">
-            <div class="label">收入条目</div>
-            <div class="value text-income">{{ summaryData.totalIncomeCount }}</div>
-        </div>
-        <div class="bill-navbar-statistic-item">
-            <div class="label">支出条目</div>
-            <div class="value text-expense">{{ summaryData.totalExpenseCount }}</div>
-        </div>
-        <div class="bill-navbar-statistic-item">
-            <div class="label">总天数</div>
-            <div class="value">{{ summaryData.totalDayCount }}</div>
-        </div>
-        <div class="bill-navbar-statistic-item">
-            <div class="label">总条目</div>
-            <div class="value">{{ summaryData.totalCount }}</div>
+        <div class="bill-side-summary-meta">
+            <span>{{ summaryData.totalIncomeCount }}收</span>
+            <span>{{ summaryData.totalExpenseCount }}支</span>
+            <span>{{ summaryData.totalDayCount }}天</span>
+            <span>{{ summaryData.totalCount }}笔</span>
         </div>
     </div>
 </template>
@@ -30,22 +22,18 @@
 <script setup lang="ts">
 
 import {EntityBillMonth} from "@/view/Bill/Bill.ts";
-import {onMounted, ref, watch} from "vue";
+import {ref, watch} from "vue";
 
 const props = defineProps<{
     monthDataOfBill: Array<EntityBillMonth>
 }>()
-
-onMounted(()=>{
-    recalculateData()
-})
 
 const summaryData = ref({
     totalExpenseCount: 0,
     totalIncomeCount: 0,
     sumIncome: 0,
     sumExpense: 0,
-    totalMonthCount: 0,
+    sumNet: 0,
     totalDayCount: 0,
     totalCount: 0,
 })
@@ -56,33 +44,33 @@ function resetCount(){
         totalIncomeCount: 0,
         sumIncome: 0,
         sumExpense: 0,
-        totalMonthCount: 0,
+        sumNet: 0,
         totalDayCount: 0,
         totalCount: 0,
     }
 }
 
+// 正数补 +
+function formatSigned(value: number){
+    const text = value.toFixed(2)
+    return value > 0 ? `+${text}` : text
+}
+
 watch(() => props.monthDataOfBill, () => {
     resetCount()
     recalculateData()
-})
+}, { deep: true, immediate: true })
 
-/**
- * 重新计算统计数据
- */
+// 按当前月份列表重算年度合计
 function recalculateData(){
     props.monthDataOfBill.forEach(monthBill => {
-        // 总 支出/收入
         summaryData.value.sumIncome = summaryData.value.sumIncome + monthBill.sumIncome
         summaryData.value.sumExpense = summaryData.value.sumExpense + monthBill.sumOutput
-
-        // 总天数
+        summaryData.value.sumNet = summaryData.value.sumNet + monthBill.sum
         summaryData.value.totalDayCount = summaryData.value.totalDayCount + monthBill.days.length
 
         monthBill.days.forEach(dayBill => {
-            // 总条目数量
             summaryData.value.totalCount = summaryData.value.totalCount + dayBill.items.length
-            // 支出/收入条目的数量
             dayBill.items.forEach(item => {
                 if (item.price > 0){
                     summaryData.value.totalIncomeCount++
@@ -98,45 +86,40 @@ function recalculateData(){
 <style scoped lang="scss">
 @use "../../scss/plugin" as *;
 
-.bill-navbar-statistic{
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    overflow-x: auto;
-    flex-shrink: 1;
+.bill-side-summary{
+    margin-bottom: 8px;
+}
+.bill-side-summary-main{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: baseline;
+}
+.label{
+    font-size: $fz-small;
+    opacity: 0.7;
+}
+.value{
     min-width: 0;
-    .bill-navbar-statistic-item{
-        flex-shrink: 0;
-        margin-left: 16px;
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        white-space: nowrap;
-        .label{
-            font-size: $fz-main;
-            margin-right: 6px;
-            opacity: 0.75;
-        }
-        .value{
-            font-size: $fz-main;
-            font-weight: bold;
-            font-family: "JetBrainsMonoDiary";
-        }
+    overflow: visible;
+    font-size: $fz-main;
+    font-weight: bold;
+    font-family: "JetBrainsMonoDiary", sans-serif;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+    &.net{
+        font-size: $fz-title;
+        line-height: 1.2;
     }
 }
-
-@media (max-width: $grid-separate-width-sm) {
-    .bill-navbar-statistic{
-        .bill-navbar-statistic-item{
-            margin-left: 10px;
-            .label{
-                font-size: $fz-small;
-            }
-            .value{
-                font-size: $fz-small;
-            }
-        }
-    }
+.bill-side-summary-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    margin-top: 6px;
+    font-size: $fz-small;
+    opacity: 0.75;
 }
-
 </style>

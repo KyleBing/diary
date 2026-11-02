@@ -22,8 +22,12 @@
     margin-left: 10px;
     color: color.adjust(white, $alpha: -0.6);
     flex-grow: 1;
+    min-width: 0;
     font-size: $fz-main;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .page-back-btn{
   }

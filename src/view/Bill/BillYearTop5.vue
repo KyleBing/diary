@@ -1,7 +1,7 @@
 <template>
-    <div class="statistic-container">
-        <PageHeader title="年度 TOP5"/>
-        <div class="bill-content bill-year-top5-content" :style="`height:${projectStore.insets.heightPanel}px`">
+    <div :class="embedded ? 'bill-embed-fill' : 'statistic-container'">
+        <PageHeader v-if="!embedded" title="年度 TOP5"/>
+        <div class="bill-content bill-year-top5-content" :style="embedded ? undefined : `height:${projectStore.insets.heightPanel}px`">
             <div class="bill-year-top5-toolbar">
                 <div class="year-selector">
                     <button
@@ -73,6 +73,13 @@ interface MonthTop5Card {
     monthData?: EntityBillMonth
 }
 
+const props = withDefaults(defineProps<{
+    embedded?: boolean
+    initialYear?: number
+}>(), {
+    embedded: false,
+})
+
 const projectStore = useProjectStore()
 const route = useRoute()
 
@@ -121,8 +128,9 @@ function formatTop5Diff(diff: number): string {
 
 onMounted(() => {
     const queryYear = Number(route.query.year)
-    if (queryYear >= 2022 && queryYear <= new Date().getFullYear()) {
-        selectedYear.value = queryYear
+    const preferred = props.initialYear || queryYear
+    if (preferred >= 2022 && preferred <= new Date().getFullYear()) {
+        selectedYear.value = preferred
     }
     loadData()
 })

@@ -10,8 +10,22 @@
     flex-shrink: 0;
   }
 
-  .bill-content{
+  .bill-body{
     flex: 1 1 0%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .bill-content{
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .bill-months-layout{
+    height: 100%;
     min-height: 0;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -46,6 +60,88 @@
 .filter-panel{
   flex-shrink: 0;
   padding-right: 12px;
+}
+
+.bill-months-side{
+  width: 280px;
+  box-sizing: border-box;
+  background: white;
+  border: 1px solid $color-border;
+  border-radius: $radius-pc;
+  padding: 12px;
+}
+.bill-filter-keyword{
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 8px;
+  border: 1px solid $color-border;
+  border-radius: $radius-mobile;
+  background: $bg-light;
+  padding: 7px 10px;
+  font-size: $fz-small;
+  color: $text-title;
+  &:focus{
+    outline: none;
+    background: white;
+    border-color: $orange;
+  }
+}
+.bill-filter-actions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 8px 0 4px;
+  .button-small{
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+.bill-month-index{
+  margin-top: 8px;
+  border-top: 1px solid $color-border-light;
+  padding-top: 6px;
+}
+.bill-month-index-item{
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 5px 2px;
+  cursor: pointer;
+  text-align: left;
+  color: $text-title;
+  border-radius: $radius-mobile;
+  &:hover{
+    background: $bg-light;
+  }
+  .name{
+    flex-shrink: 0;
+    font-size: $fz-small;
+  }
+  .year{
+    flex-shrink: 0;
+    font-size: $fz-small;
+    opacity: 0.55;
+  }
+  .amount{
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+    font-family: "JetBrainsMonoDiary", sans-serif;
+    font-size: $fz-small;
+    font-weight: bold;
+  }
+}
+.bill-months-side .year-selector{
+  margin-top: 2px;
+}
+.bill-months-side .year-selector-item{
+  padding: 3px 7px;
+  font-size: $fz-small;
 }
 
 .bill-months-scroll{
@@ -233,8 +329,21 @@
     height: auto !important;
     overflow: visible;
 
+    .bill-body{
+      flex: none;
+      min-height: auto;
+      grid-template-columns: 56px minmax(0, 1fr);
+      overflow: visible;
+    }
+
     .bill-content{
       flex: none;
+      min-height: auto;
+      overflow: visible;
+    }
+
+    .bill-months-layout{
+      height: auto;
       min-height: auto;
       display: flex;
       flex-flow: column nowrap;
@@ -249,6 +358,9 @@
       overflow: visible;
       padding-right: 0;
       margin-bottom: 12px;
+    }
+    .bill-months-side{
+      width: 100%;
     }
 
     .bill-months-scroll{
@@ -326,6 +438,28 @@
   .bill-content{
     background-color: black;
   }
+  .bill-months-side{
+    background: $dark-bg-dark;
+    border-color: $dark-border;
+  }
+  .bill-filter-keyword{
+    background: $dark-bg;
+    color: $dark-text-title;
+    border-color: $dark-border;
+    &:focus{
+      background: $dark-bg-dark;
+      border-color: $orange;
+    }
+  }
+  .bill-month-index{
+    border-top-color: $dark-border;
+  }
+  .bill-month-index-item{
+    color: $dark-text-title;
+    &:hover{
+      background: $dark-bg;
+    }
+  }
   .sum{
     color: $dark-text-title;
     &:after{
@@ -379,4 +513,428 @@
   }
 
 
+}
+
+.bill-import-hint{
+  margin: 0 0 10px;
+  color: $text-subtitle;
+  font-size: $fz-small;
+  line-height: 1.5;
+}
+.bill-import-file{
+  display: none;
+}
+.bill-import-file-name{
+  margin: -4px 0 10px;
+  font-size: $fz-small;
+  word-break: break-all;
+}
+.bill-import-counts{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  margin-bottom: 10px;
+  font-size: $fz-small;
+  div{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.bill-import-check{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: $fz-small;
+}
+.bill-import-batch{
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 6px 4px;
+  cursor: pointer;
+  .name{
+    font-size: $fz-small;
+  }
+  .meta{
+    color: $text-subtitle;
+    font-size: $fz-small;
+  }
+  &.active{
+    border-color: $orange;
+    border-radius: $radius-mobile;
+  }
+}
+.bill-import-main{
+  display: block;
+  overflow: auto;
+  padding-bottom: 24px;
+}
+.bill-import-section{
+  background: white;
+  border: 1px solid $color-border-bill;
+  border-radius: $radius-pc;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  h3{
+    margin: 0 0 10px;
+    font-size: $fz-title;
+  }
+}
+.bill-import-empty{
+  color: $text-subtitle;
+  font-size: $fz-small;
+}
+.bill-import-name-row{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  .who{
+    min-width: 0;
+    font-size: $fz-small;
+  }
+  .sub{
+    color: $text-subtitle;
+  }
+}
+.bill-import-input{
+  width: 100%;
+  border: 1px solid $color-border;
+  border-radius: $radius-mobile;
+  padding: 6px 8px;
+  font-size: $fz-small;
+}
+.bill-import-table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $fz-small;
+  td{
+    padding: 4px 8px 4px 0;
+    border-bottom: 1px solid $color-border-light;
+  }
+  .date{
+    width: 110px;
+    color: $text-subtitle;
+  }
+  .amount{
+    text-align: right;
+    width: 90px;
+  }
+}
+
+.bill-nav{
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 6px;
+  border-right: 1px solid $color-border-light;
+  background: white;
+}
+.bill-nav-list{
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  button{
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 100%;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    color: $text-title;
+    border-radius: $radius-mobile;
+    cursor: pointer;
+    font-size: $fz-small;
+    &.checked{
+      font-weight: bold;
+    }
+  }
+}
+.bill-nav-thumb{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  border-radius: $radius-mobile;
+  border: 1px solid $orange;
+  background-color: color.adjust($color-main, $lightness: 20%);
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(.22, .61, .36, 1);
+}
+.bill-page .bill-content.bill-view-calendar,
+.bill-page .bill-content.bill-view-top5,
+.bill-page .bill-content.bill-view-import{
+  display: block;
+  padding: 0;
+  overflow: hidden;
+}
+.bill-embed-fill{
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.bill-page .bill-year-top5-content{
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+.bill-calendar-layout{
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  overflow: hidden;
+  background: $bg-light;
+}
+.bill-calendar-side{
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  gap: 4px;
+  padding: 8px 6px;
+  border-right: 1px solid $color-border-light;
+  background: white;
+  .year-selector-item{
+    border: 1px solid transparent;
+    background-color: $bg-light;
+    color: $text-title;
+    padding: 4px 0;
+    border-radius: $radius-mobile;
+    font-size: $fz-small;
+    cursor: pointer;
+    &.checked{
+      border-color: $orange;
+      background-color: color.adjust($color-main, $lightness: 20%);
+      font-weight: bold;
+    }
+  }
+}
+.bill-calendar-legend{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 3px;
+  margin-top: 8px;
+  font-size: $fz-small;
+  color: $text-subtitle;
+  i{
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+}
+.bill-calendar-side-sum{
+  margin-top: 8px;
+  text-align: center;
+  font-size: $fz-small;
+  color: #01a67a;
+  word-break: break-all;
+}
+.bill-calendar-main{
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+}
+.bill-calendar-body{
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  &:has(.bill-calendar-detail){
+    grid-template-columns: minmax(0, 1fr) 280px;
+  }
+}
+.bill-calendar-grid{
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  padding: 12px;
+  align-content: start;
+}
+.bill-calendar-month{
+  min-width: 0;
+  overflow: hidden;
+  background: white;
+  border: 1px solid $color-border-bill;
+  border-radius: $radius-pc;
+  padding: 10px 12px 12px;
+  header{
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: serif;
+    font-weight: bold;
+    margin-bottom: 8px;
+    .expense{
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #01a67a;
+      font-family: "JetBrainsMonoDiary", sans-serif;
+      font-size: $fz-small;
+    }
+  }
+  .weekdays, .days{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 3px;
+  }
+  .weekdays span{
+    text-align: center;
+    font-size: $fz-small;
+    color: $text-subtitle;
+  }
+  .day{
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: $bg-light;
+    padding: 1px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    .num, .spend{
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+    .num{
+      font-size: 11px;
+    }
+    .spend{
+      font-size: 9px;
+      color: #016b50;
+    }
+    &.pad{
+      visibility: hidden;
+    }
+    &.quiet{
+      cursor: default;
+      opacity: 0.55;
+    }
+    &.active{
+      border-color: $orange;
+    }
+    &:disabled{
+      opacity: 1;
+    }
+    &.quiet:disabled{
+      opacity: 0.55;
+    }
+  }
+}
+.bill-calendar-detail{
+  overflow: auto;
+  border-left: 1px solid $color-border;
+  background: white;
+  padding: 16px;
+  .detail-date{
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .detail-sum{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: $fz-small;
+  }
+  table{
+    width: 100%;
+    margin-bottom: 12px;
+    font-size: $fz-small;
+    td:last-child{
+      text-align: right;
+    }
+  }
+}
+
+@media (max-width: $grid-separate-width-sm) {
+  .bill-import-name-row{
+    grid-template-columns: 1fr;
+  }
+  .bill-page .bill-calendar-layout{
+    height: auto;
+    min-height: 70vh;
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+  .bill-calendar-body{
+    grid-template-columns: 1fr;
+    overflow: auto;
+  }
+  .bill-calendar-detail{
+    border-left: 0;
+    border-top: 1px solid $color-border;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .bill-nav{
+    background: $dark-bg-dark;
+    border-right-color: $dark-border;
+  }
+  .bill-nav-list button{
+    color: $dark-text-title;
+  }
+  .bill-nav-thumb{
+    background: color.adjust($color-main, $lightness: -10%);
+  }
+  .bill-import-section,
+  .bill-calendar-side,
+  .bill-calendar-month,
+  .bill-calendar-detail{
+    background: $dark-bg-dark;
+    border-color: $dark-border;
+    color: $dark-text-title;
+  }
+  .bill-import-input{
+    background: $dark-bg;
+    color: $dark-text-title;
+    border-color: $dark-border;
+  }
+  .bill-import-table td{
+    border-bottom-color: $dark-border;
+  }
+  .bill-calendar-side{
+    border-right-color: $dark-border;
+    .year-selector-item{
+      background: $dark-bg;
+      color: $dark-text-title;
+      &.checked{
+        background: color.adjust($color-main, $lightness: -10%);
+      }
+    }
+  }
+  .bill-calendar-month .day{
+    background: $dark-bg;
+    color: $dark-text-title;
+    .spend{
+      color: #7ddebe;
+    }
+  }
+  .bill-calendar-detail{
+    border-left-color: $dark-border;
+  }
 }
