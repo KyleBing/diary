@@ -60,7 +60,7 @@
 
                 <div v-show="!projectStore.isMenuShowed" v-if="!projectStore.isInMobileMode"
                      @click="calendarTaped">
-                    <TabIcon icon="日历-选中" v-if="route.name === 'Calendar'"/>
+                    <TabIcon icon="日历-选中" v-if="String(route.path).includes('calendar')"/>
                     <TabIcon v-else icon="日历"/>
                 </div>
 
@@ -103,7 +103,7 @@
                 <Clock class="pr-6" v-if="!projectStore.isInMobileMode && projectStore.insets.windowsWidth > 1550"/>
 
                 <!--详情按钮-->
-                <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && projectStore.currentDiary">
+                <div class="nav-btn-wrapper" v-if="showDetailActions && projectStore.currentDiary">
                     <div
                         v-if="projectStore.currentDiary && projectStore.currentDiary.is_public === 1"
                         class="clipboard-trigger"
@@ -115,7 +115,7 @@
                 </div>
 
                 <!--编辑按钮-->
-                <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew' || route.name === 'CalendarEdit'">
+                <div class="nav-btn-wrapper" v-if="showEditorActions">
                     <div @click="diaryRecover" v-if="projectStore.isDiaryEditorContentHasChanged">
                         <TabIcon icon="恢复"/>
                     </div>
@@ -212,7 +212,14 @@ const dateFilterRangeLabel = computed(() =>
 
 /** 编辑页路由：用于 navbar 展示当前日记标题 */
 const EDIT_ROUTE_NAMES = ['Edit', 'EditNew', 'CalendarEdit', 'CalendarEditNew'] as const
-const isEditingRoute = computed(() => EDIT_ROUTE_NAMES.includes(route.name as typeof EDIT_ROUTE_NAMES[number]))
+const isCalendarCreating = computed(() =>
+    (route.name === 'Calendar' || route.name === 'CalendarEditNew') && route.query.new === '1'
+)
+const isEditingRoute = computed(() =>
+    EDIT_ROUTE_NAMES.includes(route.name as typeof EDIT_ROUTE_NAMES[number]) || isCalendarCreating.value
+)
+const showEditorActions = computed(() => isEditingRoute.value)
+const showDetailActions = computed(() => route.name === 'Detail' || route.name === 'CalendarDetail')
 /** 单行展示用：合并换行/空白，供省略号截断 */
 const editingDiaryTitle = computed(() =>
     projectStore.editingDiaryTitle.replace(/\s+/g, ' ').trim()
@@ -228,7 +235,8 @@ function addNewDiary() {
     }
     if (route.path.includes('calendar')) {
         router.push({
-            name: 'CalendarEditNew'
+            name: 'Calendar',
+            query: {new: '1'}
         })
     } else {
         router.push({
@@ -243,6 +251,13 @@ function editDiary() {
     if (projectStore.cacheDiary){
         projectStore.cacheDiary = undefined
         projectStore.cacheDiaryOrigin = undefined
+    }
+    if (route.name === 'CalendarDetail' || String(route.path).includes('calendar')) {
+        router.push({
+            name: 'CalendarEdit',
+            params: {id: projectStore.currentDiary.id},
+        })
+        return
     }
     router.push(`/edit/${projectStore.currentDiary.id}`)
 }

@@ -879,8 +879,9 @@ function processAfterSaveDiary(res: ResponseDiaryAdd, requestData: DiarySubmitEn
         popMessage('success', res.message, ()=>{
             projectStore.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
             nextTick(() => {
+                const inCalendar = String(route.name || '').includes('Calendar') || route.path.includes('calendar')
                 router.push({
-                    name: 'Edit',
+                    name: inCalendar ? 'CalendarEdit' : 'Edit',
                     params: {
                         id: res.data.id
                     }
@@ -893,6 +894,16 @@ function processAfterSaveDiary(res: ResponseDiaryAdd, requestData: DiarySubmitEn
         }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
     }
     isNew.value = false
+}
+
+// 日历「写这一天」会带 YYYY-MM-DD；其它新建沿用当前编辑时间
+function resolveNewDiaryDate() {
+    const queryDate = route.query.date
+    if (typeof queryDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(queryDate)) {
+        const parsed = Moment(queryDate, 'YYYY-MM-DD')
+        if (parsed.isValid()) return parsed.toDate()
+    }
+    return diary.value.date || new Date()
 }
 
 function createDiary() {
@@ -910,7 +921,7 @@ function createDiary() {
         content: "",
         is_public: false,
         is_markdown: false,
-        date: diary.value.date || new Date(), // 本页面新建时，保留之前日记的时间，因为可能一次性补全很多之前的日记
+        date: resolveNewDiaryDate(), // 日历点日期新建时用 query.date，否则沿用当前编辑时间
         weather: 'sunny',
         category: defaultCategory,
         temperature: '',

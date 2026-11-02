@@ -1,10 +1,16 @@
 <template>
-    <div class="diary-detail" id="diaryDetail" :style="`min-height: ${projectStore.insets.heightPanel}px`">
+    <div
+        class="diary-detail"
+        id="diaryDetail"
+        :class="{'is-compact': compact}"
+        :style="compact ? undefined : `min-height: ${projectStore.insets.heightPanel}px`"
+    >
 
             <DetailHeader
                 :isLoading="isLoading"
                 :diary="diary"
                 :lunar-object="lunarObject"
+                :compact="compact"
             />
 
             <!-- pc 时不显示展示加载图标 -->
@@ -16,7 +22,7 @@
                     :class="{'mobile-copyable': projectStore.isInMobileMode}"
                     @touchend="onTitleMobileDoubleTapEnd($event)"
                 >{{ projectStore.isHideContent ? diary.title.replace(/[^，。 \n]/g, '*') : diary.title }}</h2>
-                <div class="toolbar" v-if="!projectStore.isInMobileMode">
+                <div class="toolbar" v-if="!compact && !projectStore.isInMobileMode">
                     <template v-if="diary.category === 'todo'">
                         <!-- 图标表示当前筛选状态：隐藏已完成 → 未完成；显示全部 → 全部 -->
                         <TabIcon
@@ -51,7 +57,7 @@
                 @touchend="onContentMobileDoubleTapEnd($event)"
             >
                 <!-- 非 todo：悬停显示复制内容；无标题 todo：在内容区提供复制 -->
-                <div class="toolbar" v-if="!projectStore.isInMobileMode && showContentCopyToolbar">
+                <div class="toolbar" v-if="!compact && !projectStore.isInMobileMode && showContentCopyToolbar">
                     <template v-if="diary.category === 'todo'">
                         <TabIcon size="small" :icon="toolbarIcon('复制全部')" title="复制全部" @click.stop="copyTodosAll"/>
                         <TabIcon size="small" :icon="toolbarIcon('复制未完成')" title="复制未完成" @click.stop="copyTodosUndone"/>
@@ -97,10 +103,13 @@ import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 import {useUserConfigStore} from "@/pinia/useUserConfigStore.ts";
 
-const projectStore = useProjectStore();
-const userConfigStore = useUserConfigStore();
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
+
+const projectStore = useProjectStore();
+const userConfigStore = useUserConfigStore();
+// 日历侧栏预览：去掉整页高度和工具栏，避免把头图挤乱
+const {compact = false} = defineProps<{compact?: boolean}>()
 const router = useRouter()
 const route = useRoute()
 

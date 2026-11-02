@@ -168,6 +168,28 @@
 }
 
 
+// 日历侧栏紧凑预览，覆盖 PC/iPad 大内边距
+.diary-detail.is-compact{
+  padding: 0 !important;
+  margin: 0;
+  min-height: 0;
+  background: transparent;
+  .diary-title{
+    margin: 0;
+    padding: 10px 0 8px;
+    h2{
+      font-size: 18px;
+      line-height: 1.4;
+    }
+  }
+  .diary-content{
+    margin: 0;
+    padding: 12px 0 24px;
+    overflow: visible;
+    font-size: 15px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
 // DETAIL
 .diary-detail{

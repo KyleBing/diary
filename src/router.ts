@@ -30,8 +30,9 @@ const routes: RouteRecordRaw[] = [
         redirect: "/calendar/calendar",
         children: [
             {name: 'Calendar',          path: 'calendar'  ,                 component: () => import('@/view/Calendar/CalendarDiary.vue')},
-
             {name: 'CalendarEditNew',   path: 'calendar'  ,                 component: () => import('@/view/Calendar/CalendarDiary.vue')},
+            // 先查看再编辑，避免与 calendar/:id 抢路径
+            {name: 'CalendarDetail',    path: 'view/:id'  ,                 component: () => import('@/view/Calendar/CalendarDiary.vue')},
             {name: 'CalendarEdit',      path: 'calendar/:id'  ,             component: () => import('@/view/Calendar/CalendarDiary.vue')},
 
             {name: 'CalendarPeriod',    path: 'calendar-period'  ,          component: () => import('@/view/Calendar/CalendarPeriod.vue')},

@@ -1,5 +1,5 @@
 <template>
-    <div class="diary-header">
+    <div class="diary-header" :class="{compact: props.compact}">
 
         <!-- 日期 -->
         <div class="date-wrapper" v-if="props.diary.dateObj">
@@ -65,6 +65,10 @@ const props = defineProps({
     lunarObject: {
         type: Object,
         default: {}
+    },
+    compact: {
+        type: Boolean,
+        default: false
     },
 })
 
@@ -254,6 +258,53 @@ function getTemperatureClassName(temperature: number): string{
             .time{
                 margin-left: 20px;
             }
+        }
+    }
+}
+
+// 日历侧栏：日期独占一行，天气和类别折到下一行，不被宽屏样式撑破
+.diary-header.compact{
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 10px 12px;
+    margin: 0;
+    border-radius: 8px;
+    .date-wrapper{
+        flex: 1 1 100%;
+        min-width: 0;
+        color: inherit;
+        .date-time{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .date-lunar{
+            margin-top: 4px;
+            font-size: 12px;
+        }
+    }
+    .weather-wrapper{
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        min-width: 0;
+        .weather{
+            margin-right: 6px;
+            padding: 0;
+            img{
+                height: 22px;
+            }
+        }
+        .temperatures{
+            font-size: 12px;
+            gap: 2px;
+        }
+    }
+    .category-wrapper{
+        flex: 0 0 auto;
+        .detail-category{
+            margin: 0;
+            padding: 3px 8px;
+            font-size: 12px;
         }
     }
 }

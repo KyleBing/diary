@@ -1,7 +1,6 @@
 <template>
     <div class="calendar-list-header">
-        <div class="calendar-list-header-title">{{ title }}</div>
-        <div class="calendar-list-header-week">{{ weekday }}</div>
+        <div class="calendar-list-header-title">{{ title }} {{ weekday }}</div>
     </div>
 </template>
 
@@ -26,25 +25,30 @@ const weekday = computed(() => {
 @use "../../scss/plugin" as *;
 
 .calendar-list-header{
-    font-size: $fz-list-header;
     text-align: left;
-    background-color: $bg-light;
-    line-height: $height-header;
+    background-color: transparent;
+    line-height: 1.3;
     font-family: "Galvji", sans-serif;
     color: black;
     font-weight: bold;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
-    padding: 0 20px 10px;
+    padding: 0 2px 8px;
     height: auto;
+    gap: 8px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
+    white-space: nowrap;
     .calendar-list-header-title{
-        font-size: $fz-big;
+        font-size: 15px;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .calendar-list-header-week{
         color: $text-date;
-        font-size: $fz-list-header;
+        font-size: 13px;
+        font-weight: normal;
+        flex-shrink: 0;
     }
 }
 

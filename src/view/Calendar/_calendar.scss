@@ -51,6 +51,340 @@
     overflow-y: auto;
 }
 
+.diary-calendar-layout{
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    overflow: hidden;
+    background-color: $bg-light;
+}
+.diary-calendar-side{
+    min-height: 0;
+    overflow: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    gap: 4px;
+    padding: 8px 6px;
+    border-right: 1px solid $color-border-light;
+    background: white;
+    .year-selector-item{
+        border: 1px solid transparent;
+        background-color: $bg-light;
+        color: $text-title;
+        padding: 6px 0;
+        border-radius: $radius-mobile;
+        font-size: $fz-small;
+        cursor: pointer;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        line-height: 1.2;
+        .year-num{
+            font-weight: bold;
+        }
+        .year-count{
+            font-size: 10px;
+            color: $text-subtitle;
+        }
+        &.today{
+            font-weight: bold;
+        }
+        &.checked{
+            border-color: $orange;
+        }
+    }
+}
+.diary-calendar-main{
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    // 列表、查看、编辑同一宽度：原 360 + 一个月卡片约 280
+    grid-template-columns: minmax(0, 1fr) 640px;
+    overflow: hidden;
+}
+.diary-calendar-grid{
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+    gap: 12px;
+    padding: 12px;
+    align-content: start;
+    align-items: start;
+}
+.diary-calendar-month{
+    min-width: 0;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    flex-flow: column nowrap;
+    background: white;
+    border: 1px solid $color-border;
+    border-radius: $radius-pc;
+    padding: 8px 10px 10px;
+    header{
+        font-family: serif;
+        font-weight: bold;
+        margin-bottom: 6px;
+        flex-shrink: 0;
+    }
+    .weekdays, .days{
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 2px;
+    }
+    .weekdays{
+        flex-shrink: 0;
+        margin-bottom: 2px;
+    }
+    .days{
+        flex: 0 0 auto;
+        grid-template-rows: repeat(6, 26px);
+    }
+    .weekdays span{
+        text-align: center;
+        font-size: 10px;
+        color: $text-subtitle;
+    }
+    .day{
+        min-width: 0;
+        width: 100%;
+        min-height: 0;
+        height: 26px;
+        overflow: hidden;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        background: $bg-light;
+        padding: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        cursor: pointer;
+        .num{
+            font-size: 11px;
+            line-height: 1;
+        }
+        .bars{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 1px;
+            height: 8px;
+            max-width: 100%;
+            i{
+                width: 2px;
+                height: 8px;
+                border-radius: 1px;
+                flex-shrink: 0;
+            }
+        }
+        &.pad{
+            visibility: hidden;
+        }
+        &.quiet{
+            opacity: 0.55;
+        }
+        &.today{
+            border-color: $color-main;
+        }
+        &.active{
+            border-color: $orange;
+            background: white;
+            opacity: 1;
+        }
+        &:disabled{
+            opacity: 1;
+        }
+    }
+}
+.diary-calendar-detail{
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    border-left: 1px solid $color-border;
+    background: white;
+    padding: 10px 12px;
+}
+.diary-calendar-editor{
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    .diary-edit-container{
+        min-height: 0 !important;
+        height: auto;
+        padding: 0 !important;
+        flex: 1;
+        min-width: 0;
+        flex-flow: column nowrap !important;
+        gap: 8px;
+        background: transparent;
+    }
+    .diary-edit-content{
+        margin: 0 !important;
+        .editor-title{
+            margin-bottom: 8px;
+            textarea{
+                height: 40px !important;
+                padding: 8px 10px;
+                font-size: 15px;
+                resize: none;
+            }
+        }
+        .editor-content textarea{
+            height: 180px !important;
+            min-height: 120px;
+            padding: 10px !important;
+        }
+    }
+    .diary-edit-meta{
+        width: 100% !important;
+        > *{
+            margin-bottom: 8px;
+        }
+        .editor-form{
+            padding: 10px;
+            flex-flow: column nowrap;
+        }
+        .editor-meta-switches{
+            width: 100%;
+            .editor-form-item{
+                width: 50%;
+                padding: 0 4px;
+            }
+        }
+    }
+    .weather-selector{
+        flex-wrap: wrap;
+        img{
+            width: 28px;
+            height: 28px;
+        }
+    }
+    .edit-category-selector{
+        padding: 8px;
+        .category-wrapper{
+            width: 20%;
+        }
+        .category{
+            padding: 3px 2px;
+            font-size: 12px;
+        }
+    }
+    .date-selector{
+        width: 100%;
+        align-items: center;
+    }
+    .date-set-item{
+        justify-content: center;
+        width: 100%;
+        height: 48px;
+    }
+    .date-picker-dropdown.v-popper{
+        flex: 0 1 auto;
+        width: auto;
+    }
+    .datetime{
+        font-size: 28px !important;
+        width: auto;
+        justify-content: center;
+        text-align: center;
+    }
+    .date-meta{
+        justify-content: center;
+        padding: 0 8px 8px;
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+}
+.diary-calendar-viewer{
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    .diary-detail{
+        min-height: 0 !important;
+        flex: 1;
+        overflow: auto;
+        padding: 0 !important;
+    }
+}
+.diary-calendar-item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 4px;
+    border: 0;
+    border-bottom: 1px solid $color-border-light;
+    background: transparent;
+    color: $text-title;
+    cursor: pointer;
+    text-align: left;
+    i{
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+    .meta{
+        flex-shrink: 0;
+        font-size: $fz-small;
+        color: $text-subtitle;
+    }
+    .title{
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: $fz-main;
+    }
+}
+.diary-calendar-empty{
+    padding: 16px 4px;
+    color: $text-subtitle;
+    font-size: $fz-small;
+    p{
+        margin-bottom: 12px;
+    }
+}
+.diary-calendar-editor-bar{
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.diary-calendar-back{
+    border: 0;
+    background: transparent;
+    color: $text-subtitle;
+    font-size: $fz-small;
+    padding: 0;
+    cursor: pointer;
+}
+
+@media (max-width: $grid-separate-width-sm) {
+    .diary-calendar-layout{
+        grid-template-columns: 56px minmax(0, 1fr);
+    }
+    .diary-calendar-main{
+        grid-template-columns: 1fr;
+        overflow: auto;
+    }
+    .diary-calendar-detail{
+        border-left: 0;
+        border-top: 1px solid $color-border;
+        min-height: 240px;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .calendar-container{
         background-color: $dark-bg;
@@ -59,5 +393,39 @@
         background-color: $dark-bg;
         border-left-color: $dark-border;
         border-right-color: $dark-border;
+    }
+    .diary-calendar-layout{
+        background-color: $dark-bg;
+    }
+    .diary-calendar-side,
+    .diary-calendar-month,
+    .diary-calendar-detail{
+        background: $dark-bg-dark;
+        border-color: $dark-border;
+        color: $dark-text-title;
+    }
+    .diary-calendar-side{
+        border-right-color: $dark-border;
+        .year-selector-item{
+            background: $dark-bg;
+            color: $dark-text-title;
+            .year-count{
+                color: $dark-text-subtitle;
+            }
+        }
+    }
+    .diary-calendar-month .day{
+        background: $dark-bg;
+        color: $dark-text-title;
+        &.active{
+            background: $dark-bg-dark;
+        }
+    }
+    .diary-calendar-item{
+        border-bottom-color: $dark-border;
+        color: $dark-text-title;
+        .meta{
+            color: $dark-text-subtitle;
+        }
     }
 }
