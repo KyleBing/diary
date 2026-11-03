@@ -50,8 +50,9 @@
                             @click.prevent="regSubmit">注册
                     </button>
                 </form>
-                <div :class="['footer', {center: !projectConfig.is_show_demo_account}]">
+                <div class="footer">
                     <RouterLink to="/login">登录</RouterLink>
+                    <RouterLink to="/register-apply">申请注册</RouterLink>
                 </div>
             </div>
         </transition>

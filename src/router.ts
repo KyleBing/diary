@@ -50,6 +50,7 @@ const routes: RouteRecordRaw[] = [
     },
     {name: 'Setup',                path: '/setup',             component: () => import('@/view/Setup/SetupWizard.vue')},
     {name: 'Register',             path: '/register',          component: () => import('@/view/Login&Register/Register.vue')},
+    {name: 'RegisterApply',        path: '/register-apply',    component: () => import('@/view/Login&Register/RegisterApply.vue')},
     {name: 'Share',                path: '/share/:id',         component: () => import('@/view/Share/Share.vue')},
     {name: 'RemoveAllYourDiary',   path: '/clear-diary',       component: () => import('@/view/Util/RemoveAllYourDiary.vue') },
     {name: 'DestroyAccount',       path: '/destroy-account',   component: () => import('@/view/Util/DestroyAccount.vue') },
@@ -84,6 +85,7 @@ router.beforeEach((to, _) => {
             return true
         case 'Setup':
         case 'Register':
+        case 'RegisterApply':
         case 'Share':
         case 'FetchPassword':
         case 'Invitation':
