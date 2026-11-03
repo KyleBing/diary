@@ -27,6 +27,7 @@
 
   .toolbar{
     display: flex;
+    align-items: center; // 图标与文字按钮纵向居中
     justify-content: flex-end;
     flex-shrink: 0;
     transition: all 0.3s;

@@ -286,6 +286,23 @@ function saveDiary(isShowNotification?: boolean){
             if (isShowNotification){
                 popMessage('success', res.message, ()=>{}, 1)
             }
+            // 同步列表项内容，刷新待办数量（day）与预览
+            projectStore.listOperation = {
+                type: 'change',
+                diary: {
+                    id: props.diary.id,
+                    title: props.diary.title,
+                    content,
+                    category: props.diary.category,
+                    temperature: props.diary.temperature,
+                    temperature_outside: props.diary.temperature_outside,
+                    weather: props.diary.weather,
+                    is_public: props.diary.is_public,
+                    is_markdown: props.diary.is_markdown,
+                    date: props.diary.date,
+                },
+                id: props.diary.id,
+            }
         })
         .catch(err => {
             popMessage('danger', err.message, ()=>{},1)
@@ -300,6 +317,25 @@ function deleteTodo(id: number){
     todoList.value = todoList.value.filter(item => item.id !== id)
     saveDiary()
 }
+
+// 一键清除全部已完成事项
+function clearCompletedTodos(){
+    if (!isEditable.value) return
+    const hasCompleted = todoList.value.some(item => item.isDone)
+    if (!hasCompleted) return
+    // 若正在编辑已完成项，先退出编辑态
+    if (editingItemId.value !== null) {
+        const editing = todoList.value.find(t => t.id === editingItemId.value)
+        if (editing?.isDone) {
+            editingItemId.value = null
+        }
+    }
+    todoList.value = todoList.value.filter(item => !item.isDone)
+    saveDiary()
+    popMessage('success', '已删除全部已完成事项', null, 1)
+}
+
+defineExpose({ clearCompletedTodos })
 
 function hideAddRow() {
     isAddRowVisible.value = false

@@ -42,6 +42,7 @@
                         <TabIcon size="small" :icon="toolbarIcon('复制')" title="复制标题" @click="copyTitle"/>
                         <TabIcon size="small" :icon="toolbarIcon('复制全部')" title="复制全部" @click="copyTodosAll"/>
                         <TabIcon size="small" :icon="toolbarIcon('复制未完成')" title="复制未完成" @click="copyTodosUndone"/>
+                        <ButtonSmall v-if="hasCompletedTodos" @click="showClearCompletedToast">删除已完成</ButtonSmall>
                     </template>
                     <template v-else>
                         <TabIcon size="small" :icon="toolbarIcon('复制')" title="复制标题" @click="copyTitle"/>
@@ -61,13 +62,19 @@
                     <template v-if="diary.category === 'todo'">
                         <TabIcon size="small" :icon="toolbarIcon('复制全部')" title="复制全部" @click.stop="copyTodosAll"/>
                         <TabIcon size="small" :icon="toolbarIcon('复制未完成')" title="复制未完成" @click.stop="copyTodosUndone"/>
+                        <ButtonSmall v-if="hasCompletedTodos" @click.stop="showClearCompletedToast">删除已完成</ButtonSmall>
                     </template>
                     <TabIcon v-else size="small" :icon="toolbarIcon('复制')" title="复制内容" @click.stop="copyContent"/>
                 </div>
 
                 <!-- todo 类别 -->
                 <div v-if="diary.category === 'todo'">
-                    <ToDo :readonly="false" :diary="diary" :hasHideAllCompletedTodoItems="hasHideAllCompletedTodoItems"/>
+                    <ToDo
+                        ref="todoRef"
+                        :readonly="false"
+                        :diary="diary"
+                        :hasHideAllCompletedTodoItems="hasHideAllCompletedTodoItems"
+                    />
                 </div>
 
                 <!-- code 类别 -->
@@ -81,6 +88,20 @@
                     <div v-else class="content" v-html="getContentHtml(diary.content)"/>
                 </div>
             </div>
+
+        <!-- 删除已完成确认：不遮盖背景，仅浮层弹窗 -->
+        <div
+            v-show="isClearCompletedToastShowed"
+            class="toast fadeIn animated-fast"
+            :style="projectStore.isInMobileMode ? '' : `left: ${clearCompletedToastPosition.x - 100}px; top: ${clearCompletedToastPosition.y + 100}px;`"
+        >
+            <div class="toast-header">确定删除已完成事项吗</div>
+            <div class="toast-body"></div>
+            <div class="toast-footer">
+                <div class="btn-cancel" @click="hideClearCompletedToast">取消</div>
+                <div class="btn-confirm" @click="confirmClearCompletedTodos">确定</div>
+            </div>
+        </div>
 
         </div>
 </template>
@@ -96,6 +117,7 @@ import ToDo from "./ToDo.vue";
 import {EntityDiaryFromServer} from "@/view/DiaryList/Diary.ts";
 import {LunarDateEntity} from "@/entity/LunarDate.ts";
 import TabIcon from "@/components/TabIcon.vue";
+import ButtonSmall from "@/components/ButtonSmall.vue";
 
 import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
 
@@ -118,6 +140,7 @@ const isLoading = ref(false) // loading
 const diary = ref<EntityDiaryFromServer>({})
 const lunarObject = ref<LunarDateEntity>({})
 const hasHideAllCompletedTodoItems = ref(false) // 是否隐藏所有已完成事项
+const todoRef = ref<InstanceType<typeof ToDo> | null>(null)
 
 // 无标题时内容区提供复制；有标题的 todo 复制放在标题工具栏
 const showContentCopyToolbar = computed(() => {
@@ -125,6 +148,13 @@ const showContentCopyToolbar = computed(() => {
         return !diary.value.title
     }
     return true
+})
+
+// 内容里是否还有 `= ` 开头的已完成行
+const hasCompletedTodos = computed(() => {
+    return (diary.value.content || '')
+        .split('\n')
+        .some(line => line.startsWith('= '))
 })
 
 onMounted(async ()=>{
@@ -169,6 +199,25 @@ type ToolbarIconName =
     | '待办-全部' | '待办-未完成'
 function toolbarIcon(name: ToolbarIconName) {
     return projectStore.isDarkMode ? name : `黑色-${name}`
+}
+
+// 删除已完成确认 toast（交互对齐 navbar 删除日记）
+const isClearCompletedToastShowed = ref(false)
+const clearCompletedToastPosition = ref({x: 0, y: 0})
+
+function hideClearCompletedToast() {
+    isClearCompletedToastShowed.value = false
+}
+
+function showClearCompletedToast(event: MouseEvent) {
+    if (!hasCompletedTodos.value) return
+    clearCompletedToastPosition.value = {x: event.clientX, y: event.clientY}
+    isClearCompletedToastShowed.value = true
+}
+
+function confirmClearCompletedTodos() {
+    hideClearCompletedToast()
+    todoRef.value?.clearCompletedTodos()
 }
 
 // 移动端双击复制判定阈值
