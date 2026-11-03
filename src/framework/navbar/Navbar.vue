@@ -129,11 +129,11 @@
                     </div>
                 </div>
 
-                <!--  只在移动端上才显示这个按钮  -->
+                <!--  只在移动端上才显示：5×3 类别色点阵筛选入口  -->
                 <div v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)"
                     @click="showMenuCategorySelector"
                 >
-                    <TabIcon icon="类别"/>
+                    <MenuCategoryIndicator/>
                 </div>
 
                 <div v-if="(projectStore.isInMobileMode && route.name !== 'Detail' && !projectStore.isMenuShowed)
@@ -192,6 +192,7 @@ import NavMenu from "@/view/Menu/NavMenu.vue";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import Clock from "./Clock.vue";
 import NavbarCategorySelector from "@/framework/navbar/NavbarCategorySelector.vue";
+import MenuCategoryIndicator from "@/view/Menu/MenuCategorySelector/MenuCategoryIndicator.vue";
 
 import ClipboardJS from "clipboard"
 

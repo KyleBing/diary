@@ -55,11 +55,12 @@ function toggleCategory(category: CategoryEntity){
     projectStore.SET_FILTERED_CATEGORIES(projectStore.filteredCategories)
     projectStore.isListNeedBeReload = true
 }
+// 选中：实心底色；未选中：对应类别色虚线边框
 function categoryMenuItemStyle(category: CategoryEntity){
     if (projectStore.filteredCategories.indexOf(category.name_en) > -1){
         return `background-color: ${category.color}; border: 1px solid ${category.color};`
     } else {
-        return ``
+        return `border: 1px dashed ${category.color};`
     }
 }
 function selectCategoryAll() {
