@@ -35,6 +35,7 @@ function request(
     if (url !== 'user/login' && url !== 'user/register'
         && url !== 'user/forgot' && url !== 'user/resend-verify' && url !== 'user/reset'
         && url !== 'registration-application/submit'
+        && url !== 'registration-application/check-email'
         && !url.startsWith('setup/')){ // 注册、登录、找回密码、申请注册、安装引导时不添加 Token
         const token = getAuthorization()?.token
         if (token) {

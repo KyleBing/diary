@@ -1,3 +1,5 @@
+import type { RegistrationPayQrItem } from '@/utility/payQrAssets'
+
 export interface PublicSystemConfig {
     is_show_demo_account: boolean
     demo_account: string
@@ -9,6 +11,7 @@ export interface PublicSystemConfig {
     hefeng_weather_api_host: string
     register_tip: string
     registration_pay_amount_yuan: number
+    registration_pay_qr_list: RegistrationPayQrItem[]
 }
 
 export interface AdminSystemConfig extends PublicSystemConfig {
@@ -28,7 +31,8 @@ export const DEFAULT_SYSTEM_CONFIG: PublicSystemConfig = {
     hefeng_weather_api_host: "",
     register_tip:
         "<p>长期未使用的用户将定期进行清理，大概一年清一次。</p>",
-    registration_pay_amount_yuan: 28
+    registration_pay_amount_yuan: 28,
+    registration_pay_qr_list: []
 }
 
 export const DEFAULT_ADMIN_SYSTEM_CONFIG: AdminSystemConfig = {

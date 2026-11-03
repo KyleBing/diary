@@ -2,13 +2,16 @@ import {defineStore} from "pinia"
 
 import systemConfigApi from "@/api/systemConfigApi"
 import {DEFAULT_SYSTEM_CONFIG, PublicSystemConfig} from "@/entity/SystemConfig"
-import {isRegistrationPayAmount} from "@/utility/payQrAssets"
+import {isRegistrationPayAmount, parsePayQrList} from "@/utility/payQrAssets"
 
 function parseBoolean(value: unknown) {
     return value === true || value === 1 || value === '1' || value === 'true'
 }
 
 function normalizeSystemConfig(rawConfig: Partial<PublicSystemConfig> = {}): PublicSystemConfig {
+    const list = parsePayQrList(rawConfig.registration_pay_qr_list)
+    const amount = Number(rawConfig.registration_pay_amount_yuan)
+    const matched = list.find((item) => item.amount_yuan === amount)
     return {
         is_show_demo_account: parseBoolean(rawConfig.is_show_demo_account),
         demo_account: String(rawConfig.demo_account || '').trim(),
@@ -19,10 +22,10 @@ function normalizeSystemConfig(rawConfig: Partial<PublicSystemConfig> = {}): Pub
         hefeng_weather_api_key: String(rawConfig.hefeng_weather_api_key || '').trim(),
         hefeng_weather_api_host: String(rawConfig.hefeng_weather_api_host || '').trim(),
         register_tip: String(rawConfig.register_tip || '').trim(),
-        registration_pay_amount_yuan: (() => {
-            const n = Number(rawConfig.registration_pay_amount_yuan)
-            return isRegistrationPayAmount(n) ? n : 28
-        })()
+        registration_pay_amount_yuan: matched
+            ? matched.amount_yuan
+            : (isRegistrationPayAmount(amount) ? amount : 28),
+        registration_pay_qr_list: list
     }
 }
 

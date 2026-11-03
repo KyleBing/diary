@@ -7,4 +7,8 @@ export default {
     submit(data: { email: string; paidAccount: string; payPlatform: PayPlatform }) {
         return request('post', {}, data, 'registration-application/submit')
     },
+    // 填写完邮箱后查询是否已注册 / 是否已有待审申请
+    checkEmail(email: string) {
+        return request('get', { email }, {}, 'registration-application/check-email')
+    },
 }

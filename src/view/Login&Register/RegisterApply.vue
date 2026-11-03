@@ -16,7 +16,7 @@
 
                 <form v-if="!submitted" id="applyForm" @submit.prevent="submit">
                     <div class="input-group">
-                        <label for="email" :class="{red: emailTouched && !emailFormatOk}">{{ labelEmail }}</label>
+                        <label for="email" :class="{red: emailLabelError}">{{ labelEmail }}</label>
                         <input v-model.lazy="email"
                                type="text" name="email" id="email"
                                placeholder="联系邮箱">
@@ -55,6 +55,7 @@
                             请使用{{ payPlatformLabel }}扫码支付{{ registerFeeYuan > 0 ? '上方金额' : '约定金额' }}，并填写付款账户信息。
                         </p>
                         <img class="pay-qr-image" :src="payQrImageSrc" :alt="`${payPlatformLabel}收款码`">
+                        <p v-if="payQrNote" class="pay-qr-note">{{ payQrNote }}</p>
                         <p class="pay-qr-payee">收款方：邴新科</p>
                     </div>
                     <div class="paid-confirm" :class="{error: paidTouched && !paidConfirmed}">
@@ -89,7 +90,7 @@ import {useProjectStore} from "@/pinia/useProjectStore.ts"
 import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts"
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts"
 import {popMessage} from "@/utility.ts"
-import {isRegistrationPayAmount, payQrImage} from "@/utility/payQrAssets.ts"
+import {payQrImage, pickPayQrItem} from "@/utility/payQrAssets.ts"
 import {computed, onMounted, ref, watch} from "vue"
 import alipayIcon from "@/assets/alipay.png"
 import wepayIcon from "@/assets/wepay.png"
@@ -119,18 +120,35 @@ const platformOptions: { value: PayPlatform; label: string; icon: string }[] = [
 ]
 
 const emailFormatOk = computed(() => /(\w|\d)+@(\w|\d)+\.\w+/i.test(email.value))
+const emailAvailable = ref(false)
+const emailChecking = ref(false)
+const emailLabelError = computed(() => emailTouched.value && (!emailFormatOk.value || !emailAvailable.value))
 const accountOk = computed(() => paidAccount.value.trim().length > 0)
 
-const registerFeeYuan = computed(() => {
-    const n = Number(systemConfigStore.config.registration_pay_amount_yuan)
-    return isRegistrationPayAmount(n) ? n : 28
-})
+const currentPayQr = computed(() =>
+    pickPayQrItem(
+        systemConfigStore.config.registration_pay_qr_list,
+        Number(systemConfigStore.config.registration_pay_amount_yuan),
+    ),
+)
+
+const registerFeeYuan = computed(() => currentPayQr.value?.amount_yuan ?? Number(systemConfigStore.config.registration_pay_amount_yuan) ?? 28)
 
 const payPlatformLabel = computed(() => (payPlatform.value === 'wechat' ? '微信' : '支付宝'))
-const payQrImageSrc = computed(() => payQrImage(payPlatform.value, registerFeeYuan.value))
+const payQrImageSrc = computed(() => {
+    const url = payPlatform.value === 'wechat'
+        ? currentPayQr.value?.wechat_url
+        : currentPayQr.value?.alipay_url
+    return payQrImage(payPlatform.value, url)
+})
+const payQrNote = computed(() =>
+    payPlatform.value === 'wechat'
+        ? currentPayQr.value?.wechat_note || ''
+        : currentPayQr.value?.alipay_note || '',
+)
 
 const verified = computed(() =>
-    emailFormatOk.value && accountOk.value && !!payPlatform.value && paidConfirmed.value
+    emailFormatOk.value && emailAvailable.value && accountOk.value && !!payPlatform.value && paidConfirmed.value
 )
 
 const introTip = `
@@ -152,12 +170,36 @@ onMounted(() => {
 
 watch(email, () => {
     emailTouched.value = true
-    if (emailFormatOk.value) {
-        labelEmail.value = '邮箱'
-    } else {
+    emailAvailable.value = false
+    if (!emailFormatOk.value) {
         labelEmail.value = '输入的邮箱不正确，请重新输入'
+        return
     }
+    labelEmail.value = '正在检查邮箱…'
+    checkEmailAvailability()
 })
+
+// 邮箱填写完成后请求是否可注册
+function checkEmailAvailability() {
+    const value = email.value.trim()
+    emailChecking.value = true
+    registrationApplicationApi
+        .checkEmail(value)
+        .then(res => {
+            if (email.value.trim() !== value) return
+            const available = !!res.data?.available
+            emailAvailable.value = available
+            labelEmail.value = res.message || (available ? '该邮箱可以申请注册' : '该邮箱不可申请')
+        })
+        .catch(err => {
+            if (email.value.trim() !== value) return
+            emailAvailable.value = false
+            labelEmail.value = err?.message || '邮箱检查失败，请稍后重试'
+        })
+        .finally(() => {
+            emailChecking.value = false
+        })
+}
 
 watch(paidAccount, () => {
     accountTouched.value = true
@@ -177,7 +219,7 @@ function submit() {
     paidTouched.value = true
     accountTouched.value = true
     emailTouched.value = true
-    if (!verified.value || submitting.value) return
+    if (!verified.value || submitting.value || emailChecking.value) return
     submitting.value = true
     registrationApplicationApi
         .submit({
@@ -286,6 +328,14 @@ function submit() {
     margin: 0 auto;
     border-radius: 8px;
     background: white;
+}
+
+.pay-qr-note {
+    margin: 10px 0 0;
+    font-size: $fz-small;
+    line-height: 1.55;
+    color: $dark-text-subtitle;
+    white-space: pre-wrap;
 }
 
 .pay-qr-payee {
