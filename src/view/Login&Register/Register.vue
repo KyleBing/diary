@@ -69,13 +69,14 @@ import {useSystemConfigStore} from "@/pinia/useSystemConfigStore.ts";
 const projectStore = useProjectStore()
 const systemConfigStore = useSystemConfigStore()
 import {computed, onMounted, ref, watch} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {popMessage} from "@/utility.ts";
 import {UserRegisterEntity} from "@/entity/User.ts";
 import setupApi from "@/api/setupApi.ts";
 
 const router = useRouter()
+const route = useRoute()
 const projectConfig = computed(() => systemConfigStore.config)
 
 const show = ref(false)
@@ -98,10 +99,21 @@ const password2Verified=  ref(false)
 const heightBg =  ref(0)
 const isInvitationRequired = ref(true)
 
+// 从邀请邮件链接 query 预填：invitationCode / email / nickname
+function applyQueryPrefill() {
+    const q = route.query
+    const code = typeof q.invitationCode === 'string' ? q.invitationCode.trim() : ''
+    const mail = typeof q.email === 'string' ? q.email.trim() : ''
+    const name = typeof q.nickname === 'string' ? q.nickname.trim() : ''
+    if (code) invitationCode.value = code
+    if (mail) email.value = mail
+    if (name) nickname.value = name
+}
 
 onMounted(()=>{
     show.value = true
     document.title = '日记 - 注册' // 变更标题
+    applyQueryPrefill()
     setupApi
         .status()
         .then(res => {
