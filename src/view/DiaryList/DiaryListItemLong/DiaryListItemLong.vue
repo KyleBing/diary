@@ -42,7 +42,6 @@
 <script lang="ts" setup>
 import {parseMarkdown} from "@/utility/markedHighlight.ts";
 import {computed} from "vue";
-import {useRoute} from "vue-router";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
 import {EntityDiaryFromServerLocal} from "../Diary.ts";
 import DiaryListTodo from "./DiaryListTodo.vue";
@@ -53,8 +52,6 @@ const statisticStore = useStatisticStore()
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 
-const route = useRoute()
-
 const emit = defineEmits<{
     (e: 'click'): void
 }>()
@@ -62,16 +59,16 @@ const emit = defineEmits<{
 
 const props = withDefaults(defineProps<{
     diary: EntityDiaryFromServerLocal,
+    isActive?: boolean,
     isShowDate?: boolean
     isShowWeek?: boolean
 }>(), {
+    isActive: false,
     isShowDate: true,
     isShowWeek: true
 })
 
-const isActive = computed(() => {
-    return Number(route.params.id) === Number(props.diary.id)
-})
+const isActive = computed(() => props.isActive)
 const suffix = computed(()=> {
     return isActive.value ? '_white' : ''
 })

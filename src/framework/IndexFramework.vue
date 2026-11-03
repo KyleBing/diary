@@ -6,7 +6,12 @@
         <div class="diary" v-if="projectStore.isInMobileMode" :style="`height:${projectStore.insets.heightPanel}px`">
             <div ref="refDiaryList" class="diary-list-container diary-list-container-mobile"
                  :style="`height:${projectStore.insets.heightPanel}px`">
-                <RouterView/>
+                <RouterView v-slot="{ Component }">
+                    <!-- 只缓存列表：进详情再返回时不拆掉列表，避免重新请求 -->
+                    <KeepAlive include="List">
+                        <component :is="Component" />
+                    </KeepAlive>
+                </RouterView>
             </div>
         </div>
 

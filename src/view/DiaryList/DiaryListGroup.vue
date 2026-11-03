@@ -7,7 +7,7 @@
                 <DiaryListItem
                     v-for="item in props.diaryListGroup.diaries" :key="item.id"
                     @click="diaryListItemClick(item)"
-                    :isActive="route.params.id === String(item.id)"
+                    :isActive="isDiaryActive(item)"
                     :category="item.category"
                     :diary="item"/>
             </template>
@@ -15,7 +15,7 @@
                 <DiaryListItemLong
                     v-for="item in props.diaryListGroup.diaries" :key="item.id"
                     @click="diaryListItemClick(item)"
-                    :isActive="route.params.id === String(item.id)"
+                    :isActive="isDiaryActive(item)"
                     :category="item.category"
                     :diary="item"/>
             </template>
@@ -32,6 +32,7 @@ import ListHeader from "@/view/DiaryList/ListHeader.vue"
 import DiaryListItem from "@/view/DiaryList/DiaryListItem/DiaryListItem.vue"
 import DiaryListItemLong from "@/view/DiaryList/DiaryListItemLong/DiaryListItemLong.vue"
 import {EnumListStyle} from "@/listStyle.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 
 const props = defineProps<{
     diaryListGroup: EntityDiaryListGroup
@@ -40,10 +41,21 @@ const props = defineProps<{
 
 const router = useRouter()
 const route = useRoute()
+const projectStore = useProjectStore()
 
+// 列表页没有 id，用刚看过的日记保持选中
+function isDiaryActive(item: EntityDiaryFromServerLocal) {
+    const activeId = route.params.id || projectStore.currentDiary?.id
+    return activeId != null && String(activeId) === String(item.id)
+}
 
 // 日记列表点击
 function diaryListItemClick(item: EntityDiaryFromServerLocal) {
+    // 点进去立刻记下，返回列表时还没拉完详情也能高亮
+    projectStore.currentDiary = {
+        ...projectStore.currentDiary,
+        id: item.id
+    }
     router.push({
         name: 'Detail',
         params: {id: item.id}

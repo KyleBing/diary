@@ -40,7 +40,7 @@ import {dateFormatter, dateProcess, EnumWeekDayShort} from "@/utility"
 import {buildDiaryListContentHtml} from "@/utility/markedHighlight.ts"
 
 import {useProjectStore} from "@/pinia/useProjectStore"
-import {nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
+import {nextTick, onActivated, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {
     EntityDiaryListOperation,
@@ -54,6 +54,8 @@ import { EntityDiaryListGroup } from "./Diary"
 
 import {storeToRefs} from "pinia"
 import { useUserConfigStore } from '@/pinia/useUserConfigStore.ts'
+
+defineOptions({ name: 'List' }) // KeepAlive include 按组件名匹配
 
 const userConfigStore = useUserConfigStore()
 
@@ -87,6 +89,11 @@ const formSearch = ref<DiarySearchParams>({
     filterShared: 0, // 1 是筛选，0 是不筛选
 })
 
+// 列表滚动容器和详情共用，离开前记下位置，返回时还原
+let listScrollTop = 0
+// 返回列表的那一瞬间，容器会被浏览器滚回顶部，这段时间不要覆盖已记下的位置
+let suspendScrollSave = false
+
 onMounted(() => {
     document.title = '日记' // 变更标题
     userConfigStore.fetchConfig()
@@ -102,7 +109,29 @@ onMounted(() => {
     window.addEventListener('keydown', handleKeyDown)
 })
 
+// 从详情返回时列表仍在缓存里，这里只恢复标题和滚动位置
+onActivated(() => {
+    document.title = '日记'
+    suspendScrollSave = true
+    restoreListScroll(() => {
+        suspendScrollSave = false
+    })
+})
+
+// 导航确认前列表还在，这时记下的滚动才是用户看到的位置
+const removeScrollGuard = router.beforeEach((to, from) => {
+    if (!projectStore.isInMobileMode) return
+    if (from.name === 'List' && to.name !== 'List') {
+        saveListScroll()
+    }
+    if (to.name === 'List' && from.name && from.name !== 'List') {
+        suspendScrollSave = true
+    }
+})
+
 onBeforeUnmount(() => {
+    removeScrollGuard()
+    document.querySelector('.diary-list-container')?.removeEventListener('scroll', onDiaryListScroll)
     if (currentListRequestController) {
         currentListRequestController.abort()
         currentListRequestController = null
@@ -232,10 +261,16 @@ function clearKeyword() {
     search()
 }
 function reloadDiaryList() {
+    listScrollTop = 0
     formSearch.value.pageNo = 1
     formSearch.value.keywords = JSON.stringify(projectStore.keywords)
     diaryList.value = []
     diaryListGroup.value = []
+    // 人还在列表上时回到顶部；在详情里触发的刷新不要动详情的滚动
+    if (route.name === 'List') {
+        const listEl = document.querySelector('.diary-list-container') as HTMLElement | null
+        if (listEl) listEl.scrollTop = 0
+    }
     loadMore()
 }
 
@@ -304,36 +339,69 @@ function getDiaries(controller: AbortController) {
             currentListRequestController = null
         })
 }
-function addScrollEvent() {
-    document.querySelector('.diary-list-container')!.addEventListener('scroll', () => { // 由于这里用的箭头方法，所以这里的 This 指向的是 VUE app
-        /* 判断是否加载内容*/
-        function isNeedLoadMoreDidary() {
-            // Get the last diary group element
-            let lastGroupNode = document.querySelector('.diary-list-group > .diary-list-group:last-child') as HTMLDivElement
-            if (!lastGroupNode) {
-                return false
-            }
+// 记下当前列表滚动位置
+function saveListScroll() {
+    const listEl = document.querySelector('.diary-list-container') as HTMLElement | null
+    if (listEl) {
+        listScrollTop = listEl.scrollTop
+    }
+}
 
-            // Get the last diary item within the last group
-            let lastDiaryNode = lastGroupNode.querySelector('.diary-list-group-content > :last-child') as HTMLDivElement
-            if (!lastDiaryNode) {
-                return false
-            }
-
-            let lastOffsetTop = lastDiaryNode.offsetTop + lastGroupNode.offsetTop
-            let clientHeight = window.innerHeight
-            let listEl = document.querySelector('.diary-list-container')
-            let scrollTop = listEl!.scrollTop
-            // console.clear()
-            // window.console.log(`${lastOffsetTop} | ${clientHeight} | ${scrollTop}`)
-            // 当 list 滚动到上面的部分 + 屏幕高度 >  最后一个元素的 offsetTop 的时候，就说明已经触底了
-            return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
+// 列表重新插回滚动容器后，浏览器可能会把滚动清零，多补一次
+function restoreListScroll(done?: () => void) {
+    const apply = () => {
+        const listEl = document.querySelector('.diary-list-container') as HTMLElement | null
+        if (listEl) {
+            listEl.scrollTop = listScrollTop
         }
-
-        if (isHasMore.value && isNeedLoadMoreDidary()) {
-            loadMore()
-        }
+    }
+    nextTick(() => {
+        apply()
+        requestAnimationFrame(() => {
+            apply()
+            requestAnimationFrame(() => {
+                apply()
+                done?.()
+            })
+        })
     })
+}
+
+// 判断是否加载内容
+function isNeedLoadMoreDiary() {
+    // Get the last diary group element
+    let lastGroupNode = document.querySelector('.diary-list-group > .diary-list-group:last-child') as HTMLDivElement
+    if (!lastGroupNode) {
+        return false
+    }
+
+    // Get the last diary item within the last group
+    let lastDiaryNode = lastGroupNode.querySelector('.diary-list-group-content > :last-child') as HTMLDivElement
+    if (!lastDiaryNode) {
+        return false
+    }
+
+    let lastOffsetTop = lastDiaryNode.offsetTop + lastGroupNode.offsetTop
+    let clientHeight = window.innerHeight
+    let listEl = document.querySelector('.diary-list-container')
+    let scrollTop = listEl!.scrollTop
+    // 当 list 滚动到上面的部分 + 屏幕高度 >  最后一个元素的 offsetTop 的时候，就说明已经触底了
+    return (lastOffsetTop < clientHeight + scrollTop + innerHeight) // 添加 100% 触发高度
+}
+
+function onDiaryListScroll() {
+    // 移动端详情和列表共用这个容器：人在详情里时不要翻页，也不要把详情滚动记成列表位置
+    if (projectStore.isInMobileMode && route.name !== 'List') return
+    if (projectStore.isInMobileMode && !suspendScrollSave) {
+        saveListScroll()
+    }
+    if (isHasMore.value && isNeedLoadMoreDiary()) {
+        loadMore()
+    }
+}
+
+function addScrollEvent() {
+    document.querySelector('.diary-list-container')?.addEventListener('scroll', onDiaryListScroll)
 }
 
 
