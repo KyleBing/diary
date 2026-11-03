@@ -97,6 +97,7 @@
         </div>
 
         <div v-else-if="activeTab === 'aliases'" class="bill-imp-body">
+            <div class="bill-imp-alias-hint">别名只属于当前账号，按你自己的短名称维护，不会共享给其他用户。</div>
             <div class="bill-imp-scroll bill-imp-alias">
                 <table>
                     <tr>
@@ -117,9 +118,9 @@
                         <td class="muted">{{ displayRef(row).when || '—' }}</td>
                         <td class="num muted">{{ displayRef(row).when ? formatAmt(displayRef(row).amount) : '—' }}</td>
                         <td class="muted" :title="ruleRefTip(row)">{{ ruleRefLabel(row) }}</td>
-                        <td><input v-model="row.matchText" placeholder="济南和仟,金舆店"></td>
+                        <td><input v-model="row.matchText" placeholder="商户名,分店名"></td>
                         <td><input v-model="row.name"></td>
-                        <td><input v-model="row.meal_place" placeholder="超意兴"></td>
+                        <td><input v-model="row.meal_place" placeholder="店名"></td>
                         <td><input v-model="row.whenProductText" placeholder="可选，逗号分隔"></td>
                         <td class="center"><input v-model="row.guess" type="checkbox"></td>
                         <td class="center"><input v-model="row.confirm" type="checkbox"></td>
@@ -638,6 +639,12 @@ onMounted(() => {
   background: white;
   border: 1px solid $color-border-light;
   border-radius: 4px;
+}
+.bill-imp-alias-hint{
+  margin: 0 0 8px;
+  font-size: $fz-small;
+  color: $text-subtitle;
+  line-height: 1.4;
 }
 .bill-imp-alias{
   max-height: none;
