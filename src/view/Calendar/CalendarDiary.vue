@@ -1,8 +1,6 @@
 <template>
-    <div class="statistic-container">
-        <PageHeader title="日历"/>
-
-        <div class="diary-calendar-layout" :style="`height:${projectStore.insets.heightPanel - 45}px`">
+    <div class="statistic-container diary-calendar-page" :style="`height:${projectStore.insets.heightPanel}px`">
+        <div class="diary-calendar-layout">
             <!-- 年份：上为年，下为当年日记数 -->
             <aside class="diary-calendar-side">
                 <button
@@ -106,7 +104,6 @@
 </template>
 
 <script lang="ts" setup>
-import PageHeader from "@/framework/pageHeader/PageHeader.vue"
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {computed, nextTick, onMounted, ref, watch} from "vue";
 import diaryApi from "@/api/diaryApi.ts";

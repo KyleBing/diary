@@ -16,10 +16,10 @@
 
                 <form v-if="!submitted" id="applyForm" @submit.prevent="submit">
                     <div class="input-group">
-                        <label for="email" :class="{red: emailLabelError}">{{ labelEmail }}</label>
+                        <label for="email" :class="{red: emailLabelError, green: emailRegistered}">{{ labelEmail }}</label>
                         <input v-model.lazy="email"
                                type="text" name="email" id="email"
-                               placeholder="联系邮箱">
+                               placeholder="请输入您的邮箱">
                     </div>
                     <div class="input-group">
                         <label for="paidAccount" :class="{red: accountTouched && !accountOk}">{{ labelAccount }}</label>
@@ -111,7 +111,7 @@ const emailTouched = ref(false)
 const accountTouched = ref(false)
 const paidTouched = ref(false)
 
-const labelEmail = ref('邮箱')
+const labelEmail = ref('申请邮箱')
 const labelAccount = ref('付费昵称')
 
 const platformOptions: { value: PayPlatform; label: string; icon: string }[] = [
@@ -121,8 +121,11 @@ const platformOptions: { value: PayPlatform; label: string; icon: string }[] = [
 
 const emailFormatOk = computed(() => /(\w|\d)+@(\w|\d)+\.\w+/i.test(email.value))
 const emailAvailable = ref(false)
+const emailRegistered = ref(false)
 const emailChecking = ref(false)
-const emailLabelError = computed(() => emailTouched.value && (!emailFormatOk.value || !emailAvailable.value))
+const emailLabelError = computed(() =>
+    emailTouched.value && !emailRegistered.value && (!emailFormatOk.value || !emailAvailable.value),
+)
 const accountOk = computed(() => paidAccount.value.trim().length > 0)
 
 const currentPayQr = computed(() =>
@@ -153,10 +156,14 @@ const verified = computed(() =>
 
 const introTip = `
             <h3>付费注册申请</h3>
-            <p>日记支持使用演示账户查看，可以先试用。</p>
-            <p>确定需要后再申请注册即可。日记内容会尽可能长久保存，只要网站存在一天，数据就不会丢失，并且支持完整导出。</p>
-            <p>标题日记已持续更新，并在线运行 7 年。</p>
-            <p>请填写下方信息提交注册申请。我们会在 1 日内完成审核，结果将以邮件通知，通过后会附上邀请码，请耐心等待。</p>
+            <p>本站已持续更新并运行 <a href="https://kylebing.cn/diary/#/share/20941" target="_blank"> 7 年</a> 。日记会尽量长期保存，支持完整导出；若站点关闭，会提前 1 个月邮件通知，便于迁移数据。</p>
+            <p>不确定是否需要？可先用试用账户体验，确认后再来申请注册。</p>
+            <p>请填写下方信息提交申请。我们将在 1 日内完成审核，结果邮件通知；通过后会附上邀请码。</p>
+            <hr>
+            <p>项目已完全开源：<a href="https://github.com/KyleBing/diary" target="_blank">https://github.com/KyleBing/diary</a></p>
+            <p>使用中有问题可邮件联系 <a href="mailto:kylebing@163.com">kylebing@163.com</a>，会尽快回复。</p>
+            <hr>
+            <p><a href="https://kylebing.cn/diary/#/share/20941" target="_blank">《使用说明》</a></p>
         `
 const successTip = `
             <h3>申请已提交</h3>
@@ -171,6 +178,7 @@ onMounted(() => {
 watch(email, () => {
     emailTouched.value = true
     emailAvailable.value = false
+    emailRegistered.value = false
     if (!emailFormatOk.value) {
         labelEmail.value = '输入的邮箱不正确，请重新输入'
         return
@@ -188,12 +196,15 @@ function checkEmailAvailability() {
         .then(res => {
             if (email.value.trim() !== value) return
             const available = !!res.data?.available
+            const registered = !!res.data?.registered
             emailAvailable.value = available
+            emailRegistered.value = registered
             labelEmail.value = res.message || (available ? '该邮箱可以申请注册' : '该邮箱不可申请')
         })
         .catch(err => {
             if (email.value.trim() !== value) return
             emailAvailable.value = false
+            emailRegistered.value = false
             labelEmail.value = err?.message || '邮箱检查失败，请稍后重试'
         })
         .finally(() => {
@@ -246,6 +257,16 @@ function submit() {
 
 .apply-page {
     align-items: flex-start;
+}
+
+.input-group label {
+    &.red {
+        color: $red;
+    }
+
+    &.green {
+        color: $green;
+    }
 }
 
 .pay-platform-group {

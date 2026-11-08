@@ -1,7 +1,10 @@
 <template>
     <div>
         <Navbar/>
-        <RouterView/>
+        <!-- 与列表页一致：padding-top 避开 fixed navbar -->
+        <div class="diary">
+            <RouterView/>
+        </div>
     </div>
 </template>
 

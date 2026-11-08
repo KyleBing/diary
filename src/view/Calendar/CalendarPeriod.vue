@@ -1,14 +1,9 @@
 <template>
-    <div class="statistic-container">
-
-        <PageHeader title="日历"/>
-
-        <div class="calendar-container" :style="`height:${projectStore.insets.heightPanel}px`">
+    <div class="statistic-container diary-calendar-page" :style="`height:${projectStore.insets.heightPanel}px`">
+        <div class="calendar-container">
 
             <!-- 日历本体 -->
-            <div class="calendar"
-                :style="`height:${projectStore.insets.heightPanel}px; overflow-y: auto;`"
-            >
+            <div class="calendar" style="overflow-y: auto;">
                 <Calendar
                     timezone="Asia/Hong_Kong"
                     show-weeknumbers
@@ -51,8 +46,6 @@
 </template>
 
 <script lang="ts" setup>
-import PageHeader from "@/framework/pageHeader/PageHeader.vue"
-
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore();
 import {nextTick, onMounted, ref, watch} from "vue";

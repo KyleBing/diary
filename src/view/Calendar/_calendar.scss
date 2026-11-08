@@ -2,7 +2,8 @@
 
 // 日历容器
 .calendar-container{
-    flex-shrink: 0;
+    flex: 1 1 0%;
+    min-height: 0;
     display: flex;
     justify-content: flex-start;
     overflow-y: auto;
@@ -11,9 +12,10 @@
 
 // 日历本体
 .calendar{
+    flex: 1 1 0%;
+    min-height: 0;
     padding: 20px;
     overflow-y: auto;
-
 }
 
 // 日历操作面板
@@ -51,7 +53,15 @@
     overflow-y: auto;
 }
 
+// 整页在 navbar 下方，内容区吃满高度
+.diary-calendar-page{
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
+}
 .diary-calendar-layout{
+    flex: 1 1 0%;
+    min-height: 0;
     display: grid;
     grid-template-columns: 72px minmax(0, 1fr);
     overflow: hidden;
