@@ -2,10 +2,10 @@
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>tab /todo_all_black</title>
     <g id="tab-/todo_all_black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M36,9 L9,9 L9,36 L36,36 L36,9 Z M34,11 L34,34 L11,34 L11,11 L34,11 Z" id="Rectangle-Copy-2" fill="#4A4A4A" fill-rule="nonzero" transform="translate(22.500000, 22.500000) scale(-1, 1) translate(-22.500000, -22.500000) "></path>
         <path d="M21,14 L14,14 L14,21 L21,21 L21,14 Z M19,16 L19,19 L16,19 L16,16 L19,16 Z" id="Rectangle-Copy-2" fill="#4A4A4A" fill-rule="nonzero" transform="translate(17.500000, 17.500000) scale(-1, 1) translate(-17.500000, -17.500000) "></path>
-        <polygon id="Path-10" fill="#49C75F" fill-rule="nonzero" points="20.0213994 24.3768127 21.435613 25.7910263 16.7285062 30.4981331 13.7823547 27.5519816 15.1965683 26.137768 16.728 27.669"></polygon>
+        <rect id="Rectangle" stroke="#4A4A4A" stroke-width="2" x="8" y="8" width="29" height="29"></rect>
+        <polygon id="Path-10" fill="#4A4A4A" fill-rule="nonzero" points="20.0213994 24.3768127 21.435613 25.7910263 16.7285062 30.4981331 13.7823547 27.5519816 15.1965683 26.137768 16.728 27.669"></polygon>
         <polygon id="Line-4" fill="#4A4A4A" fill-rule="nonzero" points="32 17 32 19 23 19 23 17"></polygon>
-        <polygon id="Line-4-Copy" fill="#49C75F" fill-rule="nonzero" points="32 27 32 29 23 29 23 27"></polygon>
+        <polygon id="Line-4-Copy" fill="#4A4A4A" fill-rule="nonzero" points="32 27 32 29 23 29 23 27"></polygon>
     </g>
 </svg>

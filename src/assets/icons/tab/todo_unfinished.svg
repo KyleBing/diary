@@ -2,8 +2,8 @@
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>tab /todo_unfinished</title>
     <g id="tab-/todo_unfinished" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M36,9 L9,9 L9,36 L36,36 L36,9 Z M34,11 L34,34 L11,34 L11,11 L34,11 Z" id="Rectangle-Copy-2" fill="#E5E5EA" fill-rule="nonzero" transform="translate(22.500000, 22.500000) scale(-1, 1) translate(-22.500000, -22.500000) "></path>
-        <path d="M17.5,15 C15.5670034,15 14,16.5670034 14,18.5 C14,20.4329966 15.5670034,22 17.5,22 C19.4329966,22 21,20.4329966 21,18.5 C21,16.5670034 19.4329966,15 17.5,15 Z M17.5,17 C18.3284271,17 19,17.6715729 19,18.5 C19,19.3284271 18.3284271,20 17.5,20 C16.6715729,20 16,19.3284271 16,18.5 C16,17.6715729 16.6715729,17 17.5,17 Z" id="Rectangle-Copy-2" fill="#E5E5EA" fill-rule="nonzero" transform="translate(17.500000, 18.500000) scale(-1, 1) translate(-17.500000, -18.500000) "></path>
-        <polygon id="Line-4" fill="#E5E5EA" fill-rule="nonzero" points="31 17.5 31 19.5 24 19.5 24 17.5"></polygon>
+        <path d="M16.5,14 C14.5670034,14 13,15.5670034 13,17.5 C13,19.4329966 14.5670034,21 16.5,21 C18.4329966,21 20,19.4329966 20,17.5 C20,15.5670034 18.4329966,14 16.5,14 Z M16.5,16 C17.3284271,16 18,16.6715729 18,17.5 C18,18.3284271 17.3284271,19 16.5,19 C15.6715729,19 15,18.3284271 15,17.5 C15,16.6715729 15.6715729,16 16.5,16 Z" id="Rectangle-Copy-2" fill="#E5E5EA" fill-rule="nonzero" transform="translate(16.500000, 17.500000) scale(-1, 1) translate(-16.500000, -17.500000) "></path>
+        <polygon id="Line-4" fill="#E5E5EA" fill-rule="nonzero" points="31 17 31 19 23 19 23 17"></polygon>
+        <rect id="Rectangle" stroke="#E5E5EA" stroke-width="2" x="8" y="8" width="29" height="29"></rect>
     </g>
 </svg>

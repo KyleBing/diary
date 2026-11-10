@@ -2,6 +2,7 @@
 <svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>tab / copy</title>
     <g id="tab-/-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M28,16 L28,35 L11,35 L11,16 L28,16 Z M26,18 L13,18 L13,33 L26,33 L26,18 Z M35,10 L35,29 L31,29 L31,27 L33,27 L33,12 L20,12 L20,13.6842105 L18,13.6842105 L18,10 L35,10 Z" id="Combined-Shape" fill="#E5E5EA" fill-rule="nonzero"></path>
+        <polygon id="Path" fill="#E5E5EA" fill-rule="nonzero" transform="translate(27.000000, 19.000000) scale(-1, 1) translate(-27.000000, -19.000000) " points="36 9 36 12.8781163 33.8823529 12.8781163 33.8823529 11.1052632 20.1176471 11.1052632 20.1176471 26.8947368 22.2352941 26.8947368 22.2352941 29 18 29 18 9"></polygon>
+        <path d="M29,16 L8,16 L8,38 L29,38 L29,16 Z M27,18 L27,36 L10,36 L10,18 L27,18 Z" id="Rectangle-Copy-2" fill="#E5E5EA" fill-rule="nonzero" transform="translate(18.500000, 27.000000) scale(-1, 1) translate(-18.500000, -27.000000) "></path>
     </g>
 </svg>
