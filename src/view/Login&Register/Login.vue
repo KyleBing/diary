@@ -1,5 +1,5 @@
 <template>
-    <div class="body-login-bg" :style="`min-height: ${projectStore.insets.windowsHeight}px`">
+    <div class="body-login-bg login-page" :style="`min-height: ${projectStore.insets.windowsHeight}px`">
         <transition
             enter-active-class="animated-fast fadeIn"
             leave-active-class="animated-fast faceOut"
@@ -40,8 +40,6 @@
                     <RouterLink class="ml-1 password" to="/fetch-password">找回密码</RouterLink>
                 </div>
             </div>
-
-
         </transition>
     </div>
 </template>
@@ -187,39 +185,57 @@ function getAvatar(){
 </script>
 <style lang="scss" scoped>
 @use "../../scss/plugin" as *;
-.copyright{
-    left: 0;
+
+// 高度够：表单纵向居中、小字靠底；高度不够：随内容撑开，小字落到表单下方（可滚动），不重叠
+.login-page.body-login-bg {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.login-page .body-login {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    height: auto; // 覆盖共用样式 height:100%，避免矮屏内容溢出压住小字
+    box-sizing: border-box;
+
+    // 与底部 copyright 等分剩余空间，把 logo/表单区域顶回纵向居中
+    &::before {
+        content: '';
+        flex: 1 1 0;
+    }
+}
+
+.copyright {
+    flex: 1 1 0;
     width: 100%;
-    position: fixed;
-    bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 30px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     font-size: $fz-tiny;
     line-height: 1;
     color: $text-subtitle;
-    a{
+    a {
         color: $dark-text-subtitle;
 
-        &:hover{
+        &:hover {
             color: $color-main;
             text-decoration: underline;
         }
     }
-    .version{
+    .version {
         color: $dark-text-subtitle;
     }
-    .project-name{
+    .project-name {
         font-weight: bold;
     }
-    .valid-date{
-    }
-    .version{
-    }
-    .password{
+    .password {
         color: $dark-text-subtitle;
         @extend .btn-like;
-        &:hover{
+        &:hover {
             color: $color-main;
         }
     }
