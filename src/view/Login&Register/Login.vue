@@ -38,6 +38,7 @@
                     <span class="version ml-1">v{{ packageInfo.version }}</span>
                     <span class="ml-1"> {{ packageInfo.dateInit.substring(0,4) }}-{{ packageInfo.dateModify.substring(0,4) }}</span>
                     <RouterLink class="ml-1 password" to="/fetch-password">找回密码</RouterLink>
+                    <RouterLink class="ml-1 password" to="/privacy">隐私</RouterLink>
                 </div>
             </div>
         </transition>

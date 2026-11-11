@@ -10,6 +10,7 @@
             <div class="info">
                 <a href="http://kylebing.cn" class="social-link">主页</a>
                 <a href="https://github.com/KyleBing/diary-vue">github</a>
+                <RouterLink to="/privacy">隐私说明</RouterLink>
                 <div class="date">{{packageInfo.dateInit}} - {{packageInfo.dateModify}}</div>
             </div>
         </div>

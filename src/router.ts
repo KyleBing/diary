@@ -52,6 +52,7 @@ const routes: RouteRecordRaw[] = [
     {name: 'Register',             path: '/register',          component: () => import('@/view/Login&Register/Register.vue')},
     {name: 'RegisterApply',        path: '/register-apply',    component: () => import('@/view/Login&Register/RegisterApply.vue')},
     {name: 'Share',                path: '/share/:id',         component: () => import('@/view/Share/Share.vue')},
+    {name: 'Privacy',              path: '/privacy',           component: () => import('@/view/About/Privacy.vue')},
     {name: 'RemoveAllYourDiary',   path: '/clear-diary',       component: () => import('@/view/Util/RemoveAllYourDiary.vue') },
     {name: 'DestroyAccount',       path: '/destroy-account',   component: () => import('@/view/Util/DestroyAccount.vue') },
     {name: 'ChangePassword',       path: '/change-password',   component: () => import('@/view/Login&Register/ChangePassword.vue') },
@@ -87,6 +88,7 @@ router.beforeEach((to, _) => {
         case 'Register':
         case 'RegisterApply':
         case 'Share':
+        case 'Privacy':
         case 'FetchPassword':
         case 'Invitation':
             return true
