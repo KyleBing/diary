@@ -168,15 +168,16 @@ function openDiary() {
     min-height: 0;
     overflow: auto;
     margin: 0;
-    padding: 4px 10px 8px;
+    padding: 2px 14px 6px;
     list-style: none;
     li{
         display: flex;
         align-items: baseline;
-        gap: 12px;
-        padding: 9px 8px;
+        gap: 10px;
+        padding: 4px 6px;
         border-radius: $radius-mobile - 2;
-        font-size: $fz-main;
+        font-size: $fz-small;
+        line-height: 1.35;
         &.highlight{
             background: color.adjust($color-main, $lightness: 28%);
         }
@@ -195,7 +196,7 @@ function openDiary() {
         &.empty{
             justify-content: center;
             color: $text-label;
-            font-size: $fz-small;
+            padding: 10px 6px;
         }
     }
 }

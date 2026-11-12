@@ -38,7 +38,7 @@
                                 :style="cell && cell.diary ? {background: heatColor(cell.level)} : undefined"
                                 :disabled="!cell || !cell.diary"
                                 :title="cell && cell.spend ? String(cell.spend.toFixed(0)) : undefined"
-                                @click="cell && selectDay(cell)"
+                                @click="cell && openDayPopup(cell)"
                             >
                                 <template v-if="cell">
                                     <span class="num">{{ cell.day }}</span>
@@ -48,34 +48,24 @@
                         </div>
                     </section>
                 </div>
-                <aside class="bill-calendar-detail" v-if="selected">
-                    <div class="detail-date">{{ selected.label }}</div>
-                    <div class="detail-sum">
-                        <span>收入 <b class="text-income">{{ formatSigned(selected.day.sumIncome) }}</b></span>
-                        <span>支出 <b class="text-expense">{{ formatSigned(selected.day.sumOutput) }}</b></span>
-                    </div>
-                    <table>
-                        <tr v-for="(item, index) in selected.day.items" :key="index">
-                            <td>{{ item.item }}</td>
-                            <td class="number">{{ item.price.toFixed(projectStore.moneyAccuracy) }}</td>
-                        </tr>
-                    </table>
-                    <ButtonSmall @click="openDiary">打开这篇账单</ButtonSmall>
-                </aside>
             </div>
         </div>
+        <BillDayPopup
+            v-if="popupDay"
+            :day="popupDay"
+            open-mode="edit"
+            @close="closePopup"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
 import billApi from "@/api/billApi.ts"
-import ButtonSmall from "@/components/ButtonSmall.vue"
 import Loading from "@/components/Loading.vue"
 import {popMessage} from "@/utility.ts"
-import {useProjectStore} from "@/pinia/useProjectStore.ts"
 import {EntityBillDay, EntityBillMonth, MonthNameMap} from "@/view/Bill/Bill.ts"
+import BillDayPopup from "@/view/Bill/BillDayPopup.vue"
 import {computed, onMounted, ref} from "vue"
-import {useRouter} from "vue-router"
 
 interface DayCell {
     key: string
@@ -86,12 +76,11 @@ interface DayCell {
 }
 
 const weekLabels = ['一', '二', '三', '四', '五', '六', '日']
-const projectStore = useProjectStore()
-const router = useRouter()
 const isLoading = ref(false)
 const selectedYear = ref(new Date().getFullYear())
 const billYearData = ref<EntityBillMonth[]>([])
 const selectedKey = ref('')
+const popupDay = ref<EntityBillDay | null>(null)
 
 const availableYears = computed(() => {
     const yearNow = new Date().getFullYear()
@@ -159,16 +148,6 @@ const months = computed(() => {
     })
 })
 
-const selected = computed(() => {
-    const day = dayMap.value.get(selectedKey.value)
-    if (!day) return null
-    const date = parseDiaryDate(day.date)
-    const label = date
-        ? `${date.getMonth() + 1}月${date.getDate()}日 ${weekLabels[(date.getDay() + 6) % 7]}`
-        : selectedKey.value
-    return {day, label}
-})
-
 onMounted(() => {
     loadYear()
 })
@@ -176,6 +155,7 @@ onMounted(() => {
 function selectYear(year: number) {
     selectedYear.value = year
     selectedKey.value = ''
+    popupDay.value = null
     loadYear()
 }
 
@@ -192,15 +172,15 @@ function loadYear() {
         })
 }
 
-function selectDay(cell: DayCell) {
+function openDayPopup(cell: DayCell) {
     if (!cell.diary) return
     selectedKey.value = cell.key
+    popupDay.value = cell.diary
 }
 
-function openDiary() {
-    const id = selected.value?.day.id
-    if (!id) return
-    router.push({name: 'Edit', params: {id}})
+function closePopup() {
+    popupDay.value = null
+    selectedKey.value = ''
 }
 
 function spendOf(day: EntityBillDay) {
@@ -218,12 +198,6 @@ function compactAmount(value: number) {
         return `${(amount / 10000).toFixed(1).replace(/\.0$/, '')}万`
     }
     return String(Math.round(amount))
-}
-
-function formatSigned(value: number) {
-    if (!value) return '~'
-    const text = value.toFixed(projectStore.moneyAccuracy)
-    return value > 0 ? `+${text}` : text
 }
 
 function dayKey(raw: string) {

@@ -33,10 +33,26 @@
                 <span v-if="counts"> · 共 {{ counts.row }} 笔（可写 {{ counts.ready }} / 已导入 {{ counts.imported || 0 }} / 待确认名 {{ counts.guess }} / 大额 {{ counts.confirm }} / 未识别 {{ counts.unmapped }} / 跳过 {{ counts.skip }}）</span>
             </div>
             <div v-if="batchId" class="bill-imp-checks">
-                <label><input v-model="hideZeroAmount" type="checkbox"> 隐藏金额为 0</label>
-                <label><input v-model="includeGuess" type="checkbox"> 含名称待确认</label>
-                <label><input v-model="includeConfirm" type="checkbox"> 含大额待确认</label>
-                <label><input v-model="includeZero" type="checkbox"> 写入含金额 0</label>
+                <div class="bill-imp-check">
+                    <label for="bill-imp-hide-zero">隐藏金额为 0</label>
+                    <input id="bill-imp-hide-zero" v-model="hideZeroAmount" type="checkbox">
+                    <label class="switch" for="bill-imp-hide-zero"></label>
+                </div>
+                <div class="bill-imp-check">
+                    <label for="bill-imp-include-guess">含名称待确认</label>
+                    <input id="bill-imp-include-guess" v-model="includeGuess" type="checkbox">
+                    <label class="switch" for="bill-imp-include-guess"></label>
+                </div>
+                <div class="bill-imp-check">
+                    <label for="bill-imp-include-confirm">含大额待确认</label>
+                    <input id="bill-imp-include-confirm" v-model="includeConfirm" type="checkbox">
+                    <label class="switch" for="bill-imp-include-confirm"></label>
+                </div>
+                <div class="bill-imp-check">
+                    <label for="bill-imp-include-zero">写入含金额 0</label>
+                    <input id="bill-imp-include-zero" v-model="includeZero" type="checkbox">
+                    <label class="switch" for="bill-imp-include-zero"></label>
+                </div>
             </div>
             <div v-if="preview" class="bill-imp-previews">
                 <section>
@@ -122,8 +138,14 @@
                         <td><input v-model="row.name"></td>
                         <td><input v-model="row.meal_place" placeholder="店名"></td>
                         <td><input v-model="row.whenProductText" placeholder="可选，逗号分隔"></td>
-                        <td class="center"><input v-model="row.guess" type="checkbox"></td>
-                        <td class="center"><input v-model="row.confirm" type="checkbox"></td>
+                        <td class="center">
+                            <input :id="'bill-imp-guess-' + index" v-model="row.guess" type="checkbox">
+                            <label class="switch" :for="'bill-imp-guess-' + index"></label>
+                        </td>
+                        <td class="center">
+                            <input :id="'bill-imp-confirm-' + index" v-model="row.confirm" type="checkbox">
+                            <label class="switch" :for="'bill-imp-confirm-' + index"></label>
+                        </td>
                         <td><button type="button" class="bill-imp-del" @click="aliasRules.splice(index, 1)">删除</button></td>
                     </tr>
                 </table>
@@ -603,9 +625,22 @@ onMounted(() => {
 .bill-imp-checks{
   display: flex;
   flex-flow: row wrap;
-  gap: 12px;
+  gap: 14px 18px;
   margin-bottom: 10px;
   font-size: $fz-small;
+}
+.bill-imp-check{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  > label:not(.switch){
+    color: $text-subtitle;
+    cursor: pointer;
+  }
+}
+.bill-imp-alias td.center{
+  .switch{ margin: 0 auto; }
 }
 .bill-imp-previews, .bill-imp-tables{
   display: grid;

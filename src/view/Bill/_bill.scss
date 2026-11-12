@@ -760,9 +760,6 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   overflow: hidden;
-  &:has(.bill-calendar-detail){
-    grid-template-columns: minmax(0, 1fr) 280px;
-  }
 }
 .bill-calendar-grid{
   overflow: auto;
@@ -859,31 +856,6 @@
     }
   }
 }
-.bill-calendar-detail{
-  overflow: auto;
-  border-left: 1px solid $color-border;
-  background: white;
-  padding: 16px;
-  .detail-date{
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  .detail-sum{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: $fz-small;
-  }
-  table{
-    width: 100%;
-    margin-bottom: 12px;
-    font-size: $fz-small;
-    td:last-child{
-      text-align: right;
-    }
-  }
-}
-
 @media (max-width: $grid-separate-width-sm) {
   .bill-import-name-row{
     grid-template-columns: 1fr;
@@ -894,12 +866,7 @@
     grid-template-columns: 56px minmax(0, 1fr);
   }
   .bill-calendar-body{
-    grid-template-columns: 1fr;
     overflow: auto;
-  }
-  .bill-calendar-detail{
-    border-left: 0;
-    border-top: 1px solid $color-border;
   }
 }
 
@@ -912,8 +879,7 @@
   }
   .bill-import-section,
   .bill-calendar-side,
-  .bill-calendar-month,
-  .bill-calendar-detail{
+  .bill-calendar-month{
     background: $dark-bg-dark;
     border-color: $dark-border;
     color: $dark-text-title;
@@ -942,8 +908,5 @@
     .spend{
       color: #7ddebe;
     }
-  }
-  .bill-calendar-detail{
-    border-left-color: $dark-border;
   }
 }
