@@ -1,14 +1,16 @@
 <template>
     <div class="top5-display">
         <div class="top5-display-title">{{ title }}</div>
-        <div v-if="items.length === 0" class="top5-empty">无数据</div>
-        <ul v-else class="top5-list">
-            <li v-for="(item, index) in items" :key="index" class="top5-item">
-                <span
-                    class="name link"
-                    @click="openPopup(item)"
-                >{{ item.item }}</span>
-                <span class="price number" :class="priceClass">{{ formatPrice(item.price) }}</span>
+        <ul class="top5-list">
+            <li v-for="index in 5" :key="index" class="top5-item" :class="{placeholder: !items[index - 1]}">
+                <template v-if="items[index - 1]">
+                    <span
+                        class="name link"
+                        @click="openPopup(items[index - 1])"
+                    >{{ items[index - 1].item }}</span>
+                    <span class="price number" :class="priceClass">{{ formatPrice(items[index - 1].price) }}</span>
+                </template>
+                <span v-else-if="items.length === 0 && index === 1" class="top5-empty">无数据</span>
             </li>
         </ul>
         <BillDayPopup
@@ -74,6 +76,8 @@ function closePopup() {
 @use "../../scss/plugin" as *;
 
 .top5-display{
+    flex: 1;
+    min-height: 0;
     &:not(:last-child){
         margin-bottom: 12px;
     }
@@ -87,6 +91,7 @@ function closePopup() {
 .top5-empty{
     font-size: $fz-small;
     color: $text-label;
+    min-height: 1.4em;
 }
 .top5-list{
     list-style: none;
@@ -99,7 +104,11 @@ function closePopup() {
     align-items: center;
     position: relative;
     font-size: $fz-small;
+    min-height: 1.6em;
     padding: 3px 0;
+    &.placeholder:after{
+        display: none;
+    }
     &:after{
         position: absolute;
         content: '';

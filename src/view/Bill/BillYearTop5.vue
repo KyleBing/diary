@@ -210,10 +210,14 @@ function loadData() {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
     padding: 20px;
+    align-items: stretch;
     align-content: start;
 }
 
 .bill-top5-month-card{
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
     background-color: white;
     border: 1px solid $color-border-bill;
     border-radius: $radius-pc;
@@ -230,6 +234,7 @@ function loadData() {
         padding-bottom: 8px;
         border-bottom: 1px solid $color-border-light;
         color: $text-title;
+        flex-shrink: 0;
         .month-name{
             flex-shrink: 0;
         }

@@ -147,6 +147,9 @@ const months = computed(() => {
                 diary,
             })
         }
+        while (cells.length < 42) {
+            cells.push(null)
+        }
         return {
             month: monthKey,
             name: MonthNameMap.get(monthKey) || monthKey,

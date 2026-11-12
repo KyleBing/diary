@@ -19,8 +19,10 @@
   }
 
   .bill-content{
+    flex: 1 1 0%;
     min-width: 0;
     min-height: 0;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -768,10 +770,14 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 12px;
   padding: 12px;
+  align-items: stretch;
   align-content: start;
 }
 .bill-calendar-month{
   min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
   overflow: hidden;
   background: white;
   border: 1px solid $color-border-bill;
@@ -797,6 +803,10 @@
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 3px;
+  }
+  .days{
+    flex: 1;
+    align-content: start;
   }
   .weekdays span{
     text-align: center;
