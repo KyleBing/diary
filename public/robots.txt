@@ -1,0 +1,8 @@
+# 部署于 https://kylebing.cn/diary/
+# 站点根目录若另有 robots.txt，请在其中追加：
+# Sitemap: https://kylebing.cn/diary/sitemap.xml
+
+User-agent: *
+Allow: /
+
+Sitemap: https://kylebing.cn/diary/sitemap.xml

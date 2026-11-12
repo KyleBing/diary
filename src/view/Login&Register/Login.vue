@@ -7,9 +7,11 @@
             <div class="body-login" v-if="show">
                 <div class="logo-wrapper">
                     <div :class="['logo', {valid: avatarLink} ]">
-                        <img v-if="avatarLink" :src="avatarLink" alt="Diary Logo">
-                        <img v-else :src="SVG_ICONS.logo_icons.logo_rounded" alt="LOGIN-LOGO">
+                        <img v-if="avatarLink" :src="avatarLink" alt="标题日记">
+                        <img v-else :src="SVG_ICONS.logo_icons.logo_rounded" alt="标题日记">
                     </div>
+                    <h1 class="sr-only">标题日记 · 登录</h1>
+                    <p class="sr-only">用一句话概括你的一天。纯文本 Web 日记，支持日历、账单、统计与公开分享。</p>
                 </div>
 
                 <form method="post" id="regForm" @submit.prevent="loginSubmit">
@@ -66,7 +68,6 @@ const show = ref(false)
 const needResendVerify = ref(false)
 onMounted(()=> {
     show.value = true
-    document.title = '日记 - 登录' // 变更标题
 })
 
 
@@ -206,6 +207,18 @@ function getAvatar(){
         content: '';
         flex: 1 1 0;
     }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .copyright {

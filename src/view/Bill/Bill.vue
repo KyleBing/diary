@@ -1,20 +1,22 @@
 <template>
     <div class="statistic-container bill-page" :style="`height: ${projectStore.insets.windowsHeight}px`">
-        <PageHeader :title="currentView.headerTitle" :subtitle="currentView.headerHint"/>
+        <PageHeader title="账单">
+            <template #after-title>
+                <aside class="bill-nav">
+                    <div class="bill-nav-list">
+                        <i class="bill-nav-thumb" :style="{ transform: `translateX(${viewIndex * 100}%)` }"/>
+                        <button
+                            type="button"
+                            v-for="item in billViews"
+                            :key="item.id"
+                            :class="{checked: view === item.id}"
+                            @click="setView(item.id)"
+                        >{{ item.label }}</button>
+                    </div>
+                </aside>
+            </template>
+        </PageHeader>
         <div class="bill-body">
-            <!-- 左侧视图切换：选中条上下滑动，不带动右侧月份列表 -->
-            <aside class="bill-nav">
-                <div class="bill-nav-list">
-                    <i class="bill-nav-thumb" :style="{ transform: `translateY(${viewIndex * 100}%)` }"/>
-                    <button
-                        type="button"
-                        v-for="item in billViews"
-                        :key="item.id"
-                        :class="{checked: view === item.id}"
-                        @click="setView(item.id)"
-                    >{{ item.label }}</button>
-                </div>
-            </aside>
             <div class="bill-content" :class="`bill-view-${view}`">
                 <!-- v-show 保留月份 DOM 和滚动位置 -->
                 <div class="bill-months-layout" v-show="view === 'months'">
@@ -88,17 +90,15 @@ import BillSummary from "@/view/Bill/BillSummary.vue";
 import BillExpenseCalendar from "@/view/Bill/BillExpenseCalendar.vue";
 import BillYearTop5 from "@/view/Bill/BillYearTop5.vue";
 import BillImport from "@/view/Bill/BillImport.vue";
-import { useStatisticStore } from "@/pinia/useStatisticStore.ts";
-import diaryApi from "@/api/diaryApi.ts";
 import { useRoute, useRouter } from "vue-router";
 
 type BillView = 'months' | 'calendar' | 'top5' | 'import'
 
-const billViews: Array<{id: BillView, label: string, headerTitle: string, headerHint: string}> = [
-    {id: 'months', label: '月份', headerTitle: '账单', headerHint: '按月流水，筛选关键字和年份'},
-    {id: 'calendar', label: '日历', headerTitle: '支出日历', headerHint: '按日看支出，颜色越深花得越多'},
-    {id: 'top5', label: 'TOP5', headerTitle: '年度 TOP5', headerHint: '各月最大的五笔支出和收入'},
-    {id: 'import', label: '导入', headerTitle: '账单导入', headerHint: '支付宝 CSV 预览后写入日记账单'},
+const billViews: Array<{id: BillView, label: string}> = [
+    {id: 'months', label: '月份账单'},
+    {id: 'calendar', label: '支出日历'},
+    {id: 'top5', label: '年度 TOP5'},
+    {id: 'import', label: '账单导入'},
 ]
 
 const billYearData = ref<Array<EntityBillMonth>>([])
@@ -115,7 +115,6 @@ const viewIndex = computed(() => {
     const index = billViews.findIndex(item => item.id === view.value)
     return index < 0 ? 0 : index
 })
-const currentView = computed(() => billViews[viewIndex.value])
 
 function viewFromRoute(): BillView {
     const queryView = route.query.view

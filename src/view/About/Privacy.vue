@@ -110,7 +110,6 @@ const show = ref(false)
 
 onMounted(() => {
     show.value = true
-    document.title = '日记 - 隐私说明'
 })
 </script>
 

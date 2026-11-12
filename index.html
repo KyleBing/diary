@@ -5,13 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <!-- 搜索 -->
-    <meta name='description' content="日记,标题日记,headline diary,人生日志,life log,日记应用,日记app,web版日记,diary web,纯文本日记,免费日记">
-    <meta name='keywords' content="日记,标题日记,headline diary,人生日志,life log,日记应用,日记app,web版日记,diary web,纯文本日记,免费日记">
+    <title>标题日记 - 一句话概括你的一天</title>
+    <meta name="description" content="标题日记：用一句话概括你的一天。纯文本 Web 日记，支持日历、账单、统计与公开分享，免费使用。">
+    <meta name="keywords" content="标题日记,日记,日记应用,web日记,纯文本日记,人生日志,headline diary,diary,账单日记">
+    <meta name="author" content="KyleBing">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://kylebing.cn/diary/">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="标题日记">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="标题日记 - 一句话概括你的一天">
+    <meta property="og:description" content="标题日记：用一句话概括你的一天。纯文本 Web 日记，支持日历、账单、统计与公开分享，免费使用。">
+    <meta property="og:url" content="https://kylebing.cn/diary/">
+    <meta property="og:image" content="https://kylebing.cn/diary/appicon-apple.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="标题日记 - 一句话概括你的一天">
+    <meta name="twitter:description" content="标题日记：用一句话概括你的一天。纯文本 Web 日记，支持日历、账单、统计与公开分享，免费使用。">
+    <meta name="twitter:image" content="https://kylebing.cn/diary/appicon-apple.png">
 
     <!-- web app -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="标题日记">
+    <meta name="application-name" content="标题日记">
     <meta name="mobile-web-app-capable" content="yes">
 
     <!-- theme color-->
@@ -20,21 +40,42 @@
 
     <!-- fav icon -->
     <link rel="shortcut icon" href="./favicon.png" type="image/png">
-
-    <!-- apple-touch-icon -->
     <link rel="apple-touch-icon" href="./appicon-apple.png">
-    <!-- mask-icon 目前非必须 -->
     <link rel="mask-icon" href="./appicon-apple.png">
 
-    <title>日记</title>
     <link rel="stylesheet" href="/preloading.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "标题日记",
+      "alternateName": ["日记", "Headline Diary"],
+      "url": "https://kylebing.cn/diary/",
+      "description": "用一句话概括你的一天。纯文本 Web 日记，支持日历、账单、统计与公开分享。",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web, iOS",
+      "inLanguage": "zh-CN",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "KyleBing",
+        "url": "https://kylebing.cn"
+      },
+      "image": "https://kylebing.cn/diary/appicon-apple.png"
+    }
+    </script>
 </head>
 <body>
 
 <!--加载动画-->
 <div class="preloading">
     <div class="logo-preloading">
-        <img src="/logo.svg" alt="LOGO">
+        <img src="/logo.svg" alt="标题日记 Logo">
     </div>
     <div class="preloading-title">载入中</div>
     <div class="preloading-loading">
@@ -45,9 +86,17 @@
     </div>
 </div>
 
-
 <noscript>
-    <strong>请开启JavaScript支持：未开启 JavaScript 支持的情况下，《标题日记》将无法正常工作</strong>
+    <main style="max-width:40rem;margin:2rem auto;padding:0 1rem;font-family:system-ui,sans-serif;line-height:1.6">
+        <h1>标题日记</h1>
+        <p>用一句话概括你的一天。纯文本 Web 日记应用，支持日历、账单、统计与公开分享。</p>
+        <p>请开启 JavaScript 后访问完整功能；也可阅读
+            <a href="https://kylebing.cn/diary/#/privacy">隐私说明</a>。
+        </p>
+        <p>作者：<a href="https://kylebing.cn">KyleBing</a> ·
+            <a href="https://github.com/KyleBing/diary-vue">GitHub</a>
+        </p>
+    </main>
 </noscript>
 <div id="app"></div>
 <script type="module" src="/src/main.ts"></script>

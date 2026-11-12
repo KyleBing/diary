@@ -112,7 +112,6 @@ function applyQueryPrefill() {
 
 onMounted(()=>{
     show.value = true
-    document.title = '日记 - 注册' // 变更标题
     applyQueryPrefill()
     setupApi
         .status()

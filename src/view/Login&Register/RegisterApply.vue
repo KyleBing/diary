@@ -172,7 +172,6 @@ const successTip = `
 
 onMounted(() => {
     show.value = true
-    document.title = '日记 - 申请注册'
 })
 
 watch(email, () => {

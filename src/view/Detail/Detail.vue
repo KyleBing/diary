@@ -120,6 +120,7 @@ import TabIcon from "@/components/TabIcon.vue";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 
 import {popMessage, dateProcess, temperatureProcessSTC} from "@/utility.ts";
+import {applySeo} from "@/utility/seo.ts";
 
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
@@ -365,7 +366,11 @@ function showDiary(diaryId: number) {
             projectStore.currentDiary = tempDiary // 设置 store: currentDiary
             let dateObj = dateProcess(tempDiary.date)
             diary.value.dateObj = dateObj
-            document.title = '日记 - ' + dateObj.dateFull // 变更当前标签的 Title
+            applySeo({
+                title: dateObj.dateFull,
+                path: `detail/${tempDiary.id}`,
+                index: false,
+            })
             diary.value.temperature = temperatureProcessSTC(tempDiary.temperature)
             diary.value.temperature_outside = temperatureProcessSTC(tempDiary.temperature_outside)
 

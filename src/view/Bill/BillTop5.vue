@@ -6,24 +6,31 @@
                  v-for="(item, index) in modelTop5" :key="index" @click="changeCurrentState(item)">
                 <div
                     class="name link"
-                    v-tooltip="top5ItemTooltip(item, monthData)"
-                    @click.stop="openEdit(item)"
+                    @click.stop="openPopup(item)"
                 >{{item.item}}</div>
                 <div class="price">{{item.price.toFixed(projectStore.moneyAccuracy)}}</div>
             </div>
         </div>
+        <BillDayPopup
+            v-if="popupDay"
+            :day="popupDay"
+            :focus-item="popupFocus"
+            open-mode="edit"
+            @close="closePopup"
+        />
     </div>
 </template>
 
 
 <script setup lang="ts">
-import {EntityBillMonth, EntityBillTop5Item} from "@/view/Bill/Bill.ts";
-import {openBillItemEdit, top5ItemTooltip} from "@/view/Bill/billNavigation.ts";
+import {ref} from "vue";
+import {EntityBillDay, EntityBillMonth, EntityBillTop5Item} from "@/view/Bill/Bill.ts";
+import {findDiaryDayForTop5Item} from "@/view/Bill/billNavigation.ts";
+import {popMessage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
-import {useRouter} from "vue-router";
+import BillDayPopup from "@/view/Bill/BillDayPopup.vue";
 
 const projectStore = useProjectStore();
-const router = useRouter()
 
 const modelTop5 = defineModel<Array<EntityBillTop5Item>>()
 
@@ -32,12 +39,30 @@ const props = defineProps<{
     monthData?: EntityBillMonth
 }>()
 
+const popupDay = ref<EntityBillDay | null>(null)
+const popupFocus = ref<EntityBillTop5Item | null>(null)
+
 function changeCurrentState(billItem: EntityBillTop5Item){
     billItem.isFiltered = !billItem.isFiltered
 }
 
-function openEdit(item: EntityBillTop5Item) {
-    openBillItemEdit(router, item, props.monthData)
+function openPopup(item: EntityBillTop5Item) {
+    if (!props.monthData) {
+        popMessage('warning', '未找到对应账单日记')
+        return
+    }
+    const day = findDiaryDayForTop5Item(props.monthData, item)
+    if (!day) {
+        popMessage('warning', '未找到对应账单日记')
+        return
+    }
+    popupFocus.value = item
+    popupDay.value = day
+}
+
+function closePopup() {
+    popupDay.value = null
+    popupFocus.value = null
 }
 
 </script>
@@ -111,8 +136,6 @@ function openEdit(item: EntityBillTop5Item) {
             > * {
                 background-color: $dark-bg-dark;
             }
-            .name{}
-            .price{}
         }
     }
 }

@@ -25,8 +25,13 @@
                 <th>支出</th>
                 <th class="label center">具体</th>
             </tr>
-            <tr v-for="item in billMonthData.days" :key="item.date">
-                <td class="date center number link"  @click="goToDiaryDetail(item.id)">
+            <tr
+                v-for="item in billMonthData.days"
+                :key="item.date"
+                class="bill-day-row"
+                @click="openDayPopup(item)"
+            >
+                <td class="date center number link">
                     {{ dateProcess(item.date).day }}
                     <span class="text-gray">{{ dateProcess(item.date).weekShort }}</span>
                 </td>
@@ -44,47 +49,40 @@
                     <span v-else-if="item.sumOutput > 0" class="text-income">+{{ item.sumOutput.toFixed(projectStore.moneyAccuracy) || '-' }}</span>
                     <span v-else>{{ item.sumOutput.toFixed(projectStore.moneyAccuracy) || '-' }}</span>
                 </td>
-                <td class="label center"
-                    v-tooltip="{
-                                content: tooltipContent(item),
-                                html: true,
-                                theme: 'tooltip-bill'
-                            }">
+                <td class="label center">
                     {{ tooltipContentWithoutReturn(item.items) }}
                 </td>
             </tr>
         </table>
+        <BillDayPopup
+            v-if="popupDay"
+            :day="popupDay"
+            open-mode="detail"
+            @close="popupDay = null"
+        />
     </div>
 </template>
 
 
 <script setup lang="ts">
 import {EntityBillDay, EntityBillItem, EntityBillMonth, EntityBillTop5Item, MonthNameMap} from "@/view/Bill/Bill.ts";
-import {buildBillItemsTooltipHtml} from "@/view/Bill/billNavigation.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {dateProcess} from "@/utility.ts";
 import BillMonthSummary from "@/view/Bill/BillMonthSummary.vue";
 import BillTop5 from "@/view/Bill/BillTop5.vue";
-import BillFoodSummary from "@/view/Bill/BillFoodSummary.vue";
-import {useRouter} from "vue-router";
+import BillDayPopup from "@/view/Bill/BillDayPopup.vue";
 import {onMounted, ref, watch} from "vue";
 
-const router = useRouter()
 const projectStore = useProjectStore();
 
 interface Props {
     billMonthData: EntityBillMonth,
 }
 const props = defineProps<Props>()
+const popupDay = ref<EntityBillDay | null>(null)
 
-function goToDiaryDetail(diaryId: number){
-    console.log(diaryId)
-    router.push({
-        name: 'Detail',
-        params: {
-            id: diaryId
-        }
-    })
+function openDayPopup(day: EntityBillDay){
+    popupDay.value = day
 }
 
 // 过滤排除的消费项目
@@ -129,12 +127,6 @@ function tooltipContentWithoutReturn(billItemArray: Array<EntityBillItem>) {
         })
         .join('，')
 }
-function tooltipContent(day: EntityBillDay) {
-    return buildBillItemsTooltipHtml(day.items, day.date, {
-        sumIncome: day.sumIncome,
-        sumOutput: day.sumOutput,
-    })
-}
 
 
 </script>
@@ -144,4 +136,7 @@ function tooltipContent(day: EntityBillDay) {
 <style scoped lang="scss">
 @use "../../scss/plugin" as *;
 
+.bill-day-row{
+    cursor: pointer;
+}
 </style>

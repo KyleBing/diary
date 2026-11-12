@@ -4,6 +4,7 @@
             <TabIcon icon="关闭"/>
         </div>
         <div class="page-title">{{ title }}</div>
+        <slot name="after-title"/>
         <div class="page-subtitle">{{ subtitle }}</div>
         <slot/>
     </div>

@@ -7,7 +7,7 @@
             <div class="body-login">
                 <div class="logo-wrapper">
                     <div class="logo">
-                        <img :src="SVG_ICONS.logo_icons.logo_change_password" alt="Diary Logo">
+                        <img :src="SVG_ICONS.logo_icons.logo_change_password" alt="标题日记">
                     </div>
                     <div class="project-name">找回密码</div>
                 </div>
@@ -44,7 +44,7 @@ import RegisterTip from "./RegisterTip.vue";
 import userApi from "@/api/userApi.ts"
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import {popMessage} from "@/utility.ts";
 
 const projectStore = useProjectStore()
@@ -66,10 +66,6 @@ const sentTip = computed(() => `
             <p>若该邮箱已注册，重置链接已发往你的邮箱，请查收并在 1 小时内完成重置。</p>
             <p>未收到？请检查垃圾箱，或稍后重试。</p>
         `)
-
-onMounted(() => {
-    document.title = '日记 - 找回密码'
-})
 
 watch(email, () => {
     emailTouched.value = true

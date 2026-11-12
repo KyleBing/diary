@@ -92,6 +92,7 @@ import {
     temperatureProcessSTC,
     DateUtilityObject
 } from "@/utility.ts";
+import {applySeo} from "@/utility/seo.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
 
@@ -140,7 +141,19 @@ function getDiaryInfo(diaryId: number){
             isLoadingDiary.value = false
             currentDiary.value = tempDiary
             dateObj.value = dateProcess(tempDiary.date)
-            document.title = '日记 - ' + dateObj.value.dateFull // 变更标题
+            const shareTitle = tempDiary.title
+                ? `${tempDiary.title} · ${dateObj.value.dateFull}`
+                : dateObj.value.dateFull
+            const shareDesc = tempDiary.content
+                ? String(tempDiary.content).replace(/\s+/g, ' ').slice(0, 120)
+                : `${tempDiary.nickname || '用户'} 分享的一篇标题日记`
+            applySeo({
+                title: shareTitle,
+                description: shareDesc,
+                path: `share/${diaryId}`,
+                index: true,
+                type: 'article',
+            })
             if (currentDiary.value.content) {
                 currentDiary.value.contentHtml = buildDiaryContentHtml(tempDiary.content, tempDiary.category, false, tempDiary.title)
             }
@@ -158,6 +171,12 @@ function getDiaryInfo(diaryId: number){
         .catch(() => {
             isLoadingDiary.value = false
             currentDiary.value = null
+            applySeo({
+                title: '无此日记',
+                description: '这篇分享不存在或尚未公开。',
+                path: `share/${diaryId}`,
+                index: false,
+            })
         })
 }
 watch(() => route.params.id, newValue => {

@@ -6,21 +6,28 @@
             <li v-for="(item, index) in items" :key="index" class="top5-item">
                 <span
                     class="name link"
-                    v-tooltip="top5ItemTooltip(item, monthData)"
-                    @click="openEdit(item)"
+                    @click="openPopup(item)"
                 >{{ item.item }}</span>
                 <span class="price number" :class="priceClass">{{ formatPrice(item.price) }}</span>
             </li>
         </ul>
+        <BillDayPopup
+            v-if="popupDay"
+            :day="popupDay"
+            :focus-item="popupFocus"
+            open-mode="edit"
+            @close="closePopup"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
-import {EntityBillMonth, EntityBillTop5Item} from "@/view/Bill/Bill.ts";
-import {openBillItemEdit, top5ItemTooltip} from "@/view/Bill/billNavigation.ts";
+import {computed, ref} from "vue";
+import {EntityBillDay, EntityBillMonth, EntityBillTop5Item} from "@/view/Bill/Bill.ts";
+import {findDiaryDayForTop5Item} from "@/view/Bill/billNavigation.ts";
+import {popMessage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
-import {useRouter} from "vue-router";
+import BillDayPopup from "@/view/Bill/BillDayPopup.vue";
 
 const props = defineProps<{
     title: string
@@ -30,7 +37,8 @@ const props = defineProps<{
 }>()
 
 const projectStore = useProjectStore()
-const router = useRouter()
+const popupDay = ref<EntityBillDay | null>(null)
+const popupFocus = ref<EntityBillTop5Item | null>(null)
 
 const priceClass = computed(() => props.type === 'income' ? 'text-income' : 'text-expense')
 
@@ -42,8 +50,23 @@ function formatPrice(price: number): string {
     return value
 }
 
-function openEdit(item: EntityBillTop5Item) {
-    openBillItemEdit(router, item, props.monthData)
+function openPopup(item: EntityBillTop5Item) {
+    if (!props.monthData) {
+        popMessage('warning', '未找到对应账单日记')
+        return
+    }
+    const day = findDiaryDayForTop5Item(props.monthData, item)
+    if (!day) {
+        popMessage('warning', '未找到对应账单日记')
+        return
+    }
+    popupFocus.value = item
+    popupDay.value = day
+}
+
+function closePopup() {
+    popupDay.value = null
+    popupFocus.value = null
 }
 </script>
 
@@ -74,12 +97,21 @@ function openEdit(item: EntityBillTop5Item) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    position: relative;
     font-size: $fz-small;
     padding: 3px 0;
-    border-bottom: 1px dashed $color-border-light;
-    &:last-child{
-        border-bottom: none;
+    &:after{
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        height: 1px;
+        border-bottom: 1px dashed $color-border;
+    }
+    > * {
+        position: relative;
+        z-index: 1;
+        background-color: white;
     }
     .name{
         flex: 1;
@@ -87,6 +119,7 @@ function openEdit(item: EntityBillTop5Item) {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding-right: 12px;
         color: $text-title;
         &.link{
             cursor: pointer;
@@ -98,6 +131,7 @@ function openEdit(item: EntityBillTop5Item) {
     }
     .price{
         flex-shrink: 0;
+        padding-left: 12px;
         font-family: "JetBrainsMonoDiary", sans-serif;
     }
 }
@@ -110,7 +144,12 @@ function openEdit(item: EntityBillTop5Item) {
         color: $dark-text-subtitle;
     }
     .top5-item{
-        border-bottom-color: $dark-border;
+        &:after{
+            border-bottom-color: $dark-border;
+        }
+        > * {
+            background-color: $dark-bg-dark;
+        }
         .name{
             color: $dark-text-title;
         }

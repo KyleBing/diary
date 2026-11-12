@@ -59,6 +59,8 @@ export default defineConfig({
             manifest: {
                 name: '标题日记',
                 short_name: "日记",
+                description: '用一句话概括你的一天。纯文本 Web 日记，支持日历、账单、统计与公开分享。',
+                lang: 'zh-CN',
                 theme_color: "#373737",
                 start_url: "./",
                 display: "standalone",

@@ -1,3 +1,12 @@
+import type {RouteSeoMeta} from "./src/utility/seo"
+
+declare module "vue-router" {
+    interface RouteMeta {
+        requiresAdmin?: boolean
+        seo?: RouteSeoMeta
+    }
+}
+
 declare module "*.svg?url" {
     const content: any;
     export default content;
