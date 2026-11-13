@@ -34,12 +34,15 @@
                      @click="toggleSearchbar">
                     <TabIcon icon="搜索"/>
                 </div>
-                <div v-if="projectStore.isInMobileMode && dateFilterStart && dateFilterEnd"
+                <div v-if="projectStore.isInMobileMode && dateFilterYear && dateFilterMonth"
                      v-show="!projectStore.isMenuShowed && (route.name === 'List' || route.name === 'WaterfallList')"
                      class="date-filter-mobile"
                      @click="clearDateFilter">
-                    <span>{{ dateFilterStart }}</span>
-                    <span v-if="dateFilterStart !== dateFilterEnd">{{ dateFilterEnd }}</span>
+                    <span class="date-filter-year">{{ dateFilterYear }}</span>
+                    <span class="date-filter-month">
+                        <span class="month-num">{{ dateFilterMonth }}</span>
+                        <span class="month-unit">月</span>
+                    </span>
                 </div>
 
                 <div v-show="!projectStore.isMenuShowed"
@@ -136,7 +139,7 @@
                     </div>
                 </div>
 
-                <!--  只在移动端上才显示：5×3 类别色点阵筛选入口  -->
+                <!--  只在移动端上才显示：类别色点阵筛选入口（每列 3 点，先竖后横）  -->
                 <div v-if="(projectStore.isInMobileMode && route.name === 'List' && !projectStore.isMenuShowed)"
                     @click="showMenuCategorySelector"
                 >
@@ -216,6 +219,16 @@ const navMenuRef = ref<InstanceType<typeof NavMenu>>()
 
 const dateFilterStart = computed(() => (projectStore.dateFilterTimeStart || '').trim().slice(0, 7))
 const dateFilterEnd = computed(() => (projectStore.dateFilterTimeEnd || '').trim().slice(0, 7))
+const dateFilterYear = computed(() => {
+    const value = dateFilterStart.value
+    return value.length >= 4 ? value.slice(0, 4) : ''
+})
+const dateFilterMonth = computed(() => {
+    const value = dateFilterStart.value
+    if (value.length < 7) return ''
+    const month = Number(value.slice(5, 7))
+    return Number.isFinite(month) && month > 0 ? String(month) : ''
+})
 const dateFilterRangeLabel = computed(() => {
     if (!dateFilterStart.value || !dateFilterEnd.value) return ''
     if (dateFilterStart.value === dateFilterEnd.value) return dateFilterStart.value

@@ -1,11 +1,15 @@
 <template>
-    <!-- 移动端导航：5×3 类别色圆点，选中实心 / 未选中空心 -->
+    <!-- 对齐 iOS CategoryDotGrid：每列 3 点，先竖后横；末尾加共享白点 -->
     <div class="indicator-list" title="类别">
         <div
             class="indicator-list-item"
             v-for="(item, index) in useStatisticStore().categoryAll"
             :key="index"
             :style="indicatorItemStyle(item)"
+        />
+        <div
+            class="indicator-list-item indicator-shared"
+            :class="{ active: projectStore.isFilterShared }"
         />
     </div>
 </template>
@@ -32,32 +36,40 @@ function indicatorItemStyle(category: CategoryEntity): string{
 @use "../../../scss/plugin" as *;
 
 $dot-size: 5px;
-$dot-gap: 2px;
-$grid-cols: 5;
+$dot-gap: 2.5px;
+$per-column: 3;
 
 .indicator-list{
-    // 与 TabIcon 占位一致，便于替换导航栏类别按钮
     height: $height-navbar;
-    width: $height-navbar;
     cursor: pointer;
     @extend .btn-like;
     box-sizing: border-box;
-    padding: 8px;
+    padding: 0 6px;
 
-    // 固定 5 列，类别按顺序铺成 5×3 点阵
+    // 先填满一列 3 个，再往右开新列（与 iOS LazyHGrid 一致）
     display: grid;
-    grid-template-columns: repeat($grid-cols, $dot-size);
-    grid-auto-rows: $dot-size;
+    grid-template-rows: repeat($per-column, $dot-size);
+    grid-auto-flow: column;
+    grid-auto-columns: $dot-size;
     gap: $dot-gap;
-    place-content: center;
+    align-content: center;
+    justify-content: center;
 }
 
 .indicator-list-item{
     width: $dot-size;
     height: $dot-size;
     border-radius: 50%;
-    border: 1.5px solid transparent;
+    border: 0.8px solid transparent;
     box-sizing: border-box;
     flex-shrink: 0;
+}
+
+.indicator-shared{
+    border-color: white;
+    background-color: transparent;
+    &.active{
+        background-color: white;
+    }
 }
 </style>

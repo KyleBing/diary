@@ -82,11 +82,26 @@
     padding: 0 6px 0 2px;
     font-family: "JetBrainsMonoDiary", "JetBrains Mono", monospace;
     font-size: 10px;
-    line-height: 1.2;
+    line-height: 1.15;
     color: white;
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
+    .date-filter-year{
+      color: white;
+    }
+    .date-filter-month{
+      display: inline-flex;
+      align-items: baseline;
+      gap: 1px;
+      .month-num{
+        color: $color-main;
+      }
+      .month-unit{
+        font-size: 9px;
+        color: color.adjust(white, $alpha: -0.45);
+      }
+    }
   }
 
     .btn-text-group{
@@ -130,6 +145,14 @@
     }
     .date-filter-mobile{
       color: $dark-text-title;
+      .date-filter-year{
+        color: $dark-text-title;
+      }
+      .date-filter-month{
+        .month-unit{
+          color: color.adjust($dark-text-title, $alpha: -0.35);
+        }
+      }
     }
   }
   .menu-panel{
