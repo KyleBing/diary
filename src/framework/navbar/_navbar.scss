@@ -74,6 +74,21 @@
     justify-content: flex-end;
   }
 
+  .date-filter-mobile{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    height: $height-navbar;
+    padding: 0 6px 0 2px;
+    font-family: "JetBrainsMonoDiary", "JetBrains Mono", monospace;
+    font-size: 10px;
+    line-height: 1.2;
+    color: white;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+
     .btn-text-group{
     display: flex;
     flex-flow: row nowrap;
@@ -111,6 +126,9 @@
       color: $dark-text-title;
     }
     .nav-edit-title{
+      color: $dark-text-title;
+    }
+    .date-filter-mobile{
       color: $dark-text-title;
     }
   }

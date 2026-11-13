@@ -34,6 +34,13 @@
                      @click="toggleSearchbar">
                     <TabIcon icon="搜索"/>
                 </div>
+                <div v-if="projectStore.isInMobileMode && dateFilterStart && dateFilterEnd"
+                     v-show="!projectStore.isMenuShowed && (route.name === 'List' || route.name === 'WaterfallList')"
+                     class="date-filter-mobile"
+                     @click="clearDateFilter">
+                    <span>{{ dateFilterStart }}</span>
+                    <span v-if="dateFilterStart !== dateFilterEnd">{{ dateFilterEnd }}</span>
+                </div>
 
                 <div v-show="!projectStore.isMenuShowed"
                 v-if="!projectStore.isInMobileMode"
@@ -196,7 +203,7 @@ import MenuCategoryIndicator from "@/view/Menu/MenuCategorySelector/MenuCategory
 
 import ClipboardJS from "clipboard"
 
-import {formatDiaryDateRangeLabel, popMessage} from "@/utility.ts";
+import {popMessage} from "@/utility.ts";
 import {useProjectStore} from "@/pinia/useProjectStore.ts";
 const projectStore = useProjectStore()
 import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
@@ -207,9 +214,13 @@ const route = useRoute()
 const router = useRouter()
 const navMenuRef = ref<InstanceType<typeof NavMenu>>()
 
-const dateFilterRangeLabel = computed(() =>
-    formatDiaryDateRangeLabel(projectStore.dateFilterTimeStart, projectStore.dateFilterTimeEnd)
-)
+const dateFilterStart = computed(() => (projectStore.dateFilterTimeStart || '').trim().slice(0, 7))
+const dateFilterEnd = computed(() => (projectStore.dateFilterTimeEnd || '').trim().slice(0, 7))
+const dateFilterRangeLabel = computed(() => {
+    if (!dateFilterStart.value || !dateFilterEnd.value) return ''
+    if (dateFilterStart.value === dateFilterEnd.value) return dateFilterStart.value
+    return `${dateFilterStart.value} ~ ${dateFilterEnd.value}`
+})
 
 /** 编辑页路由：用于 navbar 展示当前日记标题 */
 const EDIT_ROUTE_NAMES = ['Edit', 'EditNew', 'CalendarEdit', 'CalendarEditNew'] as const

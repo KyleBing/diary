@@ -53,12 +53,19 @@
             <!--CONTENT-->
             <div
                 class="diary-content"
-                :class="{'mobile-copyable': projectStore.isInMobileMode && diary.category !== 'todo'}"
+                :class="{
+                    'mobile-copyable': projectStore.isInMobileMode && diary.category !== 'todo',
+                    'has-copy-toolbar': !compact && !projectStore.isInMobileMode && showContentCopyToolbar && diary.category !== 'todo'
+                }"
                 v-if="diary.category === 'todo' || diary.content"
                 @touchend="onContentMobileDoubleTapEnd($event)"
             >
                 <!-- 非 todo：悬停显示复制内容；无标题 todo：在内容区提供复制 -->
-                <div class="toolbar" v-if="!compact && !projectStore.isInMobileMode && showContentCopyToolbar">
+                <div
+                    class="toolbar"
+                    :class="{'is-block': diary.category === 'todo'}"
+                    v-if="!compact && !projectStore.isInMobileMode && showContentCopyToolbar"
+                >
                     <template v-if="diary.category === 'todo'">
                         <TabIcon size="small" :icon="toolbarIcon('复制全部')" title="复制全部" @click.stop="copyTodosAll"/>
                         <TabIcon size="small" :icon="toolbarIcon('复制未完成')" title="复制未完成" @click.stop="copyTodosUndone"/>

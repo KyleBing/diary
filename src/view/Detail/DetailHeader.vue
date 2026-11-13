@@ -1,20 +1,38 @@
 <template>
     <div class="diary-header" :class="{compact: props.compact}">
 
-        <!-- 日期 -->
-        <div class="date-wrapper" v-if="props.diary.dateObj">
-            <div class="date-time">
-                {{ props.diary.dateObj.dateFull }}  {{props.diary.dateObj.time}}
-            </div>
-            <div class="date-lunar">
-                {{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}  {{props.diary.dateObj.weekday}}
-                <span
-                    v-if="Moment().diff(props.diary.date, 'days') > 0"
-                    class="date-diff"
-                >
-                    {{Moment().diff(props.diary.date, 'days')}}天前
-                </span>
-            </div>
+        <!-- 日期：移动端默认日期+时间+星期，点击切换农历与几天前 -->
+        <div
+            class="date-wrapper"
+            :class="{ 'is-toggle': isMobile }"
+            v-if="props.diary.dateObj"
+            @click="toggleMobileDate"
+        >
+            <template v-if="isMobile">
+                <template v-if="!showLunar">
+                    <div class="date-day">{{ props.diary.dateObj.dateFull }}</div>
+                    <div class="date-side">{{ props.diary.dateObj.time }}</div>
+                </template>
+                <template v-else>
+                    <div class="date-day">{{ lunarObject.IMonthCn }}{{ lunarObject.IDayCn }}</div>
+                    <div class="date-side">{{ props.diary.dateObj.weekday }}</div>
+                    <div class="date-side" v-if="daysAgo > 0">{{ daysAgo }}天前</div>
+                </template>
+            </template>
+            <template v-else>
+                <div class="date-time">
+                    {{ props.diary.dateObj.dateFull }}  {{props.diary.dateObj.time}}
+                </div>
+                <div class="date-lunar">
+                    {{lunarObject.IMonthCn}}{{lunarObject.IDayCn}}  {{props.diary.dateObj.weekday}}
+                    <span
+                        v-if="Moment().diff(props.diary.date, 'days') > 0"
+                        class="date-diff"
+                    >
+                        {{Moment().diff(props.diary.date, 'days')}}天前
+                    </span>
+                </div>
+            </template>
         </div>
 
         <!-- 天气 -->
@@ -30,7 +48,7 @@
                     <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature))]">{{ props.diary.temperature }}</span> ℃
                 </div>
                 <div class="temperature"
-                     v-if="props.diary.temperature_outside">
+                     v-if="!isMobile && props.diary.temperature_outside">
                     室外
                     <span :class="['temperature-number', getTemperatureClassName(Number(props.diary.temperature_outside))]">{{ props.diary.temperature_outside }}</span> ℃
                 </div>
@@ -49,8 +67,9 @@
 
 <script lang="ts" setup>
 import SVG_ICONS from "@/assets/icons/SVG_ICONS.ts";
-import {computed} from "vue";
+import {computed, ref, watch} from "vue";
 import {useStatisticStore} from "@/pinia/useStatisticStore.ts";
+import {useProjectStore} from "@/pinia/useProjectStore.ts";
 import Moment from "moment";
 
 const props = defineProps({
@@ -71,6 +90,20 @@ const props = defineProps({
         default: false
     },
 })
+
+const projectStore = useProjectStore()
+const isMobile = computed(() => projectStore.isInMobileMode)
+const showLunar = ref(false)
+const daysAgo = computed(() => Moment().diff(props.diary.date, 'days'))
+
+watch(() => props.diary?.id, () => {
+    showLunar.value = false
+})
+
+function toggleMobileDate() {
+    if (!isMobile.value) return
+    showLunar.value = !showLunar.value
+}
 
 const categoryBgColor = computed<string>( () => {
     if (props.diary && props.diary.category){
@@ -142,8 +175,32 @@ function getTemperatureClassName(temperature: number): string{
         display: flex;
         flex-direction: column;
         gap: 2px;
+        &.is-toggle{
+            cursor: pointer;
+            user-select: none;
+            flex-direction: row;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px 8px;
+            font-size: 15px;
+            line-height: 1.2;
+            .date-day{
+                font-weight: bold;
+                white-space: nowrap;
+            }
+            .date-side{
+                font-weight: normal;
+                color: $text-label;
+                white-space: nowrap;
+            }
+        }
         .date-time{
             font-weight: bold;
+            .date-diff{
+                font-weight: normal;
+                color: $text-label;
+                margin-left: 10px;
+            }
         }
         .date-lunar{
             font-size: $fz-small;
@@ -316,8 +373,14 @@ function getTemperatureClassName(temperature: number): string{
         color: $dark-text;
         .date-wrapper {
             color: $bg-main;
-            .date-time {
+            .date-time, .date-day {
                 color: $dark-text-header-date;
+                .date-diff{
+                    color: $dark-text-label;
+                }
+            }
+            .date-side {
+                color: $dark-text-label;
             }
             .date-lunar {
                 color: $dark-text-header-lunar;

@@ -232,7 +232,7 @@ const MENU_LIST = [
         }
     },
     {
-        name: '其它',
+        name: '账户',
         isShowInMobile: true,
         isShowInPC: true,
         isNeedAdmin: false,
