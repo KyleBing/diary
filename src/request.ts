@@ -1,8 +1,10 @@
 import axios from "axios";
-import {getAuthorization, updateAuthorizationToken} from "./utility";
+import {deleteAuthorization, getAuthorization, popMessage, updateAuthorizationToken} from "./utility";
 import {ResponseEntity} from "./entity/Response";
 
 const RENEWED_TOKEN_HEADER = 'x-access-token'
+
+let handlingAuthExpired = false
 
 // 读取服务端续签下发的新 JWT
 function applyRenewedToken(headers: Record<string, unknown> | undefined) {
@@ -14,6 +16,35 @@ function applyRenewedToken(headers: Record<string, unknown> | undefined) {
     if (typeof token === 'string' && token) {
         updateAuthorizationToken(token)
     }
+}
+
+function isUnauthorizedPayload(data: unknown): boolean {
+    if (!data || typeof data !== 'object') {
+        return false
+    }
+    const body = data as { code?: string; message?: string }
+    if (body.code === 'unauthorized') {
+        return true
+    }
+    const message = body.message || ''
+    return message.includes('token') || message.includes('身份验证失败') || message === '无 token'
+}
+
+function handleAuthExpired(message?: string) {
+    if (handlingAuthExpired) {
+        return
+    }
+    handlingAuthExpired = true
+    deleteAuthorization()
+    const tip = message || '登录已失效，请重新登录'
+    // 先提示，再跳登录，避免立刻切页把 toast 冲掉
+    popMessage('danger', tip, () => {
+        const onLogin = typeof window !== 'undefined' && window.location.hash.includes('/login')
+        if (!onLogin && typeof window !== 'undefined') {
+            window.location.hash = '#/login'
+        }
+        handlingAuthExpired = false
+    }, 1.6)
 }
 
 function request(
@@ -63,17 +94,33 @@ function request(
                         resolve(res.data)
                     } else {
                         console.log('request err: ', res.data) // 输出错误信息
-                        // popMessage('danger', res.data.message, null, 5)
+                        if (isUnauthorizedPayload(res.data)) {
+                            handleAuthExpired(res.data.message)
+                        } else {
+                            popMessage('danger', res.data.message || '请求失败', () => {}, 5)
+                        }
                         reject(res.data)
                     }
+                } else if (res.status === 401 || isUnauthorizedPayload(res.data)) {
+                    handleAuthExpired(res.data?.message)
+                    reject(res.data)
                 } else {
                     reject(res.data)
                     console.log('request err: ', res.data.message) // 输出错误信息
                 }
             })
             .catch(err => {
+                const status = err.response?.status
+                const data = err.response?.data
+                if (status === 401 || isUnauthorizedPayload(data)) {
+                    handleAuthExpired(data?.message)
+                    reject(data || err)
+                    return
+                }
                 if (err.response) {
                     console.log('response: ', err.response)
+                    const message = data?.message || err.message || '请求失败'
+                    popMessage('danger', message, () => {}, 5)
                 } else if (err.request) {
                     console.log('request: ', err.request)
                 } else if (err.message) {

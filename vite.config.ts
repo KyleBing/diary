@@ -4,10 +4,14 @@ import svgLoader from "vite-svg-loader"
 import { VitePWA } from 'vite-plugin-pwa'
 import { resolve } from 'path'
 import zipPack from "vite-plugin-zip-pack" // make dist.zip file
-import {dateFormatter} from "./src/utility";
-import fs from 'fs'
 
-const timeStringNow = dateFormatter(new Date(), 'yyyy-MM-dd-hh-mm-ss')
+// 勿从 src/utility 引入：Vite 加载配置时会连带打包业务依赖（含 .vue），导致启动失败
+function stamp(date = new Date()) {
+    const pad = (n: number) => String(n).padStart(2, '0')
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}-${pad(date.getHours())}-${pad(date.getMinutes())}-${pad(date.getSeconds())}`
+}
+
+const timeStringNow = stamp()
 
 // Plugin to handle markdown files as raw text
 const markdownPlugin = () => {
