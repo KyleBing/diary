@@ -874,25 +874,25 @@ function processAfterSaveDiary(res: ResponseDiaryAdd, requestData: DiarySubmitEn
     projectStore.isDiaryNeedToBeSaved = false
     recoverDiaryContent.value = { title: '', content: '' }
 
-    if (isNew.value) { // 如果是新建日记，跳转到对应路由
+    const wasNew = isNew.value
+    if (wasNew) {
         diary.value.id = res.data.id // 保存成功后需要将当前页的 diary id 设置为已经保存的 id
-        popMessage('success', res.message, ()=>{
-            projectStore.listOperation = {type: 'add', diary: convertToServerVersion()} // 向列表发送添加动作
-            nextTick(() => {
-                const inCalendar = String(route.name || '').includes('Calendar') || route.path.includes('calendar')
-                router.push({
-                    name: inCalendar ? 'CalendarEdit' : 'Edit',
-                    params: {
-                        id: res.data.id
-                    }
-                })
-            })
-        }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
-    } else {
-        popMessage('success', res.message, ()=>{
-            projectStore.listOperation = {type: 'change', diary: convertToServerVersion()}// 向列表发送改变动作
-        }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
     }
+    const diaryId = diary.value.id
+    const inCalendar = String(route.name || '').includes('Calendar') || route.path.includes('calendar')
+
+    popMessage('success', res.message, ()=>{
+        projectStore.listOperation = {
+            type: wasNew ? 'add' : 'change',
+            diary: convertToServerVersion()
+        }
+        nextTick(() => {
+            router.push({
+                name: inCalendar ? 'CalendarDetail' : 'Detail',
+                params: { id: diaryId }
+            })
+        })
+    }, 1)  // 日记保存完成之后，应立即处理上面的内容，再显示消息，而不是等消息消失再处理，会有问题
     isNew.value = false
 }
 
